@@ -1,0 +1,239 @@
+$ git rev-parse --short HEAD
+7ea7de949d
+
+$ mvn -version
+Apache Maven 3.8.5 (3599d3414f046de2324203b78ddcf9b5e4388aa0)
+Maven home: /usr/local/Cellar/maven/3.8.5/libexec
+Java version: 11.0.11, vendor: AdoptOpenJDK, runtime: /Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home
+Default locale: en_US, platform encoding: UTF-8
+OS name: "mac os x", version: "11.3", arch: "x86_64", family: "mac"
+
+
+$ mvn -DskipTests package
+
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Jenkins main module                                                [pom]
+[INFO] Jenkins BOM                                                        [pom]
+[INFO] Jenkins cli                                                        [jar]
+[INFO] Jenkins core                                                       [jar]
+[INFO] Jenkins war                                                        [war]
+[INFO] Tests for Jenkins core                                             [jar]
+[INFO] 
+[INFO] -----------------< org.jenkins-ci.main:jenkins-parent >-----------------
+[INFO] Building Jenkins main module 2.344-SNAPSHOT                        [1/6]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:display-info (display-info) @ jenkins-parent ---
+[INFO] Maven Version: 3.8.5
+[INFO] JDK Version: 11.0.11 normalized as: 11.0.11
+[INFO] Java Vendor: AdoptOpenJDK
+[INFO] OS Info: Arch: x86_64 Family: mac Name: mac os x Version: 11.3
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:enforce (display-info) @ jenkins-parent ---
+[INFO] Adding ignore: module-info
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:enforce (enforce-banned-dependencies) @ jenkins-parent ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:3.1.2:check (validate) @ jenkins-parent ---
+[INFO] Starting audit...
+Audit done.
+[INFO] You have 0 Checkstyle violations.
+[INFO] 
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (default) @ jenkins-parent ---
+[INFO] Preparing remote bundle org.jvnet.hudson:license:1.0
+[INFO] Copying 0 resource from 1 bundle.
+[INFO] 
+[INFO] --- flatten-maven-plugin:1.2.7:flatten (flatten) @ jenkins-parent ---
+[INFO] Generating flattened POM of project org.jenkins-ci.main:jenkins-parent:pom:2.344-SNAPSHOT...
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.21:check (check) @ jenkins-parent ---
+[INFO] Signature checking is skipped.
+[INFO] 
+[INFO] ------------------< org.jenkins-ci.main:jenkins-bom >-------------------
+[INFO] Building Jenkins BOM 2.344-SNAPSHOT                                [2/6]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:display-info (display-info) @ jenkins-bom ---
+[INFO] Maven Version: 3.8.5
+[INFO] JDK Version: 11.0.11 normalized as: 11.0.11
+[INFO] Java Vendor: AdoptOpenJDK
+[INFO] OS Info: Arch: x86_64 Family: mac Name: mac os x Version: 11.3
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:enforce (display-info) @ jenkins-bom ---
+[INFO] Adding ignore: module-info
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:enforce (enforce-banned-dependencies) @ jenkins-bom ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:3.1.2:check (validate) @ jenkins-bom ---
+[INFO] Starting audit...
+Audit done.
+[INFO] You have 0 Checkstyle violations.
+[INFO] 
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (default) @ jenkins-bom ---
+[INFO] Preparing remote bundle org.jvnet.hudson:license:1.0
+[INFO] Copying 0 resource from 1 bundle.
+[INFO] 
+[INFO] --- flatten-maven-plugin:1.2.7:flatten (flatten) @ jenkins-bom ---
+[INFO] Generating flattened POM of project org.jenkins-ci.main:jenkins-bom:pom:2.344-SNAPSHOT...
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.21:check (check) @ jenkins-bom ---
+[INFO] Signature checking is skipped.
+[INFO] 
+[INFO] ----------------------< org.jenkins-ci.main:cli >-----------------------
+[INFO] Building Jenkins cli 2.344-SNAPSHOT                                [3/6]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:display-info (display-info) @ cli ---
+[INFO] Maven Version: 3.8.5
+[INFO] JDK Version: 11.0.11 normalized as: 11.0.11
+[INFO] Java Vendor: AdoptOpenJDK
+[INFO] OS Info: Arch: x86_64 Family: mac Name: mac os x Version: 11.3
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:enforce (display-info) @ cli ---
+[INFO] Adding ignore: module-info
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0:enforce (enforce-banned-dependencies) @ cli ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:3.1.2:check (validate) @ cli ---
+[INFO] Starting audit...
+Audit done.
+[INFO] You have 0 Checkstyle violations.
+[INFO] 
+[INFO] --- localizer-maven-plugin:1.31:generate (default) @ cli ---
+[INFO] 
+[INFO] --- build-helper-maven-plugin:3.3.0:add-source (add-source) @ cli ---
+[INFO] Source directory: /Users/cyrilleleclerc/git/jenkins/jenkins/cli/target/generated-sources/localizer added.
+[INFO] 
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (default) @ cli ---
+[INFO] Preparing remote bundle org.jvnet.hudson:license:1.0
+[INFO] Copying 0 resource from 1 bundle.
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ cli ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 10 resources
+[INFO] Copying 1 resource
+[INFO] The encoding used to copy filtered properties files have not been set. This means that the same encoding will be used to copy filtered properties files as when copying other filtered resources. This might not be what you want! Run your build with --debug to see which files might be affected. Read more at https://maven.apache.org/plugins/maven-resources-plugin/examples/filtering-properties-files.html
+[INFO] 
+[INFO] --- flatten-maven-plugin:1.2.7:flatten (flatten) @ cli ---
+[INFO] Generating flattened POM of project org.jenkins-ci.main:cli:jar:2.344-SNAPSHOT...
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ cli ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ cli ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 10 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ cli ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.21:check (check) @ cli ---
+[INFO] Signature checking is skipped.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ cli ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.2:jar (default-jar) @ cli ---
+[INFO] 
+[INFO] --- maven-shade-plugin:3.3.0:shade (default) @ cli ---
+[INFO] Including commons-io:commons-io:jar:2.11.0 in the shaded jar.
+[INFO] Including commons-lang:commons-lang:jar:2.6 in the shaded jar.
+[INFO] Including net.i2p.crypto:eddsa:jar:0.3.0 in the shaded jar.
+[INFO] Including org.apache.sshd:sshd-common:jar:2.8.0 in the shaded jar.
+[INFO] Including org.slf4j:slf4j-api:jar:1.7.36 in the shaded jar.
+[INFO] Including org.slf4j:jcl-over-slf4j:jar:1.7.36 in the shaded jar.
+[INFO] Including org.apache.sshd:sshd-core:jar:2.8.0 in the shaded jar.
+[INFO] Including org.glassfish.tyrus.bundles:tyrus-standalone-client-jdk:jar:2.0.1 in the shaded jar.
+[INFO] Including org.jenkins-ci:annotation-indexer:jar:1.16 in the shaded jar.
+[INFO] Including org.jvnet.localizer:localizer:jar:1.31 in the shaded jar.
+[INFO] Including org.slf4j:slf4j-jdk14:jar:1.7.36 in the shaded jar.
+[WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[WARNING] cli-2.344-SNAPSHOT.jar, slf4j-api-1.7.36.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/org.slf4j/slf4j-api/pom.properties
+[WARNING]   - META-INF/maven/org.slf4j/slf4j-api/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, tyrus-standalone-client-jdk-2.0.1.jar define 23 overlapping classes and resources: 
+[WARNING]   - META-INF.versions.9.jakarta.xml.bind.ModuleUtil
+[WARNING]   - META-INF/LICENSE.md
+[WARNING]   - META-INF/NOTICE.md
+[WARNING]   - META-INF/mailcap.default
+[WARNING]   - META-INF/maven/com.sun.activation/jakarta.activation/pom.properties
+[WARNING]   - META-INF/maven/com.sun.activation/jakarta.activation/pom.xml
+[WARNING]   - META-INF/maven/jakarta.websocket/jakarta.websocket-api/pom.properties
+[WARNING]   - META-INF/maven/jakarta.websocket/jakarta.websocket-api/pom.xml
+[WARNING]   - META-INF/maven/jakarta.websocket/jakarta.websocket-client-api/pom.properties
+[WARNING]   - META-INF/maven/jakarta.websocket/jakarta.websocket-client-api/pom.xml
+[WARNING]   - 13 more...
+[WARNING] cli-2.344-SNAPSHOT.jar, localizer-1.31.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/org.jvnet.localizer/localizer/pom.properties
+[WARNING]   - META-INF/maven/org.jvnet.localizer/localizer/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, sshd-common-2.8.0.jar, sshd-core-2.8.0.jar define 4 overlapping resources: 
+[WARNING]   - .cache/formatter-maven-cache.properties
+[WARNING]   - META-INF/DEPENDENCIES
+[WARNING]   - META-INF/LICENSE
+[WARNING]   - META-INF/NOTICE
+[WARNING] cli-2.344-SNAPSHOT.jar, slf4j-jdk14-1.7.36.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/org.slf4j/slf4j-jdk14/pom.properties
+[WARNING]   - META-INF/maven/org.slf4j/slf4j-jdk14/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, commons-io-2.11.0.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/commons-io/commons-io/pom.properties
+[WARNING]   - META-INF/maven/commons-io/commons-io/pom.xml
+[WARNING] annotation-indexer-1.16.jar, cli-2.344-SNAPSHOT.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/org.jenkins-ci/annotation-indexer/pom.properties
+[WARNING]   - META-INF/maven/org.jenkins-ci/annotation-indexer/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, sshd-core-2.8.0.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/org.apache.sshd/sshd-core/pom.properties
+[WARNING]   - META-INF/maven/org.apache.sshd/sshd-core/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, eddsa-0.3.0.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/net.i2p.crypto/eddsa/pom.properties
+[WARNING]   - META-INF/maven/net.i2p.crypto/eddsa/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, sshd-common-2.8.0.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/org.apache.sshd/sshd-common/pom.properties
+[WARNING]   - META-INF/maven/org.apache.sshd/sshd-common/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, jcl-over-slf4j-1.7.36.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/org.slf4j/jcl-over-slf4j/pom.properties
+[WARNING]   - META-INF/maven/org.slf4j/jcl-over-slf4j/pom.xml
+[WARNING] cli-2.344-SNAPSHOT.jar, commons-io-2.11.0.jar, commons-lang-2.6.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/LICENSE.txt
+[WARNING]   - META-INF/NOTICE.txt
+[WARNING] annotation-indexer-1.16.jar, cli-2.344-SNAPSHOT.jar, commons-io-2.11.0.jar, commons-lang-2.6.jar, eddsa-0.3.0.jar, jcl-over-slf4j-1.7.36.jar, localizer-1.31.jar, slf4j-api-1.7.36.jar, slf4j-jdk14-1.7.36.jar, sshd-common-2.8.0.jar, sshd-core-2.8.0.jar, tyrus-standalone-client-jdk-2.0.1.jar define 1 overlapping resource: 
+[WARNING]   - META-INF/MANIFEST.MF
+[WARNING] cli-2.344-SNAPSHOT.jar, commons-lang-2.6.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/maven/commons-lang/commons-lang/pom.properties
+[WARNING]   - META-INF/maven/commons-lang/commons-lang/pom.xml
+[WARNING] maven-shade-plugin has detected that some class files are
+[WARNING] present in two or more JARs. When this happens, only one
+[WARNING] single version of the class is copied to the uber jar.
+[WARNING] Usually this is not harmful and you can skip these warnings,
+[WARNING] otherwise try to manually exclude artifacts based on
+[WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Jenkins main module 2.344-SNAPSHOT:
+[INFO] 
+[INFO] Jenkins main module ................................ SUCCESS [  3.275 s]
+[INFO] Jenkins BOM ........................................ SUCCESS [  0.163 s]
+[INFO] Jenkins cli ........................................ FAILURE [  5.357 s]
+[INFO] Jenkins core ....................................... SKIPPED
+[INFO] Jenkins war ........................................ SKIPPED
+[INFO] Tests for Jenkins core ............................. SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.781 s
+[INFO] Finished at: 2022-04-15T18:00:30+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-shade-plugin:3.3.0:shade (default) on project cli: Error creating shaded jar: duplicate entry: META-INF/services/io.jenkins.cli.shaded.jakarta.websocket.ContainerProvider -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :cli

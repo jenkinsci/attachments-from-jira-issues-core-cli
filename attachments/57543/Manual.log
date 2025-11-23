@@ -1,0 +1,380 @@
+Started by user Robert Patrick
+02:47:48 Connecting to https://api.github.com using GitHub credential for ECNJ account
+Obtained Jenkinsfile from 40f6226e4b3944e694cecacdc015de33593a650d+cadd96e416043c70b5aec3ceaa34d7a006cd0582 (dc47764925de142c5da09882a4bb186e359d3c1f)
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on oci-compute-280645f8-9d96-4116-802e-88c3f0042736 in /tmp/workspace/Kubernetes_Operator_Kind_PR-2861
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential ecnj_github
+Fetching changes from the remote Git repository
+Fetching without tags
+ > git rev-parse --resolve-git-dir /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/.git # timeout=10
+ > git config remote.origin.url https://github.com/oracle/weblogic-kubernetes-operator.git # timeout=10
+Fetching upstream changes from https://github.com/oracle/weblogic-kubernetes-operator.git
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+using GIT_ASKPASS to set credentials GitHub credential for ECNJ account
+ > git fetch --no-tags --progress https://github.com/oracle/weblogic-kubernetes-operator.git +refs/pull/2861/head:refs/remotes/origin/PR-2861 +refs/heads/main:refs/remotes/origin/main # timeout=10
+Merging remotes/origin/main commit cadd96e416043c70b5aec3ceaa34d7a006cd0582 into PR head commit 40f6226e4b3944e694cecacdc015de33593a650d
+Merge succeeded, producing 40f6226e4b3944e694cecacdc015de33593a650d
+Checking out Revision 40f6226e4b3944e694cecacdc015de33593a650d (PR-2861)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 40f6226e4b3944e694cecacdc015de33593a650d # timeout=10
+ > git remote # timeout=10
+ > git config --get remote.origin.url # timeout=10
+using GIT_ASKPASS to set credentials GitHub credential for ECNJ account
+ > git merge cadd96e416043c70b5aec3ceaa34d7a006cd0582 # timeout=10
+ > git rev-parse HEAD^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 40f6226e4b3944e694cecacdc015de33593a650d # timeout=10
+Commit message: "improving robustness of kind image computation"
+ > git rev-list --no-walk 40f6226e4b3944e694cecacdc015de33593a650d # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ date '+%Y-%m-%d %H:%M:%S'
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 13 hr
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Echo environment)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ export PATH=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
++ PATH=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
++ env
++ sort
+BASE_IMAGES_REPO=phx.ocir.io
+BRANCH_NAME=PR-2861
+BUILD_DISPLAY_NAME=#2
+BUILD_ID=2
+BUILD_NUMBER=2
+BUILD_TAG=jenkins-WebLogic Kubernetes Operator Kind-PR-2861-2
+BUILD_TIMESTAMP=2022_03_24_22_47_47_EDT
+BUILD_URL=https://build.weblogick8s.org:8443/job/WebLogic%20Kubernetes%20Operator%20Kind/job/PR-2861/2/
+CHANGE_AUTHOR_DISPLAY_NAME=Robert Patrick
+CHANGE_AUTHOR=robertpatrick
+CHANGE_BRANCH=jenkinsfile-null-checks
+CHANGE_ID=2861
+CHANGE_TARGET=main
+CHANGE_TITLE=improving robustness of kind image computation
+CHANGE_URL=https://github.com/oracle/weblogic-kubernetes-operator/pull/2861
+CI=true
+COLLECT_LOGS_ON_SUCCESS=false
+DB_IMAGE_NAME=weblogick8s/test-images/database/enterprise
+dockerhub_password_creds=docker-password
+dockerhub_username_creds=docker-username
+EXECUTOR_NUMBER=0
+FMWINFRA_IMAGE_NAME=weblogick8s/test-images/fmw-infrastructure
+FMWINFRA_IMAGE_TAG=12.2.1.4
+FORTIFY_HOME=/scratch/fortify/FORTIFY_SCA_and_Apps_18.20
+GIT_BRANCH=PR-2861
+GIT_COMMIT=40f6226e4b3944e694cecacdc015de33593a650d
+github_creds=ecnj_github
+github_url=https://github.com/oracle/weblogic-kubernetes-operator.git
+GIT_PREVIOUS_COMMIT=40f6226e4b3944e694cecacdc015de33593a650d
+GIT_URL=https://github.com/oracle/weblogic-kubernetes-operator.git
+HELM_VERSION=3.7.2
+HOME=/home/opc
+HUDSON_COOKIE=3cbc8104-e61d-4737-b54e-1f680cb705a5
+HUDSON_HOME=/var/lib/jenkins
+HUDSON_SERVER_COOKIE=7fb3d54a9b9588bf
+HUDSON_URL=https://build.weblogick8s.org:8443/
+image_pull_secret_weblogic_creds=image-pull-secret-weblogic
+ISTIO_VERSION=1.10.4
+IT_TEST=**/It*
+JAVA_HOME=/var/lib/jenkins/jdk-17.0.2
+JENKINS_HOME=/var/lib/jenkins
+JENKINS_NODE_COOKIE=ef35ed1e-62c8-4388-a940-9a1d82e5ea77
+JENKINS_SERVER_COOKIE=durable-63585dca8cac2dd97956a7c9344f279e982fdd7e076de3827ffe36cb1cb03dae
+JENKINS_URL=https://build.weblogick8s.org:8443/
+JOB_BASE_NAME=PR-2861
+JOB_DISPLAY_URL=https://build.weblogick8s.org:8443/job/WebLogic%20Kubernetes%20Operator%20Kind/job/PR-2861/display/redirect
+JOB_NAME=WebLogic Kubernetes Operator Kind/PR-2861
+JOB_URL=https://build.weblogick8s.org:8443/job/WebLogic%20Kubernetes%20Operator%20Kind/job/PR-2861/
+kind_name=kind
+kind_network=kind
+KIND_VERSION=0.11.1
+kubeconfig_file=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/staging/wl_k8s_test_results/kubeconfig
+KUBECTL_VERSION=1.21.5
+KUBE_VERSION=1.21.1
+LANG=en_US.UTF-8
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LOGNAME=opc
+M2_HOME=/var/lib/jenkins/apache-maven-3.8.5
+MAIL=/var/mail/opc
+MAVEN_HOME=/var/lib/jenkins/apache-maven-3.8.5
+MAVEN_PROFILE_NAME=integration-tests
+MONITORING_EXPORTER_BRANCH=main
+MONITORING_EXPORTER_VERSION=2.0.4
+NODE_LABELS=VM.Standard2.8 large oci-compute-280645f8-9d96-4116-802e-88c3f0042736
+NODE_NAME=oci-compute-280645f8-9d96-4116-802e-88c3f0042736
+NUMBER_OF_THREADS=3
+ocir_email_creds=ocir-email
+ocir_password_creds=ocir-token
+ocir_registry_creds=ocir-server
+ocir_username_creds=ocir-username
+ocr_password_creds=OCR Password
+ocr_username_creds=OCR username
+ORACLEDB_IMAGE_TAG=12.2.0.1-slim
+outdir=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/staging
+PARALLEL_RUN=true
+PATH=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
+pv_root=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/staging/k8s-pvroot
+PWD=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861
+registry_host=kind-registry
+registry_name=kind-registry
+registry_port=5000
+REPO_REGISTRY=phx.ocir.io
+result_root=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/staging/wl_k8s_test_results
+RUN_ARTIFACTS_DISPLAY_URL=https://build.weblogick8s.org:8443/job/WebLogic%20Kubernetes%20Operator%20Kind/job/PR-2861/2/display/redirect?page=artifacts
+RUN_CHANGES_DISPLAY_URL=https://build.weblogick8s.org:8443/job/WebLogic%20Kubernetes%20Operator%20Kind/job/PR-2861/2/display/redirect?page=changes
+RUN_DISPLAY_URL=https://build.weblogick8s.org:8443/job/WebLogic%20Kubernetes%20Operator%20Kind/job/PR-2861/2/display/redirect
+RUN_TESTS_DISPLAY_URL=https://build.weblogick8s.org:8443/job/WebLogic%20Kubernetes%20Operator%20Kind/job/PR-2861/2/display/redirect?page=tests
+runtime_path=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
+SHELL=/bin/bash
+SHLVL=3
+SSH_CLIENT=129.146.108.125 17252 22
+SSH_CONNECTION=129.146.108.125 17252 10.0.0.6 22
+STAGE_NAME=Echo environment
+start_time=2022-03-25 02:47:53
+USER=opc
+_=/usr/bin/env
+WDT_DOWNLOAD_URL=https://github.com/oracle/weblogic-deploy-tooling/releases/latest
+WEBLOGIC_IMAGE_NAME=weblogick8s/test-images/weblogic
+WEBLOGIC_IMAGE_TAG=12.2.1.4
+WIT_BUILD_NOTIFICATION_EMAIL_TO=derek.sharpe@oracle.com
+WIT_DOWNLOAD_URL=https://github.com/oracle/weblogic-image-tool/releases/latest
+wle_download_url=https://github.com/oracle/weblogic-logging-exporter/releases/latest
+WORKSPACE_TMP=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861@tmp
+WORKSPACE=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861
+XDG_RUNTIME_DIR=/run/user/1000
+XDG_SESSION_ID=1
++ java -version
+openjdk version "17.0.2" 2022-01-18
+OpenJDK Runtime Environment (build 17.0.2+8-86)
+OpenJDK 64-Bit Server VM (build 17.0.2+8-86, mixed mode, sharing)
++ mvn --version
+Apache Maven 3.8.5 (3599d3414f046de2324203b78ddcf9b5e4388aa0)
+Maven home: /var/lib/jenkins/apache-maven-3.8.5
+Java version: 17.0.2, vendor: Oracle Corporation, runtime: /home/opc/tools/jdk-17.0.2
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "4.14.35-2047.510.5.2.el7uek.x86_64", arch: "amd64", family: "unix"
++ python --version
+Python 2.7.5
++ docker version
+Client: Docker Engine - Community
+ Version:           19.03.11-ol
+ API version:       1.40
+ Go version:        go1.16.2
+ Git commit:        9bb540d
+ Built:             Fri Jul 23 01:33:55 2021
+ OS/Arch:           linux/amd64
+ Experimental:      false
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          19.03.11-ol
+  API version:      1.40 (minimum version 1.12)
+  Go version:       go1.16.2
+  Git commit:       9bb540d
+  Built:            Fri Jul 23 01:32:08 2021
+  OS/Arch:          linux/amd64
+  Experimental:     false
+  Default Registry: docker.io
+ containerd:
+  Version:          v1.4.8
+  GitCommit:        7eba5930496d9bbe375fdf71603e610ad737d2b2
+ runc:
+  Version:          1.0.0-rc95
+  GitCommit:        2856f01
+ docker-init:
+  Version:          0.18.0
+  GitCommit:        fec3683
++ ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 514258
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 16384
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 65536
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
++ ulimit -aH
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 514258
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 16384
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) unlimited
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 514258
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+[Pipeline] script
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+Kind Image = kindest/node:v1.21.1@sha256:69860bda5563ac81e3c0057d654b5253219618a22ec3a346306239bba8cfa1a6
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (GitHub Checkout)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ sudo rm -rf /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/buildDockerImage.sh /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/buildtime-reports /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/build-tools /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/CONTRIBUTING.md /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/CONTRIBUTORS /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/deployment /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/Dockerfile /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/documentation /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/integration-tests /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/Jenkinsfile /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/jenkinsScript.sh /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/json-schema-generator /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/kindtest.sh /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/kindversions.properties /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/kubernetes /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/LICENSE.txt /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/okdJenkins.sh /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/okdtest.sh /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/oketest.sh /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/operator /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/operator-build-maven-plugin /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/owaspDependencyCheck.sh /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/pom.xml /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/probes /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/README.md /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/SECURITY.md /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/sonar-project.properties /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/swagger-generator /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/THIRD_PARTY_LICENSES.txt /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/validateScripts.sh
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential ecnj_github
+Fetching changes from the remote Git repository
+ > git rev-parse --resolve-git-dir /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/.git # timeout=10
+ > git config remote.origin.url https://github.com/oracle/weblogic-kubernetes-operator.git # timeout=10
+Fetching upstream changes from https://github.com/oracle/weblogic-kubernetes-operator.git
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+using GIT_ASKPASS to set credentials GitHub credential for ECNJ account
+ > git fetch --tags --progress https://github.com/oracle/weblogic-kubernetes-operator.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 40f6226e4b3944e694cecacdc015de33593a650d (detached)
+ > git rev-parse 40f6226e4b3944e694cecacdc015de33593a650d^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 40f6226e4b3944e694cecacdc015de33593a650d # timeout=10
+Commit message: "improving robustness of kind image computation"
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Make Workspace bin directory)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ mkdir -m777 -p /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install Helm)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ export PATH=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
++ PATH=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
++ curl --ipv4 -LO --retry 3 https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 13.2M  100 13.2M    0     0  82.4M      0 --:--:-- --:--:-- --:--:-- 82.6M
++ tar zxf helm-v3.7.2-linux-amd64.tar.gz
++ mv linux-amd64/helm /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin/helm
++ rm -rf linux-amd64
++ helm version
+version.BuildInfo{Version:"v3.7.2", GitCommit:"663a896f4a815053445eec4153677ddc24a0a361", GitTreeState:"clean", GoVersion:"go1.16.10"}
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install kubectl)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ export PATH=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
++ PATH=/tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin:/var/lib/jenkins/jdk-17.0.2/bin:/var/lib/jenkins/apache-maven-3.8.5/bin:/scratch/fortify/FORTIFY_SCA_and_Apps_18.20/bin:/scratch/jenkins/apache-maven-3.6.0/bin:/var/lib/jenkins/bin:/usr/local/bin:/usr/bin
++ curl -L --retry 3 -o /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.21.5/bin/linux/amd64/kubectl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 44.4M  100 44.4M    0     0   109M      0 --:--:-- --:--:-- --:--:--  109M
++ chmod +x /tmp/workspace/Kubernetes_Operator_Kind_PR-2861/bin/kubectl
++ kubectl version --client=true
+Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.5", GitCommit:"aea7bbadd2fc0cd689de94a54e5b7b758869d691", GitTreeState:"clean", BuildDate:"2021-09-15T21:10:45Z", GoVersion:"go1.16.8", Compiler:"gc", Platform:"linux/amd64"}
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install kind)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+
+...  Truncated for brevity

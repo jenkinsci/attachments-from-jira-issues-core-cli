@@ -1,0 +1,182 @@
+From 90b605c756a058b256772ab4ec1c8c05f039be93 Mon Sep 17 00:00:00 2001
+From: Christoph Kutzinski <kutzi@gmx.de>
+Date: Fri, 25 Mar 2011 15:09:50 +0100
+Subject: [PATCH] [FIXED JENKINS-7535] building up the dependency graph for maven jobs
+ takes too long
+
+---
+ .../main/java/hudson/model/DependencyGraph.java    |   18 +++++
+ .../src/main/java/hudson/maven/MavenModule.java    |   70 ++++++++++++++------
+ .../src/main/java/hudson/maven/MavenModuleSet.java |   10 ++-
+ 3 files changed, 73 insertions(+), 25 deletions(-)
+
+diff --git a/core/src/main/java/hudson/model/DependencyGraph.java b/core/src/main/java/hudson/model/DependencyGraph.java
+index 430a8ac..11ea288 100644
+--- a/core/src/main/java/hudson/model/DependencyGraph.java
++++ b/core/src/main/java/hudson/model/DependencyGraph.java
+@@ -86,6 +86,8 @@ public final class DependencyGraph implements Comparator<AbstractProject> {
+ 
+     private Map<AbstractProject, List<DependencyGroup>> forward = new HashMap<AbstractProject, List<DependencyGroup>>();
+     private Map<AbstractProject, List<DependencyGroup>> backward = new HashMap<AbstractProject, List<DependencyGroup>>();
++    
++    private transient Map<Class<?>, Object> computationalData;
+ 
+     private boolean built;
+ 
+@@ -97,6 +99,7 @@ public final class DependencyGraph implements Comparator<AbstractProject> {
+         // Use setContext (NOT getContext().setAuthentication()) so we don't affect concurrent threads for same HttpSession.
+         SecurityContext saveCtx = SecurityContextHolder.getContext();
+         try {
++            this.computationalData = new HashMap<Class<?>, Object>();
+             NotSerilizableSecurityContext system = new NotSerilizableSecurityContext();
+             system.setAuthentication(ACL.SYSTEM);
+             SecurityContextHolder.setContext(system);
+@@ -106,6 +109,7 @@ public final class DependencyGraph implements Comparator<AbstractProject> {
+             forward = finalize(forward);
+             backward = finalize(backward);
+ 
++            this.computationalData = null;
+             built = true;
+         } finally {
+             SecurityContextHolder.setContext(saveCtx);
+@@ -121,6 +125,20 @@ public final class DependencyGraph implements Comparator<AbstractProject> {
+     }
+ 
+     /**
++     * Adds data which is useful for the time when the dependency graph is built up.
++     * All this data will be cleaned once the dependency graph creation has finished.
++     */
++    public <T> void putComputationalData(Class<T> key, T value) {
++        this.computationalData.put(key, value);
++    }
++    
++    public <T> T getComputationalData(Class<T> key) {
++        @SuppressWarnings("unchecked")
++        T result = (T) this.computationalData.get(key);
++        return result;
++    }
++    
++    /**
+      * Gets all the immediate downstream projects (IOW forward edges) of the given project.
+      *
+      * @return
+diff --git a/maven-plugin/src/main/java/hudson/maven/MavenModule.java b/maven-plugin/src/main/java/hudson/maven/MavenModule.java
+index a19d13c..a129874 100644
+--- a/maven-plugin/src/main/java/hudson/maven/MavenModule.java
++++ b/maven-plugin/src/main/java/hudson/maven/MavenModule.java
+@@ -384,35 +384,52 @@ public final class MavenModule extends AbstractMavenProject<MavenModule,MavenBui
+     protected void buildDependencyGraph(DependencyGraph graph) {
+         if(isDisabled() || getParent().ignoreUpstremChanges())        return;
+ 
+-        Map<ModuleDependency,MavenModule> modules = new HashMap<ModuleDependency,MavenModule>();
+-
+-        // when we load old data that doesn't record version in dependency, we'd like
+-        // to emulate the old behavior that it tries to identify the upstream by ignoring the version.
+-        // do this by always putting groupId:artifactId:UNKNOWN to the modules list.
+-
+-        for (MavenModule m : Hudson.getInstance().getAllItems(MavenModule.class)) {
+-            if(m.isDisabled())  continue;
+-            ModuleDependency moduleDependency = m.asDependency();
+-            modules.put(moduleDependency,m);
+-            modules.put(moduleDependency.withUnknownVersion(),m);
++        MavenDependencyComputationData data = graph.getComputationalData(MavenDependencyComputationData.class);
++        
++        if (data == null) {
++            Map<ModuleDependency,MavenModule> modules = new HashMap<ModuleDependency,MavenModule>();
++    
++            // when we load old data that doesn't record version in dependency, we'd like
++            // to emulate the old behavior that it tries to identify the upstream by ignoring the version.
++            // do this by always putting groupId:artifactId:UNKNOWN to the modules list.
++    
++            for (MavenModule m : Hudson.getInstance().getAllItems(MavenModule.class)) {
++                if(m.isDisabled())  continue;
++                ModuleDependency moduleDependency = m.asDependency();
++                modules.put(moduleDependency,m);
++                modules.put(moduleDependency.withUnknownVersion(),m);
++            }
++            data = new MavenDependencyComputationData(modules);
++            graph.putComputationalData(MavenDependencyComputationData.class, data);
+         }
+ 
+-        // in case two modules with the same name is defined, modules in the same MavenModuleSet
+-        // takes precedence.
+-
+-        for (MavenModule m : getParent().getModules()) {
+-            if(m.isDisabled())  continue;
+-            ModuleDependency moduleDependency = m.asDependency();
+-            modules.put(moduleDependency,m);
+-            modules.put(moduleDependency.withUnknownVersion(),m);
++        // in case two modules with the same name are defined, modules in the same MavenModuleSet
++        // take precedence.
++        Map<ModuleDependency,MavenModule> myParentsModules = data.modulesPerParent.get(getParent());
++        
++        if (myParentsModules == null) {
++            myParentsModules =new HashMap<ModuleDependency, MavenModule>();
++            
++            for (MavenModule m : getParent().getModules()) {
++                if(m.isDisabled())  continue;
++                ModuleDependency moduleDependency = m.asDependency();
++                myParentsModules.put(moduleDependency,m);
++                myParentsModules.put(moduleDependency.withUnknownVersion(),m);
++            }
++            
++            data.modulesPerParent.put(getParent(), myParentsModules);
+         }
+ 
+         // if the build style is the aggregator build, define dependencies against project,
+         // not module.
+-        AbstractProject dest = getParent().isAggregatorStyleBuild() ? getParent() : this;
++        AbstractProject<?, ?> dest = getParent().isAggregatorStyleBuild() ? getParent() : this;
+ 
+         for (ModuleDependency d : dependencies) {
+-            MavenModule src = modules.get(d);
++            MavenModule src = myParentsModules.get(d);
++            if (src==null) {
++                src = data.allModules.get(d);
++            }
++            
+             if(src!=null) {
+                 DependencyGraph.Dependency dep = new MavenModuleDependency(
+                         src.getParent().isAggregatorStyleBuild() ? src.getParent() : src,dest);
+@@ -421,6 +438,17 @@ public final class MavenModule extends AbstractMavenProject<MavenModule,MavenBui
+             }
+         }
+     }
++    
++    private static class MavenDependencyComputationData {
++        Map<ModuleDependency,MavenModule> allModules;
++        
++        Map<MavenModuleSet, Map<ModuleDependency,MavenModule>> modulesPerParent = new HashMap<MavenModuleSet, Map<ModuleDependency,MavenModule>>();
++        
++        public MavenDependencyComputationData(
++                Map<ModuleDependency, MavenModule> modules) {
++            this.allModules = modules;
++        }
++    }
+ 
+     @Override
+     protected void addTransientActionsFromBuild(MavenBuild build, List<Action> collection, Set<Class> added) {
+diff --git a/maven-plugin/src/main/java/hudson/maven/MavenModuleSet.java b/maven-plugin/src/main/java/hudson/maven/MavenModuleSet.java
+index 2de6d8a..fdd6ac4 100644
+--- a/maven-plugin/src/main/java/hudson/maven/MavenModuleSet.java
++++ b/maven-plugin/src/main/java/hudson/maven/MavenModuleSet.java
+@@ -578,10 +578,12 @@ public final class MavenModuleSet extends AbstractMavenProject<MavenModuleSet,Ma
+     }
+ 
+     protected void buildDependencyGraph(DependencyGraph graph) {
+-    	Collection<MavenModule> modules = getModules();
+-    	for (MavenModule m : modules) {
+-    		m.buildDependencyGraph(graph);
+-    	}
++        // the modules are already rebuild by DependencyGraph#init !
++//      Collection<MavenModule> modules = getModules();
++//      for (MavenModule m : modules) {
++//          m.buildDependencyGraph(graph);
++//      }
++        
+         publishers.buildDependencyGraph(this,graph);
+         buildWrappers.buildDependencyGraph(this,graph);
+     }
+-- 
+1.7.1
+

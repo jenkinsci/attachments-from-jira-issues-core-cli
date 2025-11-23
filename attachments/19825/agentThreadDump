@@ -1,0 +1,166 @@
+Thread Dump
+
+/usr/local/jdk1.6.0_21-32/bin/java -client -Xshare:auto -Xms512M -Xmx1G -XX:MaxPermSize=256M -Djava.net.preferIPv4Stack=true -Dcom.sun.media.jai.disableMediaLib=true -cp /home/hudson/hudson-slaves/data/slave1/maven-agent.jar:/home/hudson/hudson-slaves/data/slave1/tools/maven-2.2.x/boot/classworlds-1.1.jar hudson.maven.agent.Main /home/hudson/hudson-slaves/data/slave1/tools/maven-2.2.x /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar /home/hudson/hudson-slaves/data/slave1/maven-interceptor.jar 39453 /home/hudson/hudson-slaves/data/slave1/maven2.1-interceptor.jar: stdout copier
+
+"/usr/local/jdk1.6.0_21-32/bin/java -client -Xshare:auto -Xms512M -Xmx1G -XX:MaxPermSize=256M -Djava.net.preferIPv4Stack=true -Dcom.sun.media.jai.disableMediaLib=true -cp /home/hudson/hudson-slaves/data/slave1/maven-agent.jar:/home/hudson/hudson-slaves/data/slave1/tools/maven-2.2.x/boot/classworlds-1.1.jar hudson.maven.agent.Main /home/hudson/hudson-slaves/data/slave1/tools/maven-2.2.x /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar /home/hudson/hudson-slaves/data/slave1/maven-interceptor.jar 39453 /home/hudson/hudson-slaves/data/slave1/maven2.1-interceptor.jar: stdout copier" Id=5163 Group=main RUNNABLE (in native)
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:256)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@13a2226
+	at java.io.FilterInputStream.read(FilterInputStream.java:90)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+Channel reader thread: channel
+
+"Channel reader thread: channel" Id=8 Group=main RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	-  locked java.io.BufferedInputStream@c6bd98
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+main
+
+"main" Id=1 Group=main WAITING on hudson.remoting.Channel@1add2dd
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.remoting.Channel@1add2dd
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.remoting.Channel.join(Channel.java:656)
+	at hudson.remoting.Launcher.main(Launcher.java:419)
+	at hudson.remoting.Launcher.runWithStdinStdout(Launcher.java:365)
+	at hudson.remoting.Launcher.run(Launcher.java:205)
+	at hudson.remoting.Launcher.main(Launcher.java:167)
+
+Ping thread for channel hudson.remoting.Channel@1add2dd:channel
+
+"Ping thread for channel hudson.remoting.Channel@1add2dd:channel" Id=9 Group=main TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+pool-1-thread-367
+
+"pool-1-thread-367" Id=5004 Group=main WAITING on java.lang.UNIXProcess@16910b0
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.UNIXProcess@16910b0
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.UNIXProcess.waitFor(UNIXProcess.java:165)
+	at hudson.Proc$LocalProc.join(Proc.java:222)
+	at hudson.Launcher$RemoteLaunchCallable.call(Launcher.java:795)
+	at hudson.Launcher$RemoteLaunchCallable.call(Launcher.java:767)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:114)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:270)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@780467
+
+pool-1-thread-368
+
+"pool-1-thread-368" Id=5005 Group=main RUNNABLE (in native)
+	at java.io.UnixFileSystem.getBooleanAttributes0(Native Method)
+	at java.io.UnixFileSystem.getBooleanAttributes(UnixFileSystem.java:228)
+	at java.io.File.isDirectory(File.java:754)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:160)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:162)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:162)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:162)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:162)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:162)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:162)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.getFileSize(DiskUsageThread.java:162)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.call(DiskUsageThread.java:154)
+	at hudson.plugins.disk_usage.DiskUsageThread$DiskUsageCallable.call(DiskUsageThread.java:144)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:114)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:270)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@112f0b1
+
+pool-1-thread-373
+
+"pool-1-thread-373" Id=5118 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.FilterInputStream.read(FilterInputStream.java:116)
+	at hudson.remoting.ProxyInputStream$Buffer.read(ProxyInputStream.java:106)
+	at hudson.remoting.ProxyInputStream$Chunk.perform(ProxyInputStream.java:128)
+	at hudson.remoting.ProxyInputStream$Chunk.perform(ProxyInputStream.java:115)
+	at hudson.remoting.Request$2.run(Request.java:270)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@197fbc7
+
+pool-1-thread-374
+
+"pool-1-thread-374" Id=5165 Group=main RUNNABLE
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:374)
+	at hudson.Functions.getThreadInfos(Functions.java:775)
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:75)
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:71)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:114)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:270)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@1717a01
+
+process reaper
+
+"process reaper" Id=5162 Group=main RUNNABLE (in native)
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+Finalizer
+
+"Finalizer" Id=3 Group=system WAITING on java.lang.ref.ReferenceQueue$Lock@1c951d6
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@1c951d6
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+Reference Handler
+
+"Reference Handler" Id=2 Group=system WAITING on java.lang.ref.Reference$Lock@1be28c
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.Reference$Lock@1be28c
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+
+Signal Dispatcher
+
+"Signal Dispatcher" Id=4 Group=system RUNNABLE

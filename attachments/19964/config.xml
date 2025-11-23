@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>test</groupId>
+    <artifactId>test</artifactId>
+  </rootModule>
+  <goals>package</goals>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <usePrivateRepository>false</usePrivateRepository>
+  <ignoreUpstremChanges>true</ignoreUpstremChanges>
+  <archivingDisabled>false</archivingDisabled>
+  <reporters/>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.m2extrasteps.M2ExtraStepsWrapper>
+      <preBuildSteps/>
+      <postBuildSteps>
+        <hudson.plugins.groovy.SystemGroovy>
+          <scriptSource class="hudson.plugins.groovy.StringScriptSource">
+            <command>b = hudson.model.Hudson.instance.getItem(&apos;test-null-result-after-aborting-build&apos;).lastBuild
+println &quot;\n\n\nBuild status for ${b} is ${b.result}\n\n\n&quot;</command>
+          </scriptSource>
+          <bindings></bindings>
+          <classpath></classpath>
+        </hudson.plugins.groovy.SystemGroovy>
+        <hudson.tasks.Maven>
+          <targets>help:effective-pom</targets>
+          <mavenName>(Default)</mavenName>
+          <usePrivateRepository>false</usePrivateRepository>
+        </hudson.tasks.Maven>
+      </postBuildSteps>
+      <runIfResult>success</runIfResult>
+    </hudson.plugins.m2extrasteps.M2ExtraStepsWrapper>
+  </buildWrappers>
+</maven2-moduleset>

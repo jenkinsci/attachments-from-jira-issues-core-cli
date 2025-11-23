@@ -1,0 +1,276 @@
+Index: src/main/java/hudson/tasks/BuildWrapper.java
+===================================================================
+--- src/main/java/hudson/tasks/BuildWrapper.java	(revision 33485)
++++ src/main/java/hudson/tasks/BuildWrapper.java	(working copy)
+@@ -29,6 +29,7 @@
+ import hudson.LauncherDecorator;
+ import hudson.model.*;
+ import hudson.model.Run.RunnerAbortedException;
++import hudson.util.DelegatingBuildListener;
+ 
+ import java.io.IOException;
+ import java.util.Collection;
+@@ -174,6 +175,30 @@
+     }
+ 
+     /**
++     * Provides an opportunity for a {@link BuildWrapper} to decorate a {@link BuildListener} to be used in the build.
++     *
++     * <p>
++     * This hook is called very early on in the build (even before
++     * {@link #setUp(AbstractBuild, Launcher, BuildListener)} is invoked.)
++     *
++     * <p>
++     * The default implementation is no-op, which just returns the {@code listener} parameter as-is.
++     *
++     * @param build
++     *      The build in progress for which this {@link BuildWrapper} is called. Never null.
++     * @param listener
++     *      The default listener. Never null. This method is expected to wrap this listener. This makes sure that when
++     *      multiple {@link BuildWrapper}s attempt to decorate the same listener it will sort of work. A subclass of
++     *      {@link DelegatingBuildListener} can be used for this purpose.
++     * @return
++     *      Must not be null. If a fatal error happens, throw an exception.
++     * @since 1.370
++     */
++    public BuildListener decorateBuildListener(AbstractBuild build, BuildListener listener) throws IOException, InterruptedException {
++        return listener;
++    }
++
++    /**
+      * {@link Action} to be displayed in the job page.
+      *
+      * @param job
+Index: src/main/java/hudson/util/AbstractTaskListener.java
+===================================================================
+--- src/main/java/hudson/util/AbstractTaskListener.java	(revision 33471)
++++ src/main/java/hudson/util/AbstractTaskListener.java	(working copy)
+@@ -14,4 +14,10 @@
+         annotate(new HyperlinkNote(url,text.length()));
+         getLogger().print(text);
+     }
++
++    /**
++     * {@inheritDoc}
++     */
++    public void close() throws IOException {
++    }
+ }
+Index: src/main/java/hudson/util/DelegatingBuildListener.java
+===================================================================
+--- src/main/java/hudson/util/DelegatingBuildListener.java	(revision 0)
++++ src/main/java/hudson/util/DelegatingBuildListener.java	(revision 0)
+@@ -0,0 +1,43 @@
++package hudson.util;
++
++import hudson.model.BuildListener;
++import hudson.model.Cause;
++import hudson.model.Result;
++import java.util.List;
++
++/**
++ * Delegating {@link BuildListener} implementation.
++ *
++ * @author Steven G. Brown
++ */
++public class DelegatingBuildListener extends DelegatingTaskListener implements BuildListener {
++
++    /**
++     * The {@link BuildListener} delegate.
++     */
++    private final BuildListener delegate;
++
++    /**
++     * Create a new {@link DelegatingBuildListener} that delegates to the given {@link BuildListener}.
++     *
++     * @param delegate the delegate {@link BuildListener}
++     */
++    public DelegatingBuildListener(BuildListener delegate) {
++        super(delegate);
++        this.delegate = delegate;
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public void started(List<Cause> causes) {
++        delegate.started(causes);
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public void finished(Result result) {
++        delegate.finished(result);
++    }
++}
+Index: src/main/java/hudson/util/DelegatingTaskListener.java
+===================================================================
+--- src/main/java/hudson/util/DelegatingTaskListener.java	(revision 0)
++++ src/main/java/hudson/util/DelegatingTaskListener.java	(revision 0)
+@@ -0,0 +1,85 @@
++package hudson.util;
++
++import hudson.console.ConsoleNote;
++import hudson.model.TaskListener;
++import java.io.IOException;
++import java.io.PrintStream;
++import java.io.PrintWriter;
++
++/**
++ * Delegating {@link TaskListener} implementation.
++ *
++ * @author Steven G. Brown
++ */
++public class DelegatingTaskListener implements TaskListener {
++
++    /**
++     * The {@link TaskListener} delegate.
++     */
++    private final TaskListener delegate;
++
++    /**
++     * Create a new {@link DelegatingTaskListener} that delegates to the given {@link TaskListener}.
++     *
++     * @param delegate the delegate {@link TaskListener}
++     */
++    public DelegatingTaskListener(TaskListener delegate) {
++        this.delegate = delegate;
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public PrintStream getLogger() {
++        return delegate.getLogger();
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public void annotate(ConsoleNote ann) throws IOException {
++        delegate.annotate(ann);
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public void hyperlink(String url, String text) throws IOException {
++        delegate.hyperlink(url, text);
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public PrintWriter error(String msg) {
++        return delegate.error(msg);
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public PrintWriter error(String format, Object... args) {
++        return delegate.error(format, args);
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public PrintWriter fatalError(String msg) {
++        return delegate.fatalError(msg);
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public PrintWriter fatalError(String format, Object... args) {
++        return delegate.fatalError(format, args);
++    }
++
++    /**
++     * {@inheritDoc}
++     */
++    public void close() throws IOException {
++        delegate.close();
++    }
++}
+Index: src/main/java/hudson/model/Run.java
+===================================================================
+--- src/main/java/hudson/model/Run.java	(revision 33471)
++++ src/main/java/hudson/model/Run.java	(working copy)
+@@ -99,6 +99,7 @@
+ import org.kohsuke.stapler.export.ExportedBean;
+ 
+ import com.thoughtworks.xstream.XStream;
++import hudson.model.Run.Runner;
+ 
+ /**
+  * A particular execution of {@link Job}.
+@@ -1232,7 +1233,7 @@
+         if(result!=null)
+             return;     // already built.
+ 
+-        StreamBuildListener listener=null;
++        BuildListener listener = null;
+ 
+         runner = job;
+         onStartBuilding();
+@@ -1246,8 +1247,16 @@
+                 try {
+                     Charset charset = Computer.currentComputer().getDefaultCharset();
+                     this.charset = charset.name();
+-                    listener = new StreamBuildListener(getLogFile(),charset);
+ 
++                    listener = new StreamBuildListener(getLogFile(), charset);
++                    RunT build = job.getBuild();
++                    if (project instanceof BuildableItemWithBuildWrappers && build instanceof AbstractBuild) {
++                        BuildableItemWithBuildWrappers biwbw = (BuildableItemWithBuildWrappers) project;
++                        for (BuildWrapper bw : biwbw.getBuildWrappersList()) {
++                            listener = bw.decorateBuildListener((AbstractBuild) build, listener);
++                        }
++                    }
++
+                     listener.started(getCauses());
+ 
+                     RunListener.fireStarted(this,listener);
+@@ -1305,10 +1314,16 @@
+ 
+                 RunListener.fireCompleted(this,listener);
+ 
+-                if(listener!=null)
++                if (listener != null) {
+                     listener.finished(result);
+-                if(listener!=null)
+-                    listener.closeQuietly();
++                }
++                if (listener != null) {
++                    try {
++                        listener.close();
++                    } catch (IOException e) {
++                        LOGGER.log(Level.WARNING,"Failed to close",e);
++                    }
++                }
+ 
+                 try {
+                     save();
+Index: src/main/java/hudson/model/TaskListener.java
+===================================================================
+--- src/main/java/hudson/model/TaskListener.java	(revision 33471)
++++ src/main/java/hudson/model/TaskListener.java	(working copy)
+@@ -28,6 +28,7 @@
+ import hudson.util.AbstractTaskListener;
+ import hudson.util.NullStream;
+ import hudson.util.StreamTaskListener;
++import java.io.Closeable;
+ 
+ import java.io.IOException;
+ import java.io.PrintStream;
+@@ -58,7 +59,7 @@
+  * @see AbstractTaskListener
+  * @author Kohsuke Kawaguchi
+  */
+-public interface TaskListener extends Serializable {
++public interface TaskListener extends Serializable, Closeable {
+     /**
+      * This writer will receive the output of the build
+      *

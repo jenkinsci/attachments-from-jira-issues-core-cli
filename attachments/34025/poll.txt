@@ -1,0 +1,90 @@
+Started on Sep 20, 2016 4:59:00 PM
+Using strategy: Default
+[poll] Last Built Revision: Revision 6e50a135f1c3fcc4f85ac66a30b4b9c44061c5b1 (refs/remotes/origin/master)
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repositories
+ > git config remote.origin.url git://xxx.xxx.xxx/jenkins-jobs.git # timeout=10
+Fetching upstream changes from git://xxx.xxx.xxx/jenkins-jobs.git
+ > git --version # timeout=10
+ > git fetch --tags --progress git://xxx.xxx.xxx/jenkins-jobs.git +refs/heads/*:refs/remotes/origin/*
+Polling for changes in
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+ > git log --full-history --no-abbrev --format=raw -M -m --raw 6e50a135f1c3fcc4f85ac66a30b4b9c44061c5b1..e2222a123fd8698210044869cf693fd42b5b0474 # timeout=10
+Ignored commit e2222a123fd8698210044869cf693fd42b5b0474: Found only excluded paths: taox11/test.groovy
+Using strategy: Default
+[poll] Last Built Revision: Revision c21c8b6e5b98e1c65f16b870d7b7a9da1ca1eaa0 (refs/remotes/origin/master)
+ > git ls-remote -h git://xxx.xxx.xxx/buildtools.git # timeout=10
+Found 20 remote heads on git://xxx.xxx.xxx/buildtools.git
+[poll] Latest remote head revision on refs/heads/master is: c21c8b6e5b98e1c65f16b870d7b7a9da1ca1eaa0 - already built by 13
+Using strategy: Default
+[poll] Last Built Revision: Revision 6e50a135f1c3fcc4f85ac66a30b4b9c44061c5b1 (refs/remotes/origin/master)
+ > git ls-remote -h git://xxx.xxx.xxx/jenkins-jobs.git # timeout=10
+Found 1 remote heads on git://xxx.xxx.xxx/jenkins-jobs.git
+[poll] Latest remote head revision on refs/heads/master is: e2222a123fd8698210044869cf693fd42b5b0474
+Done. Took 0.15 sec
+Changes found
+
+*************************************
+
+node('fc24&&x86_64') {
+  env.WORKSPACE = pwd()
+  stage('Pre cleanup') {
+    step([$class: 'WsCleanup'])
+  }
+  stage('Buildtools checkout') {
+    dir ('buildtools') {
+      git changelog: false, poll: false, url: 'git://xxx.xxx.xxx/buildtools.git'
+    }
+    dir ('jenkins-jobs') {
+      git changelog: false, poll: false, url: 'git://xxx.xxx.xxx/jenkins-jobs.git'
+    }
+  }
+  stage('Pre cleanup') {
+    step([$class: 'WsCleanup'])
+  }
+}
+
+****************************************
+
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.6">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <hudson.triggers.SCMTrigger>
+          <spec>59 16 * * *</spec>
+          <ignorePostCommitHooks>false</ignorePostCommitHooks>
+        </hudson.triggers.SCMTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.17">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.0">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>git://xxx.xxx.xxx/jenkins-jobs.git</url>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>*/master</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="list"/>
+      <extensions>
+        <hudson.plugins.git.extensions.impl.PathRestriction>
+          <includedRegions></includedRegions>
+          <excludedRegions>.*</excludedRegions>
+        </hudson.plugins.git.extensions.impl.PathRestriction>
+      </extensions>
+    </scm>
+    <scriptPath>taox11/test.groovy</scriptPath>
+  </definition>
+  <triggers/>
+</flow-definition>

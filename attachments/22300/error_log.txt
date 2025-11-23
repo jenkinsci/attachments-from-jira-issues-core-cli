@@ -1,0 +1,116 @@
+c:\jenkins>java -jar jenkins.war
+Running from: C:\jenkins\jenkins.war
+webroot: $user.home/.jenkins
+28.jul.2012 17:31:25 winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Jenkins home directory: C:\Users\user\.jenkins found at: $user.home/.jenkins
+28.jul.2012 17:31:26 winstone.Logger logInternal
+INFO: HTTP Listener started: port=8080
+28.jul.2012 17:31:26 winstone.Logger logInternal
+INFO: AJP13 Listener started: port=8009
+28.jul.2012 17:31:26 winstone.Logger logInternal
+INFO: Winstone Servlet Engine v0.9.10 running: controlPort=disabled
+28.jul.2012 17:31:27 jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+?[31m28.jul.2012 17:31:27 jenkins.InitReactorRunner$1 onTaskFailed
+SEVERE: Failed Inspecting plugin C:\Users\user\.jenkins\plugins\subversion.jpi
+hudson.util.IOException2: Failed to expand C:\Users\user\.jenkins\plugins\subversion.jpi
+        at hudson.ClassicPluginStrategy.explode(ClassicPluginStrategy.java:413)
+        at hudson.ClassicPluginStrategy.createPluginWrapper(ClassicPluginStrategy.java:117)
+        at hudson.PluginManager$1$3$1.run(PluginManager.java:206)
+        at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+        at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+        at jenkins.model.Jenkins$7.runTask(Jenkins.java:877)
+        at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+        at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+Caused by: Error while expanding C:\Users\user\.jenkins\plugins\subversion.jpi
+java.util.zip.ZipException: archive is not a ZIP archive
+        at org.apache.tools.ant.taskdefs.Expand.expandFile(Expand.java:192)
+        at org.apache.tools.ant.taskdefs.Expand.execute(Expand.java:132)
+        at hudson.ClassicPluginStrategy.explode(ClassicPluginStrategy.java:411)
+        ... 10 more
+Caused by: java.util.zip.ZipException: archive is not a ZIP archive
+        at org.apache.tools.zip.ZipFile.positionAtCentralDirectory(ZipFile.java:481)
+        at org.apache.tools.zip.ZipFile.populateFromCentralDirectory(ZipFile.java:320)
+        at org.apache.tools.zip.ZipFile.<init>(ZipFile.java:186)
+        at org.apache.tools.ant.taskdefs.Expand.expandFile(Expand.java:170)
+        ... 12 more
+?[0m28.jul.2012 17:31:27 jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+28.jul.2012 17:31:27 jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+28.jul.2012 17:31:27 jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+28.jul.2012 17:31:27 jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+?[33m28.jul.2012 17:31:27 hudson.util.RobustReflectionConverter doUnmarshal
+WARNING: Skipping a non-existent type
+com.thoughtworks.xstream.mapper.CannotResolveClassException: hudson.scm.SubversionSCM : hudson.scm.SubversionSCM
+        at com.thoughtworks.xstream.mapper.DefaultMapper.realClass(DefaultMapper.java:68)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.DynamicProxyMapper.realClass(DynamicProxyMapper.java:71)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.PackageAliasingMapper.realClass(PackageAliasingMapper.java:88)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.ClassAliasingMapper.realClass(ClassAliasingMapper.java:86)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.ArrayMapper.realClass(ArrayMapper.java:96)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at hudson.util.XStream2$CompatibilityMapper.realClass(XStream2.java:215)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at hudson.util.xstream.MapperDelegate.realClass(MapperDelegate.java:43)
+        at com.thoughtworks.xstream.mapper.MapperWrapper.realClass(MapperWrapper.java:38)
+        at com.thoughtworks.xstream.mapper.CachingMapper.realClass(CachingMapper.java:56)
+        at hudson.util.RobustReflectionConverter.determineType(RobustReflectionConverter.java:360)
+        at hudson.util.RobustReflectionConverter.doUnmarshal(RobustReflectionConverter.java:230)
+        at hudson.util.RobustReflectionConverter.unmarshal(RobustReflectionConverter.java:181)
+        at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:82)
+        at com.thoughtworks.xstream.core.AbstractReferenceUnmarshaller.convert(AbstractReferenceUnmarshaller.java:63)
+        at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:76)
+        at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:60)
+        at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:137)
+        at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+        at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:926)
+        at hudson.util.XStream2.unmarshal(XStream2.java:93)
+        at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:912)
+        at com.thoughtworks.xstream.XStream.fromXML(XStream.java:864)
+        at hudson.XmlFile.read(XmlFile.java:133)
+        at hudson.model.Items.load(Items.java:114)
+        at jenkins.model.Jenkins$16.run(Jenkins.java:2487)
+        at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+        at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+        at jenkins.model.Jenkins$7.runTask(Jenkins.java:877)
+        at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+        at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+?[0m28.jul.2012 17:31:29 jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+28.jul.2012 17:31:29 org.apache.sshd.common.util.SecurityUtils$BouncyCastleRegistration run
+INFO: Trying to register BouncyCastle as a JCE provider
+28.jul.2012 17:31:30 org.apache.sshd.common.util.SecurityUtils$BouncyCastleRegistration run
+INFO: Registration succeeded
+28.jul.2012 17:31:30 org.jenkinsci.main.modules.sshd.SSHD start
+INFO: Started SSHD at port 55290
+28.jul.2012 17:31:30 jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization
+28.jul.2012 17:31:30 hudson.TcpSlaveAgentListener <init>
+INFO: JNLP slave agent listener started on TCP port 55291
+28.jul.2012 17:31:30 hudson.WebAppMain$2 run
+INFO: Jenkins is fully up and running

@@ -1,0 +1,57 @@
+#!/usr/bin/env groovy
+
+pipeline { 
+    agent {
+        dockerfile {
+            dir 'depends'
+            label "linux"
+            reuseNode true
+        }
+    }
+    options {
+        copyArtifactPermission("CMLite Linux/${BRANCH_NAME}")
+    }
+    stages {
+        stage("Clone") {
+            steps {
+                dir('aws-sdk-cpp') {
+                    deleteDir()
+                }
+                sh 'git clone --depth 1 --branch 1.8.30 https://github.com/aws/aws-sdk-cpp'
+            }
+        }
+        stage("Patch") {
+            steps {
+                sh script: 'ln -s . cmlite', returnStdout: true
+                dir('aws-sdk-cpp') {
+                    sh 'git apply ../cmlite/depends/cmake.patch'
+                }
+            }
+        }
+        stage("Build") {
+            steps {
+                dir('build') {
+                    deleteDir()
+                }
+                cmakeBuild buildDir: 'build',
+                    sourceDir: 'aws-sdk-cpp',
+                    buildType: 'Release',
+                    preloadScript: "../cmlite/depends/preload.cmake",
+                    installation: 'InSearchPath',
+                    steps: [[args: 'all -j 16']]
+            }
+        }
+        stage("Package") {
+            steps {
+                dir('build') {
+                    cpack installation: 'InSearchPath', arguments: '-G RPM'
+                }
+            }
+        }
+        stage("Archive") {
+            steps {
+                archiveArtifacts artifacts: 'build/*.rpm', fingerprint: true
+            }
+        }
+    }
+}

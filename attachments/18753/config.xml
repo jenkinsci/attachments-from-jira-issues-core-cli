@@ -1,0 +1,357 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <version>1.319</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>hudson.model.Computer.Delete:admin</permission>
+    <permission>hudson.model.View.Configure:admin</permission>
+    <permission>hudson.scm.SCM.Tag:admin</permission>
+    <permission>hudson.scm.SCM.Tag:team</permission>
+    <permission>hudson.model.Hudson.Administer:admin</permission>
+    <permission>hudson.model.Item.Configure:admin</permission>
+    <permission>hudson.model.View.Create:admin</permission>
+    <permission>hudson.model.Run.Delete:admin</permission>
+    <permission>hudson.model.Item.Create:admin</permission>
+    <permission>hudson.model.Item.Build:admin</permission>
+    <permission>hudson.model.Item.Build:team</permission>
+    <permission>hudson.model.Item.Release:admin</permission>
+    <permission>hudson.model.Item.Release:team</permission>
+    <permission>hudson.model.View.Delete:admin</permission>
+    <permission>hudson.model.Item.Workspace:anonymous</permission>
+    <permission>hudson.model.Item.Workspace:admin</permission>
+    <permission>hudson.model.Item.Workspace:team</permission>
+    <permission>hudson.model.Item.Delete:admin</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Hudson.Read:admin</permission>
+    <permission>hudson.model.Hudson.Read:team</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
+    <permission>hudson.model.Item.Read:admin</permission>
+    <permission>hudson.model.Item.Read:team</permission>
+    <permission>hudson.model.Run.Update:admin</permission>
+    <permission>hudson.model.Computer.Configure:admin</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+  </securityRealm>
+  <systemMessage>&lt;h2&gt;Development Factory - Hudson dashboard&lt;/h2&gt;&#xd;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;</systemMessage>
+  <jdks>
+    <jdk>
+      <name>Java 5.0</name>
+      <home>/usr/java/jdk1.5.0_18/</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>Java 6.0</name>
+      <home>/usr/java/jdk1.6.0_14/</home>
+      <properties/>
+    </jdk>
+  </jdks>
+  <clouds/>
+  <slaves/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+    </hudson.model.AllView>
+    <hudson.model.RadiatorView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all_projects_view</name>
+      <description>Radiator View for all (real) CI projects&#xd;
+NOTE : daily build projects and others are not included</description>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <columns/>
+      <includeRegex>.*CI$</includeRegex>
+    </hudson.model.RadiatorView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>PROJECT-1</name>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>PROJECT-1-CI</string>
+        <string>PROJECT-1-CI-DEPLOY-ON-DEMAND</string>
+      </jobNames>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+    <hudson.model.RadiatorView>
+      <owner class="hudson" reference="../../.."/>
+      <name>PROJECTS</name>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <columns/>
+      <includeRegex>^PROJECT.*</includeRegex>
+    </hudson.model.RadiatorView>
+    <hudson.plugins.sectioned__view.SectionedView>
+      <owner class="hudson" reference="../../.."/>
+      <name>sectioned_view_all</name>
+      <sections>
+        <hudson.plugins.sectioned__view.ListViewSection>
+          <jobNames class="tree-set">
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+            <string>PROJECT-1-CI</string>
+          </jobNames>
+          <name>All CI projects</name>
+          <width>FULL</width>
+          <alignment>CENTER</alignment>
+        </hudson.plugins.sectioned__view.ListViewSection>
+        <hudson.plugins.sectioned__view.TestResultViewSection>
+          <jobNames class="tree-set">
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../hudson.plugins.sectioned__view.ListViewSection/jobNames/comparator"/>
+            <string>PROJECT-1-CI</string>
+          </jobNames>
+          <name>All tests</name>
+          <width>FULL</width>
+          <alignment>CENTER</alignment>
+        </hudson.plugins.sectioned__view.TestResultViewSection>
+        <hudson.plugins.sectioned__view.JobGraphsSection>
+          <jobNames class="tree-set">
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../hudson.plugins.sectioned__view.ListViewSection/jobNames/comparator"/>
+            <string>PROJECT-1-CI</string>
+          </jobNames>
+          <name>All Job Graphs</name>
+          <width>FULL</width>
+          <alignment>CENTER</alignment>
+        </hudson.plugins.sectioned__view.JobGraphsSection>
+      </sections>
+    </hudson.plugins.sectioned__view.SectionedView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <md class="java.security.MessageDigest$Delegate">
+      <algorithm>MD5</algorithm>
+      <state>0</state>
+      <provider class="sun.security.provider.Sun" serialization="custom">
+        <unserializable-parents/>
+        <hashtable>
+          <default>
+            <loadFactor>0.75</loadFactor>
+            <threshold>143</threshold>
+          </default>
+          <int>191</int>
+          <int>73</int>
+          <string>Alg.Alias.Signature.SHA1/DSA</string>
+          <string>SHA1withDSA</string>
+          <string>Alg.Alias.Signature.1.2.840.10040.4.3</string>
+          <string>SHA1withDSA</string>
+          <string>Alg.Alias.Signature.DSS</string>
+          <string>SHA1withDSA</string>
+          <string>SecureRandom.SHA1PRNG ImplementedIn</string>
+          <string>Software</string>
+          <string>KeyStore.JKS</string>
+          <string>sun.security.provider.JavaKeyStore$JKS</string>
+          <string>Alg.Alias.MessageDigest.SHA-1</string>
+          <string>SHA</string>
+          <string>MessageDigest.SHA</string>
+          <string>sun.security.provider.SHA</string>
+          <string>KeyStore.CaseExactJKS</string>
+          <string>sun.security.provider.JavaKeyStore$CaseExactJKS</string>
+          <string>CertStore.com.sun.security.IndexedCollection ImplementedIn</string>
+          <string>Software</string>
+          <string>Alg.Alias.Signature.DSA</string>
+          <string>SHA1withDSA</string>
+          <string>KeyFactory.DSA ImplementedIn</string>
+          <string>Software</string>
+          <string>KeyStore.JKS ImplementedIn</string>
+          <string>Software</string>
+          <string>AlgorithmParameters.DSA ImplementedIn</string>
+          <string>Software</string>
+          <string>Signature.NONEwithDSA</string>
+          <string>sun.security.provider.DSA$RawDSA</string>
+          <string>Alg.Alias.CertificateFactory.X509</string>
+          <string>X.509</string>
+          <string>CertStore.com.sun.security.IndexedCollection</string>
+          <string>sun.security.provider.certpath.IndexedCollectionCertStore</string>
+          <string>Provider.id className</string>
+          <string>sun.security.provider.Sun</string>
+          <string>Alg.Alias.Signature.SHA-1/DSA</string>
+          <string>SHA1withDSA</string>
+          <string>CertificateFactory.X.509 ImplementedIn</string>
+          <string>Software</string>
+          <string>Signature.SHA1withDSA KeySize</string>
+          <string>1024</string>
+          <string>KeyFactory.DSA</string>
+          <string>sun.security.provider.DSAKeyFactory</string>
+          <string>CertPathValidator.PKIX ImplementedIn</string>
+          <string>Software</string>
+          <string>Configuration.JavaLoginConfig</string>
+          <string>sun.security.provider.ConfigSpiFile</string>
+          <string>Alg.Alias.Signature.OID.1.2.840.10040.4.3</string>
+          <string>SHA1withDSA</string>
+          <string>Alg.Alias.KeyFactory.1.2.840.10040.4.1</string>
+          <string>DSA</string>
+          <string>MessageDigest.MD5 ImplementedIn</string>
+          <string>Software</string>
+          <string>Alg.Alias.Signature.RawDSA</string>
+          <string>NONEwithDSA</string>
+          <string>Provider.id name</string>
+          <string>SUN</string>
+          <string>Alg.Alias.AlgorithmParameters.1.2.840.10040.4.1</string>
+          <string>DSA</string>
+          <string>CertPathBuilder.PKIX ValidationAlgorithm</string>
+          <string>RFC3280</string>
+          <string>Policy.JavaPolicy</string>
+          <string>sun.security.provider.PolicySpiFile</string>
+          <string>Alg.Alias.AlgorithmParameters.1.3.14.3.2.12</string>
+          <string>DSA</string>
+          <string>Alg.Alias.Signature.SHA/DSA</string>
+          <string>SHA1withDSA</string>
+          <string>Alg.Alias.KeyPairGenerator.1.3.14.3.2.12</string>
+          <string>DSA</string>
+          <string>MessageDigest.SHA-384</string>
+          <string>sun.security.provider.SHA5$SHA384</string>
+          <string>Signature.SHA1withDSA ImplementedIn</string>
+          <string>Software</string>
+          <string>AlgorithmParameterGenerator.DSA</string>
+          <string>sun.security.provider.DSAParameterGenerator</string>
+          <string>Signature.NONEwithDSA SupportedKeyClasses</string>
+          <string>java.security.interfaces.DSAPublicKey|java.security.interfaces.DSAPrivateKey</string>
+          <string>MessageDigest.SHA-512</string>
+          <string>sun.security.provider.SHA5$SHA512</string>
+          <string>CertPathBuilder.PKIX</string>
+          <string>sun.security.provider.certpath.SunCertPathBuilder</string>
+          <string>Alg.Alias.Signature.1.3.14.3.2.27</string>
+          <string>SHA1withDSA</string>
+          <string>CertPathBuilder.PKIX ImplementedIn</string>
+          <string>Software</string>
+          <string>Provider.id version</string>
+          <string>1.6</string>
+          <string>AlgorithmParameters.DSA</string>
+          <string>sun.security.provider.DSAParameters</string>
+          <string>Signature.SHA1withDSA SupportedKeyClasses</string>
+          <string>java.security.interfaces.DSAPublicKey|java.security.interfaces.DSAPrivateKey</string>
+          <string>CertStore.Collection</string>
+          <string>sun.security.provider.certpath.CollectionCertStore</string>
+          <string>AlgorithmParameterGenerator.DSA ImplementedIn</string>
+          <string>Software</string>
+          <string>KeyPairGenerator.DSA KeySize</string>
+          <string>1024</string>
+          <string>CertStore.LDAP</string>
+          <string>sun.security.provider.certpath.LDAPCertStore</string>
+          <string>CertificateFactory.X.509</string>
+          <string>sun.security.provider.X509Factory</string>
+          <string>SecureRandom.NativePRNG</string>
+          <string>sun.security.provider.NativePRNG</string>
+          <string>CertStore.LDAP LDAPSchema</string>
+          <string>RFC2587</string>
+          <string>CertStore.LDAP ImplementedIn</string>
+          <string>Software</string>
+          <string>KeyPairGenerator.DSA ImplementedIn</string>
+          <string>Software</string>
+          <string>CertPathValidator.PKIX ValidationAlgorithm</string>
+          <string>RFC3280</string>
+          <string>CertStore.Collection ImplementedIn</string>
+          <string>Software</string>
+          <string>Alg.Alias.Signature.1.3.14.3.2.13</string>
+          <string>SHA1withDSA</string>
+          <string>CertPathValidator.PKIX</string>
+          <string>sun.security.provider.certpath.PKIXCertPathValidator</string>
+          <string>Alg.Alias.MessageDigest.SHA1</string>
+          <string>SHA</string>
+          <string>AlgorithmParameterGenerator.DSA KeySize</string>
+          <string>1024</string>
+          <string>SecureRandom.SHA1PRNG</string>
+          <string>sun.security.provider.SecureRandom</string>
+          <string>Signature.SHA1withDSA</string>
+          <string>sun.security.provider.DSA$SHA1withDSA</string>
+          <string>Alg.Alias.KeyFactory.1.3.14.3.2.12</string>
+          <string>DSA</string>
+          <string>KeyPairGenerator.DSA</string>
+          <string>sun.security.provider.DSAKeyPairGenerator</string>
+          <string>MessageDigest.SHA ImplementedIn</string>
+          <string>Software</string>
+          <string>Provider.id info</string>
+          <string>SUN (DSA key/parameter generation; DSA signing; SHA-1, MD5 digests; SecureRandom; X.509 certificates; JKS keystore; PKIX CertPathValidator; PKIX CertPathBuilder; LDAP, Collection CertStores, JavaPolicy Policy; JavaLoginConfig Configuration)</string>
+          <string>Alg.Alias.KeyPairGenerator.1.2.840.10040.4.1</string>
+          <string>DSA</string>
+          <string>Alg.Alias.Signature.SHAwithDSA</string>
+          <string>SHA1withDSA</string>
+          <string>MessageDigest.MD5</string>
+          <string>sun.security.provider.MD5</string>
+          <string>Alg.Alias.Signature.DSAWithSHA1</string>
+          <string>SHA1withDSA</string>
+          <string>MessageDigest.SHA-256</string>
+          <string>sun.security.provider.SHA2</string>
+          <string>Alg.Alias.KeyPairGenerator.OID.1.2.840.10040.4.1</string>
+          <string>DSA</string>
+          <string>MessageDigest.MD2</string>
+          <string>sun.security.provider.MD2</string>
+        </hashtable>
+        <java.security.Provider>
+          <default>
+            <version>1.6</version>
+            <info>SUN (DSA key/parameter generation; DSA signing; SHA-1, MD5 digests; SecureRandom; X.509 certificates; JKS keystore; PKIX CertPathValidator; PKIX CertPathBuilder; LDAP, Collection CertStores, JavaPolicy Policy; JavaLoginConfig Configuration)</info>
+            <name>SUN</name>
+          </default>
+        </java.security.Provider>
+      </provider>
+      <digestSpi class="sun.security.provider.MD5">
+        <algorithm>MD5</algorithm>
+        <digestLength>16</digestLength>
+        <blockSize>64</blockSize>
+        <buffer>YWRtaW47MTAuMTYwLjI5LjU4aHVkc29uLmNydW1igAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADw
+AAAAAAAAAA==</buffer>
+        <bufOfs>56</bufOfs>
+        <bytesProcessed>-1</bytesProcessed>
+        <state>
+          <int>1402731560</int>
+          <int>117372950</int>
+          <int>1274926448</int>
+          <int>894715182</int>
+        </state>
+        <x>
+          <int>1768776801</int>
+          <int>808532846</int>
+          <int>808857902</int>
+          <int>775500334</int>
+          <int>1969764405</int>
+          <int>1852797796</int>
+          <int>1970430766</int>
+          <int>8413805</int>
+          <int>0</int>
+          <int>0</int>
+          <int>0</int>
+          <int>0</int>
+          <int>0</int>
+          <int>0</int>
+          <int>240</int>
+          <int>0</int>
+        </x>
+      </digestSpi>
+    </md>
+    <PROXY__HEADER>X-Forwarded-For</PROXY__HEADER>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>1</int>
+          <string>MAVEN_OPTS</string>
+          <string>-Xms128m -Xmx512m -XX:PermSize=64m -XX:MaxPermSize=128m</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
+  <disabledAdministrativeMonitors/>
+</hudson>

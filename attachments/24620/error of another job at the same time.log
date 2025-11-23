@@ -1,0 +1,43 @@
+ERROR: CVS Authentication failed: IOException
+org.netbeans.lib.cvsclient.connection.AuthenticationException: I/O error while connecting to host xxx.
+	at org.netbeans.lib.cvsclient.connection.PServerConnection.openConnection(PServerConnection.java:297)
+	at org.netbeans.lib.cvsclient.connection.PServerConnection.open(PServerConnection.java:352)
+	at org.netbeans.lib.cvsclient.Client$1.run(Client.java:374)
+	at java.lang.Thread.run(Thread.java:724)
+Caused by: java.net.SocketException: Too many open files
+	at java.net.Socket.createImpl(Socket.java:447)
+	at java.net.Socket.connect(Socket.java:577)
+	at org.netbeans.lib.cvsclient.connection.PServerConnection.openConnection(PServerConnection.java:226)
+	... 3 more
+ERROR: Cvs task failed
+Sending e-mails to: xxx@xxx.de
+ERROR: Could not connect to SMTP host: xxx, port: 25
+javax.mail.MessagingException: Could not connect to SMTP host: xxx, port: 25;
+  nested exception is:
+	java.net.SocketException: Too many open files
+	at com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:1934)
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:638)
+	at javax.mail.Service.connect(Service.java:295)
+	at javax.mail.Service.connect(Service.java:176)
+	at javax.mail.Service.connect(Service.java:125)
+	at javax.mail.Transport.send0(Transport.java:194)
+	at javax.mail.Transport.send(Transport.java:124)
+	at hudson.tasks.MailSender.execute(MailSender.java:116)
+	at hudson.tasks.Mailer.perform(Mailer.java:117)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:781)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.performAllBuildSteps(AbstractBuild.java:753)
+	at hudson.model.Build$BuildExecution.post2(Build.java:183)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:706)
+	at hudson.model.Run.execute(Run.java:1690)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:230)
+Caused by: java.net.SocketException: Too many open files
+	at java.net.Socket.createImpl(Socket.java:447)
+	at java.net.Socket.connect(Socket.java:577)
+	at com.sun.mail.util.SocketFetcher.createSocket(SocketFetcher.java:286)
+	at com.sun.mail.util.SocketFetcher.getSocket(SocketFetcher.java:231)
+	at com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:1900)
+	... 17 more
+Finished: FAILURE

@@ -1,0 +1,42 @@
+Index: main/core/src/main/java/hudson/util/FormFieldValidator.java
+===================================================================
+--- main/core/src/main/java/hudson/util/FormFieldValidator.java	(revision 11987)
++++ main/core/src/main/java/hudson/util/FormFieldValidator.java	(working copy)
+@@ -444,8 +444,19 @@
+             } else {
+                 // look in PATH
+                 String path = EnvVars.masterEnvVars.get("PATH");
++                String tokenizedPath = "";
++                String delimiter = null;
+                 if(path!=null) {
+-                    for (String _dir : Util.tokenize(path,File.pathSeparator)) {
++                    for (String _dir : Util.tokenize(path.replace("\\", "\\\\"),File.pathSeparator)) {
++                        if (delimiter == null) {
++                          delimiter = ", ";
++                        }
++                        else {
++                          tokenizedPath += delimiter;
++                        }
++
++                        tokenizedPath += _dir.replace('\\', '/');
++                        
+                         File dir = new File(_dir);
+ 
+                         File f = new File(dir,exe);
+@@ -460,10 +471,15 @@
+                             return;
+                         }
+                     }
++                    
++                    tokenizedPath += ".";
+                 }
++                else {
++                  tokenizedPath = "unavailable.";
++                }
+ 
+                 // didn't find it
+-                error("There's no such executable "+exe+" in PATH:"+path);
++                error("There's no such executable "+exe+" in PATH: "+tokenizedPath);
+             }
+         }
+ 

@@ -1,0 +1,30 @@
+FROM centos:8.3.2011
+
+RUN true \
+    && yum install -y \
+        gcc-c++ cmake openssl-devel curl-devel openssh-server \
+        rpm-build java-1.8.0-openjdk \
+         curl git zlib-devel pulseaudio-libs-devel \
+        make libuuid-devel podman podman-docker
+
+RUN true \
+    && /usr/libexec/openssh/sshd-keygen rsa \
+    && /usr/libexec/openssh/sshd-keygen ecdsa \
+    && /usr/libexec/openssh/sshd-keygen ed25519 \
+    && touch /etc/containers/nodocker \
+    && sed -i 's/.*driver = ".*"/driver = "vfs"/g' /etc/containers/storage.conf \
+    && chmod 4755 /usr/bin/podman \
+    && ln -f /usr/bin/podman /usr/bin/docker \
+    && echo -e "[engine]\ncgroup_manager=\"cgroupfs\"\n" > /etc/containers/containers.conf
+
+
+ENV JENKINS_SWARM_CLIENT_VERSION 3.24
+RUN curl --create-dirs -sSLo "/usr/share/jenkins/swarm-client-jar-with-dependencies.jar" \
+    https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/$JENKINS_SWARM_CLIENT_VERSION/swarm-client-${JENKINS_SWARM_CLIENT_VERSION}.jar
+RUN chmod -R a+rX /usr/share/jenkins
+
+RUN useradd jenkins
+USER jenkins
+WORKDIR /home/jenkins
+
+ENTRYPOINT ["/usr/bin/java", "-Dfile.encoding=UTF8", "-jar", "/usr/share/jenkins/swarm-client-jar-with-dependencies.jar"]

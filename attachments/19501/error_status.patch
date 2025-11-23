@@ -1,0 +1,27 @@
+Index: core/src/main/resources/lib/hudson/executors.jelly
+===================================================================
+--- core/src/main/resources/lib/hudson/executors.jelly	(revision 31099)
++++ core/src/main/resources/lib/hudson/executors.jelly	(working copy)
+@@ -34,7 +34,21 @@
+   <d:taglib uri="local">
+     <d:tag name="computerCaption">
+       <a href="${rootURL}/${c.url}">${title}</a>
+-      <j:if test="${c.offline}"> <st:nbsp/> (${%offline})</j:if>
++      <j:if test="${c.offline}">
++        <j:choose>
++          <j:when test="${c.offlineCause!=null and c.offline and !c.connecting}">
++            <st:nbsp/>(<img src="${imagesURL}/16x16/error.gif" title="${c.offlineCause}" />
++            ${%offline})
++          </j:when>
++          <j:when test="${c.offline and c.connecting}">
++            <st:nbsp/>(<img src="${imagesURL}/16x16/hourglass.gif" />
++            launching...)
++          </j:when>
++          <j:otherwise>
++            <st:nbsp/>(${%offline})
++          </j:otherwise>
++        </j:choose>
++      </j:if>
+       <j:if test="${!c.acceptingTasks}"> <st:nbsp/> (${%suspended})</j:if>
+     </d:tag>
+     <d:tag name="executor">

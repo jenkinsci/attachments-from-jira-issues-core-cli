@@ -1,0 +1,291 @@
+]] Root cause of ServletException.
+
+org.apache.commons.jelly.JellyTagException: zip:
+
+C:/Oracle/Middleware/SOASuite11gR1SP7/user_projects/domains/SOAOSBDomain/servers/
+
+AdminServer/tmp/_WL_user/jenkinsEAR_21_02_16/banj6d/war/WEB-INF/lib/jenkins-core-1.648.jar!/lib/layout/layout.jelly:59:51: 
+
+org.apache.commons.jelly.JellyTagException: zip: <st:contentType> org.dom4j.io.HTMLWriter.setEnabled(Z)V
+
+        at org.apache.commons.jelly.impl.TagScript.handleException(TagScript.java:745)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:289)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:120)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.JellyViewScript.run(JellyViewScript.java:95)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:63)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:53)
+        at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:95)
+        at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+        at hudson.init.impl.InstallUncaughtExceptionHandler$1.reportException(InstallUncaughtExceptionHandler.java:27)
+        at org.kohsuke.stapler.compression.CompressionFilter.reportException(CompressionFilter.java:77)
+        at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:55)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.security.jps.ee.http.JpsAbsFilter$1.run(JpsAbsFilter.java:119)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at oracle.security.jps.util.JpsSubject.doAsPrivileged(JpsSubject.java:324)
+        at oracle.security.jps.ee.util.JpsPlatformUtil.runJaasMode(JpsPlatformUtil.java:460)
+        at oracle.security.jps.ee.http.JpsAbsFilter.runJaasMode(JpsAbsFilter.java:103)
+        at oracle.security.jps.ee.http.JpsAbsFilter.doFilter(JpsAbsFilter.java:171)
+        at oracle.security.jps.ee.http.JpsFilter.doFilter(JpsFilter.java:71)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.dms.servlet.DMSServletFilter.doFilter(DMSServletFilter.java:163)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.wrapRun(WebAppServletContext.java:3730)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3696)
+        at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+        at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:120)
+        at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2273)
+        at weblogic.servlet.internal.WebAppServletContext.execute(WebAppServletContext.java:2179)
+        at weblogic.servlet.internal.ServletRequestImpl.run(ServletRequestImpl.java:1490)
+        at weblogic.work.ExecuteThread.execute(ExecuteThread.java:256)
+        at weblogic.work.ExecuteThread.run(ExecuteThread.java:221)
+Caused By: java.lang.NoSuchMethodError: org.dom4j.io.HTMLWriter.setEnabled(Z)V
+        at org.kohsuke.stapler.jelly.HTMLWriterOutput.useHTML(HTMLWriterOutput.java:78)
+        at org.kohsuke.stapler.jelly.ContentTypeTag.doTag(ContentTypeTag.java:56)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:120)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.JellyViewScript.run(JellyViewScript.java:95)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:63)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:53)
+        at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:95)
+        at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+        at hudson.init.impl.InstallUncaughtExceptionHandler$1.reportException(InstallUncaughtExceptionHandler.java:27)
+        at org.kohsuke.stapler.compression.CompressionFilter.reportException(CompressionFilter.java:77)
+        at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:55)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.security.jps.ee.http.JpsAbsFilter$1.run(JpsAbsFilter.java:119)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at oracle.security.jps.util.JpsSubject.doAsPrivileged(JpsSubject.java:324)
+        at oracle.security.jps.ee.util.JpsPlatformUtil.runJaasMode(JpsPlatformUtil.java:460)
+        at oracle.security.jps.ee.http.JpsAbsFilter.runJaasMode(JpsAbsFilter.java:103)
+        at oracle.security.jps.ee.http.JpsAbsFilter.doFilter(JpsAbsFilter.java:171)
+        at oracle.security.jps.ee.http.JpsFilter.doFilter(JpsFilter.java:71)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.dms.servlet.DMSServletFilter.doFilter(DMSServletFilter.java:163)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.wrapRun(WebAppServletContext.java:3730)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3696)
+        at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+        at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:120)
+        at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2273)
+        at weblogic.servlet.internal.WebAppServletContext.execute(WebAppServletContext.java:2179)
+        at weblogic.servlet.internal.ServletRequestImpl.run(ServletRequestImpl.java:1490)
+        at weblogic.work.ExecuteThread.execute(ExecuteThread.java:256)
+        at weblogic.work.ExecuteThread.run(ExecuteThread.java:221)
+ SUBSYSTEM = HTTP USERID = <WLS Kernel> SEVERITY = Error THREAD = [ACTIVE] ExecuteThread: '14' for queue: 'weblogic.kernel.Default (self-tuning)' MSGID = BEA-101017 MACHINE = SaiKanna-PC TXID =  CONTEXTID = 2e88ae6781d171fa:173dcfe4:1537d0f1a02:-8000-0000000000002fb0 TIMESTAMP = 1458437289593
+WatchAlarmType: AutomaticReset
+WatchAlarmResetPeriod: 30000
+>
+<Mar 20, 2016 6:58:11 AM IST> <Error> <HTTP> <BEA-101107> <[ServletContext@1130266441[app:jenkinsEAR_21_02_16 module:jenkins path:/jenkins spec-version:2.5]] Problem occurred while serving the error page.
+javax.servlet.ServletException: org.apache.commons.jelly.JellyTagException: zip:C:/Oracle/Middleware/SOASuite11gR1SP7/user_projects/domains/SOAOSBDomain/servers/AdminServer/tmp/_WL_user/jenkinsEAR_21_02_16/banj6d/war/WEB-INF/lib/jenkins-core-1.648.jar!/lib/layout/layout.jelly:59:51: <st:contentType>
+ org.dom4j.io.HTMLWriter.setEnabled(Z)V
+        at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:103)
+        at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+        at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+        Truncated. see log file for complete stacktrace
+Caused By: org.apache.commons.jelly.JellyTagException: zip:C:/Oracle/Middleware/SOASuite11gR1SP7/user_projects/domains/SOAOSBDomain/servers/AdminServer/tmp/_WL_user/jenkinsEAR_21_02_16/banj6d/war/WEB-INF/lib/jenkins-core-1.648.jar!/lib/layout/layout.jelly:59:51: <st:contentType> org.dom4j.io.HTMLWri
+ter.setEnabled(Z)V
+        at org.apache.commons.jelly.impl.TagScript.handleException(TagScript.java:745)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:289)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:120)
+        Truncated. see log file for complete stacktrace
+Caused By: java.lang.NoSuchMethodError: org.dom4j.io.HTMLWriter.setEnabled(Z)V
+        at org.kohsuke.stapler.jelly.HTMLWriterOutput.useHTML(HTMLWriterOutput.java:78)
+        at org.kohsuke.stapler.jelly.ContentTypeTag.doTag(ContentTypeTag.java:56)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        Truncated. see log file for complete stacktrace
+>
+<Mar 20, 2016 6:58:13 AM IST> <Emergency> <oracle.dfw.incident> <BEA-000000> <incident 5 created with problem key "DFW-99998 [java.lang.NoSuchMethodError][oracle.security.jps.ee.http.JpsAbsFilter$1.run][jenkinsEAR_21_02_16]">
+<Mar 20, 2016 6:59:12 AM IST> <Error> <HTTP> <BEA-101017> <[ServletContext@1130266441[app:jenkinsEAR_21_02_16 module:jenkins path:/jenkins spec-version:2.5], request: Workmanager: default, Version: 0, Scheduled=true, Started=true, Started time: 16 ms
+[
+GET /jenkins/ HTTP/1.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: en-US,en;q=0.8,te;q=0.6
+
+]] Root cause of ServletException.
+org.apache.commons.jelly.JellyTagException: zip:C:/Oracle/Middleware/SOASuite11gR1SP7/user_projects/domains/SOAOSBDomain/servers/AdminServer/tmp/_WL_user/jenkinsEAR_21_02_16/banj6d/war/WEB-INF/lib/jenkins-core-1.648.jar!/lib/layout/layout.jelly:59:51: <st:contentType> org.dom4j.io.HTMLWriter.setEnab
+led(Z)V
+        at org.apache.commons.jelly.impl.TagScript.handleException(TagScript.java:745)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:289)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:120)
+        Truncated. see log file for complete stacktrace
+Caused By: java.lang.NoSuchMethodError: org.dom4j.io.HTMLWriter.setEnabled(Z)V
+        at org.kohsuke.stapler.jelly.HTMLWriterOutput.useHTML(HTMLWriterOutput.java:78)
+        at org.kohsuke.stapler.jelly.ContentTypeTag.doTag(ContentTypeTag.java:56)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        Truncated. see log file for complete stacktrace
+>
+<Mar 20, 2016 6:59:12 AM IST> <Error> <HTTP> <BEA-101107> <[ServletContext@1130266441[app:jenkinsEAR_21_02_16 module:jenkins path:/jenkins spec-version:2.5]] Problem occurred while serving the error page.
+javax.servlet.ServletException: org.apache.commons.jelly.JellyTagException: zip:C:/Oracle/Middleware/SOASuite11gR1SP7/user_projects/domains/SOAOSBDomain/servers/AdminServer/tmp/_WL_user/jenkinsEAR_21_02_16/banj6d/war/WEB-INF/lib/jenkins-core-1.648.jar!/lib/layout/layout.jelly:59:51: <st:contentType>
+ org.dom4j.io.HTMLWriter.setEnabled(Z)V
+        at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:103)
+        at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+        at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+        Truncated. see log file for complete stacktrace
+Caused By: org.apache.commons.jelly.JellyTagException: zip:C:/Oracle/Middleware/SOASuite11gR1SP7/user_projects/domains/SOAOSBDomain/servers/AdminServer/tmp/_WL_user/jenkinsEAR_21_02_16/banj6d/war/WEB-INF/lib/jenkins-core-1.648.jar!/lib/layout/layout.jelly:59:51: <st:contentType> org.dom4j.io.HTMLWri
+ter.setEnabled(Z)V
+        at org.apache.commons.jelly.impl.TagScript.handleException(TagScript.java:745)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:289)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:120)
+        Truncated. see log file for complete stacktrace
+Caused By: java.lang.NoSuchMethodError: org.dom4j.io.HTMLWriter.setEnabled(Z)V
+        at org.kohsuke.stapler.jelly.HTMLWriterOutput.useHTML(HTMLWriterOutput.java:78)
+        at org.kohsuke.stapler.jelly.ContentTypeTag.doTag(ContentTypeTag.java:56)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        Truncated. see log file for complete stacktrace
+>
+<Mar 20, 2016 6:59:12 AM IST> <Notice> <Diagnostics> <BEA-320068> <Watch 'UncheckedException' with severity 'Notice' on server 'AdminServer' has triggered at Mar 20, 2016 6:59:12 AM IST. Notification details:
+WatchRuleType: Log
+WatchRule: (SEVERITY = 'Error') AND ((MSGID = 'WL-101020') OR (MSGID = 'WL-101017') OR (MSGID = 'WL-000802') OR (MSGID = 'BEA-101020') OR (MSGID = 'BEA-101017') OR (MSGID = 'BEA-000802'))
+WatchData: DATE = Mar 20, 2016 6:59:12 AM IST SERVER = AdminServer MESSAGE = [ServletContext@1130266441[app:jenkinsEAR_21_02_16 module:jenkins path:/jenkins spec-version:2.5], request: Workmanager: default, Version: 0, Scheduled=true, Started=true, Started time: 16 ms
+[
+GET /jenkins/ HTTP/1.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: en-US,en;q=0.8,te;q=0.6
+
+]] Root cause of ServletException.
+org.apache.commons.jelly.JellyTagException: zip:C:/Oracle/Middleware/SOASuite11gR1SP7/user_projects/domains/SOAOSBDomain/servers/AdminServer/tmp/_WL_user/jenkinsEAR_21_02_16/banj6d/war/WEB-INF/lib/jenkins-core-1.648.jar!/lib/layout/layout.jelly:59:51: <st:contentType> org.dom4j.io.HTMLWriter.setEnab
+led(Z)V
+        at org.apache.commons.jelly.impl.TagScript.handleException(TagScript.java:745)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:289)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:120)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.JellyViewScript.run(JellyViewScript.java:95)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:63)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:53)
+        at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:95)
+        at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+        at hudson.init.impl.InstallUncaughtExceptionHandler$1.reportException(InstallUncaughtExceptionHandler.java:27)
+        at org.kohsuke.stapler.compression.CompressionFilter.reportException(CompressionFilter.java:77)
+        at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:55)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.security.jps.ee.http.JpsAbsFilter$1.run(JpsAbsFilter.java:119)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at oracle.security.jps.util.JpsSubject.doAsPrivileged(JpsSubject.java:324)
+        at oracle.security.jps.ee.util.JpsPlatformUtil.runJaasMode(JpsPlatformUtil.java:460)
+        at oracle.security.jps.ee.http.JpsAbsFilter.runJaasMode(JpsAbsFilter.java:103)
+        at oracle.security.jps.ee.http.JpsAbsFilter.doFilter(JpsAbsFilter.java:171)
+        at oracle.security.jps.ee.http.JpsFilter.doFilter(JpsFilter.java:71)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.dms.servlet.DMSServletFilter.doFilter(DMSServletFilter.java:163)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.wrapRun(WebAppServletContext.java:3730)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3696)
+        at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+        at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:120)
+        at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2273)
+        at weblogic.servlet.internal.WebAppServletContext.execute(WebAppServletContext.java:2179)
+        at weblogic.servlet.internal.ServletRequestImpl.run(ServletRequestImpl.java:1490)
+        at weblogic.work.ExecuteThread.execute(ExecuteThread.java:256)
+        at weblogic.work.ExecuteThread.run(ExecuteThread.java:221)
+Caused By: java.lang.NoSuchMethodError: org.dom4j.io.HTMLWriter.setEnabled(Z)V
+        at org.kohsuke.stapler.jelly.HTMLWriterOutput.useHTML(HTMLWriterOutput.java:78)
+        at org.kohsuke.stapler.jelly.ContentTypeTag.doTag(ContentTypeTag.java:56)
+        at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:120)
+        at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+        at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+        at org.kohsuke.stapler.jelly.JellyViewScript.run(JellyViewScript.java:95)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:63)
+        at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:53)
+        at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:95)
+        at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+        at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+        at hudson.init.impl.InstallUncaughtExceptionHandler$1.reportException(InstallUncaughtExceptionHandler.java:27)
+        at org.kohsuke.stapler.compression.CompressionFilter.reportException(CompressionFilter.java:77)
+        at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:55)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.security.jps.ee.http.JpsAbsFilter$1.run(JpsAbsFilter.java:119)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at oracle.security.jps.util.JpsSubject.doAsPrivileged(JpsSubject.java:324)
+        at oracle.security.jps.ee.util.JpsPlatformUtil.runJaasMode(JpsPlatformUtil.java:460)
+        at oracle.security.jps.ee.http.JpsAbsFilter.runJaasMode(JpsAbsFilter.java:103)
+        at oracle.security.jps.ee.http.JpsAbsFilter.doFilter(JpsAbsFilter.java:171)
+        at oracle.security.jps.ee.http.JpsFilter.doFilter(JpsFilter.java:71)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at oracle.dms.servlet.DMSServletFilter.doFilter(DMSServletFilter.java:163)
+        at weblogic.servlet.internal.FilterChainImpl.doFilter(FilterChainImpl.java:56)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.wrapRun(WebAppServletContext.java:3730)
+        at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3696)
+        at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+        at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:120)
+        at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2273)
+        at weblogic.servlet.internal.WebAppServletContext.execute(WebAppServletContext.java:2179)
+        at weblogic.servlet.internal.ServletRequestImpl.run(ServletRequestImpl.java:1490)
+        at weblogic.work.ExecuteThread.execute(ExecuteThread.java:256)
+        at weblogic.work.ExecuteThread.run(ExecuteThread.java:221)
+ SUBSYSTEM = HTTP USERID = <WLS Kernel> SEVERITY = Error THREAD = [ACTIVE] ExecuteThread: '14' for queue: 'weblogic.kernel.Default (self-tuning)' MSGID = BEA-101017 MACHINE = SaiKanna-PC TXID =  CONTEXTID = 2e88ae6781d171fa:173dcfe4:1537d0f1a02:-8000-0000000000003003 TIMESTAMP = 1458437352038
+WatchAlarmType: AutomaticReset
+WatchAlarmResetPeriod: 30000
+>
+<Mar 20, 2016 6:59:13 AM IST> <Emergency> <oracle.dfw.incident> <BEA-000000> <incident 6 created with problem key "DFW-99998 [java.lang.NoSuchMethodError][oracle.security.jps.ee.http.JpsAbsFilter$1.run][jenkinsEAR_21_02_16]">
+******************** START DUMP GlobalOperationsPOJO **********************
+<xml-fragment xmlns:con="http://www.bea.com/wli/domain/config"><con:monitoring>true</con:monitoring><con:reporting>true</con:reporting><con:logging>true</con:logging><con:sla-alerting>true</con:sla-alerting><con:pipeline-alerting>true</con:pipeline-alerting><con:result-caching>true</con:result-cachi
+ng></xml-fragment>
+******************** END DUMP GlobalOperationsPOJO **********************
+******************** START DUMP GlobalOperationsPOJO **********************
+<xml-fragment xmlns:con="http://www.bea.com/wli/domain/config"><con:monitoring>true</con:monitoring><con:reporting>true</con:reporting><con:logging>true</con:logging><con:sla-alerting>true</con:sla-alerting><con:pipeline-alerting>true</con:pipeline-alerting><con:result-caching>true</con:result-cachi
+ng></xml-fragment>
+******************** END DUMP GlobalOperationsPOJO **********************

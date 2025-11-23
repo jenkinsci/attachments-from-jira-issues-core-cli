@@ -1,0 +1,49 @@
+From 75427fdb7a99fbc80c87d07497e91c7ae7a635c4 Mon Sep 17 00:00:00 2001
+From: rich <rich.midwinter@gmail.com>
+Date: Sat, 4 Dec 2010 22:36:22 +0000
+Subject: [PATCH] HUDSON-8209 Update hudson.Util.VARIABLE to support variable names with a '.' in them
+
+---
+ core/src/main/java/hudson/Util.java     |    2 +-
+ core/src/test/java/hudson/UtilTest.java |    5 +++++
+ 2 files changed, 6 insertions(+), 1 deletions(-)
+
+diff --git a/core/src/main/java/hudson/Util.java b/core/src/main/java/hudson/Util.java
+index dbd8b91..55f7469 100644
+--- a/core/src/main/java/hudson/Util.java
++++ b/core/src/main/java/hudson/Util.java
+@@ -135,7 +135,7 @@ public class Util {
+     /**
+      * Pattern for capturing variables. Either $xyz or ${xyz}, while ignoring "$$"
+       */
+-    private static final Pattern VARIABLE = Pattern.compile("\\$([A-Za-z0-9_]+|\\{[A-Za-z0-9_]+\\}|\\$)");
++    private static final Pattern VARIABLE = Pattern.compile("\\$([A-Za-z0-9_\\.]+|\\{[A-Za-z0-9_\\.]+\\}|\\$)");
+ 
+     /**
+      * Replaces the occurrence of '$key' by <tt>properties.get('key')</tt>.
+diff --git a/core/src/test/java/hudson/UtilTest.java b/core/src/test/java/hudson/UtilTest.java
+index a3fc4d9..f687dd5 100644
+--- a/core/src/test/java/hudson/UtilTest.java
++++ b/core/src/test/java/hudson/UtilTest.java
+@@ -42,6 +42,7 @@ public class UtilTest extends TestCase {
+         Map<String,String> m = new HashMap<String,String>();
+         m.put("A","a");
+         m.put("AA","aa");
++        m.put("A.B", "ab");
+         m.put("B","B");
+         m.put("DOLLAR", "$");
+         m.put("ENCLOSED", "a${A}");
+@@ -59,6 +60,10 @@ public class UtilTest extends TestCase {
+         assertEquals("asd$${AA}dd", Util.replaceMacro("asd$$$${AA}dd",m));
+         assertEquals("$", Util.replaceMacro("$$",m));
+         assertEquals("$$", Util.replaceMacro("$$$$",m));
++        
++        // test that . is a valid variable character
++        assertEquals("a.b", Util.replaceMacro("a.b", m));
++        assertEquals("ab", Util.replaceMacro("${A.B}", m));
+ 
+     	// test that more complex scenarios work
+         assertEquals("/a/B/aa", Util.replaceMacro("/$A/$B/$AA",m));
+-- 
+1.7.3.1
+

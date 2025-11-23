@@ -1,0 +1,33 @@
+Index: src/hudson/scm/CVSSCM.java
+===================================================================
+RCS file: /cvs/hudson/hudson/src/hudson/scm/CVSSCM.java,v
+retrieving revision 1.25
+diff -u -r1.25 CVSSCM.java
+--- src/hudson/scm/CVSSCM.java	23 May 2006 20:57:39 -0000	1.25
++++ src/hudson/scm/CVSSCM.java	23 Jul 2006 08:55:02 -0000
+@@ -25,6 +25,7 @@
+ import java.io.FileReader;
+ import java.io.IOException;
+ import java.io.InputStreamReader;
++import java.io.Reader;
+ import java.io.StringWriter;
+ import java.text.MessageFormat;
+ import java.util.ArrayList;
+@@ -270,9 +271,14 @@
+      */
+     private boolean checkContents(File file, String contents) {
+         try {
+-            String s = new BufferedReader(new FileReader(file)).readLine();
+-            if(s==null)     return false;
+-            return s.trim().equals(contents.trim());
++            Reader r = new FileReader(file);
++            try {
++                String s = new BufferedReader(r).readLine();
++                if(s==null)     return false;
++                return s.trim().equals(contents.trim());
++            } finally {
++                r.close();
++            }
+         } catch (IOException e) {
+             return false;
+         }

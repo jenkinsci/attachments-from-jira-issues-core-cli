@@ -1,0 +1,177 @@
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-casc-init.sh
+/docker-entrypoint.d/10-casc-init.sh: Jenkins seems unitialized, will attempt to tell Jenkins to use CASC config
+/docker-entrypoint.sh: /tmp/jenkins/environment is not empty, will attempt to apply it's contents
+/docker-entrypoint.sh: Configuration complete; ready for start up
+Running from: /usr/share/jenkins/jenkins.war
+webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2021-08-27 11:36:32.220+0000 [id=1]	INFO	org.eclipse.jetty.util.log.Log#initialized: Logging initialized @800ms to org.eclipse.jetty.util.log.JavaUtilLog
+2021-08-27 11:36:32.373+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+2021-08-27 11:36:33.492+0000 [id=1]	WARNING	o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2021-08-27 11:36:33.594+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-9.4.42.v20210604; built: 2021-06-04T17:33:38.939Z; git: 5cd5e6d2375eeab146813b0de9f19eda6ab6e6cb; jvm 11.0.12+7
+2021-08-27 11:36:33.958+0000 [id=1]	INFO	o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2021-08-27 11:36:34.021+0000 [id=1]	INFO	o.e.j.s.s.DefaultSessionIdManager#doStart: DefaultSessionIdManager workerName=node0
+2021-08-27 11:36:34.021+0000 [id=1]	INFO	o.e.j.s.s.DefaultSessionIdManager#doStart: No SessionScavenger set, using defaults
+2021-08-27 11:36:34.024+0000 [id=1]	INFO	o.e.j.server.session.HouseKeeper#startScavenging: node0 Scavenging every 600000ms
+2021-08-27 11:36:34.757+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2021-08-27 11:36:35.064+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started w.@3a01773b{Jenkins v2.303.1,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+2021-08-27 11:36:35.138+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started ServerConnector@3f0846c6{HTTP/1.1, (http/1.1)}{0.0.0.0:80}
+2021-08-27 11:36:35.140+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started @3723ms
+2021-08-27 11:36:35.164+0000 [id=23]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2021-08-27 11:36:35.517+0000 [id=30]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+2021-08-27 11:36:35.846+0000 [id=28]	INFO	hudson.PluginManager#considerDetachedPlugin: Loading a detached plugin as a dependency: /var/jenkins_home/plugins/jaxb.jpi
+2021-08-27 11:36:38.458+0000 [id=31]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$2 (file:/var/jenkins_home/war/WEB-INF/lib/guice-4.0.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$2
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2021-08-27 11:36:46.396+0000 [id=31]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2021-08-27 11:36:46.407+0000 [id=31]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2021-08-27 11:36:48.660+0000 [id=28]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2021-08-27 11:36:48.738+0000 [id=30]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+2021-08-27 11:36:49.205+0000 [id=30]	SEVERE	jenkins.InitReactorRunner$1#onTaskFailed: Failed ConfigurationAsCode.init
+java.lang.IllegalArgumentException: Unable to infer permission from the given Id: View/Configure
+	at io.jenkins.plugins.folderauth.misc.PermissionWrapper.checkPermission(PermissionWrapper.java:100)
+	at io.jenkins.plugins.folderauth.misc.PermissionWrapper.<init>(PermissionWrapper.java:49)
+Caused: java.lang.reflect.InvocationTargetException
+	at jdk.internal.reflect.GeneratedConstructorAccessor27.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:173)
+Caused: io.jenkins.plugins.casc.ConfiguratorException: permissionWrapper: Failed to construct instance of class io.jenkins.plugins.folderauth.misc.PermissionWrapper.
+ Constructor: public io.jenkins.plugins.folderauth.misc.PermissionWrapper(java.lang.String).
+ Arguments: [java.lang.String].
+ Expected Parameters: id java.lang.String
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:191)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.instance(DataBoundConfigurator.java:76)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:267)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.configure(DataBoundConfigurator.java:82)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:151)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.instance(DataBoundConfigurator.java:76)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:267)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.configure(DataBoundConfigurator.java:82)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:151)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.instance(DataBoundConfigurator.java:76)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:267)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.configure(DataBoundConfigurator.java:82)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$doConfigure$16668e2$1(HeteroDescribableConfigurator.java:277)
+	at io.vavr.CheckedFunction0.lambda$unchecked$52349c75$1(CheckedFunction0.java:247)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.doConfigure(HeteroDescribableConfigurator.java:277)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$configure$2(HeteroDescribableConfigurator.java:86)
+	at io.vavr.control.Option.map(Option.java:392)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$configure$3(HeteroDescribableConfigurator.java:86)
+	at io.vavr.Tuple2.apply(Tuple2.java:238)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.configure(HeteroDescribableConfigurator.java:83)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.check(HeteroDescribableConfigurator.java:92)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.check(HeteroDescribableConfigurator.java:55)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:351)
+	at io.jenkins.plugins.casc.BaseConfigurator.check(BaseConfigurator.java:287)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.lambda$checkWith$8(ConfigurationAsCode.java:777)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.invokeWith(ConfigurationAsCode.java:713)
+Caused: io.jenkins.plugins.casc.ConfiguratorException: jenkins: error configuring 'jenkins' with class io.jenkins.plugins.casc.core.JenkinsConfigurator configurator
+	at io.jenkins.plugins.casc.ConfigurationAsCode.invokeWith(ConfigurationAsCode.java:719)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.checkWith(ConfigurationAsCode.java:777)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.configureWith(ConfigurationAsCode.java:762)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.configureWith(ConfigurationAsCode.java:638)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.configure(ConfigurationAsCode.java:307)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.init(ConfigurationAsCode.java:299)
+Caused: java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at hudson.init.TaskMethodFinder.invoke(TaskMethodFinder.java:105)
+Caused: java.lang.Error
+	at hudson.init.TaskMethodFinder.invoke(TaskMethodFinder.java:111)
+	at hudson.init.TaskMethodFinder$TaskImpl.run(TaskMethodFinder.java:181)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:296)
+	at jenkins.model.Jenkins$5.runTask(Jenkins.java:1160)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:214)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:117)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+2021-08-27 11:36:49.212+0000 [id=22]	SEVERE	hudson.util.BootFailure#publish: Failed to initialize Jenkins
+java.lang.IllegalArgumentException: Unable to infer permission from the given Id: View/Configure
+	at io.jenkins.plugins.folderauth.misc.PermissionWrapper.checkPermission(PermissionWrapper.java:100)
+	at io.jenkins.plugins.folderauth.misc.PermissionWrapper.<init>(PermissionWrapper.java:49)
+Caused: java.lang.reflect.InvocationTargetException
+	at jdk.internal.reflect.GeneratedConstructorAccessor27.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:173)
+Caused: io.jenkins.plugins.casc.ConfiguratorException: permissionWrapper: Failed to construct instance of class io.jenkins.plugins.folderauth.misc.PermissionWrapper.
+ Constructor: public io.jenkins.plugins.folderauth.misc.PermissionWrapper(java.lang.String).
+ Arguments: [java.lang.String].
+ Expected Parameters: id java.lang.String
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:191)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.instance(DataBoundConfigurator.java:76)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:267)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.configure(DataBoundConfigurator.java:82)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:151)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.instance(DataBoundConfigurator.java:76)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:267)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.configure(DataBoundConfigurator.java:82)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.tryConstructor(DataBoundConfigurator.java:151)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.instance(DataBoundConfigurator.java:76)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:267)
+	at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.configure(DataBoundConfigurator.java:82)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$doConfigure$16668e2$1(HeteroDescribableConfigurator.java:277)
+	at io.vavr.CheckedFunction0.lambda$unchecked$52349c75$1(CheckedFunction0.java:247)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.doConfigure(HeteroDescribableConfigurator.java:277)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$configure$2(HeteroDescribableConfigurator.java:86)
+	at io.vavr.control.Option.map(Option.java:392)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$configure$3(HeteroDescribableConfigurator.java:86)
+	at io.vavr.Tuple2.apply(Tuple2.java:238)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.configure(HeteroDescribableConfigurator.java:83)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.check(HeteroDescribableConfigurator.java:92)
+	at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.check(HeteroDescribableConfigurator.java:55)
+	at io.jenkins.plugins.casc.BaseConfigurator.configure(BaseConfigurator.java:351)
+	at io.jenkins.plugins.casc.BaseConfigurator.check(BaseConfigurator.java:287)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.lambda$checkWith$8(ConfigurationAsCode.java:777)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.invokeWith(ConfigurationAsCode.java:713)
+Caused: io.jenkins.plugins.casc.ConfiguratorException: jenkins: error configuring 'jenkins' with class io.jenkins.plugins.casc.core.JenkinsConfigurator configurator
+	at io.jenkins.plugins.casc.ConfigurationAsCode.invokeWith(ConfigurationAsCode.java:719)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.checkWith(ConfigurationAsCode.java:777)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.configureWith(ConfigurationAsCode.java:762)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.configureWith(ConfigurationAsCode.java:638)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.configure(ConfigurationAsCode.java:307)
+	at io.jenkins.plugins.casc.ConfigurationAsCode.init(ConfigurationAsCode.java:299)
+Caused: java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at hudson.init.TaskMethodFinder.invoke(TaskMethodFinder.java:105)
+Caused: java.lang.Error
+	at hudson.init.TaskMethodFinder.invoke(TaskMethodFinder.java:111)
+	at hudson.init.TaskMethodFinder$TaskImpl.run(TaskMethodFinder.java:181)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:296)
+	at jenkins.model.Jenkins$5.runTask(Jenkins.java:1160)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:214)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:117)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused: org.jvnet.hudson.reactor.ReactorException
+	at org.jvnet.hudson.reactor.Reactor.execute(Reactor.java:282)
+	at jenkins.InitReactorRunner.run(InitReactorRunner.java:50)
+	at jenkins.model.Jenkins.executeReactor(Jenkins.java:1193)
+	at jenkins.model.Jenkins.<init>(Jenkins.java:991)
+	at hudson.model.Hudson.<init>(Hudson.java:86)
+	at hudson.model.Hudson.<init>(Hudson.java:82)
+	at hudson.WebAppMain$3.run(WebAppMain.java:298)
+Caused: hudson.util.HudsonFailedToLoad
+	at hudson.WebAppMain$3.run(WebAppMain.java:315)
+2021-08-27 11:36:49.230+0000 [id=22]	INFO	jenkins.model.Jenkins#cleanUp: Stopping Jenkins
+2021-08-27 11:36:49.262+0000 [id=22]	INFO	jenkins.model.Jenkins$16#onAttained: Started termination
+2021-08-27 11:36:49.287+0000 [id=22]	INFO	jenkins.model.Jenkins$16#onAttained: Completed termination
+2021-08-27 11:36:49.288+0000 [id=22]	INFO	jenkins.model.Jenkins#_cleanUpDisconnectComputers: Starting node disconnection
+2021-08-27 11:36:49.300+0000 [id=22]	INFO	jenkins.model.Jenkins#_cleanUpShutdownPluginManager: Stopping plugin manager
+2021-08-27 11:36:49.312+0000 [id=22]	INFO	jenkins.model.Jenkins#_cleanUpPersistQueue: Persisting build queue
+2021-08-27 11:36:49.323+0000 [id=22]	INFO	jenkins.model.Jenkins#_cleanUpAwaitDisconnects: Waiting for node disconnection completion
+2021-08-27 11:36:49.328+0000 [id=22]	INFO	jenkins.model.Jenkins#cleanUp: Jenkins stopped

@@ -1,0 +1,62 @@
+node('scala-docker') {
+  stage('Checkout') {
+    checkout scm
+  }
+
+  stage('Build schema') {
+    sh 'sbt -no-colors "project schema" validate'
+  }
+
+  stage('Publish schema') {
+    sh 'sbt -no-colors schema/publish'
+  }
+}
+
+node('scala-docker') {
+  stage('Checkout') {
+    checkout scm
+  }
+
+  stage('Build and test') {
+    sh 'sbt -no-colors "project root" validate manifest'
+  }
+
+  stage('Archive Kubernetes deployment') {
+    archiveArtifacts "processor/target/deployment.yaml"
+    publishHTML(target: [reportName: "Kubernetes deployment", reportDir: "processor/target", reportFiles: "deployment.yaml"])
+    sh "cp processor/target/deployment.yaml deployment.yaml"
+    sh "tar cfvz deployment.tgz deployment.yaml"
+    archiveArtifacts "deployment.tgz"
+  }
+
+  def imageName = sh(returnStdout: true, script: 'sbt -no-colors root/docker:packageName 2>&1 | tail -1 | sed -e "s|^\\[info\\] ||"')
+  def imageTag = sh(returnStdout: true, script: 'sbt -no-colors root/docker:version 2>&1 | tail -1 | sed -e "s|^\\[info\\] ||"')
+  def dockerImage = "${imageName.trim()}:${imageTag.trim()}"
+
+  currentBuild.description = "${dockerImage}"
+
+  stage('Publish') {
+    sh 'sbt -no-colors root/docker:publish'
+  }
+
+  stage('Vulnerability scan') {
+    build job: '/Docker/Clair scan', parameters: [
+      [$class: 'StringParameterValue', name: 'DOCKER_IMAGE', value: "${dockerImage}"],
+      [$class: 'StringParameterValue', name: 'MINIMUM_SEVERITY', value: "Negligible"],
+      [$class: 'StringParameterValue', name: 'MINIMUM_FAILURE', value: "High"]
+    ]
+  }
+
+  if (env.BRANCH_NAME == "master") {
+    stage('Submit deployment') {
+      build job: '/Kubernetes/Submit deployment', parameters: [
+        [$class: 'StringParameterValue', name: 'MANIFEST_JOB', value: "${env.JOB_NAME}"],
+        [$class: 'StringParameterValue', name: 'MANIFEST_JOB_BUILD', value: "${env.BUILD_NUMBER}"],
+        [$class: 'StringParameterValue', name: 'MANIFEST_NAME', value: "deployment"],
+        [$class: 'StringParameterValue', name: 'NAMESPACE', value: "ata"]
+      ]
+    }
+  }
+
+}
+

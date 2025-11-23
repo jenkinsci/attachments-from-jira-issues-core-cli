@@ -1,0 +1,33 @@
+LogRotator.java	2015-03-23 07:42:18.000000000 +0100
+LogRotator.java	2015-03-25 16:02:22.568835200 +0100
+@@ -120,14 +120,22 @@ public class LogRotator extends BuildDis
+             // and we would need to load the rest anyway, to delete them.
+             // (Using RunMap.headMap would not suffice, since we do not know if some recent builds have been deleted for other reasons,
+             // so simply subtracting numToKeep from the currently last build number might cause us to delete too many.)
+-            List<? extends Run<?,?>> builds = job.getBuilds();
+-            for (Run r : copy(builds.subList(Math.min(builds.size(), numToKeep), builds.size()))) {
+-                if (shouldKeepRun(r, lsb, lstb)) {
+-                    continue;
+-                }
+-                LOGGER.log(FINE, "{0} is to be removed", r);
+-                r.delete();
+-            }
++			
++			try
++			{
++				List<? extends Run<?,?>> builds = job.getBuilds();
++				for (Run r : copy(builds.subList(Math.min(builds.size(), numToKeep), builds.size()))) {
++					if (shouldKeepRun(r, lsb, lstb)) {
++						continue;
++					}
++					LOGGER.log(FINE, "{0} is to be removed", r);
++					r.delete();
++				}
++			}
++			catch(Exception e)
++			{
++				LOGGER.log(FINE, "subList creating failed", e);
++			}
+         }
+ 
+         if(daysToKeep!=-1) {

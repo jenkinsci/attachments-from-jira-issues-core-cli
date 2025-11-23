@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterValue plugin="nodelabelparameter@1.7.2">
+          <name>LabelRunJob</name>
+          <description></description>
+          <label>LabelRunJob</label>
+        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterValue>
+      </parameters>
+      <parameterDefinitionNames class="hudson.model.ParametersDefinitionProperty$1">
+        <outer-class>
+          <parameterDefinitions>
+            <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.7.2">
+              <name>LabelRunJob</name>
+              <description></description>
+              <defaultValue>LabelRunJob</defaultValue>
+              <allNodesMatchingLabel>false</allNodesMatchingLabel>
+              <triggerIfResult>allCases</triggerIfResult>
+              <nodeEligibility class="org.jvnet.jenkins.plugins.nodelabelparameter.node.AllNodeEligibility"/>
+            </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+          </parameterDefinitions>
+        </outer-class>
+      </parameterDefinitionNames>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>scm</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <hudson.plugins.jobConfigHistory.JobConfigBadgeAction plugin="jobConfigHistory@2.16">
+      <configDates>
+        <string>2017-09-21_14-51-38</string>
+        <string>2017-09-20_09-35-29</string>
+      </configDates>
+    </hudson.plugins.jobConfigHistory.JobConfigBadgeAction>
+    <jenkins.metrics.impl.TimeInQueueAction plugin="metrics@3.1.2.9">
+      <queuingDurationMillis>8</queuingDurationMillis>
+    </jenkins.metrics.impl.TimeInQueueAction>
+    <org.jenkinsci.plugins.envinject.EnvInjectPluginAction plugin="envinject@1.93.1">
+      <build class="build" reference="../../.."/>
+    </org.jenkinsci.plugins.envinject.EnvInjectPluginAction>
+    <org.jvnet.jenkins.plugins.nodelabelparameter.LabelBadgeAction plugin="nodelabelparameter@1.7.2">
+      <label>LabelRunJob</label>
+      <tooltip>Run with label [LabelRunJob] (node: Server1)</tooltip>
+    </org.jvnet.jenkins.plugins.nodelabelparameter.LabelBadgeAction>
+    <com.sonyericsson.jenkins.plugins.bfa.model.FailureCauseBuildAction plugin="build-failure-analyzer@1.17.2">
+      <foundFailureCauses class="java.util.Collections$SynchronizedList" serialization="custom">
+        <java.util.Collections_-SynchronizedCollection>
+          <default>
+            <c class="linked-list"/>
+            <mutex class="java.util.Collections$SynchronizedList" reference="../../.."/>
+          </default>
+        </java.util.Collections_-SynchronizedCollection>
+        <java.util.Collections_-SynchronizedList>
+          <default>
+            <list class="linked-list" reference="../../../java.util.Collections_-SynchronizedCollection/default/c"/>
+          </default>
+        </java.util.Collections_-SynchronizedList>
+      </foundFailureCauses>
+      <build class="build" reference="../../.."/>
+    </com.sonyericsson.jenkins.plugins.bfa.model.FailureCauseBuildAction>
+    <com.sonyericsson.rebuild.RebuildAction plugin="rebuild@1.25"/>
+  </actions>
+  <queueId>9182</queueId>
+  <timestamp>1505994702114</timestamp>
+  <startTime>1505994702128</startTime>
+  <result>FAILURE</result>
+  <duration>32267</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn>Server1</builtOn>
+  <workspace>/u01/jenkins_slave/workspace/Job1</workspace>
+  <hudsonVersion>2.60.1</hudsonVersion>
+  <scm class="hudson.scm.NullChangeLogParser"/>
+</build>

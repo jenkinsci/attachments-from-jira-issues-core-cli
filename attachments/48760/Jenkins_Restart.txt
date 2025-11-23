@@ -1,0 +1,433 @@
+Sep 16, 2019 4:48:24 PM winstone.Logger logInternal
+INFO: Shutdown request received via the controlPort. Commencing Jetty shutdown
+Sep 16, 2019 4:48:24 PM org.eclipse.jetty.server.AbstractConnector doStop
+INFO: Stopped ServerConnector@3b35a229{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+Sep 16, 2019 4:48:24 PM org.eclipse.jetty.server.session.HouseKeeper stopScavenging
+INFO: node0 Stopped scavenging
+Sep 16, 2019 4:48:25 PM org.eclipse.jetty.servlet.FilterHolder doStop
+WARNING:
+java.lang.NullPointerException
+        at net.bull.javamelody.internal.web.html.HtmlAbstractReport.getCsrfTokenUrlPart(HtmlAbstractReport.java:198)
+        at net.bull.javamelody.internal.web.html.HtmlCoreReport.writeSystemActionsLinks(HtmlCoreReport.java:700)
+        at net.bull.javamelody.internal.web.html.HtmlCoreReport.toHtml(HtmlCoreReport.java:128)
+        at net.bull.javamelody.internal.web.html.HtmlReport.writeLastShutdown(HtmlReport.java:108)
+        at net.bull.javamelody.internal.web.HtmlController.writeHtmlToLastShutdownFile(HtmlController.java:369)
+        at net.bull.javamelody.internal.web.MonitoringController.writeHtmlToLastShutdownFile(MonitoringController.java:294)
+        at net.bull.javamelody.FilterContext.destroy(FilterContext.java:443)
+        at net.bull.javamelody.MonitoringFilter.destroy(MonitoringFilter.java:176)
+        at net.bull.javamelody.PluginMonitoringFilter.destroy(PluginMonitoringFilter.java:74)
+        at hudson.util.PluginServletFilter.destroy(PluginServletFilter.java:162)
+        at org.eclipse.jetty.servlet.FilterHolder.destroyInstance(FilterHolder.java:175)
+        at org.eclipse.jetty.servlet.FilterHolder.doStop(FilterHolder.java:152)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at org.eclipse.jetty.servlet.ServletHandler.doStop(ServletHandler.java:246)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:149)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:170)
+        at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:124)
+        at org.eclipse.jetty.security.SecurityHandler.doStop(SecurityHandler.java:381)
+        at org.eclipse.jetty.security.ConstraintSecurityHandler.doStop(ConstraintSecurityHandler.java:457)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:149)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:170)
+        at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:124)
+        at org.eclipse.jetty.server.session.SessionHandler.doStop(SessionHandler.java:584)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:149)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:170)
+        at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:124)
+        at org.eclipse.jetty.server.handler.ContextHandler.stopContext(ContextHandler.java:932)
+        at org.eclipse.jetty.servlet.ServletContextHandler.stopContext(ServletContextHandler.java:376)
+        at org.eclipse.jetty.webapp.WebAppContext.stopWebapp(WebAppContext.java:1503)
+        at org.eclipse.jetty.webapp.WebAppContext.stopContext(WebAppContext.java:1467)
+        at org.eclipse.jetty.server.handler.ContextHandler.doStop(ContextHandler.java:1009)
+        at org.eclipse.jetty.servlet.ServletContextHandler.doStop(ServletContextHandler.java:288)
+        at org.eclipse.jetty.webapp.WebAppContext.doStop(WebAppContext.java:569)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:149)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:170)
+        at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:124)
+        at org.eclipse.jetty.server.Server.doStop(Server.java:461)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at winstone.Launcher.shutdown(Launcher.java:310)
+        at winstone.Launcher.handleControlRequest(Launcher.java:286)
+        at winstone.Launcher.run(Launcher.java:245)
+        at java.lang.Thread.run(Thread.java:748)
+
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins cleanUp
+INFO: Stopping Jenkins
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins$18 onAttained
+INFO: Started termination
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins$18 onAttained
+INFO: Completed termination
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins _cleanUpDisconnectComputers
+INFO: Starting node disconnection
+Sep 16, 2019 4:48:25 PM jenkins.slaves.DefaultJnlpSlaveReceiver channelClosed
+INFO: LauncherControlThread[ControlPort=8001] for windowsserver terminated: java.nio.channels.ClosedChannelException
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins _cleanUpShutdownPluginManager
+INFO: Stopping plugin manager
+Sep 16, 2019 4:48:25 PM net.bull.javamelody.internal.common.JavaLogger warn
+WARNING: exception while collecting data: java.lang.IllegalStateException: Timer already cancelled.
+java.lang.IllegalStateException: Timer already cancelled.
+        at java.util.Timer.sched(Timer.java:397)
+        at java.util.Timer.schedule(Timer.java:248)
+        at net.bull.javamelody.internal.model.RrdNioBackend.<init>(RrdNioBackend.java:71)
+        at net.bull.javamelody.internal.model.RrdNioBackendFactory.open(RrdNioBackendFactory.java:84)
+        at org.jrobin.core.RrdDb.<init>(RrdDb.java:229)
+        at org.jrobin.core.RrdDb.<init>(RrdDb.java:203)
+        at org.jrobin.core.RrdDb.<init>(RrdDb.java:266)
+        at org.jrobin.core.RrdDbPool.requestRrdDb(RrdDbPool.java:103)
+        at net.bull.javamelody.internal.model.JRobin.addValue(JRobin.java:371)
+        at net.bull.javamelody.internal.model.Collector.addJRobinValue(Collector.java:638)
+        at net.bull.javamelody.internal.model.Collector.collectJRobinValues(Collector.java:560)
+        at net.bull.javamelody.internal.model.Collector.collectJavaInformations(Collector.java:422)
+        at net.bull.javamelody.internal.model.Collector.collect(Collector.java:350)
+        at net.bull.javamelody.internal.model.Collector.collectWithoutErrors(Collector.java:329)
+        at net.bull.javamelody.NodesCollector.collectWithoutErrorsNow(NodesCollector.java:173)
+        at net.bull.javamelody.NodesCollector.collectWithoutErrors(NodesCollector.java:147)
+        at net.bull.javamelody.NodesCollector$1.run(NodesCollector.java:91)
+        at java.util.TimerThread.mainLoop(Timer.java:555)
+        at java.util.TimerThread.run(Timer.java:505)
+
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server8:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server11:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server4:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to pap-mtl-slv-devops:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server-qa1:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server3:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection toserver:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server2:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server5:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server6:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server7:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server:22 closed.
+Sep 16, 2019 4:48:25 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to server2:22 closed.
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins _cleanUpPersistQueue
+INFO: Persisting build queue
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins _cleanUpAwaitDisconnects
+INFO: Waiting for node disconnection completion
+Sep 16, 2019 4:48:25 PM hudson.util.PluginServletFilter cleanUp
+WARNING: Filter org.jvnet.hudson.plugins.monitoring.HudsonMonitoringFilter@45c241a2 propagated an exception from its destroy method
+java.lang.NullPointerException
+        at net.bull.javamelody.MonitoringFilter.destroy(MonitoringFilter.java:179)
+        at net.bull.javamelody.PluginMonitoringFilter.destroy(PluginMonitoringFilter.java:74)
+        at hudson.util.PluginServletFilter.cleanUp(PluginServletFilter.java:181)
+        at jenkins.model.Jenkins._cleanUpPluginServletFilters(Jenkins.java:3668)
+        at jenkins.model.Jenkins.cleanUp(Jenkins.java:3323)
+        at hudson.WebAppMain.contextDestroyed(WebAppMain.java:379)
+        at org.eclipse.jetty.server.handler.ContextHandler.callContextDestroyed(ContextHandler.java:965)
+        at org.eclipse.jetty.servlet.ServletContextHandler.callContextDestroyed(ServletContextHandler.java:566)
+        at org.eclipse.jetty.server.handler.ContextHandler.stopContext(ContextHandler.java:942)
+        at org.eclipse.jetty.servlet.ServletContextHandler.stopContext(ServletContextHandler.java:376)
+        at org.eclipse.jetty.webapp.WebAppContext.stopWebapp(WebAppContext.java:1503)
+        at org.eclipse.jetty.webapp.WebAppContext.stopContext(WebAppContext.java:1467)
+        at org.eclipse.jetty.server.handler.ContextHandler.doStop(ContextHandler.java:1009)
+        at org.eclipse.jetty.servlet.ServletContextHandler.doStop(ServletContextHandler.java:288)
+        at org.eclipse.jetty.webapp.WebAppContext.doStop(WebAppContext.java:569)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:149)
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:170)
+        at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:124)
+        at org.eclipse.jetty.server.Server.doStop(Server.java:461)
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+        at winstone.Launcher.shutdown(Launcher.java:310)
+        at winstone.Launcher.handleControlRequest(Launcher.java:286)
+        at winstone.Launcher.run(Launcher.java:245)
+        at java.lang.Thread.run(Thread.java:748)
+
+Sep 16, 2019 4:48:25 PM jenkins.model.Jenkins cleanUp
+INFO: Jenkins stopped
+Sep 16, 2019 4:48:25 PM org.eclipse.jetty.server.handler.ContextHandler doStop
+INFO: Stopped w.@51891008{Jenkins v2.176.3,/,null,UNAVAILABLE}{/opt/jenkins/war}
+Sep 16, 2019 4:48:25 PM winstone.Logger logInternal
+INFO: Jetty shutdown successfully
+Sep 16, 2019 4:48:25 PM winstone.Logger logInternal
+INFO: Control thread shutdown successfully
+Sep 16, 2019 4:48:34 PM winstone.Logger logInternal
+INFO: JVM is terminating. Shutting down Jetty
+Please use CMSClassUnloadingEnabled in place of CMSPermGenSweepingEnabled in the future
+OpenJDK 64-Bit Server VM warning: ignoring option PermSize=256M; support was removed in 8.0
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=1024M; support was removed in 8.0
+OpenJDK 64-Bit Server VM warning: Using incremental CMS is deprecated and will likely be removed in a future release
+OpenJDK 64-Bit Server VM warning: Using MaxGCMinorPauseMillis as minor pause goal is deprecatedand will likely be removed in future release
+Running from: /opt/jenkins/tools_adopt/jenkins.war
+webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+Sep 16, 2019 4:48:36 PM org.eclipse.jetty.util.log.Log initialized
+INFO: Logging initialized @366ms to org.eclipse.jetty.util.log.JavaUtilLog
+Sep 16, 2019 4:48:36 PM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Sep 16, 2019 4:48:36 PM org.eclipse.jetty.server.handler.ContextHandler setContextPath
+WARNING: Empty contextPath
+Sep 16, 2019 4:48:36 PM org.eclipse.jetty.server.Server doStart
+INFO: jetty-9.4.z-SNAPSHOT; built: 2019-02-15T16:53:49.381Z; git: eb70b240169fcf1abbd86af36482d1c49826fa0b; jvm 1.8.0_191-b12
+Sep 16, 2019 4:48:36 PM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet
+INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+Sep 16, 2019 4:48:36 PM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart
+INFO: DefaultSessionIdManager workerName=node0
+Sep 16, 2019 4:48:36 PM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart
+INFO: No SessionScavenger set, using defaults
+Sep 16, 2019 4:48:36 PM org.eclipse.jetty.server.session.HouseKeeper startScavenging
+INFO: node0 Scavenging every 660000ms
+Jenkins home directory: /opt/jenkins found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+Sep 16, 2019 4:48:37 PM org.eclipse.jetty.server.handler.ContextHandler doStart
+INFO: Started w.@51891008{Jenkins v2.176.3,/,file:///opt/jenkins/war/,AVAILABLE}{/opt/jenkins/war}
+Sep 16, 2019 4:48:37 PM org.eclipse.jetty.server.AbstractConnector doStart
+INFO: Started ServerConnector@3b35a229{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+Sep 16, 2019 4:48:37 PM org.eclipse.jetty.server.Server doStart
+INFO: Started @1369ms
+Sep 16, 2019 4:48:37 PM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v4.0 running: controlPort=8001
+Sep 16, 2019 4:48:39 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Sep 16, 2019 4:48:39 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+java.io.IOException: No such file or directory
+        at java.io.UnixFileSystem.createFileExclusively(Native Method)
+        at java.io.File.createNewFile(File.java:1012)
+        at com.ikokoon.toolkit.LoggingConfigurator.checkLogFolder(LoggingConfigurator.java:60)
+        at com.ikokoon.toolkit.LoggingConfigurator.configure(LoggingConfigurator.java:35)
+        at com.ikokoon.toolkit.LoggingConfigurator.<clinit>(LoggingConfigurator.java:26)
+        at com.ikokoon.serenity.hudson.SerenityPlugin.<clinit>(SerenityPlugin.java:39)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at java.lang.Class.newInstance(Class.java:442)
+        at hudson.ClassicPluginStrategy.load(ClassicPluginStrategy.java:369)
+        at hudson.PluginManager$2$1$1.run(PluginManager.java:545)
+        at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:169)
+        at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:296)
+        at jenkins.model.Jenkins$5.runTask(Jenkins.java:1095)
+        at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:214)
+        at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:117)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+Log file : /./serenity/serenity.log
+Log4j stream : java.util.zip.ZipFile$ZipFileInflaterInputStream@67754111
+Sep 16, 2019 4:49:01 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+Sep 16, 2019 4:49:03 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+INFO: Failed to instantiate optional component org.biouno.unochoice.model.ScriptlerScript$DescriptorImpl; skipping
+Sep 16, 2019 4:49:05 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Sep 16, 2019 4:49:05 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Sep 16, 2019 4:49:05 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Sep 16, 2019 4:49:05 PM org.jenkinsci.remoting.util.AnonymousClassWarnings warn
+WARNING: Attempt to (de-)serialize anonymous class org.jenkinsci.plugins.configfiles.GlobalConfigFiles$1 in file:/opt/jenkins/plugins/config-file-provider/WEB-INF/lib/config-file-provider.jar; see: https://jenkins.io/redirect/serialization-of-anonymous-classes/
+Sep 16, 2019 4:49:05 PM jenkins.model.Jenkins setBuildsAndWorkspacesDir
+INFO: Using non default workspaces directories: ${JENKINS_HOME}/workspace/${ITEM_FULLNAME}.
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect ansilbe
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server-qa1
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server11
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server2
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server3
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server4
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server5
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server6
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server7
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server8
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server.ca.kronos.com
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect pap-mtl-slv-devops
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnectserver
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server
+Sep 16, 2019 4:49:06 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server2
+Sep 16, 2019 4:49:06 PM org.jenkinsci.plugins.ssegateway.EventHistoryStore setHistoryRoot
+WARNING: Invalid attempt to change historyRoot after it has already been set. Ignoring.
+Sep 16, 2019 4:49:06 PM org.jenkinsci.plugins.ssegateway.EventHistoryStore enableAutoDeleteOnExpire
+WARNING: AutoExpireTimer was already enable.
+Sep 16, 2019 4:49:06 PM org.jenkinsci.plugins.ssegateway.SubscriptionConfigQueue start
+INFO: SSE Configure Queue already started. Ignoring unexpected request to start again.
+Sep 16, 2019 4:49:09 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+[09/16/19 16:49:09] SSH Launch of server on server failed in 2,940 ms
+Sep 16, 2019 4:49:09 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Started Download metadata
+Sep 16, 2019 4:49:09 PM hudson.util.Retrier start
+INFO: Attempt #1 to do the action check updates server
+Sep 16, 2019 4:49:09 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@1c12b741: display name [Root WebApplicationContext]; startup date [Mon Sep 16 16:49:09 EDT 2019]; root of context hierarchy
+Sep 16, 2019 4:49:09 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@1c12b741]: org.springframework.beans.factory.support.DefaultListableBeanFactory@68e9bf17
+Sep 16, 2019 4:49:09 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@68e9bf17: defining beans [authenticationManager,activeDirectory]; root of factory hierarchy
+Sep 16, 2019 4:49:09 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@21b250cc: display name [Root WebApplicationContext]; startup date [Mon Sep 16 16:49:09 EDT 2019]; root of context hierarchy
+Sep 16, 2019 4:49:09 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@21b250cc]: org.springframework.beans.factory.support.DefaultListableBeanFactory@6b20ce8c
+Sep 16, 2019 4:49:09 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@6b20ce8c: defining beans [filter,legacy]; root of factory hierarchy
+Sep 16, 2019 4:49:10 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization
+Sep 16, 2019 4:49:10 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect server
+Sep 16, 2019 4:49:12 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:12 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:13 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:13 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:15 PM hudson.WebAppMain$3 run
+INFO: Jenkins is fully up and running
+Sep 16, 2019 4:49:16 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:16 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:16 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:16 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:18 PM hudson.TcpSlaveAgentListener$ConnectionHandler run
+INFO: Connection #1 failed: java.io.EOFException
+Sep 16, 2019 4:49:18 PM hudson.TcpSlaveAgentListener$ConnectionHandler run
+INFO: Accepted JNLP4-connect connection #2 from /10.36.88.18:64059
+[09/16/19 16:49:18] SSH Launch of server8 on server8 completed in 12,420 ms
+[09/16/19 16:49:18] SSH Launch of server.ca.kronos.com on server completed in 12,606 ms
+[09/16/19 16:49:18] SSH Launch of server3 on server3 completed in 12,604 ms
+[09/16/19 16:49:18] SSH Launch ofserver onserver completed in 12,626 ms
+[09/16/19 16:49:19] SSH Launch of server11 on server11 completed in 13,067 ms
+[09/16/19 16:49:19] SSH Launch of server5 on server5 completed in 13,068 ms
+[09/16/19 16:49:19] SSH Launch of pap-mtl-slv-devops on pap-mtl-slv-devops completed in 13,042 ms
+[09/16/19 16:49:19] SSH Launch of server2 on server2 completed in 13,020 ms
+[09/16/19 16:49:19] SSH Launch of server-qa1 on server-qa1 completed in 13,055 ms
+[09/16/19 16:49:19] SSH Launch of ansilbe on server completed in 13,639 ms
+[09/16/19 16:49:19] SSH Launch of server2 on server2 completed in 13,714 ms
+[09/16/19 16:49:19] SSH Launch of server6 on server6 completed in 13,768 ms
+[09/16/19 16:49:19] SSH Launch of server4 on server4 completed in 13,875 ms
+[09/16/19 16:49:20] SSH Launch of server7 on server7 completed in 14,480 ms
+[09/16/19 16:49:20] SSH Launch of server on server completed in 10,650 ms
+Sep 16, 2019 4:49:21 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:21 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:21 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:21 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+[09/16/19 16:49:21] SSH Launch of server on server completed in 15,028 ms
+Sep 16, 2019 4:49:23 PM hudson.model.UpdateSite updateData
+INFO: Obtained the latest update center data file for UpdateSource default
+Sep 16, 2019 4:49:23 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+Sep 16, 2019 4:49:23 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.tasks.Ant.AntInstaller
+Sep 16, 2019 4:49:23 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.plugins.gradle.GradleInstaller
+Sep 16, 2019 4:49:24 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.plugins.nodejs.tools.NodeJSInstaller
+Sep 16, 2019 4:49:24 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.plugins.sonar.MsBuildSonarQubeRunnerInstaller
+Sep 16, 2019 4:49:24 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.plugins.sonar.SonarRunnerInstaller
+Sep 16, 2019 4:49:24 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for hudson.tools.JDKInstaller
+Sep 16, 2019 4:49:24 PM hudson.model.DownloadService$Downloadable load
+INFO: Obtained the updated data file for org.jenkins-ci.plugins.chromedriver.ChromeDriver
+Sep 16, 2019 4:49:24 PM hudson.util.Retrier start
+INFO: Performed the action check updates server successfully at the attempt #1
+Sep 16, 2019 4:49:24 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Finished Download metadata. 15,830 ms
+Sep 16, 2019 4:49:26 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:26 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:26 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:26 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:31 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:31 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:31 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:31 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:36 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:36 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:36 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:36 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:41 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:41 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:41 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:41 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:46 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:46 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:46 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:46 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:51 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:51 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:51 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:51 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:56 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:56 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxBuildQueue by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:56 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: Found invalid crumb ae4432997e1f53306a207c3c4b7bced6.  Will check remaining parameters for a valid one...
+Sep 16, 2019 4:49:56 PM hudson.security.csrf.CrumbFilter doFilter
+WARNING: No valid crumb was included in request for /ajaxExecutors by jenkinsuser. Returning 403.
+Sep 16, 2019 4:49:59 PM org.jenkinsci.plugins.pipeline.maven.GlobalPipelineMavenConfig getDao
+INFO: Connect to database jdbc:h2:file:/opt/jenkins/jenkins-jobs/jenkins-jobs;AUTO_SERVER=TRUE;MULTI_THREADED=1;QUERY_CACHE_SIZE=25;JMX=TRUE with username sa and properties {}
+Sep 16, 2019 4:49:59 PM com.zaxxer.hikari.HikariDataSource <init>
+INFO: HikariPool-1 - Starting...
+Sep 16, 2019 4:50:00 PM com.zaxxer.hikari.HikariDataSource <init>
+INFO: HikariPool-1 - Start completed.
+Sep 16, 2019 4:50:00 PM org.kohsuke.stapler.LocaleDrivenResourceProvider getLocaleDrivenResourceProviders
+INFO: Registered LocaleDrivenResourceProvider: jenkins.MetaLocaleDrivenResourceProvider@7ec18768

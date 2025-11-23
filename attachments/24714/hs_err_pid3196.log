@@ -1,0 +1,237 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x7c82a5c4, pid=3196, tid=2324
+#
+# JRE version: 6.0_23-b05
+# Java VM: Java HotSpot(TM) Client VM (19.0-b09 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# C  [ntdll.dll+0x2a5c4]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0082d000):  JavaThread "Finalizer" daemon [_thread_in_native, id=2324, stack(0x009b0000,0x00a00000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x00000000
+
+Registers:
+EAX=0x003e5c88, EBX=0x003e0000, ECX=0x00000000, EDX=0x00000000
+ESP=0x009ff54c, EBP=0x009ff558, ESI=0x003e5c80, EDI=0x003e5878
+EIP=0x7c82a5c4, EFLAGS=0x00010246
+
+Register to memory mapping:
+
+EAX=0x003e5c88
+0x003e5c88 is pointing to unknown location
+
+EBX=0x003e0000
+0x003e0000 is pointing to unknown location
+
+ECX=0x00000000
+0x00000000 is pointing to unknown location
+
+EDX=0x00000000
+0x00000000 is pointing to unknown location
+
+ESP=0x009ff54c
+0x009ff54c is pointing into the stack for thread: 0x0082d000
+"Finalizer" daemon prio=8 tid=0x0082d000 nid=0x914 runnable [0x009ff000]
+   java.lang.Thread.State: RUNNABLE
+
+EBP=0x009ff558
+0x009ff558 is pointing into the stack for thread: 0x0082d000
+"Finalizer" daemon prio=8 tid=0x0082d000 nid=0x914 runnable [0x009ff000]
+   java.lang.Thread.State: RUNNABLE
+
+ESI=0x003e5c80
+0x003e5c80 is pointing to unknown location
+
+EDI=0x003e5878
+0x003e5878 is pointing to unknown location
+
+
+Top of Stack: (sp=0x009ff54c)
+0x009ff54c:   003e0000 003e5878 00000000 009ff640
+0x009ff55c:   7c82a69b 003e0000 00000000 009ff620
+0x009ff56c:   00000000 0082d000 003e5880 34474290
+0x009ff57c:   0082d7bc 0082d7c8 6d968b1b 0082d780
+0x009ff58c:   0082d000 009ff697 6da0f804 00000000
+0x009ff59c:   00000000 00000050 0000001c 00000000
+0x009ff5ac:   00000000 00000000 00000000 00000000
+0x009ff5bc:   0308c150 00000000 00000100 00000000 
+
+Instructions: (pc=0x7c82a5c4)
+0x7c82a5b4:   85 02 0f 00 00 8b 4e 0c 8d 46 08 8b 10 89 4d 0c
+0x7c82a5c4:   8b 09 3b 4a 04 89 55 14 0f 85 f5 72 01 00 3b c8 
+
+
+Stack: [0x009b0000,0x00a00000],  sp=0x009ff54c,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [ntdll.dll+0x2a5c4]
+C  [ntdll.dll+0x2a69b]
+C  [MSVCRT.dll+0x1cef6]
+C  [jna6035230315975511757.dll+0x3591]
+j  com.sun.jna.Native.free(J)V+0
+j  com.sun.jna.Memory.free(J)V+1
+j  com.sun.jna.Memory.dispose()V+4
+j  com.sun.jna.Memory.finalize()V+1
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf33c9]
+V  [jvm.dll+0x188a91]
+V  [jvm.dll+0xf344d]
+V  [jvm.dll+0xfd07f]
+V  [jvm.dll+0xffd74]
+C  [java.dll+0x2100]
+J  java.lang.ref.Finalizer.runFinalizer()V
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf33c9]
+V  [jvm.dll+0x188a91]
+V  [jvm.dll+0xf3587]
+V  [jvm.dll+0xf35eb]
+V  [jvm.dll+0x11e780]
+V  [jvm.dll+0x1ea6c4]
+V  [jvm.dll+0x18843c]
+C  [MSVCR71.dll+0x9565]
+C  [kernel32.dll+0x2481f]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.jna.Native.free(J)V+0
+j  com.sun.jna.Memory.free(J)V+1
+j  com.sun.jna.Memory.dispose()V+4
+j  com.sun.jna.Memory.finalize()V+1
+v  ~StubRoutines::call_stub
+J  java.lang.ref.Finalizer.invokeFinalizeMethod(Ljava/lang/Object;)V
+J  java.lang.ref.Finalizer.runFinalizer()V
+J  java.lang.ref.Finalizer.access$100(Ljava/lang/ref/Finalizer;)V
+j  java.lang.ref.Finalizer$FinalizerThread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0306ac00 JavaThread "ViewJob reload thread" daemon [_thread_blocked, id=3440, stack(0x042b0000,0x04300000)]
+  0x03e7f400 JavaThread "Handling GET / : http-80-1" daemon [_thread_blocked, id=2100, stack(0x04260000,0x042b0000)]
+  0x03208400 JavaThread "Loading job Undeploy Webshare-UM from Dev" daemon [_thread_blocked, id=3524, stack(0x039c0000,0x03a10000)]
+  0x0304cc00 JavaThread "Loading job Build EPICLink" daemon [_thread_blocked, id=3336, stack(0x03970000,0x039c0000)]
+  0x0314d800 JavaThread "Loading job EPICLink Service Domian" daemon [_thread_in_Java, id=2260, stack(0x03920000,0x03970000)]
+  0x03210400 JavaThread "Loading job NSS Sonar Build" daemon [_thread_blocked, id=1072, stack(0x038d0000,0x03920000)]
+  0x03043400 JavaThread "Jenkins cron thread" [_thread_blocked, id=3268, stack(0x03880000,0x038d0000)]
+  0x02f4f800 JavaThread "TP-Monitor" daemon [_thread_blocked, id=3240, stack(0x03830000,0x03880000)]
+  0x0304d400 JavaThread "TP-Processor4" daemon [_thread_in_native, id=3400, stack(0x037e0000,0x03830000)]
+  0x03144800 JavaThread "TP-Processor3" daemon [_thread_blocked, id=2252, stack(0x03790000,0x037e0000)]
+  0x03030c00 JavaThread "TP-Processor2" daemon [_thread_blocked, id=508, stack(0x03740000,0x03790000)]
+  0x02f47c00 JavaThread "TP-Processor1" daemon [_thread_blocked, id=472, stack(0x036f0000,0x03740000)]
+  0x02fca400 JavaThread "http-80-Acceptor-0" daemon [_thread_in_native, id=1076, stack(0x036a0000,0x036f0000)]
+  0x02f50800 JavaThread "ContainerBackgroundProcessor[StandardEngine[Catalina]]" daemon [_thread_blocked, id=1200, stack(0x03650000,0x036a0000)]
+  0x03224800 JavaThread "Jenkins initialization thread" [_thread_blocked, id=2972, stack(0x035f0000,0x03640000)]
+  0x02e16800 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=2268, stack(0x03540000,0x03590000)]
+  0x02efc400 JavaThread "GC Daemon" daemon [_thread_blocked, id=3684, stack(0x00be0000,0x00c30000)]
+  0x008a8800 JavaThread "Thread-2" [_thread_in_native, id=3764, stack(0x00b90000,0x00be0000)]
+  0x0083bc00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=2264, stack(0x00af0000,0x00b40000)]
+  0x0083a000 JavaThread "CompilerThread0" daemon [_thread_blocked, id=3244, stack(0x00aa0000,0x00af0000)]
+  0x00835400 JavaThread "Attach Listener" daemon [_thread_blocked, id=2960, stack(0x00a50000,0x00aa0000)]
+  0x00833c00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=1544, stack(0x00a00000,0x00a50000)]
+=>0x0082d000 JavaThread "Finalizer" daemon [_thread_in_native, id=2324, stack(0x009b0000,0x00a00000)]
+  0x0082b800 JavaThread "Reference Handler" daemon [_thread_blocked, id=2944, stack(0x00960000,0x009b0000)]
+  0x005f6800 JavaThread "main" [_thread_in_native, id=2912, stack(0x00550000,0x005a0000)]
+
+Other Threads:
+  0x0082a400 VMThread [stack: 0x00910000,0x00960000] [id=804]
+  0x0083f400 WatcherThread [stack: 0x00b40000,0x00b90000] [id=2760]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 17984K, used 2411K [0x22970000, 0x23cf0000, 0x27ec0000)
+  eden space 16000K,   4% used [0x22970000, 0x22a35750, 0x23910000)
+  from space 1984K,  81% used [0x23b00000, 0x23c95618, 0x23cf0000)
+  to   space 1984K,   0% used [0x23910000, 0x23910000, 0x23b00000)
+ tenured generation   total 39792K, used 23873K [0x27ec0000, 0x2a59c000, 0x32970000)
+   the space 39792K,  59% used [0x27ec0000, 0x296104e0, 0x29610600, 0x2a59c000)
+ compacting perm gen  total 29696K, used 29588K [0x32970000, 0x34670000, 0x36970000)
+   the space 29696K,  99% used [0x32970000, 0x34655180, 0x34655200, 0x34670000)
+    ro space 10240K,  51% used [0x36970000, 0x36e9bd20, 0x36e9be00, 0x37370000)
+    rw space 12288K,  54% used [0x37370000, 0x37a07d58, 0x37a07e00, 0x37f70000)
+
+Dynamic libraries:
+0x00400000 - 0x0040f000 	D:\tomcat6\bin\tomcat6.exe
+0x7c800000 - 0x7c8c3000 	C:\WINDOWS\system32\ntdll.dll
+0x77e40000 - 0x77f42000 	C:\WINDOWS\system32\kernel32.dll
+0x77380000 - 0x77411000 	C:\WINDOWS\system32\USER32.dll
+0x77c00000 - 0x77c49000 	C:\WINDOWS\system32\GDI32.dll
+0x7d1e0000 - 0x7d27c000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77c50000 - 0x77cf1000 	C:\WINDOWS\system32\RPCRT4.dll
+0x76f50000 - 0x76f63000 	C:\WINDOWS\system32\Secur32.dll
+0x77ba0000 - 0x77bfa000 	C:\WINDOWS\system32\MSVCRT.dll
+0x7c8d0000 - 0x7d0cf000 	C:\WINDOWS\system32\SHELL32.dll
+0x7d180000 - 0x7d1d2000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x76290000 - 0x762ad000 	C:\WINDOWS\system32\IMM32.DLL
+0x77420000 - 0x77523000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.3790.5190_x-ww_319264BE\comctl32.dll
+0x6d7f0000 - 0x6da9c000 	D:\opt\tools\jre6\bin\client\jvm.dll
+0x76aa0000 - 0x76acd000 	C:\WINDOWS\system32\WINMM.dll
+0x7c340000 - 0x7c396000 	C:\WINDOWS\system32\MSVCR71.dll
+0x6d7a0000 - 0x6d7ac000 	D:\opt\tools\jre6\bin\verify.dll
+0x6d320000 - 0x6d33f000 	D:\opt\tools\jre6\bin\java.dll
+0x6d280000 - 0x6d288000 	D:\opt\tools\jre6\bin\hpi.dll
+0x76b70000 - 0x76b7b000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6d7e0000 - 0x6d7ef000 	D:\opt\tools\jre6\bin\zip.dll
+0x6d550000 - 0x6d559000 	D:\opt\tools\jre6\bin\management.dll
+0x6d600000 - 0x6d613000 	D:\opt\tools\jre6\bin\net.dll
+0x71c00000 - 0x71c17000 	C:\WINDOWS\system32\WS2_32.dll
+0x71bf0000 - 0x71bf8000 	C:\WINDOWS\system32\WS2HELP.dll
+0x71b20000 - 0x71b61000 	C:\WINDOWS\system32\mswsock.dll
+0x5f270000 - 0x5f2ca000 	C:\WINDOWS\system32\hnetcfg.dll
+0x71ae0000 - 0x71ae8000 	C:\WINDOWS\System32\wshtcpip.dll
+0x6d780000 - 0x6d788000 	D:\opt\tools\jre6\bin\sunmscapi.dll
+0x761b0000 - 0x76245000 	C:\WINDOWS\system32\CRYPT32.dll
+0x76190000 - 0x761a2000 	C:\WINDOWS\system32\MSASN1.dll
+0x6d000000 - 0x6d14a000 	D:\opt\tools\jre6\bin\awt.dll
+0x73070000 - 0x73097000 	C:\WINDOWS\system32\WINSPOOL.DRV
+0x77670000 - 0x777aa000 	C:\WINDOWS\system32\ole32.dll
+0x77530000 - 0x775c7000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_5.82.3790.5190_x-ww_D21E1F39\COMCTL32.dll
+0x6d230000 - 0x6d27f000 	D:\opt\tools\jre6\bin\fontmanager.dll
+0x68000000 - 0x68035000 	C:\WINDOWS\system32\rsaenh.dll
+0x76920000 - 0x769e2000 	C:\WINDOWS\system32\USERENV.dll
+0x71c40000 - 0x71c97000 	C:\WINDOWS\system32\netapi32.dll
+0x76ed0000 - 0x76efa000 	C:\WINDOWS\system32\DNSAPI.dll
+0x76f70000 - 0x76f77000 	C:\WINDOWS\System32\winrnr.dll
+0x76f10000 - 0x76f3e000 	C:\WINDOWS\system32\WLDAP32.dll
+0x76f80000 - 0x76f85000 	C:\WINDOWS\system32\rasadhlp.dll
+0x6d620000 - 0x6d629000 	D:\opt\tools\jre6\bin\nio.dll
+0x10000000 - 0x10055000 	D:\tomcat6\temp\jna\jna6035230315975511757.dll
+
+VM Arguments:
+jvm_args: -Dcatalina.home=D:\tomcat6 -Dcatalina.base=D:\tomcat6 -Djava.endorsed.dirs=D:\tomcat6\endorsed -Djava.io.tmpdir=D:\tomcat6\temp -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.util.logging.config.file=D:\tomcat6\conf\logging.properties vfprintf 
+java_command: <unknown>
+Launcher Type: generic
+
+Environment Variables:
+JAVA_HOME=D:\opt\tools\jdk1.6.0_23
+PATH=D:\opt\hudson\tools\Maven_2.2.1\bin;D:\Program Files\CollabNet\Subversion Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;D:\opt\tools\git\cmd;d:\Program Files\TortoiseSVN\bin;C:\WINDOWS\system32\WindowsPowerShell\v1.0
+USERNAME=hudson
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 23 Stepping 10, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows Server 2003 family Build 3790 Service Pack 2
+
+CPU:total 2 (1 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 4193500k(3180424k free), swap 12407128k(11589564k free)
+
+vm_info: Java HotSpot(TM) Client VM (19.0-b09) for windows-x86 JRE (1.6.0_23-b05), built on Nov 12 2010 15:00:43 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Wed Nov 20 11:54:26 2013
+elapsed time: 24 seconds
+

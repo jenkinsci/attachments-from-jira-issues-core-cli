@@ -1,0 +1,9 @@
+FROM jenkins/jenkins:alpine-jdk17
+
+USER root
+
+RUN apk add maven openjdk8 openjdk11
+
+USER jenkins
+
+ENTRYPOINT ["/usr/local/bin/jenkins.sh"]

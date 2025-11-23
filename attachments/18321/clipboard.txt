@@ -1,0 +1,73 @@
+Index: C:/Users/Paulina/Projects/hudson/trunk/hudson/main/test/src/test/java/hudson/model/UserTestCase.java
+===================================================================
+--- C:/Users/Paulina/Projects/hudson/trunk/hudson/main/test/src/test/java/hudson/model/UserTestCase.java	(revision 0)
++++ C:/Users/Paulina/Projects/hudson/trunk/hudson/main/test/src/test/java/hudson/model/UserTestCase.java	(revision 0)
+@@ -0,0 +1,60 @@
++package hudson.model;
++
++import org.jvnet.hudson.test.HudsonTestCase;
++
++import com.gargoylesoftware.htmlunit.WebAssert;
++import com.gargoylesoftware.htmlunit.html.HtmlPage;
++
++public class UserTestCase extends HudsonTestCase {
++
++    public static class UserPropertyImpl extends UserProperty {
++
++        private final String testString;
++        private UserPropertyDescriptor descriptorImpl = new UserPropertyDescriptorImpl();
++        
++        public UserPropertyImpl(String testString) {
++            this.testString = testString;
++        }
++        
++        public String getTestString() {
++            return testString;
++        }
++
++        @Override
++        public UserPropertyDescriptor getDescriptor() {
++            return descriptorImpl;
++        }
++        
++        public static class UserPropertyDescriptorImpl extends UserPropertyDescriptor {
++
++            protected UserPropertyDescriptorImpl() {
++                super(UserPropertyImpl.class);
++            }
++
++            @Override
++            public UserProperty newInstance(User user) {
++                return null;
++            }
++
++            @Override
++            public String getDisplayName() {
++                return "Property";
++            }
++        }
++    }
++
++    /**
++     * Asserts that bug# is fixed.
++     */
++    public void testUserPropertySummaryIsShownInUserPage() throws Exception {
++        
++        UserProperty property = new UserPropertyImpl("NeedleInPage");
++        UserProperties.LIST.add(property.getDescriptor());
++        
++        User user = User.get("user-test-case");
++        user.addProperty(property);
++        
++        HtmlPage page = new WebClient().goTo("user/user-test-case");
++        WebAssert.assertTextPresent(page, "NeedleInPage");
++    }
++}
+Index: C:/Users/Paulina/Projects/hudson/trunk/hudson/main/test/src/test/resources/hudson/model/UserTestCase/UserPropertyImpl/summary.jelly
+===================================================================
+--- C:/Users/Paulina/Projects/hudson/trunk/hudson/main/test/src/test/resources/hudson/model/UserTestCase/UserPropertyImpl/summary.jelly	(revision 0)
++++ C:/Users/Paulina/Projects/hudson/trunk/hudson/main/test/src/test/resources/hudson/model/UserTestCase/UserPropertyImpl/summary.jelly	(revision 0)
+@@ -0,0 +1,3 @@
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
++${it.testString}
++</j:jelly>

@@ -1,0 +1,54 @@
+diff --git a/core/src/main/java/hudson/tools/AbstractCommandInstaller.java b/core/src/main/java/hudson/tools/AbstractCommandInstaller.java
+index 07d91c6..e00a776 100644
+--- a/core/src/main/java/hudson/tools/AbstractCommandInstaller.java
++++ b/core/src/main/java/hudson/tools/AbstractCommandInstaller.java
+@@ -28,6 +28,7 @@ import hudson.model.Node;
+ import hudson.model.TaskListener;
+ import hudson.util.FormValidation;
+ import java.io.IOException;
++import javax.annotation.CheckForNull;
+ import org.kohsuke.stapler.QueryParameter;
+ 
+ /**
+@@ -115,5 +116,14 @@ public abstract class AbstractCommandInstaller extends ToolInstaller {
+                 return FormValidation.error(Messages.CommandInstaller_no_command());
+             }
+         }
++
++        /**
++         * Optional syntax highlighting for command.
++         * @@since TODO
++         */
++        public @CheckForNull String getCodeMirrorMode() {
++            return null;
++        }
++
+     }
+ }
+diff --git a/core/src/main/java/hudson/tools/CommandInstaller.java b/core/src/main/java/hudson/tools/CommandInstaller.java
+index b02137f..c8931cc 100644
+--- a/core/src/main/java/hudson/tools/CommandInstaller.java
++++ b/core/src/main/java/hudson/tools/CommandInstaller.java
+@@ -57,5 +57,9 @@ public class CommandInstaller extends AbstractCommandInstaller {
+         public String getDisplayName() {
+             return Messages.CommandInstaller_DescriptorImpl_displayName();
+         }
++
++        @Override public String getCodeMirrorMode() {
++            return "shell";
++        }
+     }
+ }
+diff --git a/core/src/main/resources/hudson/tools/AbstractCommandInstaller/config.jelly b/core/src/main/resources/hudson/tools/AbstractCommandInstaller/config.jelly
+index 3523fbb..c14090f 100644
+--- a/core/src/main/resources/hudson/tools/AbstractCommandInstaller/config.jelly
++++ b/core/src/main/resources/hudson/tools/AbstractCommandInstaller/config.jelly
+@@ -25,7 +25,7 @@ THE SOFTWARE.
+ <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:st="jelly:stapler" xmlns:t="/hudson/tools">
+     <t:label />
+     <f:entry title="${%Command}" field="command">
+-        <f:textarea/>
++        <f:textarea codemirror-mode="${descriptor.codeMirrorMode}"/>
+     </f:entry>
+     <f:entry title="${%Tool Home}" field="toolHome">
+         <f:textbox/>

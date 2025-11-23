@@ -1,0 +1,37 @@
+FATAL: java.lang.NullPointerException
+java.lang.NullPointerException
+Caused: com.google.common.util.concurrent.UncheckedExecutionException
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2234)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3965)
+	at com.google.common.cache.LocalCache$LocalManualCache.get(LocalCache.java:4764)
+	at jenkins.security.UserDetailsCache.loadUserByUsername(UserDetailsCache.java:127)
+	at hudson.model.User$UserIDCanonicalIdResolver.resolveCanonicalId(User.java:1094)
+	at hudson.model.User.get(User.java:405)
+	at hudson.model.User.get(User.java:374)
+	at hudson.plugins.git.GitChangeSet.findOrCreateUser(GitChangeSet.java:379)
+	at hudson.plugins.git.GitChangeSet.getAuthor(GitChangeSet.java:452)
+	at jenkins.scm.RunWithSCM.calculateCulprits(RunWithSCM.java:134)
+	at hudson.model.AbstractBuild.calculateCulprits(AbstractBuild.java:335)
+	at jenkins.scm.RunWithSCM.getCulprits(RunWithSCM.java:93)
+	at jenkins.scm.RunWithSCM.calculateCulprits(RunWithSCM.java:129)
+	at hudson.model.AbstractBuild.calculateCulprits(AbstractBuild.java:335)
+	at jenkins.scm.RunWithSCM.getCulprits(RunWithSCM.java:93)
+	at jenkins.scm.RunWithSCM.calculateCulprits(RunWithSCM.java:129)
+	at hudson.model.AbstractBuild.calculateCulprits(AbstractBuild.java:335)
+	at jenkins.scm.RunWithSCM.getCulprits(RunWithSCM.java:93)
+	at jenkins.scm.RunWithSCM.calculateCulprits(RunWithSCM.java:129)
+	at hudson.model.AbstractBuild.calculateCulprits(AbstractBuild.java:335)
+	at jenkins.scm.RunWithSCM.getCulprits(RunWithSCM.java:93)
+	at jenkins.scm.RunWithSCM.calculateCulprits(RunWithSCM.java:129)
+	at hudson.model.AbstractBuild.calculateCulprits(AbstractBuild.java:335)
+	at jenkins.scm.RunWithSCM.getCulprits(RunWithSCM.java:93)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:625)
+	at hudson.model.Run.execute(Run.java:1760)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:97)
+	at hudson.model.Executor.run(Executor.java:405)
+[BFA] Scanning build for known causes...
+[BFA] No failure causes found
+[BFA] Done. 0s
+Notifying upstream projects of job completion
+Finished: FAILURE

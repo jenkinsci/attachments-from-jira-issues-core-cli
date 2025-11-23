@@ -1,0 +1,23 @@
+diff --git a/remoting/src/main/java/hudson/remoting/Channel.java b/remoting/src/main/java/hudson/remoting/Channel.java
+index 94049f8..d82aaad 100644
+--- a/remoting/src/main/java/hudson/remoting/Channel.java
++++ b/remoting/src/main/java/hudson/remoting/Channel.java
+@@ -458,12 +458,12 @@ public class Channel implements VirtualChannel, IChannel {
+      * which is the historical behaviour.
+      */
+     private ExecutorService createPipeWriter() {
+-        if (remoteCapability.supportsPipeThrottling())
+-            return Executors.newSingleThreadExecutor(new ThreadFactory() {
+-                public Thread newThread(Runnable r) {
+-                    return new Thread(r,"Pipe writer thread: "+name);
+-                }
+-            });
++        //if (remoteCapability.supportsPipeThrottling())
++        //    return Executors.newSingleThreadExecutor(new ThreadFactory() {
++        //        public Thread newThread(Runnable r) {
++        //            return new Thread(r,"Pipe writer thread: "+name);
++        //        }
++        //    });
+         return new SynchronousExecutorService();
+     }
+ 

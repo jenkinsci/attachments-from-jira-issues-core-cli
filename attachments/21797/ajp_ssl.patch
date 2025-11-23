@@ -1,0 +1,27 @@
+commit 89d6a57d0d8f92b77e36590137585b17ce755662
+Author: Simon Poirier <spoirier@rlnx.com>
+Date:   Mon May 7 20:17:32 2012 -0400
+
+    fix
+
+diff --git a/src/java/winstone/ajp13/Ajp13IncomingPacket.java b/src/java/winstone/ajp13/Ajp13IncomingPacket.java
+index 5a4ace4..649b528 100644
+--- a/src/java/winstone/ajp13/Ajp13IncomingPacket.java
++++ b/src/java/winstone/ajp13/Ajp13IncomingPacket.java
+@@ -158,6 +158,16 @@ public class Ajp13IncomingPacket {
+                 attName = readString(di,encoding);
+             }
+ 
++            if (type==0x0B) {
++                int intValue = di.readShort();
++                // this attribute does not seem to be used so we drop it 
++                // silently.
++                //this.attributes.put(attName, attValue);
++                Logger.log(Logger.FULL_DEBUG, Ajp13Listener.AJP_RESOURCES,
++                        "Ajp13IncomingPacket.Attribute", attName,
++                        intValue);
++                continue;
++            }
+             String attValue = readString (di,encoding);
+ 
+             this.attributes.put(attName, attValue);

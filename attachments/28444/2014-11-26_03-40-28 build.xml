@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.CauseAction>
+      <causes>
+        <hudson.model.Cause_-UpstreamCause>
+          <upstreamProject>STX_USM_SBB-ONESTOR_Rx_x</upstreamProject>
+          <upstreamUrl>job/STX_USM_SBB-ONESTOR_Rx_x/</upstreamUrl>
+          <upstreamBuild>663</upstreamBuild>
+          <upstreamCauses>
+            <hudson.triggers.SCMTrigger_-SCMTriggerCause/>
+          </upstreamCauses>
+        </hudson.model.Cause_-UpstreamCause>
+      </causes>
+    </hudson.model.CauseAction>
+    <hudson.model.ParametersAction>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>GIT_REVISION</name>
+          <description>Set to &quot;integration&quot; to build at the tip of the trunk i.e. integration (default)
+&lt;BR&gt;Set to &quot;master&quot; to build the last validated portion of the trunk i.e. master
+&lt;BR&gt;Set to &quot;Tag name&quot; to build a previous revision built as an AUTO build i.e. jenkins-XYR_USM_TBIRD_4_x-115
+&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;&lt;HR&gt;&lt;BR&gt;</description>
+          <value>GEM_3_5_0_x</value>
+        </hudson.model.StringParameterValue>
+      </parameters>
+    </hudson.model.ParametersAction>
+    <org.jenkinsci.plugins.buildtriggerbadge.BuildTriggerBadgeAction plugin="buildtriggerbadge@1.3">
+      <cause class="hudson.model.Cause$UpstreamCause" reference="../../hudson.model.CauseAction/causes/hudson.model.Cause_-UpstreamCause"/>
+    </org.jenkinsci.plugins.buildtriggerbadge.BuildTriggerBadgeAction>
+    <org.jvnet.hudson.plugins.DownstreamBuildViewAction plugin="downstream-buildview@1.9"/>
+    <org.jenkinsci.plugins.envinject.EnvInjectPluginAction plugin="envinject@1.90">
+      <build class="build" reference="../../.."/>
+    </org.jenkinsci.plugins.envinject.EnvInjectPluginAction>
+    <hudson.plugins.git.util.BuildData plugin="git@2.3.4">
+      <buildsByBranchName>
+        <entry>
+          <string>refs/remotes/origin/GEM_3_5_0_x</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@1.15.0">
+              <sha1>6edfbddee9c1dc22825574150e259b4a5d879207</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>refs/remotes/origin/GEM_3_5_0_x</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>1083</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>origin/GEM_3_5_0_x</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@1.15.0">
+              <sha1>81830c1121294e335e856b65144990122ed9e045</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/GEM_3_5_0_x</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision plugin="git-client@1.15.0">
+              <sha1 reference="../../marked/sha1"/>
+              <branches class="list">
+                <hudson.plugins.git.Branch reference="../../../marked/branches/hudson.plugins.git.Branch"/>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>893</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <scmName></scmName>
+      <remoteUrls>
+        <string>git@hvtswgit.xy01.xyratex.com:XPF</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@2.3.4">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>refs/remotes/origin/GEM_3_5_0_x</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>C:\Jenkins\jobs\Win32_Build_GEM_3_5_0_x\workspace</ws>
+    </hudson.plugins.git.GitTagAction>
+    <hudson.scm.SCMRevisionState_-None/>
+    <hudson.tasks.junit.TestResultAction plugin="junit@1.3">
+      <descriptions class="concurrent-hash-map"/>
+      <failCount>0</failCount>
+      <skipCount>0</skipCount>
+      <totalCount>240</totalCount>
+      <testData/>
+    </hudson.tasks.junit.TestResultAction>
+    <com.sonyericsson.rebuild.RebuildAction plugin="rebuild@1.22"/>
+    <hudson.plugins.changelog__history.ChangeLogHistoryAction plugin="changelog-history@1.3">
+      <build class="build" reference="../../.."/>
+    </hudson.plugins.changelog__history.ChangeLogHistoryAction>
+  </actions>
+  <timestamp>0</timestamp>
+  <startTime>1416973228029</startTime>
+  <result>SUCCESS</result>
+  <duration>580300</duration>
+  <charset>windows-1252</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>C:\Jenkins\jobs\Win32_Build_GEM_3_5_0_x\workspace</workspace>
+  <hudsonVersion>1.590</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser" plugin="git@2.3.4">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits class="com.google.common.collect.SingletonImmutableSet">
+    <string>adrians</string>
+  </culprits>
+</build>

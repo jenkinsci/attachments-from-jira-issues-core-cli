@@ -1,0 +1,2299 @@
+--- /tmp/Queue-compile.javap	2014-07-30 15:33:21.215124392 -0700
++++ /tmp/Queue-package.javap	2014-07-30 15:34:48.743696059 -0700
+@@ -1,11 +1,9 @@
+ Classfile /space/src/jenkinsci/jenkins/core/target/classes/hudson/model/Queue.class
+-  Last modified Jul 30, 2014; size 29876 bytes
+-  MD5 checksum b2c0e2fee716e495adf238e15ed5d40c
++  Last modified Jul 30, 2014; size 29979 bytes
++  MD5 checksum f62f3f51883c5ea6d321c570b6340197
+   Compiled from "Queue.java"
+ public class hudson.model.Queue extends hudson.model.ResourceController implements hudson.model.Saveable
+   SourceFile: "Queue.java"
+-  RuntimeVisibleAnnotations:
+-    0: #622()
+   InnerClasses:
+        public static final #300= #159 of #283; //LeftItem=class hudson/model/Queue$LeftItem of class hudson/model/Queue
+        public static final #301= #67 of #283; //BuildableItem=class hudson/model/Queue$BuildableItem of class hudson/model/Queue
+@@ -32,6 +30,10 @@
+        public static final #1031= #1030 of #733; //Existing=class hudson/model/queue/ScheduleResult$Existing of class hudson/model/queue/ScheduleResult
+        public static abstract #1045= #1044 of #785; //HttpResponseException=class org/kohsuke/stapler/HttpResponses$HttpResponseException of class org/kohsuke/stapler/HttpResponses
+        public static #1113= #1112 of #257; //Hash=class hudson/util/ConsistentHash$Hash of class hudson/util/ConsistentHash
++  RuntimeVisibleAnnotations:
++    0: #622()
++  RuntimeInvisibleAnnotations:
++    0: #1144()
+   minor version: 0
+   major version: 50
+   flags: ACC_PUBLIC, ACC_SUPER
+@@ -1178,6 +1180,7 @@
+   #1141 = Utf8               hudson/model/queue/ScheduleResult$Existing
+   #1142 = Utf8               org/kohsuke/stapler/HttpResponses$HttpResponseException
+   #1143 = Utf8               hudson/util/ConsistentHash$Hash
++  #1144 = Utf8               Lcom/infradna/tool/bridge_method_injector/BridgeMethodsAdded;
+ {
+   public static final com.thoughtworks.xstream.XStream XSTREAM;
+     flags: ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+@@ -1192,42 +1195,42 @@
+          5: new           #7                  // class java/util/TreeSet
+          8: dup           
+          9: invokespecial #8                  // Method java/util/TreeSet."<init>":()V
+-        12: putfield      #5                  // Field waitingList:Ljava/util/Set;
++        12: putfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         15: aload_0       
+         16: new           #9                  // class hudson/model/Queue$ItemList
+         19: dup           
+         20: aload_0       
+         21: aconst_null   
+         22: invokespecial #10                 // Method hudson/model/Queue$ItemList."<init>":(Lhudson/model/Queue;Lhudson/model/Queue$1;)V
+-        25: putfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        25: putfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         28: aload_0       
+         29: new           #9                  // class hudson/model/Queue$ItemList
+         32: dup           
+         33: aload_0       
+         34: aconst_null   
+         35: invokespecial #10                 // Method hudson/model/Queue$ItemList."<init>":(Lhudson/model/Queue;Lhudson/model/Queue$1;)V
+-        38: putfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        38: putfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         41: aload_0       
+         42: new           #9                  // class hudson/model/Queue$ItemList
+         45: dup           
+         46: aload_0       
+         47: aconst_null   
+         48: invokespecial #10                 // Method hudson/model/Queue$ItemList."<init>":(Lhudson/model/Queue;Lhudson/model/Queue$1;)V
+-        51: putfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        51: putfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         54: aload_0       
+         55: invokestatic  #12                 // Method com/google/common/cache/CacheBuilder.newBuilder:()Lcom/google/common/cache/CacheBuilder;
+         58: ldc2_w        #13                 // long 300l
+         61: getstatic     #15                 // Field java/util/concurrent/TimeUnit.SECONDS:Ljava/util/concurrent/TimeUnit;
+         64: invokevirtual #16                 // Method com/google/common/cache/CacheBuilder.expireAfterWrite:(JLjava/util/concurrent/TimeUnit;)Lcom/google/common/cache/CacheBuilder;
+         67: invokevirtual #17                 // Method com/google/common/cache/CacheBuilder.build:()Lcom/google/common/cache/Cache;
+-        70: putfield      #1                  // Field leftItems:Lcom/google/common/cache/Cache;
++        70: putfield      #1                  // Field hudson/model/Queue.leftItems:Lcom/google/common/cache/Cache;
+         73: aload_0       
+         74: new           #18                 // class hudson/model/Queue$CachedItemList
+         77: dup           
+         78: aload_0       
+         79: aconst_null   
+         80: invokespecial #19                 // Method hudson/model/Queue$CachedItemList."<init>":(Lhudson/model/Queue;Lhudson/model/Queue$1;)V
+-        83: putfield      #20                 // Field itemsView:Lhudson/model/Queue$CachedItemList;
++        83: putfield      #20                 // Field hudson/model/Queue.itemsView:Lhudson/model/Queue$CachedItemList;
+         86: aload_0       
+         87: new           #21                 // class jenkins/util/AtmostOneTaskExecutor
+         90: dup           
+@@ -1236,17 +1239,21 @@
+         95: aload_0       
+         96: invokespecial #23                 // Method hudson/model/Queue$1."<init>":(Lhudson/model/Queue;)V
+         99: invokespecial #24                 // Method jenkins/util/AtmostOneTaskExecutor."<init>":(Ljava/util/concurrent/Callable;)V
+-       102: putfield      #25                 // Field maintainerThread:Ljenkins/util/AtmostOneTaskExecutor;
++       102: putfield      #25                 // Field hudson/model/Queue.maintainerThread:Ljenkins/util/AtmostOneTaskExecutor;
+        105: aload_0       
+        106: aload_1       
+        107: invokevirtual #26                 // Method hudson/model/LoadBalancer.sanitize:()Lhudson/model/LoadBalancer;
+-       110: putfield      #27                 // Field loadBalancer:Lhudson/model/LoadBalancer;
++       110: putfield      #27                 // Field hudson/model/Queue.loadBalancer:Lhudson/model/LoadBalancer;
+        113: new           #28                 // class hudson/model/Queue$MaintainTask
+        116: dup           
+        117: aload_0       
+        118: invokespecial #29                 // Method hudson/model/Queue$MaintainTask."<init>":(Lhudson/model/Queue;)V
+        121: invokestatic  #30                 // Method hudson/model/Queue$MaintainTask.access$200:(Lhudson/model/Queue$MaintainTask;)V
+        124: return        
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++               0     125     0  this   Lhudson/model/Queue;
++               0     125     1 loadBalancer   Lhudson/model/LoadBalancer;
+       LineNumberTable:
+         line 313: 0
+         line 161: 4
+@@ -1259,23 +1266,19 @@
+         line 314: 105
+         line 317: 113
+         line 318: 124
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-               0     125     0  this   Lhudson/model/Queue;
+-               0     125     1 loadBalancer   Lhudson/model/LoadBalancer;
+ 
+   public hudson.model.LoadBalancer getLoadBalancer();
+     flags: ACC_PUBLIC
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #27                 // Field loadBalancer:Lhudson/model/LoadBalancer;
++         1: getfield      #27                 // Field hudson/model/Queue.loadBalancer:Lhudson/model/LoadBalancer;
+          4: areturn       
+-      LineNumberTable:
+-        line 321: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       5     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 321: 0
+ 
+   public void setLoadBalancer(hudson.model.LoadBalancer);
+     flags: ACC_PUBLIC
+@@ -1290,16 +1293,16 @@
+         12: aload_0       
+         13: aload_1       
+         14: invokevirtual #26                 // Method hudson/model/LoadBalancer.sanitize:()Lhudson/model/LoadBalancer;
+-        17: putfield      #27                 // Field loadBalancer:Lhudson/model/LoadBalancer;
++        17: putfield      #27                 // Field hudson/model/Queue.loadBalancer:Lhudson/model/LoadBalancer;
+         20: return        
+-      LineNumberTable:
+-        line 325: 0
+-        line 326: 12
+-        line 327: 20
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      21     0  this   Lhudson/model/Queue;
+                0      21     1 loadBalancer   Lhudson/model/LoadBalancer;
++      LineNumberTable:
++        line 325: 0
++        line 326: 12
++        line 327: 20
+       StackMapTable: number_of_entries = 1
+            frame_type = 12 /* same */
+ 
+@@ -1309,13 +1312,13 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #33                 // Field sorter:Lhudson/model/queue/QueueSorter;
++         1: getfield      #33                 // Field hudson/model/Queue.sorter:Lhudson/model/queue/QueueSorter;
+          4: areturn       
+-      LineNumberTable:
+-        line 330: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       5     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 330: 0
+ 
+   public void setSorter(hudson.model.queue.QueueSorter);
+     flags: ACC_PUBLIC
+@@ -1323,26 +1326,26 @@
+       stack=2, locals=2, args_size=2
+          0: aload_0       
+          1: aload_1       
+-         2: putfield      #33                 // Field sorter:Lhudson/model/queue/QueueSorter;
++         2: putfield      #33                 // Field hudson/model/Queue.sorter:Lhudson/model/queue/QueueSorter;
+          5: return        
+-      LineNumberTable:
+-        line 334: 0
+-        line 335: 5
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       6     0  this   Lhudson/model/Queue;
+                0       6     1 sorter   Lhudson/model/queue/QueueSorter;
++      LineNumberTable:
++        line 334: 0
++        line 335: 5
+ 
+   public synchronized void load();
+     flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+     Code:
+       stack=7, locals=7, args_size=1
+          0: aload_0       
+-         1: invokespecial #34                 // Method getQueueFile:()Ljava/io/File;
++         1: invokespecial #34                 // Method hudson/model/Queue.getQueueFile:()Ljava/io/File;
+          4: astore_1      
+          5: aload_1       
+          6: invokevirtual #35                 // Method java/io/File.exists:()Z
+-         9: ifeq          97
++         9: ifeq          96
+         12: new           #36                 // class java/io/BufferedReader
+         15: dup           
+         16: new           #37                 // class java/io/InputStreamReader
+@@ -1358,225 +1361,225 @@
+         36: invokevirtual #42                 // Method java/io/BufferedReader.readLine:()Ljava/lang/String;
+         39: dup           
+         40: astore_3      
+-        41: ifnull        73
++        41: ifnull        72
+         44: invokestatic  #43                 // Method jenkins/model/Jenkins.getInstance:()Ljenkins/model/Jenkins;
+         47: aload_3       
+-        48: ldc_w         #44                 // class hudson/model/AbstractProject
+-        51: invokevirtual #45                 // Method jenkins/model/Jenkins.getItemByFullName:(Ljava/lang/String;Ljava/lang/Class;)Lhudson/model/Item;
+-        54: checkcast     #44                 // class hudson/model/AbstractProject
+-        57: astore        4
+-        59: aload         4
+-        61: ifnull        70
+-        64: aload         4
+-        66: invokevirtual #46                 // Method hudson/model/AbstractProject.scheduleBuild:()Z
+-        69: pop           
+-        70: goto          35
+-        73: aload_2       
+-        74: invokevirtual #47                 // Method java/io/BufferedReader.close:()V
+-        77: goto          89
+-        80: astore        5
+-        82: aload_2       
+-        83: invokevirtual #47                 // Method java/io/BufferedReader.close:()V
+-        86: aload         5
+-        88: athrow        
+-        89: aload_1       
+-        90: invokevirtual #48                 // Method java/io/File.delete:()Z
+-        93: pop           
+-        94: goto          352
+-        97: aload_0       
+-        98: invokevirtual #49                 // Method getXMLQueueFile:()Ljava/io/File;
+-       101: astore_1      
+-       102: aload_1       
+-       103: invokevirtual #35                 // Method java/io/File.exists:()Z
+-       106: ifeq          352
+-       109: new           #50                 // class hudson/XmlFile
+-       112: dup           
+-       113: getstatic     #51                 // Field XSTREAM:Lcom/thoughtworks/xstream/XStream;
+-       116: aload_1       
+-       117: invokespecial #52                 // Method hudson/XmlFile."<init>":(Lcom/thoughtworks/xstream/XStream;Ljava/io/File;)V
+-       120: invokevirtual #53                 // Method hudson/XmlFile.read:()Ljava/lang/Object;
+-       123: checkcast     #54                 // class java/util/List
+-       126: astore_2      
+-       127: iconst_0      
+-       128: istore_3      
+-       129: aload_2       
+-       130: invokeinterface #55,  1           // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+-       135: astore        4
+-       137: aload         4
+-       139: invokeinterface #56,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
+-       144: ifeq          296
+-       147: aload         4
+-       149: invokeinterface #57,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+-       154: astore        5
+-       156: aload         5
+-       158: instanceof    #58                 // class hudson/model/Queue$Task
+-       161: ifeq          178
+-       164: aload_0       
+-       165: aload         5
+-       167: checkcast     #58                 // class hudson/model/Queue$Task
+-       170: iconst_0      
+-       171: invokevirtual #59                 // Method schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
+-       174: pop           
+-       175: goto          293
+-       178: aload         5
+-       180: instanceof    #60                 // class hudson/model/Queue$Item
+-       183: ifeq          293
+-       186: aload         5
+-       188: checkcast     #60                 // class hudson/model/Queue$Item
+-       191: astore        6
+-       193: aload         6
+-       195: getfield      #61                 // Field hudson/model/Queue$Item.task:Lhudson/model/Queue$Task;
+-       198: ifnonnull     204
+-       201: goto          137
+-       204: iload_3       
+-       205: aload         6
+-       207: getfield      #62                 // Field hudson/model/Queue$Item.id:I
+-       210: invokestatic  #63                 // Method java/lang/Math.max:(II)I
+-       213: istore_3      
+-       214: aload         6
+-       216: instanceof    #64                 // class hudson/model/Queue$WaitingItem
+-       219: ifeq          231
+-       222: aload         6
+-       224: aload_0       
+-       225: invokevirtual #65                 // Method hudson/model/Queue$Item.enter:(Lhudson/model/Queue;)V
+-       228: goto          293
+-       231: aload         6
+-       233: instanceof    #66                 // class hudson/model/Queue$BlockedItem
+-       236: ifeq          248
+-       239: aload         6
+-       241: aload_0       
+-       242: invokevirtual #65                 // Method hudson/model/Queue$Item.enter:(Lhudson/model/Queue;)V
+-       245: goto          293
+-       248: aload         6
+-       250: instanceof    #67                 // class hudson/model/Queue$BuildableItem
+-       253: ifeq          265
+-       256: aload         6
+-       258: aload_0       
+-       259: invokevirtual #65                 // Method hudson/model/Queue$Item.enter:(Lhudson/model/Queue;)V
+-       262: goto          293
+-       265: new           #68                 // class java/lang/IllegalStateException
+-       268: dup           
+-       269: new           #69                 // class java/lang/StringBuilder
+-       272: dup           
+-       273: invokespecial #70                 // Method java/lang/StringBuilder."<init>":()V
+-       276: ldc           #71                 // String Unknown item type! 
+-       278: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-       281: aload         6
+-       283: invokevirtual #73                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+-       286: invokevirtual #74                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+-       289: invokespecial #75                 // Method java/lang/IllegalStateException."<init>":(Ljava/lang/String;)V
+-       292: athrow        
+-       293: goto          137
+-       296: invokestatic  #76                 // Method hudson/model/Queue$WaitingItem.access$300:()Ljava/util/concurrent/atomic/AtomicInteger;
+-       299: iload_3       
+-       300: invokevirtual #77                 // Method java/util/concurrent/atomic/AtomicInteger.set:(I)V
+-       303: new           #78                 // class java/io/File
+-       306: dup           
+-       307: new           #69                 // class java/lang/StringBuilder
+-       310: dup           
+-       311: invokespecial #70                 // Method java/lang/StringBuilder."<init>":()V
+-       314: aload_1       
+-       315: invokevirtual #79                 // Method java/io/File.getPath:()Ljava/lang/String;
+-       318: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-       321: ldc           #80                 // String .bak
+-       323: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-       326: invokevirtual #74                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+-       329: invokespecial #81                 // Method java/io/File."<init>":(Ljava/lang/String;)V
+-       332: astore        4
+-       334: aload         4
+-       336: invokevirtual #48                 // Method java/io/File.delete:()Z
+-       339: pop           
+-       340: aload_1       
+-       341: aload         4
+-       343: invokevirtual #82                 // Method java/io/File.renameTo:(Ljava/io/File;)Z
+-       346: pop           
+-       347: aload_1       
+-       348: invokevirtual #48                 // Method java/io/File.delete:()Z
+-       351: pop           
+-       352: goto          388
+-       355: astore_1      
+-       356: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
+-       359: getstatic     #84                 // Field java/util/logging/Level.WARNING:Ljava/util/logging/Level;
+-       362: new           #69                 // class java/lang/StringBuilder
+-       365: dup           
+-       366: invokespecial #70                 // Method java/lang/StringBuilder."<init>":()V
+-       369: ldc           #85                 // String Failed to load the queue file 
+-       371: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-       374: aload_0       
+-       375: invokevirtual #49                 // Method getXMLQueueFile:()Ljava/io/File;
+-       378: invokevirtual #73                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+-       381: invokevirtual #74                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+-       384: aload_1       
+-       385: invokevirtual #86                 // Method java/util/logging/Logger.log:(Ljava/util/logging/Level;Ljava/lang/String;Ljava/lang/Throwable;)V
+-       388: return        
++        48: ldc           #44                 // class hudson/model/AbstractProject
++        50: invokevirtual #45                 // Method jenkins/model/Jenkins.getItemByFullName:(Ljava/lang/String;Ljava/lang/Class;)Lhudson/model/Item;
++        53: checkcast     #44                 // class hudson/model/AbstractProject
++        56: astore        4
++        58: aload         4
++        60: ifnull        69
++        63: aload         4
++        65: invokevirtual #46                 // Method hudson/model/AbstractProject.scheduleBuild:()Z
++        68: pop           
++        69: goto          35
++        72: aload_2       
++        73: invokevirtual #47                 // Method java/io/BufferedReader.close:()V
++        76: goto          88
++        79: astore        5
++        81: aload_2       
++        82: invokevirtual #47                 // Method java/io/BufferedReader.close:()V
++        85: aload         5
++        87: athrow        
++        88: aload_1       
++        89: invokevirtual #48                 // Method java/io/File.delete:()Z
++        92: pop           
++        93: goto          351
++        96: aload_0       
++        97: invokevirtual #49                 // Method hudson/model/Queue.getXMLQueueFile:()Ljava/io/File;
++       100: astore_1      
++       101: aload_1       
++       102: invokevirtual #35                 // Method java/io/File.exists:()Z
++       105: ifeq          351
++       108: new           #50                 // class hudson/XmlFile
++       111: dup           
++       112: getstatic     #51                 // Field hudson/model/Queue.XSTREAM:Lcom/thoughtworks/xstream/XStream;
++       115: aload_1       
++       116: invokespecial #52                 // Method hudson/XmlFile."<init>":(Lcom/thoughtworks/xstream/XStream;Ljava/io/File;)V
++       119: invokevirtual #53                 // Method hudson/XmlFile.read:()Ljava/lang/Object;
++       122: checkcast     #54                 // class java/util/List
++       125: astore_2      
++       126: iconst_0      
++       127: istore_3      
++       128: aload_2       
++       129: invokeinterface #55,  1           // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
++       134: astore        4
++       136: aload         4
++       138: invokeinterface #56,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
++       143: ifeq          295
++       146: aload         4
++       148: invokeinterface #57,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
++       153: astore        5
++       155: aload         5
++       157: instanceof    #58                 // class hudson/model/Queue$Task
++       160: ifeq          177
++       163: aload_0       
++       164: aload         5
++       166: checkcast     #58                 // class hudson/model/Queue$Task
++       169: iconst_0      
++       170: invokevirtual #59                 // Method hudson/model/Queue.schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
++       173: pop           
++       174: goto          292
++       177: aload         5
++       179: instanceof    #60                 // class hudson/model/Queue$Item
++       182: ifeq          292
++       185: aload         5
++       187: checkcast     #60                 // class hudson/model/Queue$Item
++       190: astore        6
++       192: aload         6
++       194: getfield      #61                 // Field hudson/model/Queue$Item.task:Lhudson/model/Queue$Task;
++       197: ifnonnull     203
++       200: goto          136
++       203: iload_3       
++       204: aload         6
++       206: getfield      #62                 // Field hudson/model/Queue$Item.id:I
++       209: invokestatic  #63                 // Method java/lang/Math.max:(II)I
++       212: istore_3      
++       213: aload         6
++       215: instanceof    #64                 // class hudson/model/Queue$WaitingItem
++       218: ifeq          230
++       221: aload         6
++       223: aload_0       
++       224: invokevirtual #65                 // Method hudson/model/Queue$Item.enter:(Lhudson/model/Queue;)V
++       227: goto          292
++       230: aload         6
++       232: instanceof    #66                 // class hudson/model/Queue$BlockedItem
++       235: ifeq          247
++       238: aload         6
++       240: aload_0       
++       241: invokevirtual #65                 // Method hudson/model/Queue$Item.enter:(Lhudson/model/Queue;)V
++       244: goto          292
++       247: aload         6
++       249: instanceof    #67                 // class hudson/model/Queue$BuildableItem
++       252: ifeq          264
++       255: aload         6
++       257: aload_0       
++       258: invokevirtual #65                 // Method hudson/model/Queue$Item.enter:(Lhudson/model/Queue;)V
++       261: goto          292
++       264: new           #68                 // class java/lang/IllegalStateException
++       267: dup           
++       268: new           #69                 // class java/lang/StringBuilder
++       271: dup           
++       272: invokespecial #70                 // Method java/lang/StringBuilder."<init>":()V
++       275: ldc           #71                 // String Unknown item type! 
++       277: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
++       280: aload         6
++       282: invokevirtual #73                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
++       285: invokevirtual #74                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
++       288: invokespecial #75                 // Method java/lang/IllegalStateException."<init>":(Ljava/lang/String;)V
++       291: athrow        
++       292: goto          136
++       295: invokestatic  #76                 // Method hudson/model/Queue$WaitingItem.access$300:()Ljava/util/concurrent/atomic/AtomicInteger;
++       298: iload_3       
++       299: invokevirtual #77                 // Method java/util/concurrent/atomic/AtomicInteger.set:(I)V
++       302: new           #78                 // class java/io/File
++       305: dup           
++       306: new           #69                 // class java/lang/StringBuilder
++       309: dup           
++       310: invokespecial #70                 // Method java/lang/StringBuilder."<init>":()V
++       313: aload_1       
++       314: invokevirtual #79                 // Method java/io/File.getPath:()Ljava/lang/String;
++       317: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
++       320: ldc           #80                 // String .bak
++       322: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
++       325: invokevirtual #74                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
++       328: invokespecial #81                 // Method java/io/File."<init>":(Ljava/lang/String;)V
++       331: astore        4
++       333: aload         4
++       335: invokevirtual #48                 // Method java/io/File.delete:()Z
++       338: pop           
++       339: aload_1       
++       340: aload         4
++       342: invokevirtual #82                 // Method java/io/File.renameTo:(Ljava/io/File;)Z
++       345: pop           
++       346: aload_1       
++       347: invokevirtual #48                 // Method java/io/File.delete:()Z
++       350: pop           
++       351: goto          387
++       354: astore_1      
++       355: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
++       358: getstatic     #84                 // Field java/util/logging/Level.WARNING:Ljava/util/logging/Level;
++       361: new           #69                 // class java/lang/StringBuilder
++       364: dup           
++       365: invokespecial #70                 // Method java/lang/StringBuilder."<init>":()V
++       368: ldc           #85                 // String Failed to load the queue file 
++       370: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
++       373: aload_0       
++       374: invokevirtual #49                 // Method hudson/model/Queue.getXMLQueueFile:()Ljava/io/File;
++       377: invokevirtual #73                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
++       380: invokevirtual #74                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
++       383: aload_1       
++       384: invokevirtual #86                 // Method java/util/logging/Logger.log:(Ljava/util/logging/Level;Ljava/lang/String;Ljava/lang/Throwable;)V
++       387: return        
+       Exception table:
+          from    to  target type
+-            35    73    80   any
+-            80    82    80   any
+-             0   352   355   Class java/io/IOException
++            35    72    79   any
++            79    81    79   any
++             0   351   354   Class java/io/IOException
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              58      11     4     j   Lhudson/model/AbstractProject;
++              41      31     3  line   Ljava/lang/String;
++              35      58     2    in   Ljava/io/BufferedReader;
++             192     100     6  item   Lhudson/model/Queue$Item;
++             155     137     5     o   Ljava/lang/Object;
++             136     159     4    i$   Ljava/util/Iterator;
++             126     225     2  list   Ljava/util/List;
++             128     223     3 maxId   I
++             333      18     4    bk   Ljava/io/File;
++               5     346     1 queueFile   Ljava/io/File;
++             355      32     1     e   Ljava/io/IOException;
++               0     388     0  this   Lhudson/model/Queue;
+       LineNumberTable:
+         line 343: 0
+         line 344: 5
+         line 345: 12
+         line 348: 35
+         line 349: 44
+-        line 350: 59
+-        line 351: 64
+-        line 352: 70
+-        line 354: 73
+-        line 355: 77
+-        line 354: 80
+-        line 357: 89
+-        line 358: 94
+-        line 359: 97
+-        line 360: 102
+-        line 361: 109
+-        line 362: 127
+-        line 363: 129
+-        line 364: 156
+-        line 366: 164
+-        line 367: 178
+-        line 368: 186
+-        line 369: 193
+-        line 370: 201
+-        line 372: 204
+-        line 373: 214
+-        line 374: 222
+-        line 375: 231
+-        line 376: 239
+-        line 377: 248
+-        line 378: 256
+-        line 380: 265
+-        line 383: 293
+-        line 384: 296
+-        line 391: 303
+-        line 392: 334
+-        line 393: 340
+-        line 394: 347
+-        line 399: 352
+-        line 397: 355
+-        line 398: 356
+-        line 400: 388
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              59      11     4     j   Lhudson/model/AbstractProject;
+-              41      32     3  line   Ljava/lang/String;
+-              35      59     2    in   Ljava/io/BufferedReader;
+-             193     100     6  item   Lhudson/model/Queue$Item;
+-             156     137     5     o   Ljava/lang/Object;
+-             137     159     4    i$   Ljava/util/Iterator;
+-             127     225     2  list   Ljava/util/List;
+-             129     223     3 maxId   I
+-             334      18     4    bk   Ljava/io/File;
+-               5     347     1 queueFile   Ljava/io/File;
+-             356      32     1     e   Ljava/io/IOException;
+-               0     389     0  this   Lhudson/model/Queue;
++        line 350: 58
++        line 351: 63
++        line 352: 69
++        line 354: 72
++        line 355: 76
++        line 354: 79
++        line 357: 88
++        line 358: 93
++        line 359: 96
++        line 360: 101
++        line 361: 108
++        line 362: 126
++        line 363: 128
++        line 364: 155
++        line 366: 163
++        line 367: 177
++        line 368: 185
++        line 369: 192
++        line 370: 200
++        line 372: 203
++        line 373: 213
++        line 374: 221
++        line 375: 230
++        line 376: 238
++        line 377: 247
++        line 378: 255
++        line 380: 264
++        line 383: 292
++        line 384: 295
++        line 391: 302
++        line 392: 333
++        line 393: 339
++        line 394: 346
++        line 399: 351
++        line 397: 354
++        line 398: 355
++        line 400: 387
+       StackMapTable: number_of_entries = 17
+            frame_type = 253 /* append */
+              offset_delta = 35
+         locals = [ class java/io/File, class java/io/BufferedReader ]
+            frame_type = 252 /* append */
+-             offset_delta = 34
++             offset_delta = 33
+         locals = [ class java/lang/String ]
+            frame_type = 250 /* chop */
+           offset_delta = 2
+@@ -1621,7 +1624,7 @@
+         12: invokespecial #89                 // Method java/util/ArrayList."<init>":()V
+         15: astore_1      
+         16: aload_0       
+-        17: invokevirtual #90                 // Method getItems:()[Lhudson/model/Queue$Item;
++        17: invokevirtual #90                 // Method hudson/model/Queue.getItems:()[Lhudson/model/Queue$Item;
+         20: astore_2      
+         21: aload_2       
+         22: arraylength   
+@@ -1648,9 +1651,9 @@
+         63: goto          27
+         66: new           #50                 // class hudson/XmlFile
+         69: dup           
+-        70: getstatic     #51                 // Field XSTREAM:Lcom/thoughtworks/xstream/XStream;
++        70: getstatic     #51                 // Field hudson/model/Queue.XSTREAM:Lcom/thoughtworks/xstream/XStream;
+         73: aload_0       
+-        74: invokevirtual #49                 // Method getXMLQueueFile:()Ljava/io/File;
++        74: invokevirtual #49                 // Method hudson/model/Queue.getXMLQueueFile:()Ljava/io/File;
+         77: invokespecial #52                 // Method hudson/XmlFile."<init>":(Lcom/thoughtworks/xstream/XStream;Ljava/io/File;)V
+         80: astore_2      
+         81: aload_2       
+@@ -1661,7 +1664,7 @@
+         88: invokestatic  #94                 // Method hudson/model/listeners/SaveableListener.fireOnChange:(Lhudson/model/Saveable;Lhudson/XmlFile;)V
+         91: goto          127
+         94: astore_2      
+-        95: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++        95: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+         98: getstatic     #84                 // Field java/util/logging/Level.WARNING:Ljava/util/logging/Level;
+        101: new           #69                 // class java/lang/StringBuilder
+        104: dup           
+@@ -1669,7 +1672,7 @@
+        108: ldc           #95                 // String Failed to write out the queue file 
+        110: invokevirtual #72                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        113: aload_0       
+-       114: invokevirtual #49                 // Method getXMLQueueFile:()Ljava/io/File;
++       114: invokevirtual #49                 // Method hudson/model/Queue.getXMLQueueFile:()Ljava/io/File;
+        117: invokevirtual #73                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+        120: invokevirtual #74                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        123: aload_2       
+@@ -1678,6 +1681,19 @@
+       Exception table:
+          from    to  target type
+             66    91    94   Class java/io/IOException
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              39      21     5  item   Lhudson/model/Queue$Item;
++              21      45     2  arr$   [Lhudson/model/Queue$Item;
++              24      42     3  len$   I
++              27      39     4    i$   I
++              81      10     2 queueFile   Lhudson/XmlFile;
++              95      32     2     e   Ljava/io/IOException;
++               0     128     0  this   Lhudson/model/Queue;
++              16     112     1 items   Ljava/util/ArrayList;
++      LocalVariableTypeTable:
++        Start  Length  Slot  Name   Signature
++           16     112     1 items   Ljava/util/ArrayList<Lhudson/model/Queue$Item;>;
+       LineNumberTable:
+         line 406: 0
+         line 409: 8
+@@ -1692,19 +1708,6 @@
+         line 419: 94
+         line 420: 95
+         line 422: 127
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              39      21     5  item   Lhudson/model/Queue$Item;
+-              21      45     2  arr$   [Lhudson/model/Queue$Item;
+-              24      42     3  len$   I
+-              27      39     4    i$   I
+-              81      10     2 queueFile   Lhudson/XmlFile;
+-              95      32     2     e   Ljava/io/IOException;
+-               0     128     0  this   Lhudson/model/Queue;
+-              16     112     1 items   Ljava/util/ArrayList;
+-      LocalVariableTypeTable:
+-        Start  Length  Slot  Name   Signature
+-           16     112     1 items   Ljava/util/ArrayList<Lhudson/model/Queue$Item;>;
+       StackMapTable: number_of_entries = 7
+            frame_type = 8 /* same */
+            frame_type = 255 /* full_frame */
+@@ -1733,7 +1736,7 @@
+          9: new           #88                 // class java/util/ArrayList
+         12: dup           
+         13: aload_0       
+-        14: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        14: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         17: invokespecial #98                 // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+         20: invokevirtual #99                 // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;
+         23: astore_1      
+@@ -1750,18 +1753,23 @@
+         48: pop           
+         49: goto          24
+         52: aload_0       
+-        53: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        53: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         56: invokevirtual #101                // Method hudson/model/Queue$ItemList.cancelAll:()V
+         59: aload_0       
+-        60: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        60: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         63: invokevirtual #101                // Method hudson/model/Queue$ItemList.cancelAll:()V
+         66: aload_0       
+-        67: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        67: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         70: invokevirtual #101                // Method hudson/model/Queue$ItemList.cancelAll:()V
+         73: aload_0       
+-        74: invokevirtual #102                // Method scheduleMaintenance:()Ljava/util/concurrent/Future;
++        74: invokevirtual #102                // Method hudson/model/Queue.scheduleMaintenance:()Ljava/util/concurrent/Future;
+         77: pop           
+         78: return        
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              43       6     2     i   Lhudson/model/Queue$WaitingItem;
++              24      28     1    i$   Ljava/util/Iterator;
++               0      79     0  this   Lhudson/model/Queue;
+       LineNumberTable:
+         line 429: 0
+         line 430: 9
+@@ -1771,11 +1779,6 @@
+         line 434: 66
+         line 435: 73
+         line 436: 78
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              43       6     2     i   Lhudson/model/Queue$WaitingItem;
+-              24      28     1    i$   Ljava/util/Iterator;
+-               0      79     0  this   Lhudson/model/Queue;
+       StackMapTable: number_of_entries = 2
+            frame_type = 252 /* append */
+              offset_delta = 24
+@@ -1797,11 +1800,11 @@
+         10: ldc           #106                // String queue.xml
+         12: invokespecial #105                // Method java/io/File."<init>":(Ljava/io/File;Ljava/lang/String;)V
+         15: areturn       
+-      LineNumberTable:
+-        line 443: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      16     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 443: 0
+ 
+   public boolean add(hudson.model.AbstractProject);
+     flags: ACC_PUBLIC
+@@ -1809,18 +1812,18 @@
+       stack=2, locals=2, args_size=2
+          0: aload_0       
+          1: aload_1       
+-         2: invokevirtual #107                // Method schedule:(Lhudson/model/AbstractProject;)Lhudson/model/Queue$WaitingItem;
++         2: invokevirtual #107                // Method hudson/model/Queue.schedule:(Lhudson/model/AbstractProject;)Lhudson/model/Queue$WaitingItem;
+          5: ifnull        12
+          8: iconst_1      
+          9: goto          13
+         12: iconst_0      
+         13: ireturn       
+-      LineNumberTable:
+-        line 451: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      14     0  this   Lhudson/model/Queue;
+                0      14     1     p   Lhudson/model/AbstractProject;
++      LineNumberTable:
++        line 451: 0
+       StackMapTable: number_of_entries = 2
+            frame_type = 12 /* same */
+            frame_type = 64 /* same_locals_1_stack_item */
+@@ -1836,14 +1839,14 @@
+          1: aload_1       
+          2: aload_1       
+          3: invokevirtual #108                // Method hudson/model/AbstractProject.getQuietPeriod:()I
+-         6: invokevirtual #59                 // Method schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
++         6: invokevirtual #59                 // Method hudson/model/Queue.schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
+          9: areturn       
+-      LineNumberTable:
+-        line 459: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      10     0  this   Lhudson/model/Queue;
+                0      10     1     p   Lhudson/model/AbstractProject;
++      LineNumberTable:
++        line 459: 0
+     RuntimeVisibleAnnotations:
+       0: #419()
+ 
+@@ -1854,19 +1857,19 @@
+          0: aload_0       
+          1: aload_1       
+          2: iload_2       
+-         3: invokevirtual #59                 // Method schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
++         3: invokevirtual #59                 // Method hudson/model/Queue.schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
+          6: ifnull        13
+          9: iconst_1      
+         10: goto          14
+         13: iconst_0      
+         14: ireturn       
+-      LineNumberTable:
+-        line 473: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      15     0  this   Lhudson/model/Queue;
+                0      15     1     p   Lhudson/model/AbstractProject;
+                0      15     2 quietPeriod   I
++      LineNumberTable:
++        line 473: 0
+       StackMapTable: number_of_entries = 2
+            frame_type = 13 /* same */
+            frame_type = 64 /* same_locals_1_stack_item */
+@@ -1882,11 +1885,9 @@
+          1: aload_1       
+          2: iload_2       
+          3: aload_3       
+-         4: invokevirtual #109                // Method schedule2:(Lhudson/model/Queue$Task;ILjava/util/List;)Lhudson/model/queue/ScheduleResult;
++         4: invokevirtual #109                // Method hudson/model/Queue.schedule2:(Lhudson/model/Queue$Task;ILjava/util/List;)Lhudson/model/queue/ScheduleResult;
+          7: invokevirtual #110                // Method hudson/model/queue/ScheduleResult.getCreateItem:()Lhudson/model/Queue$WaitingItem;
+         10: areturn       
+-      LineNumberTable:
+-        line 481: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      11     0  this   Lhudson/model/Queue;
+@@ -1896,6 +1897,8 @@
+       LocalVariableTypeTable:
+         Start  Length  Slot  Name   Signature
+             0      11     3 actions   Ljava/util/List<Lhudson/model/Action;>;
++      LineNumberTable:
++        line 481: 0
+     Deprecated: true
+     Signature: #426                         // (Lhudson/model/Queue$Task;ILjava/util/List<Lhudson/model/Action;>;)Lhudson/model/Queue$WaitingItem;
+ 
+@@ -1909,7 +1912,7 @@
+          5: invokespecial #98                 // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+          8: astore_3      
+          9: aload_3       
+-        10: invokeinterface #111,  1          // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
++        10: invokeinterface #55,  1           // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+         15: astore        4
+         17: aload         4
+         19: invokeinterface #56,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
+@@ -1945,19 +1948,8 @@
+        102: aload_1       
+        103: iload_2       
+        104: aload_3       
+-       105: invokespecial #119                // Method scheduleInternal:(Lhudson/model/Queue$Task;ILjava/util/List;)Lhudson/model/queue/ScheduleResult;
++       105: invokespecial #119                // Method hudson/model/Queue.scheduleInternal:(Lhudson/model/Queue$Task;ILjava/util/List;)Lhudson/model/queue/ScheduleResult;
+        108: areturn       
+-      LineNumberTable:
+-        line 507: 0
+-        line 508: 9
+-        line 509: 27
+-        line 510: 39
+-        line 511: 51
+-        line 513: 54
+-        line 514: 84
+-        line 515: 94
+-        line 514: 98
+-        line 517: 101
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+               39      12     5     a   Lhudson/model/Action;
+@@ -1972,6 +1964,17 @@
+         Start  Length  Slot  Name   Signature
+            17      37     4   itr   Ljava/util/Iterator<Lhudson/model/Action;>;
+             0     109     3 actions   Ljava/util/List<Lhudson/model/Action;>;
++      LineNumberTable:
++        line 507: 0
++        line 508: 9
++        line 509: 27
++        line 510: 39
++        line 511: 51
++        line 513: 54
++        line 514: 84
++        line 515: 94
++        line 514: 98
++        line 517: 101
+       StackMapTable: number_of_entries = 6
+            frame_type = 252 /* append */
+              offset_delta = 17
+@@ -1997,19 +2000,19 @@
+          0: aload_0       
+          1: aload_1       
+          2: iload_2       
+-         3: invokevirtual #59                 // Method schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
++         3: invokevirtual #59                 // Method hudson/model/Queue.schedule:(Lhudson/model/Queue$Task;I)Lhudson/model/Queue$WaitingItem;
+          6: ifnull        13
+          9: iconst_1      
+         10: goto          14
+         13: iconst_0      
+         14: ireturn       
+-      LineNumberTable:
+-        line 605: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      15     0  this   Lhudson/model/Queue;
+                0      15     1     p   Lhudson/model/Queue$Task;
+                0      15     2 quietPeriod   I
++      LineNumberTable:
++        line 605: 0
+       StackMapTable: number_of_entries = 2
+            frame_type = 13 /* same */
+            frame_type = 64 /* same_locals_1_stack_item */
+@@ -2026,15 +2029,15 @@
+          2: iload_2       
+          3: iconst_0      
+          4: anewarray     #112                // class hudson/model/Action
+-         7: invokevirtual #146                // Method schedule:(Lhudson/model/Queue$Task;I[Lhudson/model/Action;)Lhudson/model/Queue$WaitingItem;
++         7: invokevirtual #146                // Method hudson/model/Queue.schedule:(Lhudson/model/Queue$Task;I[Lhudson/model/Action;)Lhudson/model/Queue$WaitingItem;
+         10: areturn       
+-      LineNumberTable:
+-        line 609: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      11     0  this   Lhudson/model/Queue;
+                0      11     1     p   Lhudson/model/Queue$Task;
+                0      11     2 quietPeriod   I
++      LineNumberTable:
++        line 609: 0
+     RuntimeVisibleAnnotations:
+       0: #419()
+ 
+@@ -2046,20 +2049,20 @@
+          1: aload_1       
+          2: iload_2       
+          3: aload_3       
+-         4: invokevirtual #146                // Method schedule:(Lhudson/model/Queue$Task;I[Lhudson/model/Action;)Lhudson/model/Queue$WaitingItem;
++         4: invokevirtual #146                // Method hudson/model/Queue.schedule:(Lhudson/model/Queue$Task;I[Lhudson/model/Action;)Lhudson/model/Queue$WaitingItem;
+          7: ifnull        14
+         10: iconst_1      
+         11: goto          15
+         14: iconst_0      
+         15: ireturn       
+-      LineNumberTable:
+-        line 617: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      16     0  this   Lhudson/model/Queue;
+                0      16     1     p   Lhudson/model/Queue$Task;
+                0      16     2 quietPeriod   I
+                0      16     3 actions   [Lhudson/model/Action;
++      LineNumberTable:
++        line 617: 0
+       StackMapTable: number_of_entries = 2
+            frame_type = 14 /* same */
+            frame_type = 64 /* same_locals_1_stack_item */
+@@ -2075,17 +2078,17 @@
+          1: aload_1       
+          2: iload_2       
+          3: aload_3       
+-         4: invokevirtual #147                // Method schedule2:(Lhudson/model/Queue$Task;I[Lhudson/model/Action;)Lhudson/model/queue/ScheduleResult;
++         4: invokevirtual #147                // Method hudson/model/Queue.schedule2:(Lhudson/model/Queue$Task;I[Lhudson/model/Action;)Lhudson/model/queue/ScheduleResult;
+          7: invokevirtual #110                // Method hudson/model/queue/ScheduleResult.getCreateItem:()Lhudson/model/Queue$WaitingItem;
+         10: areturn       
+-      LineNumberTable:
+-        line 624: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      11     0  this   Lhudson/model/Queue;
+                0      11     1     p   Lhudson/model/Queue$Task;
+                0      11     2 quietPeriod   I
+                0      11     3 actions   [Lhudson/model/Action;
++      LineNumberTable:
++        line 624: 0
+     RuntimeVisibleAnnotations:
+       0: #419()
+ 
+@@ -2098,16 +2101,16 @@
+          2: iload_2       
+          3: aload_3       
+          4: invokestatic  #148                // Method java/util/Arrays.asList:([Ljava/lang/Object;)Ljava/util/List;
+-         7: invokevirtual #109                // Method schedule2:(Lhudson/model/Queue$Task;ILjava/util/List;)Lhudson/model/queue/ScheduleResult;
++         7: invokevirtual #109                // Method hudson/model/Queue.schedule2:(Lhudson/model/Queue$Task;ILjava/util/List;)Lhudson/model/queue/ScheduleResult;
+         10: areturn       
+-      LineNumberTable:
+-        line 631: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      11     0  this   Lhudson/model/Queue;
+                0      11     1     p   Lhudson/model/Queue$Task;
+                0      11     2 quietPeriod   I
+                0      11     3 actions   [Lhudson/model/Action;
++      LineNumberTable:
++        line 631: 0
+     RuntimeVisibleAnnotations:
+       0: #436()
+ 
+@@ -2115,13 +2118,13 @@
+     flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+     Code:
+       stack=4, locals=4, args_size=2
+-         0: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++         0: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+          3: getstatic     #131                // Field java/util/logging/Level.FINE:Ljava/util/logging/Level;
+          6: ldc           #149                // String Cancelling {0}
+          8: aload_1       
+          9: invokevirtual #133                // Method java/util/logging/Logger.log:(Ljava/util/logging/Level;Ljava/lang/String;Ljava/lang/Object;)V
+         12: aload_0       
+-        13: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        13: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         16: invokeinterface #150,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+         21: astore_2      
+         22: aload_2       
+@@ -2142,7 +2145,7 @@
+         57: ireturn       
+         58: goto          22
+         61: aload_0       
+-        62: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        62: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         65: aload_1       
+         66: invokevirtual #153                // Method hudson/model/Queue$ItemList.cancel:(Lhudson/model/Queue$Task;)Lhudson/model/Queue$Item;
+         69: ifnull        76
+@@ -2150,7 +2153,7 @@
+         73: goto          77
+         76: iconst_0      
+         77: aload_0       
+-        78: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        78: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         81: aload_1       
+         82: invokevirtual #153                // Method hudson/model/Queue$ItemList.cancel:(Lhudson/model/Queue$Task;)Lhudson/model/Queue$Item;
+         85: ifnull        92
+@@ -2159,6 +2162,12 @@
+         92: iconst_0      
+         93: ior           
+         94: ireturn       
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              41      17     3  item   Lhudson/model/Queue$WaitingItem;
++              22      39     2    i$   Ljava/util/Iterator;
++               0      95     0  this   Lhudson/model/Queue;
++               0      95     1     p   Lhudson/model/Queue$Task;
+       LineNumberTable:
+         line 641: 0
+         line 642: 12
+@@ -2166,12 +2175,6 @@
+         line 644: 52
+         line 646: 58
+         line 648: 61
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              41      17     3  item   Lhudson/model/Queue$WaitingItem;
+-              22      39     2    i$   Ljava/util/Iterator;
+-               0      95     0  this   Lhudson/model/Queue;
+-               0      95     1     p   Lhudson/model/Queue$Task;
+       StackMapTable: number_of_entries = 7
+            frame_type = 252 /* append */
+              offset_delta = 22
+@@ -2194,7 +2197,7 @@
+     flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+     Code:
+       stack=7, locals=4, args_size=2
+-         0: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++         0: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+          3: getstatic     #131                // Field java/util/logging/Level.FINE:Ljava/util/logging/Level;
+          6: ldc           #154                // String Cancelling {0} item#{1}
+          8: iconst_2      
+@@ -2225,18 +2228,18 @@
+         49: invokevirtual #161                // Method hudson/model/Queue$LeftItem.enter:(Lhudson/model/Queue;)V
+         52: iload_2       
+         53: ireturn       
+-      LineNumberTable:
+-        line 652: 0
+-        line 653: 32
+-        line 655: 38
+-        line 656: 47
+-        line 658: 52
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      54     0  this   Lhudson/model/Queue;
+                0      54     1  item   Lhudson/model/Queue$Item;
+               38      16     2     r   Z
+               47       7     3    li   Lhudson/model/Queue$LeftItem;
++      LineNumberTable:
++        line 652: 0
++        line 653: 32
++        line 655: 38
++        line 656: 47
++        line 658: 52
+ 
+   public org.kohsuke.stapler.HttpResponse doCancelItem(int) throws java.io.IOException, javax.servlet.ServletException;
+     flags: ACC_PUBLIC
+@@ -2244,26 +2247,26 @@
+       stack=2, locals=3, args_size=2
+          0: aload_0       
+          1: iload_1       
+-         2: invokevirtual #162                // Method getItem:(I)Lhudson/model/Queue$Item;
++         2: invokevirtual #162                // Method hudson/model/Queue.getItem:(I)Lhudson/model/Queue$Item;
+          5: astore_2      
+          6: aload_2       
+          7: ifnull        16
+         10: aload_0       
+         11: aload_2       
+-        12: invokevirtual #163                // Method cancel:(Lhudson/model/Queue$Item;)Z
++        12: invokevirtual #163                // Method hudson/model/Queue.cancel:(Lhudson/model/Queue$Item;)Z
+         15: pop           
+         16: invokestatic  #164                // Method org/kohsuke/stapler/HttpResponses.forwardToPreviousPage:()Lorg/kohsuke/stapler/HttpResponses$HttpResponseException;
+         19: areturn       
+-      LineNumberTable:
+-        line 666: 0
+-        line 667: 6
+-        line 668: 10
+-        line 670: 16
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      20     0  this   Lhudson/model/Queue;
+                0      20     1    id   I
+                6      14     2  item   Lhudson/model/Queue$Item;
++      LineNumberTable:
++        line 666: 0
++        line 667: 6
++        line 668: 10
++        line 670: 16
+       StackMapTable: number_of_entries = 1
+            frame_type = 252 /* append */
+              offset_delta = 16
+@@ -2282,30 +2285,30 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #5                  // Field waitingList:Ljava/util/Set;
++         1: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+          4: invokeinterface #165,  1          // InterfaceMethod java/util/Set.isEmpty:()Z
+          9: ifeq          46
+         12: aload_0       
+-        13: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        13: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         16: invokevirtual #166                // Method hudson/model/Queue$ItemList.isEmpty:()Z
+         19: ifeq          46
+         22: aload_0       
+-        23: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        23: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         26: invokevirtual #166                // Method hudson/model/Queue$ItemList.isEmpty:()Z
+         29: ifeq          46
+         32: aload_0       
+-        33: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        33: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         36: invokevirtual #166                // Method hudson/model/Queue$ItemList.isEmpty:()Z
+         39: ifeq          46
+         42: iconst_1      
+         43: goto          47
+         46: iconst_0      
+         47: ireturn       
+-      LineNumberTable:
+-        line 674: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      48     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 674: 0
+       StackMapTable: number_of_entries = 2
+            frame_type = 46 /* same */
+            frame_type = 64 /* same_locals_1_stack_item */
+@@ -2317,33 +2320,33 @@
+     Code:
+       stack=3, locals=5, args_size=1
+          0: aload_0       
+-         1: getfield      #5                  // Field waitingList:Ljava/util/Set;
++         1: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+          4: invokeinterface #168,  1          // InterfaceMethod java/util/Set.size:()I
+          9: aload_0       
+-        10: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        10: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         13: invokevirtual #169                // Method hudson/model/Queue$ItemList.size:()I
+         16: iadd          
+         17: aload_0       
+-        18: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        18: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         21: invokevirtual #169                // Method hudson/model/Queue$ItemList.size:()I
+         24: iadd          
+         25: aload_0       
+-        26: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        26: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         29: invokevirtual #169                // Method hudson/model/Queue$ItemList.size:()I
+         32: iadd          
+         33: anewarray     #60                 // class hudson/model/Queue$Item
+         36: astore_1      
+         37: aload_0       
+-        38: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        38: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         41: aload_1       
+         42: invokeinterface #170,  2          // InterfaceMethod java/util/Set.toArray:([Ljava/lang/Object;)[Ljava/lang/Object;
+         47: pop           
+         48: aload_0       
+-        49: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        49: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         52: invokeinterface #168,  1          // InterfaceMethod java/util/Set.size:()I
+         57: istore_2      
+         58: aload_0       
+-        59: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        59: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         62: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+         65: invokevirtual #172                // Method hudson/model/Queue$ItemList.iterator:()Ljava/util/Iterator;
+         68: astore_3      
+@@ -2361,7 +2364,7 @@
+         96: aastore       
+         97: goto          69
+        100: aload_0       
+-       101: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++       101: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+        104: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+        107: invokestatic  #173                // Method hudson/util/Iterators.reverse:(Ljava/util/List;)Ljava/lang/Iterable;
+        110: invokeinterface #174,  1          // InterfaceMethod java/lang/Iterable.iterator:()Ljava/util/Iterator;
+@@ -2380,7 +2383,7 @@
+        143: aastore       
+        144: goto          116
+        147: aload_0       
+-       148: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++       148: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+        151: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+        154: invokestatic  #173                // Method hudson/util/Iterators.reverse:(Ljava/util/List;)Ljava/lang/Iterable;
+        157: invokeinterface #174,  1          // InterfaceMethod java/lang/Iterable.iterator:()Ljava/util/Iterator;
+@@ -2400,17 +2403,6 @@
+        191: goto          163
+        194: aload_1       
+        195: areturn       
+-      LineNumberTable:
+-        line 689: 0
+-        line 690: 37
+-        line 691: 48
+-        line 692: 58
+-        line 693: 89
+-        line 694: 100
+-        line 695: 136
+-        line 696: 147
+-        line 697: 183
+-        line 698: 194
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+               89       8     4     p   Lhudson/model/Queue$BlockedItem;
+@@ -2422,6 +2414,17 @@
+                0     196     0  this   Lhudson/model/Queue;
+               37     159     1     r   [Lhudson/model/Queue$Item;
+               58     138     2   idx   I
++      LineNumberTable:
++        line 689: 0
++        line 690: 37
++        line 691: 48
++        line 692: 58
++        line 693: 89
++        line 694: 100
++        line 695: 136
++        line 696: 147
++        line 697: 183
++        line 698: 194
+       StackMapTable: number_of_entries = 6
+            frame_type = 254 /* append */
+              offset_delta = 69
+@@ -2447,14 +2450,14 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #20                 // Field itemsView:Lhudson/model/Queue$CachedItemList;
++         1: getfield      #20                 // Field hudson/model/Queue.itemsView:Lhudson/model/Queue$CachedItemList;
+          4: invokevirtual #175                // Method hudson/model/Queue$CachedItemList.get:()Ljava/util/List;
+          7: areturn       
+-      LineNumberTable:
+-        line 719: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       8     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 719: 0
+     Signature: #487                         // ()Ljava/util/List<Lhudson/model/Queue$Item;>;
+ 
+   public synchronized hudson.model.Queue$Item getItem(int);
+@@ -2462,7 +2465,7 @@
+     Code:
+       stack=2, locals=4, args_size=2
+          0: aload_0       
+-         1: getfield      #5                  // Field waitingList:Ljava/util/Set;
++         1: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+          4: invokeinterface #150,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+          9: astore_2      
+         10: aload_2       
+@@ -2480,7 +2483,7 @@
+         38: areturn       
+         39: goto          10
+         42: aload_0       
+-        43: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        43: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         46: invokevirtual #172                // Method hudson/model/Queue$ItemList.iterator:()Ljava/util/Iterator;
+         49: astore_2      
+         50: aload_2       
+@@ -2498,7 +2501,7 @@
+         78: areturn       
+         79: goto          50
+         82: aload_0       
+-        83: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        83: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         86: invokevirtual #172                // Method hudson/model/Queue$ItemList.iterator:()Ljava/util/Iterator;
+         89: astore_2      
+         90: aload_2       
+@@ -2516,7 +2519,7 @@
+        118: areturn       
+        119: goto          90
+        122: aload_0       
+-       123: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++       123: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+        126: invokevirtual #172                // Method hudson/model/Queue$ItemList.iterator:()Ljava/util/Iterator;
+        129: astore_2      
+        130: aload_2       
+@@ -2534,18 +2537,12 @@
+        158: areturn       
+        159: goto          130
+        162: aload_0       
+-       163: getfield      #1                  // Field leftItems:Lcom/google/common/cache/Cache;
++       163: getfield      #1                  // Field hudson/model/Queue.leftItems:Lcom/google/common/cache/Cache;
+        166: iload_1       
+        167: invokestatic  #156                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+        170: invokeinterface #176,  2          // InterfaceMethod com/google/common/cache/Cache.getIfPresent:(Ljava/lang/Object;)Ljava/lang/Object;
+        175: checkcast     #60                 // class hudson/model/Queue$Item
+        178: areturn       
+-      LineNumberTable:
+-        line 723: 0
+-        line 724: 42
+-        line 725: 82
+-        line 726: 122
+-        line 728: 162
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+               29      10     3  item   Lhudson/model/Queue$Item;
+@@ -2558,6 +2555,12 @@
+              130      32     2    i$   Ljava/util/Iterator;
+                0     179     0  this   Lhudson/model/Queue;
+                0     179     1    id   I
++      LineNumberTable:
++        line 723: 0
++        line 724: 42
++        line 725: 82
++        line 726: 122
++        line 728: 162
+       StackMapTable: number_of_entries = 12
+            frame_type = 252 /* append */
+              offset_delta = 10
+@@ -2596,22 +2599,17 @@
+          8: aload_0       
+          9: aload_1       
+         10: aload_0       
+-        11: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        11: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         14: aload_2       
+-        15: invokespecial #177                // Method _getBuildableItems:(Lhudson/model/Computer;Lhudson/model/Queue$ItemList;Ljava/util/List;)V
++        15: invokespecial #177                // Method hudson/model/Queue._getBuildableItems:(Lhudson/model/Computer;Lhudson/model/Queue$ItemList;Ljava/util/List;)V
+         18: aload_0       
+         19: aload_1       
+         20: aload_0       
+-        21: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        21: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         24: aload_2       
+-        25: invokespecial #177                // Method _getBuildableItems:(Lhudson/model/Computer;Lhudson/model/Queue$ItemList;Ljava/util/List;)V
++        25: invokespecial #177                // Method hudson/model/Queue._getBuildableItems:(Lhudson/model/Computer;Lhudson/model/Queue$ItemList;Ljava/util/List;)V
+         28: aload_2       
+         29: areturn       
+-      LineNumberTable:
+-        line 735: 0
+-        line 736: 8
+-        line 737: 18
+-        line 738: 28
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      30     0  this   Lhudson/model/Queue;
+@@ -2620,6 +2618,11 @@
+       LocalVariableTypeTable:
+         Start  Length  Slot  Name   Signature
+             8      22     2 result   Ljava/util/List<Lhudson/model/Queue$BuildableItem;>;
++      LineNumberTable:
++        line 735: 0
++        line 736: 8
++        line 737: 18
++        line 738: 28
+     Signature: #496                         // (Lhudson/model/Computer;)Ljava/util/List<Lhudson/model/Queue$BuildableItem;>;
+ 
+   public synchronized java.util.List<hudson.model.Queue$BuildableItem> getBuildableItems();
+@@ -2629,22 +2632,18 @@
+          0: new           #88                 // class java/util/ArrayList
+          3: dup           
+          4: aload_0       
+-         5: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++         5: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+          8: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+         11: invokespecial #98                 // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+         14: astore_1      
+         15: aload_1       
+         16: aload_0       
+-        17: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        17: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         20: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+         23: invokevirtual #180                // Method java/util/ArrayList.addAll:(Ljava/util/Collection;)Z
+         26: pop           
+         27: aload_1       
+         28: areturn       
+-      LineNumberTable:
+-        line 755: 0
+-        line 756: 15
+-        line 757: 27
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      29     0  this   Lhudson/model/Queue;
+@@ -2652,6 +2651,10 @@
+       LocalVariableTypeTable:
+         Start  Length  Slot  Name   Signature
+            15      14     1     r   Ljava/util/ArrayList<Lhudson/model/Queue$BuildableItem;>;
++      LineNumberTable:
++        line 755: 0
++        line 756: 15
++        line 757: 27
+     Signature: #505                         // ()Ljava/util/List<Lhudson/model/Queue$BuildableItem;>;
+ 
+   public synchronized java.util.List<hudson.model.Queue$BuildableItem> getPendingItems();
+@@ -2661,15 +2664,15 @@
+          0: new           #88                 // class java/util/ArrayList
+          3: dup           
+          4: aload_0       
+-         5: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++         5: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+          8: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+         11: invokespecial #98                 // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+         14: areturn       
+-      LineNumberTable:
+-        line 764: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      15     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 764: 0
+     Signature: #505                         // ()Ljava/util/List<Lhudson/model/Queue$BuildableItem;>;
+ 
+   public java.util.Collection<hudson.model.Queue$LeftItem> getLeftItems();
+@@ -2677,16 +2680,16 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #1                  // Field leftItems:Lcom/google/common/cache/Cache;
++         1: getfield      #1                  // Field hudson/model/Queue.leftItems:Lcom/google/common/cache/Cache;
+          4: invokeinterface #181,  1          // InterfaceMethod com/google/common/cache/Cache.asMap:()Ljava/util/concurrent/ConcurrentMap;
+          9: invokeinterface #182,  1          // InterfaceMethod java/util/concurrent/ConcurrentMap.values:()Ljava/util/Collection;
+         14: invokestatic  #183                // Method java/util/Collections.unmodifiableCollection:(Ljava/util/Collection;)Ljava/util/Collection;
+         17: areturn       
+-      LineNumberTable:
+-        line 773: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      18     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 773: 0
+     Signature: #509                         // ()Ljava/util/Collection<Lhudson/model/Queue$LeftItem;>;
+ 
+   public void clearLeftItems();
+@@ -2694,15 +2697,15 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #1                  // Field leftItems:Lcom/google/common/cache/Cache;
++         1: getfield      #1                  // Field hudson/model/Queue.leftItems:Lcom/google/common/cache/Cache;
+          4: invokeinterface #184,  1          // InterfaceMethod com/google/common/cache/Cache.invalidateAll:()V
+          9: return        
+-      LineNumberTable:
+-        line 782: 0
+-        line 783: 9
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      10     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 782: 0
++        line 783: 9
+ 
+   public synchronized java.util.List<hudson.model.Queue$Item> getUnblockedItems();
+     flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+@@ -2714,27 +2717,21 @@
+          7: astore_1      
+          8: aload_1       
+          9: aload_0       
+-        10: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        10: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         13: invokeinterface #185,  2          // InterfaceMethod java/util/List.addAll:(Ljava/util/Collection;)Z
+         18: pop           
+         19: aload_1       
+         20: aload_0       
+-        21: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        21: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         24: invokeinterface #185,  2          // InterfaceMethod java/util/List.addAll:(Ljava/util/Collection;)Z
+         29: pop           
+         30: aload_1       
+         31: aload_0       
+-        32: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        32: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         35: invokeinterface #185,  2          // InterfaceMethod java/util/List.addAll:(Ljava/util/Collection;)Z
+         40: pop           
+         41: aload_1       
+         42: areturn       
+-      LineNumberTable:
+-        line 791: 0
+-        line 792: 8
+-        line 793: 19
+-        line 794: 30
+-        line 796: 41
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      43     0  this   Lhudson/model/Queue;
+@@ -2742,6 +2739,12 @@
+       LocalVariableTypeTable:
+         Start  Length  Slot  Name   Signature
+             8      35     1 queuedNotBlocked   Ljava/util/List<Lhudson/model/Queue$Item;>;
++      LineNumberTable:
++        line 791: 0
++        line 792: 8
++        line 793: 19
++        line 794: 30
++        line 796: 41
+     Signature: #487                         // ()Ljava/util/List<Lhudson/model/Queue$Item;>;
+ 
+   public synchronized java.util.Set<hudson.model.Queue$Task> getUnblockedTasks();
+@@ -2749,7 +2752,7 @@
+     Code:
+       stack=3, locals=5, args_size=1
+          0: aload_0       
+-         1: invokevirtual #186                // Method getUnblockedItems:()Ljava/util/List;
++         1: invokevirtual #186                // Method hudson/model/Queue.getUnblockedItems:()Ljava/util/List;
+          4: astore_1      
+          5: new           #187                // class java/util/HashSet
+          8: dup           
+@@ -2775,12 +2778,6 @@
+         58: goto          26
+         61: aload_2       
+         62: areturn       
+-      LineNumberTable:
+-        line 805: 0
+-        line 806: 5
+-        line 807: 19
+-        line 808: 46
+-        line 809: 61
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+               46      12     4     t   Lhudson/model/Queue$Item;
+@@ -2792,6 +2789,12 @@
+         Start  Length  Slot  Name   Signature
+             5      58     1 items   Ljava/util/List<Lhudson/model/Queue$Item;>;
+            19      44     2 unblockedTasks   Ljava/util/Set<Lhudson/model/Queue$Task;>;
++      LineNumberTable:
++        line 805: 0
++        line 806: 5
++        line 807: 19
++        line 808: 46
++        line 809: 61
+       StackMapTable: number_of_entries = 2
+            frame_type = 254 /* append */
+              offset_delta = 26
+@@ -2806,7 +2809,7 @@
+     Code:
+       stack=2, locals=4, args_size=2
+          0: aload_0       
+-         1: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++         1: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+          4: invokevirtual #172                // Method hudson/model/Queue$ItemList.iterator:()Ljava/util/Iterator;
+          7: astore_2      
+          8: aload_2       
+@@ -2826,18 +2829,18 @@
+         40: goto          8
+         43: iconst_0      
+         44: ireturn       
+-      LineNumberTable:
+-        line 816: 0
+-        line 817: 27
+-        line 818: 38
+-        line 817: 40
+-        line 819: 43
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+               27      13     3     i   Lhudson/model/Queue$BuildableItem;
+                8      35     2    i$   Ljava/util/Iterator;
+                0      45     0  this   Lhudson/model/Queue;
+                0      45     1     t   Lhudson/model/Queue$Task;
++      LineNumberTable:
++        line 816: 0
++        line 817: 27
++        line 818: 38
++        line 817: 40
++        line 819: 43
+       StackMapTable: number_of_entries = 3
+            frame_type = 252 /* append */
+              offset_delta = 8
+@@ -2854,7 +2857,7 @@
+          0: iconst_0      
+          1: istore_2      
+          2: aload_0       
+-         3: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++         3: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+          6: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+          9: invokevirtual #172                // Method hudson/model/Queue$ItemList.iterator:()Ljava/util/Iterator;
+         12: astore_3      
+@@ -2888,7 +2891,7 @@
+         91: goto          50
+         94: goto          13
+         97: aload_0       
+-        98: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        98: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+        101: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+        104: invokevirtual #172                // Method hudson/model/Queue$ItemList.iterator:()Ljava/util/Iterator;
+        107: astore_3      
+@@ -2923,6 +2926,19 @@
+        189: goto          108
+        192: iload_2       
+        193: ireturn       
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              72      19     6    st   Lhudson/model/queue/SubTask;
++              50      44     5    i$   Ljava/util/Iterator;
++              33      61     4    bi   Lhudson/model/Queue$BuildableItem;
++              13      84     3    i$   Ljava/util/Iterator;
++             167      19     6    st   Lhudson/model/queue/SubTask;
++             145      44     5    i$   Ljava/util/Iterator;
++             128      61     4    bi   Lhudson/model/Queue$BuildableItem;
++             108      84     3    i$   Ljava/util/Iterator;
++               0     194     0  this   Lhudson/model/Queue;
++               0     194     1     l   Lhudson/model/Label;
++               2     192     2     r   I
+       LineNumberTable:
+         line 826: 0
+         line 827: 2
+@@ -2938,19 +2954,6 @@
+         line 833: 186
+         line 832: 189
+         line 835: 192
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              72      19     6    st   Lhudson/model/queue/SubTask;
+-              50      44     5    i$   Ljava/util/Iterator;
+-              33      61     4    bi   Lhudson/model/Queue$BuildableItem;
+-              13      84     3    i$   Ljava/util/Iterator;
+-             167      19     6    st   Lhudson/model/queue/SubTask;
+-             145      44     5    i$   Ljava/util/Iterator;
+-             128      61     4    bi   Lhudson/model/Queue$BuildableItem;
+-             108      84     3    i$   Ljava/util/Iterator;
+-               0     194     0  this   Lhudson/model/Queue;
+-               0     194     1     l   Lhudson/model/Label;
+-               2     192     2     r   I
+       StackMapTable: number_of_entries = 12
+            frame_type = 253 /* append */
+              offset_delta = 13
+@@ -2990,20 +2993,20 @@
+       stack=2, locals=1, args_size=1
+          0: aload_0       
+          1: aconst_null   
+-         2: invokevirtual #196                // Method countBuildableItemsFor:(Lhudson/model/Label;)I
++         2: invokevirtual #196                // Method hudson/model/Queue.countBuildableItemsFor:(Lhudson/model/Label;)I
+          5: ireturn       
+-      LineNumberTable:
+-        line 842: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       6     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 842: 0
+ 
+   public synchronized hudson.model.Queue$Item getItem(hudson.model.Queue$Task);
+     flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+     Code:
+       stack=2, locals=6, args_size=2
+          0: aload_0       
+-         1: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++         1: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+          4: aload_1       
+          5: invokevirtual #197                // Method hudson/model/Queue$ItemList.get:(Lhudson/model/Queue$Task;)Lhudson/model/Queue$Item;
+          8: checkcast     #66                 // class hudson/model/Queue$BlockedItem
+@@ -3013,7 +3016,7 @@
+         16: aload_2       
+         17: areturn       
+         18: aload_0       
+-        19: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        19: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         22: aload_1       
+         23: invokevirtual #197                // Method hudson/model/Queue$ItemList.get:(Lhudson/model/Queue$Task;)Lhudson/model/Queue$Item;
+         26: checkcast     #67                 // class hudson/model/Queue$BuildableItem
+@@ -3023,7 +3026,7 @@
+         34: aload_3       
+         35: areturn       
+         36: aload_0       
+-        37: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        37: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         40: aload_1       
+         41: invokevirtual #197                // Method hudson/model/Queue$ItemList.get:(Lhudson/model/Queue$Task;)Lhudson/model/Queue$Item;
+         44: checkcast     #67                 // class hudson/model/Queue$BuildableItem
+@@ -3033,7 +3036,7 @@
+         52: aload_3       
+         53: areturn       
+         54: aload_0       
+-        55: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        55: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         58: invokeinterface #150,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+         63: astore        4
+         65: aload         4
+@@ -3053,6 +3056,14 @@
+        102: goto          65
+        105: aconst_null   
+        106: areturn       
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              87      15     5  item   Lhudson/model/Queue$Item;
++              65      40     4    i$   Ljava/util/Iterator;
++               0     107     0  this   Lhudson/model/Queue;
++               0     107     1     t   Lhudson/model/Queue$Task;
++              12      95     2    bp   Lhudson/model/Queue$BlockedItem;
++              30      77     3    bi   Lhudson/model/Queue$BuildableItem;
+       LineNumberTable:
+         line 851: 0
+         line 852: 12
+@@ -3068,14 +3079,6 @@
+         line 863: 99
+         line 865: 102
+         line 866: 105
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              87      15     5  item   Lhudson/model/Queue$Item;
+-              65      40     4    i$   Ljava/util/Iterator;
+-               0     107     0  this   Lhudson/model/Queue;
+-               0     107     1     t   Lhudson/model/Queue$Task;
+-              12      95     2    bp   Lhudson/model/Queue$BlockedItem;
+-              30      77     3    bi   Lhudson/model/Queue$BuildableItem;
+       StackMapTable: number_of_entries = 6
+            frame_type = 252 /* append */
+              offset_delta = 18
+@@ -3102,27 +3105,27 @@
+          7: astore_2      
+          8: aload_2       
+          9: aload_0       
+-        10: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++        10: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+         13: aload_1       
+         14: invokevirtual #198                // Method hudson/model/Queue$ItemList.getAll:(Lhudson/model/Queue$Task;)Ljava/util/List;
+         17: invokeinterface #185,  2          // InterfaceMethod java/util/List.addAll:(Ljava/util/Collection;)Z
+         22: pop           
+         23: aload_2       
+         24: aload_0       
+-        25: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        25: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         28: aload_1       
+         29: invokevirtual #198                // Method hudson/model/Queue$ItemList.getAll:(Lhudson/model/Queue$Task;)Ljava/util/List;
+         32: invokeinterface #185,  2          // InterfaceMethod java/util/List.addAll:(Ljava/util/Collection;)Z
+         37: pop           
+         38: aload_2       
+         39: aload_0       
+-        40: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        40: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         43: aload_1       
+         44: invokevirtual #198                // Method hudson/model/Queue$ItemList.getAll:(Lhudson/model/Queue$Task;)Ljava/util/List;
+         47: invokeinterface #185,  2          // InterfaceMethod java/util/List.addAll:(Ljava/util/Collection;)Z
+         52: pop           
+         53: aload_0       
+-        54: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        54: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         57: invokeinterface #150,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+         62: astore_3      
+         63: aload_3       
+@@ -3144,16 +3147,6 @@
+        104: goto          63
+        107: aload_2       
+        108: areturn       
+-      LineNumberTable:
+-        line 875: 0
+-        line 876: 8
+-        line 877: 23
+-        line 878: 38
+-        line 879: 53
+-        line 880: 83
+-        line 881: 95
+-        line 883: 104
+-        line 884: 107
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+               83      21     4  item   Lhudson/model/Queue$Item;
+@@ -3164,6 +3157,16 @@
+       LocalVariableTypeTable:
+         Start  Length  Slot  Name   Signature
+             8     101     2 result   Ljava/util/List<Lhudson/model/Queue$Item;>;
++      LineNumberTable:
++        line 875: 0
++        line 876: 8
++        line 877: 23
++        line 878: 38
++        line 879: 53
++        line 880: 83
++        line 881: 95
++        line 883: 104
++        line 884: 107
+       StackMapTable: number_of_entries = 3
+            frame_type = 253 /* append */
+              offset_delta = 63
+@@ -3179,24 +3182,24 @@
+     Code:
+       stack=2, locals=4, args_size=2
+          0: aload_0       
+-         1: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++         1: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+          4: aload_1       
+          5: invokevirtual #199                // Method hudson/model/Queue$ItemList.containsKey:(Lhudson/model/Queue$Task;)Z
+          8: ifne          33
+         11: aload_0       
+-        12: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++        12: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+         15: aload_1       
+         16: invokevirtual #199                // Method hudson/model/Queue$ItemList.containsKey:(Lhudson/model/Queue$Task;)Z
+         19: ifne          33
+         22: aload_0       
+-        23: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++        23: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+         26: aload_1       
+         27: invokevirtual #199                // Method hudson/model/Queue$ItemList.containsKey:(Lhudson/model/Queue$Task;)Z
+         30: ifeq          35
+         33: iconst_1      
+         34: ireturn       
+         35: aload_0       
+-        36: getfield      #5                  // Field waitingList:Ljava/util/Set;
++        36: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+         39: invokeinterface #150,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+         44: astore_2      
+         45: aload_2       
+@@ -3216,6 +3219,12 @@
+         77: goto          45
+         80: iconst_0      
+         81: ireturn       
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              64      13     3  item   Lhudson/model/Queue$Item;
++              45      35     2    i$   Ljava/util/Iterator;
++               0      82     0  this   Lhudson/model/Queue;
++               0      82     1     t   Lhudson/model/Queue$Task;
+       LineNumberTable:
+         line 900: 0
+         line 901: 33
+@@ -3224,12 +3233,6 @@
+         line 904: 75
+         line 906: 77
+         line 907: 80
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              64      13     3  item   Lhudson/model/Queue$Item;
+-              45      35     2    i$   Ljava/util/Iterator;
+-               0      82     0  this   Lhudson/model/Queue;
+-               0      82     1     t   Lhudson/model/Queue$Task;
+       StackMapTable: number_of_entries = 5
+            frame_type = 33 /* same */
+            frame_type = 1 /* same */
+@@ -3249,7 +3252,7 @@
+          1: invokevirtual #200                // Method hudson/model/Executor.getCurrentWorkUnit:()Lhudson/model/queue/WorkUnit;
+          4: astore_2      
+          5: aload_0       
+-         6: getfield      #11                 // Field pendings:Lhudson/model/Queue$ItemList;
++         6: getfield      #11                 // Field hudson/model/Queue.pendings:Lhudson/model/Queue$ItemList;
+          9: aload_2       
+         10: getfield      #201                // Field hudson/model/queue/WorkUnit.context:Lhudson/model/queue/WorkUnitContext;
+         13: getfield      #202                // Field hudson/model/queue/WorkUnitContext.item:Lhudson/model/Queue$BuildableItem;
+@@ -3265,18 +3268,18 @@
+         33: aload_0       
+         34: invokevirtual #161                // Method hudson/model/Queue$LeftItem.enter:(Lhudson/model/Queue;)V
+         37: return        
+-      LineNumberTable:
+-        line 916: 0
+-        line 917: 5
+-        line 919: 20
+-        line 920: 32
+-        line 921: 37
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      38     0  this   Lhudson/model/Queue;
+                0      38     1  exec   Lhudson/model/Executor;
+                5      33     2    wu   Lhudson/model/queue/WorkUnit;
+               32       6     3    li   Lhudson/model/Queue$LeftItem;
++      LineNumberTable:
++        line 916: 0
++        line 917: 5
++        line 919: 20
++        line 920: 32
++        line 921: 37
+     Exceptions:
+       throws java.lang.InterruptedException
+ 
+@@ -3285,14 +3288,14 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #25                 // Field maintainerThread:Ljenkins/util/AtmostOneTaskExecutor;
++         1: getfield      #25                 // Field hudson/model/Queue.maintainerThread:Ljenkins/util/AtmostOneTaskExecutor;
+          4: invokevirtual #205                // Method jenkins/util/AtmostOneTaskExecutor.submit:()Ljava/util/concurrent/Future;
+          7: areturn       
+-      LineNumberTable:
+-        line 934: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       8     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 934: 0
+     Signature: #547                         // ()Ljava/util/concurrent/Future<*>;
+     RuntimeInvisibleAnnotations:
+       0: #549(#550=[c#551])
+@@ -3301,7 +3304,7 @@
+     flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+     Code:
+       stack=7, locals=9, args_size=1
+-         0: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++         0: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+          3: getstatic     #131                // Field java/util/logging/Level.FINE:Ljava/util/logging/Level;
+          6: ldc           #214                // String Queue maintenance started {0}
+          8: aload_0       
+@@ -3355,7 +3358,7 @@
+        116: new           #88                 // class java/util/ArrayList
+        119: dup           
+        120: aload_0       
+-       121: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++       121: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+        124: invokevirtual #171                // Method hudson/model/Queue$ItemList.values:()Lhudson/model/Queue$ItemList;
+        127: invokespecial #98                 // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+        130: invokevirtual #99                 // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;
+@@ -3369,12 +3372,12 @@
+        152: astore_3      
+        153: aload_0       
+        154: aload_3       
+-       155: invokespecial #224                // Method isBuildBlocked:(Lhudson/model/Queue$Item;)Z
++       155: invokespecial #224                // Method hudson/model/Queue.isBuildBlocked:(Lhudson/model/Queue$Item;)Z
+        158: ifne          190
+        161: aload_0       
+        162: aload_3       
+        163: getfield      #225                // Field hudson/model/Queue$BlockedItem.task:Lhudson/model/Queue$Task;
+-       166: invokespecial #226                // Method allowNewBuildableTask:(Lhudson/model/Queue$Task;)Z
++       166: invokespecial #226                // Method hudson/model/Queue.allowNewBuildableTask:(Lhudson/model/Queue$Task;)Z
+        169: ifeq          190
+        172: aload_3       
+        173: aload_0       
+@@ -3385,14 +3388,14 @@
+        182: dup           
+        183: aload_3       
+        184: invokespecial #228                // Method hudson/model/Queue$BuildableItem."<init>":(Lhudson/model/Queue$NotWaitingItem;)V
+-       187: invokespecial #229                // Method makeBuildable:(Lhudson/model/Queue$BuildableItem;)V
++       187: invokespecial #229                // Method hudson/model/Queue.makeBuildable:(Lhudson/model/Queue$BuildableItem;)V
+        190: goto          134
+        193: aload_0       
+-       194: getfield      #5                  // Field waitingList:Ljava/util/Set;
++       194: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+        197: invokeinterface #165,  1          // InterfaceMethod java/util/Set.isEmpty:()Z
+        202: ifne          288
+        205: aload_0       
+-       206: invokespecial #230                // Method peek:()Lhudson/model/Queue$WaitingItem;
++       206: invokespecial #230                // Method hudson/model/Queue.peek:()Lhudson/model/Queue$WaitingItem;
+        209: astore_2      
+        210: aload_2       
+        211: getfield      #140                // Field hudson/model/Queue$WaitingItem.timestamp:Ljava/util/Calendar;
+@@ -3411,18 +3414,18 @@
+        240: astore_3      
+        241: aload_0       
+        242: aload_2       
+-       243: invokespecial #224                // Method isBuildBlocked:(Lhudson/model/Queue$Item;)Z
++       243: invokespecial #224                // Method hudson/model/Queue.isBuildBlocked:(Lhudson/model/Queue$Item;)Z
+        246: ifne          272
+        249: aload_0       
+        250: aload_3       
+-       251: invokespecial #226                // Method allowNewBuildableTask:(Lhudson/model/Queue$Task;)Z
++       251: invokespecial #226                // Method hudson/model/Queue.allowNewBuildableTask:(Lhudson/model/Queue$Task;)Z
+        254: ifeq          272
+        257: aload_0       
+        258: new           #67                 // class hudson/model/Queue$BuildableItem
+        261: dup           
+        262: aload_2       
+        263: invokespecial #232                // Method hudson/model/Queue$BuildableItem."<init>":(Lhudson/model/Queue$WaitingItem;)V
+-       266: invokespecial #229                // Method makeBuildable:(Lhudson/model/Queue$BuildableItem;)V
++       266: invokespecial #229                // Method hudson/model/Queue.makeBuildable:(Lhudson/model/Queue$BuildableItem;)V
+        269: goto          285
+        272: new           #66                 // class hudson/model/Queue$BlockedItem
+        275: dup           
+@@ -3433,18 +3436,18 @@
+        282: invokevirtual #234                // Method hudson/model/Queue$BlockedItem.enter:(Lhudson/model/Queue;)V
+        285: goto          193
+        288: aload_0       
+-       289: getfield      #33                 // Field sorter:Lhudson/model/queue/QueueSorter;
++       289: getfield      #33                 // Field hudson/model/Queue.sorter:Lhudson/model/queue/QueueSorter;
+        292: astore_2      
+        293: aload_2       
+        294: ifnull        305
+        297: aload_2       
+        298: aload_0       
+-       299: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++       299: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+        302: invokevirtual #235                // Method hudson/model/queue/QueueSorter.sortBuildableItems:(Ljava/util/List;)V
+        305: new           #88                 // class java/util/ArrayList
+        308: dup           
+        309: aload_0       
+-       310: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++       310: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+        313: invokespecial #98                 // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+        316: invokevirtual #99                 // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;
+        319: astore_3      
+@@ -3457,7 +3460,7 @@
+        338: astore        4
+        340: aload_0       
+        341: aload         4
+-       343: invokespecial #224                // Method isBuildBlocked:(Lhudson/model/Queue$Item;)Z
++       343: invokespecial #224                // Method hudson/model/Queue.isBuildBlocked:(Lhudson/model/Queue$Item;)Z
+        346: ifeq          386
+        349: aload         4
+        351: aload_0       
+@@ -3470,7 +3473,7 @@
+        363: invokespecial #237                // Method hudson/model/Queue$BlockedItem."<init>":(Lhudson/model/Queue;Lhudson/model/Queue$NotWaitingItem;)V
+        366: aload_0       
+        367: invokevirtual #234                // Method hudson/model/Queue$BlockedItem.enter:(Lhudson/model/Queue;)V
+-       370: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++       370: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+        373: getstatic     #131                // Field java/util/logging/Level.FINE:Ljava/util/logging/Level;
+        376: ldc           #238                // String Catching that {0} is blocked in the last minute
+        378: aload         4
+@@ -3509,7 +3512,7 @@
+        467: invokespecial #244                // Method hudson/model/queue/MappingWorksheet."<init>":(Lhudson/model/Queue$BuildableItem;Ljava/util/List;)V
+        470: astore        6
+        472: aload_0       
+-       473: getfield      #27                 // Field loadBalancer:Lhudson/model/LoadBalancer;
++       473: getfield      #27                 // Field hudson/model/Queue.loadBalancer:Lhudson/model/LoadBalancer;
+        476: aload         4
+        478: getfield      #191                // Field hudson/model/Queue$BuildableItem.task:Lhudson/model/Queue$Task;
+        481: aload         6
+@@ -3517,7 +3520,7 @@
+        486: astore        7
+        488: aload         7
+        490: ifnonnull     530
+-       493: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++       493: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+        496: getstatic     #246                // Field java/util/logging/Level.FINER:Ljava/util/logging/Level;
+        499: ldc           #247                // String Failed to map {0} to executors. candidates={1} parked={2}
+        501: iconst_3      
+@@ -3555,16 +3558,43 @@
+        565: ifne          578
+        568: aload_0       
+        569: aload         4
+-       571: invokespecial #252                // Method makePending:(Lhudson/model/Queue$BuildableItem;)Z
++       571: invokespecial #252                // Method hudson/model/Queue.makePending:(Lhudson/model/Queue$BuildableItem;)Z
+        574: pop           
+        575: goto          591
+-       578: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++       578: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+        581: getstatic     #131                // Field java/util/logging/Level.FINE:Ljava/util/logging/Level;
+        584: ldc           #253                // String BuildableItem {0} with empty work units!?
+        586: aload         4
+        588: invokevirtual #133                // Method java/util/logging/Logger.log:(Ljava/util/logging/Level;Ljava/lang/String;Ljava/lang/Object;)V
+        591: goto          320
+        594: return        
++      LocalVariableTable:
++        Start  Length  Slot  Name   Signature
++              79      28     7     e   Lhudson/model/Executor;
++              57      53     6    i$   Ljava/util/Iterator;
++              45      65     5     c   Lhudson/model/Computer;
++              27      89     2  arr$   [Lhudson/model/Computer;
++              30      86     3  len$   I
++              33      83     4    i$   I
++             153      37     3     p   Lhudson/model/Queue$BlockedItem;
++             134      59     2    i$   Ljava/util/Iterator;
++             210      75     2   top   Lhudson/model/Queue$WaitingItem;
++             241      44     3     p   Lhudson/model/Queue$Task;
++             436      20     7     j   Lhudson/model/Queue$JobOffer;
++             414      45     6    i$   Ljava/util/Iterator;
++             401     190     5 candidates   Ljava/util/List;
++             472     119     6    ws   Lhudson/model/queue/MappingWorksheet;
++             488     103     7     m   Lhudson/model/queue/MappingWorksheet$Mapping;
++             541      50     8   wuc   Lhudson/model/queue/WorkUnitContext;
++             340     251     4     p   Lhudson/model/Queue$BuildableItem;
++             320     274     3    i$   Ljava/util/Iterator;
++               0     595     0  this   Lhudson/model/Queue;
++              20     575     1 parked   Ljava/util/Map;
++             293     302     2     s   Lhudson/model/queue/QueueSorter;
++      LocalVariableTypeTable:
++        Start  Length  Slot  Name   Signature
++          401     190     5 candidates   Ljava/util/List<Lhudson/model/Queue$JobOffer;>;
++           20     575     1 parked   Ljava/util/Map<Lhudson/model/Executor;Lhudson/model/Queue$JobOffer;>;
+       LineNumberTable:
+         line 980: 0
+         line 983: 12
+@@ -3616,33 +3646,6 @@
+         line 1062: 578
+         line 1063: 591
+         line 1064: 594
+-      LocalVariableTable:
+-        Start  Length  Slot  Name   Signature
+-              79      28     7     e   Lhudson/model/Executor;
+-              57      53     6    i$   Ljava/util/Iterator;
+-              45      65     5     c   Lhudson/model/Computer;
+-              27      89     2  arr$   [Lhudson/model/Computer;
+-              30      86     3  len$   I
+-              33      83     4    i$   I
+-             153      37     3     p   Lhudson/model/Queue$BlockedItem;
+-             134      59     2    i$   Ljava/util/Iterator;
+-             210      75     2   top   Lhudson/model/Queue$WaitingItem;
+-             241      44     3     p   Lhudson/model/Queue$Task;
+-             436      20     7     j   Lhudson/model/Queue$JobOffer;
+-             414      45     6    i$   Ljava/util/Iterator;
+-             401     190     5 candidates   Ljava/util/List;
+-             472     119     6    ws   Lhudson/model/queue/MappingWorksheet;
+-             488     103     7     m   Lhudson/model/queue/MappingWorksheet$Mapping;
+-             541      50     8   wuc   Lhudson/model/queue/WorkUnitContext;
+-             340     251     4     p   Lhudson/model/Queue$BuildableItem;
+-             320     274     3    i$   Ljava/util/Iterator;
+-               0     595     0  this   Lhudson/model/Queue;
+-              20     575     1 parked   Ljava/util/Map;
+-             293     302     2     s   Lhudson/model/queue/QueueSorter;
+-      LocalVariableTypeTable:
+-        Start  Length  Slot  Name   Signature
+-          401     190     5 candidates   Ljava/util/List<Lhudson/model/Queue$JobOffer;>;
+-           20     575     1 parked   Ljava/util/Map<Lhudson/model/Executor;Lhudson/model/Queue$JobOffer;>;
+       StackMapTable: number_of_entries = 22
+            frame_type = 255 /* full_frame */
+           offset_delta = 33
+@@ -3714,11 +3717,11 @@
+         17: goto          21
+         20: iconst_0      
+         21: ireturn       
+-      LineNumberTable:
+-        line 1103: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0      22     0  task   Lhudson/model/Queue$Task;
++      LineNumberTable:
++        line 1103: 0
+       StackMapTable: number_of_entries = 2
+            frame_type = 20 /* same */
+            frame_type = 64 /* same_locals_1_stack_item */
+@@ -3734,11 +3737,11 @@
+          4: aload_0       
+          5: invokespecial #280                // Method hudson/model/Api."<init>":(Ljava/lang/Object;)V
+          8: areturn       
+-      LineNumberTable:
+-        line 1107: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       9     0  this   Lhudson/model/Queue;
++      LineNumberTable:
++        line 1107: 0
+ 
+   public static hudson.model.Queue getInstance();
+     flags: ACC_PUBLIC, ACC_STATIC
+@@ -3758,14 +3761,14 @@
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+          1: invokevirtual #281                // Method jenkins/model/Jenkins.getQueue:()Lhudson/model/Queue;
+-         4: invokevirtual #282                // Method load:()V
++         4: invokevirtual #282                // Method hudson/model/Queue.load:()V
+          7: return        
+-      LineNumberTable:
+-        line 2090: 0
+-        line 2091: 7
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       8     0     h   Ljenkins/model/Jenkins;
++      LineNumberTable:
++        line 2090: 0
++        line 2091: 7
+     RuntimeVisibleAnnotations:
+       0: #605(#606=e#607.#608)
+ 
+@@ -3774,19 +3777,19 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #5                  // Field waitingList:Ljava/util/Set;
++         1: getfield      #5                  // Field hudson/model/Queue.waitingList:Ljava/util/Set;
+          4: areturn       
+-      LineNumberTable:
+-        line 153: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       5     0    x0   Lhudson/model/Queue;
++      LineNumberTable:
++        line 153: 0
+ 
+   static java.util.logging.Logger access$700();
+     flags: ACC_STATIC, ACC_SYNTHETIC
+     Code:
+       stack=1, locals=0, args_size=0
+-         0: getstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++         0: getstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+          3: areturn       
+       LineNumberTable:
+         line 153: 0
+@@ -3796,39 +3799,39 @@
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #3                  // Field blockedProjects:Lhudson/model/Queue$ItemList;
++         1: getfield      #3                  // Field hudson/model/Queue.blockedProjects:Lhudson/model/Queue$ItemList;
+          4: areturn       
+-      LineNumberTable:
+-        line 153: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       5     0    x0   Lhudson/model/Queue;
++      LineNumberTable:
++        line 153: 0
+ 
+   static hudson.model.Queue$ItemList access$900(hudson.model.Queue);
+     flags: ACC_STATIC, ACC_SYNTHETIC
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #2                  // Field buildables:Lhudson/model/Queue$ItemList;
++         1: getfield      #2                  // Field hudson/model/Queue.buildables:Lhudson/model/Queue$ItemList;
+          4: areturn       
+-      LineNumberTable:
+-        line 153: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       5     0    x0   Lhudson/model/Queue;
++      LineNumberTable:
++        line 153: 0
+ 
+   static com.google.common.cache.Cache access$1000(hudson.model.Queue);
+     flags: ACC_STATIC, ACC_SYNTHETIC
+     Code:
+       stack=1, locals=1, args_size=1
+          0: aload_0       
+-         1: getfield      #1                  // Field leftItems:Lcom/google/common/cache/Cache;
++         1: getfield      #1                  // Field hudson/model/Queue.leftItems:Lcom/google/common/cache/Cache;
+          4: areturn       
+-      LineNumberTable:
+-        line 153: 0
+       LocalVariableTable:
+         Start  Length  Slot  Name   Signature
+                0       5     0    x0   Lhudson/model/Queue;
++      LineNumberTable:
++        line 153: 0
+ 
+   static {};
+     flags: ACC_STATIC
+@@ -3837,22 +3840,22 @@
+          0: ldc_w         #283                // class hudson/model/Queue
+          3: invokevirtual #284                // Method java/lang/Class.getName:()Ljava/lang/String;
+          6: invokestatic  #285                // Method java/util/logging/Logger.getLogger:(Ljava/lang/String;)Ljava/util/logging/Logger;
+-         9: putstatic     #4                  // Field LOGGER:Ljava/util/logging/Logger;
++         9: putstatic     #4                  // Field hudson/model/Queue.LOGGER:Ljava/util/logging/Logger;
+         12: new           #286                // class hudson/util/XStream2
+         15: dup           
+         16: invokespecial #287                // Method hudson/util/XStream2."<init>":()V
+-        19: putstatic     #51                 // Field XSTREAM:Lcom/thoughtworks/xstream/XStream;
+-        22: getstatic     #51                 // Field XSTREAM:Lcom/thoughtworks/xstream/XStream;
++        19: putstatic     #51                 // Field hudson/model/Queue.XSTREAM:Lcom/thoughtworks/xstream/XStream;
++        22: getstatic     #51                 // Field hudson/model/Queue.XSTREAM:Lcom/thoughtworks/xstream/XStream;
+         25: new           #288                // class hudson/model/Queue$3
+         28: dup           
+         29: invokespecial #289                // Method hudson/model/Queue$3."<init>":()V
+         32: invokevirtual #290                // Method com/thoughtworks/xstream/XStream.registerConverter:(Lcom/thoughtworks/xstream/converters/SingleValueConverter;)V
+-        35: getstatic     #51                 // Field XSTREAM:Lcom/thoughtworks/xstream/XStream;
++        35: getstatic     #51                 // Field hudson/model/Queue.XSTREAM:Lcom/thoughtworks/xstream/XStream;
+         38: new           #291                // class hudson/model/Queue$4
+         41: dup           
+         42: invokespecial #292                // Method hudson/model/Queue$4."<init>":()V
+         45: invokevirtual #290                // Method com/thoughtworks/xstream/XStream.registerConverter:(Lcom/thoughtworks/xstream/converters/SingleValueConverter;)V
+-        48: getstatic     #51                 // Field XSTREAM:Lcom/thoughtworks/xstream/XStream;
++        48: getstatic     #51                 // Field hudson/model/Queue.XSTREAM:Lcom/thoughtworks/xstream/XStream;
+         51: new           #293                // class hudson/model/Queue$5
+         54: dup           
+         55: invokespecial #294                // Method hudson/model/Queue$5."<init>":()V
+@@ -3865,4 +3868,13 @@
+         line 1942: 35
+         line 1972: 48
+         line 1988: 61
++
++  public void scheduleMaintenance();
++    flags: ACC_PUBLIC, ACC_BRIDGE, ACC_SYNTHETIC
++    Code:
++      stack=1, locals=1, args_size=1
++         0: aload_0       
++         1: invokevirtual #102                // Method hudson/model/Queue.scheduleMaintenance:()Ljava/util/concurrent/Future;
++         4: pop           
++         5: return        
+ }

@@ -1,0 +1,32 @@
+### Eclipse Workspace Patch 1.0
+#P hudson-war
+Index: resources/help/update-center/proxy-username.html
+===================================================================
+--- resources/help/update-center/proxy-username.html	(revision 0)
++++ resources/help/update-center/proxy-username.html	(revision 0)
+@@ -0,0 +1,10 @@
++<div>
++  This field works in conjunction with the proxy server field
++  to specify the username used to authenticate with the proxy.
++
++  <p>
++  If this proxy requires Microsofts <a href="http://en.wikipedia.org/wiki/NTLM">NTLM</a>
++  authentication scheme then the domain name can be encoded
++  within the username by prefixing the domain name followed
++  by a back-slash '\' before the username, e.g "ACME\John Doo".
++</div>
+\ No newline at end of file
+#P hudson-core
+Index: src/main/resources/hudson/PluginManager/advanced.jelly
+===================================================================
+--- src/main/resources/hudson/PluginManager/advanced.jelly	(revision 19367)
++++ src/main/resources/hudson/PluginManager/advanced.jelly	(working copy)
+@@ -45,7 +45,7 @@
+                 <f:textbox name="proxy.port" value="${app.proxy.port}" />
+               </f:entry>
+             </f:block>
+-            <f:entry title="${%User name}">
++            <f:entry title="${%User name}" help="/help/update-center/proxy-username.html>
+               <f:textbox name="proxy.userName" value="${app.proxy.userName}" />
+             </f:entry>
+             <f:entry title="${%Password}">

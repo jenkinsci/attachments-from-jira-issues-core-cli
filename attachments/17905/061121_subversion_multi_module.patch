@@ -1,0 +1,516 @@
+### Eclipse Workspace Patch 1.0
+#P hudson-core
+Index: src/main/java/hudson/scm/SubversionSCM.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/scm/SubversionSCM.java,v
+retrieving revision 1.8
+diff -u -r1.8 SubversionSCM.java
+--- src/main/java/hudson/scm/SubversionSCM.java	19 Nov 2006 22:33:15 -0000	1.8
++++ src/main/java/hudson/scm/SubversionSCM.java	21 Nov 2006 00:11:21 -0000
+@@ -11,13 +11,7 @@
+ import hudson.model.TaskListener;
+ import hudson.util.ArgumentListBuilder;
+ import hudson.util.FormFieldValidator;
+-import org.apache.commons.digester.Digester;
+-import org.kohsuke.stapler.StaplerRequest;
+-import org.kohsuke.stapler.StaplerResponse;
+-import org.xml.sax.SAXException;
+ 
+-import javax.servlet.ServletException;
+-import javax.servlet.http.HttpServletRequest;
+ import java.io.BufferedOutputStream;
+ import java.io.BufferedReader;
+ import java.io.ByteArrayInputStream;
+@@ -36,13 +30,21 @@
+ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Map;
+-import java.util.Map.Entry;
+ import java.util.StringTokenizer;
++import java.util.Vector;
++import java.util.Map.Entry;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+ 
++import javax.servlet.ServletException;
++
++import org.apache.commons.digester.Digester;
++import org.kohsuke.stapler.StaplerRequest;
++import org.kohsuke.stapler.StaplerResponse;
++import org.xml.sax.SAXException;
++
+ /**
+  * Subversion.
+  *
+@@ -52,38 +54,121 @@
+  * @author Kohsuke Kawaguchi
+  */
+ public class SubversionSCM extends AbstractCVSFamilySCM {
+-    private final String modules;
++	@Deprecated
++	private String modules;
++	/**
++	 * the locations field is used to store all configured SVN locations (with
++	 * their local and remote part). Direct access to this filed should be
++	 * avoided and the getLocations() method should be used instead. This is
++	 * needed to make importing of old hudson-configurations possible as
++	 * getLocations() will check if the modules field has been set and import
++	 * the data.
++	 * @since 1.64
++	 */
++	private ModuleLocation[] locations = new ModuleLocation[0];
+     private boolean useUpdate;
+     private String username;
+     private String otherOptions;
+ 
+-    SubversionSCM( String modules, boolean useUpdate, String username, String otherOptions ) {
+-        StringBuilder normalizedModules = new StringBuilder();
+-        StringTokenizer tokens = new StringTokenizer(modules);
+-        while(tokens.hasMoreTokens()) {
+-            if(normalizedModules.length()>0)    normalizedModules.append(' ');
+-            String m = tokens.nextToken();
+-            if(m.endsWith("/"))
+-                // the normalized name is always without the trailing '/'
+-                m = m.substring(0,m.length()-1);
+-            normalizedModules.append(m);
+-       }
+-
+-        this.modules = normalizedModules.toString();
++    SubversionSCM(String[] remoteLocations, String[] localLocations, boolean useUpdate, String username, String otherOptions ) {
++    	
++    	if (remoteLocations != null && localLocations != null) {
++    		int entries = Math.min(remoteLocations.length, localLocations.length);
++    		
++    		ModuleLocation[] l = new ModuleLocation[entries];
++    		
++    		for (int i = 0; i < l.length; i++) {
++    			
++    			// the remote (repository) location
++    			String remoteLoc = nullify(remoteLocations[i]);
++    			// the local filesystem location (directory to checkout into)
++    			String localLoc = nullify(localLocations[i]);
++    			
++    			if (remoteLoc != null) {
++    				remoteLoc = remoteLoc.trim();
++    				
++    				if (remoteLoc.charAt(remoteLoc.length()-1) == '/')
++    					remoteLoc.substring(0, remoteLoc.length()-1);
++    				
++    				if (localLoc == null)
++    					localLoc = getLastPathComponent(remoteLoc);
++    				
++    				String errorMessage = null;
++    				if ((errorMessage = validateRemoteLocation(remoteLoc)) == null
++							&& (errorMessage = validateLocalLocation(remoteLoc)) == null)
++    					// the location is not configured properly
++    					l[i] = new ModuleLocation(remoteLoc, localLoc, errorMessage);
++    				else
++    					// everything fine
++    					l[i] = new ModuleLocation(remoteLoc, localLoc);
++    			}
++			}
++    		locations = l;
++    	}
++    	
+         this.useUpdate = useUpdate;
+         this.username = nullify(username);
+         this.otherOptions = nullify(otherOptions);
+     }
+ 
+     /**
+-     * Whitespace-separated list of SVN URLs that represent
+-     * modules to be checked out.
+-     */
++	 * this method is beeing kept for compatibility reasons with older hudson
++	 * installations. All data is beeing stored in the {@link #locations} filed
++	 * which is basically a list of {@link ModuleLocations}
++	 */
++    @Deprecated
+     public String getModules() {
+-        return modules;
++    	return modules;
+     }
++    
++    /**
++	 * this method is beeing kept for compatibility reasons with older hudson
++	 * installations. All data is beeing stored in the {@link #locations} filed
++	 * which is basically a list of {@link ModuleLocations}
++	 */
++    @Deprecated
++    public void setModules(String modules) {
++    	this.modules = modules;
++    }
++    
++    /**
++     * list of all configured svn locations
++     * @since 1.64
++     */
++    public ModuleLocation[] getLocations() {
++    	// check if we've got a old location
++    	if (modules != null) {
++    		// import the old configuration
++    		Vector<ModuleLocation> oldLocations = new Vector<ModuleLocation>();
++            StringTokenizer tokens = new StringTokenizer(modules);
++            while(tokens.hasMoreTokens()) {
++            	// the remote (repository location)
++                String remoteLoc = tokens.nextToken();
++                if(remoteLoc.endsWith("/"))
++                    // the normalized name is always without the trailing '/'
++                    remoteLoc = remoteLoc.substring(0,remoteLoc.length()-1);
++                
++                // the location in the local filesystem
++                String LocalLoc = getLastPathComponent(remoteLoc);
++                
++                // check if there are errors in the configuration
++				String errorMessage = null;
++				if ((errorMessage = validateRemoteLocation(remoteLoc)) == null
++						&& (errorMessage = validateLocalLocation(remoteLoc)) == null)
++					// the location is not configured properly
++					oldLocations.add(new ModuleLocation(remoteLoc, LocalLoc, errorMessage));
++				else
++					// everything fine
++					oldLocations.add(new ModuleLocation(remoteLoc, LocalLoc));
++           }
++           
++           locations = oldLocations.toArray(new ModuleLocation[oldLocations.size()]);
++           modules = null;
++    	}
++		return locations;
++	}
+ 
+-    public boolean isUseUpdate() {
++	public boolean isUseUpdate() {
+         return useUpdate;
+     }
+ 
+@@ -97,9 +182,8 @@
+ 
+     private Collection<String> getModuleDirNames() {
+         List<String> dirs = new ArrayList<String>();
+-        StringTokenizer tokens = new StringTokenizer(modules);
+-        while(tokens.hasMoreTokens()) {
+-            dirs.add(getLastPathComponent(tokens.nextToken()));
++        for (ModuleLocation l : getLocations()) {
++        	dirs.add(l.getLocal());
+         }
+         return dirs;
+     }
+@@ -187,15 +271,21 @@
+                 return false;
+         } else {
+             workspace.deleteContents();
+-            StringTokenizer tokens = new StringTokenizer(modules);
+-            while(tokens.hasMoreTokens()) {
++            for (ModuleLocation l : getLocations()) {
++            	if (l.getErrorMessage() != null) {
++            		listener.fatalError("Unable to perform checkout: "
++							+ l.getErrorMessage()
++							+ ". Please validate your configuration.");
++            		return false;
++            	}
+                 ArgumentListBuilder cmd = new ArgumentListBuilder();
+                 cmd.add(DESCRIPTOR.getSvnExe(),"co",/*"-q",*/"--non-interactive");
+                 if(username!=null)
+                     cmd.add("--username",username);
+                 if(otherOptions!=null)
+                     cmd.add(Util.tokenize(otherOptions));
+-                cmd.add(tokens.nextToken());
++                cmd.add(l.getRemote());
++                cmd.add(l.getLocal());
+ 
+                 result = run(launcher,cmd,listener,workspace);
+                 if(!result)
+@@ -319,7 +409,65 @@
+         return new File(build.getRootDir(),"revision.txt");
+     }
+ 
+-    public boolean update(Launcher launcher, FilePath remoteDir, BuildListener listener) throws IOException {
++    /**
++	 * this method is beeing used to validate the repository location. If
++	 * <code>null</code> is beeing returned the location is all fine and has
++	 * been validated successfully. A String instance beeing returned indicates
++	 * that the validation failed and the String will contain a errormessage
++	 * 
++	 * @param remoteLocation
++	 *            the location to be validated
++	 * @return <code>null</code> if the location is valid or any instance of a
++	 *         String which represents a failure message if the validation
++	 *         failed
++	 */
++    private static String validateRemoteLocation(String remoteLocation) {
++        String v = Util.nullify(remoteLocation);
++        System.err.println("v" + v);
++        if(v==null) {
++            return "Repository location is mandatory";
++        }
++        
++        // remove unneeded whitespaces
++        v = v.trim();
++        // check if the repository location has been prefixed
++        if (!(v.startsWith("http://") || v.startsWith("https://")
++				|| v.startsWith("svn://") || v.startsWith("svn+ssh://") || 
++				v.startsWith("file://"))) {
++			return "incorrect Repository URL. See "
++					+ "<a href=\"http://svnbook.red-bean.com/en/1.2/svn-book.html#svn.basic.in-action.wc.tbl-1\">this</a> "
++					+ "for information about valid URLs.";
++		}
++        return null;
++    }
++    
++    /**
++	 * this method does basically the same as
++	 * {@link #validateRemoteLocation(String)} does. The difference is that it
++	 * will check the local location instead of the remote one
++	 * 
++	 * @see #validateRemoteLocation(String)
++	 */
++    private static String validateLocalLocation(String localLocation) {
++		String v = Util.nullify(localLocation);
++		if(v==null) {
++			// local directory is optional so this is ok
++			return null;
++		}
++		
++		v = v.trim();
++		
++		// check if a absolute path has been supplied
++		// (the last check with the regex will match windows drives)
++		if (v.startsWith("/") || v.startsWith("\\") || v.startsWith("..") || v.matches("^[A-Za-z]:")) {
++			return "neither absolute nor relative paths are allowed";
++		}
++			
++		// all tests passed so far
++		return null;
++    }
++    
++    public boolean update(Launcher launcher, FilePath workspace, BuildListener listener) throws IOException {
+         ArgumentListBuilder cmd = new ArgumentListBuilder();
+         cmd.add(DESCRIPTOR.getSvnExe(), "update", /*"-q",*/ "--non-interactive");
+ 
+@@ -328,9 +476,14 @@
+         if(otherOptions!=null)
+             cmd.add(Util.tokenize(otherOptions));
+ 
+-        StringTokenizer tokens = new StringTokenizer(modules);
+-        while(tokens.hasMoreTokens()) {
+-            if(!run(launcher,cmd,listener,new FilePath(remoteDir,getLastPathComponent(tokens.nextToken()))))
++        for (ModuleLocation l : getLocations()) {
++        	if (l.getErrorMessage() != null) {
++        		listener.fatalError("Unable to perform update: "
++						+ l.getErrorMessage()
++						+ ". Please validate your configuration.");
++        		return false;
++        	}
++            if(!run(launcher,cmd,listener,new FilePath(workspace,l.getLocal())))
+                 return false;
+         }
+         return true;
+@@ -340,21 +493,23 @@
+      * Returns true if we can use "svn update" instead of "svn checkout"
+      */
+     private boolean isUpdatable(FilePath workspace,BuildListener listener) {
+-        StringTokenizer tokens = new StringTokenizer(modules);
+-        while(tokens.hasMoreTokens()) {
+-            String url = tokens.nextToken();
+-            String moduleName = getLastPathComponent(url);
+-            File module = workspace.child(moduleName).getLocal();
+-
++    	for (ModuleLocation l : getLocations()) {
+             try {
+-                SvnInfo svnInfo = SvnInfo.parse(moduleName, createEnvVarMap(false), workspace, listener);
+-                if(!svnInfo.url.equals(url)) {
+-                    listener.getLogger().println("Checking out a fresh workspace because the workspace is not "+url);
++            	if (l.getErrorMessage() != null) {
++            		listener.fatalError("Unable to check if the files are updateable: "
++							+ l.getErrorMessage()
++							+ ". Please validate your configuration.");
++            		return false;
++            	}
++
++                SvnInfo svnInfo = SvnInfo.parse(l.getLocal(), createEnvVarMap(false), workspace, listener);
++                if(!svnInfo.url.equals(l.getRemote())) {
++                    listener.getLogger().println("Checking out a fresh workspace because the workspace is not "+l.getRemote());
+                     return false;
+                 }
+             } catch (IOException e) {
+-                listener.getLogger().println("Checking out a fresh workspace because Hudson failed to detect the current workspace "+module);
+-                e.printStackTrace(listener.error(e.getMessage()));
++            	listener.getLogger().println("Checking out a fresh workspace because Hudson failed to detect the current workspace "+ workspace.child(l.getLocal()).getLocal());
++				e.printStackTrace(listener.error(e.getMessage()));
+                 return false;
+             }
+         }
+@@ -392,14 +547,9 @@
+     }
+ 
+     public FilePath getModuleRoot(FilePath workspace) {
+-        String s;
+-
+-        // if multiple URLs are specified, pick the first one
+-        int idx = modules.indexOf(' ');
+-        if(idx>=0)  s = modules.substring(0,idx);
+-        else        s = modules;
+-
+-        return workspace.child(getLastPathComponent(s));
++    	if (getLocations().length > 0)
++    		return workspace.child(getLocations()[0].getLocal());
++    	return workspace;
+     }
+ 
+     private String getLastPathComponent(String s) {
+@@ -429,7 +579,8 @@
+ 
+         public SCM newInstance(StaplerRequest req) {
+             return new SubversionSCM(
+-                req.getParameter("svn_modules"),
++                req.getParameterValues("location_remote"),
++                req.getParameterValues("location_local"),
+                 req.getParameter("svn_use_update")!=null,
+                 req.getParameter("svn_username"),
+                 req.getParameter("svn_other_options")
+@@ -507,6 +658,53 @@
+                 }
+             }.process();
+         }
++
++        /**
++         * validate the value for a remote (repository) location.
++         * @param req
++         * @param rsp
++         * @throws IOException
++         * @throws ServletException
++         * @since 1.64
++         */
++        public void doSvnRemoteLocationCheck(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
++            new FormFieldValidator(req,rsp,false) {
++                protected void check() throws IOException, ServletException {
++                	String retMessage = validateRemoteLocation(request.getParameter("value"));
++                	
++                	if (retMessage != null) {
++                		// validation failed. the errormessage is the string
++						// that is beeing returned
++                		error(retMessage);
++                		return;
++                	}
++                	// validation has been successful
++                	ok();
++                }
++            }.process();
++        }
++
++        /**
++         * validate the value for a local location (local checkout directory).
++         * @param req
++         * @param rsp
++         * @throws IOException
++         * @throws ServletException
++         * @since 1.64
++         */
++        public void doSvnLocalLocationCheck(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
++        	new FormFieldValidator(req,rsp,false) {
++        		protected void check() throws IOException, ServletException {
++        			String retMessage = validateLocalLocation(request.getParameter("value"));
++                	if (retMessage != null) {
++                		// validation failed. the errormessage is the string
++						// that is beeing returned
++                		error(retMessage);
++                		return;
++                	}
++        		}
++        	}.process();
++        }
+     }
+ 
+     public static final class Version {
+@@ -540,6 +738,39 @@
+         }
+     }
+ 
++    /**
++	 * small structure to store local and remote (repository) location
++	 * information of the repository. As a addition it holds the invalid field
++	 * to make failure messages when doing a checkout possible
++	 */
++    public static final class ModuleLocation {
++    	private String remote;
++    	private String local;
++    	private String errorMessage;
++		public ModuleLocation(String remote, String local) {
++			// null indicates that there is no error with this location
++			this(remote,local, null);
++		}
++
++		public ModuleLocation(String remote, String local, String errorMessage) {
++			this.remote = remote;
++			this.local = local;
++			this.errorMessage = errorMessage;
++		}
++		
++		public String getLocal() {
++			return local;
++		}
++		
++		public String getRemote() {
++			return remote;
++		}
++		
++		public String getErrorMessage() {
++			return errorMessage;
++		}
++    }
++    
+     private static final Pattern SVN_VERSION = Pattern.compile("svn, .+ ([0-9.]+) \\(r([0-9]+)\\)");
+ 
+     private static final Logger LOGGER = Logger.getLogger(SubversionSCM.class.getName());
+Index: src/main/resources/hudson/scm/SubversionSCM/config.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/scm/SubversionSCM/config.jelly,v
+retrieving revision 1.1
+diff -u -r1.1 config.jelly
+--- src/main/resources/hudson/scm/SubversionSCM/config.jelly	5 Nov 2006 21:14:35 -0000	1.1
++++ src/main/resources/hudson/scm/SubversionSCM/config.jelly	21 Nov 2006 00:11:21 -0000
+@@ -1,11 +1,28 @@
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+-  <f:entry title="Modules"
+-    description="
+-      URL of SVN module. Multiple URLs can be specified.
+-    ">
+-    <input class="setting-input" name="svn_modules"
+-      type="text" value="${scm.modules}"/>
+-  </f:entry>
++
++    <f:entry title="Subversion Modules"
++      description="List of Subversion modules which will be used for building the project">
++      <f:repeatable var="loc" items="${scm.locations}">
++        <table width="100%">
++          <f:entry title="Repository location">
++            <input class="setting-input validated" name="location_remote"
++              type="text" value="${loc.remote}"
++              checkUrl="'${rootURL}/scm/SubversionSCM/svnRemoteLocationCheck?value='+this.value"/>
++          </f:entry>
++          <f:entry title="Local module directory (optional)">
++            <input class="setting-input validated" name="location_local"
++              type="text" value="${loc.local}"
++              checkUrl="'${rootURL}/scm/SubversionSCM/svnLocalLocationCheck?value='+this.value"/>
++          </f:entry>
++          <f:entry title="">
++            <div align="right">
++              <f:repeatableDeleteButton />
++            </div>
++          </f:entry>
++        </table>
++      </f:repeatable>
++    </f:entry>
++
+   <f:entry title="Use update"
+     description="
+       If checked, Hudson will use 'svn update' whenever possible, making the build faster.
+@@ -30,4 +47,4 @@
+         type="text" value="${scm.otherOptions}"/>
+     </f:entry>
+   </f:advanced>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>

@@ -1,0 +1,55 @@
+Index: src/main/java/hudson/node_monitors/DiskSpaceMonitor.java
+===================================================================
+--- src/main/java/hudson/node_monitors/DiskSpaceMonitor.java	(revision 24705)
++++ src/main/java/hudson/node_monitors/DiskSpaceMonitor.java	Thu Dec 31 22:37:39 CST 2009
+@@ -42,6 +42,10 @@
+  * @since 1.123
+  */
+ public class DiskSpaceMonitor extends AbstractDiskSpaceMonitor {
++    public DiskSpaceMonitor() throws ParseException {
++        super("1GB"); // Default
++    }
++
+     @DataBoundConstructor
+ 	public DiskSpaceMonitor(String freeSpaceThreshold) throws ParseException {
+         super(freeSpaceThreshold);
+Index: src/main/java/hudson/model/ComputerSet.java
+===================================================================
+--- src/main/java/hudson/model/ComputerSet.java	(revision 23502)
++++ src/main/java/hudson/model/ComputerSet.java	Thu Dec 31 21:48:12 CST 2009
+@@ -372,7 +372,7 @@
+                 }
+             monitors.replaceBy(r.toList());
+         } catch (IOException e) {
+-            LOGGER.log(Level.WARNING, "Failed to instanciate NodeMonitors",e);
++            LOGGER.log(Level.WARNING, "Failed to instantiate NodeMonitors",e);
+         }
+     }
+ 
+@@ -382,9 +382,9 @@
+             nm.setIgnored(ignored);
+             return nm;
+         } catch (InstantiationException e) {
+-            LOGGER.log(Level.SEVERE, "Failed to instanciate "+d.clazz,e);
++            LOGGER.log(Level.SEVERE, "Failed to instantiate "+d.clazz,e);
+         } catch (IllegalAccessException e) {
+-            LOGGER.log(Level.SEVERE, "Failed to instanciate "+d.clazz,e);
++            LOGGER.log(Level.SEVERE, "Failed to instantiate "+d.clazz,e);
+         }
+         return null;
+     }
+Index: src/main/java/hudson/node_monitors/TemporarySpaceMonitor.java
+===================================================================
+--- src/main/java/hudson/node_monitors/TemporarySpaceMonitor.java	(revision 24705)
++++ src/main/java/hudson/node_monitors/TemporarySpaceMonitor.java	Thu Dec 31 22:37:40 CST 2009
+@@ -44,6 +44,10 @@
+  * @author Kohsuke Kawaguchi
+  */
+ public class TemporarySpaceMonitor extends AbstractDiskSpaceMonitor {
++    public TemporarySpaceMonitor() throws ParseException {
++        super("1GB"); // Default
++    }
++
+     @DataBoundConstructor
+ 	public TemporarySpaceMonitor(String freeSpaceThreshold) throws ParseException {
+         super(freeSpaceThreshold);

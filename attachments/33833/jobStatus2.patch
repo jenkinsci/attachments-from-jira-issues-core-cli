@@ -1,0 +1,58 @@
+diff --git a/core/src/main/java/hudson/widgets/BuildHistoryWidget.java b/core/src/main/java/hudson/widgets/BuildHistoryWidget.java
+index c93d66b..efd81da 100644
+--- a/core/src/main/java/hudson/widgets/BuildHistoryWidget.java
++++ b/core/src/main/java/hudson/widgets/BuildHistoryWidget.java
+@@ -77,6 +77,6 @@ public class BuildHistoryWidget<T> extends HistoryWidget<Task,T> {
+         historyPageFilter.add(baseList, getQueuedItems());
+         historyPageFilter.widget = this;
+ 
+-        return historyPageFilter;
++        return updateFirstTransientBuildKey(historyPageFilter);
+     }
+ }
+diff --git a/core/src/main/java/hudson/widgets/HistoryWidget.java b/core/src/main/java/hudson/widgets/HistoryWidget.java
+index 4a502b2..a83cf59 100644
+--- a/core/src/main/java/hudson/widgets/HistoryWidget.java
++++ b/core/src/main/java/hudson/widgets/HistoryWidget.java
+@@ -114,6 +114,12 @@ public class HistoryWidget<O extends ModelObject,T> extends Widget {
+         return firstTransientBuildKey;
+     }
+ 
++    @SuppressWarnings("unchecked")
++    protected HistoryPageFilter updateFirstTransientBuildKey(HistoryPageFilter historyPageFilter) {
++        updateFirstTransientBuildKey(historyPageFilter.runs);
++        return historyPageFilter;
++    }
++
+     private Iterable<HistoryPageEntry<T>> updateFirstTransientBuildKey(Iterable<HistoryPageEntry<T>> source) {
+         String key=null;
+         for (HistoryPageEntry<T> t : source) {
+@@ -166,7 +172,7 @@ public class HistoryWidget<O extends ModelObject,T> extends Widget {
+ 
+         historyPageFilter.add(baseList);
+         historyPageFilter.widget = this;
+-        return historyPageFilter;
++        return updateFirstTransientBuildKey(historyPageFilter);
+     }
+ 
+     protected HistoryPageFilter<T> newPageFilter() {
+@@ -238,7 +244,6 @@ public class HistoryWidget<O extends ModelObject,T> extends Widget {
+         }
+ 
+         HistoryPageFilter page = getHistoryPageFilter();
+-        updateFirstTransientBuildKey(page.runs);
+         req.getView(page,"ajaxBuildHistory.jelly").forward(req,rsp);
+     }
+ 
+diff --git a/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly b/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly
+index fbb461b..bfeb556 100644
+--- a/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly
++++ b/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly
+@@ -119,6 +119,6 @@ THE SOFTWARE.
+   </l:pane>
+   </div>
+   <script defer="true">
+-      updateBuildHistory("${it.baseUrl}/buildHistory/ajax",${it.owner.nextBuildNumber});
++    updateBuildHistory("${it.baseUrl}/buildHistory/ajax", ${it.nextBuildNumberToFetch != null ? it.nextBuildNumberToFetch : it.owner.nextBuildNumber});
+   </script>
+ </j:jelly>

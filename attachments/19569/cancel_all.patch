@@ -1,0 +1,46 @@
+Index: main/core/src/main/java/hudson/model/Queue.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Queue.java	(revision 32714)
++++ main/core/src/main/java/hudson/model/Queue.java	(working copy)
+@@ -342,6 +342,14 @@
+         buildables.cancelAll();
+         scheduleMaintenance();
+     }
++    
++    /**
++     * Called from queue.jelly.
++     */
++    public void doCancelAll( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
++	    clear();
++            rsp.forwardToPreviousPage(req);
++    }
+ 
+     private File getQueueFile() {
+         return new File(Hudson.getInstance().getRootDir(), "queue.txt");
+@@ -1296,7 +1304,7 @@
+             rsp.forwardToPreviousPage(req);
+         }
+ 
+-        /**
++	/**
+          * Participates in the cancellation logic to set the {@link #future} accordingly.
+          */
+         /*package*/ void onCancelled() {
+Index: main/core/src/main/resources/lib/hudson/queue.jelly
+===================================================================
+--- main/core/src/main/resources/lib/hudson/queue.jelly	(revision 32714)
++++ main/core/src/main/resources/lib/hudson/queue.jelly	(working copy)
+@@ -55,6 +55,13 @@
+         </j:if>
+       </j:when>
+       <j:otherwise>
++	<j:if test="${h.hasPermission(app.ADMINISTER)}">
++	<tr>
++	  <td class="pane" width="100%" tooltip="${%Cancel Queued Builds}" style="white:space: normal;" align="center" valign="middle" colspan="2">
++	    <a href="${rootURL}/queue/cancelAll">${%Cancel Queued Builds}</a>
++	  </td>
++	</tr>
++	</j:if>
+         <j:forEach var="item" items="${items}">
+           <tr>
+             <td class="pane" width="100%" tooltip="${item.why}${h.escape(item.params)}" style="white-space: normal;">

@@ -1,0 +1,38 @@
+--- /etc/init.d/hudson	2009-11-28 14:58:19.000000000 +0000
++++ hudson	2010-02-20 11:55:10.000000000 +0000
+@@ -65,8 +65,7 @@
+ 
+     # If the var MAXOPENFILES is enabled in /etc/default/hudson then set the max open files to the 
+     # proper value
+-    if [ -z "$MAXOPENFILES" ]; then
+-      echo Setting up max open files limit to $MAXOPENFILES
++    if [ -n "$MAXOPENFILES" ]; then
+       ulimit -n $MAXOPENFILES
+     fi
+     
+@@ -94,19 +93,19 @@
+ 
+ case "$1" in
+   start)
+-    [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
++    log_daemon_msg "Starting $DESC" "$NAME"
+     do_start
+     case "$?" in
+-        0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+-        2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
++        0|1) log_end_msg 0 ;;
++        2) log_end_msg 1 ;;
+     esac
+     ;;
+   stop)
+-    [ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
++    log_daemon_msg "Stopping $DESC" "$NAME"
+     do_stop
+     case "$?" in
+-        0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+-        2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
++        0|1) log_end_msg 0 ;;
++        2) log_end_msg 1 ;;
+     esac
+     ;;
+   restart|force-reload)

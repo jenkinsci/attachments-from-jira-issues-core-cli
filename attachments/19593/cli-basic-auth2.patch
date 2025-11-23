@@ -1,0 +1,102 @@
+diff --git a/cli/pom.xml b/cli/pom.xml
+index 2576355..742f3cb 100644
+--- a/cli/pom.xml
++++ b/cli/pom.xml
+@@ -66,5 +66,10 @@
+       <artifactId>localizer</artifactId>
+       <version>1.10</version>
+     </dependency>
++    <dependency>
++      <groupId>commons-codec</groupId>
++      <artifactId>commons-codec</artifactId>
++      <version>1.3</version>
++    </dependency>
+   </dependencies>
+ </project>
+diff --git a/cli/src/main/java/hudson/cli/CLI.java b/cli/src/main/java/hudson/cli/CLI.java
+index fa62fa5..1475bce 100644
+--- a/cli/src/main/java/hudson/cli/CLI.java
++++ b/cli/src/main/java/hudson/cli/CLI.java
+@@ -63,6 +63,11 @@ public class CLI {
+     }
+ 
+     public CLI(URL hudson, ExecutorService exec) throws IOException, InterruptedException {
++    	this(hudson,exec,null);
++    }
++
++    public CLI(URL hudson, ExecutorService exec, String userInfo) throws IOException, InterruptedException {
++
+         String url = hudson.toExternalForm();
+         if(!url.endsWith("/"))  url+='/';
+ 
+@@ -87,7 +92,7 @@ public class CLI {
+             url+="cli";
+             hudson = new URL(url);
+ 
+-            FullDuplexHttpStream con = new FullDuplexHttpStream(hudson);
++            FullDuplexHttpStream con = new FullDuplexHttpStream(hudson, userInfo);
+             channel = new Channel("Chunked connection to "+hudson,
+                     pool,con.getInputStream(),con.getOutputStream());
+             new PingThread(channel,30*1000) {
+@@ -172,7 +177,8 @@ public class CLI {
+         if(args.isEmpty())
+             args = Arrays.asList("help"); // default to help
+ 
+-        CLI cli = new CLI(new URL(url));
++        final URL urlObj = new URL(url);
++        CLI cli = new CLI(urlObj, null, urlObj.getUserInfo());
+         try {
+             // execute the command
+             // Arrays.asList is not serializable --- see 6835580
+diff --git a/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java b/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java
+index 92787ce..0efc84f 100644
+--- a/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java
++++ b/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java
+@@ -11,6 +11,8 @@ import java.util.UUID;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
+ 
++import org.apache.commons.codec.binary.Base64;
++
+ /**
+  * Creates a capacity-unlimited bi-directional {@link InputStream}/{@link OutputStream} pair over
+  * HTTP, which is a request/response protocol.
+@@ -32,8 +34,17 @@ public class FullDuplexHttpStream {
+     }
+ 
+     public FullDuplexHttpStream(URL target) throws IOException {
++    	this(target,null);
++    }
++
++    public FullDuplexHttpStream(URL target, String userInfo) throws IOException {
+         this.target = target;
+ 
++        String authorization = null;
++        if (userInfo != null && !userInfo.isEmpty()) {
++        	authorization = new String(Base64.encodeBase64(userInfo.getBytes()));
++        }
++
+         CrumbData crumbData = new CrumbData();
+ 
+         UUID uuid = UUID.randomUUID(); // so that the server can correlate those two connections
+@@ -44,6 +55,9 @@ public class FullDuplexHttpStream {
+         con.setRequestMethod("POST");
+         con.addRequestProperty("Session", uuid.toString());
+         con.addRequestProperty("Side","download");
++        if (authorization != null) {
++            con.addRequestProperty("Authorization", "Basic " + authorization);
++        }
+         if(crumbData.isValid) {
+             con.addRequestProperty(crumbData.crumbName, crumbData.crumb);
+         }
+@@ -61,6 +75,10 @@ public class FullDuplexHttpStream {
+         con.setRequestProperty("Content-type","application/octet-stream");
+         con.addRequestProperty("Session", uuid.toString());
+         con.addRequestProperty("Side","upload");
++        if (authorization != null) {
++        	con.addRequestProperty ("Authorization", "Basic " + authorization);
++        }
++
+         if(crumbData.isValid) {
+             con.addRequestProperty(crumbData.crumbName, crumbData.crumb);
+         }

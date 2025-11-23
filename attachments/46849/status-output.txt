@@ -1,0 +1,109 @@
+jmihalich@ubuntu1804-jm:~$ systemctl status jenkins.service
+? jenkins.service - LSB: Start Jenkins at boot time
+   Loaded: loaded (/etc/init.d/jenkins; generated)
+   Active: failed (Result: exit-code) since Sat 2019-04-20 17:49:32 UTC; 55s ago
+     Docs: man:systemd-sysv-generator(8)
+
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: Starting LSB: Start Jenkins at boot time...
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: Found an incorrect Java version
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: Java version found:
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: openjdk version "11.0.2" 2019-01-15
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: OpenJDK Runtime Environment (build 11.0.2+9-Ubuntu-3ubuntu118.04.3)
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: OpenJDK 64-Bit Server VM (build 11.0.2+9-Ubuntu-3ubuntu118.04.3, mixed mode, sharing)
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: Aborting
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: jenkins.service: Control process exited, code=exited status=1
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: jenkins.service: Failed with result 'exit-code'.
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: Failed to start LSB: Start Jenkins at boot time.
+
+
+
+
+
+
+jmihalich@ubuntu1804-jm:~$ journalctl -xe
+Apr 20 17:17:01 ubuntu1804-jm CRON[11945]: pam_unix(cron:session): session closed for user root
+Apr 20 17:19:33 ubuntu1804-jm systemd-timesyncd[458]: Network configuration changed, trying to establish connection.
+Apr 20 17:19:33 ubuntu1804-jm systemd-networkd[652]: enp0s8: DHCP: No routes received from DHCP server: No data available
+Apr 20 17:19:33 ubuntu1804-jm systemd-timesyncd[458]: Synchronized to time server 91.189.89.198:123 (ntp.ubuntu.com).
+Apr 20 17:29:33 ubuntu1804-jm systemd-timesyncd[458]: Network configuration changed, trying to establish connection.
+Apr 20 17:29:33 ubuntu1804-jm systemd-networkd[652]: enp0s8: DHCP: No routes received from DHCP server: No data available
+Apr 20 17:29:33 ubuntu1804-jm systemd-timesyncd[458]: Synchronized to time server 91.189.89.198:123 (ntp.ubuntu.com).
+Apr 20 17:39:32 ubuntu1804-jm systemd-timesyncd[458]: Network configuration changed, trying to establish connection.
+Apr 20 17:39:32 ubuntu1804-jm systemd-networkd[652]: enp0s8: DHCP: No routes received from DHCP server: No data available
+Apr 20 17:39:32 ubuntu1804-jm systemd-timesyncd[458]: Synchronized to time server 91.189.89.198:123 (ntp.ubuntu.com).
+Apr 20 17:40:03 ubuntu1804-jm systemd[1]: Starting Cleanup of Temporary Directories...
+-- Subject: Unit systemd-tmpfiles-clean.service has begun start-up
+-- Defined-By: systemd
+-- Support: http://www.ubuntu.com/support
+--
+-- Unit systemd-tmpfiles-clean.service has begun starting up.
+Apr 20 17:40:03 ubuntu1804-jm systemd[1]: Started Cleanup of Temporary Directories.
+-- Subject: Unit systemd-tmpfiles-clean.service has finished start-up
+-- Defined-By: systemd
+-- Support: http://www.ubuntu.com/support
+--
+-- Unit systemd-tmpfiles-clean.service has finished starting up.
+--
+-- The start-up result is RESULT.
+Apr 20 17:43:21 ubuntu1804-jm kernel: e1000: enp0s3 NIC Link is Down
+Apr 20 17:43:21 ubuntu1804-jm systemd-networkd[652]: enp0s3: Lost carrier
+Apr 20 17:43:21 ubuntu1804-jm systemd-networkd[652]: enp0s3: DHCP lease lost
+Apr 20 17:43:21 ubuntu1804-jm systemd-timesyncd[458]: Network configuration changed, trying to establish connection.
+Apr 20 17:43:25 ubuntu1804-jm kernel: e1000: enp0s3 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+Apr 20 17:43:25 ubuntu1804-jm systemd-networkd[652]: enp0s3: Gained carrier
+Apr 20 17:43:25 ubuntu1804-jm systemd-networkd[652]: enp0s3: DHCPv4 address 10.0.2.15/24 via 10.0.2.2
+Apr 20 17:43:26 ubuntu1804-jm systemd-networkd[652]: enp0s3: Configured
+Apr 20 17:43:32 ubuntu1804-jm systemd-timesyncd[458]: Timed out waiting for reply from 91.189.89.198:123 (ntp.ubuntu.com).
+Apr 20 17:44:10 ubuntu1804-jm systemd-networkd[652]: tun0: Lost carrier
+Apr 20 17:44:16 ubuntu1804-jm sudo[1409]: pam_unix(sudo:session): session closed for user root
+Apr 20 17:48:58 ubuntu1804-jm systemd-resolved[661]: Server returned error NXDOMAIN, mitigating potential DNS violation DVE-2018-0001, retrying transaction with reduced feature level UDP.
+Apr 20 17:48:58 ubuntu1804-jm systemd-resolved[661]: Server returned error NXDOMAIN, mitigating potential DNS violation DVE-2018-0001, retrying transaction with reduced feature level UDP.
+Apr 20 17:49:00 ubuntu1804-jm sudo[11987]: jmihalich : TTY=pts/0 ; PWD=/etc/init.d ; USER=root ; COMMAND=/usr/bin/apt-get purge jenkins
+Apr 20 17:49:00 ubuntu1804-jm sudo[11987]: pam_unix(sudo:session): session opened for user root by jmihalich(uid=0)
+Apr 20 17:49:03 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:04 ubuntu1804-jm systemd-sysv-generator[12030]: Unit name '@@ARTIFACTNAME@@.service' is invalid
+Apr 20 17:49:04 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:04 ubuntu1804-jm systemd-sysv-generator[12071]: Unit name '@@ARTIFACTNAME@@.service' is invalid
+Apr 20 17:49:05 ubuntu1804-jm userdel[12087]: delete user 'jenkins'
+Apr 20 17:49:05 ubuntu1804-jm userdel[12087]: removed group 'jenkins' owned by 'jenkins'
+Apr 20 17:49:05 ubuntu1804-jm userdel[12087]: removed shadow group 'jenkins' owned by 'jenkins'
+Apr 20 17:49:05 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:05 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:06 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:10 ubuntu1804-jm sudo[11987]: pam_unix(sudo:session): session closed for user root
+Apr 20 17:49:26 ubuntu1804-jm sudo[12243]: jmihalich : TTY=pts/0 ; PWD=/home/jmihalich ; USER=root ; COMMAND=/usr/bin/apt-get install jenkins
+Apr 20 17:49:26 ubuntu1804-jm sudo[12243]: pam_unix(sudo:session): session opened for user root by jmihalich(uid=0)
+Apr 20 17:49:30 ubuntu1804-jm systemd-networkd[652]: enp0s8: DHCP: No routes received from DHCP server: No data available
+Apr 20 17:49:30 ubuntu1804-jm groupadd[12283]: group added to /etc/group: name=jenkins, GID=113
+Apr 20 17:49:30 ubuntu1804-jm groupadd[12283]: group added to /etc/gshadow: name=jenkins
+Apr 20 17:49:30 ubuntu1804-jm groupadd[12283]: new group: name=jenkins, GID=113
+Apr 20 17:49:31 ubuntu1804-jm useradd[12289]: new user: name=jenkins, UID=111, GID=113, home=/var/lib/jenkins, shell=/bin/bash
+Apr 20 17:49:31 ubuntu1804-jm usermod[12295]: change user 'jenkins' password
+Apr 20 17:49:31 ubuntu1804-jm chage[12300]: changed password expiry for jenkins
+Apr 20 17:49:31 ubuntu1804-jm chfn[12303]: changed user 'jenkins' information
+Apr 20 17:49:31 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:31 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: Starting LSB: Start Jenkins at boot time...
+-- Subject: Unit jenkins.service has begun start-up
+-- Defined-By: systemd
+-- Support: http://www.ubuntu.com/support
+--
+-- Unit jenkins.service has begun starting up.
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: Found an incorrect Java version
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: Java version found:
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: openjdk version "11.0.2" 2019-01-15
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: OpenJDK Runtime Environment (build 11.0.2+9-Ubuntu-3ubuntu118.04.3)
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: OpenJDK 64-Bit Server VM (build 11.0.2+9-Ubuntu-3ubuntu118.04.3, mixed mode, sharing)
+Apr 20 17:49:32 ubuntu1804-jm jenkins[12388]: Aborting
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: jenkins.service: Control process exited, code=exited status=1
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: jenkins.service: Failed with result 'exit-code'.
+Apr 20 17:49:32 ubuntu1804-jm systemd[1]: Failed to start LSB: Start Jenkins at boot time.
+-- Subject: Unit jenkins.service has failed
+-- Defined-By: systemd
+-- Support: http://www.ubuntu.com/support
+--
+-- Unit jenkins.service has failed.
+--
+-- The result is RESULT.
+Apr 20 17:49:33 ubuntu1804-jm systemd[1]: Reloading.
+Apr 20 17:49:36 ubuntu1804-jm sudo[12243]: pam_unix(sudo:session): session closed for user root

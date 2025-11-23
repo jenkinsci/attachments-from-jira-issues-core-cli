@@ -1,0 +1,62 @@
+Index: src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- src/main/java/hudson/model/AbstractProject.java	(revision 31210)
++++ src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -447,7 +447,7 @@
+     }
+ 
+     public boolean isBuildable() {
+-        return !isDisabled();
++        return !isDisabled() && !isHoldOffBuildUntilSave();
+     }
+ 
+     /**
+Index: src/main/java/hudson/model/Job.java
+===================================================================
+--- src/main/java/hudson/model/Job.java	(revision 31210)
++++ src/main/java/hudson/model/Job.java	(working copy)
+@@ -135,6 +135,12 @@
+      */
+     protected transient volatile int nextBuildNumber = 1;
+ 
++    /**
++     * Newly copied jobs get this flag set, so that Hudson doesn't try to run the job until its configuration
++     * is saved once.
++     */
++    private transient volatile boolean holdOffBuildUntilSave;
++
+     private volatile LogRotator logRotator;
+ 
+     /**
+@@ -157,6 +163,12 @@
+     }
+ 
+     @Override
++    public synchronized void save() throws IOException {
++        super.save();
++        holdOffBuildUntilSave = false;
++    }
++
++    @Override
+     public void onLoad(ItemGroup<? extends Item> parent, String name)
+             throws IOException {
+         super.onLoad(parent, name);
+@@ -191,6 +203,7 @@
+         super.onCopiedFrom(src);
+         synchronized (this) {
+             this.nextBuildNumber = 1; // reset the next build number
++            this.holdOffBuildUntilSave = true;
+         }
+     }
+ 
+@@ -212,6 +225,10 @@
+         return new TextFile(new File(this.getRootDir(), "nextBuildNumber"));
+     }
+ 
++    protected boolean isHoldOffBuildUntilSave() {
++        return holdOffBuildUntilSave;
++    }
++
+     protected synchronized void saveNextBuildNumber() throws IOException {
+         if (nextBuildNumber == 0) { // #3361
+             nextBuildNumber = 1;

@@ -1,0 +1,148 @@
+diff --git a/core/src/main/java/hudson/Launcher.java b/core/src/main/java/hudson/Launcher.java
+index cdc5082..60016cd 100644
+--- a/core/src/main/java/hudson/Launcher.java
++++ b/core/src/main/java/hudson/Launcher.java
+@@ -654,7 +654,7 @@ public abstract class Launcher {
+ 
+         @Override
+         public void kill(Map<String, String> modelEnvVars) throws InterruptedException {
+-            ProcessTree.get().killAll(modelEnvVars);
++            ProcessTree.reliableKillAll(modelEnvVars);
+         }
+ 
+         /**
+@@ -679,9 +679,8 @@ public abstract class Launcher {
+                 @Override
+                 protected synchronized void terminate(IOException e) {
+                     super.terminate(e);
+-                    ProcessTree pt = ProcessTree.get();
+                     try {
+-                        pt.killAll(proc,cookie);
++                        ProcessTree.reliableKillAll(proc, cookie);
+                     } catch (InterruptedException x) {
+                         LOGGER.log(Level.INFO, "Interrupted", x);
+                     }
+@@ -753,9 +752,10 @@ public abstract class Launcher {
+ 
+             public Void call() throws RuntimeException {
+                 try {
+-                    ProcessTree.get().killAll(modelEnvVars);
++                    ProcessTree.reliableKillAll(modelEnvVars);
+                 } catch (InterruptedException e) {
+-                    // we are asked to terminate early by the caller, so no need to do anything
++                    // we are asked to terminate early by the caller, so
++                    // no need to do anything
+                 }
+                 return null;
+             }
+diff --git a/core/src/main/java/hudson/Proc.java b/core/src/main/java/hudson/Proc.java
+index be0fc22..b7f8bc8 100644
+--- a/core/src/main/java/hudson/Proc.java
++++ b/core/src/main/java/hudson/Proc.java
+@@ -279,7 +279,7 @@ public abstract class Proc {
+          * Destroys the child process without join.
+          */
+         private void destroy() throws InterruptedException {
+-            ProcessTree.get().killAll(proc,cookie);
++            ProcessTree.reliableKillAll(proc, cookie);
+         }
+ 
+         /**
+diff --git a/core/src/main/java/hudson/slaves/CommandLauncher.java b/core/src/main/java/hudson/slaves/CommandLauncher.java
+index 146e382..b36337f 100644
+--- a/core/src/main/java/hudson/slaves/CommandLauncher.java
++++ b/core/src/main/java/hudson/slaves/CommandLauncher.java
+@@ -125,7 +125,7 @@ public class CommandLauncher extends ComputerLauncher {
+                             listener.error(hudson.model.Messages.Slave_Terminated(getTimestamp())));
+                     }
+                     try {
+-                        ProcessTree.get().killAll(proc, cookie);
++                        ProcessTree.reliableKillAll(proc, cookie);
+                     } catch (InterruptedException e) {
+                         LOGGER.log(Level.INFO, "interrupted", e);
+                     }
+@@ -154,7 +154,7 @@ public class CommandLauncher extends ComputerLauncher {
+ 
+             if(_proc!=null)
+                 try {
+-                    ProcessTree.get().killAll(_proc, _cookie);
++                    ProcessTree.reliableKillAll(_proc, _cookie);
+                 } catch (InterruptedException x) {
+                     x.printStackTrace(listener.error(Messages.ComputerLauncher_abortedLaunch()));
+                 }
+diff --git a/core/src/main/java/hudson/util/ProcessTree.java b/core/src/main/java/hudson/util/ProcessTree.java
+index 42d9127..c0025c3 100644
+--- a/core/src/main/java/hudson/util/ProcessTree.java
++++ b/core/src/main/java/hudson/util/ProcessTree.java
+@@ -149,6 +149,38 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+             killAll(modelEnvVars);
+     }
+ 
++    static public void reliableKillAll(Map<String, String> modelEnvVars)
++        throws InterruptedException
++    {
++        reliableKillAll(null, modelEnvVars);
++    }
++
++
++    static public void reliableKillAll(Process proc, Map<String, String> modelEnvVars)
++        throws InterruptedException
++    {
++        LOGGER.fine("killAll: process="+proc+" and envs="+modelEnvVars);
++
++        ProcessTree pt = ProcessTree.get();
++        if (proc != null) {
++            OSProcess p = pt.get(proc);
++            if (p != null) {
++                p.killRecursively();
++            }
++        }
++
++        if (modelEnvVars != null) {
++            int retry_count = 100;
++            pt = ProcessTree.get();
++            while (pt.hasMatchingEnvVars(modelEnvVars) && retry_count > 0) {
++                pt.killAll(modelEnvVars);
++                pt = ProcessTree.get();
++                retry_count--;
++            }
++        }
++    }
++
++
+     /**
+      * Obtains the list of killers.
+      */
+@@ -342,6 +374,15 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+         return DEFAULT;
+     }
+ 
++    public final boolean hasMatchingEnvVars(Map<String,String> modelEnvVar) {
++        for (OSProcess p : this) {
++            if (p.hasMatchingEnvVars(modelEnvVar)) {
++                return true;
++            }
++        }
++        return false;
++    }
++
+ //
+ //
+ // implementation follows
+diff --git a/core/src/main/java/hudson/util/ProcessTreeKiller.java b/core/src/main/java/hudson/util/ProcessTreeKiller.java
+index 600b765..108af5c 100644
+--- a/core/src/main/java/hudson/util/ProcessTreeKiller.java
++++ b/core/src/main/java/hudson/util/ProcessTreeKiller.java
+@@ -74,11 +74,7 @@ public final class ProcessTreeKiller {
+      * @deprecated Use {@link ProcessTree#killAll(Map)} and {@link OSProcess#killRecursively()}
+      */
+     public void kill(Process proc, Map<String, String> modelEnvVars) throws InterruptedException {
+-        ProcessTree pt = ProcessTree.get();
+-        if(proc!=null)
+-            pt.get(proc).killRecursively();
+-        if(modelEnvVars!=null)
+-            pt.killAll(modelEnvVars);
++        ProcessTree.reliableKillAll(proc, modelEnvVars);
+     }
+ 
+     /**

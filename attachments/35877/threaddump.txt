@@ -1,0 +1,965 @@
+
+2017-02-08 15:10:57
+Full thread dump Java HotSpot(TM) Client VM (25.66-b18 mixed mode):
+
+"RequestHandlerThread[#20]" - Thread t@197
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#19]" - Thread t@196
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#18]" - Thread t@195
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#17]" - Thread t@194
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"git.exe config remote.origin.url git@bitbucket.org:qx3/bbce-api.git: stderr copier" - Thread t@193
+   java.lang.Thread.State: RUNNABLE
+        at java.io.FileInputStream.readBytes(Native Method)
+        at java.io.FileInputStream.read(Unknown Source)
+        at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+        - None
+
+"git.exe config remote.origin.url git@bitbucket.org:qx3/bbce-api.git: stdout copier" - Thread t@191
+   java.lang.Thread.State: RUNNABLE
+        at java.io.FileInputStream.readBytes(Native Method)
+        at java.io.FileInputStream.read(Unknown Source)
+        at java.io.BufferedInputStream.read1(Unknown Source)
+        at java.io.BufferedInputStream.read(Unknown Source)
+        - locked <3854b3> (a java.io.BufferedInputStream)
+        at java.io.FilterInputStream.read(Unknown Source)
+        at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+        - None
+
+"Proc.executor [#2]" - Thread t@189
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <f07f15> (a java.util.concurrent.CountDownLatch$Sync)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.tryAcquireSharedNanos(Unknown Source)
+        at java.util.concurrent.CountDownLatch.await(Unknown Source)
+        at hudson.Proc$1.run(Proc.java:156)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+        at java.util.concurrent.FutureTask.run(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - locked <10efdb2> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution [#2]" - Thread t@185
+   java.lang.Thread.State: RUNNABLE
+        at java.lang.ProcessImpl.waitForInterruptibly(Native Method)
+        at java.lang.ProcessImpl.waitFor(Unknown Source)
+        at hudson.Proc$LocalProc.join(Proc.java:320)
+        at hudson.Proc.joinWithTimeout(Proc.java:166)
+        at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.launchCommandIn(CliGitAPIImpl.java:1741)
+        at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.launchCommandIn(CliGitAPIImpl.java:1718)
+        at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.launchCommandIn(CliGitAPIImpl.java:1714)
+        at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.launchCommand(CliGitAPIImpl.java:1385)
+        at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.launchCommand(CliGitAPIImpl.java:1397)
+        at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.setRemoteUrl(CliGitAPIImpl.java:1101)
+        at hudson.plugins.git.GitAPI.setRemoteUrl(GitAPI.java:160)
+        at hudson.plugins.git.GitSCM.fetchFrom(GitSCM.java:795)
+        at hudson.plugins.git.GitSCM.retrieveChanges(GitSCM.java:1067)
+        at hudson.plugins.git.GitSCM.checkout(GitSCM.java:1098)
+        at org.jenkinsci.plugins.workflow.steps.scm.SCMStep.checkout(SCMStep.java:109)
+        at org.jenkinsci.plugins.workflow.steps.scm.SCMStep$StepExecutionImpl.run(SCMStep.java:83)
+        at org.jenkinsci.plugins.workflow.steps.scm.SCMStep$StepExecutionImpl.run(SCMStep.java:73)
+        at org.jenkinsci.plugins.workflow.steps.AbstractSynchronousNonBlockingStepExecution$1$1.call(AbstractSynchronousNonBlockingStepExecution.java:47)
+        at hudson.security.ACL.impersonate(ACL.java:260)
+        at org.jenkinsci.plugins.workflow.steps.AbstractSynchronousNonBlockingStepExecution$1.run(AbstractSynchronousNonBlockingStepExecution.java:44)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+        at java.util.concurrent.FutureTask.run(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - locked <11e5122> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"Computer.threadPoolForRemoting [#7]" - Thread t@180
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1a4d45d> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#16]" - Thread t@179
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Computer.threadPoolForRemoting [#6]" - Thread t@177
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1a4d45d> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Computer.threadPoolForRemoting [#5]" - Thread t@176
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1a4d45d> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#15]" - Thread t@173
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#14]" - Thread t@172
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RMI TCP Connection(3)-10.0.0.5" - Thread t@166
+   java.lang.Thread.State: RUNNABLE
+        at sun.management.ThreadImpl.dumpThreads0(Native Method)
+        at sun.management.ThreadImpl.dumpAllThreads(Unknown Source)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at sun.reflect.misc.Trampoline.invoke(Unknown Source)
+        at sun.reflect.GeneratedMethodAccessor189.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at sun.reflect.misc.MethodUtil.invoke(Unknown Source)
+        at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(Unknown Source)
+        at com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn(Unknown Source)
+        at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(Unknown Source)
+        at com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2(Unknown Source)
+        at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(Unknown Source)
+        at com.sun.jmx.mbeanserver.PerInterface.invoke(Unknown Source)
+        at com.sun.jmx.mbeanserver.MBeanSupport.invoke(Unknown Source)
+        at javax.management.StandardMBean.invoke(Unknown Source)
+        at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(Unknown Source)
+        at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(Unknown Source)
+        at javax.management.remote.rmi.RMIConnectionImpl.doOperation(Unknown Source)
+        at javax.management.remote.rmi.RMIConnectionImpl.access$300(Unknown Source)
+        at javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(Unknown Source)
+        at javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(Unknown Source)
+        at javax.management.remote.rmi.RMIConnectionImpl.invoke(Unknown Source)
+        at sun.reflect.GeneratedMethodAccessor276.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+        at sun.rmi.transport.Transport$1.run(Unknown Source)
+        at sun.rmi.transport.Transport$1.run(Unknown Source)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at sun.rmi.transport.Transport.serviceCall(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$256(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$7/4936952.run(Unknown Source)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - locked <d0faaf> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"RMI TCP Connection(4)-10.0.0.5" - Thread t@165
+   java.lang.Thread.State: RUNNABLE
+        at java.net.SocketInputStream.socketRead0(Native Method)
+        at java.net.SocketInputStream.socketRead(Unknown Source)
+        at java.net.SocketInputStream.read(Unknown Source)
+        at java.net.SocketInputStream.read(Unknown Source)
+        at java.io.BufferedInputStream.fill(Unknown Source)
+        at java.io.BufferedInputStream.read(Unknown Source)
+        - locked <1715552> (a java.io.BufferedInputStream)
+        at java.io.FilterInputStream.read(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$256(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$7/4936952.run(Unknown Source)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - locked <df54ba> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"JMX server connection timeout 163" - Thread t@163
+   java.lang.Thread.State: RUNNABLE
+        at java.lang.Object.wait(Native Method)
+        at com.sun.jmx.remote.internal.ServerCommunicatorAdmin$Timeout.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RMI Scheduler(0)" - Thread t@162
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <f15dbe> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RMI TCP Connection(idle)" - Thread t@161
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <e1ce1e> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#12]" - Thread t@93
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#10]" - Thread t@91
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"WorkflowRun.copyLogs [#5]" - Thread t@89
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <34c542> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"WorkflowRun.copyLogs [#4]" - Thread t@88
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <34c542> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"WorkflowRun.copyLogs [#3]" - Thread t@87
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <34c542> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"WorkflowRun.copyLogs [#2]" - Thread t@86
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <34c542> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"WorkflowRun.copyLogs [#1]" - Thread t@85
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <34c542> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"FilePath.localPool [#2]" - Thread t@73
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <104c7dd> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"JmDNS(Jenkins.local.).State.Timer" - Thread t@72
+   java.lang.Thread.State: TIMED_WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <13275ae> (a java.util.TaskQueue)
+        at java.util.TimerThread.mainLoop(Unknown Source)
+        at java.util.TimerThread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"JmDNS(Jenkins.local.).Timer" - Thread t@71
+   java.lang.Thread.State: TIMED_WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <1b2093> (a java.util.TaskQueue)
+        at java.util.TimerThread.mainLoop(Unknown Source)
+        at java.util.TimerThread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"SocketListener(Jenkins.local.)" - Thread t@70
+   java.lang.Thread.State: RUNNABLE
+        at java.net.TwoStacksPlainDatagramSocketImpl.receive0(Native Method)
+        - locked <a884ad> (a java.net.TwoStacksPlainDatagramSocketImpl)
+        at java.net.TwoStacksPlainDatagramSocketImpl.receive(Unknown Source)
+        - locked <a884ad> (a java.net.TwoStacksPlainDatagramSocketImpl)
+        at java.net.DatagramSocket.receive(Unknown Source)
+        - locked <1896d8a> (a java.net.DatagramPacket)
+        - locked <1823844> (a java.net.MulticastSocket)
+        at javax.jmdns.impl.SocketListener.run(SocketListener.java:41)
+
+   Locked ownable synchronizers:
+        - None
+
+"Jenkins UDP 33848 monitoring thread" - Thread t@60
+   java.lang.Thread.State: RUNNABLE
+        at java.net.TwoStacksPlainDatagramSocketImpl.receive0(Native Method)
+        - locked <7e30a3> (a java.net.TwoStacksPlainDatagramSocketImpl)
+        at java.net.TwoStacksPlainDatagramSocketImpl.receive(Unknown Source)
+        - locked <7e30a3> (a java.net.TwoStacksPlainDatagramSocketImpl)
+        at java.net.DatagramSocket.receive(Unknown Source)
+        - locked <63436d> (a java.net.DatagramPacket)
+        - locked <e89b56> (a java.net.MulticastSocket)
+        at hudson.UDPBroadcastThread.run(UDPBroadcastThread.java:84)
+
+   Locked ownable synchronizers:
+        - None
+
+"sshd-SshServer[7ff25a]-timer-thread-1" - Thread t@58
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <29e487> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Thread-9" - Thread t@57
+   java.lang.Thread.State: RUNNABLE
+        at sun.nio.ch.Iocp.getQueuedCompletionStatus(Native Method)
+        at sun.nio.ch.Iocp.access$300(Unknown Source)
+        at sun.nio.ch.Iocp$EventHandlerTask.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Thread-8" - Thread t@53
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <12efb70> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.LinkedBlockingQueue.take(Unknown Source)
+        at org.jenkinsci.plugins.ssegateway.SubscriptionConfigQueue$1.run(SubscriptionConfigQueue.java:78)
+
+   Locked ownable synchronizers:
+        - None
+
+"Timer-0" - Thread t@51
+   java.lang.Thread.State: TIMED_WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <1136c7e> (a java.util.TaskQueue)
+        at java.util.TimerThread.mainLoop(Unknown Source)
+        at java.util.TimerThread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#10]" - Thread t@44
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#9]" - Thread t@43
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#8]" - Thread t@42
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#7]" - Thread t@41
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#6]" - Thread t@40
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Thread-5" - Thread t@39
+   java.lang.Thread.State: RUNNABLE
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(Unknown Source)
+        at java.util.concurrent.locks.ReentrantLock.unlock(Unknown Source)
+        at java.util.concurrent.LinkedBlockingQueue.poll(Unknown Source)
+        at org.jenkinsci.plugins.pubsub.listeners.SyncQueueListener$1.run(SyncQueueListener.java:93)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#5]" - Thread t@38
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#4]" - Thread t@37
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#3]" - Thread t@36
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"javamelody" - Thread t@35
+   java.lang.Thread.State: TIMED_WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <1548e05> (a java.util.TaskQueue)
+        at java.util.TimerThread.mainLoop(Unknown Source)
+        at java.util.TimerThread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#8]" - Thread t@33
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1dd572c> (a java.util.concurrent.SynchronousQueue$TransferStack)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(Unknown Source)
+        at java.util.concurrent.SynchronousQueue$TransferStack.transfer(Unknown Source)
+        at java.util.concurrent.SynchronousQueue.poll(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#2]" - Thread t@31
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"DestroyJavaVM" - Thread t@25
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+        - None
+
+"LauncherControlThread[ControlPort=-1]" - Thread t@23
+   java.lang.Thread.State: TIMED_WAITING
+        at java.lang.Thread.sleep(Native Method)
+        at winstone.Launcher.run(Launcher.java:243)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Scheduler-1667760" - Thread t@21
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1706f0d> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"jenkins.util.Timer [#1]" - Thread t@20
+   java.lang.Thread.State: WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <a9d2b7> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Jenkins cron thread" - Thread t@19
+   java.lang.Thread.State: WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <1683ebe> (a java.util.TaskQueue)
+        at java.lang.Object.wait(Unknown Source)
+        at java.util.TimerThread.mainLoop(Unknown Source)
+        at java.util.TimerThread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RequestHandlerThread[#2]-acceptor-0@1e2ab5e-ServerConnector@f2fed4{HTTP/1.1}{0.0.0.0:8080}" - Thread t@18
+   java.lang.Thread.State: RUNNABLE
+        at sun.nio.ch.ServerSocketChannelImpl.accept0(Native Method)
+        at sun.nio.ch.ServerSocketChannelImpl.accept(Unknown Source)
+        at sun.nio.ch.ServerSocketChannelImpl.accept(Unknown Source)
+        - locked <ace57> (a java.lang.Object)
+        at org.eclipse.jetty.server.ServerConnector.accept(ServerConnector.java:377)
+        at org.eclipse.jetty.server.AbstractConnector$Acceptor.run(AbstractConnector.java:500)
+        at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - locked <170140a> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"RequestHandlerThread[#1]-selector-ServerConnectorManager@e8ea1f/0" - Thread t@17
+   java.lang.Thread.State: RUNNABLE
+        at sun.nio.ch.WindowsSelectorImpl$SubSelector.poll0(Native Method)
+        at sun.nio.ch.WindowsSelectorImpl$SubSelector.poll(Unknown Source)
+        at sun.nio.ch.WindowsSelectorImpl$SubSelector.access$400(Unknown Source)
+        at sun.nio.ch.WindowsSelectorImpl.doSelect(Unknown Source)
+        at sun.nio.ch.SelectorImpl.lockAndDoSelect(Unknown Source)
+        - locked <19404dd> (a sun.nio.ch.Util$2)
+        - locked <1f24229> (a java.util.Collections$UnmodifiableSet)
+        - locked <1ee4d2a> (a sun.nio.ch.WindowsSelectorImpl)
+        at sun.nio.ch.SelectorImpl.select(Unknown Source)
+        at sun.nio.ch.SelectorImpl.select(Unknown Source)
+        at org.eclipse.jetty.io.SelectorManager$ManagedSelector.select(SelectorManager.java:600)
+        at org.eclipse.jetty.io.SelectorManager$ManagedSelector.run(SelectorManager.java:549)
+        at org.eclipse.jetty.util.thread.NonBlockingThread.run(NonBlockingThread.java:52)
+        at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - locked <10954b> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"Java2D Disposer" - Thread t@15
+   java.lang.Thread.State: WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <b352c> (a java.lang.ref.ReferenceQueue$Lock)
+        at java.lang.ref.ReferenceQueue.remove(Unknown Source)
+        at java.lang.ref.ReferenceQueue.remove(Unknown Source)
+        at sun.java2d.Disposer.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"org.eclipse.jetty.server.session.HashSessionManager@92b3b6Timer" - Thread t@14
+   java.lang.Thread.State: TIMED_WAITING
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for <1e4a1ce> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RMI TCP Accept-0" - Thread t@12
+   java.lang.Thread.State: RUNNABLE
+        at java.net.DualStackPlainSocketImpl.accept0(Native Method)
+        at java.net.DualStackPlainSocketImpl.socketAccept(Unknown Source)
+        at java.net.AbstractPlainSocketImpl.accept(Unknown Source)
+        at java.net.PlainSocketImpl.accept(Unknown Source)
+        - locked <10850b6> (a java.net.SocksSocketImpl)
+        at java.net.ServerSocket.implAccept(Unknown Source)
+        at java.net.ServerSocket.accept(Unknown Source)
+        at sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RMI TCP Accept-3333" - Thread t@11
+   java.lang.Thread.State: RUNNABLE
+        at java.net.DualStackPlainSocketImpl.accept0(Native Method)
+        at java.net.DualStackPlainSocketImpl.socketAccept(Unknown Source)
+        at java.net.AbstractPlainSocketImpl.accept(Unknown Source)
+        at java.net.PlainSocketImpl.accept(Unknown Source)
+        - locked <b70ee6> (a java.net.SocksSocketImpl)
+        at java.net.ServerSocket.implAccept(Unknown Source)
+        at java.net.ServerSocket.accept(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"RMI TCP Accept-0" - Thread t@10
+   java.lang.Thread.State: RUNNABLE
+        at java.net.DualStackPlainSocketImpl.accept0(Native Method)
+        at java.net.DualStackPlainSocketImpl.socketAccept(Unknown Source)
+        at java.net.AbstractPlainSocketImpl.accept(Unknown Source)
+        at java.net.PlainSocketImpl.accept(Unknown Source)
+        - locked <175e613> (a java.net.SocksSocketImpl)
+        at java.net.ServerSocket.implAccept(Unknown Source)
+        at java.net.ServerSocket.accept(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(Unknown Source)
+        at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(Unknown Source)
+        at java.lang.Thread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"JDWP Event Helper Thread" - Thread t@6
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+        - None
+
+"JDWP Transport Listener: dt_socket" - Thread t@5
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+        - None
+
+"Attach Listener" - Thread t@4
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+        - None
+
+"Finalizer" - Thread t@3
+   java.lang.Thread.State: WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <154a1f8> (a java.lang.ref.ReferenceQueue$Lock)
+        at java.lang.ref.ReferenceQueue.remove(Unknown Source)
+        at java.lang.ref.ReferenceQueue.remove(Unknown Source)
+        at java.lang.ref.Finalizer$FinalizerThread.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+
+"Reference Handler" - Thread t@2
+   java.lang.Thread.State: WAITING
+        at java.lang.Object.wait(Native Method)
+        - waiting on <197eaa2> (a java.lang.ref.Reference$Lock)
+        at java.lang.Object.wait(Unknown Source)
+        at java.lang.ref.Reference$ReferenceHandler.run(Unknown Source)
+
+   Locked ownable synchronizers:
+        - None
+

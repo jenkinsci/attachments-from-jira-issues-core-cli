@@ -1,0 +1,805 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdSmstrativeMonitors>
+    <string>jenkins.model.DownloadSettings$Warning</string>
+    <string>jenkins.security.s2m.MasterKillSwitchWarning</string>
+    <string>OldData</string>
+    <string>jenkins.CLI</string>
+  </disabledAdSmstrativeMonitors>
+  <version>2.60.1</version>
+  <numExecutors>2</numExecutors>
+  <mode>EXCLUSIVE</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
+    <denyAnonymousReadAccess>false</denyAnonymousReadAccess>
+  </authorizationStrategy>
+  <securityRealm class="hudson.plugins.active_directory.ActiveDirectorySecurityRealm" plugin="active-directory@2.6">
+    <domains>
+      <hudson.plugins.active__directory.ActiveDirectoryDomain>
+        <name>akld.company.net</name>
+        <bindPassword>{AQAAABAAAAflfdsFFdsFdsFsFW/LfdsffdfsgwYOJ4xv5eE=}</bindPassword>
+      </hudson.plugins.active__directory.ActiveDirectoryDomain>
+    </domains>
+    <startTls>true</startTls>
+    <groupLookupStrategy>AUTO</groupLookupStrategy>
+    <removeIrrelevantGroups>false</removeIrrelevantGroups>
+    <tlsConfiguration>TRUST_ALL_CERTIFICATES</tlsConfiguration>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>  Generators</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Embiggen-Generator</string>
+        <string>LibModule-CI-Tests-OSX-Generator</string>
+        <string>company-ProH-ProB-Generator</string>
+        <string>Stream-All-ProHucts-Generator</string>
+        <string>Stream-ALib-Generator</string>
+        <string>Stream-ProjectC-Generator</string>
+        <string>Stream-ProH-CI-Generator</string>
+        <string>Stream-ProH-Pat-Generator</string>
+        <string>Stream-ProB-Generator</string>
+        <string>Stream-ProE-Generator</string>
+        <string>Stream-ProF-Generator</string>
+        <string>Stream-ProF-Generator</string>
+        <string>Stream-ProF-Sm-Generator</string>
+        <string>Stream-ProG-Generator</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>NodeTests</name>
+      <description></description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <jenkins.plugins.extracolumns.DisableProjectColumn plugin="extra-columns@1.18">
+          <useIcon>true</useIcon>
+        </jenkins.plugins.extracolumns.DisableProjectColumn>
+        <jenkins.plugins.extracolumns.ConfigureProjectColumn plugin="extra-columns@1.18"/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>.*NodeTest.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>I-team</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Maintenance</string>
+        <string>I-DM-Development-Tests-Mac</string>
+        <string>I-DM-Development-Tests-Win</string>
+        <string>I-DM-Tests-Win</string>
+        <string>I-Test-notification</string>
+        <string>I-test-pipeline-notification</string>
+        <string>I-test-pipeline-notification-ProH-server</string>
+        <string>I-test-Win-repo-acess</string>
+        <string>I-Lic-test-cloning</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <jenkins.plugins.extracolumns.ConfigureProjectColumn plugin="extra-columns@1.18"/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+        <hudson.views.BuildButtonColumn/>
+        <jenkins.plugins.extracolumns.DisableProjectColumn plugin="extra-columns@1.18">
+          <useIcon>true</useIcon>
+        </jenkins.plugins.extracolumns.DisableProjectColumn>
+      </columns>
+      <includeRegex>I.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProG</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ProG-Main</string>
+        <string>ProG-Main-Build-MacOS</string>
+        <string>ProG-Main-Build-Windows</string>
+        <string>ProG-Main-Test-MacOS-i386</string>
+        <string>ProG-Main-Test-MacOS-32</string>
+        <string>ProG-Main-Test-Windows-i386</string>
+        <string>ProG-Main-Test-Windows-32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name> Main</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Main-ProHL-CI-Build-OSX32</string>
+        <string>Main-ProHL-CI-Build-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>Main.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name> ProH</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ProH-DP-CI-Build-OSX32</string>
+        <string>ProH-DP-CI-Build-Win32</string>
+        <string>ProH-ALib</string>
+        <string>ProH-ALib-CI-Build-OSX</string>
+        <string>ProH-ALib-CI-Build-Win</string>
+        <string>ProH-ALib-CI-Tests-OSX</string>
+        <string>ProH-ALib-CI-Tests-Win</string>
+        <string>ProH-ProH</string>
+        <string>ProH-ProH-CI-Build-OSX32</string>
+        <string>ProH-ProH-CI-Build-Win32</string>
+        <string>ProH-ProH-CI-Build-Win32</string>
+        <string>ProH-ProH-CI-Tests-OSX</string>
+        <string>ProH-ProH-CI-Tests-Win32</string>
+        <string>ProH-ProH-CI-Tests-Win32</string>
+        <string>ProH-ProH-MetricsAndDocs</string>
+        <string>ProH-ProHL-CI-Build-OSX32</string>
+        <string>ProH-ProHL-CI-Build-Win32</string>
+        <string>ProH-ProB-CI</string>
+        <string>ProH-ProB-CI-Build-OSX32</string>
+        <string>ProH-ProB-CI-Build-Win32</string>
+        <string>ProH-ProF</string>
+        <string>ProH-ProFAU-CI-Build-OSX</string>
+        <string>ProH-ProFLE-CI-Build-OSX</string>
+        <string>ProH-ProFLE-CI-Build-Win</string>
+        <string>ProH-ProFPro-CI-Build-OSX</string>
+        <string>ProH-ProFPro-CI-Build-Win</string>
+        <string>ProH-ProP</string>
+        <string>ProH-ProP-Build</string>
+        <string>ProH-ProP-Test</string>
+        <string>ProH-ProF</string>
+        <string>ProH-ProF-Build</string>
+        <string>ProH-ProF-Sm</string>
+        <string>ProH-ProF-Sm-Build</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>companyProH-ProB-1.0</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>companyProH-ProB-1.0-ProB-CI</string>
+        <string>companyProH-ProB-1.0-ProB-CI-Build-OSX32</string>
+        <string>companyProH-ProB-1.0-ProB-CI-Build-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>companyProH-1.1</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>companyProH-1.1-ProH-CI</string>
+        <string>companyProH-1.1-ProH-CI-Build-OSX32</string>
+        <string>companyProH-1.1-ProH-CI-Build-Win32</string>
+        <string>companyProH-1.1-ProH-CI-Tests-OSX</string>
+        <string>companyProH-1.1-ProH-CI-Tests-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>companyProH-1.1.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProHL</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ProH-ProH</string>
+        <string>ProH-ProH-CI-Build-OSX32</string>
+        <string>ProH-ProH-CI-Build-Win32</string>
+        <string>ProH-ProH-CI-Tests-OSX</string>
+        <string>ProH-ProH-CI-Tests-Win32</string>
+        <string>ProH-ProHL-CI-Build-OSX32</string>
+        <string>ProH-ProHL-CI-Build-Win32</string>
+        <string>ProH-ProHL-CI-Build-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Lib</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>LibT-Build-OSX</string>
+        <string>LibT-Build-Win</string>
+        <string>LibT-LibT</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.BuildDescriptionColumn plugin="extra-columns@1.18">
+          <columnWidth>80</columnWidth>
+          <forceWidth>false</forceWidth>
+        </jenkins.plugins.extracolumns.BuildDescriptionColumn>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>Lib-.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProH-G</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[10]/jobNames/comparator"/>
+        <string>ProH-G-ProH-CI</string>
+        <string>ProH-G-ProH-CI-Build-OSX32</string>
+        <string>ProH-G-ProH-CI-Build-Win32</string>
+        <string>ProH-G-ProH-CI-Tests-OSX</string>
+        <string>ProH-G-ProH-CI-Tests-Win32</string>
+        <string>ProH-G-Docs</string>
+        <string>ProH-G-OP-LV-ProH-CI</string>
+        <string>ProH-G-OP-LV-ProH-CI-Build-OSX32</string>
+        <string>ProH-G-OP-LV-ProH-CI-Build-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProG-1.0</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Release-ProG</string>
+        <string>Release-ProG-Build-MacOS</string>
+        <string>Release-ProG-Build-Windows</string>
+        <string>Release-ProG-Test-MacOS-i386</string>
+        <string>Release-ProG-Test-MacOS-32</string>
+        <string>Release-ProG-Test-Windows-i386</string>
+        <string>Release-ProG-Test-Windows-32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Co</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[12]/jobNames/comparator"/>
+        <string>Co-ALib</string>
+        <string>Co-ALib-CI-Build-OSX</string>
+        <string>Co-ALib-CI-Build-Win</string>
+        <string>Co-ALib-CI-Tests-OSX</string>
+        <string>Co-ALib-CI-Tests-Win</string>
+        <string>Co-ProH-CI</string>
+        <string>Co-ProH-CI-Build-OSX32</string>
+        <string>Co-ProH-CI-Build-Win32</string>
+        <string>Co-ProH-CI-Tests-OSX</string>
+        <string>Co-ProH-CI-Tests-Win32</string>
+        <string>Co-ProH-Pat</string>
+        <string>Co-ProH-Pat-Build-OSX32</string>
+        <string>Co-ProH-Pat-Build-Win32</string>
+        <string>Co-ProB-CI</string>
+        <string>Co-ProB-CI-Build-OSX32</string>
+        <string>Co-ProB-CI-Build-Win32</string>
+        <string>Co-LibModule-CI</string>
+        <string>Co-LibModule-CI-Tests-OSX</string>
+        <string>Co-LibModule-CI-Tests-Win</string>
+        <string>Co-LibModule-Documentation</string>
+        <string>Co-LibModule-Bin-OSX</string>
+        <string>Co-LibModule-Bin-Win</string>
+        <string>Co-ProE</string>
+        <string>Co-ProE-CI-Tests-MacOS</string>
+        <string>Co-ProE-CI-Tests-Win</string>
+        <string>Co-ProE-Documentation</string>
+        <string>Co-ProF</string>
+        <string>Co-ProFAU-CI-Build-OSX</string>
+        <string>Co-ProFLE-CI-Build-OSX</string>
+        <string>Co-ProFLE-CI-Build-Win</string>
+        <string>Co-ProFPro-CI-Build-OSX</string>
+        <string>Co-ProFPro-CI-Build-Win</string>
+        <string>Co-ProP</string>
+        <string>Co-ProP-Build</string>
+        <string>Co-ProP-Test</string>
+        <string>Co-ProF</string>
+        <string>Co-ProF-Build</string>
+        <string>Co-ProF-Sm</string>
+        <string>Co-ProF-Sm-Build</string>
+        <string>Co-Tests-CI</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+      </columns>
+      <includeRegex>Co.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>T</name>
+      <description></description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[12]/jobNames/comparator"/>
+        <string>CheckQ</string>
+        <string>DepQ</string>
+        <string>ProHucts-T-Check-pla</string>
+        <string>ProHucts-T-Check-Mac-Xcode8</string>
+        <string>ProHucts-T-Check-Q-Mac-Xcode5</string>
+        <string>ProHucts-T-Deployment-pla</string>
+        <string>ProHucts-T-Deployment-Mac-Xcode8</string>
+        <string>ProHucts-T-Deployment-Q-Mac-Xcode8</string>
+        <string>I-test-reference-repo</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <jenkins.plugins.extracolumns.ConfigureProjectColumn plugin="extra-columns@1.18"/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+        <hudson.views.BuildButtonColumn/>
+        <jenkins.plugins.extracolumns.DisableProjectColumn plugin="extra-columns@1.18">
+          <useIcon>true</useIcon>
+        </jenkins.plugins.extracolumns.DisableProjectColumn>
+      </columns>
+      <includeRegex>ProHucts-T.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>R+D</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[12]/jobNames/comparator"/>
+        <string>ProG-ViewPr</string>
+        <string>ProG-ViewPr-Build-MacOS</string>
+        <string>ProG-ViewPr-III</string>
+        <string>ProG-ViewPr-III-Build-MacOS</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProjectC-lib2</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ProjectC-lib2-ProG</string>
+        <string>ProjectC-lib2-ProG-Build-MacOS</string>
+        <string>ProjectC-lib2-ProG-Build-Windows</string>
+        <string>ProjectC-lib2-ProG-Test-MacOS-i386</string>
+        <string>ProjectC-lib2-ProG-Test-MacOS-32</string>
+        <string>ProjectC-lib2-ProG-Test-Windows-i386</string>
+        <string>ProjectC-lib2-ProG-Test-Windows-32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProF</name>
+      <description></description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[16]/jobNames/comparator"/>
+        <string>ProF-Sm-ProF-Sm</string>
+        <string>ProF-Sm-ProF-Sm-Build</string>
+        <string>ProF-ProF</string>
+        <string>ProF-ProF-Build</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProH-32</name>
+      <description></description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ProH-32-ProH-CI-Build-OSX32</string>
+        <string>ProH-32-ProH-CI-Build-OSX32</string>
+        <string>ProH-32-ProH-CI-Build-Win32</string>
+        <string>ProH-32-ProH-CI-Build-Win32</string>
+        <string>ProH-32-ProH-CI-Tests-OSX32</string>
+        <string>ProH-32-ProH-CI-Tests-OSX32</string>
+        <string>ProH-32-ProH-CI-Tests-Win32</string>
+        <string>ProH-32-ProH-CI-Tests-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>ProH-32.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProF</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ProF-Main-Start</string>
+        <string>ProF-Main-Build-All</string>
+        <string>ProF-Main-Test-pla</string>
+        <string>ProF-Main-Test-macOS-i386</string>
+        <string>ProF-Main-Test-macOS-32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <jenkins.plugins.extracolumns.LastBuildConsoleColumn plugin="extra-columns@1.18"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProG</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[19]/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>ProG.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Hold Imp</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Hold-Imp-company-ProH</string>
+        <string>Hold-Imp-company-ProG</string>
+        <string>Hold-Report-Deploy</string>
+        <string>Hold-Report-Update-Daily</string>
+        <string>Hold-Report-Update-Weekly</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProF-1.3</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[21]/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>ProF.*1.3-ProF.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>ProH-Ren</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[21]/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>ProH-Ren.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>companyProH-1.2</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>companyProH-1.2-ProH-CI</string>
+        <string>companyProH-1.2-ProH-CI-Build-OSX32</string>
+        <string>companyProH-1.2-ProH-CI-Build-Win32</string>
+        <string>companyProH-1.2-ProH-CI-Tests-OSX</string>
+        <string>companyProH-1.2-ProH-CI-Tests-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>companyProH-ProB-1.1.3</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>companyProH-ProB-1.1.3-ProB-CI</string>
+        <string>companyProH-ProB-1.1.3-ProB-CI-Build-OSX32</string>
+        <string>companyProH-ProB-1.1.3-ProB-CI-Build-Win32</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.plugins.zentimestamp.ZenTimestampNodeProperty plugin="zentimestamp@4.2">
+      <pattern>yyyy-MM-dd_HH-mm-ss</pattern>
+    </hudson.plugins.zentimestamp.ZenTimestampNodeProperty>
+  </globalNodeProperties>
+</hudson>

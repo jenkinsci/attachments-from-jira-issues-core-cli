@@ -1,0 +1,66 @@
+# cat /var/jenkins_home/jobs/Vmol-Branch/config.xml 
+<?xml version="1.0" encoding="UTF-8"?><org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>
+    <properties/>
+    <folderViews class="jenkins.branch.MultiBranchProjectViewHolder">
+        <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+    </folderViews>
+    <healthMetrics>
+        <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+            <nonRecursive>false</nonRecursive>
+        </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+    </healthMetrics>
+    <icon class="jenkins.branch.MetadataActionFolderIcon">
+        <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+    </icon>
+    <triggers>
+        <hudson.triggers.SCMTrigger>
+            <spec>H/15 * * * 1-5</spec>
+            <ignorePostCommitHooks>false</ignorePostCommitHooks>
+        </hudson.triggers.SCMTrigger>
+    </triggers>
+    <sources class="jenkins.branch.MultiBranchProject$BranchSourceList">
+        <data>
+            <jenkins.branch.BranchSource plugin="branch-api@2.1152.v6f101e97dd77">
+                <source plugin="cloudbees-bitbucket-branch-source@883.v041fa_695e9c2" class="com.cloudbees.jenkins.plugins.bitbucket.BitbucketSCMSource">
+                    <id>vmol</id>
+                    <serverUrl>https://bitbucket.org</serverUrl>
+                    <credentialsId>BitbucketoAuthConsumer</credentialsId>
+                    <repoOwner>ids-dev</repoOwner>
+                    <repository>vmol</repository>
+                    <traits>
+                        <com.cloudbees.jenkins.plugins.bitbucket.BranchDiscoveryTrait>
+                            <strategyId>1</strategyId>
+                        </com.cloudbees.jenkins.plugins.bitbucket.BranchDiscoveryTrait>
+                        <com.cloudbees.jenkins.plugins.bitbucket.OriginPullRequestDiscoveryTrait>
+                            <strategyId>1</strategyId>
+                        </com.cloudbees.jenkins.plugins.bitbucket.OriginPullRequestDiscoveryTrait>
+                        <jenkins.scm.impl.trait.RegexSCMHeadFilterTrait plugin="scm-api@689.v237b_6d3a_ef7f">
+                            <regex>(.*feature|PR-).*</regex>
+                        </jenkins.scm.impl.trait.RegexSCMHeadFilterTrait>
+                    </traits>
+                </source>
+                <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
+                    <properties class="java.util.Arrays$ArrayList">
+                        <a class="jenkins.branch.BranchProperty-array">
+                            <jenkins.branch.NoTriggerBranchProperty>
+                                <triggeredBranchesRegex>.*</triggeredBranchesRegex>
+                                <strategy>INDEXING</strategy>
+                            </jenkins.branch.NoTriggerBranchProperty>
+                        </a>
+                    </properties>
+                </strategy>
+            </jenkins.branch.BranchSource>
+        </data>
+        <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+    </sources>
+    <displayName>Vmol Branch and Pull Request Build</displayName>
+    <description>Build VMOL branches and Pull Requests as they are created</description>
+    <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy">
+        <pruneDeadBranches>true</pruneDeadBranches>
+        <daysToKeep>5</daysToKeep>
+        <numToKeep>5</numToKeep>
+    </orphanedItemStrategy>
+    <factory plugin="workflow-multibranch@783.va_6eb_ef636fb_d" class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
+        <scriptPath>env2/Jenkinsfile.build</scriptPath>
+    </factory>
+</org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>

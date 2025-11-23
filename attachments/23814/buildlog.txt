@@ -1,0 +1,42 @@
+Started by an SCM change
+Building remotely on <SLAVE> in workspace <WORKSPACE>
+hudson.util.IOException2: remote file operation failed: <WORKSPACE> at hudson.remoting.Channel@6f5128b4:<SLAVE>
+	at hudson.FilePath.act(FilePath.java:901)
+	at hudson.FilePath.act(FilePath.java:878)
+	at hudson.FilePath.mkdirs(FilePath.java:1018)
+	at hudson.model.AbstractProject.checkout(AbstractProject.java:1367)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.defaultCheckout(AbstractBuild.java:676)
+	at jenkins.scm.SCMCheckoutStrategy.checkout(SCMCheckoutStrategy.java:88)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:581)
+	at hudson.model.Run.execute(Run.java:1576)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:241)
+Caused by: java.io.InvalidClassException: hudson.FilePath; local class incompatible: stream classdesc serialVersionUID = 1, local class serialVersionUID = 8982152400902261046
+	at java.io.ObjectStreamClass.initNonProxy(Unknown Source)
+	at java.io.ObjectInputStream.readNonProxyDesc(Unknown Source)
+	at java.io.ObjectInputStream.readClassDesc(Unknown Source)
+	at java.io.ObjectInputStream.readOrdinaryObject(Unknown Source)
+	at java.io.ObjectInputStream.readObject0(Unknown Source)
+	at java.io.ObjectInputStream.defaultReadFields(Unknown Source)
+	at java.io.ObjectInputStream.readSerialData(Unknown Source)
+	at java.io.ObjectInputStream.readOrdinaryObject(Unknown Source)
+	at java.io.ObjectInputStream.readObject0(Unknown Source)
+	at java.io.ObjectInputStream.defaultReadFields(Unknown Source)
+	at java.io.ObjectInputStream.readSerialData(Unknown Source)
+	at java.io.ObjectInputStream.readOrdinaryObject(Unknown Source)
+	at java.io.ObjectInputStream.readObject0(Unknown Source)
+	at java.io.ObjectInputStream.readObject(Unknown Source)
+	at hudson.remoting.UserRequest.deserialize(UserRequest.java:182)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:98)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:326)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)
+	at java.util.concurrent.FutureTask$Sync.innerRun(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+[WARNINGS] Skipping publisher since build result is FAILURE
+Archiving artifacts
+<HANGS FOREVER>

@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Takes parameters from a parent job, syncs the sources, and does a build.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>30</daysToKeep>
+        <numToKeep>500</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.28"/>
+    <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.16.0">
+      <doNotScan>false</doNotScan>
+    </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.BooleanParameterDefinition>
+          <name>CALL_AUTO_TEST</name>
+          <description>invoke test automation if set.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <de.pellepelster.jenkins.walldisplay.WallDisplayJobProperty plugin="jenkinswalldisplay@0.6.30"/>
+  </properties>
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.6">
+    <scms>
+      <hudson.plugins.git.GitSCM plugin="git@2.5.2">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>ssh://svc-es-ldap@gerrit.gigamon.com:29418/${GIT_REPO}</url>
+            <credentialsId>20f7fbb8-e0b3-49d8-bf34-7e6fa542645d</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>${GIT_HASH}</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <gitTool>CentOS</gitTool>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>true</shallow>
+            <noTags>false</noTags>
+            <reference></reference>
+            <timeout>60</timeout>
+            <depth>1</depth>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+          <hudson.plugins.git.extensions.impl.CheckoutOption>
+            <timeout>60</timeout>
+          </hudson.plugins.git.extensions.impl.CheckoutOption>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.5.2">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>http://gigastash.gigamon.com/scm/fm/ui.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>${GUI_GIT_HASH}</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <gitTool>CentOS</gitTool>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>${WORKSPACE}/fir/tree/falcon_output/ui</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+    </scms>
+  </scm>
+  <assignedNode>H_GINKGO</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#----------------------------------------------------------------------------------
+#                      save some typing, get record index for failure file
+#----------------------------------------------------------------------------------
+G_PRFX=&quot;curl -s -S -m 120 http://${BNBR_SERVER}&quot;
+P_PRFX=&quot;curl -s -S -m 120 -X POST http://${BNBR_SERVER}/updatefield/${GIGA_INDEX}&quot;
+echo -n &quot;$GIGA_INDEX&quot; &gt; ${WORKSPACE}/FAILFILE
+
+#---------------------------------------------------------------------------------------------------
+#      set the version in the product show string from JIRA or manual input (H series version)
+#---------------------------------------------------------------------------------------------------
+SYNCPATH=${WORKSPACE}
+FILE6=${SYNCPATH}/customer/gigavue/src/mk/prod_release.mk
+NEXTVER=${RELEASETARGET_MAJOR}.${RELEASETARGET_MINOR}.${RELEASETARGET_PATCH}
+
+if [ ! -f ${FILE6}.orig ] ; then cp ${FILE6} ${FILE6}.orig ; fi
+sed &quot;/^GVHD_MAJ_VER/  s/^GVHD_MAJ_VER.*$/GVHD_MAJ_VER=${RELEASETARGET_MAJOR}/&quot;   ${FILE6}.orig &gt; ${FILE6}.v2
+sed &quot;/^GVHD_MIN_VER/  s/^GVHD_MIN_VER.*$/GVHD_MIN_VER=${RELEASETARGET_MINOR}/&quot;   ${FILE6}.v2   &gt; ${FILE6}.v3
+sed &quot;/^GVHD_PAT_VER/  s/^GVHD_PAT_VER.*$/GVHD_PAT_VER=${RELEASETARGET_PATCH}/&quot;   ${FILE6}.v3   &gt; ${FILE6}
+
+# show the result
+cat ${FILE6}
+
+#---------------------------------------------------------------------------------------------------
+#                     Get the build utility scripts
+#---------------------------------------------------------------------------------------------------
+rm -rf ${WORKSPACE}/bin
+# Get some build utility scripts
+SVNPREFIX=${GIGA_SRC}/engservice/mainline/buildscripts/utility
+svn export         --username ${SVNUSER} --password ${SVNPASS} ${SVNPREFIX}/perl   ${WORKSPACE}/bin
+svn export --force --username ${SVNUSER} --password ${SVNPASS} ${SVNPREFIX}/python ${WORKSPACE}/bin
+# get the template for making .ova files in case this is a &quot;vm&quot; build
+svn export --force --username ${SVNUSER} --password ${SVNPASS} ${SVNPREFIX}/misc   ${WORKSPACE}/bin
+
+#---------------------------------------------------------------------------------------------------
+#                     Massage the build files to believe we&apos;re build_master.
+#---------------------------------------------------------------------------------------------------
+FILE1=${SYNCPATH}/fir/tree/src/mk/common.mk
+FILE2=${SYNCPATH}/fir/tree/src/release/build_version.conf
+FILE3=${SYNCPATH}/customer/gigavue/src/release/update_release.sh
+SUDOUSERPAT=\$\{SUDO_USER\}
+mv   ${FILE1}   ${FILE1}.orig
+sed &quot;/${SUDOUSERPAT}/  s/${SUDOUSERPAT}/build_master/&quot; ${FILE1}.orig &gt; ${FILE1}
+mv   ${FILE2}   ${FILE2}.orig
+sed &quot;/${SUDOUSERPAT}/  s/${SUDOUSERPAT}/build_master/&quot; ${FILE2}.orig &gt; ${FILE2}
+mv   ${FILE3}   ${FILE3}.orig
+sed &quot;/${SUDOUSERPAT}/  s/${SUDOUSERPAT}/build_master/&quot; ${FILE3}.orig &gt; ${FILE3}
+
+#------------------------------------------------------------------------------------------------------------------
+#                     massage some more to make the build number visible in show version command as Build ID
+#------------------------------------------------------------------------------------------------------------------
+#BNFILE=${SYNCPATH}/fir/tree/src/release/mkver.sh
+#mv  ${BNFILE}  ${BNFILE}.orig
+#sed -e &quot;/^BUILD_NUMBER=\$PI_BUILD_NUMBER/ c\
+#BUILD_NUMBER=\$\{GIGA_BNBR\}
+#&quot;  ${BNFILE}.orig  &gt;  ${BNFILE}
+#
+#mv  ${BNFILE}  ${BNFILE}.orig
+#sed -e &quot;/^BUILD_TYPE=\$PI_BUILD_TYPE/ c\
+#BUILD_TYPE=numbered
+#&quot;  ${BNFILE}.orig  &gt;  ${BNFILE}
+#chmod 777 ${BNFILE}
+
+#----------------------------------------------------------------------------------
+#                      set up some target-specific values, default to &quot;release&quot; values
+#----------------------------------------------------------------------------------
+GIGA_FILENAME=${GIGA_CODE}_${GIGA_DATE}
+GIGA_BUILDVM=
+
+if [ ${GIGA_TARGET} == &quot;debug&quot; ]; then GIGA_FILENAME=${GIGA_FILENAME}_gm; fi
+
+if [ &quot;${GIGA_TARGET}&quot; = &quot;vm_debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; = &quot;vm_release&quot; ] ; then
+    GIGA_FILENAME=${GIGA_FILENAME}_${GIGA_TARGET}_gm
+    if [ &quot;${GIGA_MODEL}&quot; != &quot;ta100&quot; ]; then
+        GIGA_PLATFORM=i386
+        GIGA_BUILDVM=-v
+    else
+        GIGA_PRODUCT_DIR=&quot;${GIGA_PRODUCT_DIR}-vm&quot;
+        GIGA_SMART=&quot;${GIGA_SMART} -x&quot;
+    fi
+fi
+
+#------------------------------------------------------------------------------------------
+#                     register the build as &quot;In Progress&quot;
+#------------------------------------------------------------------------------------------
+RESULT=$(${P_PRFX}/buildstatus/In%20Progress)
+RESULT=$(${P_PRFX}/buildtype/${GIGA_BUILDTYPE})
+RESULT=$(${P_PRFX}/starttime/$(date +&quot;%T&quot;))
+RESULT=$(${P_PRFX}/starttime/$(date +&quot;%T&quot;))
+RESULT=$(${P_PRFX}/svnrevision/0)
+BLDURL=$(echo -n &quot;${BUILD_URL}&quot; | base64 -w 0)
+RESULT=$(${P_PRFX}/jenkins_URL/${BLDURL})
+RESULT=$(${P_PRFX}/markedversion/${NEXTVER})
+RESULT=$(${P_PRFX}/subbranch/${SANDBOXBRANCHNAME})
+if [ -n &quot;${SANDBOXBRANCHNAME}&quot; ] ; then RESULT=$(${P_PRFX}/comment/$(echo -n &quot;${SANDBOXBRANCHNAME}&quot; | base64 -w 0)); fi
+
+#------------------------------------------------------------------------------------------
+#                     do the build
+#------------------------------------------------------------------------------------------
+if [ &quot;${GIGA_TARGET}&quot; = &quot;debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; = &quot;vm_debug&quot; ] ; then 
+    unset  PROD_FEATURE_RESTRICT_CMDS
+    export ENABLE_GS_DEBUG=1
+    RELEASE_BUILD=
+else
+    unset ENABLE_GS_DEBUG
+    export PROD_FEATURE_RESTRICT_CMDS=1
+    RELEASE_BUILD=--release-build
+fi
+
+if [ &quot;${GIGA_TARGET}&quot; = &quot;vm_debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; = &quot;vm_release&quot; ] ; then
+	./gigafalcon.py -p $GIGA_BUILD_CODE --build-number ${GIGA_BNBR} --build-version $NEXTVER --build-type ${BUILD_TYPE} $GIGA_BUILDVM ${GIGA_SMART} --web-directory=${WORKSPACE}/fir/tree/falcon_output/ui ${RELEASE_BUILD}
+else
+	./gigafalcon.py -p $GIGA_BUILD_CODE --build-number ${GIGA_BNBR} --build-version $NEXTVER --build-type ${BUILD_TYPE} ${GIGA_SMART} --web-directory=${WORKSPACE}/fir/tree/falcon_output/ui ${RELEASE_BUILD}
+fi
+
+OUTPUT_FOLDER=&quot;falcon_output/product-*-*/install/release&quot;
+cd ${WORKSPACE}/fir/tree/${OUTPUT_FOLDER}
+
+#------------------------------------------------------------------------------------------------------------------
+#                     organize artifacts locally
+#------------------------------------------------------------------------------------------------------------------
+if [ &quot;${GIGA_TARGET}&quot; = &quot;vm_debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; = &quot;vm_release&quot; ] ; then
+    rm -f  ${WORKSPACE}/*.iso  ${WORKSPACE}/*.img
+    mv -f  mfgcd/mfgcd*        ${WORKSPACE}/$GIGA_FILENAME.iso
+    mv -f  image/image*        ${WORKSPACE}/$GIGA_FILENAME.img
+else
+    rm -f ${WORKSPACE}/*.bin   ${WORKSPACE}/*.img  ${WORKSPACE}/rootfs  ${WORKSPACE}/fdt  ${WORKSPACE}/vmlinuz   ${WORKSPACE}/onie-installer-powerpc-quanta_ly2r-r0
+    mv -f  bootflop/vmlinuz*   ${WORKSPACE}/vmlinuz
+    mv -f  image/image*        ${WORKSPACE}/$GIGA_FILENAME.img
+    if [ &quot;${GIGA_MODEL}&quot; != &quot;ta100&quot; ] ; then
+        mv -f  rootflop/rootfs*    ${WORKSPACE}/rootfs
+        mv -f  bootflop/fdt*       ${WORKSPACE}/fdt
+        if [ &quot;${GIGA_MODEL}&quot; = &quot;hb1&quot; ] || [ &quot;${GIGA_MODEL}&quot; = &quot;hc2&quot; ] ; then
+            mv -f  u-boot/u-boot*  ${WORKSPACE}/$GIGA_FILENAME.bin
+        else
+            mv -f  ${WORKSPACE}/fir/tree/falcon_output/product-*-*/build/fir/tree/src/base_os/common/u-boot/installation/u-boot*      ${WORKSPACE}/$GIGA_FILENAME.bin
+        fi
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] ; then
+        if [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+            mv -f  image/onie-installer-powerpc-quanta_ly2r-r0     ${WORKSPACE}/onie-installer-powerpc-quanta_ly2r-r0
+        fi
+        if [ &quot;${GIGA_TARGET}&quot; = &quot;debug&quot; ] ; then
+            mv -f  image/onie-installer-powerpc-quanta_ly2r-r0     ${WORKSPACE}/onie-installer-powerpc-quanta_ly2r-r0_gm
+        fi
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;hc2&quot; ] ; then
+        #------------------------------------------------------------------------------------------------------------------
+        #                     add the Gigasmart uboot image, two mib files to the posting for hc2
+        #------------------------------------------------------------------------------------------------------------------
+        cp -v ${WORKSPACE}/fir/tree/falcon_output/product-*-*/install/image/tftpboot/hdgs/ubgs.bin   ${WORKSPACE}/ubgs.bin
+        cp ${WORKSPACE}/customer/gigavue/src/bin/snmp/gigamon/mibs/GIGAMON_SNMP_MIB.mib    ${WORKSPACE}/GIGAMON_SNMP_MIB.mib
+        cp ${WORKSPACE}/customer/gigavue/src/bin/snmp/gigamon/mibs/GIGAMON-COMMON-SMI.txt  ${WORKSPACE}/GIGAMON-COMMON-SMI.txt
+    fi
+fi
+
+#------------------------------------------------------------------------------------------------------------------
+#                     if this is a &quot;vm&quot; build, create an OVA file from the ISO.
+#------------------------------------------------------------------------------------------------------------------
+if [ &quot;${GIGA_TARGET}&quot; = &quot;vm_debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; = &quot;vm_release&quot; ] ; then
+    OVFTOOL=/usr/bin/ovftool
+
+    # make sure we&amp;apos;re clean
+    rm -f ${WORKSPACE}/file1.ova
+    rm -f ${WORKSPACE}/file1.ovf
+    if [ -e ${WORKSPACE}/file1.iso ] ; then unlink ${WORKSPACE}/file1.iso; fi
+
+    # then copy in the template file
+    cp ${WORKSPACE}/bin/file1.ovf  ${WORKSPACE}
+    
+    # make a soft link to the iso
+    ln -s ${WORKSPACE}/$GIGA_FILENAME.iso  ${WORKSPACE}/file1.iso
+
+    #modify the ovf file to have the right nomenclature
+    sed -i &quot;/XPLAT/  s/XPLAT/${GIGA_MODEL}/g&quot;  ${WORKSPACE}/file1.ovf
+
+    # create the OVA file
+    ${OVFTOOL} --quiet --overwrite --compress=9 ${WORKSPACE}/file1.ovf  ${WORKSPACE}/$GIGA_FILENAME.ova
+
+    # make it globally readable
+    chmod 644 ${WORKSPACE}/$GIGA_FILENAME.ova
+fi
+
+#------------------------------------------------------------------------------------------------------------------
+#                     post to the build storage server
+#------------------------------------------------------------------------------------------------------------------
+PPLACE=$postingroot/$GIGA_SERIES/$GIGA_BRANCH/$GIGA_BNBR/${GIGA_PLATFORM}
+PPLACE2=$PPLACE/$GIGA_CODE
+PPLACE4=$postingroot/$GIGA_SERIES/$GIGA_BRANCH
+
+ssh  $postinguser@$postingsystem  &quot;mkdir -p $PPLACE&quot;
+if [ &quot;${GIGA_TARGET}&quot; != &quot;vm_debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; != &quot;vm_release&quot; ] ; then
+    ssh  $postinguser@$postingsystem  &quot;mkdir -p $PPLACE2&quot;
+fi
+
+if [ &quot;${GIGA_TARGET}&quot; = &quot;vm_debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; = &quot;vm_release&quot; ] ; then
+    scp   ${WORKSPACE}/$GIGA_FILENAME.iso  $postinguser@$postingsystem:$PPLACE
+    scp   ${WORKSPACE}/$GIGA_FILENAME.img  $postinguser@$postingsystem:$PPLACE
+    scp   ${WORKSPACE}/$GIGA_FILENAME.ova  $postinguser@$postingsystem:$PPLACE
+else
+    if [ &quot;${GIGA_MODEL}&quot; != &quot;ta100&quot; ] ; then
+        scp   ${WORKSPACE}/$GIGA_FILENAME.bin  $postinguser@$postingsystem:$PPLACE
+        scp   ${WORKSPACE}/fdt                 $postinguser@$postingsystem:$PPLACE2
+        scp   ${WORKSPACE}/rootfs              $postinguser@$postingsystem:$PPLACE2
+    fi
+    scp   ${WORKSPACE}/$GIGA_FILENAME.img  $postinguser@$postingsystem:$PPLACE
+    scp   ${WORKSPACE}/vmlinuz             $postinguser@$postingsystem:$PPLACE2
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ta100&quot; ] ; then
+        MFGUSB=$(ls ${WORKSPACE}/fir/tree/${OUTPUT_FOLDER}/mfgusb/mfgusb*.zip| head -n 1)
+        if [ &quot;${GIGA_TARGET}&quot; = &quot;debug&quot; ] ; then
+            NEWMFGUSB=`echo ${MFGUSB} | sed s/\.zip/_gm\.zip/`
+            mv -f ${MFGUSB} ${NEWMFGUSB}
+        fi
+        scp ${WORKSPACE}/fir/tree/${OUTPUT_FOLDER}/mfgusb/mfgusb*.zip $postinguser@$postingsystem:$PPLACE
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+    	scp   ${WORKSPACE}/onie-installer-powerpc-quanta_ly2r-r0     $postinguser@$postingsystem:$PPLACE
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;debug&quot; ] ; then
+    	scp   ${WORKSPACE}/onie-installer-powerpc-quanta_ly2r-r0_gm  $postinguser@$postingsystem:$PPLACE
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;hc2&quot; ] ; then
+    	scp   ${WORKSPACE}/ubgs.bin                $postinguser@$postingsystem:$PPLACE2
+    	scp   ${WORKSPACE}/GIGAMON_SNMP_MIB.mib    $postinguser@$postingsystem:$PPLACE
+    	scp   ${WORKSPACE}/GIGAMON-COMMON-SMI.txt  $postinguser@$postingsystem:$PPLACE
+    fi
+fi
+
+# create softlink to latest folder. 
+# Since both vm (ppc) and non-vm (x86) builds post to same folder, need to point to higher level
+ssh  $postinguser@$postingsystem  &quot;if test -h $PPLACE4/latest_${GIGA_MODEL}_${GIGA_TARGET}; then unlink $PPLACE4/latest_${GIGA_MODEL}_${GIGA_TARGET}; fi&quot;
+ssh  $postinguser@$postingsystem  &quot;ln -s  $PPLACE4/$GIGA_BNBR  $PPLACE4/latest_${GIGA_MODEL}_${GIGA_TARGET}&quot;
+
+#------------------------------------------------------------------------------------------------------------------
+#                     add the latest MIB file to the folder
+#------------------------------------------------------------------------------------------------------------------
+RESULT=$(${G_PRFX}/lastbuiltmib)
+ssh $postinguser@$postingsystem      &quot;cp ${RESULT}/GIGAMON-SNMP-MIB.mib ${PPLACE}&quot;
+
+#------------------------------------------------------------------------------------------------------------------
+#                     post to the build number database
+#------------------------------------------------------------------------------------------------------------------
+if [ &quot;${GIGA_TARGET}&quot; = &quot;vm_debug&quot; ] || [ &quot;${GIGA_TARGET}&quot; = &quot;vm_release&quot; ] ; then
+    SUM1=$(md5sum $WORKSPACE/${GIGA_FILENAME}.iso       | cut -b 1-32)
+    echo ${SUM1} &gt; $WORKSPACE/${GIGA_FILENAME}.iso.md5
+    SUM2=$(md5sum $WORKSPACE/${GIGA_FILENAME}.img       | cut -b 1-32)
+    echo ${SUM2} &gt; $WORKSPACE/${GIGA_FILENAME}.img.md5
+    SUM3=$(md5sum $WORKSPACE/${GIGA_FILENAME}.ova       | cut -b 1-32)
+    echo ${SUM3} &gt; $WORKSPACE/${GIGA_FILENAME}.ova.md5
+    # add the calculated md5 value
+    scp   ${WORKSPACE}/$GIGA_FILENAME.iso.md5  $postinguser@$postingsystem:$PPLACE
+    scp   ${WORKSPACE}/$GIGA_FILENAME.img.md5  $postinguser@$postingsystem:$PPLACE
+    scp   ${WORKSPACE}/$GIGA_FILENAME.ova.md5  $postinguser@$postingsystem:$PPLACE
+
+    PATHENC1=$(echo -n &quot;${PPLACE}/${GIGA_FILENAME}.iso&quot; | base64 -w 0)
+    PATHENC2=$(echo -n &quot;${PPLACE}/${GIGA_FILENAME}.img&quot; | base64 -w 0)
+    PATHENC3=$(echo -n &quot;${PPLACE}/${GIGA_FILENAME}.ova&quot; | base64 -w 0)
+
+    # Post the build itself
+    GIGA_POSTPATH=$(echo -n $PPLACE | base64 -w 0)
+
+    RESULT=$(${P_PRFX}/postingpath/${GIGA_POSTPATH})
+    RESULT=$(${P_PRFX}/postingserver/${postingsystem})
+    RESULT=$(${P_PRFX}/buildstatus/POSTED)
+    RESULT=$(${P_PRFX}/endtime/$(date +&quot;%T&quot;))
+    if [ -n &quot;${GIGA_GITREF}&quot; ] ; then
+    	RESULT=$(${P_PRFX}/gitref/${GIGA_GITREF})
+	else
+		RESULT=$(${P_PRFX}/gitref/${HMAIN_GIT_HASH})
+	fi
+
+    # Post the artifacts
+    PA_PRFX=&quot;curl -s -S -m 120 -X POST http://${BNBR_SERVER}/addartifact/${GIGA_INDEX}&quot;
+    RESULT=$(${PA_PRFX}/${GIGA_FILENAME}.iso/${SUM1}/${postingsystem}/${PATHENC1})
+    RESULT=$(${PA_PRFX}/${GIGA_FILENAME}.img/${SUM2}/${postingsystem}/${PATHENC2})
+    RESULT=$(${PA_PRFX}/${GIGA_FILENAME}.ova/${SUM3}/${postingsystem}/${PATHENC3})
+    
+else
+    if [ &quot;${GIGA_MODEL}&quot; != &quot;ta100&quot; ] ; then
+    	SUM1=$(md5sum $WORKSPACE/${GIGA_FILENAME}.bin       | cut -b 1-32)
+    	echo ${SUM1} &gt; $WORKSPACE/${GIGA_FILENAME}.bin.md5
+        scp   ${WORKSPACE}/$GIGA_FILENAME.bin.md5  $postinguser@$postingsystem:$PPLACE
+        SUM4=$(md5sum ${WORKSPACE}/fdt                  | cut -b 1-32)
+        SUM5=$(md5sum ${WORKSPACE}/rootfs               | cut -b 1-32)
+    fi
+    SUM2=$(md5sum $WORKSPACE/${GIGA_FILENAME}.img       | cut -b 1-32)
+    echo ${SUM2} &gt; $WORKSPACE/${GIGA_FILENAME}.img.md5
+    scp   ${WORKSPACE}/$GIGA_FILENAME.img.md5  $postinguser@$postingsystem:$PPLACE
+
+    SUM3=$(md5sum ${WORKSPACE}/vmlinuz              | cut -b 1-32)
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+        SUM6=$(md5sum ${WORKSPACE}/onie-installer-powerpc-quanta_ly2r-r0  | cut -b 1-32)
+        SUM10=$(md5sum ${WORKSPACE}/onie-installer-powerpc-quanta_ly2r-r0  | cut -b 1-32)
+    fi
+
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;hc2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+        SUM7=$(md5sum ${WORKSPACE}/GIGAMON_SNMP_MIB.mib    | cut -b 1-32)
+        SUM8=$(md5sum ${WORKSPACE}/GIGAMON-COMMON-SMI.txt  | cut -b 1-32)
+        SUM9=$(md5sum ${WORKSPACE}/ubgs.bin                | cut -b 1-32)
+    fi
+
+    if [ &quot;${GIGA_MODEL}&quot; != &quot;ta100&quot; ] ; then
+        PATHENC1=$(echo -n &quot;${PPLACE}/${GIGA_FILENAME}.bin&quot; | base64 -w 0)
+        PATHENC4=$(echo -n &quot;${PPLACE2}/fdt&quot;                 | base64 -w 0)
+        PATHENC5=$(echo -n &quot;${PPLACE2}/rootfs&quot;              | base64 -w 0)
+    fi
+    PATHENC2=$(echo -n &quot;${PPLACE}/${GIGA_FILENAME}.img&quot; | base64 -w 0)
+    PATHENC3=$(echo -n &quot;${PPLACE2}/vmlinuz&quot;             | base64 -w 0)
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+        PATHENC6=$(echo -n &quot;${PPLACE}/onie-installer-powerpc-quanta_ly2r-r0&quot; | base64 -w 0)
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;debug&quot; ] ; then
+        PATHENC10=$(echo -n &quot;${PPLACE}/onie-installer-powerpc-quanta_ly2r-r0_gm&quot; | base64 -w 0)
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;hc2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+        PATHENC7=$(echo -n &quot;${PPLACE}/GIGAMON_SNMP_MIB.mib&quot;   | base64 -w 0)
+        PATHENC8=$(echo -n &quot;${PPLACE}/GIGAMON-COMMON-SMI.txt&quot; | base64 -w 0)
+        PATHENC9=$(echo -n &quot;${PPLACE2}/ubgs.bin&quot; | base64 -w 0)
+    fi
+
+    # Post the build itself
+    GIGA_POSTPATH=$(echo -n $PPLACE | base64 -w 0)
+
+    RESULT=$(${P_PRFX}/postingpath/${GIGA_POSTPATH})
+    RESULT=$(${P_PRFX}/postingserver/${postingsystem})
+    RESULT=$(${P_PRFX}/buildstatus/POSTED)
+    RESULT=$(${P_PRFX}/endtime/$(date +&quot;%T&quot;))
+    if [ -n &quot;${GIGA_GITREF}&quot; ] ; then
+    	RESULT=$(${P_PRFX}/gitref/${GIGA_GITREF})
+	else
+		RESULT=$(${P_PRFX}/gitref/${HMAIN_GIT_HASH})
+	fi
+
+    # Post the artifacts
+    PA_PRFX=&quot;curl -s -S -m 120 -X POST http://${BNBR_SERVER}/addartifact/${GIGA_INDEX}&quot;
+    if [ &quot;${GIGA_MODEL}&quot; != &quot;ta100&quot; ] ; then
+        RESULT=$(${PA_PRFX}/${GIGA_FILENAME}.bin/${SUM1}/${postingsystem}/${PATHENC1})
+        RESULT=$(${PA_PRFX}/fdt/${SUM4}/${postingsystem}/${PATHENC4})
+        RESULT=$(${PA_PRFX}/rootfs/${SUM5}/${postingsystem}/${PATHENC5})
+    fi
+    RESULT=$(${PA_PRFX}/${GIGA_FILENAME}.img/${SUM2}/${postingsystem}/${PATHENC2})
+    RESULT=$(${PA_PRFX}/vmlinuz/${SUM3}/${postingsystem}/${PATHENC3})
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+        RESULT=$(${PA_PRFX}/onie-installer-powerpc-quanta_ly2r-r0/${SUM6}/${postingsystem}/${PATHENC6})
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;ly2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;debug&quot; ] ; then
+        RESULT=$(${PA_PRFX}/onie-installer-powerpc-quanta_ly2r-r0_gm/${SUM10}/${postingsystem}/${PATHENC10})
+    fi
+    if [ &quot;${GIGA_MODEL}&quot; = &quot;hc2&quot; ] &amp;&amp; [ &quot;${GIGA_TARGET}&quot; = &quot;release&quot; ] ; then
+        RESULT=$(${PA_PRFX}/GIGAMON_SNMP_MIB.mib/${SUM7}/${postingsystem}/${PATHENC7})
+        RESULT=$(${PA_PRFX}/GIGAMON-COMMON-SMI.txt/${SUM8}/${postingsystem}/${PATHENC8})
+        RESULT=$(${PA_PRFX}/ubgs.bin/${SUM9}/${postingsystem}/${PATHENC9})
+    fi
+fi
+
+# ---------------------------------------------------------------------------------------------------------
+# Pretend to trigger test automation (but not really) for the sake of the latest builds page
+# ---------------------------------------------------------------------------------------------------------
+BVT_URL=http:%2F%2F${postingsystem}${PPLACE//$SLASH/$SLENC}%2F${GIGA_FILENAME}.img
+GS_BUILD_URL=None
+REQUEST_URL=http://${QESYS}/bvt?branch=${GIGA_BRANCH}\&amp;model=${GIGA_MODEL}\&amp;build_num=${GIGA_BNBR}\&amp;build_url=${BVT_URL}\&amp;gs_build_url=${GS_BUILD_URL//$SLASH/$SLENC}\&amp;buildindex=${GIGA_INDEX}\&amp;committers=${COMMITTERS}\&amp;jira_project_key=${GIGA_JIRA_PROJECT_KEY}\&amp;jira_branch_name=${GIGA_JIRA_BRANCH_KEY}
+REQUEST_URL=${REQUEST_URL}\&amp;aut_test=${aut_test}
+REQUEST_URL_ENC=$(echo -n ${REQUEST_URL} | base64 -w 0)
+# record the invocation URL
+RESULT=$(${P_PRFX}/tainvocation/${REQUEST_URL_ENC})
+
+# ---------------------------------------------------------------------------------------------------------
+# Record values in log
+# ---------------------------------------------------------------------------------------------------------
+env    | tee env.sh
+
+# ---------------------------------------------------------------------------------------------------------
+# Remove file that triggers conditional build step
+# ---------------------------------------------------------------------------------------------------------
+rm -f ${WORKSPACE}/FAILFILE
+exit 0
+</command>
+    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder plugin="conditional-buildstep@1.3.5">
+      <condition class="org.jenkins_ci.plugins.run_condition.core.FileExistsCondition" plugin="run-condition@1.0">
+        <file>FAILFILE</file>
+        <baseDir class="org.jenkins_ci.plugins.run_condition.common.BaseDirectory$Workspace"/>
+      </condition>
+      <buildStep class="hudson.tasks.Shell">
+        <command>#---------------------------------------------------
+# Change the build record to show failure
+#---------------------------------------------------
+GIGA_INDEX=$(cat $WORKSPACE/FAILFILE)
+RESULT=$(curl -s -S -m 120 -X POST http://${BNBR_SERVER}/updatefield/${GIGA_INDEX}/buildstatus/FAILED)</command>
+      </buildStep>
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+    </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+  </builders>
+  <publishers>
+    <org.jenkinsci.plugins.postbuildscript.PostBuildScript plugin="postbuildscript@0.17">
+      <buildSteps>
+        <hudson.tasks.Shell>
+          <command>#---------------------------------------------------
+# Change the build record to show failure
+#---------------------------------------------------
+GIGA_INDEX=$(cat $WORKSPACE/FAILFILE)
+RESULT=$(curl -s -S -m 120 -X POST http://${BNBR_SERVER}/updatefield/${GIGA_INDEX}/buildstatus/FAILED)
+</command>
+        </hudson.tasks.Shell>
+      </buildSteps>
+      <scriptOnlyIfSuccess>false</scriptOnlyIfSuccess>
+      <scriptOnlyIfFailure>true</scriptOnlyIfFailure>
+      <markBuildUnstable>false</markBuildUnstable>
+    </org.jenkinsci.plugins.postbuildscript.PostBuildScript>
+    <hudson.plugins.logparser.LogParserPublisher plugin="log-parser@2.0">
+      <unstableOnWarning>false</unstableOnWarning>
+      <failBuildOnError>true</failBuildOnError>
+      <showGraphs>false</showGraphs>
+      <parsingRulesPath>/var/lib/jenkins/log_rules/trap.rule</parsingRulesPath>
+      <useProjectRule>false</useProjectRule>
+    </hudson.plugins.logparser.LogParserPublisher>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.29">
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.29">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
+      <varPasswordPairs>
+        <varPasswordPair var="SVNPASS" password="Kwul5hdKXkM5YQ2EgrKPS9+S1qaPV9kjqlczqzg+uvE="/>
+      </varPasswordPairs>
+    </com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.4"/>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.6.5">
+      <template>${ENV,var=&quot;GIGA_BNBR&quot;} ${ENV,var=&quot;GIGA_MODEL&quot;} ${ENV,var=&quot;GIGA_TARGET&quot;}</template>
+      <runAtStart>true</runAtStart>
+      <runAtEnd>true</runAtEnd>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+</project>

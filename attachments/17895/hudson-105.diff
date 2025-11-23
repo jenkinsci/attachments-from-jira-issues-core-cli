@@ -1,0 +1,79 @@
+Index: resources/css/style.css
+===================================================================
+RCS file: /shared/data/ccvs/repository/hudson/hudson/resources/css/style.css,v
+retrieving revision 1.27
+diff -u -r1.27 style.css
+--- resources/css/style.css	12 Aug 2006 03:58:59 -0000	1.27
++++ resources/css/style.css	14 Aug 2006 18:47:50 -0000
+@@ -322,9 +322,6 @@
+ 
+ /* ====================== help ===================================== */
+ 
+-.help-button {
+-  cursor: pointer;
+-}
+ .help {
+   display: none;  /* hidden until loaded */
+   border: solid #bbb 1px;
+@@ -501,4 +498,4 @@
+   background-position: center left;
+   padding-left: 32px;
+ }
+-*/
+\ No newline at end of file
++*/
+Index: resources/scripts/hudson-behavior.js
+===================================================================
+RCS file: /shared/data/ccvs/repository/hudson/hudson/resources/scripts/hudson-behavior.js,v
+retrieving revision 1.3
+diff -u -r1.3 hudson-behavior.js
+--- resources/scripts/hudson-behavior.js	26 Mar 2006 20:47:17 -0000	1.3
++++ resources/scripts/hudson-behavior.js	14 Aug 2006 18:47:50 -0000
+@@ -26,7 +26,7 @@
+     }
+   },
+ 
+-  ".help" : function(e) {
++  ".help-button" : function(e) {
+     e.onclick = function() {
+       // identify the parent TR
+       var tr = this;
+@@ -60,4 +60,4 @@
+ };
+ 
+ Behaviour.start();
+-Behaviour.register(hudsonRules);
+\ No newline at end of file
++Behaviour.register(hudsonRules);
+Index: views/lib/form/entry.jelly
+===================================================================
+RCS file: /shared/data/ccvs/repository/hudson/hudson/views/lib/form/entry.jelly,v
+retrieving revision 1.3
+diff -u -r1.3 entry.jelly
+--- views/lib/form/entry.jelly	13 Aug 2006 17:42:54 -0000	1.3
++++ views/lib/form/entry.jelly	14 Aug 2006 18:47:50 -0000
+@@ -16,7 +16,7 @@
+     </td>
+     <j:if test="${attrs.help!=null}">
+       <td>
+-        <img src="${rootURL}/images/16x16/help.gif" alt="Help for feature: ${title}" class="help-button" helpURL="${rootURL}${attrs.help}" />
++        <a href="#" class="help-button"><img src="${rootURL}/images/16x16/help.gif" alt="Help for feature: ${title}" helpURL="${rootURL}${attrs.help}" /></a>
+       </td>
+     </j:if>
+   </tr>
+Index: views/lib/form/optionalBlock.jelly
+===================================================================
+RCS file: /shared/data/ccvs/repository/hudson/hudson/views/lib/form/optionalBlock.jelly,v
+retrieving revision 1.4
+diff -u -r1.4 optionalBlock.jelly
+--- views/lib/form/optionalBlock.jelly	13 Aug 2006 17:42:55 -0000	1.4
++++ views/lib/form/optionalBlock.jelly	14 Aug 2006 18:47:50 -0000
+@@ -48,7 +48,7 @@
+     </td>
+     <j:if test="${help!=null}">
+       <td>
+-        <img src="${rootURL}/images/16x16/help.gif" alt="Help for feature: ${title}" class="help-button" helpURL="${rootURL}${help}" />
++        <a href="#" class="help-button"><img src="${rootURL}/images/16x16/help.gif" alt="Help for feature: ${title}" helpURL="${rootURL}${help}" /></a>
+       </td>
+     </j:if>
+   </tr>

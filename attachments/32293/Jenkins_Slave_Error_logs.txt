@@ -1,0 +1,91 @@
+
+-----------------
+On Slave Console:
+-----------------
+
+Mar 28, 2016 1:26:30 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connecting to 10.10.11.44:49187
+Mar 28, 2016 1:26:30 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Trying protocol: JNLP2-connect
+Mar 28, 2016 1:26:46 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connected
+Mar 28, 2016 5:23:36 PM hudson.remoting.forward.CopyThread run
+WARNING: Exception while copying in thread: Copier for /127.0.0.1:51990
+java.net.SocketException: Connection reset
+        at java.net.SocketInputStream.read(Unknown Source)
+        at java.net.SocketInputStream.read(Unknown Source)
+        at java.io.FilterInputStream.read(Unknown Source)
+        at java.io.FilterInputStream.read(Unknown Source)
+        at hudson.remoting.forward.CopyThread.run(CopyThread.java:30)
+
+Mar 28, 2016 5:25:13 PM hudson.plugins.logparser.LogParserStatusComputer compute
+StatusMatches
+INFO: Local temp file:C:\Users\ADMINI~1\AppData\Local\Temp\log-parser_BROWSER=IE
+,SERVER=AUTOJEN3,XML_Test_File=test_suites/1TrackBeaconRegression/QA_1PieceBeaco
+n_Schedule_AddModifyDelete.xml_build_809
+Mar 28, 2016 5:25:13 PM hudson.plugins.logparser.LogParserReader readLogPart
+INFO: Start reading log part 0 in thread #1
+Mar 28, 2016 5:25:14 PM hudson.plugins.logparser.LogParserReader readLogPart
+INFO: Done reading log part 0
+Mar 28, 2016 5:25:14 PM hudson.plugins.logparser.LogParserReader readLogPart
+INFO: Start reading log part 1 in thread #0
+Mar 28, 2016 5:25:14 PM hudson.plugins.logparser.LogParserThread getLineStatuses
+
+INFO: LogParserThread: Start parsing log part 0
+Mar 28, 2016 5:25:14 PM hudson.plugins.logparser.LogParserReader readLogPart
+INFO: Done reading log part 1
+Mar 28, 2016 5:25:14 PM hudson.plugins.logparser.LogParserThread getLineStatuses
+
+INFO: LogParserThread: Start parsing log part 1
+Mar 28, 2016 5:25:14 PM hudson.plugins.logparser.LogParserThread getLineStatuses
+
+INFO: LogParserThread: Done parsing log part 1
+Mar 28, 2016 5:25:14 PM hudson.plugins.logparser.LogParserThread getLineStatuses
+
+INFO: LogParserThread: Done parsing log part 0
+
+
+
+----------------------------
+On Slave Jenkins Error Log:
+----------------------------
+
+Mar 28, 2016 1:26:30 PM hudson.TcpSlaveAgentListener$ConnectionHandler run
+INFO: Accepted connection #4 from /10.10.11.44:58201
+Mar 28, 2016 1:27:42 PM hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor monitor
+WARNING: Failed to monitor AUTOJEN3 for Response Time
+java.util.concurrent.TimeoutException
+	at hudson.remoting.Request$1.get(Request.java:279)
+	at hudson.remoting.Request$1.get(Request.java:207)
+	at hudson.remoting.FutureAdapter.get(FutureAdapter.java:59)
+	at hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor.monitor(AbstractAsyncNodeMonitorDescriptor.java:96)
+	at hudson.node_monitors.ResponseTimeMonitor$1.monitor(ResponseTimeMonitor.java:57)
+	at hudson.node_monitors.AbstractNodeMonitorDescriptor$Record.run(AbstractNodeMonitorDescriptor.java:305)
+
+Mar 28, 2016 1:27:42 PM hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor monitor
+WARNING: Failed to monitor AUTOJEN3 for Free Disk Space
+java.util.concurrent.TimeoutException
+	at hudson.remoting.Request$1.get(Request.java:279)
+	at hudson.remoting.Request$1.get(Request.java:207)
+	at hudson.remoting.FutureAdapter.get(FutureAdapter.java:59)
+	at hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor.monitor(AbstractAsyncNodeMonitorDescriptor.java:96)
+	at hudson.node_monitors.AbstractNodeMonitorDescriptor$Record.run(AbstractNodeMonitorDescriptor.java:305)
+
+Mar 28, 2016 1:27:42 PM hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor monitor
+WARNING: Failed to monitor AUTOJEN3 for Free Temp Space
+java.util.concurrent.TimeoutException
+	at hudson.remoting.Request$1.get(Request.java:279)
+	at hudson.remoting.Request$1.get(Request.java:207)
+	at hudson.remoting.FutureAdapter.get(FutureAdapter.java:59)
+	at hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor.monitor(AbstractAsyncNodeMonitorDescriptor.java:96)
+	at hudson.node_monitors.AbstractNodeMonitorDescriptor$Record.run(AbstractNodeMonitorDescriptor.java:305)
+
+Mar 28, 2016 1:27:42 PM hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor monitor
+WARNING: Failed to monitor AUTOJEN3 for Free Swap Space
+java.util.concurrent.TimeoutException
+	at hudson.remoting.Request$1.get(Request.java:279)
+	at hudson.remoting.Request$1.get(Request.java:207)
+	at hudson.remoting.FutureAdapter.get(FutureAdapter.java:59)
+	at hudson.node_monitors.AbstractAsyncNodeMonitorDescriptor.monitor(AbstractAsyncNodeMonitorDescriptor.java:96)
+	at hudson.node_monitors.AbstractNodeMonitorDescriptor$Record.run(AbstractNodeMonitorDescriptor.java:305)
+

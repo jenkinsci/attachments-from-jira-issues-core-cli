@@ -1,0 +1,83 @@
+Thread Dump
+pool-1-thread-205
+
+"pool-1-thread-205" Id=287 RUNNABLE
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at sun.management.ThreadImpl.getThreadInfo(ThreadImpl.java:359)
+	at hudson.Functions.getThreadInfos(Functions.java:746)
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:75)
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:71)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:103)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:47)
+	at hudson.remoting.Request$2.run(Request.java:236)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@c55aee9
+
+
+Ping thread for channel hudson.remoting.Channel@6115273a:channel
+
+"Ping thread for channel hudson.remoting.Channel@6115273a:channel" Id=10 TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:75)
+
+
+Channel reader thread: channel
+
+"Channel reader thread: channel" Id=9 RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	-  locked java.io.BufferedInputStream@6311c773
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:802)
+
+
+Signal Dispatcher
+
+"Signal Dispatcher" Id=4 RUNNABLE
+
+
+Finalizer
+
+"Finalizer" Id=3 WAITING on java.lang.ref.ReferenceQueue$Lock@243d81d5
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@243d81d5
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:116)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:132)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+
+Reference Handler
+
+"Reference Handler" Id=2 WAITING on java.lang.ref.Reference$Lock@4216d989
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.Reference$Lock@4216d989
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+
+
+main
+
+"main" Id=1 WAITING on hudson.remoting.Channel@6115273a
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.remoting.Channel@6115273a
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.remoting.Channel.join(Channel.java:610)
+	at hudson.remoting.Launcher.main(Launcher.java:370)
+	at hudson.remoting.Launcher.runWithStdinStdout(Launcher.java:319)
+	at hudson.remoting.Launcher.run(Launcher.java:198)
+	at hudson.remoting.Launcher.main(Launcher.java:160)
+
+

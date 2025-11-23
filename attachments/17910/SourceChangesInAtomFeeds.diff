@@ -1,0 +1,123 @@
+Index: src/main/resources/hudson/atom.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/atom.jelly,v
+retrieving revision 1.2
+diff -u -r1.2 atom.jelly
+--- src/main/resources/hudson/atom.jelly	24 Nov 2006 21:22:36 -0000	1.2
++++ src/main/resources/hudson/atom.jelly	8 Dec 2006 20:26:43 -0000
+@@ -28,6 +28,21 @@
+         <id>${adapter.getEntryID(e)}</id>
+         <published>${h.xsDate(adapter.getEntryTimestamp(e))}</published>
+         <updated>${h.xsDate(adapter.getEntryTimestamp(e))}</updated>
++        <j:if test="${adapter.getChanges(e).iterator().hasNext()}">
++          <content type="xhtml">
++            <div class="changes" xmlns="http://www.w3.org/1999/xhtml">
++              Changes (<a href="${rootURL}/${adapter.getEntryUrl(e)}changes">details</a>):
++              <ol>
++                <j:forEach var="c" items="${adapter.getChanges(e).iterator()}">
++                  <li>
++                    <st:out value="${c.msg}" />
++                    [<a href="${rootURL}/${c.author.url}/">${c.author}</a>]
++                  </li>
++                </j:forEach>
++              </ol>
++            </div>
++          </content>
++        </j:if>
+       </entry>
+     </j:forEach>
+   </feed>
+Index: src/main/java/hudson/FeedAdapter.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/FeedAdapter.java,v
+retrieving revision 1.1
+diff -u -r1.1 FeedAdapter.java
+--- src/main/java/hudson/FeedAdapter.java	5 Nov 2006 21:13:56 -0000	1.1
++++ src/main/java/hudson/FeedAdapter.java	8 Dec 2006 20:26:42 -0000
+@@ -1,5 +1,8 @@
+ package hudson;
+ 
++import hudson.scm.ChangeLogSet;
++import hudson.scm.ChangeLogSet.Entry;
++
+ import java.util.Calendar;
+ 
+ /**
+@@ -12,4 +15,14 @@
+     String getEntryUrl(E entry);
+     String getEntryID(E entry);
+     Calendar getEntryTimestamp(E entry);
++
++    /**
++     * Returns a set of changes for the given entry, or the empty set
++     * if there were no changes.
++     *
++     * @param entry
++     *            The given entry.
++     * @return A set of changes.
++     */
++    ChangeLogSet<? extends Entry> getChanges(E entry);
+ }
+Index: src/main/java/hudson/model/User.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/model/User.java,v
+retrieving revision 1.2
+diff -u -r1.2 User.java
+--- src/main/java/hudson/model/User.java	18 Nov 2006 13:58:29 -0000	1.2
++++ src/main/java/hudson/model/User.java	8 Dec 2006 20:26:43 -0000
+@@ -6,6 +6,7 @@
+ import hudson.CopyOnWrite;
+ import hudson.model.Descriptor.FormException;
+ import hudson.scm.ChangeLogSet;
++import hudson.scm.ChangeLogSet.Entry;
+ import hudson.util.RunList;
+ import hudson.util.XStream2;
+ import org.kohsuke.stapler.StaplerRequest;
+@@ -261,6 +262,15 @@
+ 
+         public Calendar getEntryTimestamp(Run entry) {
+             return entry.getTimestamp();
++        }
++
++        public ChangeLogSet<? extends Entry> getChanges(Run entry) {
++            if (entry instanceof Build) {
++                Build build = (Build) entry;
++                return build.getChangeSet();
++            } else {
++                return ChangeLogSet.EMPTY;
++            }
+         }
+     };
+ }
+Index: src/main/java/hudson/model/Run.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/model/Run.java,v
+retrieving revision 1.8
+diff -u -r1.8 Run.java
+--- src/main/java/hudson/model/Run.java	24 Nov 2006 21:22:36 -0000	1.8
++++ src/main/java/hudson/model/Run.java	8 Dec 2006 20:26:42 -0000
+@@ -7,6 +7,8 @@
+ import hudson.Util;
+ import hudson.XmlFile;
+ import hudson.FeedAdapter;
++import hudson.scm.ChangeLogSet;
++import hudson.scm.ChangeLogSet.Entry;
+ import hudson.tasks.LogRotator;
+ import hudson.tasks.test.AbstractTestResultAction;
+ import hudson.util.CharSpool;
+@@ -838,6 +840,15 @@
+ 
+         public Calendar getEntryTimestamp(Run entry) {
+             return entry.getTimestamp();
++        }
++
++        public ChangeLogSet<? extends Entry> getChanges(Run entry) {
++            if (entry instanceof Build) {
++                Build build = (Build) entry;
++                return build.getChangeSet();
++            } else {
++                return ChangeLogSet.EMPTY;
++            }
+         }
+     };
+ }

@@ -1,0 +1,22 @@
+Index: src/main/resources/hudson/model/Job/buildHistory.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/model/Job/buildHistory.jelly,v
+retrieving revision 1.1
+diff -u -r1.1 buildHistory.jelly
+--- src/main/resources/hudson/model/Job/buildHistory.jelly	5 Nov 2006 21:14:28 -0000	1.1
++++ src/main/resources/hudson/model/Job/buildHistory.jelly	10 Nov 2006 17:49:00 -0000
+@@ -28,6 +28,14 @@
+           <a class="tip" href="${link}">
+             <i:formatDate value="${build.timestamp.time}" type="both" dateStyle="medium" timeStyle="medium"/>
+           </a>
++          <j:if test="${build.parent.logRotator!=null}">
++            <j:if test="${build.keepLog}">
++              <st:nbsp/>
++              <img width="16" height="16"
++                title="The build is explicitly marked to be preserved"
++                src="${rootURL}/images/16x16/locked.gif"/>
++            </j:if>
++          </j:if>
+         </td>
+       </tr>
+       <j:if test="${build.building}">

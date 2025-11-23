@@ -1,0 +1,84 @@
+diff --git a/cli/src/main/java/hudson/cli/CLI.java b/cli/src/main/java/hudson/cli/CLI.java
+index fa62fa5..87757e0 100644
+--- a/cli/src/main/java/hudson/cli/CLI.java
++++ b/cli/src/main/java/hudson/cli/CLI.java
+@@ -59,10 +59,15 @@ public class CLI {
+     private final boolean ownsPool;
+ 
+     public CLI(URL hudson) throws IOException, InterruptedException {
+-        this(hudson,null);
++    	this(hudson,null);
+     }
+ 
+     public CLI(URL hudson, ExecutorService exec) throws IOException, InterruptedException {
++    	this(hudson,exec,null);
++    }
++
++    public CLI(URL hudson, ExecutorService exec, String userInfo) throws IOException, InterruptedException {
++
+         String url = hudson.toExternalForm();
+         if(!url.endsWith("/"))  url+='/';
+ 
+@@ -87,7 +92,7 @@ public class CLI {
+             url+="cli";
+             hudson = new URL(url);
+ 
+-            FullDuplexHttpStream con = new FullDuplexHttpStream(hudson);
++            FullDuplexHttpStream con = new FullDuplexHttpStream(hudson, userInfo);
+             channel = new Channel("Chunked connection to "+hudson,
+                     pool,con.getInputStream(),con.getOutputStream());
+             new PingThread(channel,30*1000) {
+@@ -172,7 +177,7 @@ public class CLI {
+         if(args.isEmpty())
+             args = Arrays.asList("help"); // default to help
+ 
+-        CLI cli = new CLI(new URL(url));
++        CLI cli = new CLI(urlObj, null, urlObj.getUserInfo());
+         try {
+             // execute the command
+             // Arrays.asList is not serializable --- see 6835580
+diff --git a/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java b/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java
+index 92787ce..4b583df 100644
+--- a/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java
++++ b/cli/src/main/java/hudson/cli/FullDuplexHttpStream.java
+@@ -32,8 +32,17 @@ public class FullDuplexHttpStream {
+     }
+ 
+     public FullDuplexHttpStream(URL target) throws IOException {
++    	this(target,null);
++    }
++
++    public FullDuplexHttpStream(URL target, String userInfo) throws IOException {
+         this.target = target;
+ 
++        String authorization = null;
++        if (userInfo != null && @userInfo.isEmpty()) {
++        	authorization = new sun.misc.BASE64Encoder().encode (userInfo.getBytes());
++        }
++
+         CrumbData crumbData = new CrumbData();
+ 
+         UUID uuid = UUID.randomUUID(); // so that the server can correlate those two connections
+@@ -44,6 +53,10 @@ public class FullDuplexHttpStream {
+         con.setRequestMethod("POST");
+         con.addRequestProperty("Session", uuid.toString());
+         con.addRequestProperty("Side","download");
++        if (authorization != null) {
++        	System.out.println("++++ Setting auth basic");
++        	con.addRequestProperty ("Authorization", "Basic " + authorization);
++        }
+         if(crumbData.isValid) {
+             con.addRequestProperty(crumbData.crumbName, crumbData.crumb);
+         }
+@@ -61,6 +74,11 @@ public class FullDuplexHttpStream {
+         con.setRequestProperty("Content-type","application/octet-stream");
+         con.addRequestProperty("Session", uuid.toString());
+         con.addRequestProperty("Side","upload");
++        if (authorization != null) {
++        	System.out.println("++++ Setting auth basic");
++        	con.addRequestProperty ("Authorization", "Basic " + authorization);
++        }
++
+         if(crumbData.isValid) {
+             con.addRequestProperty(crumbData.crumbName, crumbData.crumb);
+         }

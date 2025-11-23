@@ -1,0 +1,197 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>hudson.diagnosis.ReverseProxySetupMonitor</string>
+    <string>jenkins.diagnostics.SecurityIsOffMonitor</string>
+    <string>jenkins.security.s2m.MasterKillSwitchWarning</string>
+    <string>jenkins.security.QueueItemAuthenticatorMonitor</string>
+  </disabledAdministrativeMonitors>
+  <version>2.176.1</version>
+  <installStateName>RESTART</installStateName>
+  <numExecutors>0</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy">
+    <roleMap type="globalRoles">
+      <role name="admin" pattern=".*">
+        <permissions>
+          <permission>hudson.model.View.Delete</permission>
+          <permission>hudson.model.Computer.Connect</permission>
+          <permission>hudson.model.Run.Delete</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains</permission>
+          <permission>hudson.model.Computer.Create</permission>
+          <permission>hudson.model.View.Configure</permission>
+          <permission>hudson.model.Computer.Build</permission>
+          <permission>hudson.model.Item.Configure</permission>
+          <permission>hudson.model.Hudson.Administer</permission>
+          <permission>hudson.model.Item.Cancel</permission>
+          <permission>hudson.model.Item.Read</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View</permission>
+          <permission>hudson.model.Computer.Delete</permission>
+          <permission>hudson.model.Item.Build</permission>
+          <permission>hudson.scm.SCM.Tag</permission>
+          <permission>hudson.model.Item.Discover</permission>
+          <permission>hudson.model.Hudson.Read</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update</permission>
+          <permission>hudson.model.Item.Create</permission>
+          <permission>hudson.model.Item.Workspace</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete</permission>
+          <permission>hudson.model.Computer.Provision</permission>
+          <permission>hudson.model.View.Read</permission>
+          <permission>hudson.model.View.Create</permission>
+          <permission>hudson.model.Item.Delete</permission>
+          <permission>hudson.model.Computer.Configure</permission>
+          <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create</permission>
+          <permission>hudson.model.Computer.Disconnect</permission>
+          <permission>hudson.model.Run.Update</permission>
+        </permissions>
+        <assignedSIDs>
+          <sid>---REDACTED: NOT anonymous---</sid>
+          <sid>jenkins</sid>
+        </assignedSIDs>
+      </role>
+      <role name="anonymous" pattern=".*">
+        <permissions>
+          <permission>hudson.model.Hudson.Read</permission>
+        </permissions>
+        <assignedSIDs>
+          <sid>anonymous</sid>
+        </assignedSIDs>
+      </role>
+    </roleMap>
+    <roleMap type="slaveRoles"/>
+    <roleMap type="projectRoles"/>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.LDAPSecurityRealm" plugin="ldap@1.20">
+    <disableMailAddressResolver>false</disableMailAddressResolver>
+    <configurations>
+      <jenkins.security.plugins.ldap.LDAPConfiguration>
+        <server>ldap://---REDACTED---</server>
+        <rootDN>dc=---REDACTED---,dc=---REDACTED---,dc=---REDACTED---</rootDN>
+        <inhibitInferRootDN>false</inhibitInferRootDN>
+        <userSearchBase>ou=people</userSearchBase>
+        <userSearch>uid={0}</userSearch>
+        <groupSearchBase>ou=groups</groupSearchBase>
+        <groupSearchFilter>cn={0}</groupSearchFilter>
+        <groupMembershipStrategy class="jenkins.security.plugins.ldap.FromGroupSearchLDAPGroupMembershipStrategy">
+          <filter>memberUid={1}</filter>
+        </groupMembershipStrategy>
+        <managerPasswordSecret>---REDACTED---</managerPasswordSecret>
+        <displayNameAttributeName>cn</displayNameAttributeName>
+        <mailAddressAttributeName>mail</mailAddressAttributeName>
+        <ignoreIfUnavailable>false</ignoreIfUnavailable>
+        <extraEnvVars class="linked-hash-map">
+          <entry>
+            <string></string>
+            <string></string>
+          </entry>
+        </extraEnvVars>
+      </jenkins.security.plugins.ldap.LDAPConfiguration>
+      <jenkins.security.plugins.ldap.LDAPConfiguration>
+        <server>ldap://---REDACTED---</server>
+        <rootDN>dc=---REDACTED---,dc=---REDACTED---,dc=---REDACTED---</rootDN>
+        <inhibitInferRootDN>false</inhibitInferRootDN>
+        <userSearchBase>ou=services</userSearchBase>
+        <userSearch>cn={0}</userSearch>
+        <groupMembershipStrategy class="jenkins.security.plugins.ldap.FromGroupSearchLDAPGroupMembershipStrategy">
+          <filter></filter>
+        </groupMembershipStrategy>
+        <managerPasswordSecret>---REDACTED---</managerPasswordSecret>
+        <displayNameAttributeName>cn</displayNameAttributeName>
+        <mailAddressAttributeName></mailAddressAttributeName>
+        <ignoreIfUnavailable>false</ignoreIfUnavailable>
+        <extraEnvVars class="linked-hash-map">
+          <entry>
+            <string></string>
+            <string></string>
+          </entry>
+        </extraEnvVars>
+      </jenkins.security.plugins.ldap.LDAPConfiguration>
+    </configurations>
+    <userIdStrategy class="jenkins.model.IdStrategy$CaseSensitive"/>
+    <groupIdStrategy class="jenkins.model.IdStrategy$CaseSensitive"/>
+    <disableRolePrefixing>true</disableRolePrefixing>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds>
+    <org.jenkinsci.plugins.mesos.MesosCloud plugin="mesos@0.18.1">
+      <name>MesosCloud</name>
+      <nativeLibraryPath>/usr/local/lib/libmesos.so</nativeLibraryPath>
+      <master>zk://---REDACTED---:2181,---REDACTED---:2181,---REDACTED---:2181/mesos</master>
+      <description></description>
+      <frameworkName>---REDACTED--- Jenkins Build System</frameworkName>
+      <role>*</role>
+      <slavesUser></slavesUser>
+      <credentialsId>afe6170a-d67e-4fca-9dd9-868b601749d2</credentialsId>
+      <cloudID>2a4a9698-6042-47e0-9a0f-321cd816f7a8</cloudID>
+      <checkpoint>false</checkpoint>
+      <onDemandRegistration>true</onDemandRegistration>
+      <nfsRemoteFSRoot>false</nfsRemoteFSRoot>
+      <slaveInfos>
+        <org.jenkinsci.plugins.mesos.MesosSlaveInfo>
+          <slaveCpus>0.1</slaveCpus>
+          <diskNeeded>0.0</diskNeeded>
+          <slaveMem>256</slaveMem>
+          <executorCpus>0.1</executorCpus>
+          <minExecutors>1</minExecutors>
+          <maxExecutors>1</maxExecutors>
+          <executorMem>256</executorMem>
+          <remoteFSRoot>jenkins</remoteFSRoot>
+          <idleTerminationMinutes>15</idleTerminationMinutes>
+          <jvmArgs>-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true</jvmArgs>
+          <jnlpArgs></jnlpArgs>
+          <defaultSlave>false</defaultSlave>
+          <mode>NORMAL</mode>
+          <nodeProperties>
+            <hudson.slaves.EnvironmentVariablesNodeProperty>
+              <envVars serialization="custom">
+                <unserializable-parents/>
+                <tree-map>
+                  <default>
+                    <comparator class="hudson.util.CaseInsensitiveComparator"/>
+                  </default>
+                  <int>1</int>
+                  <string>LANG</string>
+                  <string>en_US.UTF-8</string>
+                </tree-map>
+              </envVars>
+            </hudson.slaves.EnvironmentVariablesNodeProperty>
+          </nodeProperties>
+          <labelString>mesos</labelString>
+        </org.jenkinsci.plugins.mesos.MesosSlaveInfo>
+      </slaveInfos>
+    </org.jenkinsci.plugins.mesos.MesosCloud>
+  </clouds>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>3</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="org.jenkinsci.plugins.strictcrumbissuer.StrictCrumbIssuer" plugin="strict-crumb-issuer@2.0.1">
+    <checkClientIP>true</checkClientIP>
+    <checkSameSource>false</checkSameSource>
+    <checkOnlyLocalPath>false</checkOnlyLocalPath>
+    <checkSessionMatch>false</checkSessionMatch>
+    <xorMasking>true</xorMasking>
+    <hoursValid>2</hoursValid>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
+  <noUsageStatistics>true</noUsageStatistics>
+</hudson>

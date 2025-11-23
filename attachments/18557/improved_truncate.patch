@@ -1,0 +1,43 @@
+    public String getTruncatedDescription() {
+        final int maxDescrLength = 100;
+        if (description == null || description.length() < maxDescrLength) {
+            return description;
+        }
+
+        final String ending = "...";
+
+        int sz = description.length();
+
+        boolean inTag = false;
+        int displayChars = 0;
+        int lastTruncatablePoint = -1;
+
+        for (int i=0; i<sz; i++) {
+            char ch = description.charAt(i);
+            if(ch == '<') {
+                inTag = true;
+            } else if (ch == '>') {
+                inTag = false;
+                if (displayChars <= (maxDescrLength - ending.length())) {
+                    lastTruncatablePoint = i + 1;
+                }
+            }
+            if (!inTag) {
+                displayChars++;
+                if (displayChars <= (maxDescrLength - ending.length())) {
+                    if (ch == ' ') {
+                        lastTruncatablePoint = i;
+                    }
+                }
+            }
+        }
+
+        String truncDesc = description;
+        
+        if (lastTruncatablePoint != -1) {
+            truncDesc = truncDesc.substring(0, lastTruncatablePoint);
+        }
+        
+        return truncDesc + ending;
+        
+    }

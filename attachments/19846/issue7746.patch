@@ -1,0 +1,122 @@
+diff --git a/core/src/main/java/hudson/util/ProcessTree.java b/core/src/main/java/hudson/util/ProcessTree.java
+index c0025c3..a25be16 100644
+--- a/core/src/main/java/hudson/util/ProcessTree.java
++++ b/core/src/main/java/hudson/util/ProcessTree.java
+@@ -935,15 +935,17 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+                     break;
+                 }
+ 
++                boolean is64 = System.getProperty("sun.arch.data.model").equals("64");
++                int sizeOf_kinfo_proc = is64 ? 648 : 492;
++                int pid_offset        = is64 ?  40 :  24;
++                int ppid_offset       = is64 ? 560 : 416;
++
+                 int count = size.getValue()/sizeOf_kinfo_proc;
+                 LOGGER.fine("Found "+count+" processes");
+ 
+                 for( int base=0; base<size.getValue(); base+=sizeOf_kinfo_proc) {
+-                    int pid = m.getInt(base+24);
+-                    int ppid = m.getInt(base+416);
+-//                    int effective_uid = m.getInt(base+304);
+-//                    byte[] comm = new byte[16];
+-//                    m.read(base+163,comm,0,16);
++                    int pid = m.getInt(base+pid_offset);
++                    int ppid = m.getInt(base+ppid_offset);
+ 
+                     super.processes.put(pid,new DarwinProcess(pid,ppid));
+                 }
+@@ -987,18 +989,6 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+                     arguments = new ArrayList<String>();
+                     envVars = new EnvVars();
+ 
+-                    IntByReference _ = new IntByReference();
+-
+-                    IntByReference argmaxRef = new IntByReference(0);
+-                    IntByReference size = new IntByReference(sizeOfInt);
+-
+-                    // for some reason, I was never able to get sysctlbyname work.
+-//        if(LIBC.sysctlbyname("kern.argmax", argmaxRef.getPointer(), size, NULL, _)!=0)
+-                    if(LIBC.sysctl(new int[]{CTL_KERN,KERN_ARGMAX},2, argmaxRef.getPointer(), size, NULL, _)!=0)
+-                        throw new IOException("Failed to get kernl.argmax: "+LIBC.strerror(Native.getLastError()));
+-
+-                    int argmax = argmaxRef.getValue();
+-
+                     class StringArrayMemory extends Memory {
+                         private long offset=0;
+ 
+@@ -1012,6 +1002,10 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+                             return r;
+                         }
+ 
++                        boolean hasMore() {
++                            return offset < getSize();
++                        }
++
+                         byte peek() {
+                             return getByte(offset);
+                         }
+@@ -1019,21 +1013,32 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+                         String readString() {
+                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                             byte ch;
+-                            while((ch = getByte(offset++))!='\0')
++                            while(hasMore() && (ch = getByte(offset++))!='\0')
+                                 baos.write(ch);
+                             return baos.toString();
+                         }
+ 
+                         void skip0() {
+                             // skip trailing '\0's
+-                            while(getByte(offset)=='\0')
++                            while(hasMore() && getByte(offset)=='\0')
+                                 offset++;
+                         }
+                     }
+-                    StringArrayMemory m = new StringArrayMemory(argmax);
+-                    size.setValue(argmax);
++
++                    IntByReference _ = new IntByReference();
++                    IntByReference size = new IntByReference(sizeOfInt);
++
++                    // First determine the size of the memory blob we need to allocate
++                    if(LIBC.sysctl(new int[]{CTL_KERN,KERN_PROCARGS2,pid},3, NULL, size, NULL, _)!=0)
++                        throw new IOException("Failed to obtain size for kern.procargs2: "+LIBC.strerror(Native.getLastError()));
++
++                    // ... and increase it by 1.  For some reason we have to
++                    // do this (using LIBC), otherwise the following real
++                    // sysctl call won't return the real data but only some garbage...
++                    size.setValue(size.getValue() + 1);
++                    StringArrayMemory m = new StringArrayMemory(size.getValue());
+                     if(LIBC.sysctl(new int[]{CTL_KERN,KERN_PROCARGS2,pid},3, m, size, NULL, _)!=0)
+-                        throw new IOException("Failed to obtain ken.procargs2: "+LIBC.strerror(Native.getLastError()));
++                        throw new IOException("Failed to obtain kern.procargs2: "+LIBC.strerror(Native.getLastError()));
+ 
+ 
+                     /*
+@@ -1084,8 +1089,9 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+                     }
+ 
+                     // this is how you can read environment variables
+-                    while(m.peek()!=0)
+-                    envVars.addLine(m.readString());
++                    while(m.hasMore() && m.peek()!=0) {
++                        envVars.addLine(m.readString());
++                    }
+                 } catch (IOException e) {
+                     // this happens with insufficient permissions, so just ignore the problem.
+                 }
+@@ -1093,14 +1099,12 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+         }
+ 
+         // local constants
+-        private static final int sizeOf_kinfo_proc = 492; // TODO:checked on 32bit Mac OS X. is this different on 64bit?
+         private static final int sizeOfInt = Native.getNativeSize(int.class);
+         private static final int CTL_KERN = 1;
+         private static final int KERN_PROC = 14;
+         private static final int KERN_PROC_ALL = 0;
+         private static final int ENOMEM = 12;
+         private static int[] MIB_PROC_ALL = {CTL_KERN, KERN_PROC, KERN_PROC_ALL};
+-        private static final int KERN_ARGMAX = 8;
+         private static final int KERN_PROCARGS2 = 49;
+     }
+ 

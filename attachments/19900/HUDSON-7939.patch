@@ -1,0 +1,44 @@
+Index: src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+--- src/main/java/hudson/model/AbstractBuild.java	(revision 36016)
++++ src/main/java/hudson/model/AbstractBuild.java	(working copy)
+@@ -1077,6 +1077,11 @@
+             // nothing is building
+             rsp.forwardToPreviousPage(req);
+     }
++    
++    @Override
++    protected Computer getComputer() {
++        return getBuiltOn().toComputer();
++    }
+ 
+     private static final Logger LOGGER = Logger.getLogger(AbstractBuild.class.getName());
+ }
+Index: src/main/java/hudson/model/Run.java
+===================================================================
+--- src/main/java/hudson/model/Run.java	(revision 36016)
++++ src/main/java/hudson/model/Run.java	(working copy)
+@@ -1116,6 +1116,14 @@
+ 
+         removeRunFromParent();
+     }
++    
++    /**
++     * Get the computer this run is running on. Subclasses can override this
++     * @return 
++     */
++    protected Computer getComputer() {
++        return Computer.currentComputer();
++    }
+ 
+     @SuppressWarnings("unchecked") // seems this is too clever for Java's type system?
+     private void removeRunFromParent() {
+@@ -1677,7 +1685,7 @@
+      * @since 1.305
+      */
+     public EnvVars getEnvironment(TaskListener log) throws IOException, InterruptedException {
+-        EnvVars env = Computer.currentComputer().getEnvironment().overrideAll(getCharacteristicEnvVars());
++        EnvVars env = getComputer().getEnvironment().overrideAll(getCharacteristicEnvVars());
+         String rootUrl = Hudson.getInstance().getRootUrl();
+         if(rootUrl!=null) {
+             env.put("HUDSON_URL", rootUrl);

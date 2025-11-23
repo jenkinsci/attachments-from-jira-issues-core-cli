@@ -1,0 +1,29 @@
+*** /etc/init.d/hudson	Sat Nov 28 18:18:24 2009
+--- /etc/init.d/hudson-fixed	Sat Dec  5 15:46:31 2009
+***************
+*** 95,101 ****
+  	if /sbin/startproc -l /var/log/hudson.rc -u "$HUDSON_USER" -p "$HUDSON_PID_FILE" $JAVA_CMD $PARAMS; then
+  	    rc_status
+  	    # get own session ID
+! 	    MY_SESSION_ID=`/bin/ps h -o sess -p $$`
+  	    # get PID
+  	    /bin/ps hww -u hudson -o sess,pid,cmd | \
+  		while read sess pid cmd; do [ "$sess" = "$MY_SESSION_ID" -a "$cmd" = "$JAVA_CMD $PARAMS" ] && echo $pid; done | \
+--- 95,101 ----
+  	if /sbin/startproc -l /var/log/hudson.rc -u "$HUDSON_USER" -p "$HUDSON_PID_FILE" $JAVA_CMD $PARAMS; then
+  	    rc_status
+  	    # get own session ID
+! 	    MY_SESSION_ID=`/bin/ps h -o sess -p $$ | tr -d [:blank:]`
+  	    # get PID
+  	    /bin/ps hww -u hudson -o sess,pid,cmd | \
+  		while read sess pid cmd; do [ "$sess" = "$MY_SESSION_ID" -a "$cmd" = "$JAVA_CMD $PARAMS" ] && echo $pid; done | \
+***************
+*** 137,142 ****
+--- 137,143 ----
+  	;;
+      restart)
+  	$0 stop
++ 	sleep 5
+  	$0 start
+  	rc_status
+  	;;

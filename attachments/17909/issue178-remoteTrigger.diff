@@ -1,0 +1,124 @@
+### Eclipse Workspace Patch 1.0
+#P hudson-war
+Index: resources/help/project-config/triggerRemotely.html
+===================================================================
+RCS file: resources/help/project-config/triggerRemotely.html
+diff -N resources/help/project-config/triggerRemotely.html
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ resources/help/project-config/triggerRemotely.html	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,12 @@
++<div>
++  Enable this option if you would like to trigger new builds
++  by accessing a special predefined URL (convenient for scritps).
++  <p>One typical example
++  for this feature would be to trigger new build from source
++  control system's hook script, when somebody has just committed
++  a change into repository, or from a script that parses
++  your source control email notifications.</p>
++  <p>You'll need to provide an authorization token in a form of
++  string so that only those who know it would be able to remotely
++  trigger this project's builds.</p>
++</div>
+#P hudson-core
+Index: src/main/java/hudson/model/Project.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/model/Project.java,v
+retrieving revision 1.9
+diff -u -r1.9 Project.java
+--- src/main/java/hudson/model/Project.java	22 Nov 2006 18:30:15 -0000	1.9
++++ src/main/java/hudson/model/Project.java	24 Nov 2006 08:48:44 -0000
+@@ -55,6 +55,10 @@
+ 
+     private SCM scm = new NullSCM();
+ 
++    private boolean enableRemoteTrigger = false;
++
++    private String authToken = null;
++
+     /**
+      * List of all {@link Trigger}s for this project.
+      */
+@@ -202,6 +206,16 @@
+     public void setScm(SCM scm) {
+         this.scm = scm;
+     }
++    
++    public boolean isEnableRemoteTrigger() {
++        // no need to enable this option if security disabled
++        return (Hudson.getInstance().isUseSecurity())
++                && enableRemoteTrigger;
++    }
++
++    public String getAuthToken() {
++            return authToken;
++    }
+ 
+     @Override
+     public BallColor getIconColor() {
+@@ -493,11 +507,22 @@
+      * Schedules a new build command.
+      */
+     public void doBuild( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
+-        if(!Hudson.adminCheck(req,rsp))
+-            return;
++        if (authorizedToStartBuild(req, rsp)) {
++            scheduleBuild();
++            rsp.forwardToPreviousPage(req);
++        }
++    }
+ 
+-        scheduleBuild();
+-        rsp.forwardToPreviousPage(req);
++    private boolean authorizedToStartBuild(StaplerRequest req, StaplerResponse rsp) throws IOException {
++        
++        if (isEnableRemoteTrigger()) {
++            String providedToken = req.getParameter("token");
++            if (providedToken != null && providedToken.equals(getAuthToken())) {
++                return true;
++            }
++        }
++
++         return Hudson.adminCheck(req, rsp);
+     }
+ 
+     /**
+@@ -548,6 +573,13 @@
+                 } else {
+                     canRoam = true;
+                     assignedNode = null;
++                }
++                
++                if (req.getParameter("pseudoRemoteTrigger") != null) {
++                    authToken = req.getParameter("authToken");
++                    enableRemoteTrigger = true;
++                } else {
++                    enableRemoteTrigger = false;
+                 }
+ 
+                 buildDescribable(req, BuildWrappers.WRAPPERS, buildWrappers, "wrapper");
+Index: src/main/resources/hudson/model/Project/configure-entries.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/model/Project/configure-entries.jelly,v
+retrieving revision 1.3
+diff -u -r1.3 configure-entries.jelly
+--- src/main/resources/hudson/model/Project/configure-entries.jelly	19 Nov 2006 22:33:18 -0000	1.3
++++ src/main/resources/hudson/model/Project/configure-entries.jelly	24 Nov 2006 08:48:44 -0000
+@@ -92,6 +92,18 @@
+           type="text" value="${h.getProjectListString(up)}"/>
+       </f:entry>
+     </f:optionalBlock>
++    <j:if test="${app.useSecurity}">
++      <f:optionalBlock name="pseudoRemoteTrigger"
++          help="/help/project-config/triggerRemotely.html"
++          title="Trigger builds remotely (e.g., from scripts)"
++          checked="${it.enableRemoteTrigger}">
++        <f:entry title="Authentication Token">
++          <f:textbox class="setting-input" name="authToken" value="${it.authToken}" />
++          Use the following URL to trigger build remotely:
++          <tt>HUDSON_URL</tt>/${it.url}build?token=<tt>TOKEN_NAME</tt>
++        </f:entry>
++    </f:optionalBlock>
++    </j:if>
+   </f:descriptorList>
+ 
+ 

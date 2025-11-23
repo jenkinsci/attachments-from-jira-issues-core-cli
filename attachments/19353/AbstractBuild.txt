@@ -1,0 +1,61 @@
+--- C:/DOCUME~1/CBIENE~1/LOCALS~1/Temp/AbstractBuild.ja-revBASE.svn002.tmp.java	Tue Apr 20 17:20:38 2010
++++ D:/Hudson/hudson/main/core/src/main/java/hudson/model/AbstractBuild.java	Tue Apr 20 14:15:39 2010
+@@ -114,9 +114,14 @@
+     private ChangeLogParser scm;
+ 
+     /**
++     * A boolean for whether or not a changelog has been parsed
++     */
++    protected boolean changelogParsed;
++
++    /**
+      * Changes in this build.
+      */
+-    private volatile transient ChangeLogSet<? extends Entry> changeSet;
++    protected volatile transient ChangeLogSet<? extends Entry> changeSet;
+ 
+     /**
+      * Cumulative list of people who contributed to the build problem.
+@@ -645,19 +650,31 @@
+         return changelogFile.exists();
+     }
+ 
+-    private ChangeLogSet<? extends Entry> calcChangeSet() {
++    protected ChangeLogSet<? extends Entry> calcChangeSet() {
+         File changelogFile = new File(getRootDir(), "changelog.xml");
+-        if (!changelogFile.exists())
+-            return ChangeLogSet.createEmpty(this);
+-
+-        try {
+-            return scm.parse(this,changelogFile);
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-        } catch (SAXException e) {
+-            e.printStackTrace();
++        ChangeLogSet<? extends Entry> toReturn;
++        changelogParsed = false;
++        if (changelogFile.exists())
++        {
++            try
++            {
++                toReturn = scm.parse(this,changelogFile);
++                changelogParsed = true;
++            } catch (IOException e)
++            {
++                toReturn = ChangeLogSet.createEmpty(this);
++                e.printStackTrace();
++            } catch (SAXException e)
++            {
++                toReturn = ChangeLogSet.createEmpty(this);
++                e.printStackTrace();
++            }
+         }
+-        return ChangeLogSet.createEmpty(this);
++        else
++        {
++            toReturn = ChangeLogSet.createEmpty(this);
++        }
++        return toReturn;
+     }
+ 
+     @Override

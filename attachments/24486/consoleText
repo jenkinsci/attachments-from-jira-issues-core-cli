@@ -1,0 +1,63 @@
+Started by user Pavel Mateja
+Building remotely on web.build in workspace /home/hudson/build/workspace/verotel
+Checkout:verotel / /home/hudson/build/workspace/verotel - hudson.remoting.Channel@1256c5a:web.build
+Using strategy: Default
+Last Built Revision: Revision 3cde27bb44a4dba80276b239c7d72952839f4d29 (origin/master)
+Fetching changes from 1 remote Git repository
+Fetching upstream changes from origin
+ERROR: Problem fetching from origin / origin - could be unavailable. Continuing anyway
+hudson.plugins.git.GitException: Command "git fetch -t origin +refs/heads/*:refs/remotes/origin/*" returned status code 128:
+stdout: 
+stderr: error: cannot run ssh: No such file or directory
+fatal: unable to fork
+
+	at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.launchCommandIn(CliGitAPIImpl.java:880)
+	at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.launchCommandWithCredentials(CliGitAPIImpl.java:858)
+	at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.fetch(CliGitAPIImpl.java:159)
+	at hudson.plugins.git.GitAPI.fetch(GitAPI.java:227)
+	at hudson.plugins.git.GitAPI.fetch(GitAPI.java:231)
+	at hudson.plugins.git.GitSCM.fetchFrom(GitSCM.java:791)
+	at hudson.plugins.git.GitSCM.access$000(GitSCM.java:58)
+	at hudson.plugins.git.GitSCM$2.invoke(GitSCM.java:983)
+	at hudson.plugins.git.GitSCM$2.invoke(GitSCM.java:948)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2444)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:326)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:724)
+ERROR: Could not fetch from any repository
+hudson.util.IOException2: remote file operation failed: /home/hudson/build/workspace/verotel at hudson.remoting.Channel@1256c5a:web.build
+	at hudson.FilePath.act(FilePath.java:912)
+	at hudson.FilePath.act(FilePath.java:889)
+	at hudson.plugins.git.GitSCM.determineRevisionToBuild(GitSCM.java:948)
+	at hudson.plugins.git.GitSCM.checkout(GitSCM.java:1114)
+	at hudson.model.AbstractProject.checkout(AbstractProject.java:1411)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.defaultCheckout(AbstractBuild.java:657)
+	at jenkins.scm.SCMCheckoutStrategy.checkout(SCMCheckoutStrategy.java:88)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:562)
+	at hudson.model.Run.execute(Run.java:1665)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:246)
+Caused by: java.io.IOException: Could not fetch from any repository
+	at hudson.plugins.git.GitSCM$2.invoke(GitSCM.java:992)
+	at hudson.plugins.git.GitSCM$2.invoke(GitSCM.java:948)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2444)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:326)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:724)
+Archiving artifacts
+Recording test results
+[description-setter] Could not determine description.
+Finished: FAILURE

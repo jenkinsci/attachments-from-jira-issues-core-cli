@@ -1,0 +1,55 @@
+Warning: JnlpProtocol3 is disabled by default, use JNLP_PROTOCOL_OPTS to alter the behavior
+Feb 20, 2019 1:24:45 AM hudson.remoting.jnlp.Main createEngine
+INFO: Setting up agent: bimface-autotest-prod-tfp3h-7328c
+Feb 20, 2019 1:24:45 AM hudson.remoting.jnlp.Main$CuiListener <init>
+INFO: Jenkins agent is running in headless mode.
+Feb 20, 2019 1:24:46 AM hudson.remoting.Engine startEngine
+WARNING: No Working Directory. Using the legacy JAR Cache location: /home/jenkins/.jenkins/cache/jars
+Feb 20, 2019 1:24:47 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Locating server among [http://jenkins-master.default.svc.cluster.local:8080/]
+Feb 20, 2019 1:24:50 AM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Feb 20, 2019 1:24:50 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-master-agent.default.svc.cluster.local
+  Agent port:    50000
+  Identity:      bc:bf:1b:49:88:a9:3f:a7:21:9c:39:29:bc:01:d2:0d
+Feb 20, 2019 1:24:50 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Handshaking
+Feb 20, 2019 1:24:50 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connecting to jenkins-master-agent.default.svc.cluster.local:50000
+Feb 20, 2019 1:24:50 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Feb 20, 2019 1:25:01 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Protocol JNLP4-connect encountered an unexpected exception
+java.util.concurrent.ExecutionException: org.jenkinsci.remoting.protocol.impl.ConnectionRefusalException: Connection closed before acknowledgement sent
+	at org.jenkinsci.remoting.util.SettableFuture.get(SettableFuture.java:223)
+	at hudson.remoting.Engine.innerRun(Engine.java:609)
+	at hudson.remoting.Engine.run(Engine.java:469)
+Caused by: org.jenkinsci.remoting.protocol.impl.ConnectionRefusalException: Connection closed before acknowledgement sent
+	at org.jenkinsci.remoting.protocol.impl.AckFilterLayer.onRecvClosed(AckFilterLayer.java:280)
+	at org.jenkinsci.remoting.protocol.FilterLayer.abort(FilterLayer.java:164)
+	at org.jenkinsci.remoting.protocol.impl.AckFilterLayer.access$000(AckFilterLayer.java:43)
+	at org.jenkinsci.remoting.protocol.impl.AckFilterLayer$1.run(AckFilterLayer.java:176)
+	at org.jenkinsci.remoting.protocol.IOHub$DelayedRunnable.run(IOHub.java:958)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1$1.run(Engine.java:94)
+	at java.lang.Thread.run(Thread.java:748)
+
+Feb 20, 2019 1:25:01 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connecting to jenkins-master-agent.default.svc.cluster.local:50000
+Feb 20, 2019 1:25:01 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Server reports protocol JNLP4-plaintext not supported, skipping
+Feb 20, 2019 1:25:01 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Protocol JNLP3-connect is not enabled, skipping
+Feb 20, 2019 1:25:01 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Server reports protocol JNLP2-connect not supported, skipping
+Feb 20, 2019 1:25:01 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Server reports protocol JNLP-connect not supported, skipping
+Feb 20, 2019 1:25:01 AM hudson.remoting.jnlp.Main$CuiListener error
+SEVERE: The server rejected the connection: None of the protocols were accepted
+java.lang.Exception: The server rejected the connection: None of the protocols were accepted
+	at hudson.remoting.Engine.onConnectionRejected(Engine.java:670)
+	at hudson.remoting.Engine.innerRun(Engine.java:634)
+	at hudson.remoting.Engine.run(Engine.java:469)

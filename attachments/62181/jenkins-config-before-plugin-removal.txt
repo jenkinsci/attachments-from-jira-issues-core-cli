@@ -1,0 +1,130 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>hudson.node_monitors.MonitorMarkedNodeOffline</string>
+    <string>hudson.diagnosis.TooManyJobsButNoView</string>
+    <string>hudson.util.DoubleLaunchChecker</string>
+    <string>jenkins.security.QueueItemAuthenticatorMonitor</string>
+    <string>jenkins.security.ResourceDomainRecommendation</string>
+  </disabledAdministrativeMonitors>
+  <version>2.426.3</version>
+  <numExecutors>0</numExecutors>
+  <mode>EXCLUSIVE</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy">
+    <permissionTemplates/>
+    <roleMap type="projectRoles">
+... removed
+    </roleMap>
+    <roleMap type="globalRoles">
+... removed
+    </roleMap>
+    <roleMap type="slaveRoles"/>
+  </authorizationStrategy>
+  <securityRealm class="com.microsoft.jenkins.azuread.AzureSecurityRealm">
+... removed
+  </securityRealm>
+  <disableRememberMe>true</disableRememberMe>
+  <projectNamingStrategy class="org.jenkinsci.plugins.rolestrategy.RoleBasedProjectNamingStrategy" plugin="role-strategy@711.vf33a_d2c994b_a_">
+    <forceExistingJobs>false</forceExistingJobs>
+  </projectNamingStrategy>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULL_NAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <systemMessage>&lt;h2 style=&quot;background-color: rgba(255, 255, 128, .5);&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;This is the DEVELOPMENT Transformation Service&lt;/h2&gt;</systemMessage>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter" plugin="antisamy-markup-formatter@162.v0e6ec0fcfcf6">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks>
+    <jdk>
+      <name>jdk-21.0.1</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <hudson.tools.ZipExtractionInstaller>
+              <url>https://download.oracle.com/java/21/archive/jdk-21.0.1_linux-x64_bin.tar.gz</url>
+              <subdir>jdk-21.0.1</subdir>
+            </hudson.tools.ZipExtractionInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds>
+    <hudson.plugins.ec2.EC2Cloud plugin="ec2@1648.vf3d852e00486">
+... removed
+  </clouds>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+    <com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView plugin="build-monitor-plugin@1.14-860.vd06ef2568b_3f">
+      <owner class="hudson" reference="../../.."/>
+      <name>&quot;Must Work&quot; jobs</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="java.lang.String$CaseInsensitiveComparator"/>
+        <string>xxxxxxxxx/yyyyyyyyyyyyy</string>
+        <string>xxxxxxxxx/zzzzzzzzzzzzzz</string>
+      </jobNames>
+      <jobFilters/>
+      <columns/>
+      <recurse>true</recurse>
+      <title>&quot;Must Work&quot; jobs</title>
+      <config>
+        <colourBlindMode>false</colourBlindMode>
+        <displayCommitters>true</displayCommitters>
+        <reduceMotion>false</reduceMotion>
+        <maxColumns>2</maxColumns>
+        <textScale>1.0</textScale>
+        <showBadges>true</showBadges>
+        <displayBadges>UserSetting</displayBadges>
+        <displayBadgesFrom class="com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetLastBuild"/>
+        <buildFailureAnalyzerDisplayedField>Name</buildFailureAnalyzerDisplayedField>
+        <displayJUnitProgress>true</displayJUnitProgress>
+        <order class="com.smartcodeltd.jenkinsci.plugins.buildmonitor.order.ByName"/>
+      </config>
+    </com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>-1</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>true</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="java.lang.String$CaseInsensitiveComparator" reference="../../../../../../views/com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView/jobNames/comparator"/>
+          </default>
+          <int>5</int>
+          <string>PIP_REQUIRE_VIRTUALENV</string>
+          <string>true</string>
+          <string>AWS_ACCOUNT_ID</string>
+          <string>111111111111</string>
+          <string>AWS_ECR_REGISTRY_URL</string>
+          <string>111111111111.dkr.ecr.us-east-1.amazonaws.com</string>
+          <string>AWS_REGION</string>
+          <string>us-east-1</string>
+          <string>INSTALLATION_NAME</string>
+          <string>Development</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
+  <nodeRenameMigrationNeeded>false</nodeRenameMigrationNeeded>
+</hudson>

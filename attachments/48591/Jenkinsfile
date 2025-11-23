@@ -1,0 +1,249 @@
+def checkoutCode() {
+  if (params.GIT_REVISION=='HEAD') {
+    checkout scm
+  } else {
+    checkout([$class: 'GitSCM',
+      branches: [[name: "${params.GIT_REVISION}"]],
+      doGenerateSubmoduleConfigurations: false,
+      extensions: [],
+      submoduleCfg: [],
+      userRemoteConfigs: [[credentialsId: 'dslfsdfkljs-dsfjsdklfdjksl', url: 'git@github.com:my-org/my-project.git']]
+    ])
+  }
+}
+
+def getJenkinsParameterValue(jenkins_parameter, parameter_store_parameter) {
+  if (jenkins_parameter == 'PARAMETER_STORE') {
+    getAwsParameterStoreParameter("/${params.DEPLOY_ENV}/my-project-${params.WHITE_LABEL}-webserver/${parameter_store_parameter}")
+  } else {
+    "${jenkins_parameter}"
+  }
+}
+
+def getAwsParameterStoreParameter(parameter) {
+  withAWS(region: 'us-east-1'){
+    sh (returnStdout: true,
+        script: """
+        aws ssm get-parameter --name ${parameter} --with-decryption  | jq -r '.Parameter.Value'
+        """
+       ).trim()
+  }
+}
+
+def getAwsParameterStoreParameters() {
+  withAWS(region: 'us-east-1'){
+    sh script: """
+      set +x
+      PARAMETERS=\$(aws ssm get-parameters-by-path --path /${params.DEPLOY_ENV}/my-project-${params.WHITE_LABEL}-webserver --with-decryption  | jq -r '.Parameters[] | "\\(.Name | split("/")[-1])=\\(.Value)"')
+
+      for ROW in \$(echo \${PARAMETERS}); do
+        echo \${ROW} >> env.list
+      done
+    """
+  }
+}
+
+pipeline {
+  options {
+    skipDefaultCheckout()
+  }
+
+  agent {
+    label 'platform-services || platform-worker || staging-services-base || production-services-base'
+  }
+
+  parameters {
+    choice(name: 'DEPLOY_ENV', choices: "staging\nintegration\nproduction\n", description: 'Environment to deploy this build to.')
+    choice(name: 'WHITE_LABEL', choices: "apple\nball\ncat\ndog\neagle\n", description: 'White label key')
+    string(name: 'GIT_REVISION', defaultValue: 'HEAD', description: 'Git revision (4 or more characters) or branch name you want to check out.')
+    booleanParam(name: 'BUILD_ONLY', defaultValue: false, description: 'Only runs the Build and Test stages')
+    string(name: 'BUCKET', defaultValue: 'PARAMETER_STORE', description: 'S3 Bucket Name: PARAMETER_STORE will get value from AWS Parameter Store.')
+    string(name: 'CFDID', defaultValue: 'PARAMETER_STORE', description: 'Cloud Front Distribution ID: PARAMETER_STORE will get value from AWS Parameter Store.')
+  }
+
+  environment {
+    AWS_ACCOUNT_ID = getAwsParameterStoreParameter("/amazon/${params.DEPLOY_ENV}/account_id")
+    CLOUDFRONT_DISTRIBUTION = getJenkinsParameterValue(params.CFDID, 'CLOUDFRONT_DISTRIBUTION')
+    DEPLOYMENT_S3_BUCKET = getJenkinsParameterValue(params.BUCKET, 'DEPLOYMENT_S3_BUCKET')
+    ROLLBAR_SERVER_TOKEN = getAwsParameterStoreParameter("/${params.DEPLOY_ENV}/my-project-webserver/ROLLBAR_SERVER_TOKEN")
+    DEPLOY_ENV = getJenkinsParameterValue(params.DEPLOY_ENV, 'DEPLOY_ENV')
+    WHITE_LABEL = getJenkinsParameterValue(params.WHITE_LABEL, 'WHITE_LABEL')
+    NODE_CONTAINER = ''
+    VERSION = ''
+    GIT_COMMIT = ''
+  }
+
+  stages {
+    stage('Print Parameters') {
+      steps {
+        script {
+          params.each { println "${it}" }
+          println "AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}"
+          println "CLOUDFRONT_DISTRIBUTION=${CLOUDFRONT_DISTRIBUTION}"
+          println "DEPLOYMENT_S3_BUCKET=${DEPLOYMENT_S3_BUCKET}"
+          println "ROLLBAR_SERVER_TOKEN=${ROLLBAR_SERVER_TOKEN}"
+        }
+      }
+    }
+
+    stage('Build preparations') {
+      steps {
+        script {
+          checkoutCode()
+          getAwsParameterStoreParameters()
+          VERSION = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)
+          GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+          currentBuild.displayName = "#${BUILD_ID}-${params.DEPLOY_ENV}-${params.WHITE_LABEL}-${VERSION}"
+          NODE_CONTAINER = docker.image('node:10')
+          NODE_CONTAINER.inside("-e npm_config_cache=${env.WORKSPACE}/.npm -e GIT_COMMIT=${GIT_COMMIT} --env-file ${env.WORKSPACE}/env.list") {
+            sh 'yarn install'
+          }
+        }
+      }
+    }
+    stage('Test') {
+      when {
+        beforeAgent true
+        equals expected: 'apple', actual: params.WHITE_LABEL
+      }
+
+      steps {
+        script {
+          NODE_CONTAINER.inside("-e npm_config_cache=${env.WORKSPACE}/.npm -e GIT_COMMIT=${GIT_COMMIT} --env-file ${env.WORKSPACE}/env.list") {
+            sh 'CI=true yarn test'
+            sh 'yarn coverage --watchAll=false'
+            sh 'curl -s https://codecov.io/bash | bash'
+          }
+        }
+      }
+    }
+    stage('Build') {
+      steps {
+        script {
+          NODE_CONTAINER.inside("-e npm_config_cache=${env.WORKSPACE}/.npm -e GIT_COMMIT=${GIT_COMMIT} --env-file ${env.WORKSPACE}/env.list") {
+            sh 'yarn build'
+          }
+        }
+      }
+    }
+
+    stage('Stage') {
+      when {
+        beforeAgent true
+        allOf {
+          anyOf {
+            branch 'master'
+          }
+          equals expected: 'PARAMETER_STORE', actual: params.CFDID
+          equals expected: 'PARAMETER_STORE', actual: params.BUCKET
+        }
+      }
+      steps {
+        zip dir: 'build', archive: false, zipFile: "my-project-${params.WHITE_LABEL}-${VERSION}.zip"
+        withAWS(region:'us-east-1') {
+          s3Upload(file:"my-project-${params.WHITE_LABEL}-${VERSION}.zip", bucket:'builds-us-east-1', path:"${params.DEPLOY_ENV}/my-project/${params.WHITE_LABEL}/my-project-${VERSION}.zip")
+        }
+      }
+    }
+
+    stage('Deploy Review App') {
+      when {
+        beforeAgent true
+        allOf {
+          not { equals expected: 'PARAMETER_STORE', actual: params.CFDID }
+          not { equals expected: 'PARAMETER_STORE', actual: params.BUCKET }
+          equals expected: false, actual: params.BUILD_ONLY
+        }
+      }
+      steps {
+        withAWS(region:'us-east-1', role:'jenkins-worker', roleAccount:"${AWS_ACCOUNT_ID}") {
+          sh """
+            aws s3 sync ./build s3://${DEPLOYMENT_S3_BUCKET} --no-progress
+            aws s3 cp ./build/service-worker.js s3://${DEPLOYMENT_S3_BUCKET} --cache-control no-store,no-cache,must-revalidate --no-progress
+            aws s3 sync ./build s3://${DEPLOYMENT_S3_BUCKET} --delete --no-progress
+          """
+          cfInvalidate(distribution:"${CLOUDFRONT_DISTRIBUTION}", paths:['/*'])
+        }
+      }
+    }
+
+    stage('Deploy') {
+      when {
+        beforeAgent true
+        allOf {
+          anyOf {
+            branch 'master'
+          }
+          equals expected: 'PARAMETER_STORE', actual: params.CFDID
+          equals expected: 'PARAMETER_STORE', actual: params.BUCKET
+          equals expected: false, actual: params.BUILD_ONLY
+        }
+      }
+      steps {
+        withAWS(region:'us-east-1', role:'jenkins-worker', roleAccount:"${AWS_ACCOUNT_ID}") {
+          sh """
+            aws s3 sync ./build s3://${DEPLOYMENT_S3_BUCKET} --no-progress
+            aws s3 cp ./build/service-worker.js s3://${DEPLOYMENT_S3_BUCKET} --cache-control no-store,no-cache,must-revalidate --no-progress
+            aws s3 sync ./build s3://${DEPLOYMENT_S3_BUCKET} --delete --no-progress
+          """
+          cfInvalidate(distribution:"${CLOUDFRONT_DISTRIBUTION}", paths:['/*'])
+        }
+      }
+    }
+    stage('Rollbar') {
+      when {
+        beforeAgent true
+        allOf {
+          anyOf {
+            branch 'master'
+          }
+          equals expected: 'PARAMETER_STORE', actual: params.CFDID
+          equals expected: 'PARAMETER_STORE', actual: params.BUCKET
+          equals expected: false, actual: params.BUILD_ONLY
+          equals expected: 'apple', actual: params.WHITE_LABEL
+        }
+      }
+      steps {
+        script {
+            JS_SOURCE_PATH = ''
+            JS_SOURCE_MAP_PATH = ''
+            SUBDOMAIN = 'shop'
+
+            if ("${DEPLOY_ENV}" == 'staging') {
+                SUBDOMAIN = 'staging-shop'
+            }
+
+            JS_SOURCE_PATH = sh(returnStdout: true, script: 'cat ./build/asset-manifest.json | jq -r \'.files["main.js"]\'').trim()
+            JS_SOURCE_MAP_PATH = sh(returnStdout: true, script: 'cat ./build/asset-manifest.json | jq -r \'.files["main.js.map"]\'').trim()
+
+            sh "curl https://api.rollbar.com/api/1/deploy/ \
+                -F access_token=${ROLLBAR_SERVER_TOKEN} \
+                -F environment=${DEPLOY_ENV} \
+                -F revision=${GIT_COMMIT} \
+                -F local_username=${WHITE_LABEL}"
+            sh "curl https://api.rollbar.com/api/1/sourcemap \
+                -F access_token=${ROLLBAR_SERVER_TOKEN} \
+                -F version=${GIT_COMMIT} \
+                -F minified_url=https://${SUBDOMAIN}.shipt.com${JS_SOURCE_PATH} \
+                -F source_map=@build${JS_SOURCE_MAP_PATH}"
+        }
+      }
+    }
+  }
+  post {
+    always {
+      deleteDir()
+    }
+    failure {
+      script {
+        if( "${DEPLOY_ENV}" == 'production' ){
+          slackSend (
+            color: '#FF0000',
+            channel: "#my-project-qa",
+            message: "*FAILURE*: my-project Job\n*White Label*: ${env.WHITE_LABEL}\n*Branch*: ${env.BRANCH_NAME}\n*URL*: ${env.BUILD_URL}"
+          )
+        }
+      }
+    }
+  }
+}

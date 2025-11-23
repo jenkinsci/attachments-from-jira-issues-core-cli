@@ -1,0 +1,13 @@
+diff --git a/core/src/main/java/hudson/tasks/MailAddressResolver.java b/core/src/main/java/hudson/tasks/MailAddressResolver.java
+index d914dc2..a4a55ee 100644
+--- a/core/src/main/java/hudson/tasks/MailAddressResolver.java
++++ b/core/src/main/java/hudson/tasks/MailAddressResolver.java
+@@ -116,7 +116,7 @@ public abstract class MailAddressResolver implements ExtensionPoint {
+             return u.getFullName();
+ 
+         String ds = Mailer.descriptor().getDefaultSuffix();
+-        if(ds!=null) {
++        if (ds != null && ds.trim().length() != 0) { /* do nothing if defaultSuffix is empty */
+             // another common pattern is "DOMAIN\person" in Windows. Only
+             // do this when this full name is not manually set. see HUDSON-5164
+             Matcher m = WINDOWS_DOMAIN_REGEXP.matcher(u.getFullName());

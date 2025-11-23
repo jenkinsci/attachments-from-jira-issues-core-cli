@@ -1,0 +1,72 @@
+Index: src/test/java/hudson/util/XStream2Test.java
+===================================================================
+--- src/test/java/hudson/util/XStream2Test.java	(revision 28030)
++++ src/test/java/hudson/util/XStream2Test.java	(working copy)
+@@ -35,6 +35,7 @@
+     public static final class Foo {
+         Result r1,r2;
+     }
++
+     public void testMarshalValue() throws Exception {
+         Foo f = new Foo();
+         f.r1 = f.r2 = Result.FAILURE;
+@@ -43,4 +44,27 @@
+         // we should find two "FAILURE"s as they should be written out twice
+         assertEquals(3,xml.split("FAILURE").length);
+     }
++
++    public static final class Bar {
++        private BarException myFailure;
++    }
++    public static final class BarException extends Exception {
++    }
++
++    public void testUnmarshalThrowableMissingField() {
++        Bar bar1 = new Bar();
++        bar1.myFailure = new BarException();
++
++        XStream2 xs = new XStream2();
++        xs.toXML(bar1, System.out);
++
++        xs.fromXML("<hudson.util.XStream2Test_-Bar>" +
++                   "<myFailure>" +
++                   "<missingField>true</missingField>" +
++                   "<stackTrace>" +
++                   "<trace>hudson.util.XStream2Test.testUnmarshalInvalidThrowable(XStream2Test.java:56)</trace>" +
++                   "</stackTrace>" +
++                   "</myFailure>" +
++                   "</hudson.util.XStream2Test_-Bar>");
++    }
+ }
+Index: src/main/java/hudson/util/XStream2.java
+===================================================================
+--- src/main/java/hudson/util/XStream2.java	(revision 28030)
++++ src/main/java/hudson/util/XStream2.java	(working copy)
+@@ -34,6 +34,11 @@
+ import com.thoughtworks.xstream.converters.SingleValueConverter;
+ import com.thoughtworks.xstream.converters.SingleValueConverterWrapper;
+ import com.thoughtworks.xstream.converters.UnmarshallingContext;
++import com.thoughtworks.xstream.converters.extended.LookAndFeelConverter;
++import com.thoughtworks.xstream.converters.extended.RegexPatternConverter;
++import com.thoughtworks.xstream.converters.extended.ThrowableConverter;
++import com.thoughtworks.xstream.converters.reflection.SelfStreamingInstanceChecker;
++import com.thoughtworks.xstream.converters.reflection.SerializableConverter;
+ import com.thoughtworks.xstream.core.JVM;
+ import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
+ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
+@@ -85,7 +90,14 @@
+         registerConverter(new AssociatedConverterImpl(this),-10);
+ 
+         // replace default reflection converter
+-        registerConverter(new RobustReflectionConverter(getMapper(),new JVM().bestReflectionProvider()),-19);
++        RobustReflectionConverter reflectionConverter = new RobustReflectionConverter(getMapper(),new JVM().bestReflectionProvider());
++        registerConverter(reflectionConverter,-19);
++
++        // replace converters that have a direct reference to the default
++        // reflection converter
++        registerConverter(new ThrowableConverter(reflectionConverter),PRIORITY_NORMAL);
++        registerConverter(new RegexPatternConverter(reflectionConverter),PRIORITY_NORMAL);
++        registerConverter(new SelfStreamingInstanceChecker(reflectionConverter, this),PRIORITY_NORMAL);
+     }
+ 
+     @Override

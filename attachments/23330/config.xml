@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.CVSSCM" plugin="cvs@1.6">
+    <cvsroot>:sspi:cvs-gh-bps2.gatehouse.local/cvs/gh</cvsroot>
+    <module>bps2/impl</module>
+    <branch>GH-BPS2-2-4-0-branch</branch>
+    <canUseUpdate>true</canUseUpdate>
+    <useHeadIfNotFound>false</useHeadIfNotFound>
+    <flatten>true</flatten>
+    <isTag>false</isTag>
+    <excludedRegions></excludedRegions>
+  </scm>
+  <assignedNode>windows</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec># Every hour, fifteen minutes past, 8 to 20
+15 8-20 * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>gencompiler</name>
+      <values>
+        <string>vc9</string>
+        <string>vc10</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+      <name>genvcenable</name>
+      <values>
+        <string>ppp</string>
+        <string>pppoe</string>
+        <string>sot</string>
+        <string>csdm</string>
+        <string>codeparser</string>
+        <string>leasemode</string>
+      </values>
+    </hudson.matrix.TextAxis>
+    <hudson.matrix.LabelAxis>
+      <name>label</name>
+      <values>
+        <string>windows</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>cd build\cmake
+call gen-vc.bat --%gencompiler% --enable-%genvcenable% --enable-unittest
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>cd build\cmake\%gencompiler%-%genvcenable%-unittest
+if %gencompiler%==vc9 call &quot;%VS90COMNTOOLS%\vsvars32.bat&quot;
+if %gencompiler%==vc10 call &quot;%VS100COMNTOOLS%\vsvars32.bat&quot;
+devenv BPS.sln /build Release
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>cd build\cmake\%gencompiler%-%genvcenable%-unittest\test\unittest\Release
+unittest.exe
+</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>BPS 2.4-branch VC++ Warnings, BPS 2.4-branch GCC Linux, BPS 2.4-branch GCC 4.1.2 Linux</childProjects>
+      <threshold>
+        <name>FAILURE</name>
+        <ordinal>2</ordinal>
+        <color>RED</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <matrixtieparent.BuildWrapperMtp plugin="matrixtieparent@1.1">
+      <labelName>windows</labelName>
+    </matrixtieparent.BuildWrapperMtp>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+  </executionStrategy>
+</matrix-project>

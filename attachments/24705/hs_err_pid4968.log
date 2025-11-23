@@ -1,0 +1,320 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x7774df85, pid=4968, tid=1156
+#
+# JRE version: 6.0_26-b03
+# Java VM: Java HotSpot(TM) Client VM (20.1-b02 mixed mode windows-x86 )
+# Problematic frame:
+# C  [ntdll.dll+0x2df85]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x18607800):  JavaThread "NullIdDescriptorMonitor.verifyId" daemon [_thread_in_native, id=1156, stack(0x18ef0000,0x18f40000)]
+
+siginfo: ExceptionCode=0xc0000005, writing address 0x17abf000
+
+Registers:
+EAX=0x00000000, EBX=0x18f3e938, ECX=0x00000098, EDX=0x00000000
+ESP=0x18f3e860, EBP=0x18f3e90c, ESI=0x00000000, EDI=0x17abf000
+EIP=0x7774df85, EFLAGS=0x00010206
+
+Top of Stack: (sp=0x18f3e860)
+0x18f3e860:   18f3e930 7775a531 17abea60 00000000
+0x18f3e870:   00000800 6f6a1b5c 17abea60 18f3e970
+0x18f3e880:   00000800 00000000 000007ff 00000000
+0x18f3e890:   d50004d1 00000022 00460044 00276960
+0x18f3e8a0:   00000002 00000070 17abea60 00000044
+0x18f3e8b0:   0027695b 00000000 77820440 00276960
+0x18f3e8c0:   01000003 08000000 17abea60 18f3e8ec
+0x18f3e8d0:   77760fc4 00276960 00221702 00000044 
+
+Instructions: (pc=0x7774df85)
+0x7774df65:   83 c7 01 83 e9 01 75 f6 8b c8 c1 e0 08 03 c1 8b
+0x7774df75:   c8 c1 e0 10 03 c1 8b ca 83 e2 03 c1 e9 02 74 06
+0x7774df85:   f3 ab 85 d2 74 0a 88 07 83 c7 01 83 ea 01 75 f6
+0x7774df95:   8b 44 24 08 5f c3 8b 44 24 04 c3 90 90 90 90 90 
+
+
+Register to memory mapping:
+
+EAX=0x00000000 is an unknown value
+EBX=0x18f3e938 is pointing into the stack for thread: 0x18607800
+ECX=0x00000098 is an unknown value
+EDX=0x00000000 is an unknown value
+ESP=0x18f3e860 is pointing into the stack for thread: 0x18607800
+EBP=0x18f3e90c is pointing into the stack for thread: 0x18607800
+ESI=0x00000000 is an unknown value
+EDI=0x17abf000 is an unknown value
+
+
+Stack: [0x18ef0000,0x18f40000],  sp=0x18f3e860,  free space=314k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [ntdll.dll+0x2df85]
+C  [ntdll.dll+0x3adf4]
+C  [ntdll.dll+0x4fb23]
+C  [kernel32.dll+0x2cb48]
+C  [kernel32.dll+0x2d4d6]
+C  [jna8380396482444381883.dll+0xcb67]
+C  [jna8380396482444381883.dll+0xc782]
+C  [jna8380396482444381883.dll+0x44ae]
+C  [jna8380396482444381883.dll+0x4d0e]
+j  com.sun.jna.Native.invokeInt(JI[Ljava/lang/Object;)I+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;Z)Ljava/lang/Object;+333
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+214
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+341
+j  $Proxy24.GetTempPathW(ILcom/sun/jna/Pointer;)I+23
+j  hudson.util.jna.Kernel32Utils.getTempDir()Ljava/io/File;+18
+j  jenkins.diagnosis.HsErrPidList.<init>()V+55
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfae4b]
+V  [jvm.dll+0x18c531]
+V  [jvm.dll+0xfaecd]
+V  [jvm.dll+0x105043]
+V  [jvm.dll+0x105aaa]
+V  [jvm.dll+0xb7286]
+C  [java.dll+0x7171]
+j  sun.reflect.NativeConstructorAccessorImpl.newInstance([Ljava/lang/Object;)Ljava/lang/Object;+72
+J  sun.reflect.DelegatingConstructorAccessorImpl.newInstance([Ljava/lang/Object;)Ljava/lang/Object;
+j  com.google.inject.internal.ConstructorInjector.provision(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Lcom/google/inject/internal/ConstructionContext;)Ljava/lang/Object;+17
+j  com.google.inject.internal.ConstructorInjector.construct(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Ljava/lang/Class;ZLcom/google/inject/internal/ProvisionListenerStackCallback;)Ljava/lang/Object;+70
+j  com.google.inject.internal.ConstructorBindingImpl$Factory.get(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Lcom/google/inject/spi/Dependency;Z)Ljava/lang/Object;+65
+j  com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(Lcom/google/inject/internal/InternalContext;)Ljava/lang/Object;+19
+j  com.google.inject.internal.InjectorImpl.callInContext(Lcom/google/inject/internal/ContextualCallable;)Ljava/lang/Object;+62
+j  com.google.inject.internal.ProviderToInternalFactoryAdapter.get()Ljava/lang/Object;+21
+j  com.google.inject.Scopes$1$1.get()Ljava/lang/Object;+23
+j  hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1.get()Ljava/lang/Object;+4
+j  com.google.inject.internal.InternalFactoryToProviderAdapter.get(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Lcom/google/inject/spi/Dependency;Z)Ljava/lang/Object;+5
+j  com.google.inject.internal.InjectorImpl$3$1.call(Lcom/google/inject/internal/InternalContext;)Ljava/lang/Object;+45
+j  com.google.inject.internal.InjectorImpl.callInContext(Lcom/google/inject/internal/ContextualCallable;)Ljava/lang/Object;+34
+j  com.google.inject.internal.InjectorImpl$3.get()Ljava/lang/Object;+25
+j  hudson.ExtensionFinder$GuiceFinder._find(Ljava/lang/Class;Ljava/util/List;Lcom/google/inject/Injector;)V+99
+j  hudson.ExtensionFinder$GuiceFinder.find(Ljava/lang/Class;Lhudson/model/Hudson;)Ljava/util/Collection;+24
+j  hudson.ExtensionFinder._find(Ljava/lang/Class;Lhudson/model/Hudson;)Ljava/util/Collection;+3
+j  hudson.ClassicPluginStrategy.findComponents(Ljava/lang/Class;Lhudson/model/Hudson;)Ljava/util/List;+157
+j  hudson.ExtensionList.load()Ljava/util/List;+68
+j  hudson.ExtensionList.ensureLoaded()Ljava/util/List;+47
+j  hudson.ExtensionList.iterator()Ljava/util/Iterator;+6
+j  hudson.ExtensionList.get(Ljava/lang/Class;)Ljava/lang/Object;+1
+j  hudson.diagnosis.NullIdDescriptorMonitor.verifyId()V+6
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfae4b]
+V  [jvm.dll+0x18c531]
+V  [jvm.dll+0xfaecd]
+V  [jvm.dll+0x105043]
+V  [jvm.dll+0x105986]
+V  [jvm.dll+0xb710e]
+C  [java.dll+0x715d]
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+j  hudson.init.TaskMethodFinder$TaskImpl.run(Lorg/jvnet/hudson/reactor/Reactor;)V+8
+j  org.jvnet.hudson.reactor.Reactor.runTask(Lorg/jvnet/hudson/reactor/Task;)V+2
+j  jenkins.model.Jenkins$7.runTask(Lorg/jvnet/hudson/reactor/Task;)V+59
+j  org.jvnet.hudson.reactor.Reactor$2.run()V+24
+j  org.jvnet.hudson.reactor.Reactor$Node.run()V+4
+j  java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Ljava/lang/Runnable;)V+59
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+28
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfae4b]
+V  [jvm.dll+0x18c531]
+V  [jvm.dll+0xfaff1]
+V  [jvm.dll+0xfb04b]
+V  [jvm.dll+0xb56b9]
+V  [jvm.dll+0x1190d4]
+V  [jvm.dll+0x1411ac]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0x133aa]
+C  [ntdll.dll+0x39f72]
+C  [ntdll.dll+0x39f45]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.jna.Native.invokeInt(JI[Ljava/lang/Object;)I+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;Z)Ljava/lang/Object;+333
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+214
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+341
+j  $Proxy24.GetTempPathW(ILcom/sun/jna/Pointer;)I+23
+j  hudson.util.jna.Kernel32Utils.getTempDir()Ljava/io/File;+18
+j  jenkins.diagnosis.HsErrPidList.<init>()V+55
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeConstructorAccessorImpl.newInstance0(Ljava/lang/reflect/Constructor;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeConstructorAccessorImpl.newInstance([Ljava/lang/Object;)Ljava/lang/Object;+72
+J  sun.reflect.DelegatingConstructorAccessorImpl.newInstance([Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Constructor.newInstance([Ljava/lang/Object;)Ljava/lang/Object;
+j  com.google.inject.internal.DefaultConstructionProxyFactory$1.newInstance([Ljava/lang/Object;)Ljava/lang/Object;+5
+j  com.google.inject.internal.ConstructorInjector.provision(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Lcom/google/inject/internal/ConstructionContext;)Ljava/lang/Object;+17
+j  com.google.inject.internal.ConstructorInjector.construct(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Ljava/lang/Class;ZLcom/google/inject/internal/ProvisionListenerStackCallback;)Ljava/lang/Object;+70
+j  com.google.inject.internal.ConstructorBindingImpl$Factory.get(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Lcom/google/inject/spi/Dependency;Z)Ljava/lang/Object;+65
+j  com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(Lcom/google/inject/internal/InternalContext;)Ljava/lang/Object;+19
+j  com.google.inject.internal.InjectorImpl.callInContext(Lcom/google/inject/internal/ContextualCallable;)Ljava/lang/Object;+62
+j  com.google.inject.internal.ProviderToInternalFactoryAdapter.get()Ljava/lang/Object;+21
+j  com.google.inject.Scopes$1$1.get()Ljava/lang/Object;+23
+j  hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1.get()Ljava/lang/Object;+4
+j  com.google.inject.internal.InternalFactoryToProviderAdapter.get(Lcom/google/inject/internal/Errors;Lcom/google/inject/internal/InternalContext;Lcom/google/inject/spi/Dependency;Z)Ljava/lang/Object;+5
+j  com.google.inject.internal.InjectorImpl$3$1.call(Lcom/google/inject/internal/InternalContext;)Ljava/lang/Object;+45
+j  com.google.inject.internal.InjectorImpl.callInContext(Lcom/google/inject/internal/ContextualCallable;)Ljava/lang/Object;+34
+j  com.google.inject.internal.InjectorImpl$3.get()Ljava/lang/Object;+25
+j  hudson.ExtensionFinder$GuiceFinder._find(Ljava/lang/Class;Ljava/util/List;Lcom/google/inject/Injector;)V+99
+j  hudson.ExtensionFinder$GuiceFinder.find(Ljava/lang/Class;Lhudson/model/Hudson;)Ljava/util/Collection;+24
+j  hudson.ExtensionFinder._find(Ljava/lang/Class;Lhudson/model/Hudson;)Ljava/util/Collection;+3
+j  hudson.ClassicPluginStrategy.findComponents(Ljava/lang/Class;Lhudson/model/Hudson;)Ljava/util/List;+157
+j  hudson.ExtensionList.load()Ljava/util/List;+68
+j  hudson.ExtensionList.ensureLoaded()Ljava/util/List;+47
+j  hudson.ExtensionList.iterator()Ljava/util/Iterator;+6
+j  hudson.ExtensionList.get(Ljava/lang/Class;)Ljava/lang/Object;+1
+j  hudson.diagnosis.NullIdDescriptorMonitor.verifyId()V+6
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+j  hudson.init.TaskMethodFinder.invoke(Ljava/lang/reflect/Method;)V+42
+j  hudson.init.TaskMethodFinder$TaskImpl.run(Lorg/jvnet/hudson/reactor/Reactor;)V+8
+j  org.jvnet.hudson.reactor.Reactor.runTask(Lorg/jvnet/hudson/reactor/Task;)V+2
+j  jenkins.model.Jenkins$7.runTask(Lorg/jvnet/hudson/reactor/Task;)V+59
+j  org.jvnet.hudson.reactor.Reactor$2.run()V+24
+j  org.jvnet.hudson.reactor.Reactor$Node.run()V+4
+j  java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Ljava/lang/Runnable;)V+59
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+28
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x185fe400 JavaThread "RequestHandlerThread[#5]" daemon [_thread_blocked, id=3380, stack(0x19340000,0x19390000)]
+  0x185fdc00 JavaThread "RequestHandlerThread[#4]" daemon [_thread_blocked, id=1216, stack(0x192b0000,0x19300000)]
+  0x185fd800 JavaThread "RequestHandlerThread[#3]" daemon [_thread_blocked, id=5244, stack(0x191c0000,0x19210000)]
+  0x185fd000 JavaThread "UpdateCenter.init" daemon [_thread_blocked, id=2520, stack(0x19130000,0x19180000)]
+  0x185fcc00 JavaThread "Loading job WCF-STSService" daemon [_thread_blocked, id=3356, stack(0x190a0000,0x190f0000)]
+  0x185fc400 JavaThread "Loading job Jira-test" daemon [_thread_blocked, id=5884, stack(0x19010000,0x19060000)]
+  0x00e87800 JavaThread "Loading job LearnStockTrading" daemon [_thread_blocked, id=5708, stack(0x18f80000,0x18fd0000)]
+=>0x18607800 JavaThread "NullIdDescriptorMonitor.verifyId" daemon [_thread_in_native, id=1156, stack(0x18ef0000,0x18f40000)]
+  0x18607400 JavaThread "Loading job Deploy-DEV-SQ5VDMWEB001" daemon [_thread_blocked, id=6032, stack(0x18e60000,0x18eb0000)]
+  0x18606c00 JavaThread "Loading job WCF-Salesforce" daemon [_thread_blocked, id=3588, stack(0x18dd0000,0x18e20000)]
+  0x18612400 JavaThread "Loading job WCF-QOfficeDocumentsService" daemon [_thread_blocked, id=2876, stack(0x18d40000,0x18d90000)]
+  0x18604400 JavaThread "Jenkins cron thread" [_thread_blocked, id=2864, stack(0x18cb0000,0x18d00000)]
+  0x00f09800 JavaThread "DestroyJavaVM" [_thread_blocked, id=4524, stack(0x00390000,0x003e0000)]
+  0x185f8000 JavaThread "LauncherControlThread[ControlPort=-1]" [_thread_blocked, id=3088, stack(0x18c20000,0x18c70000)]
+  0x185f5400 JavaThread "RequestHandlerThread[#2] Acceptor0 SelectChannelConnector@0.0.0.0:8081" daemon [_thread_in_native, id=2660, stack(0x18b90000,0x18be0000)]
+  0x185cf000 JavaThread "RequestHandlerThread[#1] Selector0" daemon [_thread_in_native, id=2596, stack(0x17e90000,0x17ee0000)]
+  0x185d1800 JavaThread "Jenkins initialization thread" [_thread_blocked, id=2868, stack(0x17de0000,0x17e30000)]
+  0x17805000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=2664, stack(0x17d00000,0x17d50000)]
+  0x18473000 JavaThread "HashSessionScavenger-0" daemon [_thread_blocked, id=3456, stack(0x17c70000,0x17cc0000)]
+  0x00e5e800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=4000, stack(0x175f0000,0x17640000)]
+  0x00e58400 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=6108, stack(0x17560000,0x175b0000)]
+  0x00e57400 JavaThread "Attach Listener" daemon [_thread_blocked, id=1608, stack(0x174d0000,0x17520000)]
+  0x00e2a000 JavaThread "Finalizer" daemon [_thread_blocked, id=3684, stack(0x17440000,0x17490000)]
+  0x00e28800 JavaThread "Reference Handler" daemon [_thread_blocked, id=6012, stack(0x173b0000,0x17400000)]
+
+Other Threads:
+  0x00e24000 VMThread [stack: 0x17320000,0x17370000] [id=5108]
+  0x00e69000 WatcherThread [stack: 0x17680000,0x176d0000] [id=5756]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4992K, used 1389K [0x03230000, 0x03790000, 0x08780000)
+  eden space 4480K,  19% used [0x03230000, 0x0330b4e0, 0x03690000)
+  from space 512K, 100% used [0x03690000, 0x03710000, 0x03710000)
+  to   space 512K,   0% used [0x03710000, 0x03710000, 0x03790000)
+ tenured generation   total 10944K, used 10492K [0x08780000, 0x09230000, 0x13230000)
+   the space 10944K,  95% used [0x08780000, 0x091bf128, 0x091bf200, 0x09230000)
+ compacting perm gen  total 23040K, used 22829K [0x13230000, 0x148b0000, 0x17230000)
+   the space 23040K,  99% used [0x13230000, 0x1487b6b0, 0x1487b800, 0x148b0000)
+No shared spaces configured.
+
+Code Cache  [0x01230000, 0x014f8000, 0x03230000)
+ total_blobs=1665 nmethods=1470 adapters=130 free_code_cache=30642112 largest_free_block=256
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Jenkins\jre\bin\java.exe
+0x77720000 - 0x778a0000 	C:\windows\SysWOW64\ntdll.dll
+0x75680000 - 0x75790000 	C:\windows\syswow64\kernel32.dll
+0x76c00000 - 0x76c47000 	C:\windows\syswow64\KERNELBASE.dll
+0x75790000 - 0x75830000 	C:\windows\syswow64\ADVAPI32.dll
+0x76c50000 - 0x76cfc000 	C:\windows\syswow64\msvcrt.dll
+0x76e10000 - 0x76e29000 	C:\windows\SysWOW64\sechost.dll
+0x76a40000 - 0x76b30000 	C:\windows\syswow64\RPCRT4.dll
+0x74e00000 - 0x74e60000 	C:\windows\syswow64\SspiCli.dll
+0x74df0000 - 0x74dfc000 	C:\windows\syswow64\CRYPTBASE.dll
+0x7c340000 - 0x7c396000 	C:\Jenkins\jre\bin\msvcr71.dll
+0x6d7f0000 - 0x6da9f000 	C:\Jenkins\jre\bin\client\jvm.dll
+0x76480000 - 0x76580000 	C:\windows\syswow64\USER32.dll
+0x76730000 - 0x767c0000 	C:\windows\syswow64\GDI32.dll
+0x776f0000 - 0x776fa000 	C:\windows\syswow64\LPK.dll
+0x76800000 - 0x7689d000 	C:\windows\syswow64\USP10.dll
+0x72b70000 - 0x72ba2000 	C:\windows\system32\WINMM.dll
+0x750a0000 - 0x75100000 	C:\windows\system32\IMM32.DLL
+0x76b30000 - 0x76bfc000 	C:\windows\syswow64\MSCTF.dll
+0x6d7a0000 - 0x6d7ac000 	C:\Jenkins\jre\bin\verify.dll
+0x6d320000 - 0x6d33f000 	C:\Jenkins\jre\bin\java.dll
+0x75080000 - 0x75085000 	C:\windows\system32\PSAPI.DLL
+0x6d7e0000 - 0x6d7ef000 	C:\Jenkins\jre\bin\zip.dll
+0x73fc0000 - 0x73fd6000 	C:\windows\system32\CRYPTSP.dll
+0x73f80000 - 0x73fbb000 	C:\windows\system32\rsaenh.dll
+0x74a00000 - 0x74a17000 	C:\windows\system32\USERENV.dll
+0x749f0000 - 0x749fb000 	C:\windows\system32\profapi.dll
+0x6d600000 - 0x6d613000 	C:\Jenkins\jre\bin\net.dll
+0x767c0000 - 0x767f5000 	C:\windows\syswow64\WS2_32.dll
+0x75090000 - 0x75096000 	C:\windows\syswow64\NSI.dll
+0x74b70000 - 0x74bac000 	C:\windows\system32\mswsock.dll
+0x64900000 - 0x64906000 	C:\windows\System32\wship6.dll
+0x65f30000 - 0x65f40000 	C:\windows\system32\NLAapi.dll
+0x74680000 - 0x74690000 	C:\windows\system32\napinsp.dll
+0x74660000 - 0x74672000 	C:\windows\system32\pnrpnsp.dll
+0x722a0000 - 0x722e4000 	C:\windows\system32\DNSAPI.dll
+0x74650000 - 0x74658000 	C:\windows\System32\winrnr.dll
+0x74b60000 - 0x74b65000 	C:\windows\System32\wshtcpip.dll
+0x74c50000 - 0x74c6c000 	C:\windows\system32\IPHLPAPI.DLL
+0x74c40000 - 0x74c47000 	C:\windows\system32\WINNSI.DLL
+0x65f20000 - 0x65f26000 	C:\windows\system32\rasadhlp.dll
+0x64810000 - 0x64848000 	C:\windows\System32\fwpuclnt.dll
+0x6d780000 - 0x6d788000 	C:\Jenkins\jre\bin\sunmscapi.dll
+0x75340000 - 0x75460000 	C:\windows\syswow64\CRYPT32.dll
+0x75310000 - 0x7531c000 	C:\windows\syswow64\MSASN1.dll
+0x6d000000 - 0x6d14b000 	C:\Jenkins\jre\bin\awt.dll
+0x74be0000 - 0x74c31000 	C:\windows\system32\WINSPOOL.DRV
+0x74e60000 - 0x74fbc000 	C:\windows\syswow64\ole32.dll
+0x730c0000 - 0x7325e000 	C:\windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.17514_none_41e6975e2bd6f2b2\COMCTL32.dll
+0x752b0000 - 0x75307000 	C:\windows\syswow64\SHLWAPI.dll
+0x73030000 - 0x730b4000 	C:\windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.7601.17514_none_ec83dffa859149af\comctl32.dll
+0x6d230000 - 0x6d27f000 	C:\Jenkins\jre\bin\fontmanager.dll
+0x6f7b0000 - 0x6f7c3000 	C:\windows\system32\DWMAPI.DLL
+0x6d620000 - 0x6d629000 	C:\Jenkins\jre\bin\nio.dll
+0x19210000 - 0x19265000 	C:\Users\011820\AppData\Local\Temp\jna\jna8380396482444381883.dll
+
+VM Arguments:
+jvm_args: -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle 
+java_command: C:\Jenkins\jenkins.war --httpPort=8081
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Python33\;C:\sybase\DataAccess\ADONET\dll;C:\sybase\DataAccess\OLEDB\dll;C:\sybase\DataAccess\ODBC\dll;C:\sybase\OCS-15_0\lib3p;C:\sybase\OCS-15_0\dll;C:\sybase\OCS-15_0\bin;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\Microsoft SQL Server\90\Tools\binn\;C:\sybase\DBISQL\bin;C:\Program Files (x86)\Enterprise Vault\EVClient\;C:\buildtools\TortoiseSVN\bin;C:\buildtools\Subversion\bin;C:\nodejs\;C:\Users\011820\AppData\Roaming\npm
+USERNAME=011820
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 30 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 30 stepping 5, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt
+
+Memory: 4k page, physical 8322344k(5513488k free), swap 16642828k(13672488k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.1-b02) for windows-x86 JRE (1.6.0_26-b03), built on May  4 2011 00:50:59 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Tue Nov 19 14:10:16 2013
+elapsed time: 32 seconds
+

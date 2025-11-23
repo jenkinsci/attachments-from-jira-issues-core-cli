@@ -1,0 +1,26 @@
+pipeline {
+    agent any    
+        stages {
+            stage('TestReport') {
+                steps {
+                    sh(""" 
+cat > report.xml << EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.0040" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2023-05-24T09:25:32" tests="0" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="colorize" timestamp="2023-05-24T09:25:32" tests="0" file="/var/lib/jenkins/workspace/dummy/test/colorize.test.js" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="randomColor" timestamp="2023-05-24T09:25:32" tests="1" file="/var/lib/jenkins/workspace/dummy/test/colorize.test.js" time="0.0030" failures="0">
+    <testcase name="colorize randomColor returns a value containing the input text" time="0.0010" classname="returns a value containing the input text">
+    </testcase>
+  </testsuite>
+</testsuites>
+EOF
+                """)
+                
+                junit 'report.xml'
+            }
+        }
+    }
+}

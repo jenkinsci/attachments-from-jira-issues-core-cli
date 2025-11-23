@@ -1,0 +1,32 @@
+Those are the steps I used when trying to install Jenkins today.
+
+sudo apt-get update
+sudo apt-get install default-jre
+
+I checked the Java installation folder with:
+
+update-java-alternatives -l
+
+I got:
+
+java-1.8.0-openjdk-amd64       1081       /usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+I then added this data to /etc/environment with nano, as follows:
+
+JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64"
+
+I rebooted my machine at this point. 
+Then I went and installed latest Jenkins:
+
+wget --no-check-certificate -q -O \
+- https://pkg.jenkins.io/debian/jenkins-ci.org.key | \
+sudo apt-key add -
+
+echo deb http://pkg.jenkins.io/debian binary/ | \
+sudo tee /etc/apt/sources.list.d/jenkins.list
+
+sudo apt-get update
+
+sudo apt-get install -y jenkins
+
+Then the mentioned error happened.

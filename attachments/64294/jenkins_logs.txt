@@ -1,0 +1,18 @@
++ /usr/local/bin/sf org login sfdx-url --sfdx-url-file Salesforce-sfdx-Dev.txt --alias Salesforce-sfdx-Dev --set-default
+› Warning: @salesforce/cli update available from  [92m2.83.7 [39m to  [92m2.84.6 [39m. [1m [32mSuccessfully authorized sfdx@sfgov.org.dev with org ID 00D3S0000008gWdUAI [39m [22m+ ls -la /opt/jenkins/workspace/ture-ASR-jenkins-pipeline-test_2/.sf
+total 8
+drwxr-xr-x 2 jenkins jenkins 25 Apr 21 01:58 .
+drwxr-xr-x 14 jenkins jenkins 4096 Apr 15 23:30 ..
+-rw-r--r-- 1 jenkins jenkins 41 Apr 21 01:58 config.json[Pipeline] sh (Verify org alias)+ /usr/local/bin/sf org list
+› Warning: @salesforce/cli update available from  [92m2.83.7 [39m to  [92m2.84.6 [39m.
+ [2mNo Orgs found. [22m
+ [2m [22m
+ [2mLegend: 🌳=Default DevHub, 🍁=Default Org Use --all to see expired and deleted scratch orgs [22m[Pipeline] }[Pipeline] // withCredentials[Pipeline] sh (Set CLI config directory)+ mkdir -p /opt/jenkins/workspace/ture-ASR-jenkins-pipeline-test_2/.sf
++ export SF_CONFIG_DIR=/opt/jenkins/workspace/ture-ASR-jenkins-pipeline-test_2/.sf
++ SF_CONFIG_DIR=/opt/jenkins/workspace/ture-ASR-jenkins-pipeline-test_2/.sf[Pipeline] echoStarting Salesforce deployment for environment: Salesforce-sfdx-Dev[Pipeline] echocommitChanges is: false. Running check-only validation - deployment changes will not be saved.
+[Pipeline] sh (Deploying Salesforce to Salesforce-sfdx-Dev)+ /usr/local/bin/sf project deploy start --manifest manifest/package.xml --wait 1440 --target-org Salesforce-sfdx-Dev --checkonly --testlevel RunLocalTests
+› Warning: @salesforce/cli update available from  [92m2.83.7 [39m to  [92m2.84.6 [39m. [1m [31mError (NamedOrgNotFoundError): [39m [22m Parsing --target-org 
+  No authorization information found for sfdx@sfgov.org.dev.
+See more help with --help
+
+ [2mTry this: [22m

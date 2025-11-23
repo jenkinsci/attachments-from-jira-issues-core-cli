@@ -1,0 +1,49 @@
+diff --git a/remoting/src/main/java/hudson/remoting/ProxyOutputStream.java b/remoting/src/main/java/hudson/remoting/ProxyOutputStream.java
+index bd7c3b5..bf83a62 100644
+--- a/remoting/src/main/java/hudson/remoting/ProxyOutputStream.java
++++ b/remoting/src/main/java/hudson/remoting/ProxyOutputStream.java
+@@ -140,6 +140,7 @@ final class ProxyOutputStream extends OutputStream {
+     }
+ 
+     private void doClose() throws IOException {
++        channel.send(new Pause(oid));
+         channel.send(new EOF(oid));
+         channel = null;
+         oid = -1;
+@@ -364,5 +365,36 @@ final class ProxyOutputStream extends OutputStream {
+         private static final long serialVersionUID = 1L;
+     }
+ 
++    /**
++     * {@link Command} for pausing remote command processing.
++     */
++    private static final class Pause extends Command {
++        private final int oid;
++
++        public Pause(int oid) {
++            super(false);
++            this.oid = oid;
++        }
++
++        protected void execute(final Channel channel) {
++            channel.pipeWriter.submit(new Runnable() {
++                public void run() {
++                    try {
++			Thread.sleep(3000);
++			LOGGER.log(Level.FINE, String.format("oid=%d Yaaawn!", oid));
++                    } catch (InterruptedException e) {
++                        // ignore errors
++                    }
++                }
++            });
++        }
++
++        public String toString() {
++            return "Pipe.Pause("+oid+")";
++        }
++
++        private static final long serialVersionUID = 1L;
++    }
++
+     private static final Logger LOGGER = Logger.getLogger(ProxyOutputStream.class.getName());
+ }

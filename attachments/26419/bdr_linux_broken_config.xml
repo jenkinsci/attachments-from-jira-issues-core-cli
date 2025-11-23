@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@1.2">
+  <actions/>
+  <description>This branch builds PostgreSQL branches in 2ndquadrant_bdr.git on git.postgresql.org on Debian, RHEL, and Amazon Linux.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <null/>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.LabelAxis>
+      <name>label_os</name>
+      <values>
+        <string>amazonlinux201209</string>
+        <string>debian6</string>
+        <string>debian7</string>
+        <string>fedora16</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+    <hudson.matrix.LabelAxis>
+      <name>label_arch</name>
+      <values>
+        <string>ppc64</string>
+        <string>x64</string>
+        <string>x86</string>
+      </values>
+    </hudson.matrix.LabelAxis>
+  </axes>
+  <combinationFilter>(label_os==&quot;debian7&quot;).implies(label_arch==&quot;x64&quot;) &amp;&amp; (label_os == &quot;debian6&quot;).implies(label_arch==&quot;x86&quot;) &amp;&amp; (label_arch == &quot;ppc64&quot;).implies(label_os==&quot;fedora16&quot;)</combinationFilter>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>set -x
+
+# TODO: Support EXTRA_TESTS (see http://www.postgresql.org/docs/9.2/static/regress-run.html)
+
+INSTALLDIR=`pwd`/binaries
+TEST_TIMEOUT_SECONDS=3600
+
+# Build and check core:
+./configure --prefix=&quot;${INSTALLDIR}&quot; --enable-debug --enable-cassert CFLAGS=&quot;-fno-omit-frame-pointer&quot;
+make -j3 -s
+
+make -s install
+make -C -s contrib/btree_gist install
+[ -e contrib/bdr ] &amp;&amp; make -s -C contrib/bdr install
+
+tar czf binaries.tar.gz binaries/
+
+if ! timeout --signal=SIGINT $TEST_TIMEOUT_SECONDS make check; then
+    exit 2
+fi
+
+if [ -e contrib/bdr ] &amp;&amp; ! timeout --signal=SIGINT $TEST_TIMEOUT_SECONDS make -C contrib/bdr check ; then
+    exit 2
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>**/config.log, **/src/test/regress/regression.diffs, **/src/test/regress/log/install.log, **/src/test/regress/log/postmaster.log, **/src/test/regress/results/*.out, **/contrib/bdr/results/*.out, **/contrib/bdr/regress.*</artifacts>
+      <latestOnly>false</latestOnly>
+      <allowEmptyArchive>true</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.s3.S3BucketPublisher plugin="s3@0.7-SNAPSHOT">
+      <profileName>Jenkins Artifacts</profileName>
+      <entries>
+        <hudson.plugins.s3.Entry>
+          <bucket>2q-jenkins-artifacts</bucket>
+          <sourceFile>**/binaries.tar.gz</sourceFile>
+          <storageClass>STANDARD</storageClass>
+          <selectedRegion>EU_WEST_1</selectedRegion>
+          <noUploadOnFailure>true</noUploadOnFailure>
+          <uploadFromSlave>false</uploadFromSlave>
+          <managedArtifacts>true</managedArtifacts>
+          <useServerSideEncryption>false</useServerSideEncryption>
+          <flatten>false</flatten>
+        </hudson.plugins.s3.Entry>
+      </entries>
+      <userMetadata>
+        <hudson.plugins.s3.MetadataPair>
+          <key>BUILD_TAG</key>
+          <value>$BUILD_TAG</value>
+        </hudson.plugins.s3.MetadataPair>
+        <hudson.plugins.s3.MetadataPair>
+          <key>NODE_NAME</key>
+          <value>$NODE_NAME</value>
+        </hudson.plugins.s3.MetadataPair>
+      </userMetadata>
+    </hudson.plugins.s3.S3BucketPublisher>
+    <hudson.tasks.Mailer plugin="mailer@1.9">
+      <recipients>bdr-dev@2ndquadrant.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>#${BUILD_NUMBER}-#${ENV,var=&quot;NODE_LABELS&quot;}#${GIT_BRANCH}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <touchStoneCombinationFilter>label_arch == &quot;x64&quot; &amp;&amp; label_os == &quot;debian7&quot;</touchStoneCombinationFilter>
+    <touchStoneResultCondition>
+      <name>UNSTABLE</name>
+      <ordinal>1</ordinal>
+      <color>YELLOW</color>
+      <completeBuild>true</completeBuild>
+    </touchStoneResultCondition>
+  </executionStrategy>
+</matrix-project>

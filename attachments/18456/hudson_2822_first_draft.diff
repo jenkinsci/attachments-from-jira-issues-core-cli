@@ -1,0 +1,129 @@
+Index: core/src/main/java/hudson/model/View.java
+===================================================================
+--- core/src/main/java/hudson/model/View.java	(revision 14276)
++++ core/src/main/java/hudson/model/View.java	(working copy)
+@@ -20,6 +20,7 @@
+ import org.kohsuke.stapler.export.ExportedBean;
+ 
+ import javax.servlet.ServletException;
++import javax.servlet.http.HttpServletResponse;
+ import java.io.IOException;
+ import java.util.ArrayList;
+ import java.util.Calendar;
+@@ -545,4 +546,28 @@
+ 
+         return v;
+     }
++
++    public void doFullscreen( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
++        req.setCharacterEncoding("UTF-8");
++
++        forwardToFullScreen(getDisplayName() + " view [full screen]", getUrl(), this, req, rsp );
++    }
++
++    private static void forwardToFullScreen(String title, String url, View v, StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
++      List<Job> lastJobs = new ArrayList<Job>();
++      for (TopLevelItem item : v.getItems()) {
++          if (item instanceof Job) {
++              Job job = (Job) item;
++              lastJobs.add(job);
++          }
++      }
++
++        req.setAttribute("title",title);
++        req.setAttribute("url",url);
++        req.setAttribute("view",v);
++        req.setAttribute("jobs",lastJobs);
++        req.setAttribute("rootURL", Hudson.getInstance().getRootUrl());
++
++        rsp.forward(v, "fullscreenView", req);
++    }
+ }
+Index: core/src/main/resources/hudson/model/View/fullscreenView.jelly
+===================================================================
+--- core/src/main/resources/hudson/model/View/fullscreenView.jelly	(revision 0)
++++ core/src/main/resources/hudson/model/View/fullscreenView.jelly	(revision 0)
+@@ -0,0 +1,3 @@
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
++  <t:fullscreenView/>
++</j:jelly>
+\ No newline at end of file
+Index: core/src/main/resources/lib/hudson/projectView.jelly
+===================================================================
+--- core/src/main/resources/lib/hudson/projectView.jelly	(revision 14276)
++++ core/src/main/resources/lib/hudson/projectView.jelly	(working copy)
+@@ -44,6 +44,7 @@
+           <t:projectViewRow />
+         </j:forEach>
+       </table>
++      <div style="float: right;"><a href="fullscreen">Full Screen</a></div>
+       <t:rssBar-with-iconSize/>
+     </j:if>
+   </div>
+Index: core/src/main/resources/lib/hudson/fullscreenView.jelly
+===================================================================
+--- core/src/main/resources/lib/hudson/fullscreenView.jelly	(revision 0)
++++ core/src/main/resources/lib/hudson/fullscreenView.jelly	(revision 0)
+@@ -0,0 +1,62 @@
++<!--
++  <%@ attribute name="jobs" required="true" type="java.util.Collection" %>
++-->
++<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
++         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
++    <html>
++      <head>
++        <title>${title}</title>
++        <style type="text/css">
++    .project {
++      width: 45%;
++      height: 26%;
++      border-style: solid;
++      margin: 1%;
++      padding: 1%;
++      float: left;
++    }
++    .result-FAILURE {
++      background-color: red;
++    }
++    .result-SUCCESS {
++      background-color: green;
++    }
++    .project-name {
++      font-size: 300%;
++    }
++    .project-build {
++      font-size: 200%;
++      position: relative;
++      float: right;
++    }
++        </style>
++      </head>
++      <body>
++
++          <!--t:setIconSize/-->
++          <div class="fullscreen">
++            <j:if test="${!empty(jobs)}">
++              <j:forEach var="job" items="${jobs}">
++                <j:set var="lBuild" value="${job.lastBuild}"/>
++                <j:set var="lcBuild" value="${job.lastCompletedBuild}"/>
++                <j:set var="lsBuild" value="${job.lastSuccessfulBuild}"/>
++                <j:set var="lfBuild" value="${job.lastFailedBuild}"/>
++                
++                <div class="project result-${lBuild.result}">
++                  <div class="project-name">${job.displayName}</div>
++                  <div class="project-build">
++                    <j:choose>
++                      <j:when test="${lBuild!=null}">${lBuild.number}</j:when>
++                      <j:otherwise>${%N/A}</j:otherwise>
++                    </j:choose>
++                  </div>
++                </div>
++
++              </j:forEach>
++            </j:if>
++          </div>
++      </body>
++    </html>
++
++
++</j:jelly>

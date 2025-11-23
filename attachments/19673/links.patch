@@ -1,0 +1,94 @@
+commit dd0357318e4c04ee4030cf51167e0766b5664818
+Author: Ian Eure <ian.eure@gmail.com>
+Date:   Wed Aug 18 15:45:10 2010 -0700
+
+    Make link targets larger.
+
+diff --git a/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly b/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly
+index 26a3c55..a3b9f4a 100644
+--- a/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly
++++ b/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly
+@@ -35,9 +35,8 @@ THE SOFTWARE.
+           <div class="task">
+             <a href="${buildUrl.baseUrl}/console">
+               <img width="24" height="24" style="margin: 2px;" src="${imagesURL}/24x24/terminal.gif" alt=""/>
+-            </a>
+             <st:nbsp />
+-            <a href="${buildUrl.baseUrl}/console">${%Console Output}</a>
++            <span>${%Console Output}</span></a>
+             <st:nbsp />
+             <a href="${buildUrl.baseUrl}/consoleText">[${%raw}]</a>
+           </div>
+diff --git a/core/src/main/resources/lib/layout/task.jelly b/core/src/main/resources/lib/layout/task.jelly
+index 826c409..8d9a24d 100644
+--- a/core/src/main/resources/lib/layout/task.jelly
++++ b/core/src/main/resources/lib/layout/task.jelly
+@@ -78,7 +78,7 @@ THE SOFTWARE.
+                       <b>${title}</b>
+                   </j:when>
+                   <j:otherwise>
+-                      ${title}
++                      <span>${title}</span>
+                   </j:otherwise>
+               </j:choose>
+           </a>
+diff --git a/war/resources/css/style.css b/war/resources/css/style.css
+index a81f128..cb2501c 100644
+--- a/war/resources/css/style.css
++++ b/war/resources/css/style.css
+@@ -116,6 +116,20 @@ dt {
+   padding: 4px;
+ }
+ 
++#tasks a:hover {
++    background-color: #f5f5f5;
++}
++
++#tasks a {
++    text-decoration: none;
++    display: block;
++}
++
++#tasks a span,
++#tasks a b {
++    text-decoration: underline;
++}
++
+ .skiplink {
+     position: absolute;
+     left: -20000px;
+@@ -148,10 +162,12 @@ a.tip {
+   position:relative;
+   z-index:24;
+   text-decoration: underline;
++  display: block;
+ }
+ 
+ a.tip:hover {
+   z-index:25;
++  background-color: #f5f5f5;
+ }
+ 
+ a.tip span {
+@@ -259,6 +275,10 @@ pre.console {
+   width: 480px;
+ }
+ 
++#buildQueue td a {
++    display: block;
++}
++
+ .build-row {
+   padding: 3px 4px 3px 4px;
+ }
+@@ -327,6 +347,10 @@ td.pane-header {
+   font-weight: bold;
+ }
+ 
++td.pane-header > a {
++    display: block;
++}
++
+ th.pane {
+   border: 1px #bbb solid;
+   font-weight: bold;

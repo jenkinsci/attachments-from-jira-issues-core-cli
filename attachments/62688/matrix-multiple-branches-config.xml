@@ -1,0 +1,211 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<matrix-project plugin="matrix-project@785.v06b_7f47b_c631">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>17</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>test</name>
+          <description>Tests to execute</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>CliGitAPIImplTest,JGitAPIImplTest,GitClientTest</string>
+              <string>*</string>
+              <string>CliGitAPIImplAuthTest</string>
+              <string>CliGitAPIImplTest</string>
+              <string>CredentialsProviderImplTest</string>
+              <string>CredentialsTest</string>
+              <string>FilePermissionsTest</string>
+              <string>GitAPIBadInitTest</string>
+              <string>GitClientTest</string>
+              <string>GitExceptionTest</string>
+              <string>GitLockFailedExceptionTest</string>
+              <string>GitObjectTest</string>
+              <string>GitTest</string>
+              <string>GitToolTest</string>
+              <string>GitURIRequirementsBuilderTest</string>
+              <string>IndexEntryTest</string>
+              <string>JGitApacheAPIImplTest</string>
+              <string>JGitAPIImplTest</string>
+              <string>LegacyCompatibleGitAPIImplJGitTest</string>
+              <string>LegacyCompatibleGitAPIImplTest</string>
+              <string>LogHandlerTest</string>
+              <string>MergeCommandTest</string>
+              <string>NetrcTest</string>
+              <string>PreemptiveAuthHttpClientConnectionTest</string>
+              <string>PushSimpleTest</string>
+              <string>PushTest</string>
+              <string>RemotingTest</string>
+              <string>RevisionTest</string>
+              <string>SmartCredentialsProviderTest</string>
+              <string>TagTest</string>
+              <string>WarnTempDirValueTest</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@5.0.0-rc5170.c27b_4e6b_9456">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/MarkEWaite/git-client-plugin</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <gitTool>Default</gitTool>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url>https://github.com/MarkEWaite/git-client-plugin</url>
+    </browser>
+    <submoduleCfg class="empty-list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>false</shallow>
+        <noTags>false</noTags>
+        <reference>/var/cache/git/mwaite/jenkins/git-client-plugin.git</reference>
+        <depth>0</depth>
+        <honorRefspec>false</honorRefspec>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+      <hudson.plugins.git.extensions.impl.LocalBranch>
+        <localBranch>**</localBranch>
+      </hudson.plugins.git.extensions.impl.LocalBranch>
+      <hudson.plugins.git.extensions.impl.CleanBeforeCheckout>
+        <deleteUntrackedNestedRepositories>false</deleteUntrackedNestedRepositories>
+      </hudson.plugins.git.extensions.impl.CleanBeforeCheckout>
+      <hudson.plugins.git.extensions.impl.AuthorInChangelog/>
+      <hudson.plugins.git.extensions.impl.PruneStaleBranch/>
+      <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+    </extensions>
+  </scm>
+  <quietPeriod>0</quietPeriod>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec></spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.LabelExpAxis>
+      <name>os</name>
+      <values>
+        <string>Debian-10</string>
+        <string>Debian-11</string>
+        <string>Debian-12</string>
+        <string>Debian-testing</string>
+        <string>Debian-unstable</string>
+        <string>FreeBSD</string>
+        <string>RedHat-8</string>
+        <string>RedHat-9</string>
+        <string>Ubuntu-20</string>
+        <string>Ubuntu-22</string>
+        <string>openSUSE-15</string>
+        <string>s390x</string>
+        <string>windows</string>
+      </values>
+    </hudson.matrix.LabelExpAxis>
+    <hudson.matrix.JDKAxis>
+      <name>jdk</name>
+      <values>
+        <string>jdk11</string>
+        <string>jdk17</string>
+      </values>
+    </hudson.matrix.JDKAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean
+verify
+-Dtest=${test}</targets>
+      <mavenName>maven-latest</mavenName>
+      <properties>maven.test.failure.ignore=true</properties>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>false</injectBuildVariables>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1166.va_436e268e972">
+      <testResults>target/surefire-reports/**.xml</testResults>
+      <healthScaleFactor>1.0</healthScaleFactor>
+      <allowEmptyResults>false</allowEmptyResults>
+      <skipPublishingChecks>false</skipPublishingChecks>
+      <checksName></checksName>
+      <skipMarkingBuildUnstable>false</skipMarkingBuildUnstable>
+      <skipOldReports>false</skipOldReports>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <io.jenkins.plugins.analysis.core.steps.IssuesRecorder plugin="warnings-ng@9.22.0">
+      <analysisTools>
+        <io.jenkins.plugins.analysis.warnings.SpotBugs>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@2.20.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+          <useRankAsPriority>true</useRankAsPriority>
+        </io.jenkins.plugins.analysis.warnings.SpotBugs>
+        <io.jenkins.plugins.analysis.warnings.Java>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@2.20.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.Java>
+        <io.jenkins.plugins.analysis.warnings.JavaDoc>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@2.20.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.JavaDoc>
+      </analysisTools>
+      <sourceCodeEncoding></sourceCodeEncoding>
+      <sourceDirectories/>
+      <ignoreQualityGate>false</ignoreQualityGate>
+      <failOnError>false</failOnError>
+      <healthy>0</healthy>
+      <unhealthy>0</unhealthy>
+      <minimumSeverity plugin="analysis-model-api@10.21.0">
+        <name>LOW</name>
+      </minimumSeverity>
+      <filters/>
+      <isEnabledForFailure>false</isEnabledForFailure>
+      <isAggregatingResults>false</isAggregatingResults>
+      <quiet>false</quiet>
+      <isBlameDisabled>false</isBlameDisabled>
+      <skipPublishingChecks>false</skipPublishingChecks>
+      <publishAllIssues>false</publishAllIssues>
+      <qualityGates/>
+      <trendChartType>AGGREGATION_TOOLS</trendChartType>
+      <scm></scm>
+    </io.jenkins.plugins.analysis.core.steps.IssuesRecorder>
+  </publishers>
+  <buildWrappers/>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+  </executionStrategy>
+</matrix-project>

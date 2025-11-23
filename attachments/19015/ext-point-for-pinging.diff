@@ -1,0 +1,93 @@
+Index: main/core/src/main/java/hudson/model/ComputerPinger.java
+===================================================================
+--- main/core/src/main/java/hudson/model/ComputerPinger.java	(revision 0)
++++ main/core/src/main/java/hudson/model/ComputerPinger.java	(revision 0)
+@@ -0,0 +1,28 @@
++package hudson.model;
++
++import hudson.ExtensionList;
++import hudson.ExtensionPoint;
++
++import java.io.IOException;
++import java.net.InetAddress;
++
++/**
++ * A way to see if a computer is reachable.
++ */
++public abstract class ComputerPinger implements ExtensionPoint {
++
++  /**
++   * Is the specified address reachable?
++   * 
++   * @param ia The address to check.
++   * @param timeout Timeout in seconds.
++   */
++  public abstract boolean isReachable(InetAddress ia, int timeout) throws IOException;
++  
++  /**
++   * Get all registered instances.
++   */
++  public static ExtensionList<ComputerPinger> all() {
++    return Hudson.getInstance().getExtensionList(ComputerPinger.class);
++  }
++}
+Index: main/core/src/main/java/hudson/model/Computer.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Computer.java	(revision 25749)
++++ main/core/src/main/java/hudson/model/Computer.java	(working copy)
+@@ -24,6 +24,7 @@
+ package hudson.model;
+ 
+ import hudson.EnvVars;
++import hudson.Extension;
+ import hudson.Util;
+ import hudson.cli.declarative.CLIMethod;
+ import hudson.model.Descriptor.FormException;
+@@ -763,7 +764,7 @@
+                     LOGGER.fine(address+" is not an IPv4 address");
+                     continue;
+                 }
+-                if(!ia.isReachable(3000)) {
++                if(!isReachable(ia, 3)) {
+                     LOGGER.fine(address+" didn't respond to ping");
+                     continue;
+                 }
+@@ -822,6 +823,38 @@
+         }
+         private static final long serialVersionUID = 1L;
+     }
++    
++    /**
++     * Is this computer reachable via the given address?
++     * 
++     * @param ia The address to check.
++     * @param timeout Timeout in seconds.
++     */
++    private boolean isReachable(InetAddress ia, int timeout) throws IOException {
++      for (ComputerPinger pinger : ComputerPinger.all()) {
++        try {
++          if (pinger.isReachable(ia, timeout)) {
++            return true;
++          }
++        } catch (IOException e) {
++          LOGGER.fine("Error checking reachability with " + pinger + ": " + e.getMessage());
++        }
++      }
++      
++      return false;
++    }
++    
++    /**
++     * Default pinger - use Java built-in functionality.  This doesn't always work,
++     * a host may be reachable even if this returns false.
++     */
++    @Extension
++    public static class BuiltInComputerPinger extends ComputerPinger {
++      @Override
++      public boolean isReachable(InetAddress ia, int timeout) throws IOException {
++        return ia.isReachable(timeout * 1000);
++      }
++    }
+ 
+     public static final ExecutorService threadPoolForRemoting = Executors.newCachedThreadPool(new ExceptionCatchingThreadFactory(new DaemonThreadFactory()));
+ 

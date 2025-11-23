@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>...</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>tag_menor</name>
+          <description></description>
+          <defaultValue>5.2.RC20</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>tag_maior</name>
+          <description></description>
+          <defaultValue>5.2.RC21</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Instalar</name>
+          <description>Informa de este build será instalado (descompactado) na instância.</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>instancia</name>
+          <description></description>
+          <defaultValue>3</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <de.fspengler.hudson.plugin.LogActionProperty/>
+  </properties>
+  <scm class="hudson.scm.SubversionReleaseSCM">
+    <locations>
+      <hudson.scm.SubversionReleaseSCM_-ModuleLocation>
+        <remote>http://localhost:8888/svn/project/trunk</remote>
+        <local>SVN</local>
+      </hudson.scm.SubversionReleaseSCM_-ModuleLocation>
+    </locations>
+    <useUpdate>false</useUpdate>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <triggers class="vector"/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>/hudson/scripts/copiaScripts.sh</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Ant>
+      <targets></targets>
+      <antName>ANT 1.7.1</antName>
+      <antOpts>-Xms256m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=256m</antOpts>
+      <buildFile>gerarPatch.xml</buildFile>
+    </hudson.tasks.Ant>
+    <hudson.tasks.Shell>
+      <command>$WORKSPACE/runpc.sh</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>$WORKSPACE/instalarArtefato.sh tipobuild=patch</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>BUILD/*.zip</artifacts>
+      <latestOnly>false</latestOnly>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Fingerprinter>
+      <targets>BUILD/*.zip</targets>
+      <recordBuildArtifacts>false</recordBuildArtifacts>
+    </hudson.tasks.Fingerprinter>
+    <hudson.plugins.emailext.ExtendedEmailPublisher>
+      <recipientList>notificacoeshudson@domain.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>O projeto $PROJECT_NAME, foi  gerado.&#xd;
+Resumo:&#xd;
+    Projeto: $PROJECT_URL&#xd;
+    Geração atual: $BUILD_NUMBER&#xd;
+    Status desta geração: $BUILD_STATUS&#xd;
+    Acesso: $BUILD_URL&#xd;
+    Últimas mudanças no projeto: &#xd;
+$CHANGES_SINCE_LAST_SUCCESS&#xd;
+&#xd;
+Log de execução:&#xd;
+$BUILD_LOG&#xd;
+&#xd;
+---&#xd;
+Hudson &#xd;
+Sistema de Integração Contínua</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+        <hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+        <hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+      </configuredTriggers>
+      <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+      <defaultContent>O projeto $PROJECT_NAME, foi  gerado.&#xd;
+Resumo:&#xd;
+    Projeto: $PROJECT_URL&#xd;
+    Geração atual: $BUILD_NUMBER&#xd;
+    Status desta geração: $BUILD_STATUS&#xd;
+    Acesso: $BUILD_URL&#xd;
+    Últimas mudanças no projeto: &#xd;
+$CHANGES_SINCE_LAST_SUCCESS&#xd;
+&#xd;
+---&#xd;
+Hudson &#xd;
+Sistema de Integração Contínua</defaultContent>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+    <hudson.plugins.statusmonitor.MonitorPublisher/>
+  </publishers>
+  <buildWrappers/>
+  <customWorkspace>/hudson/workspaces/TRUNK-PATCH</customWorkspace>
+</project>

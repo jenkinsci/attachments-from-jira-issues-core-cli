@@ -1,0 +1,15 @@
+Index: core/src/main/java/hudson/tasks/ArtifactArchiver.java
+===================================================================
+--- core/src/main/java/hudson/tasks/ArtifactArchiver.java	(revision 16210)
++++ core/src/main/java/hudson/tasks/ArtifactArchiver.java	(working copy)
+@@ -177,9 +177,7 @@
+         }
+ 
+         public boolean isApplicable(Class<? extends AbstractProject> jobType) {
+-            // for Maven, this happens automatically.
+-            // TODO: we should still consider enabling this for additional controls?
+-            return !AbstractMavenProject.class.isAssignableFrom(jobType);
++            return true;
+         }
+     }
+ }

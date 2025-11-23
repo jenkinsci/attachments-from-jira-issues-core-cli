@@ -1,0 +1,101 @@
+diff --git a/core/src/main/java/hudson/Platform.java b/core/src/main/java/hudson/Platform.java
+index ccd1f2f..5408ea7 100644
+--- a/core/src/main/java/hudson/Platform.java
++++ b/core/src/main/java/hudson/Platform.java
+@@ -55,6 +55,10 @@
+         if(File.pathSeparatorChar==':') return UNIX;
+         return WINDOWS;
+     }
++    
++    public static boolean isWindows() {
++    	return current().equals(WINDOWS);
++    }
+ 
+     public static boolean isDarwin() {
+         // according to http://developer.apple.com/technotes/tn2002/tn2110.html
+diff --git a/core/src/main/java/hudson/tasks/junit/SuiteResult.java b/core/src/main/java/hudson/tasks/junit/SuiteResult.java
+index 0b484ce..cf0041f 100644
+--- a/core/src/main/java/hudson/tasks/junit/SuiteResult.java
++++ b/core/src/main/java/hudson/tasks/junit/SuiteResult.java
+@@ -23,15 +23,10 @@
+  */
+ package hudson.tasks.junit;
+ 
++import hudson.Platform;
+ import hudson.tasks.test.TestObject;
+ import hudson.util.IOException2;
+ import hudson.util.io.ParserConfigurator;
+-import org.dom4j.Document;
+-import org.dom4j.DocumentException;
+-import org.dom4j.Element;
+-import org.dom4j.io.SAXReader;
+-import org.kohsuke.stapler.export.Exported;
+-import org.kohsuke.stapler.export.ExportedBean;
+ 
+ import java.io.File;
+ import java.io.IOException;
+@@ -49,6 +44,14 @@
+ import java.util.Set;
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
++
++import org.apache.commons.io.FileUtils;
++import org.dom4j.Document;
++import org.dom4j.DocumentException;
++import org.dom4j.Element;
++import org.dom4j.io.SAXReader;
++import org.kohsuke.stapler.export.Exported;
++import org.kohsuke.stapler.export.ExportedBean;
+ 
+ /**
+  * Result of one test suite.
+@@ -208,18 +211,7 @@
+                 // look for ***-output.txt from TEST-***.xml
+                 File mavenOutputFile = new File(xmlReport.getParentFile(),m.group(1)+"-output.txt");
+                 if (mavenOutputFile.exists()) {
+-                    try {
+-                        RandomAccessFile raf = new RandomAccessFile(mavenOutputFile, "r");
+-                        try {
+-                            ByteBuffer bb = raf.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, mavenOutputFile.length());
+-                            CharBuffer cb = Charset.defaultCharset().decode(bb);
+-                            stdout = CaseResult.possiblyTrimStdio(cases, keepLongStdio, cb);
+-                        } finally {
+-                            raf.close();
+-                        }
+-                    } catch (IOException e) {
+-                        throw new IOException2("Failed to read "+mavenOutputFile,e);
+-                    }
++                    stdout = readStdoutFromFile(keepLongStdio, mavenOutputFile);
+                 }
+             }
+         }
+@@ -228,6 +220,29 @@
+         this.stderr = stderr;
+     }
+ 
++	private String readStdoutFromFile(boolean keepLongStdio, File mavenOutputFile) throws IOException2 {
++		final String result;
++		try {
++			if (!Platform.isWindows()) {
++				RandomAccessFile raf = new RandomAccessFile(mavenOutputFile, "r");
++				try {
++					ByteBuffer bb = raf.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, mavenOutputFile.length());
++					CharBuffer cb = Charset.defaultCharset().decode(bb);
++					result = CaseResult.possiblyTrimStdio(cases, keepLongStdio, cb);
++				} finally {
++					raf.close();
++				}
++			} else {
++				// "[...] Windows does not allow a mapped file to be deleted. [...]"
++				// see http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4715154
++				result = CaseResult.possiblyTrimStdio(cases, keepLongStdio, FileUtils.readFileToString(mavenOutputFile));
++			}
++		} catch (IOException e) {
++		    throw new IOException2("Failed to read " + mavenOutputFile, e);
++		}
++		return result;
++	}
++
+     /*package*/ void addCase(CaseResult cr) {
+         cases.add(cr);
+         casesByName().put(cr.getName(), cr);

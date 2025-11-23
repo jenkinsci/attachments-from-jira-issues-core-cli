@@ -1,0 +1,29 @@
+diff --git a/core/src/main/java/hudson/scheduler/CronTab.java b/core/src/main/java/hudson/scheduler/CronTab.java
+index 2cd3802..9cbe988 100644
+--- a/core/src/main/java/hudson/scheduler/CronTab.java
++++ b/core/src/main/java/hudson/scheduler/CronTab.java
+@@ -318,11 +318,20 @@ public final class CronTab {
+                     // since higher order field is affected by this, we need to restart from all over
+                     continue OUTER;
+                 } else {
+-                    f.setTo(cal,next);
+-                    f.addTo(cal,1);
+-                    CalendarField.MINUTE.addTo(cal,-1);
++                    // Calendar is Locale and can cause infinite loops here. HUDSON-8401
++                    if ((f == CalendarField.DAY_OF_WEEK) && (cal.getFirstDayOfWeek() + f.offset > next) && (cal.getFirstDayOfWeek() + f.offset <= cur)){
++                      // wrapping a week down..
++                      f.setTo(cal,next);
++                      CalendarField.MINUTE.addTo(cal,-1);
++                      f.addTo(cal,-6);
++                    }
++                    else {
++                      f.setTo(cal,next);
++                      f.addTo(cal,1);
++                      CalendarField.MINUTE.addTo(cal,-1);
++                    }
+                     if (f.redoAdjustmentIfModified)
+-                        continue OUTER; // when we modify DAY_OF_MONTH and DAY_OF_WEEK, do it all over from the top
++                      continue OUTER; // when we modify DAY_OF_MONTH and DAY_OF_WEEK, do it all over from the top
+                 }
+             }
+             return cal; // all fields adjusted

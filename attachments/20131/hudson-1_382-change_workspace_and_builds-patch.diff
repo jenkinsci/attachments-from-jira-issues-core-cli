@@ -1,0 +1,162 @@
+Index: core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- core/src/main/java/hudson/model/Hudson.java	(revision 36300)
++++ core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -30,6 +30,7 @@
+ import hudson.BulkChange;
+ import hudson.DNSMultiCast;
+ import hudson.DescriptorExtensionList;
++import hudson.EnvVars;
+ import hudson.Extension;
+ import hudson.ExtensionList;
+ import hudson.ExtensionListView;
+@@ -172,6 +173,9 @@
+ import org.xml.sax.InputSource;
+ 
+ import javax.crypto.SecretKey;
++import javax.naming.Context;
++import javax.naming.InitialContext;
++import javax.naming.NamingException;
+ import javax.servlet.RequestDispatcher;
+ import javax.servlet.ServletContext;
+ import javax.servlet.ServletException;
+@@ -1076,6 +1080,8 @@
+ 
+     private final transient Object updateComputerLock = new Object();
+ 
++	private String configuredWorkspaceRoot = null;
++
+     /**
+      * Updates {@link #computers} by using {@link #getSlaves()}.
+      *
+@@ -1750,10 +1756,59 @@
+         return root;
+     }
+ 
++//    public FilePath getWorkspaceFor(TopLevelItem item) {
++//        return new FilePath(new File(item.getRootDir(), WORKSPACE_DIRNAME));
++//    }
++
++    private String getConfiguredWorkspaceRoot() {
++    	if (configuredWorkspaceRoot == null) {
++            try {
++                InitialContext iniCtxt = new InitialContext();
++                Context env = (Context) iniCtxt.lookup("java:comp/env");
++                String value = (String) env.lookup("HUDSON_WORKSPACES");
++                if(value!=null && value.trim().length()>0) {
++                	configuredWorkspaceRoot = value.trim();
++                	return configuredWorkspaceRoot;
++                }
++                // look at one more place. See issue #1314 
++                value = (String) iniCtxt.lookup("HUDSON_WORKSPACES");
++                if(value!=null && value.trim().length()>0) {
++                	configuredWorkspaceRoot = value.trim();
++                	return configuredWorkspaceRoot;
++                }
++            } catch (NamingException e) {
++                // ignore
++            }
++
++            // finally check the system property
++            String sysProp = System.getProperty("HUDSON_WORKSPACES");
++            if(sysProp!=null) {
++            	configuredWorkspaceRoot = sysProp.trim();
++            	return configuredWorkspaceRoot;
++            }
++            
++            // look at the env var next
++            String env = EnvVars.masterEnvVars.get("HUDSON_WORKSPACES");
++            if(env!=null) {
++            	configuredWorkspaceRoot = env.trim();
++            	return configuredWorkspaceRoot;
++            }
++            
++            //not set
++            configuredWorkspaceRoot = "";
++    	}
++    	return configuredWorkspaceRoot;
++    }
++    
+     public FilePath getWorkspaceFor(TopLevelItem item) {
+-        return new FilePath(new File(item.getRootDir(), WORKSPACE_DIRNAME));
++        if (getConfiguredWorkspaceRoot().equals("")) {
++        	return new FilePath(new File(item.getRootDir(), WORKSPACE_DIRNAME));
++        } else {
++        	return new FilePath(new File(getConfiguredWorkspaceRoot() + "/" + item.getName(), WORKSPACE_DIRNAME));
++        }
+     }
+-
++   
++    
+     public FilePath getRootPath() {
+         return new FilePath(getRootDir());
+     }
+Index: core/src/main/java/hudson/model/Job.java
+===================================================================
+--- core/src/main/java/hudson/model/Job.java	(revision 36300)
++++ core/src/main/java/hudson/model/Job.java	(working copy)
+@@ -27,6 +27,8 @@
+ import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
+ 
+ import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
++
++import hudson.EnvVars;
+ import hudson.ExtensionPoint;
+ import hudson.Util;
+ import hudson.XmlFile;
+@@ -75,6 +77,9 @@
+ import java.util.SortedMap;
+ import java.util.LinkedList;
+ 
++import javax.naming.Context;
++import javax.naming.InitialContext;
++import javax.naming.NamingException;
+ import javax.servlet.ServletException;
+ import javax.xml.transform.Transformer;
+ import javax.xml.transform.TransformerException;
+@@ -620,11 +625,44 @@
+      * directory for consistency.
+      * 
+      * @see RunMap
++     *	
++     * Determines the builds directory for Hudson.
++     *
++     * People makes configuration mistakes, so we are trying to be nice
++     * with those by doing {@link String#trim()}.
+      */
+     protected File getBuildDir() {
++        // check JNDI for the home directory first
++        try {
++            InitialContext iniCtxt = new InitialContext();
++            Context env = (Context) iniCtxt.lookup("java:comp/env");
++            String value = (String) env.lookup("HUDSON_BUILDS");
++            if(value!=null && value.trim().length()>0)
++                return new File(value.trim());
++            // look at one more place. See issue #1314 
++            value = (String) iniCtxt.lookup("HUDSON_BUILDS");
++            if(value!=null && value.trim().length()>0)
++                return new File(value.trim() + "/" + getSearchName());
++        } catch (NamingException e) {
++            // ignore
++        }
++
++        // finally check the system property
++        String sysProp = System.getProperty("HUDSON_BUILDS");
++        if(sysProp!=null)
++            return new File(sysProp.trim() + "/" + getSearchName());
++        
++        // look at the env var next
++        String env = EnvVars.masterEnvVars.get("HUDSON_BUILDS");
++        if(env!=null)
++            return new File(env.trim() + "/" + getSearchName()).getAbsoluteFile();
++
++        // otherwise, use default
+         return new File(getRootDir(), "builds");
++        
+     }
+-
++    
++    
+     /**
+      * Gets all the runs.
+      * 

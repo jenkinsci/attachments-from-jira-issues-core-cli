@@ -1,0 +1,36 @@
+Index: src/main/java/hudson/EnvVars.java
+===================================================================
+--- src/main/java/hudson/EnvVars.java	(revision 31286)
++++ src/main/java/hudson/EnvVars.java	(working copy)
+@@ -151,10 +151,13 @@
+     /**
+      * Resolves environment variables against each other.
+      */
+-	public static void resolve(Map<String, String> env) {
+-		for (Map.Entry<String,String> entry: env.entrySet()) {
+-			entry.setValue(Util.replaceMacro(entry.getValue(), env));
++	public static EnvVars resolve(Map<String, String> env) {
++		EnvVars resolvedEnv = new EnvVars(env);
++		for (Map.Entry<String,String> entry: resolvedEnv.entrySet()) {
++			entry.setValue(Util.replaceMacro(entry.getValue(), resolvedEnv));
+ 		}
++		
++		return resolvedEnv;
+ 	}
+ 
+     @Override
+Index: src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+--- src/main/java/hudson/model/AbstractBuild.java	(revision 31286)
++++ src/main/java/hudson/model/AbstractBuild.java	(working copy)
+@@ -705,9 +705,7 @@
+         for (EnvironmentContributingAction a : Util.filter(getActions(),EnvironmentContributingAction.class))
+             a.buildEnvVars(this,env);
+ 
+-        EnvVars.resolve(env);
+-
+-        return env;
++        return EnvVars.resolve(env);
+     }
+ 
+     public Calendar due() {

@@ -1,0 +1,902 @@
+Thread Dump
+
+Channel reader thread: Channel to Maven [/usr/local/jdk1.6.0_21-32/bin/java, -client, -Xshare:auto, -Xms512M, -Xmx1G, -XX:MaxPermSize=256M, -Djava.net.preferIPv4Stack=true, -Dcom.sun.media.jai.disableMediaLib=true, -cp, /home/hudson/hudson-slaves/data/slave2/maven-agent.jar:/home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x/boot/classworlds-1.1.jar, hudson.maven.agent.Main, /home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x, /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar, /home/hudson/hudson-slaves/data/slave2/maven-interceptor.jar, 50463, /home/hudson/hudson-slaves/data/slave2/maven2.1-interceptor.jar] / waiting for hudson.remoting.Channel@15669c8:Slave 2
+
+"Channel reader thread: Channel to Maven [/usr/local/jdk1.6.0_21-32/bin/java, -client, -Xshare:auto, -Xms512M, -Xmx1G, -XX:MaxPermSize=256M, -Djava.net.preferIPv4Stack=true, -Dcom.sun.media.jai.disableMediaLib=true, -cp, /home/hudson/hudson-slaves/data/slave2/maven-agent.jar:/home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x/boot/classworlds-1.1.jar, hudson.maven.agent.Main, /home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x, /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar, /home/hudson/hudson-slaves/data/slave2/maven-interceptor.jar, 50463, /home/hudson/hudson-slaves/data/slave2/maven2.1-interceptor.jar] / waiting for hudson.remoting.Channel@15669c8:Slave 2" Id=29185 Group=main TIMED_WAITING on hudson.remoting.ProxyInputStream$Chunk@1a4a553
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.remoting.ProxyInputStream$Chunk@1a4a553
+	at hudson.remoting.Request.call(Request.java:122)
+	at hudson.remoting.ProxyInputStream.read(ProxyInputStream.java:76)
+	at hudson.remoting.RemoteInputStream.read(RemoteInputStream.java:76)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:256)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@128a425
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	-  locked java.io.BufferedInputStream@1308503
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+Channel reader thread: Channel to Maven [/usr/local/jdk1.6.0_21-32/bin/java, -client, -Xshare:auto, -Xms512M, -Xmx1G, -XX:MaxPermSize=256M, -Djava.net.preferIPv4Stack=true, -Dcom.sun.media.jai.disableMediaLib=true, -cp, /home/hudson/hudson-slaves/data/slave2/maven-agent.jar:/home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x/boot/classworlds-1.1.jar, hudson.maven.agent.Main, /home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x, /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar, /home/hudson/hudson-slaves/data/slave2/maven-interceptor.jar, 54471, /home/hudson/hudson-slaves/data/slave2/maven2.1-interceptor.jar]
+
+"Channel reader thread: Channel to Maven [/usr/local/jdk1.6.0_21-32/bin/java, -client, -Xshare:auto, -Xms512M, -Xmx1G, -XX:MaxPermSize=256M, -Djava.net.preferIPv4Stack=true, -Dcom.sun.media.jai.disableMediaLib=true, -cp, /home/hudson/hudson-slaves/data/slave2/maven-agent.jar:/home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x/boot/classworlds-1.1.jar, hudson.maven.agent.Main, /home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x, /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar, /home/hudson/hudson-slaves/data/slave2/maven-interceptor.jar, 54471, /home/hudson/hudson-slaves/data/slave2/maven2.1-interceptor.jar]" Id=16774 Group=main BLOCKED on hudson.slaves.Channels$1@12e1949 owned by "Executor #0 for Slave 2 : executing ecms-trunk-ci #943" Id=52
+	at hudson.slaves.Channels$1.close(Channels.java:91)
+	-  blocked on hudson.slaves.Channels$1@12e1949
+	at hudson.remoting.Channel$CloseCommand.execute(Channel.java:690)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:890)
+
+Channel reader thread: Slave 1
+
+"Channel reader thread: Slave 1" Id=6464 Group=main RUNNABLE (in native)
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	-  locked java.io.BufferedInputStream@1455d49
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+Channel reader thread: Slave 2
+
+"Channel reader thread: Slave 2" Id=6466 Group=main RUNNABLE (in native)
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	-  locked java.io.BufferedInputStream@1b4be7a
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+com.google.common.base.internal.Finalizer
+
+"com.google.common.base.internal.Finalizer" Id=30 Group=main WAITING on java.lang.ref.ReferenceQueue$Lock@1b00cc4
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@1b00cc4
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at com.google.common.base.internal.Finalizer.run(Finalizer.java:127)
+
+ContainerBackgroundProcessor[StandardEngine[Catalina]]
+
+"ContainerBackgroundProcessor[StandardEngine[Catalina]]" Id=22 Group=main TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1579)
+	at java.lang.Thread.run(Thread.java:619)
+
+Executor #0 for Slave 1 : executing social-1.1.x-pkg #42
+
+"Executor #0 for Slave 1 : executing social-1.1.x-pkg #42" Id=55 Group=main RUNNABLE
+	at java.lang.String.intern(Native Method)
+	at hudson.maven.ModuleDependency.(ModuleDependency.java:47)
+	at hudson.maven.ModuleDependency.withUnknownVersion(ModuleDependency.java:85)
+	at hudson.maven.MavenModule.buildDependencyGraph(MavenModule.java:385)
+	at hudson.model.DependencyGraph.(DependencyGraph.java:100)
+	at hudson.model.Hudson.rebuildDependencyGraph(Hudson.java:3348)
+	at hudson.maven.MavenModuleSetBuild$RunnerImpl.parsePoms(MavenModuleSetBuild.java:568)
+	at hudson.maven.MavenModuleSetBuild$RunnerImpl.doRun(MavenModuleSetBuild.java:405)
+	at hudson.model.AbstractBuild$AbstractRunner.run(AbstractBuild.java:416)
+	at hudson.model.Run.run(Run.java:1273)
+	at hudson.maven.MavenModuleSetBuild.run(MavenModuleSetBuild.java:291)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:137)
+
+Executor #0 for Slave 2 : executing ecms-trunk-ci #943
+
+"Executor #0 for Slave 2 : executing ecms-trunk-ci #943" Id=52 Group=main WAITING on hudson.remoting.UserRequest@17813d4
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.remoting.UserRequest@17813d4
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.remoting.Request$1.get(Request.java:206)
+	at hudson.remoting.Request$1.get(Request.java:172)
+	at hudson.remoting.FutureAdapter.get(FutureAdapter.java:55)
+	at hudson.Proc$RemoteProc.join(Proc.java:347)
+	at hudson.slaves.Channels$1.close(Channels.java:94)
+	-  locked hudson.slaves.Channels$1@12e1949
+	at hudson.maven.ProcessCache$MavenProcess.discard(ProcessCache.java:145)
+	at hudson.maven.MavenModuleSetBuild$RunnerImpl.doRun(MavenModuleSetBuild.java:472)
+	at hudson.model.AbstractBuild$AbstractRunner.run(AbstractBuild.java:416)
+	at hudson.model.Run.run(Run.java:1273)
+	at hudson.maven.MavenModuleSetBuild.run(MavenModuleSetBuild.java:291)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:137)
+
+Executor #1 for Slave 2 : executing ks-trunk-pkg #200 / waiting for hudson.slaves.Channels$1@52010f:Channel to Maven [/usr/local/jdk1.6.0_21-32/bin/java, -client, -Xshare:auto, -Xms512M, -Xmx1G, -XX:MaxPermSize=256M, -Djava.net.preferIPv4Stack=true, -Dcom.sun.media.jai.disableMediaLib=true, -cp, /home/hudson/hudson-slaves/data/slave2/maven-agent.jar:/home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x/boot/classworlds-1.1.jar, hudson.maven.agent.Main, /home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x, /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar, /home/hudson/hudson-slaves/data/slave2/maven-interceptor.jar, 50463, /home/hudson/hudson-slaves/data/slave2/maven2.1-interceptor.jar]
+
+"Executor #1 for Slave 2 : executing ks-trunk-pkg #200 / waiting for hudson.slaves.Channels$1@52010f:Channel to Maven [/usr/local/jdk1.6.0_21-32/bin/java, -client, -Xshare:auto, -Xms512M, -Xmx1G, -XX:MaxPermSize=256M, -Djava.net.preferIPv4Stack=true, -Dcom.sun.media.jai.disableMediaLib=true, -cp, /home/hudson/hudson-slaves/data/slave2/maven-agent.jar:/home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x/boot/classworlds-1.1.jar, hudson.maven.agent.Main, /home/hudson/hudson-slaves/data/slave2/tools/maven-2.2.x, /mnt/home/hudson/apache-tomcat-6.0.29/webapps/hudson/WEB-INF/slave.jar, /home/hudson/hudson-slaves/data/slave2/maven-interceptor.jar, 50463, /home/hudson/hudson-slaves/data/slave2/maven2.1-interceptor.jar]" Id=53 Group=main TIMED_WAITING on hudson.remoting.UserRequest@1ab3a85
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.remoting.UserRequest@1ab3a85
+	at hudson.remoting.Request.call(Request.java:122)
+	at hudson.remoting.Channel.call(Channel.java:557)
+	at hudson.maven.ProcessCache$MavenProcess.call(ProcessCache.java:156)
+	at hudson.maven.MavenModuleSetBuild$RunnerImpl.doRun(MavenModuleSetBuild.java:468)
+	at hudson.model.AbstractBuild$AbstractRunner.run(AbstractBuild.java:416)
+	at hudson.model.Run.run(Run.java:1273)
+	at hudson.maven.MavenModuleSetBuild.run(MavenModuleSetBuild.java:291)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:137)
+
+Handling GET /hudson/threadDump : TP-Processor3
+
+"Handling GET /hudson/threadDump : TP-Processor3" Id=25 Group=main RUNNABLE
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:374)
+	at hudson.Functions.getThreadInfos(Functions.java:775)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.commons.jexl.util.introspection.UberspectImpl$VelMethodImpl.invoke(UberspectImpl.java:258)
+	at org.apache.commons.jexl.parser.ASTMethod.execute(ASTMethod.java:104)
+	at org.apache.commons.jexl.parser.ASTReference.execute(ASTReference.java:83)
+	at org.apache.commons.jexl.parser.ASTReference.value(ASTReference.java:57)
+	at org.apache.commons.jexl.parser.ASTReferenceExpression.value(ASTReferenceExpression.java:51)
+	at org.apache.commons.jexl.ExpressionImpl.evaluate(ExpressionImpl.java:80)
+	at hudson.ExpressionFactory2$JexlExpression.evaluate(ExpressionFactory2.java:72)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$3.run(CoreTagLibrary.java:134)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.TagSupport.invokeBody(TagSupport.java:161)
+	at org.apache.commons.jelly.tags.core.WhenTag.doTag(WhenTag.java:46)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:270)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.TagSupport.invokeBody(TagSupport.java:161)
+	at org.apache.commons.jelly.tags.core.ChooseTag.doTag(ChooseTag.java:38)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:270)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.CallTagLibScript$1.run(CallTagLibScript.java:75)
+	at org.apache.commons.jelly.tags.define.InvokeBodyTag.doTag(InvokeBodyTag.java:91)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:270)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$1.run(CoreTagLibrary.java:98)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:96)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.CallTagLibScript$1.run(CallTagLibScript.java:75)
+	at org.apache.commons.jelly.tags.define.InvokeBodyTag.doTag(InvokeBodyTag.java:91)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:270)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:76)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:76)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:76)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:76)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:76)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:96)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:40)
+	at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:30)
+	at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:59)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:534)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:450)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:132)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:94)
+	at hudson.plugins.greenballs.GreenBallFilter.doFilter(GreenBallFilter.java:51)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:97)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:86)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:85)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.UnwrapSecurityExceptionFilter.doFilter(UnwrapSecurityExceptionFilter.java:51)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:166)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.doFilter(AnonymousProcessingFilter.java:125)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.BasicAuthenticationFilter.doFilter(BasicAuthenticationFilter.java:110)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:470)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.jk.server.JkCoyoteHandler.invoke(JkCoyoteHandler.java:190)
+	at org.apache.jk.common.HandlerRequest.invoke(HandlerRequest.java:291)
+	at org.apache.jk.common.ChannelSocket.invoke(ChannelSocket.java:774)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:703)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+Hudson cron thread
+
+"Hudson cron thread" Id=13 Group=main TIMED_WAITING on java.util.TaskQueue@60ace9
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.TaskQueue@60ace9
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	at java.util.TimerThread.run(Timer.java:462)
+
+Hudson UDP 33848 monitoring thread
+
+"Hudson UDP 33848 monitoring thread" Id=48 Group=main RUNNABLE (in native)
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	-  locked java.net.PlainDatagramSocketImpl@1f71d57
+	at java.net.PlainDatagramSocketImpl.receive(PlainDatagramSocketImpl.java:136)
+	-  locked java.net.PlainDatagramSocketImpl@1f71d57
+	at java.net.DatagramSocket.receive(DatagramSocket.java:725)
+	-  locked java.net.DatagramPacket@1afa017
+	-  locked java.net.MulticastSocket@1375120
+	at hudson.UDPBroadcastThread.run(UDPBroadcastThread.java:70)
+
+JmDNS.cancelerTimer
+
+"JmDNS.cancelerTimer" Id=49 Group=main WAITING on java.util.TaskQueue@4f825a
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.TaskQueue@4f825a
+	at java.lang.Object.wait(Object.java:485)
+	at java.util.TimerThread.mainLoop(Timer.java:483)
+	at java.util.TimerThread.run(Timer.java:462)
+
+JmDNS.SocketListener
+
+"JmDNS.SocketListener" Id=51 Group=main RUNNABLE (in native)
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	-  locked java.net.PlainDatagramSocketImpl@e0ceca
+	at java.net.PlainDatagramSocketImpl.receive(PlainDatagramSocketImpl.java:136)
+	-  locked java.net.PlainDatagramSocketImpl@e0ceca
+	at java.net.DatagramSocket.receive(DatagramSocket.java:725)
+	-  locked java.net.DatagramPacket@400d07
+	-  locked java.net.MulticastSocket@1177b02
+	at javax.jmdns.impl.SocketListener.run(SocketListener.java:44)
+	at java.lang.Thread.run(Thread.java:619)
+
+JmDNS.Timer
+
+"JmDNS.Timer" Id=50 Group=main TIMED_WAITING on java.util.TaskQueue@8cfd63
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.TaskQueue@8cfd63
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	at java.util.TimerThread.run(Timer.java:462)
+
+main
+
+"main" Id=1 Group=main RUNNABLE (in native)
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+	-  locked java.net.SocksSocketImpl@191c8eb
+	at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at org.apache.catalina.core.StandardServer.await(StandardServer.java:389)
+	at org.apache.catalina.startup.Catalina.await(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:614)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:289)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:414)
+
+pool-5-thread-1
+
+"pool-5-thread-1" Id=73 Group=main WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+pool-5-thread-2
+
+"pool-5-thread-2" Id=74 Group=main WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+pool-5-thread-3
+
+"pool-5-thread-3" Id=75 Group=main WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+pool-5-thread-4
+
+"pool-5-thread-4" Id=76 Group=main WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@1852c0
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+process reaper
+
+"process reaper" Id=6461 Group=main RUNNABLE (in native)
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+process reaper
+
+"process reaper" Id=6460 Group=main RUNNABLE (in native)
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+Project disk usage thread / waiting for hudson.remoting.Channel@1c0bd29:Slave 1
+
+"Project disk usage thread / waiting for hudson.remoting.Channel@1c0bd29:Slave 1" Id=26131 Group=main TIMED_WAITING on hudson.remoting.UserRequest@1f55295
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.remoting.UserRequest@1f55295
+	at hudson.remoting.Request.call(Request.java:122)
+	at hudson.remoting.Channel.call(Channel.java:557)
+	at hudson.FilePath.act(FilePath.java:778)
+	at hudson.plugins.disk_usage.DiskUsageThread.calculateWorkspaceDiskUsage(DiskUsageThread.java:127)
+	at hudson.plugins.disk_usage.DiskUsageThread.execute(DiskUsageThread.java:78)
+	at hudson.model.AsyncPeriodicWork$1.run(AsyncPeriodicWork.java:51)
+	at java.lang.Thread.run(Thread.java:619)
+
+stderr copier for remote agent on Slave 1
+
+"stderr copier for remote agent on Slave 1" Id=6462 Group=main RUNNABLE (in native)
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+stderr copier for remote agent on Slave 2
+
+"stderr copier for remote agent on Slave 2" Id=6463 Group=main RUNNABLE (in native)
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+TCP slave agent listener port=9001
+
+"TCP slave agent listener port=9001" Id=47 Group=main RUNNABLE (in native)
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+	-  locked java.net.SocksSocketImpl@af2b45
+	at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at hudson.TcpSlaveAgentListener.run(TcpSlaveAgentListener.java:118)
+
+Thread-10
+
+"Thread-10" Id=29 Group=main TIMED_WAITING on java.util.LinkedHashSet@1161fe7
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.LinkedHashSet@1161fe7
+	at hudson.model.ViewJob$ReloadThread.getNext(ViewJob.java:159)
+	at hudson.model.ViewJob$ReloadThread.run(ViewJob.java:176)
+
+Thread-24563
+
+"Thread-24563" Id=25545 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@cfe8ad
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-24564
+
+"Thread-24564" Id=25546 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@1c9c73a
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-26887
+
+"Thread-26887" Id=27985 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@145fd51
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-27746
+
+"Thread-27746" Id=28886 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@1a95e50
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-27747
+
+"Thread-27747" Id=28887 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@73dd0d
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-27748
+
+"Thread-27748" Id=28888 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@a71366
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-27749
+
+"Thread-27749" Id=28889 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@a00eac
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-27750
+
+"Thread-27750" Id=28890 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@126ee58
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-27751
+
+"Thread-27751" Id=28891 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@16563c0
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-27752
+
+"Thread-27752" Id=28892 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@1aeb5d9
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-28328
+
+"Thread-28328" Id=29483 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@17dedd
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-28329
+
+"Thread-28329" Id=29484 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@305708
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+Thread-6279
+
+"Thread-6279" Id=6457 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@10b4568
+	at com.sun.jndi.ldap.Connection.run(Connection.java:808)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Monitor
+
+"TP-Monitor" Id=27 Group=main TIMED_WAITING on org.apache.tomcat.util.threads.ThreadPool$MonitorRunnable@188afab
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$MonitorRunnable@188afab
+	at org.apache.tomcat.util.threads.ThreadPool$MonitorRunnable.run(ThreadPool.java:565)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor1
+
+"TP-Processor1" Id=23 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@1f69e2
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor10
+
+"TP-Processor10" Id=36 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@209d1
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor11
+
+"TP-Processor11" Id=37 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@172efbe
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor12
+
+"TP-Processor12" Id=38 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@13d268a
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@13d268a
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor13
+
+"TP-Processor13" Id=39 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@9fc4fa
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor14
+
+"TP-Processor14" Id=40 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@1eb5200
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@1eb5200
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor15
+
+"TP-Processor15" Id=41 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@2d7347
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@2d7347
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor16
+
+"TP-Processor16" Id=42 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@7401f8
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@7401f8
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor17
+
+"TP-Processor17" Id=43 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@d23c49
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@d23c49
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor18
+
+"TP-Processor18" Id=44 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@94760c
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor19
+
+"TP-Processor19" Id=45 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@41fdf0
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@41fdf0
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor2
+
+"TP-Processor2" Id=24 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@306c5b
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor20
+
+"TP-Processor20" Id=46 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@1b8aeb2
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor21
+
+"TP-Processor21" Id=6453 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@1e96d91
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@1e96d91
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor22
+
+"TP-Processor22" Id=6454 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@1b6854c
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor23
+
+"TP-Processor23" Id=6455 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@1a1b640
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor24
+
+"TP-Processor24" Id=6456 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@4d7a89
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor4
+
+"TP-Processor4" Id=26 Group=main RUNNABLE (in native)
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+	-  locked java.net.SocksSocketImpl@c50e98
+	at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at org.apache.jk.common.ChannelSocket.accept(ChannelSocket.java:312)
+	at org.apache.jk.common.ChannelSocket.acceptConnections(ChannelSocket.java:666)
+	at org.apache.jk.common.ChannelSocket$SocketAcceptor.runIt(ChannelSocket.java:877)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor5
+
+"TP-Processor5" Id=31 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@57651f
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor6
+
+"TP-Processor6" Id=32 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@204001
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@204001
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor7
+
+"TP-Processor7" Id=33 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@7c2bcf
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@7c2bcf
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor8
+
+"TP-Processor8" Id=34 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	-  locked java.io.BufferedInputStream@3e2725
+	at org.apache.jk.common.ChannelSocket.read(ChannelSocket.java:626)
+	at org.apache.jk.common.ChannelSocket.receive(ChannelSocket.java:564)
+	at org.apache.jk.common.ChannelSocket.processConnection(ChannelSocket.java:691)
+	at org.apache.jk.common.ChannelSocket$SocketConnection.runIt(ChannelSocket.java:896)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+TP-Processor9
+
+"TP-Processor9" Id=35 Group=main WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@1d2795e
+	at java.lang.Object.wait(Native Method)
+	-  waiting on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@1d2795e
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+	at java.lang.Thread.run(Thread.java:619)
+
+Finalizer
+
+"Finalizer" Id=3 Group=system BLOCKED on hudson.slaves.Channels$1@12e1949 owned by "Executor #0 for Slave 2 : executing ecms-trunk-ci #943" Id=52
+	at hudson.remoting.Channel.send(Channel.java:413)
+	-  blocked on hudson.slaves.Channels$1@12e1949
+	at hudson.remoting.RemoteInvocationHandler.finalize(RemoteInvocationHandler.java:197)
+	at java.lang.ref.Finalizer.invokeFinalizeMethod(Native Method)
+	at java.lang.ref.Finalizer.runFinalizer(Finalizer.java:83)
+	at java.lang.ref.Finalizer.access$100(Finalizer.java:14)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:160)
+
+GC Daemon
+
+"GC Daemon" Id=9 Group=system TIMED_WAITING on sun.misc.GC$LatencyLock@1882d9a
+	at java.lang.Object.wait(Native Method)
+	-  waiting on sun.misc.GC$LatencyLock@1882d9a
+	at sun.misc.GC$Daemon.run(GC.java:100)
+
+Java2D Disposer
+
+"Java2D Disposer" Id=11 Group=system WAITING on java.lang.ref.ReferenceQueue$Lock@f81e38
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@f81e38
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at sun.java2d.Disposer.run(Disposer.java:127)
+	at java.lang.Thread.run(Thread.java:619)
+
+Reference Handler
+
+"Reference Handler" Id=2 Group=system WAITING on java.lang.ref.Reference$Lock@169f5f1
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.Reference$Lock@169f5f1
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+
+Signal Dispatcher
+
+"Signal Dispatcher" Id=4 Group=system RUNNABLE
+

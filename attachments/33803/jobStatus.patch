@@ -1,0 +1,26 @@
+diff --git a/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly b/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly
+index 215cb4d..f77f905 100644
+--- a/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly
++++ b/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly
+@@ -28,8 +28,7 @@ THE SOFTWARE.
+ <?jelly escape-by-default='true'?>
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:i="jelly:fmt">
+   <j:set var="build" value="${pageEntry.entry}" />
+-  <j:set var="firstTransientBuildKey" value="${it.widget.firstTransientBuildKey}" />
+-  <j:set var="transitive" value="${(firstTransientBuildKey!=null and (it.widget.adapter.compare(build,firstTransientBuildKey) ge 0)) ? 'transitive' : null}" />
++  <j:set var="transitive" value="${build.building ? 'transitive' : null}" />
+   <j:set var="link" value="${it.widget.baseUrl}/${build.number}/" />
+   <tr class="build-row ${transitive} single-line" page-entry-id="${pageEntry.entryId}">
+     <td class="build-row-cell">
+diff --git a/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly b/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly
+index fbb461b..12f8978 100644
+--- a/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly
++++ b/core/src/main/resources/hudson/widgets/HistoryWidget/index.jelly
+@@ -119,6 +119,6 @@ THE SOFTWARE.
+   </l:pane>
+   </div>
+   <script defer="true">
+-      updateBuildHistory("${it.baseUrl}/buildHistory/ajax",${it.owner.nextBuildNumber});
++    updateBuildHistory("${it.baseUrl}/buildHistory/ajax", ${it.nextBuildNumberToFetch});
+   </script>
+ </j:jelly>

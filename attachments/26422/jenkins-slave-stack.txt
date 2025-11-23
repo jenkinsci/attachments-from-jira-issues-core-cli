@@ -1,0 +1,96 @@
+2014-07-22 15:52:24
+Full thread dump OpenJDK 64-Bit Zero VM (20.0-b12 interpreted mode):
+
+"Attach Listener" daemon prio=10 tid=0x00000fff64000a30 nid=0x5b53 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"pool-1-thread-17" prio=10 tid=0x00000fff54002b80 nid=0x5b16 waiting on condition [0x00000fff7c2ed000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000fff88d0c298> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:226)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:453)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:352)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1043)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1103)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:679)
+
+"pool-1-thread-16" prio=10 tid=0x00000fff5400a4e0 nid=0x5b15 waiting on condition [0x00000fff7cddd000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000fff88d0c298> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:226)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:453)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:352)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1043)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1103)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:679)
+
+"Ping thread for channel hudson.remoting.Channel@5430d082:channel" daemon prio=10 tid=0x00000fff4c0419a0 nid=0x5ae6 waiting on condition [0x00000fff7cacd000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+"Ping thread for channel hudson.remoting.Channel@5430d082:channel" daemon prio=10 tid=0x00000fffa40fdaf0 nid=0x5ae4 waiting on condition [0x00000fff7cfdd000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+"Channel reader thread: channel" prio=10 tid=0x00000fffa40fedd0 nid=0x5ae3 runnable [0x00000fff7d1dd000]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:236)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:235)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:254)
+	- locked <0x00000fff88ba9f98> (a java.io.BufferedInputStream)
+	at hudson.remoting.FlightRecorderInputStream.read(FlightRecorderInputStream.java:82)
+	at hudson.remoting.ChunkedInputStream.readHeader(ChunkedInputStream.java:67)
+	at hudson.remoting.ChunkedInputStream.readUntilBreak(ChunkedInputStream.java:93)
+	at hudson.remoting.ChunkedCommandTransport.readBlock(ChunkedCommandTransport.java:33)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+"Low Memory Detector" daemon prio=10 tid=0x00000fffa408ae40 nid=0x5ae1 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=10 tid=0x00000fffa407cf00 nid=0x5ae0 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=10 tid=0x00000fffa406b9f0 nid=0x5adf in Object.wait() [0x00000fff7d9dd000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000fff88baa1d8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:133)
+	- locked <0x00000fff88baa1d8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:149)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:177)
+
+"Reference Handler" daemon prio=10 tid=0x00000fffa406a160 nid=0x5ade in Object.wait() [0x00000fff7dbdd000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000fff88ba7e90> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:133)
+	- locked <0x00000fff88ba7e90> (a java.lang.ref.Reference$Lock)
+
+"main" prio=10 tid=0x00000fffa4005700 nid=0x5adc in Object.wait() [0x00000fffa858d000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000fff88d0c088> (a hudson.remoting.Channel)
+	at hudson.remoting.Channel.join(Channel.java:874)
+	- locked <0x00000fff88d0c088> (a hudson.remoting.Channel)
+	at hudson.remoting.Launcher.main(Launcher.java:525)
+	at hudson.remoting.Launcher.runWithStdinStdout(Launcher.java:457)
+	at hudson.remoting.Launcher.run(Launcher.java:238)
+	at hudson.remoting.Launcher.main(Launcher.java:192)
+
+"VM Thread" prio=10 tid=0x00000fffa4063700 nid=0x5add runnable 
+
+"VM Periodic Task Thread" prio=10 tid=0x00000fffa408d260 nid=0x5ae2 waiting on condition 
+
+JNI global references: 82
+

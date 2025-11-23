@@ -1,0 +1,98 @@
+Index: core/src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/model/AbstractBuild.java,v
+retrieving revision 1.37
+diff -u -w -r1.37 AbstractBuild.java
+--- core/src/main/java/hudson/model/AbstractBuild.java	30 Sep 2007 22:49:03 -0000	1.37
++++ core/src/main/java/hudson/model/AbstractBuild.java	17 Oct 2007 22:18:01 -0000
+@@ -267,6 +267,23 @@
+         return changeSet;
+     }
+ 
++    @Exported
++    public List<ChangeLogSet<? extends Entry>> getChangeSets() {
++    	List<ChangeLogSet<? extends Entry>> res = new ArrayList<ChangeLogSet<? extends Entry>>();
++    	
++    	AbstractBuild<?, ?> r = this;
++    	do {
++    		ChangeLogSet<? extends Entry> cs = r.getChangeSet();
++    		if (!cs.isEmptySet()) {
++    			res.add(cs);
++    		}
++    		r = r.getPreviousBuild();
++    	} while (r != null && r.getResult().isWorseThan(Result.SUCCESS));
++    	
++    	
++    	return res;
++    }
++
+     /**
+      * Returns true if the changelog is already computed.
+      */
+Index: core/src/main/resources/hudson/model/AbstractBuild/index.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/model/AbstractBuild/index.jelly,v
+retrieving revision 1.11
+diff -u -w -r1.11 index.jelly
+--- core/src/main/resources/hudson/model/AbstractBuild/index.jelly	5 Aug 2007 17:57:06 -0000	1.11
++++ core/src/main/resources/hudson/model/AbstractBuild/index.jelly	17 Oct 2007 22:18:02 -0000
+@@ -28,11 +28,16 @@
+       <table style="margin-top: 1em; margin-left:1em;">
+         <t:artifactList build="${it}" caption="Build Artifacts" />
+ 
+-        <j:set var="set" value="${it.changeSet}" />
++        <j:set var="sets" value="${it.changeSets}" />
+         <t:summary icon="notepad.gif">
+           <j:choose>
+-            <j:when test="${it.hasChangeSetComputed()}">
++            <j:when test="${sets.size() > 0}">
++              <h3>
++            	Changes since last successful build
++           	  </h3>
++              <j:forEach var="set" items="${sets}">
+               <st:include it="${set}" page="digest.jelly" />
++              </j:forEach>
+ 
+               <!-- dependency changes -->
+               <j:set var="depChanges" value="${it.getDependencyChanges(it.previousBuild)}"/>
+Index: core/src/main/resources/hudson/scm/SubversionChangeLogSet/digest.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/scm/SubversionChangeLogSet/digest.jelly,v
+retrieving revision 1.5
+diff -u -w -r1.5 digest.jelly
+--- core/src/main/resources/hudson/scm/SubversionChangeLogSet/digest.jelly	12 Apr 2007 04:06:13 -0000	1.5
++++ core/src/main/resources/hudson/scm/SubversionChangeLogSet/digest.jelly	17 Oct 2007 22:18:02 -0000
+@@ -12,7 +12,6 @@
+     <j:when test="${size(rev)==1}">
+       Revision:
+       <j:forEach var="r" items="${rev}">${r.value}</j:forEach><!-- just print that one value-->
+-      <br/>
+     </j:when>
+     <j:otherwise>
+       Revisions
+@@ -28,19 +27,22 @@
+       No changes.
+     </j:when>
+     <j:otherwise>
+-      Changes
+       <ol>
+         <j:forEach var="cs" items="${it.logs}" varStatus="loop">
+           <li>
+             ${cs.msgAnnotated}
+-            (<a href="changes#detail${loop.index}">detail</a>
++            
++            &#8212;
++
++            <a href="${rootURL}/${cs.author.url}/">${cs.author}</a> /
++            
++            <a href="changes#detail${loop.index}">detail</a>
+ 
+             <j:set var="cslink" value="${browser.getChangeSetLink(cs)}"/>
+             <j:if test="${cslink!=null}">
+               <j:text>/</j:text>
+               <a href="${cslink}">${browser.descriptor.displayName}</a>
+             </j:if>
+-            <j:text>)</j:text>
+           </li>
+         </j:forEach>
+       </ol>

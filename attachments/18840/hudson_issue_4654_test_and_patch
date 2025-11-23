@@ -1,0 +1,37 @@
+Index: core/src/test/java/hudson/os/MacDetectionTester.java
+===================================================================
+--- core/src/test/java/hudson/os/MacDetectionTester.java	(revision 0)
++++ core/src/test/java/hudson/os/MacDetectionTester.java	(revision 0)
+@@ -0,0 +1,19 @@
++package hudson.os;
++
++import junit.framework.TestCase;
++import hudson.model.Hudson;
++
++public class MacDetectionTester extends TestCase {
++
++    /**
++     * I don't know how to make this only run on a mac,
++     * so, don't check this in without some sort of guard.
++     * BUG 4654 Hudson.isDarwin() returns false on mac
++     */
++    public void testMacIsDarwin() {
++        boolean thisIsAMac = true;
++        if (thisIsAMac) {
++            assertTrue("Hudson thinks this is a mac.", Hudson.isDarwin());
++        }
++    }
++}
+Index: core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- core/src/main/java/hudson/model/Hudson.java	(revision 22726)
++++ core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -3113,7 +3113,7 @@
+     
+     public static boolean isDarwin() {
+         // according to http://developer.apple.com/technotes/tn2002/tn2110.html
+-        return System.getProperty("os.name").startsWith("mac");
++        return System.getProperty("os.name").toLowerCase().startsWith("mac");
+     }
+ 
+     /**

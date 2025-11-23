@@ -1,0 +1,127 @@
+{
+  "displayNameOrNull": +"Automatic+Deploy",
+  +"": +[
+    "",
+    +"0",
+    +"1"
+  ],
+  +"sources": +{
+    "source": +{
+      "stapler-class": +"com.cloudbees.jenkins.plugins.bitbucket.BitbucketSCMSource",
+      +"id": +"3ef512b0-3dc5-47a7-a1a3-29471521a33b",
+      +"serverUrl": +"https://bitbucket.org",
+      +"includeUser": +"false",
+      +"credentialsId": +"xxxx",
+      +"repoOwner": +"xxx",
+      +"repository": +"xxx",
+      +"traits": +[
+        {
+          "strategyId": +"1",
+          +"stapler-class": +"com.cloudbees.jenkins.plugins.bitbucket.BranchDiscoveryTrait",
+          +"$class": +"com.cloudbees.jenkins.plugins.bitbucket.BranchDiscoveryTrait"
+        },
+        +{
+          "strategyId": +"2",
+          +"stapler-class": +"com.cloudbees.jenkins.plugins.bitbucket.OriginPullRequestDiscoveryTrait",
+          +"$class": +"com.cloudbees.jenkins.plugins.bitbucket.OriginPullRequestDiscoveryTrait"
+        },
+        +{
+          "includes": +"master+PR-*",
+          +"excludes": +"",
+          +"stapler-class": +"jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait",
+          +"$class": +"jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait"
+        },
+        +{
+          "includeUser": +"false",
+          +"credentialsId": +"277172a1-5e54-4b6d-9c01-0bd6ee3ddd74",
+          +"stapler-class": +"com.cloudbees.jenkins.plugins.bitbucket.SSHCheckoutTrait",
+          +"$class": +"com.cloudbees.jenkins.plugins.bitbucket.SSHCheckoutTrait"
+        },
+        +{
+          "extension": +{
+            "deleteUntrackedNestedRepositories": +false
+          },
+          +"stapler-class": +"jenkins.plugins.git.traits.CleanBeforeCheckoutTrait",
+          +"$class": +"jenkins.plugins.git.traits.CleanBeforeCheckoutTrait"
+        }
+      ]
+    },
+    +"": +"1",
+    +"strategy": +{
+      "namedExceptions": +{
+        "name": +"master",
+        +"props": +{
+          "actionLabel": +"Action+Label",
+          +"useBadge": +false,
+          +"badgeTemplate": +"Run+with+#$PARAMETER",
+          +"parameterDefinitions": +{
+            "name": +"SCENARIO",
+            +"choices": +"1\n2\n3",
+            +"description": +"",
+            +"": +"",
+            +"stapler-class": +"hudson.model.ChoiceParameterDefinition",
+            +"$class": +"hudson.model.ChoiceParameterDefinition"
+          },
+          +"stapler-class": +"com.thedigitalstack.jenkins.plugins.parametricrun.ParameterBranchProperty",
+          +"$class": +"com.thedigitalstack.jenkins.plugins.parametricrun.ParameterBranchProperty"
+        }
+      },
+      +"stapler-class": +"jenkins.branch.NamedExceptionsBranchPropertyStrategy",
+      +"$class": +"jenkins.branch.NamedExceptionsBranchPropertyStrategy"
+    },
+    +"buildStrategies": +{
+      "stapler-class": +"com.thedigitalstack.jenkins.plugins.bitbucket.strategy.SkipAllBuildStrategy",
+      +"$class": +"com.thedigitalstack.jenkins.plugins.bitbucket.strategy.SkipAllBuildStrategy"
+    },
+    +"stapler-class": +"jenkins.branch.BranchSource",
+    +"kind": +"jenkins.branch.BranchSource"
+  },
+  +"projectFactory": +{
+    "scriptPath": +"Jenkinsfile",
+    +"stapler-class": +"org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory",
+    +"$class": +"org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory"
+  },
+  +"com-cloudbees-hudson-plugins-folder-computed-PeriodicFolderTrigger": +{
+    "interval": +"1d"
+  },
+  +"orphanedItemStrategy": +{
+    "stapler-class": +"com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy",
+    +"$class": +"com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy",
+    +"pruneDeadBranches": +true,
+    +"daysToKeepStr": +"",
+    +"numToKeepStr": +""
+  },
+  +"icon": +{
+    "stapler-class": +"jenkins.branch.MetadataActionFolderIcon",
+    +"$class": +"jenkins.branch.MetadataActionFolderIcon"
+  },
+  +"healthMetrics": +{
+    "recursive": +true,
+    +"stapler-class": +"com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric",
+    +"$class": +"com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric"
+  },
+  +"org-jenkinsci-plugins-docker-workflow-declarative-FolderConfig": +{
+    "dockerLabel": +"",
+    +"registry": +{
+      "url": +"",
+      +"includeUser": +"false",
+      +"credentialsId": +""
+    }
+  },
+  +"org-jenkinsci-plugins-pipeline-maven-MavenConfigFolderOverrideProperty": +{
+    "override": +false,
+    +"": +[
+      "0",
+      +"0"
+    ],
+    +"settings": +{
+      "stapler-class": +"jenkins.mvn.DefaultSettingsProvider",
+      +"$class": +"jenkins.mvn.DefaultSettingsProvider"
+    },
+    +"globalSettings": +{
+      "stapler-class": +"jenkins.mvn.DefaultGlobalSettingsProvider",
+      +"$class": +"jenkins.mvn.DefaultGlobalSettingsProvider"
+    }
+  },
+  +"core:apply": +"true",
+}

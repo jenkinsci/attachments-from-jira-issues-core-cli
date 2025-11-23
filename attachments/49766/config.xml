@@ -1,0 +1,140 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<jenkins.branch.OrganizationFolder plugin="branch-api@2.5.4">
+  <actions>
+    <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction_-DoNotShowPersistedBlueOceanUrlActions plugin="blueocean-rest-impl@1.19.0"/>
+  </actions>
+  <description>Mark Waite&apos;s pipelines using a GitHub Organization Folder from Blue Ocean</description>
+  <displayName>Blue Ocean MarkEWaite</displayName>
+  <properties>
+    <jenkins.branch.OrganizationChildHealthMetricsProperty>
+      <templates>
+        <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.9">
+          <nonRecursive>false</nonRecursive>
+        </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+      </templates>
+    </jenkins.branch.OrganizationChildHealthMetricsProperty>
+    <jenkins.branch.OrganizationChildOrphanedItemsProperty>
+      <strategy class="jenkins.branch.OrganizationChildOrphanedItemsProperty$Inherit"/>
+    </jenkins.branch.OrganizationChildOrphanedItemsProperty>
+    <jenkins.branch.OrganizationChildTriggersProperty>
+      <templates>
+        <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.9">
+          <spec>H H/4 * * *</spec>
+          <interval>86400000</interval>
+        </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+      </templates>
+    </jenkins.branch.OrganizationChildTriggersProperty>
+    <org.jenkinsci.plugins.workflow.libs.FolderLibraries plugin="workflow-cps-global-lib@2.15">
+      <libraries>
+        <org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+          <name>infra</name>
+          <retriever class="org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever">
+              <id>c3e8de00-afce-4838-ab07-23e8f0bbd568</id>
+              <remote>https://github.com/MarkEWaite/pipeline-library</remote>
+              <credentialsId>MarkEWaite-github-username-password</credentialsId>
+              <traits>
+                <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
+                <jenkins.plugins.git.traits.GitToolSCMSourceTrait>
+                  <gitTool>Default</gitTool>
+                </jenkins.plugins.git.traits.GitToolSCMSourceTrait>
+                <jenkins.plugins.git.traits.GitBrowserSCMSourceTrait>
+                  <browser class="hudson.plugins.git.browser.GithubWeb">
+                    <url>https://github.com/MarkEWaite/pipeline-library</url>
+                  </browser>
+                </jenkins.plugins.git.traits.GitBrowserSCMSourceTrait>
+              </traits>
+            </scm>
+          </retriever>
+          <defaultVersion>my-own-master</defaultVersion>
+          <implicit>true</implicit>
+          <allowVersionOverride>false</allowVersionOverride>
+          <includeInChangesets>false</includeInChangesets>
+        </org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+      </libraries>
+    </org.jenkinsci.plugins.workflow.libs.FolderLibraries>
+    <io.jenkins.blueocean.rest.impl.pipeline.credential.BlueOceanCredentialsProvider_-FolderPropertyImpl plugin="blueocean-pipeline-scm-api@1.19.0">
+      <domain plugin="credentials@2.3.0">
+        <name>blueocean-folder-credential-domain</name>
+        <description>Blue Ocean Folder Credentials domain</description>
+        <specifications/>
+      </domain>
+      <user>mwaite</user>
+      <id>github</id>
+    </io.jenkins.blueocean.rest.impl.pipeline.credential.BlueOceanCredentialsProvider_-FolderPropertyImpl>
+    <org.jenkinsci.plugins.pipeline.maven.MavenConfigFolderOverrideProperty plugin="pipeline-maven@3.8.2">
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <override>false</override>
+    </org.jenkinsci.plugins.pipeline.maven.MavenConfigFolderOverrideProperty>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.5.0-beta1">
+      <dockerLabel></dockerLabel>
+      <registry plugin="docker-commons@1.15"/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+    <jenkins.branch.NoTriggerOrganizationFolderProperty>
+      <branches>.*</branches>
+    </jenkins.branch.NoTriggerOrganizationFolderProperty>
+  </properties>
+  <folderViews class="jenkins.branch.OrganizationFolderViewHolder">
+    <owner reference="../.."/>
+  </folderViews>
+  <healthMetrics>
+    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.9">
+      <nonRecursive>false</nonRecursive>
+    </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+  </healthMetrics>
+  <icon class="jenkins.branch.MetadataActionFolderIcon">
+    <owner class="jenkins.branch.OrganizationFolder" reference="../.."/>
+  </icon>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.9">
+    <pruneDeadBranches>true</pruneDeadBranches>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>-1</numToKeep>
+  </orphanedItemStrategy>
+  <triggers>
+    <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.9">
+      <spec>H H/4 * * *</spec>
+      <interval>86400000</interval>
+    </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+  </triggers>
+  <disabled>false</disabled>
+  <navigators>
+    <org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator plugin="github-branch-source@2.5.8">
+      <repoOwner>MarkEWaite</repoOwner>
+      <credentialsId>github</credentialsId>
+      <traits>
+        <jenkins.scm.impl.trait.RegexSCMSourceFilterTrait plugin="scm-api@2.6.3">
+          <regex>(auth-data\b)?(bin\b)?(jenkins-bugs\b)?</regex>
+        </jenkins.scm.impl.trait.RegexSCMSourceFilterTrait>
+        <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+          <strategyId>1</strategyId>
+        </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+        <org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+          <strategyId>1</strategyId>
+          <trust class="org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustContributors"/>
+        </org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+        <org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+          <strategyId>1</strategyId>
+        </org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+      </traits>
+    </org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator>
+  </navigators>
+  <projectFactories>
+    <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory plugin="workflow-multibranch@2.21">
+      <scriptPath>Jenkinsfile</scriptPath>
+    </org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory>
+  </projectFactories>
+  <buildStrategies>
+    <jenkins.branch.buildstrategies.basic.ChangeRequestBuildStrategyImpl plugin="basic-branch-build-strategies@1.3.2">
+      <ignoreTargetOnlyChanges>false</ignoreTargetOnlyChanges>
+      <ignoreUntrustedChanges>false</ignoreUntrustedChanges>
+    </jenkins.branch.buildstrategies.basic.ChangeRequestBuildStrategyImpl>
+    <jenkins.branch.buildstrategies.basic.NamedBranchBuildStrategyImpl plugin="basic-branch-build-strategies@1.3.2">
+      <filters>
+        <jenkins.branch.buildstrategies.basic.NamedBranchBuildStrategyImpl_-RegexNameFilter>
+          <regex>.*</regex>
+          <caseSensitive>true</caseSensitive>
+        </jenkins.branch.buildstrategies.basic.NamedBranchBuildStrategyImpl_-RegexNameFilter>
+      </filters>
+    </jenkins.branch.buildstrategies.basic.NamedBranchBuildStrategyImpl>
+  </buildStrategies>
+</jenkins.branch.OrganizationFolder>

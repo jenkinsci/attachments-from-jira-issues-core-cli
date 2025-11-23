@@ -1,0 +1,29 @@
+From 47e31eb9c38ed9dab49207a5bf2ffd0f733a4306 Mon Sep 17 00:00:00 2001
+From: Thijs Brobbel <thijsbrobbel@gmail.com>
+Date: Fri, 26 Nov 2010 18:48:55 +0100
+Subject: [PATCH] add support for UNC paths in FilePath
+
+---
+ core/src/main/java/hudson/FilePath.java |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/core/src/main/java/hudson/FilePath.java b/core/src/main/java/hudson/FilePath.java
+index c64e61f..b6dee78 100644
+--- a/core/src/main/java/hudson/FilePath.java
++++ b/core/src/main/java/hudson/FilePath.java
+@@ -218,10 +218,10 @@ public final class FilePath implements Serializable {
+     }
+ 
+     private static boolean isAbsolute(String rel) {
+-        return rel.startsWith("/") || DRIVE_PATTERN.matcher(rel).matches();
++        return rel.startsWith("/") || DRIVE_PATTERN.matcher(rel).matches() || UNC_PATTERN.matcher(rel).matches();
+     }
+ 
+-    private static final Pattern DRIVE_PATTERN = Pattern.compile("[A-Za-z]:[\\\\/].*"),
++    private static final Pattern DRIVE_PATTERN = Pattern.compile("[A-Za-z]:[\\\\/].*"), UNC_PATTERN = Pattern.compile("^\\\\\\\\.*"),
+             ABSOLUTE_PREFIX_PATTERN = Pattern.compile("^(\\\\\\\\|(?:[A-Za-z]:)?[\\\\/])[\\\\/]*");
+ 
+     /**
+-- 
+1.7.0.3
+

@@ -1,0 +1,36 @@
+Index: core/src/main/java/hudson/maven/MavenModule.java
+===================================================================
+--- core/src/main/java/hudson/maven/MavenModule.java	(revision 16210)
++++ core/src/main/java/hudson/maven/MavenModule.java	(working copy)
+@@ -59,7 +59,10 @@
+ import java.util.Map;
+ import java.util.Set;
+ import java.util.HashSet;
++import java.util.logging.Logger;
++import java.util.logging.Level;
+ 
++
+ /**
+  * {@link Job} that builds projects based on Maven2.
+  * 
+@@ -393,9 +396,13 @@
+ 
+         for (MavenReporter step : list) {
+             if(!added.add(step.getClass()))     continue;   // already added
++          try{
+             Action a = step.getProjectAction(this);
+             if(a!=null)
+                 transientActions.add(a);
++          } catch(java.lang.Exception exception){
++            LOGGER.log(Level.WARNING, "Failed to recover action from step: "+step+". Report issue to plugin developers.",exception);
++          }
+         }
+     }
+ 
+@@ -445,4 +452,6 @@
+ 
+         return reporters;
+     }
++
++  private static final Logger LOGGER = Logger.getLogger(MavenModule.class.getName());
+ }

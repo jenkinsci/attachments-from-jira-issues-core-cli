@@ -1,0 +1,67 @@
+Index: core/src/main/resources/lib/hudson/executors.jelly
+===================================================================
+--- core/src/main/resources/lib/hudson/executors.jelly	(revision 14929)
++++ core/src/main/resources/lib/hudson/executors.jelly	(working copy)
+@@ -12,8 +12,8 @@
+ 	    <j:choose>
+ 	      <j:when test="${c.node==app or computers.size()==1}">
+ 	        <tr>
+-	          <th class="pane">No.</th>
+-	          <th class="pane">
++	          <th class="pane" align="right">#</th>
++	          <th class="pane" width="80%">
+               <j:choose>
+                 <j:when test="${empty(app.slaves) or computers.size()==1}">
+                   ${%Status}
+@@ -25,7 +25,7 @@
+                 </j:otherwise>
+               </j:choose>
+             </th>
+-            <th class="pane"><st:nbsp/></th>
++            <th class="pane" width="24"><st:nbsp/></th>
+ 	        </tr>
+ 	      </j:when>
+ 	      <j:otherwise>
+@@ -41,12 +41,12 @@
+ 
+ 	    <j:forEach var="e" items="${c.executors}" varStatus="eloop">
+ 	      <tr>
+-	        <td class="pane">
++	        <td class="pane" align="right" style="vertical-align: top">
+ 	          ${eloop.index+1}
+ 	        </td>
+ 	        <j:choose>
+             <j:when test="${!e.alive}">
+-              <td class="pane" width="70%">
++              <td class="pane">
+                 <a href="${rootURL}/computers/${cloop.index}/executors/${eloop.index}/causeOfDeath">
+                   <span class="error">${%Dead} (!)</span>
+                 </a>
+@@ -54,17 +54,17 @@
+               <td class="pane"/>
+             </j:when>
+             <j:when test="${e.idle}">
+-	            <td class="pane" width="70%">
++	            <td class="pane">
+ 	              ${%Idle}
+ 	            </td>
+ 	            <td class="pane"/>
+ 	          </j:when>
+ 	          <j:otherwise>
+-	            <td class="pane" width="70%">
++	            <td class="pane">
+ 	              <div nowrap="true">${%Building} <a href="${rootURL}/${e.currentExecutable.url}">${e.currentExecutable}</a></div>
+                 <t:buildProgressBar build="${e.currentExecutable}"/>
+ 	            </td>
+-	            <td class="pane" width="16" align="center" valign="middle">
++	            <td class="pane" align="center" valign="middle">
+                 <j:if test="${e.hasStopPermission()}">
+                   <a href="${rootURL}/computers/${cloop.index}/executors/${eloop.index}/stop"><img src="${imagesURL}/16x16/stop.gif" alt="${%terminate this build}" /></a>
+                 </j:if>
+@@ -81,4 +81,4 @@
+       </script>
+     </j:if>
+ 	</l:pane>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>

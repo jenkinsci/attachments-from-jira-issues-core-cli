@@ -1,0 +1,534 @@
+Mar 25, 2013 4:41:27 PM hudson.WebAppMain$2 run
+INFO: Jenkins is fully up and running
+Mar 25, 2013 4:41:27 PM hudson.TcpSlaveAgentListener <init>
+INFO: JNLP slave agent listener started on TCP port 39782
+Mar 25, 2013 4:41:27 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization
+Mar 25, 2013 4:41:27 PM org.jenkinsci.main.modules.sshd.SSHD start
+INFO: Started SSHD at port 38142
+Mar 25, 2013 4:41:26 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+Mar 25, 2013 4:41:04 PM jenkins.InitReactorRunner$1 onTaskFailed
+SEVERE: Failed Loading job BPM
+java.lang.NoClassDefFoundError: org/jenkinsci/plugins/android_lint/LintProjectAction
+	at org.jenkinsci.plugins.android_lint.LintPublisher.getProjectAction(LintPublisher.java:101)
+	at hudson.tasks.BuildStepCompatibilityLayer.getProjectActions(BuildStepCompatibilityLayer.java:73)
+	at hudson.model.Project.createTransientActions(Project.java:211)
+	at hudson.model.AbstractProject.updateTransientActions(AbstractProject.java:701)
+	at hudson.model.AbstractProject.onLoad(AbstractProject.java:300)
+	at hudson.model.Project.onLoad(Project.java:83)
+	at hudson.model.Items.load(Items.java:221)
+	at jenkins.model.Jenkins$17.run(Jenkins.java:2551)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+
+Mar 25, 2013 4:41:03 PM jenkins.InitReactorRunner$1 onTaskFailed
+SEVERE: Failed Loading job GameTimers-App
+java.lang.NoClassDefFoundError: hudson/plugins/analysis/core/AbstractProjectAction
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:791)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:449)
+	at java.net.URLClassLoader.access$100(URLClassLoader.java:71)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at org.jenkinsci.plugins.android_lint.LintPublisher.getProjectAction(LintPublisher.java:101)
+	at hudson.tasks.BuildStepCompatibilityLayer.getProjectActions(BuildStepCompatibilityLayer.java:73)
+	at hudson.model.Project.createTransientActions(Project.java:211)
+	at hudson.model.AbstractProject.updateTransientActions(AbstractProject.java:701)
+	at hudson.model.AbstractProject.onLoad(AbstractProject.java:300)
+	at hudson.model.Project.onLoad(Project.java:83)
+	at hudson.model.Items.load(Items.java:221)
+	at jenkins.model.Jenkins$17.run(Jenkins.java:2551)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.plugins.analysis.core.AbstractProjectAction
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	... 27 more
+
+Mar 25, 2013 4:41:03 PM hudson.ExtensionFinder$Sezpoz _find
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$DescriptorImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:611)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 26 more
+
+Mar 25, 2013 4:41:03 PM hudson.ExtensionFinder$Sezpoz _find
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:611)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 26 more
+
+Mar 25, 2013 4:41:02 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$DescriptorImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$GuiceFinder$SezpozModule.configure(ExtensionFinder.java:488)
+	at com.google.inject.AbstractModule.configure(AbstractModule.java:62)
+	at com.google.inject.spi.Elements$RecordingBinder.install(Elements.java:229)
+	at com.google.inject.spi.Elements.getElements(Elements.java:103)
+	at com.google.inject.internal.InjectorShell$Builder.build(InjectorShell.java:136)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:104)
+	at com.google.inject.Guice.createInjector(Guice.java:94)
+	at com.google.inject.Guice.createInjector(Guice.java:71)
+	at hudson.ExtensionFinder$GuiceFinder.<init>(ExtensionFinder.java:282)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at java.lang.Class.newInstance0(Class.java:374)
+	at java.lang.Class.newInstance(Class.java:327)
+	at net.java.sezpoz.IndexItem.instance(IndexItem.java:181)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:625)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 42 more
+
+Mar 25, 2013 4:41:02 PM hudson.ExtensionFinder$GuiceFinder$SezpozModule configure
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$GuiceFinder$SezpozModule.configure(ExtensionFinder.java:488)
+	at com.google.inject.AbstractModule.configure(AbstractModule.java:62)
+	at com.google.inject.spi.Elements$RecordingBinder.install(Elements.java:229)
+	at com.google.inject.spi.Elements.getElements(Elements.java:103)
+	at com.google.inject.internal.InjectorShell$Builder.build(InjectorShell.java:136)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:104)
+	at com.google.inject.Guice.createInjector(Guice.java:94)
+	at com.google.inject.Guice.createInjector(Guice.java:71)
+	at hudson.ExtensionFinder$GuiceFinder.<init>(ExtensionFinder.java:282)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at java.lang.Class.newInstance0(Class.java:374)
+	at java.lang.Class.newInstance(Class.java:327)
+	at net.java.sezpoz.IndexItem.instance(IndexItem.java:181)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:625)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 42 more
+
+Mar 25, 2013 4:41:00 PM hudson.ExtensionFinder$Sezpoz _find
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$DescriptorImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:611)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder$GuiceFinder.<init>(ExtensionFinder.java:277)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at java.lang.Class.newInstance0(Class.java:374)
+	at java.lang.Class.newInstance(Class.java:327)
+	at net.java.sezpoz.IndexItem.instance(IndexItem.java:181)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:625)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 36 more
+
+Mar 25, 2013 4:41:00 PM hudson.ExtensionFinder$Sezpoz _find
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:611)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder$GuiceFinder.<init>(ExtensionFinder.java:277)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at java.lang.Class.newInstance0(Class.java:374)
+	at java.lang.Class.newInstance(Class.java:327)
+	at net.java.sezpoz.IndexItem.instance(IndexItem.java:181)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:625)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 36 more
+
+Mar 25, 2013 4:41:00 PM hudson.ExtensionFinder$Sezpoz _find
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$DescriptorImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:611)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder$GuiceFinder.<init>(ExtensionFinder.java:259)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at java.lang.Class.newInstance0(Class.java:374)
+	at java.lang.Class.newInstance(Class.java:327)
+	at net.java.sezpoz.IndexItem.instance(IndexItem.java:181)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:625)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 36 more
+
+Mar 25, 2013 4:41:00 PM hudson.ExtensionFinder$Sezpoz _find
+WARNING: Failed to load hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:611)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder$GuiceFinder.<init>(ExtensionFinder.java:259)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at java.lang.Class.newInstance0(Class.java:374)
+	at java.lang.Class.newInstance(Class.java:327)
+	at net.java.sezpoz.IndexItem.instance(IndexItem.java:181)
+	at hudson.ExtensionFinder$Sezpoz._find(ExtensionFinder.java:625)
+	at hudson.ExtensionFinder$Sezpoz.find(ExtensionFinder.java:600)
+	at hudson.ExtensionFinder._find(ExtensionFinder.java:151)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:318)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 36 more
+
+Mar 25, 2013 4:41:00 PM hudson.ExtensionFinder$Sezpoz scout
+WARNING: Failed to scout hudson.security.LDAPSecurityRealm$DescriptorImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz.scout(ExtensionFinder.java:649)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:312)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$DescriptorImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 24 more
+
+Mar 25, 2013 4:41:00 PM hudson.ExtensionFinder$Sezpoz scout
+WARNING: Failed to scout hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+java.lang.InstantiationException: file:/var/lib/jenkins/plugins/ldap/WEB-INF/classes/META-INF/annotations/hudson.Extension might need to be rebuilt: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:144)
+	at hudson.ExtensionFinder$Sezpoz.scout(ExtensionFinder.java:649)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:312)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.iterator(ExtensionList.java:138)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:311)
+	at hudson.ExtensionList.load(ExtensionList.java:295)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:248)
+	at hudson.ExtensionList.get(ExtensionList.java:153)
+	at hudson.PluginManager$PluginUpdateMonitor.getInstance(PluginManager.java:1066)
+	at hudson.maven.PluginImpl.init(PluginImpl.java:54)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at hudson.init.InitializerFinder.invoke(InitializerFinder.java:120)
+	at hudson.init.InitializerFinder$TaskImpl.run(InitializerFinder.java:184)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:887)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ClassNotFoundException: hudson.security.LDAPSecurityRealm$MailAdressResolverImpl
+	at hudson.PluginManager$UberClassLoader.findClass(PluginManager.java:942)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:423)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	at net.java.sezpoz.IndexItem.element(IndexItem.java:134)
+	... 24 more
+
+Mar 25, 2013 4:40:55 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Mar 25, 2013 4:40:55 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Mar 25, 2013 4:40:54 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Mar 25, 2013 4:40:53 PM hudson.plugins.ansicolor.PluginImpl start
+INFO: AnsiColor: eliminating boring output (https://github.com/dblock/jenkins-ansicolor-plugin)
+Mar 25, 2013 4:40:52 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+Mar 25, 2013 4:40:52 PM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin subversion.jpi is disabled
+Mar 25, 2013 4:40:52 PM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin cvs.jpi is disabled
+Mar 25, 2013 4:40:52 PM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ssh-slaves.jpi is disabled
+Mar 25, 2013 4:40:52 PM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ldap.jpi is disabled
+Mar 25, 2013 4:40:51 PM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin translation.jpi is disabled
+Mar 25, 2013 4:40:51 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Mar 25, 2013 4:40:50 PM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v0.9.10 running: controlPort=disabled
+Mar 25, 2013 4:40:50 PM winstone.Logger logInternal
+INFO: HTTP Listener started: port=8200
+

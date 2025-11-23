@@ -1,0 +1,40 @@
+Index: core/src/main/java/hudson/EnvVars.java
+===================================================================
+--- core/src/main/java/hudson/EnvVars.java	(revision 31286)
++++ core/src/main/java/hudson/EnvVars.java	(working copy)
+@@ -151,10 +151,17 @@
+     /**
+      * Resolves environment variables against each other.
+      */
+-	public static void resolve(Map<String, String> env) {
+-		for (Map.Entry<String,String> entry: env.entrySet()) {
+-			entry.setValue(Util.replaceMacro(entry.getValue(), env));
++	public static EnvVars resolve(Map<String, String> env) {
++		EnvVars resolvedEnv = new EnvVars(env);
++		for (Map.Entry<String,String> entry: resolvedEnv.entrySet()) {
++			try {
++				entry.setValue(Util.replaceMacro(entry.getValue(), resolvedEnv));
++			} catch (UnsupportedOperationException uoe) {
++				System.out.println(uoe.getMessage() + " (" + entry.getValue() + ")");			
++			}
+ 		}
++		
++		return resolvedEnv;
+ 	}
+ 
+     @Override
+Index: core/src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+--- core/src/main/java/hudson/model/AbstractBuild.java	(revision 31286)
++++ core/src/main/java/hudson/model/AbstractBuild.java	(working copy)
+@@ -705,9 +705,7 @@
+         for (EnvironmentContributingAction a : Util.filter(getActions(),EnvironmentContributingAction.class))
+             a.buildEnvVars(this,env);
+ 
+-        EnvVars.resolve(env);
+-
+-        return env;
++        return EnvVars.resolve(env);
+     }
+ 
+     public Calendar due() {

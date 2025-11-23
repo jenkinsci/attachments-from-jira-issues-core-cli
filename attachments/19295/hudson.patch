@@ -1,0 +1,22 @@
+--- /etc/default/hudson.orig	2009-10-30 19:20:22.000000000 -0200
++++ /etc/default/hudson	2010-03-31 16:07:40.000000000 -0300
+@@ -29,11 +29,18 @@
+ HUDSON_LOG=/var/log/hudson/$NAME.log
+ #HUDSON_LOG=daemon.info
+ 
++# port for HTTP connector (default 8080; disable with -1)
++HTTP_PORT=8000
++
++# port for AJP connector (disabled by default)
++AJP_PORT=-1
++
+ # arguments to pass to hudson.
+ # --javahome=$JAVA_HOME
+ # --httpPort=$HTTP_PORT (default 8080; disable with -1)
+ # --httpsPort=$HTTP_PORT
++# --ajp13Port=$AJP_PORT
+ # --argumentsRealm.passwd.$ADMIN_USER=[password]
+ # --argumentsRealm.$ADMIN_USER=admin
+ # --webroot=~/.hudson/war
+-HUDSON_ARGS="--webroot=/var/run/hudson/war --httpPort=8000"
++HUDSON_ARGS="--webroot=/var/run/hudson/war --httpPort=$HTTP_PORT --ajp13Port=$AJP_PORT"

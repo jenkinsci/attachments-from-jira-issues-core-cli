@@ -1,0 +1,40 @@
+Index: main/core/src/main/java/hudson/model/MyView.java
+===================================================================
+--- main/core/src/main/java/hudson/model/MyView.java    (revision 13501)
++++ main/core/src/main/java/hudson/model/MyView.java    (working copy)
+@@ -42,6 +42,15 @@
+         return description;
+     }
+
++    /**
++     * Returns the transient {@link Action}s associated with the top page.
++     *
++     * @see Hudson#getActions()
++     /
++    public List<Action> getActions() {
++        return Hudson.getInstance().getActions();
++    }
++
+     @Override
+     public TopLevelItem getItem(String name) {
+         return owner.getItem(name);
+Index: main/core/src/main/java/hudson/model/ListView.java
+===================================================================
+--- main/core/src/main/java/hudson/model/ListView.java  (revision 13501)
++++ main/core/src/main/java/hudson/model/ListView.java  (working copy)
+@@ -60,6 +60,15 @@
+     }
+
+     /**
++     * Returns the transient {@link Action}s associated with the top page.
++     *
++     * @see Hudson#getActions()
++     /
++    public List<Action> getActions() {
++        return Hudson.getInstance().getActions();
++    }
++
++    /**
+      * Returns a read-only view of all {@link Job}s in this view.
+      *
+      * <p>

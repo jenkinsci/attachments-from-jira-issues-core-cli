@@ -1,0 +1,75 @@
+Index: main/core/src/main/java/hudson/Functions.java
+===================================================================
+--- main/core/src/main/java/hudson/Functions.java	(revision 10289)
++++ main/core/src/main/java/hudson/Functions.java	(working copy)
+@@ -364,7 +364,7 @@
+             response.addCookie(c);
+         }
+         if (refresh) {
+-            response.addHeader("Refresh", "10");
++            response.addHeader("Refresh", Integer.toString(Hudson.getInstance().getRefreshRate()));
+         }
+     }
+ 
+Index: main/core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Hudson.java	(revision 10289)
++++ main/core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -248,6 +248,11 @@
+     /*package*/ Integer quietPeriod;
+ 
+     /**
++     * Refresh rate.
++     */
++    private Integer refreshRate;
++
++    /**
+      * {@link ListView}s.
+      */
+     private List<ListView> views;   // can't initialize it eagerly for backward compatibility
+@@ -899,6 +904,13 @@
+     }
+ 
+     /**
++     * Gets the refresh rate.
++     */
++    public int getRefreshRate() {
++        return refreshRate!=null ? refreshRate : 10;
++    }
++
++    /**
+      * @deprecated
+      *      Why are you calling a method that always returns ""?
+      *      Perhaps you meant {@link #getRootUrl()}.
+@@ -1473,6 +1485,8 @@
+ 
+             quietPeriod = Integer.parseInt(req.getParameter("quiet_period"));
+ 
++            refreshRate = Integer.parseInt(req.getParameter("refresh_rate"));
++
+             systemMessage = Util.nullify(req.getParameter("system_message"));
+ 
+             {// update JDK installations
+Index: main/core/src/main/resources/hudson/model/Hudson/configure.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/model/Hudson/configure.jelly	(revision 10289)
++++ main/core/src/main/resources/hudson/model/Hudson/configure.jelly	(working copy)
+@@ -16,6 +16,10 @@
+         <input class="setting-input number" name="quiet_period"
+           type="text" value="${it.quietPeriod}"/>
+       </s:entry>
++      <s:entry title="${%Refresh rate}" help="/help/project-config/refreshRate.html">
++        <input class="setting-input number" name="refresh_rate"
++          type="text" value="${it.refreshRate}"/>
++      </s:entry>
+       <s:optionalBlock name="use_security" title="${%Enable security}"
+                        checked="${it.useSecurity}" help="/help/system-config/enableSecurity.html">
+         <s:entry title="${%TCP port for JNLP slave agents}"
+Index: main/war/resources/help/project-config/refreshRate.html
+===================================================================
+--- main/war/resources/help/project-config/refreshRate.html	(revision 0)
++++ main/war/resources/help/project-config/refreshRate.html	(revision 0)
+@@ -0,0 +1,3 @@
++<div>
++  Pages will be refreshed every this many seconds when automatic refresh is enabled.
++</div>

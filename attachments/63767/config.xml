@@ -1,0 +1,62 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+[ ! -f plot-a.csv ] &amp;&amp; echo &quot;Line-A,Line-B&quot; &gt; plot-a.csv
+let &quot;OTHER_VAR=BUILD_ID+1&quot;
+echo $BUILD_ID,$OTHER_VAR &gt;&gt; plot-a.csv</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.plot.PlotPublisher plugin="plot@2.2.0">
+      <plots>
+        <hudson.plugins.plot.Plot>
+          <title>Plot-A</title>
+          <description>Plot-A in A-group</description>
+          <yaxis>Y axis of Plot-A</yaxis>
+          <series>
+            <hudson.plugins.plot.CSVSeries>
+              <file>plot-a.csv</file>
+              <label></label>
+              <fileType>csv</fileType>
+              <inclusionFlag>OFF</inclusionFlag>
+              <exclusionValues></exclusionValues>
+              <exclusionValuesList class="java.util.Arrays$ArrayList">
+                <a class="string-array">
+                  <string></string>
+                </a>
+              </exclusionValuesList>
+              <url></url>
+              <displayTableFlag>false</displayTableFlag>
+            </hudson.plugins.plot.CSVSeries>
+          </series>
+          <group>A-group</group>
+          <numBuilds></numBuilds>
+          <csvFileName></csvFileName>
+          <csvLastModification>0</csvLastModification>
+          <style>lineSimple</style>
+          <useDescr>false</useDescr>
+          <keepRecords>false</keepRecords>
+          <exclZero>false</exclZero>
+          <logarithmic>false</logarithmic>
+          <yaxisMinimum>0</yaxisMinimum>
+          <yaxisMaximum></yaxisMaximum>
+        </hudson.plugins.plot.Plot>
+      </plots>
+    </hudson.plugins.plot.PlotPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

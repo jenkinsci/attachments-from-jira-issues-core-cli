@@ -1,0 +1,74 @@
+import requests
+import time as t
+import json
+
+
+jenkinsusername = 'admin'
+jenkinsusertoken = '11a7a8092cfcdb54e41cd887123ca261da'
+causeparamvalue = ''
+jenkinsprojecttoken = '12345'
+jenkinsjobname = 'HelloWorld'
+jenkinsurl = 'http://' + jenkinsusername + ':' + jenkinsusertoken + '@' + 'XYZ:8080/job/HelloWorld/build'
+
+for x in range(3):
+    causeparamvalue = t.time()
+    payload = {'cause' : causeparamvalue, 'token' : jenkinsprojecttoken}
+    r = requests.post(jenkinsurl, params=payload)
+    if r.status_code in (requests.codes.OK, requests.codes.CREATED):
+        print('====================================')
+        print('Build Job Submitted Successfully')
+        print('Http Status code is %s' % r.status_code)
+        print('Header is %s' % r.headers)
+        queueurl = r.headers['Location'] + 'api/json?pretty=true'
+        print('====================================')
+        print('Getting Build Information from Queue ID')
+        print('Queue URL is %s' % queueurl)
+        r1 = requests.get(queueurl)
+        print('Header returned is %s' % r1.headers)
+        r1dict = r1.json()
+        print('====================================')
+        print('UnParsed response is')
+        print(r1dict)
+
+    else:
+        print('Bad Http Request')
+        print('Http Status code is %s' % r.status_code)
+        print('Header is %s' % r.headers)
+        
+        
+        
+
+vagrant@commander5:/vagrant/jenkins-harness$ python3 jenkinstest.py
+====================================
+Build Job Submitted Successfully
+Http Status code is 201
+Header is {'Server': 'Jetty(9.4.z-SNAPSHOT)', 'Content-Length': '0', 'X-Content-Type-Options': 'nosniff', 'Date': 'Sun, 10 Mar 2019 08:34:37 GMT', 'Location': 'http://XYZ:8080/queue/item/81/'}
+====================================
+Getting Build Information from Queue ID
+Queue URL is http://XYZ:8080/queue/item/81/api/json?pretty=true
+Header returned is {'X-Jenkins-Session': '35c4c72c', 'X-Jenkins': '2.138.2', 'X-Content-Type-Options': 'nosniff', 'Date': 'Sun, 10 Mar 2019 08:34:38 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Encoding': 'gzip', 'Server': 'Jetty(9.4.z-SNAPSHOT)', 'Content-Length': '411'}
+====================================
+UnParsed response is
+{'buildable': False, 'why': 'In the quiet period. Expires in 3.6 sec', 'task': {'_class': 'hudson.model.FreeStyleProject', 'url': 'http://docker:8080/job/HelloWorld/', 'name': 'HelloWorld', 'color': 'blue'}, 'inQueueSince': 1552206877481, 'actions': [{'_class': 'hudson.model.CauseAction', 'causes': [{'_class': 'hudson.model.Cause$RemoteCause', 'note': '1552206876.4737859', 'shortDescription': 'Started by remote host QRP with note: 1552206876.4737859', 'addr': 'QRP'}]}, {}], '_class': 'hudson.model.Queue$WaitingItem', 'url': 'queue/item/81/', 'stuck': False, 'params': '', 'id': 81, 'blocked': False, 'timestamp': 1552206882481}
+====================================
+Build Job Submitted Successfully
+Http Status code is 201
+Header is {'Server': 'Jetty(9.4.z-SNAPSHOT)', 'Content-Length': '0', 'X-Content-Type-Options': 'nosniff', 'Date': 'Sun, 10 Mar 2019 08:34:39 GMT', 'Location': 'http://XYZ:8080/queue/item/81/'}
+====================================
+Getting Build Information from Queue ID
+Queue URL is http://XYZ:8080/queue/item/81/api/json?pretty=true
+Header returned is {'X-Jenkins-Session': '35c4c72c', 'X-Jenkins': '2.138.2', 'X-Content-Type-Options': 'nosniff', 'Date': 'Sun, 10 Mar 2019 08:34:41 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Encoding': 'gzip', 'Server': 'Jetty(9.4.z-SNAPSHOT)', 'Content-Length': '432'}
+====================================
+UnParsed response is
+{'buildable': False, 'why': 'In the quiet period. Expires in 1.1 sec', 'task': {'_class': 'hudson.model.FreeStyleProject', 'url': 'http://docker:8080/job/HelloWorld/', 'name': 'HelloWorld', 'color': 'blue'}, 'inQueueSince': 1552206877481, 'actions': [{'_class': 'hudson.model.CauseAction', 'causes': [{'_class': 'hudson.model.Cause$RemoteCause', 'note': '1552206876.4737859', 'shortDescription': 'Started by remote host QRP with note: 1552206876.4737859', 'addr': 'QRP'}, {'_class': 'hudson.model.Cause$RemoteCause', 'note': '1552206879.0657685', 'shortDescription': 'Started by remote host QRP with note: 1552206879.0657685', 'addr': 'QRP'}]}, {}], '_class': 'hudson.model.Queue$WaitingItem', 'url': 'queue/item/81/', 'stuck': False, 'params': '', 'id': 81, 'blocked': False, 'timestamp': 1552206882481}
+====================================
+Build Job Submitted Successfully
+Http Status code is 201
+Header is {'Server': 'Jetty(9.4.z-SNAPSHOT)', 'Content-Length': '0', 'X-Content-Type-Options': 'nosniff', 'Date': 'Sun, 10 Mar 2019 08:34:42 GMT', 'Location': 'http://XYZ:8080/queue/item/81/'}
+====================================
+Getting Build Information from Queue ID
+Queue URL is http://XYZ:8080/queue/item/81/api/json?pretty=true
+Header returned is {'X-Jenkins-Session': '35c4c72c', 'X-Jenkins': '2.138.2', 'X-Content-Type-Options': 'nosniff', 'Date': 'Sun, 10 Mar 2019 08:34:44 GMT', 'Content-Type': 'application/json;charset=utf-8', 'Content-Encoding': 'gzip', 'Server': 'Jetty(9.4.z-SNAPSHOT)', 'Content-Length': '448'}
+====================================
+UnParsed response is
+{'cancelled': False, 'buildable': False, 'why': None, 'task': {'_class': 'hudson.model.FreeStyleProject', 'url': 'http://docker:8080/job/HelloWorld/', 'name': 'HelloWorld', 'color': 'blue_anime'}, 'inQueueSince': 1552206877481, 'executable': {'_class': 'hudson.model.FreeStyleBuild', 'number': 80, 'url': 'http://docker:8080/job/HelloWorld/80/'}, 'actions': [{'_class': 'hudson.model.CauseAction', 'causes': [{'_class': 'hudson.model.Cause$RemoteCause', 'note': '1552206876.4737859', 'shortDescription': 'Started by remote host QRP with note: 1552206876.4737859', 'addr': 'QRP'}, {'_class': 'hudson.model.Cause$RemoteCause', 'note': '1552206879.0657685', 'shortDescription': 'Started by remote host QRP with note: 1552206879.0657685', 'addr': 'QRP'}, {'_class': 'hudson.model.Cause$RemoteCause', 'note': '1552206881.7824872', 'shortDescription': 'Started by remote host QRP with note: 1552206881.7824872', 'addr': 'QRP'}]}, {}], '_class': 'hudson.model.Queue$LeftItem', 'url': 'queue/item/81/', 'stuck': False, 'params': '', 'id': 81, 'blocked': False}

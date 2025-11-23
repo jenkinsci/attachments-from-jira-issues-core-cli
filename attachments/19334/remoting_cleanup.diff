@@ -1,0 +1,21 @@
+diff -r cdd2dba29365 -r 44003422f81a main/remoting/src/main/java/hudson/remoting/Engine.java
+--- a/main/remoting/src/main/java/hudson/remoting/Engine.java	Tue Apr 13 02:51:55 2010 +0000
++++ b/main/remoting/src/main/java/hudson/remoting/Engine.java	Thu Apr 15 10:57:10 2010 +0300
+@@ -284,9 +284,15 @@
+             try {
+                 // Hudson top page might be read-protected. see http://www.nabble.com/more-lenient-retry-logic-in-Engine.waitForServerToBack-td24703172.html
+                 HttpURLConnection con = (HttpURLConnection)new URL(hudsonUrl,"tcpSlaveAgentListener/").openConnection();
+-                con.connect();
+-                if(con.getResponseCode()==200)
++                try {
++	                con.setConnectTimeout(2000);
++	                con.setReadTimeout(2000);
++	                con.connect();
++                if(con.getResponseCode()==HttpURLConnection.HTTP_OK || con.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED)
+                     return;
++                } finally {
++                	con.disconnect();
++                }
+             } catch (IOException e) {
+                 // retry
+             }

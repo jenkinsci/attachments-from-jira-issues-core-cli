@@ -1,0 +1,457 @@
+Index: core/src/main/java/hudson/model/BuildableItem.java
+===================================================================
+--- core/src/main/java/hudson/model/BuildableItem.java	(revision 14946)
++++ core/src/main/java/hudson/model/BuildableItem.java	(working copy)
+@@ -12,6 +12,7 @@
+  * @author Kohsuke Kawaguchi
+  */
+ public interface BuildableItem extends Item, Task {
++	@Deprecated
+     boolean scheduleBuild();
+-    boolean scheduleBuild(int quietPeriod);
++	boolean scheduleBuild(Cause c);
+ }
+Index: core/src/main/java/hudson/model/LegacyCodeCause.java
+===================================================================
+--- core/src/main/java/hudson/model/LegacyCodeCause.java	(revision 0)
++++ core/src/main/java/hudson/model/LegacyCodeCause.java	(revision 0)
+@@ -0,0 +1,13 @@
++package hudson.model;
++
++public class LegacyCodeCause extends Cause {
++	private StackTraceElement [] stackTrace;
++	public LegacyCodeCause() {
++		stackTrace = new Exception().getStackTrace();
++	}
++	
++	@Override
++	String getShortDescription() {
++		return "Legacy code started this job.  No cause information is available";
++	}
++}
+Index: core/src/main/java/hudson/model/ParametersDefinitionProperty.java
+===================================================================
+--- core/src/main/java/hudson/model/ParametersDefinitionProperty.java	(revision 14946)
++++ core/src/main/java/hudson/model/ParametersDefinitionProperty.java	(working copy)
+@@ -75,7 +75,7 @@
+         }
+ 
+         Hudson.getInstance().getQueue().add(
+-                new ParameterizedProjectTask(owner, values), 0);
++                new ParameterizedProjectTask(owner, values, new UserCause(Hudson.getAuthentication())), 0);
+ 
+         // send the user back to the job top page.
+         rsp.sendRedirect(".");
+@@ -93,7 +93,7 @@
+         }
+ 
+     	Hudson.getInstance().getQueue().add(
+-                new ParameterizedProjectTask(owner, values), 0);
++                new ParameterizedProjectTask(owner, values, new UserCause(Hudson.getAuthentication())), 0);
+ 
+         // send the user back to the job top page.
+         rsp.sendRedirect(".");
+Index: core/src/main/java/hudson/model/UpstreamCause.java
+===================================================================
+--- core/src/main/java/hudson/model/UpstreamCause.java	(revision 0)
++++ core/src/main/java/hudson/model/UpstreamCause.java	(revision 0)
+@@ -0,0 +1,18 @@
++package hudson.model;
++
++public class UpstreamCause extends Cause {
++	private String upstreamProject;
++	private int upstreamBuild;
++	private Cause upstreamCause;
++	
++	public UpstreamCause(AbstractBuild up) {
++		upstreamBuild = up.getNumber();
++		upstreamProject = up.getProject().getName();
++		CauseAction ca = up.getAction(CauseAction.class);
++		upstreamCause = ca == null ? null : ca.getCause();
++	}
++	@Override
++	public String getShortDescription() {
++		return "Started by upstream project \"" + upstreamProject + "\" build number " + upstreamBuild;
++	}
++}
+Index: core/src/main/java/hudson/model/TimerTriggerCause.java
+===================================================================
+--- core/src/main/java/hudson/model/TimerTriggerCause.java	(revision 0)
++++ core/src/main/java/hudson/model/TimerTriggerCause.java	(revision 0)
+@@ -0,0 +1,10 @@
++package hudson.model;
++
++public class TimerTriggerCause extends Cause {
++
++	@Override
++	String getShortDescription() {
++		return "A timer trigger started this job";
++	}
++
++}
+Index: core/src/main/java/hudson/model/SCMTriggerCause.java
+===================================================================
+--- core/src/main/java/hudson/model/SCMTriggerCause.java	(revision 0)
++++ core/src/main/java/hudson/model/SCMTriggerCause.java	(revision 0)
+@@ -0,0 +1,10 @@
++package hudson.model;
++
++public class SCMTriggerCause extends Cause {
++
++	@Override
++	public String getShortDescription() {
++		return "A SCM change trigger started this job";
++	}
++
++}
+Index: core/src/main/java/hudson/model/Cause.java
+===================================================================
+--- core/src/main/java/hudson/model/Cause.java	(revision 0)
++++ core/src/main/java/hudson/model/Cause.java	(revision 0)
+@@ -0,0 +1,5 @@
++package hudson.model;
++
++public abstract class Cause {
++	abstract public String getShortDescription();
++}
+Index: core/src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- core/src/main/java/hudson/model/AbstractProject.java	(revision 14946)
++++ core/src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -392,6 +392,10 @@
+         Hudson.getInstance().rebuildDependencyGraph();
+     }
+ 
++    @Deprecated
++    public boolean scheduleBuild() {
++    	return scheduleBuild(new LegacyCodeCause());
++    }
+     /**
+      * Schedules a build of this project.
+      *
+@@ -400,19 +404,19 @@
+      *      false if the queue contained it and therefore the add()
+      *      was noop
+      */
+-    public boolean scheduleBuild() {
+-        return scheduleBuild(getQuietPeriod());
++    public boolean scheduleBuild(Cause c) {
++        return scheduleBuild(getQuietPeriod(), c);
+     }
+ 
+-    public boolean scheduleBuild(int quietPeriod) {
++    public boolean scheduleBuild(int quietPeriod, Cause c) {
+         if (isDisabled())
+             return false;
+ 
+         if (isParameterized())
+             return Hudson.getInstance().getQueue().add(
+-                    new ParameterizedProjectTask(this, getDefaultParametersValues()), quietPeriod);
++                    new ParameterizedProjectTask(this, getDefaultParametersValues(), c), quietPeriod);
+         else
+-            return Hudson.getInstance().getQueue().add(this, quietPeriod);
++            return Hudson.getInstance().getQueue().add(new ParameterizedProjectTask(this, c), quietPeriod);
+     }
+ 
+     private List<ParameterValue> getDefaultParametersValues() {
+@@ -437,11 +441,16 @@
+         return defValues;
+     }
+ 
++    @Deprecated
++    public Future<R> scheduleBuild2(int quietPeriod) {
++    	return scheduleBuild2(quietPeriod, new LegacyCodeCause());
++    }
++    
+     /**
+      * Schedules a build of this project, and returns a {@link Future} object
+      * to wait for the completion of the build.
+      */
+-    public Future<R> scheduleBuild2(int quietPeriod) {
++    public Future<R> scheduleBuild2(int quietPeriod, Cause c) {
+         R lastBuild = getLastBuild();
+         final int n;
+         if(lastBuild!=null) n = lastBuild.getNumber();
+@@ -460,7 +469,7 @@
+             { r.register(); }
+         };
+ 
+-        scheduleBuild(quietPeriod);
++        scheduleBuild(quietPeriod, c);
+ 
+         return f;
+     }
+@@ -967,13 +976,16 @@
+                     // TODO: more unit handling
+                     if(delay.endsWith("sec"))   delay=delay.substring(0,delay.length()-3);
+                     if(delay.endsWith("secs"))  delay=delay.substring(0,delay.length()-4);
+-                    Hudson.getInstance().getQueue().add(this, Integer.parseInt(delay));
++                    Hudson.getInstance().getQueue().add(
++                    		new ParameterizedProjectTask(this, new UserCause(Hudson.getAuthentication())), 
++                    		Integer.parseInt(delay)
++                    );
+                 } catch (NumberFormatException e) {
+                     throw new ServletException("Invalid delay parameter value: "+delay);
+                 }
+             }
+         } else {
+-            scheduleBuild();
++            scheduleBuild(new UserCause(Hudson.getAuthentication()));
+         }
+         rsp.forwardToPreviousPage(req);
+     }
+Index: core/src/main/java/hudson/model/CauseAction.java
+===================================================================
+--- core/src/main/java/hudson/model/CauseAction.java	(revision 0)
++++ core/src/main/java/hudson/model/CauseAction.java	(revision 0)
+@@ -0,0 +1,29 @@
++package hudson.model;
++
++public class CauseAction implements Action {
++	private Cause cause;
++	public Cause getCause() {
++		return cause;
++	}
++	
++	public String getShortDescription() {
++		return cause.getShortDescription();
++	}
++	
++	public CauseAction(Cause c) {
++		this.cause = c;
++	}
++	
++	public String getDisplayName() {
++		return "Cause";
++	}
++
++	public String getIconFileName() {
++		// no icon
++		return null;
++	}
++
++	public String getUrlName() {
++		return "cause";
++	}
++}
+Index: core/src/main/java/hudson/model/UserCause.java
+===================================================================
+--- core/src/main/java/hudson/model/UserCause.java	(revision 0)
++++ core/src/main/java/hudson/model/UserCause.java	(revision 0)
+@@ -0,0 +1,15 @@
++package hudson.model;
++
++import org.acegisecurity.Authentication;
++
++public class UserCause extends Cause {
++	private String authenticationName;
++	public UserCause(Authentication a) {
++		this.authenticationName = a.getName();
++	}
++	
++	@Override
++	public String getShortDescription() {
++		return "Started by user " + authenticationName;
++	}
++}
+Index: core/src/main/java/hudson/model/ParameterizedProjectTask.java
+===================================================================
+--- core/src/main/java/hudson/model/ParameterizedProjectTask.java	(revision 14946)
++++ core/src/main/java/hudson/model/ParameterizedProjectTask.java	(working copy)
+@@ -19,7 +19,8 @@
+ 
+     private final AbstractProject<?,?> project;
+     private final List<ParameterValue> parameters;
+-
++    private final Cause cause;
++    
+     private static long COUNTER = System.currentTimeMillis(); 
+ 
+     /**
+@@ -27,12 +28,17 @@
+      */
+     private final String key = Long.toString(COUNTER++);
+ 
+-    public ParameterizedProjectTask(AbstractProject<?,?> project, List<ParameterValue> parameters) {
++    public ParameterizedProjectTask(AbstractProject<?,?> project, List<ParameterValue> parameters, Cause c) {
+         super(project);
+         this.project = project;
+         this.parameters = parameters;
++        this.cause = c;
+     }
+-    
++
++    public ParameterizedProjectTask(AbstractProject<?,?> project, Cause c) {
++        this(project, null, c);
++    }
++
+     public AbstractProject<?, ?> getProject() {
+ 		return project;
+ 	}
+@@ -44,8 +50,9 @@
+ 	@Override
+     public Executable createExecutable() throws IOException {
+         AbstractBuild<?, ?> build = project.createExecutable();
+-        build.addAction(new ParametersAction(parameters, build));
+-
++        if(parameters != null) 
++        	build.addAction(new ParametersAction(parameters, build));
++        build.addAction(new CauseAction(cause));
+         return build;
+     }
+ 	
+Index: core/src/main/java/hudson/matrix/MatrixBuild.java
+===================================================================
+--- core/src/main/java/hudson/matrix/MatrixBuild.java	(revision 14946)
++++ core/src/main/java/hudson/matrix/MatrixBuild.java	(working copy)
+@@ -10,6 +10,7 @@
+ import hudson.model.ParametersAction;
+ import hudson.model.Queue;
+ import hudson.model.Result;
++import hudson.model.UpstreamCause;
+ import hudson.tasks.Publisher;
+ 
+ import java.io.File;
+@@ -149,9 +150,9 @@
+                     logger.println(Messages.MatrixBuild_Triggering(c.getDisplayName()));
+                     ParametersAction parameters = getAction(ParametersAction.class);
+                     if (parameters != null) {
+-                    	c.scheduleBuild(parameters);
++                    	c.scheduleBuild(parameters, new UpstreamCause(MatrixBuild.this));
+                     } else {
+-                    	c.scheduleBuild();
++                    	c.scheduleBuild(new UpstreamCause(MatrixBuild.this));
+                     }
+                 }
+ 
+Index: core/src/main/java/hudson/matrix/MatrixConfiguration.java
+===================================================================
+--- core/src/main/java/hudson/matrix/MatrixConfiguration.java	(revision 14946)
++++ core/src/main/java/hudson/matrix/MatrixConfiguration.java	(working copy)
+@@ -2,6 +2,7 @@
+ 
+ import hudson.FilePath;
+ import hudson.model.AbstractBuild;
++import hudson.model.Cause;
+ import hudson.model.DependencyGraph;
+ import hudson.model.Descriptor;
+ import hudson.model.Hudson;
+@@ -9,6 +10,7 @@
+ import hudson.model.ItemGroup;
+ import hudson.model.JDK;
+ import hudson.model.Label;
++import hudson.model.LegacyCodeCause;
+ import hudson.model.Node;
+ import hudson.model.ParameterValue;
+ import hudson.model.ParameterizedProjectTask;
+@@ -259,9 +261,14 @@
+      */
+     public static boolean useShortWorkspaceName = Boolean.getBoolean(MatrixConfiguration.class.getName()+".useShortWorkspaceName");
+ 
+-	public boolean scheduleBuild(ParametersAction parameters) {
++    @Deprecated
++    public boolean scheduleBuild(ParametersAction parameters) {
++    	return scheduleBuild(parameters, new LegacyCodeCause());
++    }
++    
++	public boolean scheduleBuild(ParametersAction parameters, Cause c) {
+         return Hudson.getInstance().getQueue().add(
+-                new ParameterizedProjectTask(this, parameters.getParameters()), getQuietPeriod());
++                new ParameterizedProjectTask(this, parameters.getParameters(), c), getQuietPeriod());
+ 	}
+ 	
+ }
+Index: core/src/main/java/hudson/maven/MavenBuild.java
+===================================================================
+--- core/src/main/java/hudson/maven/MavenBuild.java	(revision 14946)
++++ core/src/main/java/hudson/maven/MavenBuild.java	(working copy)
+@@ -10,6 +10,7 @@
+ import hudson.model.Hudson;
+ import hudson.model.Result;
+ import hudson.model.Run;
++import hudson.model.UpstreamCause;
+ import hudson.remoting.Channel;
+ import hudson.scm.ChangeLogSet;
+ import hudson.scm.ChangeLogSet.Entry;
+@@ -554,7 +555,7 @@
+             if(trigger) {
+                 listener.getLogger().println(Messages.MavenBuild_Triggering(down.getName()));
+                 downstreams.add(down);
+-                down.scheduleBuild();
++                down.scheduleBuild(new UpstreamCause(this));
+             }
+         }
+     }
+Index: core/src/main/java/hudson/tasks/BuildTrigger.java
+===================================================================
+--- core/src/main/java/hudson/tasks/BuildTrigger.java	(revision 14946)
++++ core/src/main/java/hudson/tasks/BuildTrigger.java	(working copy)
+@@ -17,6 +17,7 @@
+ import hudson.model.Job;
+ import hudson.model.Project;
+ import hudson.model.Result;
++import hudson.model.UpstreamCause;
+ import hudson.model.listeners.ItemListener;
+ import hudson.util.FormFieldValidator;
+ import net.sf.json.JSONObject;
+@@ -141,7 +142,7 @@
+                 // this is not completely accurate, as a new build might be triggered
+                 // between these calls
+                 String name = p.getName()+" #"+p.getNextBuildNumber();
+-                if(p.scheduleBuild()) {
++                if(p.scheduleBuild(new UpstreamCause(build))) {
+                     logger.println(Messages.BuildTrigger_Triggering(name));
+                 } else {
+                     logger.println(Messages.BuildTrigger_InQueue(name));
+Index: core/src/main/java/hudson/triggers/TimerTrigger.java
+===================================================================
+--- core/src/main/java/hudson/triggers/TimerTrigger.java	(revision 14946)
++++ core/src/main/java/hudson/triggers/TimerTrigger.java	(working copy)
+@@ -3,6 +3,7 @@
+ import static hudson.Util.fixNull;
+ import hudson.model.BuildableItem;
+ import hudson.model.Item;
++import hudson.model.TimerTriggerCause;
+ import hudson.scheduler.CronTabList;
+ import hudson.util.FormFieldValidator;
+ 
+@@ -29,7 +30,7 @@
+     }
+ 
+     public void run() {
+-        job.scheduleBuild(0);
++        job.scheduleBuild(new TimerTriggerCause());
+     }
+ 
+     public TriggerDescriptor getDescriptor() {
+Index: core/src/main/java/hudson/triggers/SCMTrigger.java
+===================================================================
+--- core/src/main/java/hudson/triggers/SCMTrigger.java	(revision 14946)
++++ core/src/main/java/hudson/triggers/SCMTrigger.java	(working copy)
+@@ -7,6 +7,7 @@
+ import hudson.model.Hudson;
+ import hudson.model.Item;
+ import hudson.model.Project;
++import hudson.model.SCMTriggerCause;
+ import hudson.model.SCMedItem;
+ import hudson.model.AdministrativeMonitor;
+ import hudson.util.StreamTaskListener;
+@@ -412,7 +413,7 @@
+                     
+                     if(foundChanges) {
+                         String name = " #"+job.asProject().getNextBuildNumber();
+-                        if(job.scheduleBuild()) {
++                        if(job.scheduleBuild(new SCMTriggerCause())) {
+                             LOGGER.info("SCM changes detected in "+ job.getName()+". Triggering "+name);
+                         } else {
+                             LOGGER.info("SCM changes detected in "+ job.getName()+". Job is already in the queue");
+Index: core/src/main/resources/hudson/model/CauseAction/summary.jelly
+===================================================================
+--- core/src/main/resources/hudson/model/CauseAction/summary.jelly	(revision 0)
++++ core/src/main/resources/hudson/model/CauseAction/summary.jelly	(revision 0)
+@@ -0,0 +1,5 @@
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
++	<t:summary icon="orange-square.gif">
++	<p>${it.shortDescription}</p>
++	</t:summary>
++</j:jelly>

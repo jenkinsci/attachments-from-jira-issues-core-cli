@@ -1,0 +1,47 @@
+Index: src/main/resources/lib/hudson/executors.jelly
+===================================================================
+--- src/main/resources/lib/hudson/executors.jelly	(revision 23517)
++++ src/main/resources/lib/hudson/executors.jelly	(working copy)
+@@ -68,7 +68,7 @@
+               <div nowrap="true">${%Building}
+                 <j:choose>
+                   <j:when test="${h.hasPermission(e.currentExecutable.parent,e.currentExecutable.parent.READ)}">
+-                    <a href="${rootURL}/${e.currentExecutable.parent.url}">${e.currentExecutable.parent.name}</a>&#160;<a href="${rootURL}/${e.currentExecutable.url}">#${e.currentExecutable.number}</a>
++                    <a href="${rootURL}/${e.currentExecutable.parent.url}"><t:limitText title="${e.currentExecutable.parent.name}"/></a>&#160;<a href="${rootURL}/${e.currentExecutable.url}">#${e.currentExecutable.number}</a>
+                     <t:buildProgressBar build="${e.currentExecutable}" executor="${e}"/>
+                   </j:when>
+                   <j:otherwise>
+Index: src/main/resources/lib/hudson/limitText.jelly
+===================================================================
+--- src/main/resources/lib/hudson/limitText.jelly	(revision 0)
++++ src/main/resources/lib/hudson/limitText.jelly	(revision 0)
+@@ -0,0 +1,16 @@
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
++  <st:documentation>
++    Displays the given text limiting its length to 40 characters.
++    <st:attribute name="title">
++      The title to display.
++    </st:attribute>
++  </st:documentation>
++  <j:choose>
++    <j:when test="${title.size() &gt; 40}">
++      <span tooltip="${title}">${title.substring(0,37)}...</span>
++    </j:when>
++    <j:otherwise>
++      ${title}
++    </j:otherwise>
++  </j:choose>
++</j:jelly>
+Index: src/main/resources/lib/hudson/queue.jelly
+===================================================================
+--- src/main/resources/lib/hudson/queue.jelly	(revision 23517)
++++ src/main/resources/lib/hudson/queue.jelly	(working copy)
+@@ -62,7 +62,7 @@
+               <j:choose>
+                 <j:when test="${h.hasPermission(item.task,item.task.READ)}">
+                   <a href="${rootURL}/${item.task.url}">
+-                    ${item.task.fullDisplayName}
++                    <t:limitText title="${item.task.fullDisplayName}"/>
+                   </a>
+                   <j:if test="${stuck}">
+                     &#160;

@@ -1,0 +1,141 @@
+Running from: /usr/share/jenkins/jenkins.war
+Jul 08, 2016 6:54:56 PM org.eclipse.jetty.util.log.JavaUtilLog info
+INFO: Logging initialized @954ms
+Jul 08, 2016 6:54:56 PM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Jul 08, 2016 6:54:56 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+WARNING: Empty contextPath
+Jul 08, 2016 6:54:56 PM org.eclipse.jetty.util.log.JavaUtilLog info
+INFO: jetty-9.2.z-SNAPSHOT
+Jul 08, 2016 6:54:58 PM org.eclipse.jetty.util.log.JavaUtilLog info
+INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+Jenkins home directory: /var/lib/jenkins found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+Jul 08, 2016 6:54:59 PM org.eclipse.jetty.util.log.JavaUtilLog info
+INFO: Started w.@212f6fe9{/,file:/var/cache/jenkins/war/,AVAILABLE}{/var/cache/jenkins/war}
+Jul 08, 2016 6:54:59 PM org.eclipse.jetty.util.log.JavaUtilLog info
+INFO: Started ServerConnector@615aee2a{HTTP/1.1}{0.0.0.0:8080}
+Jul 08, 2016 6:54:59 PM org.eclipse.jetty.util.log.JavaUtilLog info
+INFO: Started @3721ms
+Jul 08, 2016 6:54:59 PM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+Jul 08, 2016 6:55:00 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Jul 08, 2016 6:55:02 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+Jul 08, 2016 6:55:02 PM org.jenkinsci.plugins.scriptler.ScriptlerPluginImpl synchronizeConfig
+INFO: initialize scriptler
+Jul 08, 2016 6:55:08 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Jul 08, 2016 6:55:09 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+WARNING: Failed to instantiate Key[type=hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl, annotation=[none]]; skipping this component
+com.google.inject.ProvisionException: Guice provision errors:
+
+1) Error injecting constructor, java.lang.NoClassDefFoundError: com/chikli/hudson/plugin/naginator/ScheduleDelay
+  at hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl.<init>(AbortAndRestartOperation.java:120)
+
+1 error
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:52)
+	at com.google.inject.Scopes$1$1.get(Scopes.java:65)
+	at hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1.get(ExtensionFinder.java:424)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)
+	at com.google.inject.internal.InjectorImpl$3$1.call(InjectorImpl.java:1005)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1051)
+	at com.google.inject.internal.InjectorImpl$3.get(InjectorImpl.java:1001)
+	at hudson.ExtensionFinder$GuiceFinder._find(ExtensionFinder.java:386)
+	at hudson.ExtensionFinder$GuiceFinder.find(ExtensionFinder.java:377)
+	at hudson.ClassicPluginStrategy.findComponents(ClassicPluginStrategy.java:471)
+	at hudson.ExtensionList.load(ExtensionList.java:349)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:287)
+	at hudson.ExtensionList.getComponents(ExtensionList.java:167)
+	at hudson.DescriptorExtensionList.load(DescriptorExtensionList.java:185)
+	at hudson.ExtensionList.ensureLoaded(ExtensionList.java:287)
+	at hudson.ExtensionList.iterator(ExtensionList.java:156)
+	at hudson.ExtensionList.get(ExtensionList.java:147)
+	at com.cloudbees.jenkins.GitHubPushTrigger$DescriptorImpl.get(GitHubPushTrigger.java:359)
+	at org.jenkinsci.plugins.github.migration.Migrator.migrate(Migrator.java:40)
+	at org.jenkinsci.plugins.github.GitHubPlugin.postInitialize(GitHubPlugin.java:39)
+	at hudson.PluginManager$2$1$2.run(PluginManager.java:536)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:169)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:282)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:999)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:210)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:117)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.NoClassDefFoundError: com/chikli/hudson/plugin/naginator/ScheduleDelay
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2625)
+	at java.lang.Class.getMethod0(Class.java:2866)
+	at java.lang.Class.getMethod(Class.java:1676)
+	at hudson.model.Descriptor.<init>(Descriptor.java:287)
+	at hudson.plugins.build_timeout.BuildTimeOutOperationDescriptor.<init>(BuildTimeOutOperationDescriptor.java:38)
+	at hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl.<init>(AbortAndRestartOperation.java:120)
+	at hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl$$FastClassByGuice$$7e648b1.newInstance(<generated>)
+	at com.google.inject.internal.cglib.reflect.$FastConstructor.newInstance(FastConstructor.java:40)
+	at com.google.inject.internal.DefaultConstructionProxyFactory$1.newInstance(DefaultConstructionProxyFactory.java:61)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:108)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:88)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:269)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1058)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	... 28 more
+Caused by: java.lang.ClassNotFoundException: com.chikli.hudson.plugin.naginator.ScheduleDelay
+	at jenkins.util.AntClassLoader.findClassInComponents(AntClassLoader.java:1376)
+	at jenkins.util.AntClassLoader.findClass(AntClassLoader.java:1326)
+	at jenkins.util.AntClassLoader.loadClass(AntClassLoader.java:1079)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+	... 44 more
+
+Jul 08, 2016 6:55:20 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Jul 08, 2016 6:55:20 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Jul 08, 2016 6:55:20 PM jenkins.advancedqueue.PrioritySorterPlugin init1
+INFO: Configuring the Priority Sorter ...
+Jul 08, 2016 6:55:20 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect jenkins-slave03(192.168.100.162)
+Jul 08, 2016 6:55:20 PM hudson.slaves.SlaveComputer tryReconnect
+INFO: Attempting to reconnect jenkins-z3700D-3(172.18.125.223)
+[07/08/16 18:55:24] SSH Launch of jenkins-z3700D-3(172.18.125.223) on 172.18.125.223 completed in 3,458 ms
+Jul 08, 2016 6:55:24 PM hudson.model.ItemGroupMixIn loadChildren
+WARNING: could not find file /var/lib/jenkins/jobs/Projects/jobs/FortiOS/jobs/5.2/config.xml
+[07/08/16 18:55:29] SSH Launch of jenkins-slave03(192.168.100.162) on 192.168.100.162 completed in 8,326 ms
+Jul 08, 2016 6:55:35 PM com.cloudbees.hudson.plugins.folder.AbstractFolder$2 call
+INFO: Loading job Projects/FortiOS/br_5-0/br_5-0_3810d (4400.0%)
+Jul 08, 2016 6:55:37 PM hudson.model.ItemGroupMixIn loadChildren
+WARNING: could not find file /var/lib/jenkins/jobs/Projects/jobs/FortiOS/jobs/trunk/branches/5.0/config.xml
+Jul 08, 2016 6:55:37 PM hudson.model.ItemGroupMixIn loadChildren
+WARNING: could not find file /var/lib/jenkins/jobs/Projects/jobs/FortiOS/jobs/trunk/branches/5.2/config.xml
+Jul 08, 2016 6:55:49 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+Jul 08, 2016 6:55:49 PM jenkins.advancedqueue.PrioritySorterPlugin init2
+INFO: Sorting existing Queue ...
+Jul 08, 2016 6:55:49 PM jenkins.advancedqueue.sorter.AdvancedQueueSorter init
+INFO: Initialized the QueueSorter with 0 Buildable Items
+Jul 08, 2016 6:55:49 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Started Download metadata
+Jul 08, 2016 6:55:50 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Finished Download metadata. 3 ms
+Jul 08, 2016 6:55:50 PM org.jenkinsci.main.modules.sshd.SSHD start
+INFO: Started SSHD at port 42133
+Jul 08, 2016 6:55:50 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization
+Jul 08, 2016 6:55:51 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@41a0b7da: display name [Root WebApplicationContext]; startup date [Fri Jul 08 18:55:51 PDT 2016]; root of context hierarchy
+Jul 08, 2016 6:55:51 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@41a0b7da]: org.springframework.beans.factory.support.DefaultListableBeanFactory@76018c88
+Jul 08, 2016 6:55:51 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@76018c88: defining beans [initialDirContextFactory,bindAuthenticator,ldapUserSearch,authenticationManager,authoritiesPopulator]; root of factory hierarchy
+Jul 08, 2016 6:55:51 PM org.acegisecurity.ldap.DefaultInitialDirContextFactory setProviderUrl
+INFO:  URL 'ldap://172.16.100.17:389/cn=accounts,dc=corp,dc=fortinet,dc=com', root DN is 'cn=accounts,dc=corp,dc=fortinet,dc=com'
+Jul 08, 2016 6:55:51 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@39f2b03a: display name [Root WebApplicationContext]; startup date [Fri Jul 08 18:55:51 PDT 2016]; root of context hierarchy
+Jul 08, 2016 6:55:51 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@39f2b03a]: org.springframework.beans.factory.support.DefaultListableBeanFactory@47e739c8
+Jul 08, 2016 6:55:51 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@47e739c8: defining beans [filter,legacy]; root of factory hierarchy
+Jul 08, 2016 6:55:51 PM hudson.WebAppMain$3 run
+INFO: Jenkins is fully up and running
+

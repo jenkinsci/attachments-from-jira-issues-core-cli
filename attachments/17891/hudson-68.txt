@@ -1,0 +1,136 @@
+HTTP Status 500 -
+
+type Exception report
+
+message
+
+description The server encountered an internal error () that prevented it from fulfilling this request.
+
+exception
+
+org.apache.jasper.JasperException: javax.servlet.jsp.JspException: An error occurred while getting property "lastSuccessfulBuild" from an instance of class hudson.model.Project
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:510)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:375)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:314)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:264)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.kohsuke.stapler.RequestDispatcherWrapper.forward(RequestDispatcherWrapper.java:27)
+	org.kohsuke.stapler.Stapler.forward(Stapler.java:231)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:203)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:172)
+	org.kohsuke.stapler.Stapler.service(Stapler.java:77)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+
+root cause
+
+javax.servlet.ServletException: javax.servlet.jsp.JspException: An error occurred while getting property "lastSuccessfulBuild" from an instance of class hudson.model.Project
+	org.apache.jasper.runtime.PageContextImpl.doHandlePageException(PageContextImpl.java:854)
+	org.apache.jasper.runtime.PageContextImpl.handlePageException(PageContextImpl.java:791)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspService(index_jsp.java:78)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:97)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:332)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:314)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:264)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.kohsuke.stapler.RequestDispatcherWrapper.forward(RequestDispatcherWrapper.java:27)
+	org.kohsuke.stapler.Stapler.forward(Stapler.java:231)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:203)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:172)
+	org.kohsuke.stapler.Stapler.service(Stapler.java:77)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+
+root cause
+
+javax.servlet.jsp.JspException: An error occurred while getting property "lastSuccessfulBuild" from an instance of class hudson.model.Project
+	org.apache.jsp.tag.web.projectView_tag.doTag(projectView_tag.java:148)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspx_meth_t_projectView_0(index_jsp.java:107)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp.access$0(index_jsp.java:97)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp$index_jspHelper.invoke0(index_jsp.java:143)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp$index_jspHelper.invoke(index_jsp.java:161)
+	org.apache.jsp.tag.web.layout.main_002dpanel_tag.doTag(main_002dpanel_tag.java:47)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspx_meth_l_main$1panel_0(index_jsp.java:93)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspService(index_jsp.java:65)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:97)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:332)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:314)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:264)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.kohsuke.stapler.RequestDispatcherWrapper.forward(RequestDispatcherWrapper.java:27)
+	org.kohsuke.stapler.Stapler.forward(Stapler.java:231)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:203)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:172)
+	org.kohsuke.stapler.Stapler.service(Stapler.java:77)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+
+root cause
+
+javax.servlet.jsp.el.ELException: An error occurred while getting property "lastSuccessfulBuild" from an instance of class hudson.model.Project
+	org.apache.commons.el.Logger.logError(Logger.java:484)
+	org.apache.commons.el.Logger.logError(Logger.java:588)
+	org.apache.commons.el.ArraySuffix.evaluate(ArraySuffix.java:318)
+	org.apache.commons.el.ComplexValue.evaluate(ComplexValue.java:145)
+	org.apache.commons.el.ExpressionEvaluatorImpl.evaluate(ExpressionEvaluatorImpl.java:263)
+	org.apache.commons.el.ExpressionEvaluatorImpl.evaluate(ExpressionEvaluatorImpl.java:190)
+	org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:932)
+	org.apache.jsp.tag.web.projectView_tag._jspx_meth_c_set_0(projectView_tag.java:401)
+	org.apache.jsp.tag.web.projectView_tag._jspx_meth_c_forEach_1(projectView_tag.java:316)
+	org.apache.jsp.tag.web.projectView_tag.doTag(projectView_tag.java:122)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspx_meth_t_projectView_0(index_jsp.java:107)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp.access$0(index_jsp.java:97)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp$index_jspHelper.invoke0(index_jsp.java:143)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp$index_jspHelper.invoke(index_jsp.java:161)
+	org.apache.jsp.tag.web.layout.main_002dpanel_tag.doTag(main_002dpanel_tag.java:47)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspx_meth_l_main$1panel_0(index_jsp.java:93)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspService(index_jsp.java:65)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:97)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:332)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:314)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:264)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.kohsuke.stapler.RequestDispatcherWrapper.forward(RequestDispatcherWrapper.java:27)
+	org.kohsuke.stapler.Stapler.forward(Stapler.java:231)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:203)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:172)
+	org.kohsuke.stapler.Stapler.service(Stapler.java:77)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+
+root cause
+
+java.lang.NullPointerException
+	hudson.model.Job.getLastSuccessfulBuild(Job.java:248)
+	sun.reflect.GeneratedMethodAccessor35.invoke(Unknown Source)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:585)
+	org.apache.commons.el.ArraySuffix.evaluate(ArraySuffix.java:314)
+	org.apache.commons.el.ComplexValue.evaluate(ComplexValue.java:145)
+	org.apache.commons.el.ExpressionEvaluatorImpl.evaluate(ExpressionEvaluatorImpl.java:263)
+	org.apache.commons.el.ExpressionEvaluatorImpl.evaluate(ExpressionEvaluatorImpl.java:190)
+	org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:932)
+	org.apache.jsp.tag.web.projectView_tag._jspx_meth_c_set_0(projectView_tag.java:401)
+	org.apache.jsp.tag.web.projectView_tag._jspx_meth_c_forEach_1(projectView_tag.java:316)
+	org.apache.jsp.tag.web.projectView_tag.doTag(projectView_tag.java:122)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspx_meth_t_projectView_0(index_jsp.java:107)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp.access$0(index_jsp.java:97)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp$index_jspHelper.invoke0(index_jsp.java:143)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp$index_jspHelper.invoke(index_jsp.java:161)
+	org.apache.jsp.tag.web.layout.main_002dpanel_tag.doTag(main_002dpanel_tag.java:47)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspx_meth_l_main$1panel_0(index_jsp.java:93)
+	org.apache.jsp.WEB_002dINF.side_002dfiles.hudson.model.JobCollection.index_jsp._jspService(index_jsp.java:65)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:97)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:332)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:314)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:264)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+	org.kohsuke.stapler.RequestDispatcherWrapper.forward(RequestDispatcherWrapper.java:27)
+	org.kohsuke.stapler.Stapler.forward(Stapler.java:231)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:203)
+	org.kohsuke.stapler.Stapler.invoke(Stapler.java:172)
+	org.kohsuke.stapler.Stapler.service(Stapler.java:77)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+
+note The full stack trace of the root cause is available in the Apache Tomcat/5.5.17 logs.
+Apache Tomcat/5.5.17

@@ -1,0 +1,140 @@
+From 6085dfb8d950186ca4192d2003ff3da33cf1982b Mon Sep 17 00:00:00 2001
+From: Hiroshi Shirosaki <h.shirosaki@gmail.com>
+Date: Tue, 2 Oct 2012 11:15:01 +0900
+Subject: [PATCH] Fix slave to work behind http proxy
+
+We get proxy setting from http_proxy environment variable.
+---
+ src/main/java/hudson/remoting/Engine.java   |   52 +++++++++++++++++++++++++-
+ src/main/java/hudson/remoting/Launcher.java |   19 +++++++++-
+ 2 files changed, 68 insertions(+), 3 deletions(-)
+
+diff --git a/src/main/java/hudson/remoting/Engine.java b/src/main/java/hudson/remoting/Engine.java
+index f19c221..ba4b3cd 100644
+--- a/src/main/java/hudson/remoting/Engine.java
++++ b/src/main/java/hudson/remoting/Engine.java
+@@ -30,8 +30,12 @@ import java.io.IOException;
+ import java.io.InputStream;
+ import java.io.ByteArrayOutputStream;
+ import java.net.HttpURLConnection;
++import java.net.InetSocketAddress;
++import java.net.Proxy;
+ import java.net.Socket;
++import java.net.SocketAddress;
+ import java.net.URL;
++import java.net.MalformedURLException;
+ import java.util.Properties;
+ import java.util.concurrent.ExecutorService;
+ import java.util.concurrent.Executors;
+@@ -147,8 +151,23 @@ public class Engine extends Thread {
+                     if(!s.endsWith("/"))    s+='/';
+                     URL salURL = new URL(s+"tcpSlaveAgentListener/");
+ 
++                    String httpProxy = System.getenv("http_proxy");
++                    HttpURLConnection con = null;
++                    if (httpProxy != null) {
++                        try {
++                            URL proxyUrl = new URL(httpProxy);
++                            SocketAddress addr = new InetSocketAddress(proxyUrl.getHost(), proxyUrl.getPort());
++                            Proxy proxy = new Proxy(Proxy.Type.HTTP, addr);
++                            con = (HttpURLConnection)salURL.openConnection(proxy);
++                        } catch (MalformedURLException e) {
++                            System.err.println("Not use http_proxy environment variable which is invalid: "+e.getMessage());
++                            con = (HttpURLConnection)salURL.openConnection();
++                        }
++                    } else {
++                        con = (HttpURLConnection)salURL.openConnection();
++                    }
++
+                     // find out the TCP port
+-                    HttpURLConnection con = (HttpURLConnection)salURL.openConnection();
+                     if (con instanceof HttpURLConnection && credentials != null) {
+                         String encoding = new String(new Base64().encodeBase64(credentials.getBytes()));
+                         con.setRequestProperty("Authorization", "Basic " + encoding);
+@@ -302,7 +321,22 @@ public class Engine extends Thread {
+         int retry = 1;
+         while(true) {
+             try {
+-                Socket s = new Socket(host, Integer.parseInt(port));
++                String httpProxy = System.getenv("http_proxy");
++                boolean isProxy = false;
++                Socket s = null;
++                if (httpProxy != null) {
++                    try {
++                        URL url = new URL(httpProxy);
++                        s = new Socket(url.getHost(), url.getPort());
++                        isProxy = true;
++                    } catch (MalformedURLException e) {
++                        System.err.println("Not use http_proxy environment variable which is invalid: "+e.getMessage());
++                        s = new Socket(host, Integer.parseInt(port));
++                    }
++                } else {
++                    s = new Socket(host, Integer.parseInt(port));
++                }
++
+                 s.setTcpNoDelay(true); // we'll do buffering by ourselves
+ 
+                 // set read time out to avoid infinite hang. the time out should be long enough so as not
+@@ -310,6 +344,20 @@ public class Engine extends Thread {
+                 // abruptly, we shouldn't hang forever, and at some point we should notice that the connection
+                 // is gone.
+                 s.setSoTimeout(30*60*1000); // 30 mins. See PingThread for the ping interval
++
++                if (isProxy) {
++                    String connectCommand = String.format("CONNECT %s:%s HTTP/1.1\r\nHost: %s\r\n\r\n", host, port, host);
++                    s.getOutputStream().write(connectCommand.getBytes());
++
++                    BufferedInputStream is = new BufferedInputStream(s.getInputStream());
++                    String line = readLine(is);
++                    String[] responseLineParts = line.split(" ");
++                    if(responseLineParts.length < 2 || !responseLineParts[1].equals("200"))
++                        throw new IOException("Got a bad response from proxy: " + line);
++                    while(!(line = readLine(is)).isEmpty()) {
++                        // Do nothing, scrolling through headers returned from proxy
++                    }
++                }
+                 return s;
+             } catch (IOException e) {
+                 if(retry++>10)
+diff --git a/src/main/java/hudson/remoting/Launcher.java b/src/main/java/hudson/remoting/Launcher.java
+index 68a4bad..457230f 100644
+--- a/src/main/java/hudson/remoting/Launcher.java
++++ b/src/main/java/hudson/remoting/Launcher.java
+@@ -54,8 +54,11 @@ import java.lang.reflect.InvocationTargetException;
+ import java.lang.reflect.Method;
+ import java.net.URL;
+ import java.net.URLConnection;
++import java.net.MalformedURLException;
+ import java.net.ServerSocket;
+ import java.net.Socket;
++import java.net.SocketAddress;
++import java.net.Proxy;
+ import java.net.URLClassLoader;
+ import java.net.InetSocketAddress;
+ import java.net.HttpURLConnection;
+@@ -222,7 +225,21 @@ public class Launcher {
+     public List<String> parseJnlpArguments() throws ParserConfigurationException, SAXException, IOException, InterruptedException {
+         while (true) {
+             try {
+-                URLConnection con = slaveJnlpURL.openConnection();
++                String httpProxy = System.getenv("http_proxy");
++                URLConnection con = null;
++                if (httpProxy != null) {
++                    try {
++                        URL url = new URL(httpProxy);
++                        SocketAddress addr = new InetSocketAddress(url.getHost(), url.getPort());
++                        Proxy proxy = new Proxy(Proxy.Type.HTTP, addr);
++                        con = slaveJnlpURL.openConnection(proxy);
++                    } catch (MalformedURLException e) {
++                        System.err.println("Not use http_proxy environment variable which is invalid: "+e.getMessage());
++                        con = slaveJnlpURL.openConnection();
++                    }
++                } else {
++                    con = slaveJnlpURL.openConnection();
++                }
+                 if (con instanceof HttpURLConnection && slaveJnlpCredentials != null) {
+                     HttpURLConnection http = (HttpURLConnection) con;
+                     String userPassword = slaveJnlpCredentials;
+-- 
+1.7.9.1
+

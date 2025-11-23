@@ -1,0 +1,12 @@
+#!/bin/bash
+
+noise_amplitude=2
+
+time=`date +%s`
+minute=`expr \( $time / 60 \) % 60`
+second=`expr $time % 60`
+noise=`expr $RANDOM % $noise_amplitude `
+delay=`expr \( 1 - $minute % 2 \) \* 60 + 60 - $second + $noise_amplitude / 2 - $noise`
+echo "Sleeping $delay"
+sleep $delay
+echo "Triggering slave job"

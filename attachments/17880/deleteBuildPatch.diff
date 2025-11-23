@@ -1,0 +1,74 @@
+Index: src/main/java/hudson/model/Run.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/model/Run.java,v
+retrieving revision 1.1
+diff -u -r1.1 Run.java
+--- src/main/java/hudson/model/Run.java	5 Nov 2006 21:14:03 -0000	1.1
++++ src/main/java/hudson/model/Run.java	8 Nov 2006 20:58:46 -0000
+@@ -732,6 +732,24 @@
+         save();
+         rsp.forwardToPreviousPage(req);
+     }
++    
++    /**
++     * Deletes the build when the button is pressed.
++     */
++    public void doDoDelete( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
++        if(!Hudson.adminCheck(req,rsp))
++            return;
++        
++        // We should not simply delete the build if it has been explicitly
++        // marked to be preserved, or if the build should not be deleted
++        // due to dependencies!
++        if (isKeepLog()) {
++            return;
++        }
++
++        delete();
++        rsp.sendRedirect2(req.getContextPath()+'/' + getParent().getUrl());
++    }
+ 
+     /**
+      * Accepts the new description.
+Index: src/main/resources/hudson/model/Run/confirmDelete.jelly
+===================================================================
+RCS file: src/main/resources/hudson/model/Run/confirmDelete.jelly
+diff -N src/main/resources/hudson/model/Run/confirmDelete.jelly
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/main/resources/hudson/model/Run/confirmDelete.jelly	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,18 @@
++<!-- Confirm deletion of the build/run -->
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
++  <l:layout>
++		<st:include page="sidepanel.jelly" />
++		<l:main-panel>
++		  <j:if test="${it.keepLog}">
++		    <b>Warning</b>: Cannot delete this build, because it either was explicitly marked
++		    to be preserved or it is required as a dependency for other builds.
++		  </j:if>		  
++		  <j:if test="${!it.keepLog}">
++		    <form method="get" action="doDelete">
++		      Are you sure about deleting the build?
++		      <input type="submit" value="Yes" />
++		    </form>
++		  </j:if>
++		</l:main-panel>
++	</l:layout>
++</j:jelly>
+Index: src/main/resources/hudson/model/Run/delete.jelly
+===================================================================
+RCS file: src/main/resources/hudson/model/Run/delete.jelly
+diff -N src/main/resources/hudson/model/Run/delete.jelly
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/main/resources/hudson/model/Run/delete.jelly	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,10 @@
++<!--
++  Displays the button to delete the build.
++-->
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
++  <j:if test="${!it.keepLog}">
++    <form method="get" action="confirmDelete">
++      <input type="submit" value="Delete this build"  />
++    </form>
++  </j:if>
++</j:jelly>

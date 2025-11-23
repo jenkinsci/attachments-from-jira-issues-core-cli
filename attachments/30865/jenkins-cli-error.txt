@@ -1,0 +1,193 @@
+Ouptut of list-jobs command.  The job ei-chef-dev is showing.
+
+[root@v10063 jenkins]# "/usr/bin/java" -jar "/var/chef/cache/jenkins-cli.jar" -s http://localhost:8080/jenkins -i "/var/chef/cache/jenkins-key" list-jobs
+casei-default-base
+casei-default-berkshelfApi
+casei-default-gitannex
+casei-default-gitlab
+casei-default-jenkinsMaster
+casei-default-jenkinsSlave
+casei-default-repoManager
+casei-default-ucdagent
+casei-default-ucddropzone
+casei-default-ucdserver
+casei-repo-manager
+chef-bump
+chef-create
+chef-destroy
+chef-role-bump
+chef-role-upload
+chef-role-urbancode
+chef-upload
+ei-appdynamics
+ei-artifact_dropzone
+ei-aspera
+ei-berkshelf-api
+ei-chef-client
+ei-chef-dev
+ei-chef-jenkins
+ei-chefdk
+ei-compat-IHS
+ei-db2
+ei-dirstore
+ei-gitlab
+ei-ibm-cert
+ei-IHS
+ei-install
+ei-ipaliases
+ei-java
+ei-jenkins
+ei-liquibase
+ei-lsyncd
+ei-mail
+ei-mon_scripts
+ei-name_resolution
+ei-nsswitch
+ei-ntp
+ei-os_custom
+ei-repo
+ei-rssh
+ei-shared_fs
+ei-ssh
+ei-statsd
+ei-sudo
+ei-sugar
+ei-sysctl
+ei-syslog
+ei-ucd
+ei-user_auth
+ei-vagrant
+ei-vmware-workstation
+ei-wmq
+ei-wxs
+ei_wlp
+ibm-cds-appserver
+ibm-cds-appserverRole
+IBMIM
+IHS
+ITM
+lcs
+spong
+wwsm-cmauso-webserver
+wwsm-cmauso-webserverRole
+wwsm-cmmast-webserver
+wwsm-cmmast-webserverRole
+wwsm-cmrolg-webserver
+wwsm-cmrolg-webserver-softlayer
+wwsm-cmtony-webserver
+wwsm-cmusga-webserver
+wwsm-cmusga-webserver-softlayer
+wwsm-cmusta-webserver
+wwsm-cmusta-webserver-softlayer
+wwsm-cmwimb-webserver
+wwsm-cmwimb-webserver-softlayer
+wwsm-default-appserver
+wwsm-default-appserver-cdt
+wwsm-default-lsyncdLocalDist
+wwsm-default-lsyncdLocalDist-softlayer
+wwsm-default-lsyncdMainDist
+wwsm-default-predictivecloudAppserver
+WWSM-IHS
+wwsm-relatedcontent
+wwsm_solr
+zyphyros
+
+-----------------------------------------------------------------------------------------------
+Output of get-job command for the job ei-chef-dev which shows the job is there.
+
+
+<?xml version="1.0" encoding="UTF-8"?><flow-definition plugin="workflow-job@1.10">
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.buildcontextcapture.BuildContextJobProperty plugin="buildcontext-capture@0.6">
+      <on>false</on>
+    </org.jenkinsci.plugins.buildcontextcapture.BuildContextJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@1.10">
+    <script>def dataBagName = 'ei-chef-dev'
+
+node('master') {
+  //Cleaning Workspace
+  sh 'rm -rf *'
+  git credentialsId: '181ac92b-59d0-4ed2-9b9d-a0155c282252', url: "src.event.ibm.com:/git/chef/data_bags/ei-chef-dev.git"
+  //Testing data bags
+  sh 'chef exec jsonlint *'
+  stash includes: '*.json', name: 'bag_items'
+}
+
+def knifeConfigFiles = ['p1knife.rb', 'p3knife.rb', 'z1knife.rb']
+def jobs = [:]
+def knifeConfigDir = '/home/jenkins/.chef'
+
+// Create a jobs array that can be executed in parallel
+// to upload data bags to the chef server
+for (int i = 0; i &lt; knifeConfigFiles.size(); i++) {
+  def knifeConfig = knifeConfigFiles[i]
+  jobs["Knife Config ${knifeConfig}"] = {
+    node('master') {
+      sh 'rm -rf *'
+      knifeCommand "chef exec knife data bag list -c ${knifeConfigDir}/${knifeConfig} &gt; data_bags"
+      def dataBags = readFile('data_bags')
+      if (dataBags.contains(dataBagName) == false ) {
+          echo "Creating new data bag ${dataBagName}"
+          knifeCommand "chef exec knife data bag create $dataBagName -c ${knifeConfigDir}/${knifeConfig}"
+       }
+     unstash 'bag_items'
+     sh 'ls *.json &gt; bag_items'
+     def bagItems = readFile('bag_items').split("\n")
+     for(int j = 0; j &lt; bagItems.length; j++ ) {
+       bagItem = bagItems[j]
+       knifeCommand "chef exec knife data bag from file $dataBagName $bagItem -c ${knifeConfigDir}/${knifeConfig}"
+     }
+    }
+  }
+}
+
+parallel jobs
+
+/**
+* Execute command with retries and sleep between failures
+*/
+def knifeCommand(command) {
+  retry(3) {
+    try{
+      sh command
+    }
+    catch(e) {
+      echo 'Error executing knife command'
+      sleep 5
+      throw e
+    }
+   }
+}
+
+
+
+
+</script>
+    <sandbox>false</sandbox>
+  </definition>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>H/5 * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+</flow-definition>
+
+--------------------------------------------------------------------------------------------------------
+Output of disable-job command from the command line:
+
+
+[root@v10063 jenkins]# "/usr/bin/java" -jar "/var/chef/cache/jenkins-cli.jar" -s http://localhost:8080/jenkins -i "/var/chef/cache/jenkins-key" disable-job ei-chef-dev
+No such job �ei-chef-dev� exists. Perhaps you meant �ei-chefdk�?
+java -jar jenkins-cli.jar disable-job NAME [--username VAL] [--password VAL] [--password-file VAL]
+Disables a job.
+ NAME                : Job name
+ --username VAL      : User name to authenticate yourself to Jenkins
+ --password VAL      : Password for authentication. Note that passing a
+                       password in arguments is insecure.
+ --password-file VAL : File that contains the password
+

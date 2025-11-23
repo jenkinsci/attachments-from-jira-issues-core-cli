@@ -1,0 +1,24 @@
+pipeline {
+        agent { label "test_executor" }
+        stages {
+            stage('stage 1') {
+                steps {
+                    echo "first stage"
+                }
+            }
+            stage('stage 2') {
+                agent {
+                    docker {
+                        label "test_executor"
+                        //set reuseNode to true to prevent deadlock
+                        //reuseNode true
+                        image 'some random docker image'
+
+                    }
+                }
+                steps {
+                    echo "second stage"
+                }
+            }
+        }
+}

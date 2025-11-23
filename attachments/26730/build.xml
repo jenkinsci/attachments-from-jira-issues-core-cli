@@ -1,0 +1,672 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.maven.MavenModuleSetBuild plugin="maven-plugin@2.3">
+  <actions>
+    <hudson.model.CauseAction>
+      <causes>
+        <hudson.triggers.SCMTrigger_-SCMTriggerCause/>
+      </causes>
+    </hudson.model.CauseAction>
+    <hudson.triggers.SCMTrigger_-BuildAction/>
+    <hudson.scm.CvsRevisionState plugin="cvs@2.12">
+      <moduleFiles>
+        <entry>
+          <hudson.scm.CvsRepository>
+            <cvsRoot>:pserver:login@host:/root</cvsRoot>
+            <repositoryItems>
+              <hudson.scm.CvsRepositoryItem>
+                <modules>
+                  <hudson.scm.CvsModule>
+                    <localName></localName>
+                    <remoteName>rubbish</remoteName>
+                  </hudson.scm.CvsModule>
+                </modules>
+                <location class="hudson.scm.CvsRepositoryLocation$HeadRepositoryLocation">
+                  <locationType>HEAD</locationType>
+                  <useHeadIfNotFound>false</useHeadIfNotFound>
+                </location>
+              </hudson.scm.CvsRepositoryItem>
+            </repositoryItems>
+            <compressionLevel>-1</compressionLevel>
+            <excludedRegions>
+              <hudson.scm.ExcludedRegion>
+                <pattern></pattern>
+              </hudson.scm.ExcludedRegion>
+            </excludedRegions>
+            <passwordRequired>false</passwordRequired>
+          </hudson.scm.CvsRepository>
+          <list>
+            <hudson.scm.CvsFile>
+              <name>dummy</name>
+              <revision>1.1</revision>
+              <dead>false</dead>
+            </hudson.scm.CvsFile>
+          </list>
+        </entry>
+      </moduleFiles>
+    </hudson.scm.CvsRevisionState>
+    <hudson.scm.cvstagging.CvsTagAction plugin="cvs@2.12">
+      <tagNames/>
+      <parentScm class="hudson.scm.CVSSCM">
+        <flatten>true</flatten>
+        <repositories>
+          <hudson.scm.CvsRepository reference="../../../../hudson.scm.CvsRevisionState/moduleFiles/entry/hudson.scm.CvsRepository"/>
+        </repositories>
+        <canUseUpdate>false</canUseUpdate>
+        <skipChangeLog>false</skipChangeLog>
+        <pruneEmptyDirectories>true</pruneEmptyDirectories>
+        <disableCvsQuiet>true</disableCvsQuiet>
+        <cleanOnFailedUpdate>false</cleanOnFailedUpdate>
+        <forceCleanCopy>true</forceCleanCopy>
+      </parentScm>
+    </hudson.scm.cvstagging.CvsTagAction>
+    <hudson.plugins.tasks.TasksMavenResultAction plugin="tasks@4.39">
+      <delegate class="hudson.plugins.tasks.TasksResultAction">
+        <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../.."/>
+        <healthDescriptor class="hudson.plugins.tasks.TasksHealthDescriptor">
+          <priority>LOW</priority>
+          <healthy></healthy>
+          <unHealthy></unHealthy>
+          <thresholds plugin="analysis-core@1.57">
+            <unstableTotalAll></unstableTotalAll>
+            <unstableTotalHigh></unstableTotalHigh>
+            <unstableTotalNormal></unstableTotalNormal>
+            <unstableTotalLow></unstableTotalLow>
+            <unstableNewAll></unstableNewAll>
+            <unstableNewHigh></unstableNewHigh>
+            <unstableNewNormal></unstableNewNormal>
+            <unstableNewLow></unstableNewLow>
+            <failedTotalAll></failedTotalAll>
+            <failedTotalHigh></failedTotalHigh>
+            <failedTotalNormal></failedTotalNormal>
+            <failedTotalLow></failedTotalLow>
+            <failedNewAll></failedNewAll>
+            <failedNewHigh></failedNewHigh>
+            <failedNewNormal></failedNewNormal>
+            <failedNewLow></failedNewLow>
+          </thresholds>
+        </healthDescriptor>
+        <result class="hudson.plugins.tasks.TasksReporterResult">
+          <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../../.."/>
+          <modules>
+            <string>dummy</string>
+          </modules>
+          <numberOfModules>1</numberOfModules>
+          <numberOfWarnings>0</numberOfWarnings>
+          <numberOfNewWarnings>0</numberOfNewWarnings>
+          <numberOfFixedWarnings>0</numberOfFixedWarnings>
+          <delta>0</delta>
+          <lowDelta>0</lowDelta>
+          <normalDelta>0</normalDelta>
+          <highDelta>0</highDelta>
+          <lowWarnings>0</lowWarnings>
+          <normalWarnings>0</normalWarnings>
+          <highWarnings>0</highWarnings>
+          <zeroWarningsSinceBuild>1</zeroWarningsSinceBuild>
+          <zeroWarningsSinceDate>1404119828576</zeroWarningsSinceDate>
+          <zeroWarningsHighScore>0</zeroWarningsHighScore>
+          <isZeroWarningsHighscore>true</isZeroWarningsHighscore>
+          <highScoreGap>0</highScoreGap>
+          <errors>
+            <string>File encoding has not been set in pom.xml, using platform encoding windows-1252, i.e. build is platform dependent (see &lt;a href=&quot;http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding&quot;&gt;Maven FAQ&lt;/a&gt;).</string>
+          </errors>
+          <pluginResult>SUCCESS</pluginResult>
+          <successfulSinceBuild>0</successfulSinceBuild>
+          <successfulSinceDate>0</successfulSinceDate>
+          <successfulHighscore>0</successfulHighscore>
+          <isSuccessfulHighscore>false</isSuccessfulHighscore>
+          <successfulHighScoreGap>0</successfulHighScoreGap>
+          <isSuccessfulStateTouched>false</isSuccessfulStateTouched>
+          <referenceBuild>-1</referenceBuild>
+          <highTags>FIXME</highTags>
+          <normalTags>TODO, XXX</normalTags>
+          <lowTags></lowTags>
+          <numberOfFiles>12</numberOfFiles>
+        </result>
+      </delegate>
+      <high>FIXME</high>
+      <normal>TODO, XXX</normal>
+      <low></low>
+    </hudson.plugins.tasks.TasksMavenResultAction>
+    <hudson.maven.reporters.SurefireAggregatedReport>
+      <descriptions class="concurrent-hash-map"/>
+      <failCount>0</failCount>
+      <skipCount>0</skipCount>
+      <totalCount>12</totalCount>
+      <children>
+        <hudson.tasks.test.AggregatedTestResultAction_-Child>
+          <name>com.example:dummy</name>
+          <build>1</build>
+        </hudson.tasks.test.AggregatedTestResultAction_-Child>
+      </children>
+    </hudson.maven.reporters.SurefireAggregatedReport>
+    <hudson.maven.reporters.MavenAggregatedArtifactRecord>
+      <records/>
+      <parent reference="../../.."/>
+    </hudson.maven.reporters.MavenAggregatedArtifactRecord>
+    <hudson.plugins.findbugs.FindBugsMavenResultAction plugin="findbugs@4.56">
+      <delegate class="hudson.plugins.findbugs.FindBugsResultAction">
+        <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../.."/>
+        <healthDescriptor class="hudson.plugins.findbugs.FindBugsHealthDescriptor">
+          <priority>LOW</priority>
+          <healthy></healthy>
+          <unHealthy></unHealthy>
+          <thresholds plugin="analysis-core@1.57">
+            <unstableTotalAll></unstableTotalAll>
+            <unstableTotalHigh></unstableTotalHigh>
+            <unstableTotalNormal></unstableTotalNormal>
+            <unstableTotalLow></unstableTotalLow>
+            <unstableNewAll></unstableNewAll>
+            <unstableNewHigh></unstableNewHigh>
+            <unstableNewNormal></unstableNewNormal>
+            <unstableNewLow></unstableNewLow>
+            <failedTotalAll></failedTotalAll>
+            <failedTotalHigh></failedTotalHigh>
+            <failedTotalNormal></failedTotalNormal>
+            <failedTotalLow></failedTotalLow>
+            <failedNewAll></failedNewAll>
+            <failedNewHigh></failedNewHigh>
+            <failedNewNormal></failedNewNormal>
+            <failedNewLow></failedNewLow>
+          </thresholds>
+        </healthDescriptor>
+        <result class="hudson.plugins.findbugs.FindBugsReporterResult">
+          <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../../.."/>
+          <modules>
+            <string>dummy</string>
+          </modules>
+          <numberOfModules>1</numberOfModules>
+          <numberOfWarnings>0</numberOfWarnings>
+          <numberOfNewWarnings>0</numberOfNewWarnings>
+          <numberOfFixedWarnings>0</numberOfFixedWarnings>
+          <delta>0</delta>
+          <lowDelta>0</lowDelta>
+          <normalDelta>0</normalDelta>
+          <highDelta>0</highDelta>
+          <lowWarnings>0</lowWarnings>
+          <normalWarnings>0</normalWarnings>
+          <highWarnings>0</highWarnings>
+          <zeroWarningsSinceBuild>1</zeroWarningsSinceBuild>
+          <zeroWarningsSinceDate>1404119828576</zeroWarningsSinceDate>
+          <zeroWarningsHighScore>0</zeroWarningsHighScore>
+          <isZeroWarningsHighscore>true</isZeroWarningsHighscore>
+          <highScoreGap>0</highScoreGap>
+          <errors>
+            <string>File encoding has not been set in pom.xml, using platform encoding windows-1252, i.e. build is platform dependent (see &lt;a href=&quot;http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding&quot;&gt;Maven FAQ&lt;/a&gt;).</string>
+          </errors>
+          <pluginResult>SUCCESS</pluginResult>
+          <successfulSinceBuild>0</successfulSinceBuild>
+          <successfulSinceDate>0</successfulSinceDate>
+          <successfulHighscore>0</successfulHighscore>
+          <isSuccessfulHighscore>false</isSuccessfulHighscore>
+          <successfulHighScoreGap>0</successfulHighScoreGap>
+          <isSuccessfulStateTouched>false</isSuccessfulStateTouched>
+          <referenceBuild>-1</referenceBuild>
+          <newThisWeek>0</newThisWeek>
+          <notInCloud>0</notInCloud>
+          <numberOfComments>0</numberOfComments>
+        </result>
+      </delegate>
+    </hudson.plugins.findbugs.FindBugsMavenResultAction>
+    <hudson.plugins.pmd.PmdMavenResultAction plugin="pmd@3.38">
+      <delegate class="hudson.plugins.pmd.PmdResultAction">
+        <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../.."/>
+        <healthDescriptor class="hudson.plugins.pmd.PmdHealthDescriptor">
+          <priority>LOW</priority>
+          <healthy></healthy>
+          <unHealthy></unHealthy>
+          <thresholds plugin="analysis-core@1.57">
+            <unstableTotalAll></unstableTotalAll>
+            <unstableTotalHigh></unstableTotalHigh>
+            <unstableTotalNormal></unstableTotalNormal>
+            <unstableTotalLow></unstableTotalLow>
+            <unstableNewAll></unstableNewAll>
+            <unstableNewHigh></unstableNewHigh>
+            <unstableNewNormal></unstableNewNormal>
+            <unstableNewLow></unstableNewLow>
+            <failedTotalAll></failedTotalAll>
+            <failedTotalHigh></failedTotalHigh>
+            <failedTotalNormal></failedTotalNormal>
+            <failedTotalLow></failedTotalLow>
+            <failedNewAll></failedNewAll>
+            <failedNewHigh></failedNewHigh>
+            <failedNewNormal></failedNewNormal>
+            <failedNewLow></failedNewLow>
+          </thresholds>
+        </healthDescriptor>
+        <result class="hudson.plugins.pmd.PmdReporterResult">
+          <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../../.."/>
+          <modules>
+            <string>dummy</string>
+          </modules>
+          <numberOfModules>1</numberOfModules>
+          <numberOfWarnings>1</numberOfWarnings>
+          <numberOfNewWarnings>1</numberOfNewWarnings>
+          <numberOfFixedWarnings>0</numberOfFixedWarnings>
+          <delta>1</delta>
+          <lowDelta>0</lowDelta>
+          <normalDelta>1</normalDelta>
+          <highDelta>0</highDelta>
+          <lowWarnings>0</lowWarnings>
+          <normalWarnings>1</normalWarnings>
+          <highWarnings>0</highWarnings>
+          <zeroWarningsSinceBuild>0</zeroWarningsSinceBuild>
+          <zeroWarningsSinceDate>0</zeroWarningsSinceDate>
+          <zeroWarningsHighScore>0</zeroWarningsHighScore>
+          <isZeroWarningsHighscore>false</isZeroWarningsHighscore>
+          <highScoreGap>0</highScoreGap>
+          <errors>
+            <string>File encoding has not been set in pom.xml, using platform encoding windows-1252, i.e. build is platform dependent (see &lt;a href=&quot;http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding&quot;&gt;Maven FAQ&lt;/a&gt;).</string>
+          </errors>
+          <pluginResult>SUCCESS</pluginResult>
+          <successfulSinceBuild>0</successfulSinceBuild>
+          <successfulSinceDate>0</successfulSinceDate>
+          <successfulHighscore>0</successfulHighscore>
+          <isSuccessfulHighscore>false</isSuccessfulHighscore>
+          <successfulHighScoreGap>0</successfulHighScoreGap>
+          <isSuccessfulStateTouched>false</isSuccessfulStateTouched>
+          <referenceBuild>-1</referenceBuild>
+        </result>
+      </delegate>
+    </hudson.plugins.pmd.PmdMavenResultAction>
+    <hudson.plugins.dry.DryMavenResultAction plugin="dry@2.40">
+      <delegate class="hudson.plugins.dry.DryResultAction">
+        <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../.."/>
+        <healthDescriptor class="hudson.plugins.dry.DryHealthDescriptor">
+          <priority>LOW</priority>
+          <healthy></healthy>
+          <unHealthy></unHealthy>
+          <thresholds plugin="analysis-core@1.57">
+            <unstableTotalAll></unstableTotalAll>
+            <unstableTotalHigh></unstableTotalHigh>
+            <unstableTotalNormal></unstableTotalNormal>
+            <unstableTotalLow></unstableTotalLow>
+            <unstableNewAll></unstableNewAll>
+            <unstableNewHigh></unstableNewHigh>
+            <unstableNewNormal></unstableNewNormal>
+            <unstableNewLow></unstableNewLow>
+            <failedTotalAll></failedTotalAll>
+            <failedTotalHigh></failedTotalHigh>
+            <failedTotalNormal></failedTotalNormal>
+            <failedTotalLow></failedTotalLow>
+            <failedNewAll></failedNewAll>
+            <failedNewHigh></failedNewHigh>
+            <failedNewNormal></failedNewNormal>
+            <failedNewLow></failedNewLow>
+          </thresholds>
+        </healthDescriptor>
+        <result class="hudson.plugins.dry.DryReporterResult">
+          <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../../.."/>
+          <modules>
+            <string>dummy</string>
+          </modules>
+          <numberOfModules>1</numberOfModules>
+          <numberOfWarnings>0</numberOfWarnings>
+          <numberOfNewWarnings>0</numberOfNewWarnings>
+          <numberOfFixedWarnings>0</numberOfFixedWarnings>
+          <delta>0</delta>
+          <lowDelta>0</lowDelta>
+          <normalDelta>0</normalDelta>
+          <highDelta>0</highDelta>
+          <lowWarnings>0</lowWarnings>
+          <normalWarnings>0</normalWarnings>
+          <highWarnings>0</highWarnings>
+          <zeroWarningsSinceBuild>1</zeroWarningsSinceBuild>
+          <zeroWarningsSinceDate>1404119828576</zeroWarningsSinceDate>
+          <zeroWarningsHighScore>0</zeroWarningsHighScore>
+          <isZeroWarningsHighscore>true</isZeroWarningsHighscore>
+          <highScoreGap>0</highScoreGap>
+          <errors>
+            <string>File encoding has not been set in pom.xml, using platform encoding windows-1252, i.e. build is platform dependent (see &lt;a href=&quot;http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding&quot;&gt;Maven FAQ&lt;/a&gt;).</string>
+          </errors>
+          <pluginResult>SUCCESS</pluginResult>
+          <successfulSinceBuild>0</successfulSinceBuild>
+          <successfulSinceDate>0</successfulSinceDate>
+          <successfulHighscore>0</successfulHighscore>
+          <isSuccessfulHighscore>false</isSuccessfulHighscore>
+          <successfulHighScoreGap>0</successfulHighScoreGap>
+          <isSuccessfulStateTouched>false</isSuccessfulStateTouched>
+          <referenceBuild>-1</referenceBuild>
+        </result>
+      </delegate>
+    </hudson.plugins.dry.DryMavenResultAction>
+    <hudson.plugins.warnings.WarningsResultAction plugin="warnings@4.40">
+      <owner class="hudson.maven.MavenModuleSetBuild" reference="../../.."/>
+      <healthDescriptor class="hudson.plugins.warnings.WarningsHealthDescriptor">
+        <priority>LOW</priority>
+        <healthy></healthy>
+        <unHealthy></unHealthy>
+        <thresholds plugin="analysis-core@1.57">
+          <unstableTotalAll></unstableTotalAll>
+          <unstableTotalHigh></unstableTotalHigh>
+          <unstableTotalNormal></unstableTotalNormal>
+          <unstableTotalLow></unstableTotalLow>
+          <unstableNewAll></unstableNewAll>
+          <unstableNewHigh></unstableNewHigh>
+          <unstableNewNormal></unstableNewNormal>
+          <unstableNewLow></unstableNewLow>
+          <failedTotalAll></failedTotalAll>
+          <failedTotalHigh></failedTotalHigh>
+          <failedTotalNormal></failedTotalNormal>
+          <failedTotalLow></failedTotalLow>
+          <failedNewAll></failedNewAll>
+          <failedNewHigh></failedNewHigh>
+          <failedNewNormal></failedNewNormal>
+          <failedNewLow></failedNewLow>
+        </thresholds>
+        <name>
+          <holder>
+            <owner>hudson.plugins.warnings.parser.Messages</owner>
+          </holder>
+          <key>Warnings.JavaParser.ParserName</key>
+          <args/>
+        </name>
+      </healthDescriptor>
+      <result class="hudson.plugins.warnings.WarningsResult">
+        <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../.."/>
+        <modules/>
+        <numberOfModules>0</numberOfModules>
+        <defaultEncoding></defaultEncoding>
+        <numberOfWarnings>0</numberOfWarnings>
+        <numberOfNewWarnings>0</numberOfNewWarnings>
+        <numberOfFixedWarnings>0</numberOfFixedWarnings>
+        <delta>0</delta>
+        <lowDelta>0</lowDelta>
+        <normalDelta>0</normalDelta>
+        <highDelta>0</highDelta>
+        <lowWarnings>0</lowWarnings>
+        <normalWarnings>0</normalWarnings>
+        <highWarnings>0</highWarnings>
+        <zeroWarningsSinceBuild>1</zeroWarningsSinceBuild>
+        <zeroWarningsSinceDate>1404119828576</zeroWarningsSinceDate>
+        <zeroWarningsHighScore>0</zeroWarningsHighScore>
+        <isZeroWarningsHighscore>true</isZeroWarningsHighscore>
+        <highScoreGap>0</highScoreGap>
+        <errors/>
+        <pluginResult>SUCCESS</pluginResult>
+        <successfulSinceBuild>0</successfulSinceBuild>
+        <successfulSinceDate>0</successfulSinceDate>
+        <successfulHighscore>0</successfulHighscore>
+        <isSuccessfulHighscore>false</isSuccessfulHighscore>
+        <successfulHighScoreGap>0</successfulHighScoreGap>
+        <isSuccessfulStateTouched>false</isSuccessfulStateTouched>
+        <referenceBuild>-1</referenceBuild>
+        <group>Java Compiler (javac)</group>
+      </result>
+      <parserName>Java Compiler (javac)</parserName>
+    </hudson.plugins.warnings.WarningsResultAction>
+    <hudson.plugins.warnings.WarningsResultAction plugin="warnings@4.40">
+      <owner class="hudson.maven.MavenModuleSetBuild" reference="../../.."/>
+      <healthDescriptor class="hudson.plugins.warnings.WarningsHealthDescriptor">
+        <priority>LOW</priority>
+        <healthy></healthy>
+        <unHealthy></unHealthy>
+        <thresholds reference="../../../hudson.plugins.warnings.WarningsResultAction/healthDescriptor/thresholds"/>
+        <name>
+          <holder reference="../../../../hudson.plugins.warnings.WarningsResultAction/healthDescriptor/name/holder"/>
+          <key>Warnings.JavaDoc.ParserName</key>
+          <args/>
+        </name>
+      </healthDescriptor>
+      <result class="hudson.plugins.warnings.WarningsResult">
+        <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../.."/>
+        <modules/>
+        <numberOfModules>0</numberOfModules>
+        <defaultEncoding></defaultEncoding>
+        <numberOfWarnings>1</numberOfWarnings>
+        <numberOfNewWarnings>1</numberOfNewWarnings>
+        <numberOfFixedWarnings>0</numberOfFixedWarnings>
+        <delta>1</delta>
+        <lowDelta>0</lowDelta>
+        <normalDelta>1</normalDelta>
+        <highDelta>0</highDelta>
+        <lowWarnings>0</lowWarnings>
+        <normalWarnings>1</normalWarnings>
+        <highWarnings>0</highWarnings>
+        <zeroWarningsSinceBuild>0</zeroWarningsSinceBuild>
+        <zeroWarningsSinceDate>0</zeroWarningsSinceDate>
+        <zeroWarningsHighScore>0</zeroWarningsHighScore>
+        <isZeroWarningsHighscore>false</isZeroWarningsHighscore>
+        <highScoreGap>0</highScoreGap>
+        <errors/>
+        <pluginResult>SUCCESS</pluginResult>
+        <successfulSinceBuild>0</successfulSinceBuild>
+        <successfulSinceDate>0</successfulSinceDate>
+        <successfulHighscore>0</successfulHighscore>
+        <isSuccessfulHighscore>false</isSuccessfulHighscore>
+        <successfulHighScoreGap>0</successfulHighScoreGap>
+        <isSuccessfulStateTouched>false</isSuccessfulStateTouched>
+        <referenceBuild>-1</referenceBuild>
+        <group>JavaDoc Tool</group>
+      </result>
+      <parserName>JavaDoc Tool</parserName>
+    </hudson.plugins.warnings.WarningsResultAction>
+    <hudson.plugins.warnings.AggregatedWarningsResultAction plugin="warnings@4.40">
+      <owner class="hudson.maven.MavenModuleSetBuild" reference="../../.."/>
+      <healthDescriptor class="hudson.plugins.analysis.core.NullHealthDescriptor" plugin="analysis-core@1.57">
+        <priority>LOW</priority>
+        <healthy></healthy>
+        <unHealthy></unHealthy>
+        <thresholds>
+          <unstableTotalAll></unstableTotalAll>
+          <unstableTotalHigh></unstableTotalHigh>
+          <unstableTotalNormal></unstableTotalNormal>
+          <unstableTotalLow></unstableTotalLow>
+          <unstableNewAll></unstableNewAll>
+          <unstableNewHigh></unstableNewHigh>
+          <unstableNewNormal></unstableNewNormal>
+          <unstableNewLow></unstableNewLow>
+          <failedTotalAll></failedTotalAll>
+          <failedTotalHigh></failedTotalHigh>
+          <failedTotalNormal></failedTotalNormal>
+          <failedTotalLow></failedTotalLow>
+          <failedNewAll></failedNewAll>
+          <failedNewHigh></failedNewHigh>
+          <failedNewNormal></failedNewNormal>
+          <failedNewLow></failedNewLow>
+        </thresholds>
+      </healthDescriptor>
+      <result class="hudson.plugins.warnings.AggregatedWarningsResult">
+        <owner class="hudson.maven.MavenModuleSetBuild" reference="../../../.."/>
+        <modules/>
+        <numberOfModules>0</numberOfModules>
+        <defaultEncoding></defaultEncoding>
+        <numberOfWarnings>1</numberOfWarnings>
+        <numberOfNewWarnings>1</numberOfNewWarnings>
+        <numberOfFixedWarnings>0</numberOfFixedWarnings>
+        <delta>1</delta>
+        <lowDelta>0</lowDelta>
+        <normalDelta>1</normalDelta>
+        <highDelta>0</highDelta>
+        <lowWarnings>0</lowWarnings>
+        <normalWarnings>1</normalWarnings>
+        <highWarnings>0</highWarnings>
+        <zeroWarningsSinceBuild>0</zeroWarningsSinceBuild>
+        <zeroWarningsSinceDate>0</zeroWarningsSinceDate>
+        <zeroWarningsHighScore>0</zeroWarningsHighScore>
+        <isZeroWarningsHighscore>false</isZeroWarningsHighscore>
+        <highScoreGap>0</highScoreGap>
+        <errors/>
+        <pluginResult>SUCCESS</pluginResult>
+        <successfulSinceBuild>0</successfulSinceBuild>
+        <successfulSinceDate>0</successfulSinceDate>
+        <successfulHighscore>0</successfulHighscore>
+        <isSuccessfulHighscore>false</isSuccessfulHighscore>
+        <successfulHighScoreGap>0</successfulHighScoreGap>
+        <isSuccessfulStateTouched>false</isSuccessfulStateTouched>
+        <referenceBuild>-1</referenceBuild>
+      </result>
+    </hudson.plugins.warnings.AggregatedWarningsResultAction>
+    <hudson.plugins.cobertura.CoberturaBuildAction plugin="cobertura@1.9.5">
+      <owner class="hudson.maven.MavenModuleSetBuild" reference="../../.."/>
+      <healthyTarget>
+        <targets class="enum-map" enum-type="hudson.plugins.cobertura.targets.CoverageMetric">
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>METHOD</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>8000000</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>LINE</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>8000000</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>CONDITIONAL</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>7000000</int>
+          </entry>
+        </targets>
+      </healthyTarget>
+      <unhealthyTarget>
+        <targets class="enum-map" enum-type="hudson.plugins.cobertura.targets.CoverageMetric">
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>METHOD</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>LINE</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>CONDITIONAL</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+        </targets>
+      </unhealthyTarget>
+      <failUnhealthy>false</failUnhealthy>
+      <failUnstable>false</failUnstable>
+      <autoUpdateHealth>false</autoUpdateHealth>
+      <autoUpdateStability>false</autoUpdateStability>
+      <result class="enum-map" enum-type="hudson.plugins.cobertura.targets.CoverageMetric">
+        <entry>
+          <hudson.plugins.cobertura.targets.CoverageMetric>PACKAGES</hudson.plugins.cobertura.targets.CoverageMetric>
+          <hudson.plugins.cobertura.Ratio>
+            <numerator>2.0</numerator>
+            <denominator>2.0</denominator>
+          </hudson.plugins.cobertura.Ratio>
+        </entry>
+        <entry>
+          <hudson.plugins.cobertura.targets.CoverageMetric>FILES</hudson.plugins.cobertura.targets.CoverageMetric>
+          <hudson.plugins.cobertura.Ratio>
+            <numerator>5.0</numerator>
+            <denominator>5.0</denominator>
+          </hudson.plugins.cobertura.Ratio>
+        </entry>
+        <entry>
+          <hudson.plugins.cobertura.targets.CoverageMetric>CLASSES</hudson.plugins.cobertura.targets.CoverageMetric>
+          <hudson.plugins.cobertura.Ratio>
+            <numerator>6.0</numerator>
+            <denominator>6.0</denominator>
+          </hudson.plugins.cobertura.Ratio>
+        </entry>
+        <entry>
+          <hudson.plugins.cobertura.targets.CoverageMetric>METHOD</hudson.plugins.cobertura.targets.CoverageMetric>
+          <hudson.plugins.cobertura.Ratio>
+            <numerator>29.0</numerator>
+            <denominator>32.0</denominator>
+          </hudson.plugins.cobertura.Ratio>
+        </entry>
+        <entry>
+          <hudson.plugins.cobertura.targets.CoverageMetric>LINE</hudson.plugins.cobertura.targets.CoverageMetric>
+          <hudson.plugins.cobertura.Ratio>
+            <numerator>90.0</numerator>
+            <denominator>106.0</denominator>
+          </hudson.plugins.cobertura.Ratio>
+        </entry>
+        <entry>
+          <hudson.plugins.cobertura.targets.CoverageMetric>CONDITIONAL</hudson.plugins.cobertura.targets.CoverageMetric>
+          <hudson.plugins.cobertura.Ratio>
+            <numerator>11.0</numerator>
+            <denominator>18.0</denominator>
+          </hudson.plugins.cobertura.Ratio>
+        </entry>
+      </result>
+      <health>
+        <score>87</score>
+        <iconUrl>health-80plus.png</iconUrl>
+        <localizibleDescription>
+          <holder>
+            <owner>hudson.plugins.cobertura.Messages</owner>
+          </holder>
+          <key>CoberturaBuildAction.description</key>
+          <args>
+            <int>61</int>
+            <string>11/18</string>
+            <string>Conditionals</string>
+          </args>
+        </localizibleDescription>
+      </health>
+      <onlyStable>false</onlyStable>
+    </hudson.plugins.cobertura.CoberturaBuildAction>
+    <hudson.tasks.Fingerprinter_-FingerprintAction>
+      <record>
+        <entry>
+          <string>org.mockito:mockito-all-1.8.5.jar</string>
+          <string>68050f76689dfdcd6e93b2cf79dfbaf2</string>
+        </entry>
+        <entry>
+          <string>org.apache.ant:ant-1.7.0.jar</string>
+          <string>133e8979e9c11450f557ca890177fe0a</string>
+        </entry>
+        <entry>
+          <string>net.sourceforge.cobertura:cobertura-1.9.4.1.jar</string>
+          <string>312cc39a5dbedccc17c3a3855732044e</string>
+        </entry>
+        <entry>
+          <string>junit:junit-4.8.1.jar</string>
+          <string>fb44723f35c2f1af5c51eb729b502f0d</string>
+        </entry>
+        <entry>
+          <string>org.hamcrest:hamcrest-all-1.1.jar</string>
+          <string>3f1e1a09534bb8fdb81eb7abf16ea311</string>
+        </entry>
+        <entry>
+          <string>org.apache.ant:ant-launcher-1.7.0.jar</string>
+          <string>e0c8b3f9390a5d784bbdb6a21f2abd1d</string>
+        </entry>
+        <entry>
+          <string>net.sourceforge.cobertura:cobertura-runtime-1.9.4.1.pom</string>
+          <string>12c49f44856d1917ca7a6f8827c6b701</string>
+        </entry>
+        <entry>
+          <string>log4j:log4j-1.2.16.jar</string>
+          <string>363678f015902bcc040308136f845a3f</string>
+        </entry>
+      </record>
+    </hudson.tasks.Fingerprinter_-FingerprintAction>
+  </actions>
+  <number>1</number>
+  <startTime>1404119828608</startTime>
+  <result>SUCCESS</result>
+  <duration>136093</duration>
+  <charset>windows-1252</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>C:\workspace\rubbish</workspace>
+  <hudsonVersion>1.570</hudsonVersion>
+  <scm class="hudson.scm.CVSChangeLogParser" plugin="cvs@2.12"/>
+  <culprits class="com.google.common.collect.EmptyImmutableSortedSet"/>
+  <projectActionReporters>
+    <hudson.maven.reporters.MavenJavadocArchiver>
+      <aggregated>true</aggregated>
+      <target serialization="custom">
+        <hudson.FilePath>
+          <default>
+            <remote>C:\workspace\rubbish\javadoc</remote>
+          </default>
+          <boolean>true</boolean>
+        </hudson.FilePath>
+      </target>
+    </hudson.maven.reporters.MavenJavadocArchiver>
+    <hudson.maven.reporters.MavenJavadocArchiver>
+      <aggregated>true</aggregated>
+      <target serialization="custom">
+        <hudson.FilePath>
+          <default>
+            <remote>C:\workspace\jobs\rubbish\javadoc</remote>
+          </default>
+          <boolean>true</boolean>
+        </hudson.FilePath>
+      </target>
+    </hudson.maven.reporters.MavenJavadocArchiver>
+    <hudson.maven.reporters.MavenSiteArchiver/>
+  </projectActionReporters>
+  <mavenVersionUsed>2.2.1</mavenVersionUsed>
+</hudson.maven.MavenModuleSetBuild>

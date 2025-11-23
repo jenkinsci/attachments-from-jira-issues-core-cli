@@ -1,0 +1,107 @@
+Index: RunListener.java
+===================================================================
+--- RunListener.java	(revision 18723)
++++ RunListener.java	(working copy)
+@@ -23,6 +23,9 @@
+  */
+ package hudson.model.listeners;
+ 
++import java.util.ArrayList;
++import java.util.List;
++
+ import hudson.ExtensionPoint;
+ import hudson.ExtensionListView;
+ import hudson.Extension;
+@@ -120,44 +123,88 @@
+      */
+     public static final CopyOnWriteList<RunListener> LISTENERS = ExtensionListView.createCopyOnWriteList(RunListener.class);
+ 
++    @SuppressWarnings("serial")
++	static class CollectedExceptions extends RuntimeException {
++    	List<RuntimeException> exceptions;
++    	public CollectedExceptions(List<RuntimeException> exceptions) {
++    		super(exceptions.get(0));
++    		this.exceptions = exceptions;
++		}
++    	@Override
++    	public String getMessage() {
++    		StringBuilder sb = new StringBuilder();
++    		for(Exception e : exceptions)
++    			sb.append(e.getMessage()).append('\n');
++    		return sb.toString();
++    	}
++    }
++    
+     /**
+      * Fires the {@link #onCompleted} event.
+      */
+     public static void fireCompleted(Run r, TaskListener listener) {
++    	List<RuntimeException> exceptions = new ArrayList<RuntimeException>();
+         for (RunListener l : all()) {
+             if(l.targetType.isInstance(r))
+-                l.onCompleted(r,listener);
++            	try {
++            		l.onCompleted(r,listener);
++            	} catch(RuntimeException e) {
++            		exceptions.add(e);
++            	}
+         }
++        if (exceptions.size() > 0)
++        	throw exceptions.size() > 1 ? new CollectedExceptions(exceptions) : exceptions.get(0);
+     }
+ 
+     /**
+      * Fires the {@link #onStarted} event.
+      */
+     public static void fireStarted(Run r, TaskListener listener) {
++    	List<RuntimeException> exceptions = new ArrayList<RuntimeException>();
+         for (RunListener l : all()) {
+             if(l.targetType.isInstance(r))
+-                l.onStarted(r,listener);
++            	try {
++            		l.onStarted(r,listener);
++            	} catch(RuntimeException e) {
++            		exceptions.add(e);
++            	}
+         }
++        if (exceptions.size() > 0)
++        	throw exceptions.size() > 1 ? new CollectedExceptions(exceptions) : exceptions.get(0);
+     }
+ 
+     /**
+      * Fires the {@link #onFinalized(Run)} event.
+      */
+     public static void fireFinalized(Run r) {
++    	List<RuntimeException> exceptions = new ArrayList<RuntimeException>();
+         for (RunListener l : all()) {
+             if(l.targetType.isInstance(r))
+-                l.onFinalized(r);
++            	try {
++            		l.onFinalized(r);
++            	} catch(RuntimeException e) {
++            		exceptions.add(e);
++            	}
+         }
++        if (exceptions.size() > 0)
++        	throw exceptions.size() > 1 ? new CollectedExceptions(exceptions) : exceptions.get(0);
+     }
+ 
+     /**
+      * Fires the {@link #onFinalized(Run)} event.
+      */
+     public static void fireDeleted(Run r) {
++    	List<RuntimeException> exceptions = new ArrayList<RuntimeException>();
+         for (RunListener l : all()) {
+             if(l.targetType.isInstance(r))
+-                l.onDeleted(r);
++            	try {
++            		l.onDeleted(r);
++            	} catch(RuntimeException e) {
++            		exceptions.add(e);
++            	}
+         }
++        if (exceptions.size() > 0)
++        	throw exceptions.size() > 1 ? new CollectedExceptions(exceptions) : exceptions.get(0);
+     }
+ 
+     /**

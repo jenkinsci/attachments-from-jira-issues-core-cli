@@ -1,0 +1,17 @@
+diff --git a/core/src/main/java/hudson/model/AbstractBuild.java b/core/src/main/java/hudson/model/AbstractBuild.java
+index 9644c2c0de..68d870f131 100644
+--- a/core/src/main/java/hudson/model/AbstractBuild.java
++++ b/core/src/main/java/hudson/model/AbstractBuild.java
+@@ -325,6 +325,12 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
+     }
+ 
+     @Override
++    @Exported
++    @Nonnull public Set<User> getCulprits() {
++		return RunWithSCM.super.getCulprits();
++    }
++
++    @Override
+     public boolean shouldCalculateCulprits() {
+         return getCulpritIds() == null;
+     }

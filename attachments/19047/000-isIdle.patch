@@ -1,0 +1,13 @@
+Index: src/main/java/hudson/model/Computer.java
+===================================================================
+--- src/main/java/hudson/model/Computer.java	(revision 26224)
++++ src/main/java/hudson/model/Computer.java	(working copy)
+@@ -615,6 +615,8 @@
+      */
+     @Exported
+     public final boolean isIdle() {
++        if (!oneOffExecutors.isEmpty())
++            return false;
+         for (Executor e : executors)
+             if(!e.isIdle())
+                 return false;

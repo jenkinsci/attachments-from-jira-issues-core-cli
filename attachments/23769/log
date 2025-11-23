@@ -1,0 +1,189 @@
+Jun 18, 2013 8:43:33 AM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Jun 18, 2013 8:43:35 AM winstone.Logger logInternal
+INFO: HTTP Listener started: port=80
+Jun 18, 2013 8:43:36 AM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v0.9.10 running: controlPort=disabled
+Jun 18, 2013 8:43:40 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ant.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin cvs.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin external-monitor-job.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin javadoc.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ldap.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin maven-plugin.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin pam-auth.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ssh-credentials.jpi is disabled
+Jun 18, 2013 8:43:40 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ssh-slaves.jpi is disabled
+Jun 18, 2013 8:43:40 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+Jun 18, 2013 8:43:40 AM hudson.plugins.im.HudsonIsBusyListener <init>
+INFO: Executor busy listener created
+Jun 18, 2013 8:43:40 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Jun 18, 2013 8:43:40 AM hudson.plugins.im.IMConnectionProvider$ConnectorRunnable run
+INFO: Trying to connect
+Jun 18, 2013 8:43:40 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Jun 18, 2013 8:43:41 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Jun 18, 2013 8:43:48 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+Jun 18, 2013 8:43:51 AM org.jenkinsci.main.modules.sshd.SSHD start
+INFO: Started SSHD at port 2877
+Jun 18, 2013 8:43:51 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization
+Jun 18, 2013 8:43:52 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@cda75b: display name [Root WebApplicationContext]; startup date [Tue Jun 18 08:43:52 PDT 2013]; root of context hierarchy
+Jun 18, 2013 8:43:52 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@cda75b]: org.springframework.beans.factory.support.DefaultListableBeanFactory@18ec0f2
+Jun 18, 2013 8:43:52 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@18ec0f2: defining beans [activeDirectory,authenticationManager]; root of factory hierarchy
+Jun 18, 2013 8:43:52 AM hudson.plugins.active_directory.ActiveDirectoryAuthenticationProvider <init>
+INFO: Active Directory domain is DC=oneabbott,DC=com
+Jun 18, 2013 8:43:53 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@16e994d: display name [Root WebApplicationContext]; startup date [Tue Jun 18 08:43:53 PDT 2013]; root of context hierarchy
+Jun 18, 2013 8:43:53 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@16e994d]: org.springframework.beans.factory.support.DefaultListableBeanFactory@f0286
+Jun 18, 2013 8:43:53 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@f0286: defining beans [filter,legacy]; root of factory hierarchy
+Jun 18, 2013 8:43:56 AM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Jun 18, 2013 8:43:59 AM winstone.Logger logInternal
+INFO: Winstone shutdown successfully
+Jun 18, 2013 8:43:59 AM winstone.Logger logInternal
+SEVERE: Container startup failed
+java.io.IOException: Failed to start a listener: winstone.HttpListener
+	at winstone.Launcher.spawnListener(Launcher.java:229)
+	at winstone.Launcher.<init>(Launcher.java:181)
+	at winstone.Launcher.main(Launcher.java:384)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at Main._main(Main.java:288)
+	at Main.main(Main.java:98)
+Caused by: java.io.IOException: Failed to listen on port 80
+	at winstone.HttpListener.getServerSocket(HttpListener.java:122)
+	at winstone.HttpListener.start(HttpListener.java:75)
+	at winstone.Launcher.spawnListener(Launcher.java:220)
+	... 8 more
+Caused by: java.net.BindException: Address already in use: JVM_Bind
+	at java.net.TwoStacksPlainSocketImpl.socketBind(Native Method)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.TwoStacksPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at winstone.HttpListener.getServerSocket(HttpListener.java:117)
+	... 10 more
+
+Jun 18, 2013 8:44:05 AM hudson.WebAppMain$2 run
+SEVERE: Failed to initialize Jenkins
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:503)
+	at org.jvnet.hudson.reactor.Reactor.execute(Reactor.java:244)
+	at jenkins.InitReactorRunner.run(InitReactorRunner.java:43)
+	at jenkins.model.Jenkins.executeReactor(Jenkins.java:904)
+	at jenkins.model.Jenkins.<init>(Jenkins.java:804)
+	at hudson.model.Hudson.<init>(Hudson.java:81)
+	at hudson.model.Hudson.<init>(Hudson.java:77)
+	at hudson.WebAppMain$2.run(WebAppMain.java:214)
+
+Exception in thread "pool-2-thread-2" java.lang.NullPointerException
+	at org.jvnet.hudson.reactor.Reactor$1.run(Reactor.java:153)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Exception in thread "pool-2-thread-1" java.lang.NullPointerException
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:191)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Jun 18, 2013 8:44:07 AM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Jun 18, 2013 8:44:11 AM winstone.Logger logInternal
+INFO: HTTP Listener started: port=80
+Jun 18, 2013 8:44:11 AM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v0.9.10 running: controlPort=disabled
+Jun 18, 2013 8:44:14 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ant.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin cvs.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin external-monitor-job.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin javadoc.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ldap.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin maven-plugin.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin pam-auth.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ssh-credentials.jpi is disabled
+Jun 18, 2013 8:44:14 AM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin ssh-slaves.jpi is disabled
+Jun 18, 2013 8:44:14 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+Jun 18, 2013 8:44:14 AM hudson.plugins.im.HudsonIsBusyListener <init>
+INFO: Executor busy listener created
+Jun 18, 2013 8:44:14 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Jun 18, 2013 8:44:14 AM hudson.plugins.im.IMConnectionProvider$ConnectorRunnable run
+INFO: Trying to connect
+Jun 18, 2013 8:44:14 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Jun 18, 2013 8:44:15 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Jun 18, 2013 8:44:22 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+Jun 18, 2013 8:44:25 AM org.jenkinsci.main.modules.sshd.SSHD start
+INFO: Started SSHD at port 2891
+Jun 18, 2013 8:44:25 AM jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization
+Jun 18, 2013 8:44:26 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@623bc2: display name [Root WebApplicationContext]; startup date [Tue Jun 18 08:44:26 PDT 2013]; root of context hierarchy
+Jun 18, 2013 8:44:26 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@623bc2]: org.springframework.beans.factory.support.DefaultListableBeanFactory@11caeb6
+Jun 18, 2013 8:44:26 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@11caeb6: defining beans [activeDirectory,authenticationManager]; root of factory hierarchy
+Jun 18, 2013 8:44:26 AM hudson.plugins.active_directory.ActiveDirectoryAuthenticationProvider <init>
+INFO: Active Directory domain is DC=oneabbott,DC=com
+Jun 18, 2013 8:44:27 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@13684e2: display name [Root WebApplicationContext]; startup date [Tue Jun 18 08:44:27 PDT 2013]; root of context hierarchy
+Jun 18, 2013 8:44:27 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@13684e2]: org.springframework.beans.factory.support.DefaultListableBeanFactory@1d778
+Jun 18, 2013 8:44:27 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1d778: defining beans [filter,legacy]; root of factory hierarchy
+Jun 18, 2013 8:44:27 AM hudson.TcpSlaveAgentListener <init>
+INFO: JNLP slave agent listener started on TCP port 2894
+Jun 18, 2013 8:44:27 AM hudson.WebAppMain$2 run
+INFO: Jenkins is fully up and running
+Jun 18, 2013 8:44:36 AM hudson.TcpSlaveAgentListener$ConnectionHandler run
+INFO: Accepted connection #1 from /10.209.66.182:3404
+Jun 18, 2013 8:44:48 AM hudson.plugins.im.IMConnectionProvider$ConnectorRunnable run
+INFO: Trying to reconnect
+Jun 18, 2013 8:44:48 AM hudson.plugins.ircbot.v2.IRCConnection connect
+INFO: Connecting to sandebianvm01.oneabbott.com:6700 as jenkins-bot using charset UTF-8
+Jun 18, 2013 8:45:18 AM hudson.plugins.ircbot.v2.IRCConnection connect
+INFO: connected to IRC
+Jun 18, 2013 8:45:18 AM hudson.plugins.ircbot.v2.IRCConnection getGroupChat
+INFO: Trying to join channel #femto
+Jun 18, 2013 8:45:18 AM hudson.plugins.ircbot.v2.IRCConnection channelJoined
+INFO: Joined channel #femto and bot registered

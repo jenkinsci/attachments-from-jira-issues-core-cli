@@ -1,0 +1,41 @@
+Index: src/main/java/hudson/scm/SubversionSCM.java
+===================================================================
+--- src/main/java/hudson/scm/SubversionSCM.java	(revision 34501)
++++ src/main/java/hudson/scm/SubversionSCM.java	(working copy)
+@@ -51,12 +51,14 @@
+ import hudson.model.Run;
+ import hudson.model.Node;
+ import hudson.model.Computer;
++import hudson.model.User;
+ import hudson.model.Hudson.MasterComputer;
+ import hudson.remoting.Callable;
+ import hudson.remoting.DelegatingCallable;
+ import hudson.remoting.Channel;
+ import hudson.remoting.VirtualChannel;
+ import hudson.scm.subversion.Messages;
++import hudson.security.Permission;
+ import hudson.triggers.SCMTrigger;
+ import hudson.util.EditDistance;
+ import hudson.util.IOException2;
+@@ -1686,8 +1688,10 @@
+          */
+         // TODO: stapler should do multipart/form-data handling 
+         public void doPostCredential(StaplerRequest req, StaplerResponse rsp) throws IOException, ServletException {
+-            Hudson.getInstance().checkPermission(Hudson.ADMINISTER);
+-
++            
++        	User user = Hudson.getInstance().getUser(Hudson.getAuthentication().getName());
++        	user.checkPermission(Permission.CONFIGURE);
++        	
+             MultipartFormDataParser parser = new MultipartFormDataParser(req);
+ 
+             // we'll record what credential we are trying here.
+@@ -1709,7 +1713,7 @@
+                 upc.close();
+             }
+         }
+-
++        
+         public void postCredential(String url, String username, String password, File keyFile, PrintWriter logWriter) throws SVNException, IOException {
+             postCredential(url,new UserProvidedCredential(username,password,keyFile),logWriter);
+         }

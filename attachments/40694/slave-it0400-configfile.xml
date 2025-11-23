@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<slave>
+  <name>slave-it0400</name>
+  <description>slave slave-it0400.int.devsnc.com added automatically by /opt/ser
+viceNow/chefInstalled/bin/slave_master_connector.sh on 19/10/2017</description>
+  <remoteFS>/mnt/jenkins</remoteFS>
+  <numExecutors>3</numExecutors>
+  <mode>EXCLUSIVE</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+  <launcher class="hudson.slaves.CommandLauncher">
+    <agentCommand>ssh -o StrictHostKeyChecking=no -i /mnt/jenkins/.ssh/id_build_
+rsa jenkins@slave-it0400.int.devsnc.com &apos;bash -l -c &quot;/mnt/jenkins/java
+/jdk1.8.0_40-x64/bin/java -jar /home/jenkins/slave.jar&quot;&apos;</agentCommand
+>
+  </launcher>
+  <label>dedicated-slave it slow</label>
+  <nodeProperties>
+    <hudson.tools.ToolLocationNodeProperty>
+      <locations>
+        <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+          <type>hudson.model.JDK$DescriptorImpl</type>
+          <name>jdk1.6.0_30-x64</name>
+          <home>/mnt/jenkins/java/jdk1.6.0_30-x64</home>
+        </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+        <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+          <type>hudson.tasks.Maven$MavenInstallation$DescriptorImpl</type>
+          <name>maven-3.0.4</name>
+          <home>/mnt/jenkins/maven/apache-maven-3.0.4</home>
+        </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+      </locations>
+    </hudson.tools.ToolLocationNodeProperty>
+    <com.cloudbees.jenkins.plugins.nodesplus.CustomNodeProbeBuildFilterProperty
+plugin="cloudbees-nodes-plus@1.15">
+      <probeCommand>/opt/serviceNow/chefInstalled/slave-tools/probes/probe-wrapp
+er.sh</probeCommand>
+    </com.cloudbees.jenkins.plugins.nodesplus.CustomNodeProbeBuildFilterProperty
+>
+  </nodeProperties>
+  <userId>system.swarm</userId>
+</slave>

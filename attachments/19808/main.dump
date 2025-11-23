@@ -1,0 +1,645 @@
+2010-09-29 08:47:29
+Full thread dump Java HotSpot(TM) Server VM (16.0-b13 mixed mode):
+
+"pool-5-thread-328" daemon prio=3 tid=0x0851ac00 nid=0x33e waiting on condition [0xd30cd000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0xdaef0fb0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:198)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:945)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Attach Listener" daemon prio=3 tid=0x08fe8800 nid=0x33b waiting on condition [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"RequestHandlerThread[#14]" daemon prio=3 tid=0x09b0d800 nid=0x1cb in Object.wait() [0xd3d63000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xddbac150> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#13]" daemon prio=3 tid=0x0a97a000 nid=0x1ca in Object.wait() [0xd33f7000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xddbaccb0> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#12]" daemon prio=3 tid=0x08b40400 nid=0x1c9 in Object.wait() [0xd3355000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xddbb0758> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Channel reader thread: build-win" daemon prio=3 tid=0x08613000 nid=0x132 in Object.wait() [0xd32b3000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:144)
+	- locked <0xdda099a8> (a java.lang.Object)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+"stderr copier for remote agent on build-win" daemon prio=3 tid=0x090fc400 nid=0x11f in Object.wait() [0xd35dd000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:213)
+	- locked <0xdda0a388> (a java.lang.Object)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:171)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+"Thread-33" daemon prio=3 tid=0x087ad800 nid=0x11e in Object.wait() [0xd3f49000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdd9f81c8> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Thread-32" daemon prio=3 tid=0x081bf400 nid=0x11d in Object.wait() [0xd3211000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdd9f81c8> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Thread-31" daemon prio=3 tid=0x08b3e800 nid=0x116 runnable [0xd3760000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:672)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:470)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#11]" daemon prio=3 tid=0x082e5400 nid=0xdb in Object.wait() [0xd3499000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdd64b748> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#10]" daemon prio=3 tid=0x08357c00 nid=0xcb in Object.wait() [0xd358c000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdd6236e8> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#9]" daemon prio=3 tid=0x08804c00 nid=0xaa in Object.wait() [0xd34ea000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdd564f40> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#8]" daemon prio=3 tid=0x09095800 nid=0xa7 in Object.wait() [0xd353b000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdd3b9318> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#7]" daemon prio=3 tid=0x088b5800 nid=0x8d in Object.wait() [0xd3802000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdcc18cb0> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#6]" daemon prio=3 tid=0x088a2c00 nid=0x8c in Object.wait() [0xd3997000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdcc1ea30> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#5]" daemon prio=3 tid=0x087ae000 nid=0x8b in Object.wait() [0xd3853000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdcc1ad68> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#0]" daemon prio=3 tid=0x087aa400 nid=0x8a in Object.wait() [0xd38a4000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdac221a8> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#1]" daemon prio=3 tid=0x087aa000 nid=0x89 in Object.wait() [0xd38f5000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdac21ff0> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#2]" daemon prio=3 tid=0x087a9800 nid=0x88 in Object.wait() [0xd4b88000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdac21e38> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"RequestHandlerThread[#3]" daemon prio=3 tid=0x08e6b800 nid=0x87 in Object.wait() [0xd4839000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdac21c80> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"com.google.common.base.internal.Finalizer" daemon prio=3 tid=0x083e0400 nid=0x84 in Object.wait() [0xd4797000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0xdca32b20> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at com.google.common.base.internal.Finalizer.run(Finalizer.java:127)
+
+"RequestHandlerThread[#4]" daemon prio=3 tid=0x08cbbc00 nid=0x83 in Object.wait() [0xd4a44000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:216)
+	- locked <0xdac21ab8> (a winstone.RequestHandlerThread)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Channel reader thread: build-solarissparc" daemon prio=3 tid=0x082a9800 nid=0x78 in Object.wait() [0xd39e8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:144)
+	- locked <0xdb28cd60> (a java.lang.Object)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+"Channel reader thread: build-linux" daemon prio=3 tid=0x082a7c00 nid=0x77 in Object.wait() [0xd3a39000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:144)
+	- locked <0xdb28ce38> (a java.lang.Object)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+"stderr copier for remote agent on build-linux" daemon prio=3 tid=0x082a6400 nid=0x74 in Object.wait() [0xd3a8a000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0xdb28cf18> (a java.lang.Object)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:213)
+	- locked <0xdb28cf18> (a java.lang.Object)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:171)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+"Thread-18" daemon prio=3 tid=0x087e7c00 nid=0x73 in Object.wait() [0xd3adb000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb28cf58> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Thread-17" daemon prio=3 tid=0x08f33800 nid=0x72 in Object.wait() [0xd3b2c000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb28cf58> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Channel reader thread: build-solarisx86" daemon prio=3 tid=0x08678400 nid=0x71 in Object.wait() [0xd3b7d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:144)
+	- locked <0xdb2b0c10> (a java.lang.Object)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+"stderr copier for remote agent on build-solarissparc" daemon prio=3 tid=0x08f30c00 nid=0x70 in Object.wait() [0xd3bce000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0xdb2d2a60> (a java.lang.Object)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:213)
+	- locked <0xdb2d2a60> (a java.lang.Object)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:171)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+"Thread-16" daemon prio=3 tid=0x0861a400 nid=0x6f in Object.wait() [0xd3c1f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb2d2aa0> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Thread-15" daemon prio=3 tid=0x08eec400 nid=0x6e in Object.wait() [0xd3c70000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb2d2aa0> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"stderr copier for remote agent on build-solarisx86" daemon prio=3 tid=0x08618400 nid=0x6c in Object.wait() [0xd3db4000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0xdb2c8918> (a java.lang.Object)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:213)
+	- locked <0xdb2c8918> (a java.lang.Object)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:171)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+"Thread-14" daemon prio=3 tid=0x08615c00 nid=0x6b in Object.wait() [0xd4e8e000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb2b3390> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Thread-13" daemon prio=3 tid=0x0902e000 nid=0x6a in Object.wait() [0xd3e05000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb2b3390> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Channel reader thread: build-mac" daemon prio=3 tid=0x0911dc00 nid=0x69 in Object.wait() [0xd3ea7000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:144)
+	- locked <0xdb2e8468> (a java.lang.Object)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2249)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2542)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2552)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:875)
+
+"stderr copier for remote agent on build-mac" daemon prio=3 tid=0x08618c00 nid=0x68 in Object.wait() [0xd3e56000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:213)
+	- locked <0xdb2ff7f8> (a java.lang.Object)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:171)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+"Thread-12" daemon prio=3 tid=0x09a1bc00 nid=0x67 in Object.wait() [0xd3d12000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb2eecf0> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Thread-11" daemon prio=3 tid=0x08617c00 nid=0x66 in Object.wait() [0xd3cc1000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	- locked <0xdb2eecf0> (a com.trilead.ssh2.channel.Channel)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+"Thread-9" daemon prio=3 tid=0x08c6cc00 nid=0x3e runnable [0xd3feb000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:672)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:470)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Thread-8" daemon prio=3 tid=0x08ce8c00 nid=0x3d runnable [0xd403c000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:672)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:470)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Thread-7" daemon prio=3 tid=0x09121c00 nid=0x3c runnable [0xd408d000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:672)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:470)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Thread-6" daemon prio=3 tid=0x08ce7c00 nid=0x3b runnable [0xd40de000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:672)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:470)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Executor #0 for build-solarissparc" prio=3 tid=0x08c6ec00 nid=0x39 in Object.wait() [0xd47e8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:779)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:175)
+	at hudson.model.Executor.run(Executor.java:113)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+
+"Executor #0 for build-mac" prio=3 tid=0x094b9800 nid=0x37 in Object.wait() [0xd497d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:779)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:175)
+	at hudson.model.Executor.run(Executor.java:113)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+
+"Executor #0 for build-solarisx86" prio=3 tid=0x083f5400 nid=0x35 in Object.wait() [0xd49ce000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:779)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:175)
+	at hudson.model.Executor.run(Executor.java:113)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+
+"Executor #0 for build-linux" prio=3 tid=0x083d1000 nid=0x33 in Object.wait() [0xd4c2a000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:779)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:175)
+	at hudson.model.Executor.run(Executor.java:113)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+
+"Executor #0 for build-win" prio=3 tid=0x08847c00 nid=0x31 in Object.wait() [0xd4c7b000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:779)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:175)
+	at hudson.model.Executor.run(Executor.java:113)
+	- locked <0xdae183a8> (a hudson.model.Queue)
+
+"JmDNS.SocketListener" daemon prio=3 tid=0x08233800 nid=0x30 runnable [0xd4a95000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	- locked <0xdb19fac8> (a java.net.PlainDatagramSocketImpl)
+	at java.net.PlainDatagramSocketImpl.receive(PlainDatagramSocketImpl.java:136)
+	- locked <0xdb19fac8> (a java.net.PlainDatagramSocketImpl)
+	at java.net.DatagramSocket.receive(DatagramSocket.java:712)
+	- locked <0xdb19fb08> (a java.net.DatagramPacket)
+	- locked <0xdb19fb28> (a java.net.MulticastSocket)
+	at javax.jmdns.impl.SocketListener.run(SocketListener.java:44)
+	at java.lang.Thread.run(Thread.java:619)
+
+"JmDNS.Timer" prio=3 tid=0x08235800 nid=0x2f in Object.wait() [0xd4bd9000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0xdb198ef8> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+"JmDNS.cancelerTimer" prio=3 tid=0x08c7d000 nid=0x2e in Object.wait() [0xd4ae6000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0xdb1b8c48> (a java.util.TaskQueue)
+	at java.lang.Object.wait(Object.java:485)
+	at java.util.TimerThread.mainLoop(Timer.java:483)
+	- locked <0xdb1b8c48> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+"Hudson UDP 33848 monitoring thread" prio=3 tid=0x0897dc00 nid=0x2d runnable [0xd4b37000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	- locked <0xdb1993e0> (a java.net.PlainDatagramSocketImpl)
+	at java.net.PlainDatagramSocketImpl.receive(PlainDatagramSocketImpl.java:136)
+	- locked <0xdb1993e0> (a java.net.PlainDatagramSocketImpl)
+	at java.net.DatagramSocket.receive(DatagramSocket.java:712)
+	- locked <0xdb199420> (a java.net.DatagramPacket)
+	- locked <0xdb199440> (a java.net.MulticastSocket)
+	at hudson.UDPBroadcastThread.run(UDPBroadcastThread.java:70)
+
+"TCP slave agent listener port=0" prio=3 tid=0x08c6ac00 nid=0x2c runnable [0xd48db000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+	- locked <0xdb1b8ff0> (a java.net.SocksSocketImpl)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at hudson.TcpSlaveAgentListener.run(TcpSlaveAgentListener.java:118)
+
+"Thread-3" daemon prio=3 tid=0x088bcc00 nid=0x2b in Object.wait() [0xd453d000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at hudson.model.ViewJob$ReloadThread.getNext(ViewJob.java:159)
+	- locked <0xdae898f8> (a java.util.LinkedHashSet)
+	at hudson.model.ViewJob$ReloadThread.run(ViewJob.java:176)
+
+"DestroyJavaVM" prio=3 tid=0x0806f000 nid=0x2 waiting on condition [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"LauncherControlThread[ControlPort=-1]" prio=3 tid=0x08d13c00 nid=0x1a waiting on condition [0xd4ccc000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at winstone.Launcher.run(Launcher.java:279)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Hudson cron thread" prio=3 tid=0x084c2400 nid=0x19 in Object.wait() [0xd4d1d000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0xdadf9368> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+"ConnectorThread:[ajp13-8009]" daemon prio=3 tid=0x08a46800 nid=0x18 runnable [0xd4d6e000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+	- locked <0xdad33e58> (a java.net.SocksSocketImpl)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at winstone.ajp13.Ajp13Listener.run(Ajp13Listener.java:112)
+	at java.lang.Thread.run(Thread.java:619)
+
+"ConnectorThread:[http-8080]" daemon prio=3 tid=0x088d4800 nid=0x17 runnable [0xd4dec000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+	- locked <0xdad34d78> (a java.net.SocksSocketImpl)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at winstone.HttpListener.run(HttpListener.java:127)
+	at java.lang.Thread.run(Thread.java:619)
+
+"WinstoneHostConfigurationMgmt:default" daemon prio=3 tid=0x08891800 nid=0x16 waiting on condition [0xd4e3d000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at winstone.HostConfiguration.run(HostConfiguration.java:176)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Java2D Disposer" daemon prio=3 tid=0x08a4f400 nid=0x14 in Object.wait() [0xd4efe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0xdad37550> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at sun.java2d.Disposer.run(Disposer.java:125)
+	at java.lang.Thread.run(Thread.java:619)
+
+"WinstoneObjectPoolMgmt" daemon prio=3 tid=0x0853bc00 nid=0x13 waiting on condition [0xd5b0e000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at winstone.ObjectPool.run(ObjectPool.java:103)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Low Memory Detector" daemon prio=3 tid=0x081a5c00 nid=0x11 runnable [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread1" daemon prio=3 tid=0x081a3400 nid=0x10 waiting on condition [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread0" daemon prio=3 tid=0x081a1800 nid=0xf waiting on condition [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=3 tid=0x081a0000 nid=0xe runnable [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=3 tid=0x0818a000 nid=0xd in Object.wait() [0xd658c000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0xdac0a320> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+"Reference Handler" daemon prio=3 tid=0x08188800 nid=0xc in Object.wait() [0xd65dd000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+	- locked <0xdac10ad8> (a java.lang.ref.Reference$Lock)
+
+"VM Thread" prio=3 tid=0x08185c00 nid=0xb runnable 
+
+"GC task thread#0 (ParallelGC)" prio=3 tid=0x08075800 nid=0x3 runnable 
+
+"GC task thread#1 (ParallelGC)" prio=3 tid=0x08076c00 nid=0x4 runnable 
+
+"GC task thread#2 (ParallelGC)" prio=3 tid=0x08078400 nid=0x5 runnable 
+
+"GC task thread#3 (ParallelGC)" prio=3 tid=0x08079800 nid=0x6 runnable 
+
+"GC task thread#4 (ParallelGC)" prio=3 tid=0x0807ac00 nid=0x7 runnable 
+
+"GC task thread#5 (ParallelGC)" prio=3 tid=0x0807c400 nid=0x8 runnable 
+
+"GC task thread#6 (ParallelGC)" prio=3 tid=0x0807dc00 nid=0x9 runnable 
+
+"GC task thread#7 (ParallelGC)" prio=3 tid=0x0807f000 nid=0xa runnable 
+
+"VM Periodic Task Thread" prio=3 tid=0x081a8000 nid=0x12 waiting on condition 
+
+JNI global references: 1300
+

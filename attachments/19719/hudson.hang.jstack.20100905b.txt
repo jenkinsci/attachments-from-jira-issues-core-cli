@@ -1,0 +1,103 @@
+2010-09-05 16:21:34
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (14.2-b01 mixed mode):
+
+"Attach Listener" daemon prio=10 tid=0x0000000051407000 nid=0x2aec waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"DestroyJavaVM" prio=10 tid=0x00002aaadc3b3800 nid=0x281a waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"JmDNS.SocketListener" daemon prio=10 tid=0x0000000054461000 nid=0x28c1 runnable [0x0000000041436000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	- locked <0x00002aaacd794d10> (a java.net.PlainDatagramSocketImpl)
+	at java.net.PlainDatagramSocketImpl.receive(PlainDatagramSocketImpl.java:136)
+	- locked <0x00002aaacd794d10> (a java.net.PlainDatagramSocketImpl)
+	at java.net.DatagramSocket.receive(DatagramSocket.java:712)
+	- locked <0x00002aaacd794d68> (a java.net.DatagramPacket)
+	- locked <0x00002aaacd794d98> (a java.net.MulticastSocket)
+	at javax.jmdns.impl.SocketListener.run(SocketListener.java:44)
+	at java.lang.Thread.run(Thread.java:619)
+
+"JmDNS.cancelerTimer" prio=10 tid=0x00000000513fd800 nid=0x28bf in Object.wait() [0x0000000042986000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaacd7971b0> (a java.util.TaskQueue)
+	at java.lang.Object.wait(Object.java:485)
+	at java.util.TimerThread.mainLoop(Timer.java:483)
+	- locked <0x00002aaacd7971b0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+"TP-Processor4" daemon prio=10 tid=0x00002aaad8b2b000 nid=0x2837 in Object.wait() [0x0000000042683000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaab3d7e788> (a org.apache.jk.common.ChannelSocket)
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.jk.common.ChannelSocket.accept(ChannelSocket.java:301)
+	- locked <0x00002aaab3d7e788> (a org.apache.jk.common.ChannelSocket)
+	at org.apache.jk.common.ChannelSocket.acceptConnections(ChannelSocket.java:661)
+	at org.apache.jk.common.ChannelSocket$SocketAcceptor.runIt(ChannelSocket.java:872)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+"hudson initialization thread" prio=10 tid=0x00002aaadc1f0000 nid=0x2831 in Object.wait() [0x00000000416ac000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaac9f76c68> (a javax.jmdns.impl.ServiceInfoImpl)
+	at java.lang.Object.wait(Object.java:485)
+	at javax.jmdns.impl.JmDNSImpl.registerService(JmDNSImpl.java:713)
+	- locked <0x00002aaac9f76c68> (a javax.jmdns.impl.ServiceInfoImpl)
+	at hudson.DNSMultiCast.<init>(DNSMultiCast.java:42)
+	at hudson.model.Hudson.<init>(Hudson.java:636)
+	at hudson.model.Hudson.<init>(Hudson.java:553)
+	at hudson.WebAppMain$2.run(WebAppMain.java:222)
+
+"Java2D Disposer" daemon prio=10 tid=0x00002aaadc21d800 nid=0x282e in Object.wait() [0x0000000042380000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaacd7f2ab0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00002aaacd7f2ab0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at sun.java2d.Disposer.run(Disposer.java:125)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Low Memory Detector" daemon prio=10 tid=0x0000000051009000 nid=0x2823 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread1" daemon prio=10 tid=0x0000000051006000 nid=0x2822 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread0" daemon prio=10 tid=0x0000000051001800 nid=0x2821 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=10 tid=0x0000000050fff800 nid=0x2820 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=10 tid=0x0000000050fdd000 nid=0x281f in Object.wait() [0x000000004217e000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaab38c5e98> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00002aaab38c5e98> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+"Reference Handler" daemon prio=10 tid=0x0000000050fdb000 nid=0x281e in Object.wait() [0x000000004207d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaab3695270> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+	- locked <0x00002aaab3695270> (a java.lang.ref.Reference$Lock)
+
+"VM Thread" prio=10 tid=0x0000000050fd4800 nid=0x281d runnable 
+
+"GC task thread#0 (ParallelGC)" prio=10 tid=0x0000000050f86800 nid=0x281b runnable 
+
+"GC task thread#1 (ParallelGC)" prio=10 tid=0x0000000050f88800 nid=0x281c runnable 
+
+"VM Periodic Task Thread" prio=10 tid=0x000000005100b800 nid=0x2824 waiting on condition 
+
+JNI global references: 807
+

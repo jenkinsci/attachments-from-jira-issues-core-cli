@@ -1,0 +1,278 @@
+
+Feb 19, 2018 3:22:56 PM winstone.Logger logInternal
+INFO: JVM is terminating. Shutting down Winstone
+Feb 19, 2018 3:22:56 PM com.ikokoon.toolkit.Thread destroy
+INFO: Shutting down executor service : 
+java.io.IOException: java.nio.channels.ClosedChannelException
+	at hudson.remoting.FastPipedInputStream.read(FastPipedInputStream.java:169)
+	at hudson.remoting.FastPipedInputStream.read(FastPipedInputStream.java:151)
+	at org.jenkinsci.plugins.unity3d.io.StreamCopyThread.run(StreamCopyThread.java:64)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer.onReadClosed(ChannelApplicationLayer.java:208)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.onRecvClosed(ApplicationLayer.java:222)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.onRecvClosed(ProtocolStack.java:832)
+	at org.jenkinsci.remoting.protocol.FilterLayer.onRecvClosed(FilterLayer.java:287)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.onRecvClosed(SSLEngineFilterLayer.java:181)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.switchToNoSecure(SSLEngineFilterLayer.java:283)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processWrite(SSLEngineFilterLayer.java:503)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processQueuedWrites(SSLEngineFilterLayer.java:248)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doSend(SSLEngineFilterLayer.java:200)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doCloseSend(SSLEngineFilterLayer.java:213)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.doCloseSend(ProtocolStack.java:800)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.doCloseWrite(ApplicationLayer.java:173)
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer$ByteBufferCommandTransport.closeWrite(ChannelApplicationLayer.java:313)
+	at hudson.remoting.Channel.close(Channel.java:1446)
+	at hudson.remoting.Channel.close(Channel.java:1399)
+	at hudson.slaves.SlaveComputer.closeChannel(SlaveComputer.java:746)
+	at hudson.slaves.SlaveComputer.kill(SlaveComputer.java:713)
+	at hudson.model.AbstractCIBase.killComputer(AbstractCIBase.java:88)
+	at jenkins.model.Jenkins.access$2000(Jenkins.java:303)
+	at jenkins.model.Jenkins$20.run(Jenkins.java:3338)
+	at hudson.model.Queue._withLock(Queue.java:1370)
+	at hudson.model.Queue.withLock(Queue.java:1247)
+	at jenkins.model.Jenkins._cleanUpDisconnectComputers(Jenkins.java:3332)
+	at jenkins.model.Jenkins.cleanUp(Jenkins.java:3207)
+	at hudson.WebAppMain.contextDestroyed(WebAppMain.java:379)
+	at org.eclipse.jetty.server.handler.ContextHandler.callContextDestroyed(ContextHandler.java:898)
+	at org.eclipse.jetty.servlet.ServletContextHandler.callContextDestroyed(ServletContextHandler.java:545)
+	at org.eclipse.jetty.server.handler.ContextHandler.stopContext(ContextHandler.java:873)
+	at org.eclipse.jetty.servlet.ServletContextHandler.stopContext(ServletContextHandler.java:355)
+	at org.eclipse.jetty.webapp.WebAppContext.stopWebapp(WebAppContext.java:1507)
+	at org.eclipse.jetty.webapp.WebAppContext.stopContext(WebAppContext.java:1471)
+	at org.eclipse.jetty.server.handler.ContextHandler.doStop(ContextHandler.java:927)
+	at org.eclipse.jetty.servlet.ServletContextHandler.doStop(ServletContextHandler.java:271)
+	at org.eclipse.jetty.webapp.WebAppContext.doStop(WebAppContext.java:569)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:142)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:160)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:124)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:523)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+	at winstone.Launcher.shutdown(Launcher.java:307)
+	at winstone.ShutdownHook.run(ShutdownHook.java:25)
+java.io.IOException: java.nio.channels.ClosedChannelException
+	at hudson.remoting.FastPipedInputStream.read(FastPipedInputStream.java:169)
+	at hudson.remoting.FastPipedInputStream.read(FastPipedInputStream.java:151)
+	at org.jenkinsci.plugins.unity3d.io.StreamCopyThread.run(StreamCopyThread.java:64)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer.onReadClosed(ChannelApplicationLayer.java:208)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.onRecvClosed(ApplicationLayer.java:222)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.onRecvClosed(ProtocolStack.java:832)
+	at org.jenkinsci.remoting.protocol.FilterLayer.onRecvClosed(FilterLayer.java:287)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.onRecvClosed(SSLEngineFilterLayer.java:181)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.switchToNoSecure(SSLEngineFilterLayer.java:283)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processWrite(SSLEngineFilterLayer.java:503)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processQueuedWrites(SSLEngineFilterLayer.java:248)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doSend(SSLEngineFilterLayer.java:200)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doCloseSend(SSLEngineFilterLayer.java:213)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.doCloseSend(ProtocolStack.java:800)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.doCloseWrite(ApplicationLayer.java:173)
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer$ByteBufferCommandTransport.closeWrite(ChannelApplicationLayer.java:313)
+	at hudson.remoting.Channel.close(Channel.java:1446)
+	at hudson.remoting.Channel.close(Channel.java:1399)
+	at hudson.slaves.SlaveComputer.closeChannel(SlaveComputer.java:746)
+	at hudson.slaves.SlaveComputer.kill(SlaveComputer.java:713)
+	at hudson.model.AbstractCIBase.killComputer(AbstractCIBase.java:88)
+	at jenkins.model.Jenkins.access$2000(Jenkins.java:303)
+	at jenkins.model.Jenkins$20.run(Jenkins.java:3338)
+	at hudson.model.Queue._withLock(Queue.java:1370)
+	at hudson.model.Queue.withLock(Queue.java:1247)
+	at jenkins.model.Jenkins._cleanUpDisconnectComputers(Jenkins.java:3332)
+	at jenkins.model.Jenkins.cleanUp(Jenkins.java:3207)
+	at hudson.WebAppMain.contextDestroyed(WebAppMain.java:379)
+	at org.eclipse.jetty.server.handler.ContextHandler.callContextDestroyed(ContextHandler.java:898)
+	at org.eclipse.jetty.servlet.ServletContextHandler.callContextDestroyed(ServletContextHandler.java:545)
+	at org.eclipse.jetty.server.handler.ContextHandler.stopContext(ContextHandler.java:873)
+	at org.eclipse.jetty.servlet.ServletContextHandler.stopContext(ServletContextHandler.java:355)
+	at org.eclipse.jetty.webapp.WebAppContext.stopWebapp(WebAppContext.java:1507)
+	at org.eclipse.jetty.webapp.WebAppContext.stopContext(WebAppContext.java:1471)
+	at org.eclipse.jetty.server.handler.ContextHandler.doStop(ContextHandler.java:927)
+	at org.eclipse.jetty.servlet.ServletContextHandler.doStop(ServletContextHandler.java:271)
+	at org.eclipse.jetty.webapp.WebAppContext.doStop(WebAppContext.java:569)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:142)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:160)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:124)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:523)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+	at winstone.Launcher.shutdown(Launcher.java:307)
+	at winstone.ShutdownHook.run(ShutdownHook.java:25)
+Running from: /usr/share/jenkins/jenkins.war
+Feb 19, 2018 3:22:59 PM Main deleteWinstoneTempContents
+WARNING: Failed to delete the temporary Winstone file /tmp/winstone/jenkins.war
+Feb 19, 2018 3:22:59 PM org.eclipse.jetty.util.log.Log initialized
+INFO: Logging initialized @688ms to org.eclipse.jetty.util.log.JavaUtilLog
+Feb 19, 2018 3:22:59 PM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Feb 19, 2018 3:22:59 PM org.eclipse.jetty.server.handler.ContextHandler setContextPath
+WARNING: Empty contextPath
+Feb 19, 2018 3:22:59 PM org.eclipse.jetty.server.Server doStart
+INFO: jetty-9.4.z-SNAPSHOT
+Feb 19, 2018 3:22:59 PM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet
+INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+Feb 19, 2018 3:22:59 PM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart
+INFO: DefaultSessionIdManager workerName=node0
+Feb 19, 2018 3:22:59 PM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart
+INFO: No SessionScavenger set, using defaults
+Feb 19, 2018 3:22:59 PM org.eclipse.jetty.server.session.HouseKeeper startScavenging
+INFO: Scavenging every 600000ms
+Jenkins home directory: /var/lib/jenkins found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+Feb 19, 2018 3:23:00 PM org.eclipse.jetty.server.handler.ContextHandler doStart
+INFO: Started w.@798162bc{/,file:///var/cache/jenkins/war/,AVAILABLE}{/var/cache/jenkins/war}
+Feb 19, 2018 3:23:00 PM org.eclipse.jetty.server.AbstractConnector doStart
+INFO: Started ServerConnector@3bcd05cb{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+Feb 19, 2018 3:23:00 PM org.eclipse.jetty.server.Server doStart
+INFO: Started @2007ms
+Feb 19, 2018 3:23:00 PM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v4.0 running: controlPort=disabled
+Feb 19, 2018 3:23:02 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Feb 19, 2018 3:23:03 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+Feb 19, 2018 3:23:03 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+INFO: Initializing Bouncy Castle security provider.
+Feb 19, 2018 3:23:03 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+INFO: Bouncy Castle security provider initialized.
+Feb 19, 2018 3:23:10 PM hudson.plugins.ansicolor.PluginImpl start
+INFO: AnsiColor: eliminating boring output (https://github.com/jenkinsci/ansicolor-plugin)
+java.io.IOException: No such file or directory
+	at java.io.UnixFileSystem.createFileExclusively(Native Method)
+	at java.io.File.createNewFile(File.java:1012)
+	at com.ikokoon.toolkit.LoggingConfigurator.checkLogFolder(LoggingConfigurator.java:60)
+	at com.ikokoon.toolkit.LoggingConfigurator.configure(LoggingConfigurator.java:35)
+	at com.ikokoon.toolkit.LoggingConfigurator.<clinit>(LoggingConfigurator.java:26)
+	at com.ikokoon.serenity.hudson.SerenityPlugin.<clinit>(SerenityPlugin.java:39)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at java.lang.Class.newInstance(Class.java:442)
+	at hudson.ClassicPluginStrategy.load(ClassicPluginStrategy.java:512)
+	at hudson.PluginManager$2$1$1.run(PluginManager.java:515)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:169)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:296)
+	at jenkins.model.Jenkins$5.runTask(Jenkins.java:1064)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:214)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:117)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Log file : /./serenity/serenity.log
+Log4j stream : java.util.zip.ZipFile$ZipFileInflaterInputStream@4095f201
+Feb 19, 2018 3:23:18 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Feb 19, 2018 3:23:20 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+Feb 19, 2018 3:23:21 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+INFO: Failed to instantiate optional component com.github.mjdetullio.jenkins.plugins.multibranch.IvyBranchProjectFactory$DescriptorImpl; skipping
+Feb 19, 2018 3:23:21 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+INFO: Failed to instantiate optional component com.github.mjdetullio.jenkins.plugins.multibranch.IvyMultiBranchProject$DescriptorImpl; skipping
+Feb 19, 2018 3:23:21 PM org.jvnet.hudson.annotation_indexer.Index$2$1 fetch
+WARNING: Failed to load com.github.mjdetullio.jenkins.plugins.multibranch.IvyMultiBranchProject
+java.lang.NoClassDefFoundError: hudson/ivy/IvyModuleSet
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
+	at java.lang.Class.getDeclaredMethods(Class.java:1975)
+	at org.jvnet.hudson.annotation_indexer.Index$2$1.fetch(Index.java:103)
+	at org.jvnet.hudson.annotation_indexer.Index$2$1.hasNext(Index.java:73)
+	at org.jvnet.hudson.annotation_indexer.SubtypeIterator.fetch(SubtypeIterator.java:18)
+	at org.jvnet.hudson.annotation_indexer.SubtypeIterator.hasNext(SubtypeIterator.java:28)
+	at hudson.init.TaskMethodFinder.discoverTasks(TaskMethodFinder.java:56)
+	at hudson.init.InitializerFinder.discoverTasks(InitializerFinder.java:33)
+	at hudson.PluginManager$2$1$3.run(PluginManager.java:554)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:169)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:296)
+	at jenkins.model.Jenkins$5.runTask(Jenkins.java:1064)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:214)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:117)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: hudson.ivy.IvyModuleSet
+	at jenkins.util.AntClassLoader.findClassInComponents(AntClassLoader.java:1374)
+	at jenkins.util.AntClassLoader.findClass(AntClassLoader.java:1327)
+	at jenkins.util.AntClassLoader.loadClass(AntClassLoader.java:1080)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 18 more
+
+Feb 19, 2018 3:23:21 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Feb 19, 2018 3:23:21 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Feb 19, 2018 3:23:25 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Loaded all jobs
+Feb 19, 2018 3:23:25 PM jenkins.util.groovy.GroovyHookScript execute
+INFO: Executing /var/lib/jenkins/init.groovy.d/cli-shutdown.groovy
+Feb 19, 2018 3:23:25 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Started Download metadata
+Feb 19, 2018 3:23:25 PM hudson.model.AsyncPeriodicWork$1 run
+INFO: Finished Download metadata. 10 ms
+Feb 19, 2018 3:23:25 PM jenkins.util.groovy.GroovyHookScript execute
+WARNING: Failed to run script file:/var/lib/jenkins/init.groovy.d/cli-shutdown.groovy
+java.lang.NullPointerException: Cannot invoke method contains() on null object
+	at org.codehaus.groovy.runtime.NullObject.invokeMethod(NullObject.java:91)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:48)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48)
+	at org.codehaus.groovy.runtime.callsite.NullCallSite.call(NullCallSite.java:35)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48)
+	at java_lang_String$contains.call(Unknown Source)
+	at cli-shutdown$_run_closure1.doCall(cli-shutdown.groovy:8)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:294)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1022)
+	at groovy.lang.Closure.call(Closure.java:414)
+	at groovy.lang.Closure.call(Closure.java:430)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2040)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2025)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2066)
+	at org.codehaus.groovy.runtime.dgm$162.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:274)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:56)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at cli-shutdown.run(cli-shutdown.groovy:7)
+	at groovy.lang.GroovyShell.evaluate(GroovyShell.java:585)
+	at jenkins.util.groovy.GroovyHookScript.execute(GroovyHookScript.java:136)
+	at jenkins.util.groovy.GroovyHookScript.execute(GroovyHookScript.java:127)
+	at jenkins.util.groovy.GroovyHookScript.run(GroovyHookScript.java:110)
+	at hudson.init.impl.GroovyInitScript.init(GroovyInitScript.java:41)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at hudson.init.TaskMethodFinder.invoke(TaskMethodFinder.java:104)
+	at hudson.init.TaskMethodFinder$TaskImpl.run(TaskMethodFinder.java:175)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:296)
+	at jenkins.model.Jenkins$5.runTask(Jenkins.java:1064)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:214)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:117)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+Feb 19, 2018 3:23:25 PM jenkins.util.groovy.GroovyHookScript execute
+INFO: Executing /var/lib/jenkins/init.groovy.d/disable-slack-webhooks.groovy
+Feb 19, 2018 3:23:26 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@32afad46: display name [Root WebApplicationContext]; startup date [Mon Feb 19 15:23:26 UTC 2018]; root of context hierarchy
+Feb 19, 2018 3:23:26 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@32afad46]: org.springframework.beans.factory.support.DefaultListableBeanFactory@23e816e3
+Feb 19, 2018 3:23:26 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@23e816e3: defining beans [ldapUserSearch,authenticationManager,bindAuthenticator,authoritiesPopulator,initialDirContextFactory]; root of factory hierarchy
+Feb 19, 2018 3:23:26 PM org.acegisecurity.ldap.DefaultInitialDirContextFactory setProviderUrl
+INFO:  URL 'foo', root DN is 'bar'
+Feb 19, 2018 3:23:26 PM org.acegisecurity.providers.ldap.populator.DefaultLdapAuthoritiesPopulator setGroupSearchBase
+INFO: groupSearchBase is empty. Searches will be performed from the root: bar
+Feb 19, 2018 3:23:26 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@4485f887: display name [Root WebApplicationContext]; startup date [Mon Feb 19 15:23:26 UTC 2018]; root of context hierarchy
+Feb 19, 2018 3:23:26 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@4485f887]: org.springframework.beans.factory.support.DefaultListableBeanFactory@374336e9
+Feb 19, 2018 3:23:26 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@374336e9: defining beans [filter,legacy]; root of factory hierarchy
+Feb 19, 2018 3:23:26 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Completed initialization

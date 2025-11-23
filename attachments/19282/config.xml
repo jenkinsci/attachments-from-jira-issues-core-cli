@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>4</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+  </properties>
+  <scm class="hudson.scm.CVSSCM">
+    <cvsroot><!--REDACTED--></cvsroot>
+    <module><!--REDACTED--></module>
+    <canUseUpdate>true</canUseUpdate>
+    <flatten>true</flatten>
+    <isTag>false</isTag>
+    <excludedRegions></excludedRegions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>true</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>#Check every three minutes&#xd;
+*/3 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Ant>
+      <targets></targets>
+      <antName>Ant 1.7.1</antName>
+      <properties># Used for NetBeans projects&#xd;
+do.mkdist=1&#xd;
+libs.CopyLibs.classpath=&quot;/opt/netbeans-6.8/java3/ant/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar&quot;</properties>
+    </hudson.tasks.Ant>
+    <hudson.tasks.Shell>
+      <command>#publish to ivy
+cp -Ru <!--SOURCE--> <!--DESTINATION--></command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.tasks.TasksPublisher>
+      <threshold></threshold>
+      <newThreshold></newThreshold>
+      <failureThreshold></failureThreshold>
+      <newFailureThreshold></newFailureThreshold>
+      <healthy></healthy>
+      <unHealthy></unHealthy>
+      <pluginName>[TASKS] </pluginName>
+      <thresholdLimit>low</thresholdLimit>
+      <defaultEncoding></defaultEncoding>
+      <useDeltaValues>false</useDeltaValues>
+      <high></high>
+      <normal>todo</normal>
+      <low></low>
+      <ignoreCase>true</ignoreCase>
+      <pattern></pattern>
+      <excludePattern></excludePattern>
+      <canRunOnFailed>false</canRunOnFailed>
+    </hudson.plugins.tasks.TasksPublisher>
+    <hudson.plugins.warnings.WarningsPublisher>
+      <threshold></threshold>
+      <newThreshold></newThreshold>
+      <failureThreshold></failureThreshold>
+      <newFailureThreshold></newFailureThreshold>
+      <healthy></healthy>
+      <unHealthy></unHealthy>
+      <pluginName>[WARNINGS] </pluginName>
+      <thresholdLimit>low</thresholdLimit>
+      <defaultEncoding></defaultEncoding>
+      <useDeltaValues>false</useDeltaValues>
+      <pattern></pattern>
+      <parserNames/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <ignoreConsole>false</ignoreConsole>
+    </hudson.plugins.warnings.WarningsPublisher>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>dist/**</artifacts>
+      <latestOnly>true</latestOnly>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.cvs__tag.CvsTagPublisher>
+      <tagName>${env[&apos;JOB_NAME&apos;]}-${env[&apos;BUILD_NUMBER&apos;]}-${new java.text.SimpleDateFormat(&quot;yyyy_MM_dd&quot;).format(new Date())}</tagName>
+    </hudson.plugins.cvs__tag.CvsTagPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

@@ -1,0 +1,72 @@
+Executor #0 for iibdev-x-rhel-svl-fyre-discard-70961 : executing Caller #33531
+
+"Executor #0 for iibdev-x-rhel-svl-fyre-discard-70961 : executing Caller #33531" Id=735652 Group=main WAITING on hudson.model.queue.FutureImpl@34530e01
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.queue.FutureImpl@34530e01
+	at java.lang.Object.wait(Object.java:502)
+	at hudson.remoting.AsyncFutureImpl.get(AsyncFutureImpl.java:79)
+	at hudson.plugins.parameterizedtrigger.TriggerBuilder.perform(TriggerBuilder.java:154)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:803)
+	at hudson.model.Build$BuildExecution.build(Build.java:197)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:163)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:513)
+	at hudson.model.Run.execute(Run.java:1907)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:97)
+	at hudson.model.Executor.run(Executor.java:429)
+
+-----
+
+iibdev-x-rhel-svl-fyre-discard-70961
+Attach API wait loop
+
+"Attach API wait loop" Id=22 Group=main RUNNABLE (in native)
+	at openj9.internal.tools.attach.target.IPC.waitSemaphore(Native Method)
+	at openj9.internal.tools.attach.target.CommonDirectory.waitSemaphore(CommonDirectory.java:259)
+	at openj9.internal.tools.attach.target.WaitLoop.waitForNotification(WaitLoop.java:66)
+	at openj9.internal.tools.attach.target.WaitLoop.run(WaitLoop.java:154)
+
+ClassCache Reaper
+
+"ClassCache Reaper" Id=34 Group=main WAITING on java.lang.ref.ReferenceQueue@5846a7b1 (in native)
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue@5846a7b1
+	at java.lang.Object.wait(Object.java:218)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:138)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:110)
+	at java.io.ClassCache$Reaper.run(ClassCache.java:222)
+
+IOHub#1: Selector[keys:0, gen:0] / pool-1-thread-1
+
+"IOHub#1: Selector[keys:0, gen:0] / pool-1-thread-1" Id=28 Group=main RUNNABLE (in native)
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:281)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:105)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:98)
+	-  locked sun.nio.ch.Util$3@77ebb10e
+	-  locked java.util.Collections$UnmodifiableSet@70144528
+	-  locked sun.nio.ch.EPollSelectorImpl@43d6ed1e
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:109)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:113)
+	at org.jenkinsci.remoting.protocol.IOHub.run(IOHub.java:461)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1160)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:119)
+	at hudson.remoting.Engine$1$$Lambda$4/0x00000000f4026530.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:822)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.ThreadPoolExecutor$Worker@d951d0c2
+
+main
+
+"main" Id=1 Group=main WAITING on hudson.remoting.Engine@108f2e3a (in native)
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.remoting.Engine@108f2e3a
+	at java.lang.Object.wait(Object.java:218)
+	at java.lang.Thread.join(Thread.java:702)
+	at hudson.remoting.jnlp.Main.main(Main.java:285)
+	at hudson.remoting.jnlp.Main._main(Main.java:278)
+	at hudson.remoting.Launcher.run(Launcher.java:385)
+	at hudson.remoting.Launcher.main(Launcher.java:296)

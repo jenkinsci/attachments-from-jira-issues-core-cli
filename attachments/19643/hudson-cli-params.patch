@@ -1,0 +1,22 @@
+Index: main/core/src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- main/core/src/main/java/hudson/model/AbstractProject.java	(revision 33648)
++++ main/core/src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -693,8 +693,15 @@
+             return null;
+ 
+         List<Action> queueActions = new ArrayList<Action>(Arrays.asList(actions));
+-        if (isParameterized() && Util.filter(queueActions, ParametersAction.class).isEmpty()) {
+-            queueActions.add(new ParametersAction(getDefaultParametersValues()));
++        if (isParameterized()) {
++            // Grab all the default parameters.
++            ParametersAction paramsValues = new ParametersAction(getDefaultParametersValues());
++            // Now override them with anything explicitly provided.
++            for (ParametersAction pa: Util.filter(new ArrayList<Action>(Arrays.asList(actions)), ParametersAction.class)) {
++                // TODO: for each action, get the list of parameters, and override any existing ones in defaultParamsValues.
++            }
++            
++            queueActions.add(paramsValues);
+         }
+ 
+         if (c != null) {

@@ -1,0 +1,21 @@
+diff --git a/core/src/main/java/hudson/util/DirScanner.java b/core/src/main/java/hudson/util/DirScanner.java
+index e37dbd7..653ccba 100644
+--- a/core/src/main/java/hudson/util/DirScanner.java
++++ b/core/src/main/java/hudson/util/DirScanner.java
+@@ -112,10 +112,12 @@ public abstract class DirScanner implements Serializable {
+ 
+                     if (visitor.understandsSymlink()) {
+                         try {
+-                            String target = Util.resolveSymlink(file,TaskListener.NULL);
+-                            if (target!=null) {
+-                                visitor.visitSymlink(file,target,f);
+-                                continue;
++                        	if (Util.isSymlink(file)) {
++								String target = Util.resolveSymlink(file,TaskListener.NULL);
++								if (target!=null) {
++									visitor.visitSymlink(file,target,f);
++									continue;
++								}
+                             }
+                         } catch (InterruptedException e) {
+                             throw (IOException)new InterruptedIOException().initCause(e);

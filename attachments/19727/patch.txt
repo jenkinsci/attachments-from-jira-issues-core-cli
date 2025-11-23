@@ -1,0 +1,431 @@
+Index: core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- core/src/main/java/hudson/model/Hudson.java	(revision 34588)
++++ core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -541,6 +541,11 @@
+     private Boolean noUsageStatistics;
+ 
+     /**
++     * True if user selected to use side Tab bar in the All projects View.
++     */
++    private Boolean useSideTabBar = false;
++
++    /**
+      * HTTP proxy configuration.
+      */
+     public transient volatile ProxyConfiguration proxy;
+@@ -786,6 +791,10 @@
+         return updateCenter;
+     }
+ 
++    public boolean isUseSideTabBar() {
++        return useSideTabBar;
++    }
++
+     public boolean isUsageStatisticsCollected() {
+         return noUsageStatistics==null || !noUsageStatistics;
+     }
+@@ -2337,6 +2346,8 @@
+             
+             noUsageStatistics = json.has("usageStatisticsCollected") ? null : true;
+ 
++            useSideTabBar = json.has("useSideTabBar") ? true : false;
++
+             {
+                 String v = req.getParameter("slaveAgentPortType");
+                 if(!isUseSecurity() || v==null || v.equals("random"))
+Index: core/src/main/resources/hudson/model/Hudson/configure.properties
+===================================================================
+--- core/src/main/resources/hudson/model/Hudson/configure.properties	(revision 34588)
++++ core/src/main/resources/hudson/model/Hudson/configure.properties	(working copy)
+@@ -27,4 +27,6 @@
+ statsBlurb=\
+   Help make Hudson better by sending anonymous usage statistics and crash reports to the Hudson project.
+ 
+-no.such.JDK=<span class=error>No such JDK exists</span>
+\ No newline at end of file
++no.such.JDK=<span class=error>No such JDK exists</span>
++
++useSideTabBarInfo=Use Side Tab bar in the all projects view
+\ No newline at end of file
+Index: core/src/main/resources/hudson/model/Hudson/configure.jelly
+===================================================================
+--- core/src/main/resources/hudson/model/Hudson/configure.jelly	(revision 34588)
++++ core/src/main/resources/hudson/model/Hudson/configure.jelly	(working copy)
+@@ -69,6 +69,10 @@
+         </f:entry>
+       </j:if>
+ 
++      <f:optionalBlock name="useSideTabBar" checked="${it.useSideTabBar}"
++                       title="${%useSideTabBarInfo}"
++                       help="/help/system-config/useSideTabBar.html" />
++
+       <f:optionalBlock name="use_security" title="${%Enable security}"
+                        checked="${it.useSecurity}" help="/help/system-config/enableSecurity.html">
+         <f:entry title="${%TCP port for JNLP slave agents}"
+Index: core/src/main/resources/hudson/model/View/viewTabs.jelly
+===================================================================
+--- core/src/main/resources/hudson/model/View/viewTabs.jelly	(revision 34588)
++++ core/src/main/resources/hudson/model/View/viewTabs.jelly	(working copy)
+@@ -24,13 +24,33 @@
+ 
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+   <!-- view tab bar -->
+-  <l:tabBar>
+-    <j:forEach var="v" items="${it.owner.views}">
+-      <l:tab name="${v.viewName}" active="${v==it}" href="${rootURL}/${v.url}" />
+-    </j:forEach>
+-    <j:if test="${it.hasPermission(it.CREATE)}">
+-      <l:tab name="+" href="${rootURL}/${it.owner.url}newView" active="false"
++
++    <j:choose>
++        <j:when test="${!app.useSideTabBar}">
++            <l:tabBar>
++                <j:forEach var="v" items="${it.owner.views}">
++                    <l:tab name="${v.viewName}" active="${v==it}" href="${rootURL}/${v.url}" />
++                </j:forEach>
++                <j:if test="${it.hasPermission(it.CREATE)}">
++                    <l:tab name="+" href="${rootURL}/${it.owner.url}newView" active="false"
+              title="${%New View}" />
+-    </j:if>
+-  </l:tabBar>
++                </j:if>
++            </l:tabBar>
++        </j:when>
++        <j:otherwise>
++            <l:tabBar>
++                <j:forEach var="v" items="${it.owner.views}">
++                    <tr>
++                        <l:tab name="${v.viewName}" active="${v==it}" href="${rootURL}/${v.url}" />
++                    </tr>
++                </j:forEach>
++                <j:if test="${it.hasPermission(it.CREATE)}">
++                    <tr>
++                        <l:tab name="+" href="${rootURL}/${it.owner.url}newView" active="false"
++             title="${%New View}" />
++                    </tr>
++                </j:if>
++            </l:tabBar>
++        </j:otherwise>
++    </j:choose>
+ </j:jelly>
+Index: core/src/main/resources/lib/hudson/projectView.jelly
+===================================================================
+--- core/src/main/resources/lib/hudson/projectView.jelly	(revision 34588)
++++ core/src/main/resources/lib/hudson/projectView.jelly	(working copy)
+@@ -24,60 +24,115 @@
+ 
+ <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+          xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+-  <st:documentation>
++    <st:documentation>
+     Renders a list of jobs and their key information.
+ 
+-    <st:attribute name="jobs" use="required" trim="Collection">
++        <st:attribute name="jobs" use="required" trim="Collection">
+       Items to disable.
+-    </st:attribute>
+-    <st:attribute name="jobBaseUrl" type="String">
++        </st:attribute>
++        <st:attribute name="jobBaseUrl" type="String">
+       The base URL of all job links. Normally ${rootURL}/
+-    </st:attribute>
+-    <st:attribute name="showViewTabs" use="required" type="boolean">
++        </st:attribute>
++        <st:attribute name="showViewTabs" use="required" type="boolean">
+       If the caller rendered a view tabes, set this to true so that CSS is adjusted accordingly.
+-    </st:attribute>
+-    <st:attribute name="views" type="Collection&lt;View>">
++        </st:attribute>
++        <st:attribute name="views" type="Collection&lt;View>">
+       If non-null, render nested views.
+-    </st:attribute>
+-    <st:attribute name="indenter" type="hudson.Indenter">
++        </st:attribute>
++        <st:attribute name="indenter" type="hudson.Indenter">
+       Optional Indenter instance used to indent items.
+-    </st:attribute>
+-    <st:attribute name="columnExtensions" type="Collection&lt;hudson.views.ListViewColumn>">
++        </st:attribute>
++        <st:attribute name="columnExtensions" type="Collection&lt;hudson.views.ListViewColumn>">
+       List view columns to render. If omitted, the default ones from ListView.getDefaultColumns() are used.
+-    </st:attribute>
+-  </st:documentation>
++        </st:attribute>
++    </st:documentation>
+ 
+-  <t:setIconSize/>
+-  <div class="dashboard">
++    <t:setIconSize/>
+ 
+-    <j:if test="${columnExtensions==null}">
+-        <j:invokeStatic var="columnExtensions" className="hudson.model.ListView" method="getDefaultColumns"/>
+-    </j:if>
++    <j:choose>
++        <j:when test="${app.useSideTabBar}">
++            <j:set var="divCssStyle" value="margin-top:20px;" />
++        </j:when>
++        <j:otherwise>
++            <j:set var="divCssStyle" value="margin-top:0px;" />
++        </j:otherwise>
++    </j:choose>
++
++    <div class="dashboard" style="${divCssStyle}">
++
++        <j:if test="${columnExtensions==null}">
++            <j:invokeStatic var="columnExtensions" className="hudson.model.ListView" method="getDefaultColumns"/>
++        </j:if>
+     
+-    <j:if test="${!empty(jobs) or !empty(attrs.views)}">
+-      <!-- the caller can inject a tab bar here -->
+-      <d:invokeBody/>
+-      <!-- project list -->
+-      <table id="projectstatus" class="sortable pane bigtable"
+-             style="${showViewTabs!=null?'margin-top:0px; border-top: none;':null}">
+-        <tr style="border-top: 0px;">
+-          <j:forEach var="col" items="${columnExtensions}">
+-             <st:include page="columnHeader.jelly" it="${col}" />
+-          </j:forEach>
+-          <th>
+-            <st:nbsp/>
+-          </th>
+-        </tr>
++        <j:if test="${!empty(jobs) or !empty(attrs.views)}">
+ 
+-        <j:forEach var="v" items="${attrs.views}">
+-          <t:projectViewNested />
+-        </j:forEach>
++            <j:choose>
++                <j:when test="${!app.useSideTabBar}">
++                    <!-- the caller can inject a tab bar here -->
++                    <d:invokeBody/>
++                    <!-- project list -->
++                    <table id="projectstatus" class="sortable pane bigtable"
++                            style="${showViewTabs!=null?'margin-top:0px; border-top: none':null}">
++                        <tr >
++                            <j:forEach var="col" items="${columnExtensions}">
++                                <st:include page="columnHeader.jelly" it="${col}" />
++                            </j:forEach>
++                            <th>
++                                <st:nbsp/>
++                            </th>
++                        </tr>
+ 
+-        <j:forEach var="job" items="${jobs}">
+-          <t:projectViewRow />
+-        </j:forEach>
+-      </table>
+-      <t:iconSize><t:rssBar/></t:iconSize>
+-    </j:if>
+-  </div>
++                        <j:forEach var="v" items="${attrs.views}">
++                            <t:projectViewNested />
++                        </j:forEach>
++
++                        <j:forEach var="job" items="${jobs}">
++                            <t:projectViewRow />
++                        </j:forEach>
++                    </table>
++                    <t:iconSize>
++                        <t:rssBar/>
++                    </t:iconSize>
++                </j:when>
++                <j:otherwise>
++                    <table style="width:100%; padding:0px; margin:0px; border-collapse:collapse">
++                        <td style="width:15%; padding:0px; margin:0px">
++                            <!-- the caller can inject a tab bar here -->
++                            <d:invokeBody/>
++                        </td>
++                        <!-- project list -->
++                        <td style="width:85%; padding:0px; margin:0px">
++                            <div style="${showViewTabs!=null?'padding: 4px; border: 1px solid #bbb;':null}">
++
++                                <table id="projectstatus" class="sortable pane bigtable" style="margin-top:0px; width:100%;">
++                                    <tr >
++                                        <j:forEach var="col" items="${columnExtensions}">
++                                            <st:include page="columnHeader.jelly" it="${col}" />
++                                        </j:forEach>
++                                        <th>
++                                            <st:nbsp/>
++                                        </th>
++                                    </tr>
++
++                                    <j:forEach var="v" items="${attrs.views}">
++                                        <t:projectViewNested />
++                                    </j:forEach>
++
++                                    <j:forEach var="job" items="${jobs}">
++                                        <t:projectViewRow />
++                                    </j:forEach>
++                                </table>
++                                <t:iconSize>
++                                    <t:rssBar/>
++                                </t:iconSize>
++
++                            </div>
++                        </td>
++                    </table>
++
++                </j:otherwise>
++
++            </j:choose>
++        </j:if>
++    </div>
+ </j:jelly>
+Index: core/src/main/resources/lib/layout/tab.jelly
+===================================================================
+--- core/src/main/resources/lib/layout/tab.jelly	(revision 34588)
++++ core/src/main/resources/lib/layout/tab.jelly	(working copy)
+@@ -29,35 +29,59 @@
+ <%@ attribute name="title" required="false" type="java.lang.String" %>
+ -->
+ <j:jelly xmlns:j="jelly:core">
+-  <j:choose>
+-    <j:when test="${tabPass=='pass1'}">
+-      <!-- in the 1st pass we draw the dummy top row to get the 'dent' right -->
+-      <j:choose>
+-        <j:when test="${active}">
+-          <td class="active" rowspan="2">${name}</td>
+-          <j:set scope="parent" var="activeIndex" value="${tabIndex}" />
++
++
++    <j:choose>
++        <j:when test="${!app.useSideTabBar}">
++            <j:choose>
++                <j:when test="${tabPass=='pass1'}">
++
++                    <!-- in the 1st pass we draw the dummy top row to get the 'dent' right -->
++                    <j:choose>
++                        <j:when test="${active}">
++                            <td class="active" rowspan="2">${name}</td>
++                            <j:set scope="parent" var="activeIndex" value="${tabIndex}" />
++                        </j:when>
++                        <j:otherwise>
++                            <td style="height:3px; padding:0px"></td>
++                        </j:otherwise>
++                    </j:choose>
++                </j:when>
++                <j:otherwise>
++
++                    <!-- in the 2nd pass we draw the real tabs -->
++
++                    <j:if test="${tabIndex!=activeIndex}">
++                        <j:choose>
++                            <j:when test="${tabIndex lt activeIndex}">
++                                <j:set var="cssClass" value="noRight" />
++                            </j:when>
++                            <j:when test="${tabIndex gt activeIndex}">
++                                <j:set var="cssClass" value="noLeft" />
++                            </j:when>
++                        </j:choose>
++                        <td class="inactive ${cssClass}">
++                            <a href="${href}" title="${attrs.title}">${name}</a>
++                        </td>
++                    </j:if>
++                </j:otherwise>
++            </j:choose>
+         </j:when>
+         <j:otherwise>
+-          <td style="height:3px; padding:0px"></td>
++            <j:choose>
++                <j:when test="${active}">
++                    <td class="active" style="border-right:none;" colspan="2">${name}</td>
++                    <j:set scope="parent" var="activeIndex" value="${tabIndex}" />
++                </j:when>
++                <j:otherwise>
++
++                    <td style="width:3px; padding:0px"></td>
++                    <td class="inactive" style="border-right:none;">
++                        <a href="${href}" title="${attrs.title}">${name}</a>
++                    </td>
++                </j:otherwise>
++            </j:choose>
+         </j:otherwise>
+-      </j:choose>
+-    </j:when>
+-    <j:otherwise>
+-      <!-- in the 2nd pass we draw the real tabs -->
+-      <j:if test="${tabIndex!=activeIndex}">
+-        <j:choose>
+-          <j:when test="${tabIndex lt activeIndex}">
+-            <j:set var="cssClass" value="noRight" />
+-          </j:when>
+-          <j:when test="${tabIndex gt activeIndex}">
+-            <j:set var="cssClass" value="noLeft" />
+-          </j:when>
+-        </j:choose>
+-        <td class="inactive ${cssClass}">
+-          <a href="${href}" title="${attrs.title}">${name}</a>
+-        </td>
+-      </j:if>
+-    </j:otherwise>
+-  </j:choose>
+-  <j:set scope="parent" var="tabIndex" value="${tabIndex+1}" />
++    </j:choose>
++    <j:set scope="parent" var="tabIndex" value="${tabIndex+1}" />
+ </j:jelly>
+Index: core/src/main/resources/lib/layout/tabBar.jelly
+===================================================================
+--- core/src/main/resources/lib/layout/tabBar.jelly	(revision 34588)
++++ core/src/main/resources/lib/layout/tabBar.jelly	(working copy)
+@@ -23,21 +23,42 @@
+ -->
+ 
+ <j:jelly xmlns:j="jelly:core" xmlns:d="jelly:define" xmlns:st="jelly:stapler">
+-  <table cellpadding="0" cellspacing="0" id="viewList">
+-    <j:set var="tab" value="${tabs}" />
+-    <!-- dummy row to get spacing right -->
+-    <tr style="height:3px;">
+-      <td style="height:3px; padding:0px"></td>
+-      <j:set var="tabIndex" value="0" />
+-      <j:set var="tabPass" value="pass1" />
+-      <d:invokeBody />
+-    </tr>
+-    <tr>
+-      <td style="border: none; border-bottom: 1px solid #bbb;"><st:nbsp/></td>
+-      <j:set var="tabIndex" value="0" />
+-      <j:set var="tabPass" value="pass2" />
+-      <d:invokeBody />
+-      <td class="filler"><st:nbsp/></td>
+-    </tr>
+-  </table>
++
++    <j:choose>
++        <j:when test="${!app.useSideTabBar}">
++            <table cellpadding="0" cellspacing="0" id="viewList">
++                <j:set var="tab" value="${tabs}" />
++
++                 <!-- dummy row to get spacing right -->
++
++                <tr style="height:3px;">
++                    <td style="height:3px; padding:0px"></td>
++                    <j:set var="tabIndex" value="0" />
++                    <j:set var="tabPass" value="pass1" />
++                    <d:invokeBody />
++                </tr>
++                <tr>
++                    <td style="border: none; border-bottom: 1px solid #bbb;">
++                        <st:nbsp/>
++                    </td>
++                    <j:set var="tabIndex" value="0" />
++                    <j:set var="tabPass" value="pass2" />
++                    <d:invokeBody />
++                    <td class="filler">
++                        <st:nbsp/>
++                    </td>
++                </tr>
++            </table>
++        </j:when>
++        <j:otherwise>
++            <table id="viewList" style="width:100%;" cellpadding="0" cellspacing="0">
++                <j:set var="tab" value="${tabs}" />
++                <tr style="height:3px">
++                    <td style="width:3px; padding:0px"></td>
++                    <td class="inactive ${cssClass}"></td>
++                </tr>
++                <d:invokeBody />
++            </table>
++        </j:otherwise>
++    </j:choose>
+ </j:jelly>
+\ No newline at end of file

@@ -1,0 +1,1479 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xb78fb982, pid=21945, tid=1242946480
+#
+# JRE version: 6.0_18-b07
+# Java VM: Java HotSpot(TM) Server VM (16.0-b13 mixed mode linux-x86 )
+# Problematic frame:
+# V  [libjvm.so+0x495982]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x4b73a000):  JavaThread "RequestHandlerThread[#374]" daemon [_thread_in_vm, id=28981, stack(0x4a10d000,0x4a15e000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x0152b1cd
+
+Registers:
+EAX=0xb7baf50c, EBX=0xb7bbdde0, ECX=0x6b158970, EDX=0x4a15c780
+ESP=0x4a15c700, EBP=0x4a15c708, ESI=0x0152b1c9, EDI=0xb3ed7431
+EIP=0xb78fb982, CR2=0x0152b1cd, EFLAGS=0x00010287
+
+Top of Stack: (sp=0x4a15c700)
+0x4a15c700:   b7bbdde0 4b73a000 4a15c7b8 b7a7c262
+0x4a15c710:   0152b1c9 4b73a000 00000000 00000000
+0x4a15c720:   00000004 99045180 4a15c758 013f4000
+0x4a15c730:   095ae48c 99045180 99045180 b3ed7441
+0x4a15c740:   99045180 0094a100 095ae48c 00000001
+0x4a15c750:   b3ed7433 095ae48c 4a15c780 b3ed7475
+0x4a15c760:   b1639d90 00000001 095ae48c 095ae48c
+0x4a15c770:   63b26d38 4a15c8a0 b165e890 b7bbdde0 
+
+Instructions: (pc=0xb78fb982)
+0xb78fb972:   75 08 8b 83 f8 21 00 00 3b 30 0f 84 a4 00 00 00
+0xb78fb982:   8b 46 04 83 ec 0c 8d 48 08 8b 40 08 51 ff 90 8c 
+
+Stack: [0x4a10d000,0x4a15e000],  sp=0x4a15c700,  free space=13d4a15c094k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x495982]
+V  [libjvm.so+0x616262]
+V  [libjvm.so+0x61408a]
+V  [libjvm.so+0x613f67]
+V  [libjvm.so+0x5c92ce]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+v  ~RuntimeStub::_complete_monitor_locking_Java
+J  java.util.Hashtable.get(Ljava/lang/Object;)Ljava/lang/Object;
+J  winstone.WinstoneRequest.getSession(Z)Ljavax/servlet/http/HttpSession;
+J  sun.reflect.GeneratedConstructorAccessor74.newInstance([Ljava/lang/Object;)Ljava/lang/Object;
+J  sun.reflect.DelegatingConstructorAccessorImpl.newInstance([Ljava/lang/Object;)Ljava/lang/Object;
+J  org.acegisecurity.ui.AuthenticationDetailsSourceImpl.buildDetails(Ljavax/servlet/http/HttpServletRequest;)Ljava/lang/Object;
+J  org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.createAuthentication(Ljavax/servlet/ServletRequest;)Lorg/acegisecurity/Authentication;
+J  org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  org.acegisecurity.ui.rememberme.RememberMeProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  org.acegisecurity.ui.AbstractProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  jenkins.security.ApiTokenFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  hudson.security.HttpSessionContextIntegrationFilter2.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  hudson.security.HudsonFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  winstone.RequestDispatcher.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V
+J  org.kohsuke.stapler.compression.CompressionFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  winstone.RequestDispatcher.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V
+J  hudson.util.CharacterEncodingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V
+J  winstone.RequestDispatcher.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V
+J  winstone.RequestDispatcher.forward(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V
+J  winstone.RequestHandlerThread.run()V
+J  java.util.concurrent.FutureTask.run()V
+j  winstone.BoundedExecutorService$1.run()V+4
+J  java.util.concurrent.ThreadPoolExecutor$Worker.run()V
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x47f8e400 JavaThread "RMI TCP Connection(18)-127.0.0.1" daemon [_thread_in_native, id=3224, stack(0x3c0af000,0x3c100000)]
+  0x47f8cc00 JavaThread "RMI TCP Connection(19)-127.0.0.1" daemon [_thread_in_native, id=3223, stack(0x3c80d000,0x3c85e000)]
+  0x47f8b400 JavaThread "RMI TCP Connection(20)-127.0.0.1" daemon [_thread_in_native, id=3222, stack(0x3c85e000,0x3c8af000)]
+  0x47f89c00 JavaThread "RMI TCP Connection(21)-127.0.0.1" daemon [_thread_in_native, id=3221, stack(0x3c90d000,0x3c95e000)]
+  0x47f88400 JavaThread "RMI TCP Connection(22)-127.0.0.1" daemon [_thread_in_native, id=3220, stack(0x3c95e000,0x3c9af000)]
+  0x47f86c00 JavaThread "RMI TCP Connection(23)-127.0.0.1" daemon [_thread_in_native, id=3219, stack(0x3c9af000,0x3ca00000)]
+  0x47f85400 JavaThread "RMI TCP Connection(24)-127.0.0.1" daemon [_thread_in_native, id=3218, stack(0x3f23d000,0x3f28e000)]
+  0x47f83c00 JavaThread "RMI TCP Connection(25)-127.0.0.1" daemon [_thread_in_native, id=3217, stack(0x3f28e000,0x3f2df000)]
+  0x47f82800 JavaThread "RMI TCP Connection(26)-127.0.0.1" daemon [_thread_in_native, id=3216, stack(0x43b41000,0x43b92000)]
+  0x47f81000 JavaThread "RMI TCP Connection(27)-127.0.0.1" daemon [_thread_in_native, id=3215, stack(0x4452d000,0x4457e000)]
+  0x47f7f800 JavaThread "RMI TCP Connection(28)-127.0.0.1" daemon [_thread_in_native, id=3214, stack(0x4457e000,0x445cf000)]
+  0x47ca4000 JavaThread "RMI TCP Connection(29)-127.0.0.1" daemon [_thread_in_native, id=3213, stack(0x45a22000,0x45a73000)]
+  0x47ca3000 JavaThread "RMI TCP Connection(30)-127.0.0.1" daemon [_thread_in_native, id=3212, stack(0x4a1af000,0x4a200000)]
+  0x47ca2000 JavaThread "RMI TCP Connection(31)-127.0.0.1" daemon [_thread_in_native, id=3211, stack(0x47639000,0x4768a000)]
+  0x47ca1000 JavaThread "RMI TCP Connection(32)-127.0.0.1" daemon [_thread_in_native, id=3210, stack(0x48104000,0x48155000)]
+  0x47ca0000 JavaThread "RMI TCP Connection(33)-127.0.0.1" daemon [_thread_in_native, id=3209, stack(0x47baf000,0x47c00000)]
+  0x47c9f000 JavaThread "RMI TCP Connection(34)-127.0.0.1" daemon [_thread_in_native, id=3208, stack(0x47b0d000,0x47b5e000)]
+  0x47c9dc00 JavaThread "RMI TCP Connection(35)-127.0.0.1" daemon [_thread_in_native, id=3207, stack(0x4a9af000,0x4aa00000)]
+  0x47c9cc00 JavaThread "RMI TCP Connection(36)-127.0.0.1" daemon [_thread_in_native, id=3206, stack(0x519bb000,0x51a0c000)]
+  0x47f7b000 JavaThread "RMI TCP Connection(37)-127.0.0.1" daemon [_thread_in_native, id=3205, stack(0x48e5e000,0x48eaf000)]
+  0x47f7ac00 JavaThread "RMI TCP Connection(38)-127.0.0.1" daemon [_thread_in_native, id=3202, stack(0x48e0d000,0x48e5e000)]
+  0x47f7a400 JavaThread "RMI TCP Connection(39)-127.0.0.1" daemon [_thread_in_native, id=3200, stack(0x4835e000,0x483af000)]
+  0x47f99c00 JavaThread "RMI TCP Connection(40)-127.0.0.1" daemon [_thread_in_native, id=3196, stack(0x5055e000,0x505af000)]
+  0x506eb800 JavaThread "Handling POST /ajaxBuildQueue : RequestHandlerThread[#443]" daemon [_thread_blocked, id=2906, stack(0x48155000,0x481a6000)]
+  0x482d2c00 JavaThread "RMI TCP Connection(16)-127.0.0.1" daemon [_thread_in_native, id=2844, stack(0x3c8af000,0x3c900000)]
+  0x4b54bc00 JavaThread "*** Profiler Agent Special Execution Thread 2" daemon [_thread_blocked, id=2826, stack(0x4768a000,0x476db000)]
+  0x51cda000 JavaThread "pool-3-thread-66" daemon [_thread_blocked, id=2772, stack(0x47b5e000,0x47baf000)]
+  0x48601400 JavaThread "*** Profiler Agent Special Execution Thread 2" daemon [_thread_blocked, id=2730, stack(0x481af000,0x48200000)]
+  0x4af3d800 JavaThread "RequestHandlerThread[#442] : reading request #1 from /192.168.1.166:53241" daemon [_thread_in_native, id=2591, stack(0x4d45e000,0x4d4af000)]
+  0x4f2a5800 JavaThread "Handling POST /view/OCX%20Jobs/view/MAY02/job/MAY02-iTest-Build/buildHistory/ajax : RequestHandlerThread[#441]" daemon [_thread_blocked, id=2323, stack(0x4830d000,0x4835e000)]
+  0x4abe1800 JavaThread "RequestHandlerThread[#439] : reading request #0 from /192.168.1.166:53244" daemon [_thread_in_native, id=2251, stack(0x483af000,0x48400000)]
+  0x0929cc00 JavaThread "RMI TCP Connection(14)-127.0.0.1" daemon [_thread_in_native, id=2188, stack(0x4c81a000,0x4c86b000)]
+  0x0929c000 JavaThread "RMI TCP Connection(17)-127.0.0.1" daemon [_thread_in_native, id=2187, stack(0x49004000,0x49055000)]
+  0x4861f400 JavaThread "JMX server connection timeout 934" daemon [_thread_blocked, id=2165, stack(0x4c20d000,0x4c25e000)]
+  0x487bec00 JavaThread "RMI Scheduler(0)" daemon [_thread_blocked, id=2157, stack(0x4a15e000,0x4a1af000)]
+  0x487bdc00 JavaThread "RequestHandlerThread[#438]" daemon [_thread_blocked, id=2153, stack(0x4b20d000,0x4b25e000)]
+  0x0929b800 JavaThread "RequestHandlerThread[#436] : reading request #53 from /192.168.1.120:4269" daemon [_thread_blocked, id=2149, stack(0x4cb8e000,0x4cbdf000)]
+  0x09229000 JavaThread "RequestHandlerThread[#435] : reading request #309 from /192.168.1.120:4156" daemon [_thread_blocked, id=2146, stack(0x4a90d000,0x4a95e000)]
+  0x09228400 JavaThread "Handling POST /job/OrigixIP-Trunk-unitTest/743/logText/progressiveHtml : RequestHandlerThread[#434]" daemon [_thread_in_native, id=2142, stack(0x4cd68000,0x4cdb9000)]
+  0x09780000 JavaThread "RequestHandlerThread[#433] : reading request #1 from /192.168.0.199:59139" daemon [_thread_in_native, id=2140, stack(0x4c4af000,0x4c500000)]
+  0x0977f800 JavaThread "Attach Listener" daemon [_thread_blocked, id=2135, stack(0x4c25e000,0x4c2af000)]
+  0x4f83f400 JavaThread "Handling POST /ajaxBuildQueue : RequestHandlerThread[#430]" daemon [_thread_blocked, id=1761, stack(0x4d2c9000,0x4d31a000)]
+  0x4f80f800 JavaThread "RequestHandlerThread[#429]" daemon [_thread_blocked, id=1760, stack(0x4ba5e000,0x4baaf000)]
+  0x091e2800 JavaThread "Pipe writer thread: Channel to Maven [/home/hudson/jdk1.6.0_18/bin/java, -Xmx512m, -XX:MaxPermSize=512m, -cp, /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-agent-1.2.jar:/home/hudson/apache-maven-3.0.3/boot/plexus-classworlds-2.4.jar, org.jvnet.hudson.maven3.agent.Maven3Main, /home/hudson/apache-maven-3.0.3, /home/hudson/.hudson/war/WEB-INF/lib/remoting-2.23.jar, /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-interceptor-1.2.jar, 44886]" [_thread_blocked, id=1358, stack(0x5196a000,0x519bb000)]
+  0x48612c00 JavaThread "pool-3-thread-61" daemon [_thread_blocked, id=1280, stack(0x4ad5e000,0x4adaf000)]
+  0x4b4e0000 JavaThread "Channel reader thread: Channel to Maven [/home/hudson/jdk1.6.0_18/bin/java, -Xmx512m, -XX:MaxPermSize=512m, -cp, /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-agent-1.2.jar:/home/hudson/apache-maven-3.0.3/boot/plexus-classworlds-2.4.jar, org.jvnet.hudson.maven3.agent.Maven3Main, /home/hudson/apache-maven-3.0.3, /home/hudson/.hudson/war/WEB-INF/lib/remoting-2.23.jar, /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-interceptor-1.2.jar, 44886]" [_thread_in_native, id=1213, stack(0x4a70d000,0x4a75e000)]
+  0x4b41a800 JavaThread "/home/hudson/jdk1.6.0_18/bin/java -Xmx512m -XX:MaxPermSize=512m -cp /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-agent-1.2.jar:/home/hudson/apache-maven-3.0.3/boot/plexus-classworlds-2.4.jar org.jvnet.hudson.maven3.agent.Maven3Main /home/hudson/apache-maven-3.0.3 /home/hudson/.hudson/war/WEB-INF/lib/remoting-2.23.jar /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-interceptor-1.2.jar 44886: stdout copier" [_thread_blocked, id=1211, stack(0x4cb3d000,0x4cb8e000)]
+  0x4ae5e800 JavaThread "RequestHandlerThread[#427] : reading request #41 from /192.168.1.120:4278" daemon [_thread_in_native, id=1196, stack(0x4a75e000,0x4a7af000)]
+  0x4b420000 JavaThread "process reaper" daemon [_thread_in_native, id=1195, stack(0x4c45e000,0x4c4af000)]
+  0x091e1c00 JavaThread "RequestHandlerThread[#426] : reading request #47 from /192.168.1.120:4284" daemon [_thread_in_native, id=1194, stack(0x48eaf000,0x48f00000)]
+  0x4f3bc400 JavaThread "RequestHandlerThread[#425]" daemon [_thread_blocked, id=1193, stack(0x4cdb9000,0x4ce0a000)]
+  0x4e60a000 JavaThread "RequestHandlerThread[#423] : reading request #303 from /192.168.1.120:4160" daemon [_thread_in_native, id=1191, stack(0x4c90d000,0x4c95e000)]
+  0x4b439400 JavaThread "Handling POST /ajaxBuildQueue : RequestHandlerThread[#417]" daemon [_thread_blocked, id=971, stack(0x4c8bc000,0x4c90d000)]
+  0x4b4f1000 JavaThread "RequestHandlerThread[#413]" daemon [_thread_blocked, id=772, stack(0x4ceac000,0x4cefd000)]
+  0x4b426000 JavaThread "Handling POST /view/OCX%20Jobs/view/OCX-Trunk/job/Origix-Trunk-iTest-Build/buildHistory/ajax : RequestHandlerThread[#409]" daemon [_thread_blocked, id=580, stack(0x4d3bc000,0x4d40d000)]
+  0x4b41b400 JavaThread "Handling POST /ajaxBuildQueue : RequestHandlerThread[#407]" daemon [_thread_blocked, id=578, stack(0x4a95e000,0x4a9af000)]
+  0x4b429400 JavaThread "RequestHandlerThread[#406]" daemon [_thread_blocked, id=577, stack(0x49055000,0x490a6000)]
+  0x48611400 JavaThread "RequestHandlerThread[#397] : reading request #1 from /192.168.1.137:49920" daemon [_thread_in_native, id=31962, stack(0x4adaf000,0x4ae00000)]
+  0x4b089800 JavaThread "Handling GET /view/OCX%20Jobs/view/MAY03/ : RequestHandlerThread[#391]" daemon [_thread_in_native, id=31699, stack(0x4d40d000,0x4d45e000)]
+  0x4b02e800 JavaThread "Handling POST /ajaxBuildQueue : RequestHandlerThread[#390]" daemon [_thread_blocked, id=31692, stack(0x4b16b000,0x4b1bc000)]
+  0x51c4d800 JavaThread "RequestHandlerThread[#389]" daemon [_thread_blocked, id=31468, stack(0x4d1d6000,0x4d227000)]
+  0x4b535400 JavaThread "RequestHandlerThread[#379] : reading request #1 from /192.168.1.120:4317" daemon [_thread_in_native, id=28997, stack(0x490a6000,0x490f7000)]
+=>0x4b73a000 JavaThread "RequestHandlerThread[#374]" daemon [_thread_in_vm, id=28981, stack(0x4a10d000,0x4a15e000)]
+  0x09226800 JavaThread "RequestHandlerThread[#363] : reading request #3 from /192.168.1.166:53231" daemon [_thread_blocked, id=28617, stack(0x4d36b000,0x4d3bc000)]
+  0x09018800 JavaThread "Pipe writer thread: Channel to Maven [/home/hudson/jdk1.6.0_31/bin/java, -Xmx512m, -XX:MaxPermSize=512m, -cp, /home/hudson/maven3-agent.jar:/home/hudson/apache-maven-3.0.4/boot/plexus-classworlds-2.4.jar, org.jvnet.hudson.maven3.agent.Maven3Main, /home/hudson/apache-maven-3.0.4, /home/hudson/slave.jar, /home/hudson/maven3-interceptor.jar, 54822]" [_thread_blocked, id=28559, stack(0x4baaf000,0x4bb00000)]
+  0x4b41b000 JavaThread "Channel reader thread: Channel to Maven [/home/hudson/jdk1.6.0_31/bin/java, -Xmx512m, -XX:MaxPermSize=512m, -cp, /home/hudson/maven3-agent.jar:/home/hudson/apache-maven-3.0.4/boot/plexus-classworlds-2.4.jar, org.jvnet.hudson.maven3.agent.Maven3Main, /home/hudson/apache-maven-3.0.4, /home/hudson/slave.jar, /home/hudson/maven3-interceptor.jar, 54822] / waiting for hudson.remoting.Channel@56095c:SENTWKS70" [_thread_blocked, id=28503, stack(0x4c40d000,0x4c45e000)]
+  0x08e74c00 JavaThread "Pipe writer thread: SENTWKS70" daemon [_thread_blocked, id=28201, stack(0x4a7af000,0x4a800000)]
+  0x4a80ac00 JavaThread "Ping thread for channel hudson.remoting.Channel@56095c:SENTWKS70" daemon [_thread_blocked, id=28152, stack(0x4ba0d000,0x4ba5e000)]
+  0x4aa58000 JavaThread "Channel reader thread: SENTWKS70" daemon [_thread_blocked, id=28140, stack(0x4e90d000,0x4e95e000)]
+  0x09016400 JavaThread "stderr copier for remote agent on SENTWKS70" daemon [_thread_blocked, id=28135, stack(0x4b25e000,0x4b2af000)]
+  0x08a40800 JavaThread "Thread-154" daemon [_thread_blocked, id=28134, stack(0x4b1bc000,0x4b20d000)]
+  0x091de800 JavaThread "Thread-153" daemon [_thread_blocked, id=28133, stack(0x4d278000,0x4d2c9000)]
+  0x4ea47000 JavaThread "RequestHandlerThread[#357]" daemon [_thread_blocked, id=28130, stack(0x4dfaf000,0x4e000000)]
+  0x506e4800 JavaThread "RequestHandlerThread[#356]" daemon [_thread_in_native, id=28125, stack(0x4cf9f000,0x4cff0000)]
+  0x08aae000 JavaThread "Thread-152" daemon [_thread_in_native, id=28117, stack(0x4c95e000,0x4c9af000)]
+  0x4ea49800 JavaThread "RequestHandlerThread[#355]" daemon [_thread_blocked, id=28116, stack(0x4df0d000,0x4df5e000)]
+  0x4b425800 JavaThread "RequestHandlerThread[#350]" daemon [_thread_blocked, id=27352, stack(0x4d185000,0x4d1d6000)]
+  0x4b52b000 JavaThread "RequestHandlerThread[#349]" daemon [_thread_blocked, id=27351, stack(0x4f66b000,0x4f6bc000)]
+  0x4aa58c00 JavaThread "RequestHandlerThread[#337]" daemon [_thread_blocked, id=26920, stack(0x4ad0d000,0x4ad5e000)]
+  0x4a806c00 JavaThread "RequestHandlerThread[#336]" daemon [_thread_blocked, id=26313, stack(0x4d227000,0x4d278000)]
+  0x093b8000 JavaThread "RequestHandlerThread[#325]" daemon [_thread_blocked, id=22974, stack(0x4b2af000,0x4b300000)]
+  0x090db000 JavaThread "Pipe writer thread: sent-int-bldvm8" daemon [_thread_blocked, id=11034, stack(0x5035e000,0x503af000)]
+  0x4b087400 JavaThread "/bin/sh -x /tmp/hudson2746905252936619213.sh: stdout copier" [_thread_in_native, id=5236, stack(0x5021a000,0x5026b000)]
+  0x4b086c00 JavaThread "process reaper" daemon [_thread_in_native, id=5234, stack(0x4b11a000,0x4b16b000)]
+  0x08d99c00 JavaThread "Pipe writer thread: 192.168.0.192" daemon [_thread_blocked, id=4788, stack(0x4c2af000,0x4c300000)]
+  0x4efbc400 JavaThread "RequestHandlerThread[#156]" daemon [_thread_blocked, id=4643, stack(0x4c86b000,0x4c8bc000)]
+  0x4d947400 JavaThread "Ping thread for channel hudson.remoting.Channel@ce684e:192.168.0.192" daemon [_thread_blocked, id=4642, stack(0x4cf4e000,0x4cf9f000)]
+  0x4e48e400 JavaThread "Channel reader thread: 192.168.0.192" daemon [_thread_blocked, id=4638, stack(0x4d65e000,0x4d6af000)]
+  0x4e48e000 JavaThread "stderr copier for remote agent on 192.168.0.192" daemon [_thread_blocked, id=4637, stack(0x4cefd000,0x4cf4e000)]
+  0x4eeb9000 JavaThread "Thread-80" daemon [_thread_blocked, id=4636, stack(0x4cd17000,0x4cd68000)]
+  0x4e49e000 JavaThread "Thread-79" daemon [_thread_blocked, id=4635, stack(0x5030d000,0x5035e000)]
+  0x4e49e800 JavaThread "Thread-78" daemon [_thread_in_native, id=4614, stack(0x50791000,0x507e2000)]
+  0x4fb26800 JavaThread "Xvfb :2 -screen 0 1024x768x24 -fbdir /home/hudson/.hudson/2013-06-26_12-56-314356750402818740046xvfb -ac: stdout copier" [_thread_in_native, id=4559, stack(0x4c6af000,0x4c700000)]
+  0x4fb25800 JavaThread "process reaper" daemon [_thread_in_native, id=4557, stack(0x4c65e000,0x4c6af000)]
+  0x4ed1e000 JavaThread "RequestHandlerThread[#151]" daemon [_thread_blocked, id=4500, stack(0x4d041000,0x4d092000)]
+  0x4ed1d800 JavaThread "RequestHandlerThread[#132]" daemon [_thread_blocked, id=3335, stack(0x4d31a000,0x4d36b000)]
+  0x08d3d000 JavaThread "RequestHandlerThread[#121]" daemon [_thread_blocked, id=2731, stack(0x4c60d000,0x4c65e000)]
+  0x08a3ac00 JavaThread "pool-1-svnkit-thread-2" daemon [_thread_blocked, id=24136, stack(0x4d092000,0x4d0e3000)]
+  0x50d8b800 JavaThread "pool-1-svnkit-thread-1" daemon [_thread_blocked, id=23345, stack(0x4c9af000,0x4ca00000)]
+  0x090ebc00 JavaThread "pool-4-thread-1" daemon [_thread_blocked, id=22524, stack(0x4d6af000,0x4d700000)]
+  0x0910e400 JavaThread "pool-6-thread-5" [_thread_blocked, id=22516, stack(0x5050d000,0x5055e000)]
+  0x0910e000 JavaThread "pool-6-thread-4" [_thread_blocked, id=22515, stack(0x4cff0000,0x4d041000)]
+  0x08c43c00 JavaThread "pool-6-thread-3" [_thread_blocked, id=22514, stack(0x4d0e3000,0x4d134000)]
+  0x087ff800 JavaThread "pool-6-thread-2" [_thread_blocked, id=22513, stack(0x4ce0a000,0x4ce5b000)]
+  0x4e4a5c00 JavaThread "Pipe writer thread: sent-int-bldvm7" daemon [_thread_blocked, id=22114, stack(0x4f939000,0x4f98a000)]
+  0x08f1f000 JavaThread "pool-6-thread-1" [_thread_blocked, id=22102, stack(0x4ce5b000,0x4ceac000)]
+  0x4fb68800 JavaThread "RequestHandlerThread[#41] : reading request #1 from /192.168.0.199:59140" daemon [_thread_in_native, id=22089, stack(0x4d134000,0x4d185000)]
+  0x09133400 JavaThread "Ping thread for channel hudson.remoting.Channel@1a5019a:sent-int-bldvm7" daemon [_thread_blocked, id=22078, stack(0x4d4af000,0x4d500000)]
+  0x4d90d000 JavaThread "Ping thread for channel hudson.remoting.Channel@104be13:sent-int-bldvm8" daemon [_thread_blocked, id=22077, stack(0x4d60d000,0x4d65e000)]
+  0x086d0800 JavaThread "Channel reader thread: sent-int-bldvm8" daemon [_thread_blocked, id=22074, stack(0x4da1a000,0x4da6b000)]
+  0x50692c00 JavaThread "Channel reader thread: sent-int-bldvm7" daemon [_thread_blocked, id=22073, stack(0x4da6b000,0x4dabc000)]
+  0x51666c00 JavaThread "stderr copier for remote agent on sent-int-bldvm7" daemon [_thread_blocked, id=22072, stack(0x4dabc000,0x4db0d000)]
+  0x08322c00 JavaThread "stderr copier for remote agent on sent-int-bldvm8" daemon [_thread_blocked, id=22071, stack(0x50b07000,0x50b58000)]
+  0x51666400 JavaThread "Thread-13" daemon [_thread_blocked, id=22070, stack(0x4dd0d000,0x4dd5e000)]
+  0x51cc2000 JavaThread "Thread-12" daemon [_thread_blocked, id=22069, stack(0x4dbaf000,0x4dc00000)]
+  0x08336800 JavaThread "Thread-11" daemon [_thread_blocked, id=22068, stack(0x4db5e000,0x4dbaf000)]
+  0x08b72800 JavaThread "Thread-10" daemon [_thread_blocked, id=22067, stack(0x4db0d000,0x4db5e000)]
+  0x4f2ef800 JavaThread "Thread-9" daemon [_thread_in_native, id=22054, stack(0x4dd5e000,0x4ddaf000)]
+  0x082e7800 JavaThread "Thread-8" daemon [_thread_in_native, id=22053, stack(0x4ddaf000,0x4de00000)]
+  0x4e475c00 JavaThread "pool-11-thread-1" daemon [_thread_blocked, id=22051, stack(0x4df5e000,0x4dfaf000)]
+  0x4e472c00 JavaThread "Executor #2 for sent-int-bldvm8" [_thread_blocked, id=22049, stack(0x4e50d000,0x4e55e000)]
+  0x4eea4c00 JavaThread "Executor #1 for sent-int-bldvm8 : executing OIP-Trunk-JBoss6-iTest4 #22 / waiting for hudson.remoting.Channel@104be13:sent-int-bldvm8" [_thread_blocked, id=22048, stack(0x4e55e000,0x4e5af000)]
+  0x4eea3400 JavaThread "Executor #0 for sent-int-bldvm8" [_thread_blocked, id=22047, stack(0x4e5af000,0x4e600000)]
+  0x51c54000 JavaThread "JmDNS(fe80:0:0:0:223:7dff:fe57:9ade%2.local.).State.Timer" [_thread_blocked, id=22045, stack(0x4e95e000,0x4e9af000)]
+  0x4e25bc00 JavaThread "Executor #3 for sent-int-bldvm7" [_thread_blocked, id=22044, stack(0x4e9af000,0x4ea00000)]
+  0x4e25a800 JavaThread "Executor #2 for sent-int-bldvm7 : executing OIP-Trunk-JBoss6-iTest1 #48 / waiting for hudson.remoting.Channel@1a5019a:sent-int-bldvm7" [_thread_blocked, id=22043, stack(0x4eb0d000,0x4eb5e000)]
+  0x5166b000 JavaThread "JmDNS(fe80:0:0:0:223:7dff:fe57:9ade%2.local.).Timer" daemon [_thread_blocked, id=22042, stack(0x4eb5e000,0x4ebaf000)]
+  0x4e259400 JavaThread "Executor #1 for sent-int-bldvm7" [_thread_blocked, id=22041, stack(0x4ebaf000,0x4ec00000)]
+  0x4e258800 JavaThread "Executor #0 for sent-int-bldvm7" [_thread_blocked, id=22040, stack(0x4f10d000,0x4f15e000)]
+  0x5166f000 JavaThread "SocketListener(fe80:0:0:0:223:7dff:fe57:9ade%2.local.)" daemon [_thread_in_native, id=22039, stack(0x4f15e000,0x4f1af000)]
+  0x4e219c00 JavaThread "Executor #0 for buildvm5.sent.local" [_thread_blocked, id=22038, stack(0x4f578000,0x4f5c9000)]
+  0x4e218c00 JavaThread "Executor #0 for buildvm3.sent.local" [_thread_blocked, id=22037, stack(0x4f70d000,0x4f75e000)]
+  0x4e230000 JavaThread "Executor #1 for 192.168.0.192" [_thread_blocked, id=22036, stack(0x4f75e000,0x4f7af000)]
+  0x4e22f000 JavaThread "Executor #0 for 192.168.0.192 : executing ORIGIX_ITEST3 #72 / waiting for hudson.remoting.Channel@ce684e:192.168.0.192" [_thread_blocked, id=22035, stack(0x505af000,0x50600000)]
+  0x4e22e000 JavaThread "Executor #0 for buildvm1.sent.local" [_thread_blocked, id=22034, stack(0x4f5c9000,0x4f61a000)]
+  0x4e22d000 JavaThread "Executor #0 for SENTWKS18" [_thread_blocked, id=22033, stack(0x4f6bc000,0x4f70d000)]
+  0x4e22c400 JavaThread "Executor #0 for SENTWKS12" [_thread_blocked, id=22032, stack(0x4f527000,0x4f578000)]
+  0x4e2bd400 JavaThread "Executor #0 for SENTWKS09" [_thread_blocked, id=22031, stack(0x4f61a000,0x4f66b000)]
+  0x4e2bc800 JavaThread "Executor #0 for SENTWKS16" [_thread_blocked, id=22030, stack(0x4f98a000,0x4f9db000)]
+  0x4e2bb800 JavaThread "Executor #0 for SENTWKS38" [_thread_blocked, id=22029, stack(0x5097a000,0x509cb000)]
+  0x4f4d3800 JavaThread "Executor #0 for SENTWKS26" [_thread_blocked, id=22028, stack(0x50929000,0x5097a000)]
+  0x4f4d2c00 JavaThread "Executor #0 for SENTWKS35" [_thread_blocked, id=22027, stack(0x50833000,0x50884000)]
+  0x4deff000 JavaThread "Executor #0 for SENTWKS37" [_thread_blocked, id=22026, stack(0x51919000,0x5196a000)]
+  0x4defe800 JavaThread "Executor #1 for SENTWKS52" [_thread_blocked, id=22025, stack(0x508d8000,0x50929000)]
+  0x4defe400 JavaThread "Executor #0 for SENTWKS52" [_thread_blocked, id=22024, stack(0x507e2000,0x50833000)]
+  0x4defdc00 JavaThread "Executor #1 for SENTWKS70 : executing OrigixIP-Trunk-unitTest #743 / waiting for hudson.slaves.Channels$1@113fbb5:Channel to Maven [/home/hudson/jdk1.6.0_31/bin/java, -Xmx512m, -XX:MaxPermSize=512m, -cp, /home/hudson/maven3-agent.jar:/home/hudson/apache-maven-3.0.4/boot/plexus-classworlds-2.4.jar, org.jvnet.hudson.maven3.agent.Maven3Main, /home/hudson/apache-maven-3.0.4, /home/hudson/slave.jar, /home/hudson/maven3-interceptor.jar, 54822]" [_thread_blocked, id=22023, stack(0x514a4000,0x514f5000)]
+  0x4defd800 JavaThread "Executor #0 for SENTWKS70" [_thread_blocked, id=22022, stack(0x503af000,0x50400000)]
+  0x4eec9800 JavaThread "Executor #0 for 192.168.0.104" [_thread_blocked, id=22021, stack(0x50740000,0x50791000)]
+  0x4eec9000 JavaThread "Executor #1 for 192.168.0.208" [_thread_blocked, id=22020, stack(0x50f2a000,0x50f7b000)]
+  0x4eec8c00 JavaThread "Executor #0 for 192.168.0.208" [_thread_blocked, id=22019, stack(0x500d6000,0x50127000)]
+  0x4e7fc400 JavaThread "Executor #1 for 192.168.0.209" [_thread_blocked, id=22018, stack(0x50127000,0x50178000)]
+  0x4e6d6000 JavaThread "Executor #0 for 192.168.0.209" [_thread_blocked, id=22017, stack(0x502bc000,0x5030d000)]
+  0x4e8bdc00 JavaThread "Executor #1 for master : executing ORIGIX_ITEST1 #102" [_thread_blocked, id=22016, stack(0x50178000,0x501c9000)]
+  0x4e15a800 JavaThread "Executor #0 for master : executing Origix-4.17-Mapper #23 / waiting for hudson.slaves.Channels$1@16189b8:Channel to Maven [/home/hudson/jdk1.6.0_18/bin/java, -Xmx512m, -XX:MaxPermSize=512m, -cp, /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-agent-1.2.jar:/home/hudson/apache-maven-3.0.3/boot/plexus-classworlds-2.4.jar, org.jvnet.hudson.maven3.agent.Maven3Main, /home/hudson/apache-maven-3.0.3, /home/hudson/.hudson/war/WEB-INF/lib/remoting-2.23.jar, /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-interceptor-1.2.jar, 44886]" [_thread_blocked, id=22015, stack(0x501c9000,0x5021a000)]
+  0x081a2400 JavaThread "Jenkins UDP 33848 monitoring thread" [_thread_in_native, id=22013, stack(0x5026b000,0x502bc000)]
+  0x50664c00 JavaThread "TCP slave agent listener port=0" [_thread_in_native, id=22012, stack(0x50085000,0x500d6000)]
+  0x50602400 JavaThread "NioSocketAcceptor-1" [_thread_in_native, id=22011, stack(0x4f7af000,0x4f800000)]
+  0x4f4a4000 JavaThread "ViewJob reload thread" daemon [_thread_blocked, id=22009, stack(0x4f1af000,0x4f200000)]
+  0x088d0c00 JavaThread "RequestHandlerThread[#19]" daemon [_thread_blocked, id=21997, stack(0x4fa0d000,0x4fa5e000)]
+  0x504a8400 JavaThread "jrobin " daemon [_thread_blocked, id=21996, stack(0x4fa5e000,0x4faaf000)]
+  0x083b9000 JavaThread "javamelody" daemon [_thread_blocked, id=21995, stack(0x4faaf000,0x4fb00000)]
+  0x085a1000 JavaThread "Jenkins cron thread" [_thread_blocked, id=21976, stack(0x50884000,0x508d5000)]
+  0x08058c00 JavaThread "DestroyJavaVM" [_thread_blocked, id=21946, stack(0xb7415000,0xb7466000)]
+  0x085b3c00 JavaThread "LauncherControlThread[ControlPort=-1]" [_thread_blocked, id=21966, stack(0x509cb000,0x50a1c000)]
+  0x50d26800 JavaThread "ConnectorThread:[http-6080]" daemon [_thread_in_native, id=21965, stack(0x50a1c000,0x50a6d000)]
+  0x085c2c00 JavaThread "WinstoneHostConfigurationMgmt:default" daemon [_thread_blocked, id=21964, stack(0x50ab6000,0x50b07000)]
+  0x08463000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=21962, stack(0x50b60000,0x50bb1000)]
+  0x081fe000 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=21960, stack(0x51ab9000,0x51b0a000)]
+  0x081f2c00 JavaThread "RMI TCP Accept-18888" daemon [_thread_in_native, id=21959, stack(0x51b0a000,0x51b5b000)]
+  0x081ba000 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=21958, stack(0x51b5b000,0x51bac000)]
+  0x08114c00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=21957, stack(0x51d0c000,0x51d5d000)]
+  0x08113400 JavaThread "CompilerThread1" daemon [_thread_blocked, id=21956, stack(0x51d5d000,0x51dde000)]
+  0x0810fc00 JavaThread "CompilerThread0" daemon [_thread_blocked, id=21955, stack(0x51dde000,0x51e5f000)]
+  0x0810e400 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=21954, stack(0x51e5f000,0x51eb0000)]
+  0x080fa400 JavaThread "Finalizer" daemon [_thread_blocked, id=21953, stack(0x520b0000,0x52101000)]
+  0x080f8c00 JavaThread "Reference Handler" daemon [_thread_blocked, id=21952, stack(0x52101000,0x52152000)]
+
+Other Threads:
+  0x080f6400 VMThread [stack: 0x52152000,0x521d3000] [id=21951]
+  0x081ff800 WatcherThread [stack: 0x51a38000,0x51ab9000] [id=21961]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 440192K, used 2695K [0x99040000, 0xb42c0000, 0xb42e0000)
+  eden space 435712K, 0% used [0x99040000,0x9908bca0,0xb39c0000)
+  from space 4480K, 53% used [0xb3e60000,0xb40b62a0,0xb42c0000)
+  to   space 4608K, 0% used [0xb39c0000,0xb39c0000,0xb3e40000)
+ PSOldGen        total 514624K, used 178600K [0x62ae0000, 0x82170000, 0x99040000)
+  object space 514624K, 34% used [0x62ae0000,0x6d94a110,0x82170000)
+ PSPermGen       total 152576K, used 107922K [0x52ae0000, 0x5bfe0000, 0x62ae0000)
+  object space 152576K, 70% used [0x52ae0000,0x59444bf8,0x5bfe0000)
+
+Dynamic libraries:
+00247000-002c1000 r-xp 00000000 68:02 21454603   /usr/lib/libglib-2.0.so.0.400.7
+002c1000-002c2000 rwxp 0007a000 68:02 21454603   /usr/lib/libglib-2.0.so.0.400.7
+002f1000-002f9000 r-xp 00000000 68:02 21454656   /usr/lib/libgnome-keyring.so.0.0.1
+002f9000-002fa000 rwxp 00007000 68:02 21454656   /usr/lib/libgnome-keyring.so.0.0.1
+002fc000-0030e000 r-xp 00000000 68:02 8880215    /lib/libnsl-2.3.4.so
+0030e000-00310000 rwxp 00011000 68:02 8880215    /lib/libnsl-2.3.4.so
+00310000-00312000 rwxp 00310000 00:00 0 
+0039c000-003a4000 r-xp 00000000 68:02 8880221    /lib/tls/librt-2.3.4.so
+003a4000-003a6000 rwxp 00007000 68:02 8880221    /lib/tls/librt-2.3.4.so
+003a6000-003b0000 rwxp 003a6000 00:00 0 
+00a8f000-00aa4000 r-xp 00000000 68:02 8880130    /lib/ld-2.3.4.so
+00aa4000-00aa5000 r-xp 00015000 68:02 8880130    /lib/ld-2.3.4.so
+00aa5000-00aa6000 rwxp 00016000 68:02 8880130    /lib/ld-2.3.4.so
+00aad000-00bd2000 r-xp 00000000 68:02 8880143    /lib/tls/libc-2.3.4.so
+00bd2000-00bd3000 r-xp 00124000 68:02 8880143    /lib/tls/libc-2.3.4.so
+00bd3000-00bd6000 rwxp 00125000 68:02 8880143    /lib/tls/libc-2.3.4.so
+00bd6000-00bd8000 rwxp 00bd6000 00:00 0 
+00bda000-00bdc000 r-xp 00000000 68:02 8880158    /lib/libdl-2.3.4.so
+00bdc000-00bde000 rwxp 00001000 68:02 8880158    /lib/libdl-2.3.4.so
+00be0000-00c01000 r-xp 00000000 68:02 8880156    /lib/tls/libm-2.3.4.so
+00c01000-00c03000 rwxp 00020000 68:02 8880156    /lib/tls/libm-2.3.4.so
+00ce6000-00cf4000 r-xp 00000000 68:02 8880162    /lib/tls/libpthread-2.3.4.so
+00cf4000-00cf6000 rwxp 0000d000 68:02 8880162    /lib/tls/libpthread-2.3.4.so
+00cf6000-00cf8000 rwxp 00cf6000 00:00 0 
+00d41000-00d50000 r-xp 00000000 68:02 8880196    /lib/libresolv-2.3.4.so
+00d50000-00d52000 rwxp 0000f000 68:02 8880196    /lib/libresolv-2.3.4.so
+00d52000-00d54000 rwxp 00d52000 00:00 0 
+08048000-08052000 r-xp 00000000 68:02 2001579    /home/hudson/jdk1.6.0_18/bin/java
+08052000-08053000 rwxp 00009000 68:02 2001579    /home/hudson/jdk1.6.0_18/bin/java
+08053000-0a02b000 rwxp 08053000 00:00 0 
+3bf00000-3bf30000 rwxp 3bf00000 00:00 0 
+3bf30000-3c000000 --xp 3bf30000 00:00 0 
+3c0af000-3c0b2000 --xp 3c0af000 00:00 0 
+3c0b2000-3c14b000 rwxp 3c0b2000 00:00 0 
+3c14b000-3c200000 --xp 3c14b000 00:00 0 
+3c200000-3c300000 rwxp 3c200000 00:00 0 
+3c300000-3c3fe000 rwxp 3c300000 00:00 0 
+3c3fe000-3c400000 --xp 3c3fe000 00:00 0 
+3c400000-3c481000 rwxp 3c400000 00:00 0 
+3c481000-3c500000 --xp 3c481000 00:00 0 
+3c500000-3c5f9000 rwxp 3c500000 00:00 0 
+3c5f9000-3c600000 --xp 3c5f9000 00:00 0 
+3c600000-3c6fa000 rwxp 3c600000 00:00 0 
+3c6fa000-3c700000 --xp 3c6fa000 00:00 0 
+3c700000-3c7e1000 rwxp 3c700000 00:00 0 
+3c7e1000-3c800000 --xp 3c7e1000 00:00 0 
+3c80d000-3c810000 --xp 3c80d000 00:00 0 
+3c810000-3c85e000 rwxp 3c810000 00:00 0 
+3c85e000-3c861000 --xp 3c85e000 00:00 0 
+3c861000-3c8af000 rwxp 3c861000 00:00 0 
+3c8af000-3c8b2000 --xp 3c8af000 00:00 0 
+3c8b2000-3c900000 rwxp 3c8b2000 00:00 0 
+3c90d000-3c910000 --xp 3c90d000 00:00 0 
+3c910000-3c95e000 rwxp 3c910000 00:00 0 
+3c95e000-3c961000 --xp 3c95e000 00:00 0 
+3c961000-3c9af000 rwxp 3c961000 00:00 0 
+3c9af000-3c9b2000 --xp 3c9af000 00:00 0 
+3c9b2000-3caff000 rwxp 3c9b2000 00:00 0 
+3caff000-3cb00000 --xp 3caff000 00:00 0 
+3cb00000-3cbfe000 rwxp 3cb00000 00:00 0 
+3cbfe000-3cc00000 --xp 3cbfe000 00:00 0 
+3cc00000-3ccf1000 rwxp 3cc00000 00:00 0 
+3ccf1000-3cd00000 --xp 3ccf1000 00:00 0 
+3cd00000-3cdfd000 rwxp 3cd00000 00:00 0 
+3cdfd000-3ce00000 --xp 3cdfd000 00:00 0 
+3ce00000-3cf00000 rwxp 3ce00000 00:00 0 
+3cf00000-3cffa000 rwxp 3cf00000 00:00 0 
+3cffa000-3d000000 --xp 3cffa000 00:00 0 
+3d000000-3d0f9000 rwxp 3d000000 00:00 0 
+3d0f9000-3d100000 --xp 3d0f9000 00:00 0 
+3d100000-3d2fb000 rwxp 3d100000 00:00 0 
+3d2fb000-3d300000 --xp 3d2fb000 00:00 0 
+3d300000-3d3f9000 rwxp 3d300000 00:00 0 
+3d3f9000-3d400000 --xp 3d3f9000 00:00 0 
+3d400000-3d500000 rwxp 3d400000 00:00 0 
+3d500000-3d6f9000 rwxp 3d500000 00:00 0 
+3d6f9000-3d700000 --xp 3d6f9000 00:00 0 
+3d700000-3d900000 rwxp 3d700000 00:00 0 
+3d900000-3d9f9000 rwxp 3d900000 00:00 0 
+3d9f9000-3da00000 --xp 3d9f9000 00:00 0 
+3da00000-3daf9000 rwxp 3da00000 00:00 0 
+3daf9000-3db00000 --xp 3daf9000 00:00 0 
+3db00000-3dbff000 rwxp 3db00000 00:00 0 
+3dbff000-3dc00000 --xp 3dbff000 00:00 0 
+3dc00000-3dcfa000 rwxp 3dc00000 00:00 0 
+3dcfa000-3dd00000 --xp 3dcfa000 00:00 0 
+3dd00000-3ddf9000 rwxp 3dd00000 00:00 0 
+3ddf9000-3de00000 --xp 3ddf9000 00:00 0 
+3de00000-3def9000 rwxp 3de00000 00:00 0 
+3def9000-3df00000 --xp 3def9000 00:00 0 
+3df00000-3e0f9000 rwxp 3df00000 00:00 0 
+3e0f9000-3e100000 --xp 3e0f9000 00:00 0 
+3e100000-3e1fd000 rwxp 3e100000 00:00 0 
+3e1fd000-3e200000 --xp 3e1fd000 00:00 0 
+3e200000-3e2fc000 rwxp 3e200000 00:00 0 
+3e2fc000-3e300000 --xp 3e2fc000 00:00 0 
+3e300000-3e3fd000 rwxp 3e300000 00:00 0 
+3e3fd000-3e400000 --xp 3e3fd000 00:00 0 
+3e400000-3e500000 rwxp 3e400000 00:00 0 
+3e500000-3e5fb000 rwxp 3e500000 00:00 0 
+3e5fb000-3e600000 --xp 3e5fb000 00:00 0 
+3e600000-3e6f9000 rwxp 3e600000 00:00 0 
+3e6f9000-3e700000 --xp 3e6f9000 00:00 0 
+3e700000-3e7fa000 rwxp 3e700000 00:00 0 
+3e7fa000-3e800000 --xp 3e7fa000 00:00 0 
+3e800000-3e8ff000 rwxp 3e800000 00:00 0 
+3e8ff000-3e900000 --xp 3e8ff000 00:00 0 
+3e900000-3eb00000 rwxp 3e900000 00:00 0 
+3eb00000-3ecfd000 rwxp 3eb00000 00:00 0 
+3ecfd000-3ed00000 --xp 3ecfd000 00:00 0 
+3ed00000-3edff000 rwxp 3ed00000 00:00 0 
+3edff000-3ee00000 --xp 3edff000 00:00 0 
+3ee00000-3ef00000 rwxp 3ee00000 00:00 0 
+3ef00000-3f0ff000 rwxp 3ef00000 00:00 0 
+3f0ff000-3f100000 --xp 3f0ff000 00:00 0 
+3f100000-3f1ff000 rwxp 3f100000 00:00 0 
+3f1ff000-3f200000 --xp 3f1ff000 00:00 0 
+3f23d000-3f240000 --xp 3f23d000 00:00 0 
+3f240000-3f28e000 rwxp 3f240000 00:00 0 
+3f28e000-3f291000 --xp 3f28e000 00:00 0 
+3f291000-3f3ff000 rwxp 3f291000 00:00 0 
+3f3ff000-3f400000 --xp 3f3ff000 00:00 0 
+3f400000-3f500000 rwxp 3f400000 00:00 0 
+3f500000-3f5ff000 rwxp 3f500000 00:00 0 
+3f5ff000-3f600000 --xp 3f5ff000 00:00 0 
+3f600000-3f700000 rwxp 3f600000 00:00 0 
+3f700000-3f8fd000 rwxp 3f700000 00:00 0 
+3f8fd000-3f900000 --xp 3f8fd000 00:00 0 
+3f900000-3f9fe000 rwxp 3f900000 00:00 0 
+3f9fe000-3fa00000 --xp 3f9fe000 00:00 0 
+3fa00000-3fafe000 rwxp 3fa00000 00:00 0 
+3fafe000-3fb00000 --xp 3fafe000 00:00 0 
+3fb00000-3fbfe000 rwxp 3fb00000 00:00 0 
+3fbfe000-3fc00000 --xp 3fbfe000 00:00 0 
+3fc00000-3fcfe000 rwxp 3fc00000 00:00 0 
+3fcfe000-3fd00000 --xp 3fcfe000 00:00 0 
+3fd00000-3fdfd000 rwxp 3fd00000 00:00 0 
+3fdfd000-3fe00000 --xp 3fdfd000 00:00 0 
+3fe00000-3fefd000 rwxp 3fe00000 00:00 0 
+3fefd000-3ff00000 --xp 3fefd000 00:00 0 
+3ff00000-3fffe000 rwxp 3ff00000 00:00 0 
+3fffe000-40000000 --xp 3fffe000 00:00 0 
+40000000-400ff000 rwxp 40000000 00:00 0 
+400ff000-40100000 --xp 400ff000 00:00 0 
+40100000-402fe000 rwxp 40100000 00:00 0 
+402fe000-40300000 --xp 402fe000 00:00 0 
+40300000-403fd000 rwxp 40300000 00:00 0 
+403fd000-40400000 --xp 403fd000 00:00 0 
+40400000-404f9000 rwxp 40400000 00:00 0 
+404f9000-40500000 --xp 404f9000 00:00 0 
+40500000-405fc000 rwxp 40500000 00:00 0 
+405fc000-40600000 --xp 405fc000 00:00 0 
+40600000-406fe000 rwxp 40600000 00:00 0 
+406fe000-40700000 --xp 406fe000 00:00 0 
+40700000-407fb000 rwxp 40700000 00:00 0 
+407fb000-40800000 --xp 407fb000 00:00 0 
+40800000-408fa000 rwxp 40800000 00:00 0 
+408fa000-40900000 --xp 408fa000 00:00 0 
+40900000-409fe000 rwxp 40900000 00:00 0 
+409fe000-40a00000 --xp 409fe000 00:00 0 
+40a00000-40b00000 rwxp 40a00000 00:00 0 
+40b00000-40bfb000 rwxp 40b00000 00:00 0 
+40bfb000-40c00000 --xp 40bfb000 00:00 0 
+40c00000-40cfb000 rwxp 40c00000 00:00 0 
+40cfb000-40d00000 --xp 40cfb000 00:00 0 
+40d00000-40ef9000 rwxp 40d00000 00:00 0 
+40ef9000-40f00000 --xp 40ef9000 00:00 0 
+40f00000-410fd000 rwxp 40f00000 00:00 0 
+410fd000-41100000 --xp 410fd000 00:00 0 
+41100000-411ff000 rwxp 41100000 00:00 0 
+411ff000-41200000 --xp 411ff000 00:00 0 
+41200000-412fe000 rwxp 41200000 00:00 0 
+412fe000-41300000 --xp 412fe000 00:00 0 
+41300000-413fb000 rwxp 41300000 00:00 0 
+413fb000-41400000 --xp 413fb000 00:00 0 
+41400000-41500000 rwxp 41400000 00:00 0 
+41500000-415fe000 rwxp 41500000 00:00 0 
+415fe000-41600000 --xp 415fe000 00:00 0 
+41600000-416fd000 rwxp 41600000 00:00 0 
+416fd000-41700000 --xp 416fd000 00:00 0 
+41700000-417f9000 rwxp 41700000 00:00 0 
+417f9000-41800000 --xp 417f9000 00:00 0 
+41800000-41900000 rwxp 41800000 00:00 0 
+41900000-41b00000 rwxp 41900000 00:00 0 
+41b00000-41cfd000 rwxp 41b00000 00:00 0 
+41cfd000-41d00000 --xp 41cfd000 00:00 0 
+41d00000-41efd000 rwxp 41d00000 00:00 0 
+41efd000-41f00000 --xp 41efd000 00:00 0 
+41f00000-41ffe000 rwxp 41f00000 00:00 0 
+41ffe000-42000000 --xp 41ffe000 00:00 0 
+42000000-42100000 rwxp 42000000 00:00 0 
+42100000-421fd000 rwxp 42100000 00:00 0 
+421fd000-42200000 --xp 421fd000 00:00 0 
+42200000-422fc000 rwxp 42200000 00:00 0 
+422fc000-42300000 --xp 422fc000 00:00 0 
+42300000-423ff000 rwxp 42300000 00:00 0 
+423ff000-42400000 --xp 423ff000 00:00 0 
+42400000-42500000 rwxp 42400000 00:00 0 
+42500000-425fd000 rwxp 42500000 00:00 0 
+425fd000-42600000 --xp 425fd000 00:00 0 
+42600000-42700000 rwxp 42600000 00:00 0 
+42700000-427ff000 rwxp 42700000 00:00 0 
+427ff000-42800000 --xp 427ff000 00:00 0 
+42800000-428fd000 rwxp 42800000 00:00 0 
+428fd000-42900000 --xp 428fd000 00:00 0 
+42900000-429fc000 rwxp 42900000 00:00 0 
+429fc000-42a00000 --xp 429fc000 00:00 0 
+42a00000-42b00000 rwxp 42a00000 00:00 0 
+42b00000-42bfc000 rwxp 42b00000 00:00 0 
+42bfc000-42c00000 --xp 42bfc000 00:00 0 
+42c00000-42cfb000 rwxp 42c00000 00:00 0 
+42cfb000-42d00000 --xp 42cfb000 00:00 0 
+42d00000-42dfa000 rwxp 42d00000 00:00 0 
+42dfa000-42e00000 --xp 42dfa000 00:00 0 
+42e00000-42efd000 rwxp 42e00000 00:00 0 
+42efd000-42f00000 --xp 42efd000 00:00 0 
+42f00000-42ffc000 rwxp 42f00000 00:00 0 
+42ffc000-43000000 --xp 42ffc000 00:00 0 
+43000000-430fa000 rwxp 43000000 00:00 0 
+430fa000-43100000 --xp 430fa000 00:00 0 
+43100000-432fc000 rwxp 43100000 00:00 0 
+432fc000-43300000 --xp 432fc000 00:00 0 
+43300000-43500000 rwxp 43300000 00:00 0 
+43500000-436fb000 rwxp 43500000 00:00 0 
+436fb000-43700000 --xp 436fb000 00:00 0 
+43700000-43900000 rwxp 43700000 00:00 0 
+43900000-43a00000 rwxp 43900000 00:00 0 
+43a00000-43aff000 rwxp 43a00000 00:00 0 
+43aff000-43b00000 --xp 43aff000 00:00 0 
+43b41000-43b44000 --xp 43b41000 00:00 0 
+43b44000-43cf9000 rwxp 43b44000 00:00 0 
+43cf9000-43d00000 --xp 43cf9000 00:00 0 
+43d00000-43dfa000 rwxp 43d00000 00:00 0 
+43dfa000-43e00000 --xp 43dfa000 00:00 0 
+43e00000-43efc000 rwxp 43e00000 00:00 0 
+43efc000-43f00000 --xp 43efc000 00:00 0 
+43f00000-44000000 rwxp 43f00000 00:00 0 
+44000000-440f9000 rwxp 44000000 00:00 0 
+440f9000-44100000 --xp 440f9000 00:00 0 
+44100000-441ff000 rwxp 44100000 00:00 0 
+441ff000-44200000 --xp 441ff000 00:00 0 
+44200000-44400000 rwxp 44200000 00:00 0 
+44400000-444ff000 rwxp 44400000 00:00 0 
+444ff000-44500000 --xp 444ff000 00:00 0 
+4452d000-44530000 --xp 4452d000 00:00 0 
+44530000-4457e000 rwxp 44530000 00:00 0 
+4457e000-44581000 --xp 4457e000 00:00 0 
+44581000-446ff000 rwxp 44581000 00:00 0 
+446ff000-44700000 --xp 446ff000 00:00 0 
+44700000-447f9000 rwxp 44700000 00:00 0 
+447f9000-44800000 --xp 447f9000 00:00 0 
+44800000-448fb000 rwxp 44800000 00:00 0 
+448fb000-44900000 --xp 448fb000 00:00 0 
+44900000-449fa000 rwxp 44900000 00:00 0 
+449fa000-44a00000 --xp 449fa000 00:00 0 
+44a00000-44c00000 rwxp 44a00000 00:00 0 
+44c00000-44cfe000 rwxp 44c00000 00:00 0 
+44cfe000-44d00000 --xp 44cfe000 00:00 0 
+44d00000-44e00000 rwxp 44d00000 00:00 0 
+44e00000-44efc000 rwxp 44e00000 00:00 0 
+44efc000-44f00000 --xp 44efc000 00:00 0 
+44f00000-44fff000 rwxp 44f00000 00:00 0 
+44fff000-45000000 --xp 44fff000 00:00 0 
+45000000-450fe000 rwxp 45000000 00:00 0 
+450fe000-45100000 --xp 450fe000 00:00 0 
+45100000-451fe000 rwxp 45100000 00:00 0 
+451fe000-45200000 --xp 451fe000 00:00 0 
+45200000-45400000 rwxp 45200000 00:00 0 
+45400000-45600000 rwxp 45400000 00:00 0 
+45600000-456ff000 rwxp 45600000 00:00 0 
+456ff000-45700000 --xp 456ff000 00:00 0 
+45707000-459fd000 rwxp 45707000 00:00 0 
+459fd000-45a00000 --xp 459fd000 00:00 0 
+45a22000-45a25000 --xp 45a22000 00:00 0 
+45a25000-45d00000 rwxp 45a25000 00:00 0 
+45d00000-45ef9000 rwxp 45d00000 00:00 0 
+45ef9000-45f00000 --xp 45ef9000 00:00 0 
+45f00000-45ffe000 rwxp 45f00000 00:00 0 
+45ffe000-46000000 --xp 45ffe000 00:00 0 
+46000000-460fc000 rwxp 46000000 00:00 0 
+460fc000-46100000 --xp 460fc000 00:00 0 
+46100000-461ff000 rwxp 46100000 00:00 0 
+461ff000-46200000 --xp 461ff000 00:00 0 
+46200000-462fd000 rwxp 46200000 00:00 0 
+462fd000-46300000 --xp 462fd000 00:00 0 
+46300000-463fa000 rwxp 46300000 00:00 0 
+463fa000-46400000 --xp 463fa000 00:00 0 
+46400000-464fd000 rwxp 46400000 00:00 0 
+464fd000-46500000 --xp 464fd000 00:00 0 
+46500000-46700000 rwxp 46500000 00:00 0 
+46700000-468fc000 rwxp 46700000 00:00 0 
+468fc000-46900000 --xp 468fc000 00:00 0 
+46900000-469fc000 rwxp 46900000 00:00 0 
+469fc000-46a00000 --xp 469fc000 00:00 0 
+46a00000-46afe000 rwxp 46a00000 00:00 0 
+46afe000-46b00000 --xp 46afe000 00:00 0 
+46b00000-46bfc000 rwxp 46b00000 00:00 0 
+46bfc000-46c00000 --xp 46bfc000 00:00 0 
+46c00000-46cfa000 rwxp 46c00000 00:00 0 
+46cfa000-46d00000 --xp 46cfa000 00:00 0 
+46d00000-46efd000 rwxp 46d00000 00:00 0 
+46efd000-46f00000 --xp 46efd000 00:00 0 
+46f00000-470fb000 rwxp 46f00000 00:00 0 
+470fb000-47100000 --xp 470fb000 00:00 0 
+47100000-47200000 rwxp 47100000 00:00 0 
+47247000-47500000 rwxp 47247000 00:00 0 
+47500000-475fb000 rwxp 47500000 00:00 0 
+475fb000-47600000 --xp 475fb000 00:00 0 
+47639000-4763c000 --xp 47639000 00:00 0 
+4763c000-4768a000 rwxp 4763c000 00:00 0 
+4768a000-4768d000 --xp 4768a000 00:00 0 
+4768d000-476db000 rwxp 4768d000 00:00 0 
+476db000-47800000 rwxs 00000000 68:02 22802845   /tmp/jfluidbuf4008711016744636691.tmp
+47800000-47900000 rwxp 47800000 00:00 0 
+47900000-479f9000 rwxp 47900000 00:00 0 
+479f9000-47a00000 --xp 479f9000 00:00 0 
+47a00000-47b00000 rwxp 47a00000 00:00 0 
+47b0d000-47b10000 --xp 47b0d000 00:00 0 
+47b10000-47b5e000 rwxp 47b10000 00:00 0 
+47b5e000-47b61000 --xp 47b5e000 00:00 0 
+47b61000-47baf000 rwxp 47b61000 00:00 0 
+47baf000-47bb2000 --xp 47baf000 00:00 0 
+47bb2000-47cfc000 rwxp 47bb2000 00:00 0 
+47cfc000-47d00000 --xp 47cfc000 00:00 0 
+47d00000-47dd7000 rwxp 47d00000 00:00 0 
+47dd7000-47e00000 --xp 47dd7000 00:00 0 
+47e00000-47ef9000 rwxp 47e00000 00:00 0 
+47ef9000-47f00000 --xp 47ef9000 00:00 0 
+47f00000-47ffb000 rwxp 47f00000 00:00 0 
+47ffb000-48000000 --xp 47ffb000 00:00 0 
+48000000-480f5000 rwxp 48000000 00:00 0 
+480f5000-48100000 --xp 480f5000 00:00 0 
+48104000-48107000 --xp 48104000 00:00 0 
+48107000-48155000 rwxp 48107000 00:00 0 
+48155000-48158000 --xp 48155000 00:00 0 
+48158000-481a6000 rwxp 48158000 00:00 0 
+481a6000-481ae000 r-xp 00000000 68:02 2001290    /home/hudson/jdk1.6.0_18/lib/visualvm/profiler3/lib/deployed/jdk16/linux/libprofilerinterface.so
+481ae000-481af000 rwxp 00007000 68:02 2001290    /home/hudson/jdk1.6.0_18/lib/visualvm/profiler3/lib/deployed/jdk16/linux/libprofilerinterface.so
+481af000-481b2000 --xp 481af000 00:00 0 
+481b2000-482f3000 rwxp 481b2000 00:00 0 
+482f3000-48300000 --xp 482f3000 00:00 0 
+4830d000-48310000 --xp 4830d000 00:00 0 
+48310000-4835e000 rwxp 48310000 00:00 0 
+4835e000-48361000 --xp 4835e000 00:00 0 
+48361000-483af000 rwxp 48361000 00:00 0 
+483af000-483b2000 --xp 483af000 00:00 0 
+483b2000-484ff000 rwxp 483b2000 00:00 0 
+484ff000-48500000 --xp 484ff000 00:00 0 
+48500000-485f7000 rwxp 48500000 00:00 0 
+485f7000-48600000 --xp 485f7000 00:00 0 
+48600000-48700000 rwxp 48600000 00:00 0 
+48700000-487f1000 rwxp 48700000 00:00 0 
+487f1000-48800000 --xp 487f1000 00:00 0 
+48800000-488f4000 rwxp 48800000 00:00 0 
+488f4000-48900000 --xp 488f4000 00:00 0 
+48900000-489ca000 rwxp 48900000 00:00 0 
+489ca000-48a00000 --xp 489ca000 00:00 0 
+48a00000-48a21000 rwxp 48a00000 00:00 0 
+48a21000-48b00000 --xp 48a21000 00:00 0 
+48b00000-48bff000 rwxp 48b00000 00:00 0 
+48bff000-48c00000 --xp 48bff000 00:00 0 
+48c00000-48cf1000 rwxp 48c00000 00:00 0 
+48cf1000-48d00000 --xp 48cf1000 00:00 0 
+48d00000-48df2000 rwxp 48d00000 00:00 0 
+48df2000-48e00000 --xp 48df2000 00:00 0 
+48e0d000-48e10000 --xp 48e0d000 00:00 0 
+48e10000-48e5e000 rwxp 48e10000 00:00 0 
+48e5e000-48e61000 --xp 48e5e000 00:00 0 
+48e61000-48eaf000 rwxp 48e61000 00:00 0 
+48eaf000-48eb2000 --xp 48eaf000 00:00 0 
+48eb2000-48ffb000 rwxp 48eb2000 00:00 0 
+48ffb000-49000000 --xp 48ffb000 00:00 0 
+49004000-49007000 --xp 49004000 00:00 0 
+49007000-49055000 rwxp 49007000 00:00 0 
+49055000-49058000 --xp 49055000 00:00 0 
+49058000-490a6000 rwxp 49058000 00:00 0 
+490a6000-490a9000 --xp 490a6000 00:00 0 
+490a9000-490f7000 rwxp 490a9000 00:00 0 
+49100000-491fc000 rwxp 49100000 00:00 0 
+491fc000-49200000 --xp 491fc000 00:00 0 
+49200000-49300000 rwxp 49200000 00:00 0 
+49300000-493f4000 rwxp 49300000 00:00 0 
+493f4000-49400000 --xp 493f4000 00:00 0 
+49400000-494f8000 rwxp 49400000 00:00 0 
+494f8000-49500000 --xp 494f8000 00:00 0 
+49500000-495fe000 rwxp 49500000 00:00 0 
+495fe000-49600000 --xp 495fe000 00:00 0 
+49600000-496fa000 rwxp 49600000 00:00 0 
+496fa000-49700000 --xp 496fa000 00:00 0 
+49700000-497ff000 rwxp 49700000 00:00 0 
+497ff000-49800000 --xp 497ff000 00:00 0 
+49800000-498f5000 rwxp 49800000 00:00 0 
+498f5000-49900000 --xp 498f5000 00:00 0 
+49900000-499f9000 rwxp 49900000 00:00 0 
+499f9000-49a00000 --xp 499f9000 00:00 0 
+49a00000-49afc000 rwxp 49a00000 00:00 0 
+49afc000-49b00000 --xp 49afc000 00:00 0 
+49b00000-49bfe000 rwxp 49b00000 00:00 0 
+49bfe000-49c00000 --xp 49bfe000 00:00 0 
+49c00000-49cfa000 rwxp 49c00000 00:00 0 
+49cfa000-49d00000 --xp 49cfa000 00:00 0 
+49d00000-49dfc000 rwxp 49d00000 00:00 0 
+49dfc000-49e00000 --xp 49dfc000 00:00 0 
+49e00000-49eff000 rwxp 49e00000 00:00 0 
+49eff000-49f00000 --xp 49eff000 00:00 0 
+49f00000-49f21000 rwxp 49f00000 00:00 0 
+49f21000-4a000000 --xp 49f21000 00:00 0 
+4a000000-4a0fb000 rwxp 4a000000 00:00 0 
+4a0fb000-4a100000 --xp 4a0fb000 00:00 0 
+4a10d000-4a110000 --xp 4a10d000 00:00 0 
+4a110000-4a15e000 rwxp 4a110000 00:00 0 
+4a15e000-4a161000 --xp 4a15e000 00:00 0 
+4a161000-4a1af000 rwxp 4a161000 00:00 0 
+4a1af000-4a1b2000 --xp 4a1af000 00:00 0 
+4a1b2000-4a2fe000 rwxp 4a1b2000 00:00 0 
+4a2fe000-4a300000 --xp 4a2fe000 00:00 0 
+4a300000-4a3f9000 rwxp 4a300000 00:00 0 
+4a3f9000-4a400000 --xp 4a3f9000 00:00 0 
+4a400000-4a4ff000 rwxp 4a400000 00:00 0 
+4a4ff000-4a500000 --xp 4a4ff000 00:00 0 
+4a500000-4a5f9000 rwxp 4a500000 00:00 0 
+4a5f9000-4a600000 --xp 4a5f9000 00:00 0 
+4a600000-4a700000 rwxp 4a600000 00:00 0 
+4a70d000-4a710000 --xp 4a70d000 00:00 0 
+4a710000-4a75e000 rwxp 4a710000 00:00 0 
+4a75e000-4a761000 --xp 4a75e000 00:00 0 
+4a761000-4a7af000 rwxp 4a761000 00:00 0 
+4a7af000-4a7b2000 --xp 4a7af000 00:00 0 
+4a7b2000-4a8f8000 rwxp 4a7b2000 00:00 0 
+4a8f8000-4a900000 --xp 4a8f8000 00:00 0 
+4a90d000-4a910000 --xp 4a90d000 00:00 0 
+4a910000-4a95e000 rwxp 4a910000 00:00 0 
+4a95e000-4a961000 --xp 4a95e000 00:00 0 
+4a961000-4a9af000 rwxp 4a961000 00:00 0 
+4a9af000-4a9b2000 --xp 4a9af000 00:00 0 
+4a9b2000-4aaf8000 rwxp 4a9b2000 00:00 0 
+4aaf8000-4ab00000 --xp 4aaf8000 00:00 0 
+4ab00000-4abfb000 rwxp 4ab00000 00:00 0 
+4abfb000-4ac00000 --xp 4abfb000 00:00 0 
+4ac00000-4acfc000 rwxp 4ac00000 00:00 0 
+4acfc000-4ad00000 --xp 4acfc000 00:00 0 
+4ad0d000-4ad10000 --xp 4ad0d000 00:00 0 
+4ad10000-4ad5e000 rwxp 4ad10000 00:00 0 
+4ad5e000-4ad61000 --xp 4ad5e000 00:00 0 
+4ad61000-4adaf000 rwxp 4ad61000 00:00 0 
+4adaf000-4adb2000 --xp 4adaf000 00:00 0 
+4adb2000-4aefb000 rwxp 4adb2000 00:00 0 
+4aefb000-4af00000 --xp 4aefb000 00:00 0 
+4af00000-4affb000 rwxp 4af00000 00:00 0 
+4affb000-4b000000 --xp 4affb000 00:00 0 
+4b000000-4b0fd000 rwxp 4b000000 00:00 0 
+4b0fd000-4b100000 --xp 4b0fd000 00:00 0 
+4b11a000-4b11d000 --xp 4b11a000 00:00 0 
+4b11d000-4b16b000 rwxp 4b11d000 00:00 0 
+4b16b000-4b16e000 --xp 4b16b000 00:00 0 
+4b16e000-4b1bc000 rwxp 4b16e000 00:00 0 
+4b1bc000-4b1bf000 --xp 4b1bc000 00:00 0 
+4b1bf000-4b20d000 rwxp 4b1bf000 00:00 0 
+4b20d000-4b210000 --xp 4b20d000 00:00 0 
+4b210000-4b25e000 rwxp 4b210000 00:00 0 
+4b25e000-4b261000 --xp 4b25e000 00:00 0 
+4b261000-4b2af000 rwxp 4b261000 00:00 0 
+4b2af000-4b2b2000 --xp 4b2af000 00:00 0 
+4b2b2000-4b345000 rwxp 4b2b2000 00:00 0 
+4b345000-4b400000 --xp 4b345000 00:00 0 
+4b400000-4b4f5000 rwxp 4b400000 00:00 0 
+4b4f5000-4b500000 --xp 4b4f5000 00:00 0 
+4b500000-4b5ff000 rwxp 4b500000 00:00 0 
+4b5ff000-4b600000 --xp 4b5ff000 00:00 0 
+4b600000-4b6f4000 rwxp 4b600000 00:00 0 
+4b6f4000-4b700000 --xp 4b6f4000 00:00 0 
+4b700000-4b7fe000 rwxp 4b700000 00:00 0 
+4b7fe000-4b800000 --xp 4b7fe000 00:00 0 
+4b800000-4b8ee000 rwxp 4b800000 00:00 0 
+4b8ee000-4b900000 --xp 4b8ee000 00:00 0 
+4b900000-4b9f9000 rwxp 4b900000 00:00 0 
+4b9f9000-4ba00000 --xp 4b9f9000 00:00 0 
+4ba0d000-4ba10000 --xp 4ba0d000 00:00 0 
+4ba10000-4ba5e000 rwxp 4ba10000 00:00 0 
+4ba5e000-4ba61000 --xp 4ba5e000 00:00 0 
+4ba61000-4baaf000 rwxp 4ba61000 00:00 0 
+4baaf000-4bab2000 --xp 4baaf000 00:00 0 
+4bab2000-4bcfa000 rwxp 4bab2000 00:00 0 
+4bcfa000-4bd00000 --xp 4bcfa000 00:00 0 
+4bd00000-4bf00000 rwxp 4bd00000 00:00 0 
+4bf00000-4c100000 rwxp 4bf00000 00:00 0 
+4c100000-4c1ff000 rwxp 4c100000 00:00 0 
+4c1ff000-4c200000 --xp 4c1ff000 00:00 0 
+4c20d000-4c210000 --xp 4c20d000 00:00 0 
+4c210000-4c25e000 rwxp 4c210000 00:00 0 
+4c25e000-4c261000 --xp 4c25e000 00:00 0 
+4c261000-4c2af000 rwxp 4c261000 00:00 0 
+4c2af000-4c2b2000 --xp 4c2af000 00:00 0 
+4c2b2000-4c3ff000 rwxp 4c2b2000 00:00 0 
+4c3ff000-4c400000 --xp 4c3ff000 00:00 0 
+4c40d000-4c410000 --xp 4c40d000 00:00 0 
+4c410000-4c45e000 rwxp 4c410000 00:00 0 
+4c45e000-4c461000 --xp 4c45e000 00:00 0 
+4c461000-4c4af000 rwxp 4c461000 00:00 0 
+4c4af000-4c4b2000 --xp 4c4af000 00:00 0 
+4c4b2000-4c5fb000 rwxp 4c4b2000 00:00 0 
+4c5fb000-4c600000 --xp 4c5fb000 00:00 0 
+4c60d000-4c610000 --xp 4c60d000 00:00 0 
+4c610000-4c65e000 rwxp 4c610000 00:00 0 
+4c65e000-4c661000 --xp 4c65e000 00:00 0 
+4c661000-4c6af000 rwxp 4c661000 00:00 0 
+4c6af000-4c6b2000 --xp 4c6af000 00:00 0 
+4c6b2000-4c7a1000 rwxp 4c6b2000 00:00 0 
+4c7a1000-4c800000 --xp 4c7a1000 00:00 0 
+4c81a000-4c81d000 --xp 4c81a000 00:00 0 
+4c81d000-4c86b000 rwxp 4c81d000 00:00 0 
+4c86b000-4c86e000 --xp 4c86b000 00:00 0 
+4c86e000-4c8bc000 rwxp 4c86e000 00:00 0 
+4c8bc000-4c8bf000 --xp 4c8bc000 00:00 0 
+4c8bf000-4c90d000 rwxp 4c8bf000 00:00 0 
+4c90d000-4c910000 --xp 4c90d000 00:00 0 
+4c910000-4c95e000 rwxp 4c910000 00:00 0 
+4c95e000-4c961000 --xp 4c95e000 00:00 0 
+4c961000-4c9af000 rwxp 4c961000 00:00 0 
+4c9af000-4c9b2000 --xp 4c9af000 00:00 0 
+4c9b2000-4cafb000 rwxp 4c9b2000 00:00 0 
+4cafb000-4cb00000 --xp 4cafb000 00:00 0 
+4cb3d000-4cb40000 --xp 4cb3d000 00:00 0 
+4cb40000-4cb8e000 rwxp 4cb40000 00:00 0 
+4cb8e000-4cb91000 --xp 4cb8e000 00:00 0 
+4cb91000-4cbdf000 rwxp 4cb91000 00:00 0 
+4cc00000-4ccff000 rwxp 4cc00000 00:00 0 
+4ccff000-4cd00000 --xp 4ccff000 00:00 0 
+4cd17000-4cd1a000 --xp 4cd17000 00:00 0 
+4cd1a000-4cd68000 rwxp 4cd1a000 00:00 0 
+4cd68000-4cd6b000 --xp 4cd68000 00:00 0 
+4cd6b000-4cdb9000 rwxp 4cd6b000 00:00 0 
+4cdb9000-4cdbc000 --xp 4cdb9000 00:00 0 
+4cdbc000-4ce0a000 rwxp 4cdbc000 00:00 0 
+4ce0a000-4ce0d000 --xp 4ce0a000 00:00 0 
+4ce0d000-4ce5b000 rwxp 4ce0d000 00:00 0 
+4ce5b000-4ce5e000 --xp 4ce5b000 00:00 0 
+4ce5e000-4ceac000 rwxp 4ce5e000 00:00 0 
+4ceac000-4ceaf000 --xp 4ceac000 00:00 0 
+4ceaf000-4cefd000 rwxp 4ceaf000 00:00 0 
+4cefd000-4cf00000 --xp 4cefd000 00:00 0 
+4cf00000-4cf4e000 rwxp 4cf00000 00:00 0 
+4cf4e000-4cf51000 --xp 4cf4e000 00:00 0 
+4cf51000-4cf9f000 rwxp 4cf51000 00:00 0 
+4cf9f000-4cfa2000 --xp 4cf9f000 00:00 0 
+4cfa2000-4cff0000 rwxp 4cfa2000 00:00 0 
+4cff0000-4cff3000 --xp 4cff0000 00:00 0 
+4cff3000-4d041000 rwxp 4cff3000 00:00 0 
+4d041000-4d044000 --xp 4d041000 00:00 0 
+4d044000-4d092000 rwxp 4d044000 00:00 0 
+4d092000-4d095000 --xp 4d092000 00:00 0 
+4d095000-4d0e3000 rwxp 4d095000 00:00 0 
+4d0e3000-4d0e6000 --xp 4d0e3000 00:00 0 
+4d0e6000-4d134000 rwxp 4d0e6000 00:00 0 
+4d134000-4d137000 --xp 4d134000 00:00 0 
+4d137000-4d185000 rwxp 4d137000 00:00 0 
+4d185000-4d188000 --xp 4d185000 00:00 0 
+4d188000-4d1d6000 rwxp 4d188000 00:00 0 
+4d1d6000-4d1d9000 --xp 4d1d6000 00:00 0 
+4d1d9000-4d227000 rwxp 4d1d9000 00:00 0 
+4d227000-4d22a000 --xp 4d227000 00:00 0 
+4d22a000-4d278000 rwxp 4d22a000 00:00 0 
+4d278000-4d27b000 --xp 4d278000 00:00 0 
+4d27b000-4d2c9000 rwxp 4d27b000 00:00 0 
+4d2c9000-4d2cc000 --xp 4d2c9000 00:00 0 
+4d2cc000-4d31a000 rwxp 4d2cc000 00:00 0 
+4d31a000-4d31d000 --xp 4d31a000 00:00 0 
+4d31d000-4d36b000 rwxp 4d31d000 00:00 0 
+4d36b000-4d36e000 --xp 4d36b000 00:00 0 
+4d36e000-4d3bc000 rwxp 4d36e000 00:00 0 
+4d3bc000-4d3bf000 --xp 4d3bc000 00:00 0 
+4d3bf000-4d40d000 rwxp 4d3bf000 00:00 0 
+4d40d000-4d410000 --xp 4d40d000 00:00 0 
+4d410000-4d45e000 rwxp 4d410000 00:00 0 
+4d45e000-4d461000 --xp 4d45e000 00:00 0 
+4d461000-4d4af000 rwxp 4d461000 00:00 0 
+4d4af000-4d4b2000 --xp 4d4af000 00:00 0 
+4d4b2000-4d5f9000 rwxp 4d4b2000 00:00 0 
+4d5f9000-4d600000 --xp 4d5f9000 00:00 0 
+4d60d000-4d610000 --xp 4d60d000 00:00 0 
+4d610000-4d65e000 rwxp 4d610000 00:00 0 
+4d65e000-4d661000 --xp 4d65e000 00:00 0 
+4d661000-4d6af000 rwxp 4d661000 00:00 0 
+4d6af000-4d6b2000 --xp 4d6af000 00:00 0 
+4d6b2000-4d8fe000 rwxp 4d6b2000 00:00 0 
+4d8fe000-4d900000 --xp 4d8fe000 00:00 0 
+4d900000-4d9f6000 rwxp 4d900000 00:00 0 
+4d9f6000-4da00000 --xp 4d9f6000 00:00 0 
+4da1a000-4da1d000 --xp 4da1a000 00:00 0 
+4da1d000-4da6b000 rwxp 4da1d000 00:00 0 
+4da6b000-4da6e000 --xp 4da6b000 00:00 0 
+4da6e000-4dabc000 rwxp 4da6e000 00:00 0 
+4dabc000-4dabf000 --xp 4dabc000 00:00 0 
+4dabf000-4db0d000 rwxp 4dabf000 00:00 0 
+4db0d000-4db10000 --xp 4db0d000 00:00 0 
+4db10000-4db5e000 rwxp 4db10000 00:00 0 
+4db5e000-4db61000 --xp 4db5e000 00:00 0 
+4db61000-4dbaf000 rwxp 4db61000 00:00 0 
+4dbaf000-4dbb2000 --xp 4dbaf000 00:00 0 
+4dbb2000-4dcf1000 rwxp 4dbb2000 00:00 0 
+4dcf1000-4dd00000 --xp 4dcf1000 00:00 0 
+4dd0d000-4dd10000 --xp 4dd0d000 00:00 0 
+4dd10000-4dd5e000 rwxp 4dd10000 00:00 0 
+4dd5e000-4dd61000 --xp 4dd5e000 00:00 0 
+4dd61000-4ddaf000 rwxp 4dd61000 00:00 0 
+4ddaf000-4ddb2000 --xp 4ddaf000 00:00 0 
+4ddb2000-4df00000 rwxp 4ddb2000 00:00 0 
+4df0d000-4df10000 --xp 4df0d000 00:00 0 
+4df10000-4df5e000 rwxp 4df10000 00:00 0 
+4df5e000-4df61000 --xp 4df5e000 00:00 0 
+4df61000-4dfaf000 rwxp 4df61000 00:00 0 
+4dfaf000-4dfb2000 --xp 4dfaf000 00:00 0 
+4dfb2000-4e0e9000 rwxp 4dfb2000 00:00 0 
+4e0e9000-4e100000 --xp 4e0e9000 00:00 0 
+4e100000-4e1f6000 rwxp 4e100000 00:00 0 
+4e1f6000-4e200000 --xp 4e1f6000 00:00 0 
+4e200000-4e400000 rwxp 4e200000 00:00 0 
+4e400000-4e500000 rwxp 4e400000 00:00 0 
+4e50d000-4e510000 --xp 4e50d000 00:00 0 
+4e510000-4e55e000 rwxp 4e510000 00:00 0 
+4e55e000-4e561000 --xp 4e55e000 00:00 0 
+4e561000-4e5af000 rwxp 4e561000 00:00 0 
+4e5af000-4e5b2000 --xp 4e5af000 00:00 0 
+4e5b2000-4e6fd000 rwxp 4e5b2000 00:00 0 
+4e6fd000-4e700000 --xp 4e6fd000 00:00 0 
+4e700000-4e7fe000 rwxp 4e700000 00:00 0 
+4e7fe000-4e800000 --xp 4e7fe000 00:00 0 
+4e800000-4e8f8000 rwxp 4e800000 00:00 0 
+4e8f8000-4e900000 --xp 4e8f8000 00:00 0 
+4e90d000-4e910000 --xp 4e90d000 00:00 0 
+4e910000-4e95e000 rwxp 4e910000 00:00 0 
+4e95e000-4e961000 --xp 4e95e000 00:00 0 
+4e961000-4e9af000 rwxp 4e961000 00:00 0 
+4e9af000-4e9b2000 --xp 4e9af000 00:00 0 
+4e9b2000-4eafe000 rwxp 4e9b2000 00:00 0 
+4eafe000-4eb00000 --xp 4eafe000 00:00 0 
+4eb0d000-4eb10000 --xp 4eb0d000 00:00 0 
+4eb10000-4eb5e000 rwxp 4eb10000 00:00 0 
+4eb5e000-4eb61000 --xp 4eb5e000 00:00 0 
+4eb61000-4ebaf000 rwxp 4eb61000 00:00 0 
+4ebaf000-4ebb2000 --xp 4ebaf000 00:00 0 
+4ebb2000-4ecff000 rwxp 4ebb2000 00:00 0 
+4ecff000-4ed00000 --xp 4ecff000 00:00 0 
+4ed00000-4edf8000 rwxp 4ed00000 00:00 0 
+4edf8000-4ee00000 --xp 4edf8000 00:00 0 
+4ee00000-4eef4000 rwxp 4ee00000 00:00 0 
+4eef4000-4ef00000 --xp 4eef4000 00:00 0 
+4ef00000-4efee000 rwxp 4ef00000 00:00 0 
+4efee000-4f000000 --xp 4efee000 00:00 0 
+4f000000-4f100000 rwxp 4f000000 00:00 0 
+4f10d000-4f110000 --xp 4f10d000 00:00 0 
+4f110000-4f15e000 rwxp 4f110000 00:00 0 
+4f15e000-4f161000 --xp 4f15e000 00:00 0 
+4f161000-4f1af000 rwxp 4f161000 00:00 0 
+4f1af000-4f1b2000 --xp 4f1af000 00:00 0 
+4f1b2000-4f2f1000 rwxp 4f1b2000 00:00 0 
+4f2f1000-4f300000 --xp 4f2f1000 00:00 0 
+4f300000-4f3fc000 rwxp 4f300000 00:00 0 
+4f3fc000-4f400000 --xp 4f3fc000 00:00 0 
+4f400000-4f4f5000 rwxp 4f400000 00:00 0 
+4f4f5000-4f500000 --xp 4f4f5000 00:00 0 
+4f527000-4f52a000 --xp 4f527000 00:00 0 
+4f52a000-4f578000 rwxp 4f52a000 00:00 0 
+4f578000-4f57b000 --xp 4f578000 00:00 0 
+4f57b000-4f5c9000 rwxp 4f57b000 00:00 0 
+4f5c9000-4f5cc000 --xp 4f5c9000 00:00 0 
+4f5cc000-4f61a000 rwxp 4f5cc000 00:00 0 
+4f61a000-4f61d000 --xp 4f61a000 00:00 0 
+4f61d000-4f66b000 rwxp 4f61d000 00:00 0 
+4f66b000-4f66e000 --xp 4f66b000 00:00 0 
+4f66e000-4f6bc000 rwxp 4f66e000 00:00 0 
+4f6bc000-4f6bf000 --xp 4f6bc000 00:00 0 
+4f6bf000-4f70d000 rwxp 4f6bf000 00:00 0 
+4f70d000-4f710000 --xp 4f70d000 00:00 0 
+4f710000-4f75e000 rwxp 4f710000 00:00 0 
+4f75e000-4f761000 --xp 4f75e000 00:00 0 
+4f761000-4f7af000 rwxp 4f761000 00:00 0 
+4f7af000-4f7b2000 --xp 4f7af000 00:00 0 
+4f7b2000-4f8f6000 rwxp 4f7b2000 00:00 0 
+4f8f6000-4f900000 --xp 4f8f6000 00:00 0 
+4f939000-4f93c000 --xp 4f939000 00:00 0 
+4f93c000-4f98a000 rwxp 4f93c000 00:00 0 
+4f98a000-4f98d000 --xp 4f98a000 00:00 0 
+4f98d000-4f9db000 rwxp 4f98d000 00:00 0 
+4f9db000-4fa00000 r-xs 002e3000 68:02 23412772   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/xalan-2.7.1.jar
+4fa0d000-4fa10000 --xp 4fa0d000 00:00 0 
+4fa10000-4fa5e000 rwxp 4fa10000 00:00 0 
+4fa5e000-4fa61000 --xp 4fa5e000 00:00 0 
+4fa61000-4faaf000 rwxp 4fa61000 00:00 0 
+4faaf000-4fab2000 --xp 4faaf000 00:00 0 
+4fab2000-4fbfe000 rwxp 4fab2000 00:00 0 
+4fbfe000-4fc00000 --xp 4fbfe000 00:00 0 
+4fc27000-4fc2e000 r-xs 0005b000 68:02 34718310   /home/hudson/.hudson/plugins/cvs/WEB-INF/lib/cvsclient-71-jenkins-6.jar
+4fc2e000-4fc32000 r-xs 00034000 68:02 34717857   /home/hudson/.hudson/plugins/cvs/WEB-INF/lib/jsch-0.1.46.jar
+4fc32000-4fc48000 r-xs 001af000 68:02 44699278   /home/hudson/.hudson/plugins/BlameSubversion/WEB-INF/lib/svnkit-1.3.2-hudson-2.jar
+4fc48000-4fc4a000 r-xs 0000f000 68:02 1278741    /home/hudson/.hudson/plugins/jira/WEB-INF/lib/activation-1.1.1.jar
+4fc4a000-4fc4c000 r-xs 00008000 68:02 1278759    /home/hudson/.hudson/plugins/jira/WEB-INF/lib/commons-logging-1.0.4.jar
+4fc4c000-4fc51000 r-xs 00020000 68:02 1278794    /home/hudson/.hudson/plugins/jira/WEB-INF/lib/wsdl4j-1.6.2.jar
+4fc51000-4fc53000 r-xs 00003000 68:02 1278670    /home/hudson/.hudson/plugins/jira/WEB-INF/lib/saaj-api-1.3.jar
+4fc53000-4fc55000 r-xs 00005000 68:02 1278730    /home/hudson/.hudson/plugins/jira/WEB-INF/lib/jaxrpc-api-1.1.jar
+4fc55000-4fc69000 r-xs 00173000 68:02 1278640    /home/hudson/.hudson/plugins/jira/WEB-INF/lib/axis-1.4.jar
+4fc69000-4fc6c000 r-xs 00010000 68:02 1278635    /home/hudson/.hudson/plugins/jira/WEB-INF/lib/commons-discovery-0.4.jar
+4fc6c000-4fc79000 r-xs 0007f000 68:02 38764800   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/commons-collections-3.2.jar
+4fc79000-4fc7e000 r-xs 00034000 68:02 38764556   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/commons-beanutils-1.8.3.jar
+4fc7e000-4fc7f000 r-xs 0000a000 68:02 38764810   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/asm-3.3.1.jar
+4fc7f000-4fc81000 r-xs 00002000 68:02 38764553   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/annotations-1.3.9.jar
+4fc81000-4fc84000 r-xs 00006000 68:02 38764680   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/jsr305-1.3.9.jar
+4fc84000-4fc86000 r-xs 0000d000 68:02 38764563   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/commons-codec-1.4.jar
+4fc86000-4fc8d000 r-xs 00040000 68:02 38764679   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/cglib-2.2.2.jar
+4fc8d000-4fc8f000 r-xs 0000d000 68:02 38764587   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/commons-logging-1.1.1.jar
+4fc8f000-4fc9e000 r-xs 000a5000 68:02 38764616   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/commons-digester3-3.2.jar
+4fc9e000-4fca6000 r-xs 0004f000 68:02 38764614   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/log4j-1.2.9.jar
+4fca6000-4fcab000 r-xs 0002a000 68:02 38764566   /home/hudson/.hudson/plugins/dry/WEB-INF/lib/java2html-5.0.jar
+4fcab000-4fcc2000 r-xs 00112000 68:02 44679313   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/xercesImpl-2.8.1.jar
+4fcc2000-4fcc5000 r-xs 0000d000 68:02 44679325   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/avalon-framework-4.1.3.jar
+4fcc5000-4fcc7000 r-xs 00002000 68:02 44679293   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/annotations-1.3.9.jar
+4fcc7000-4fcca000 r-xs 00006000 68:02 44679361   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/jsr305-1.3.9.jar
+4fcca000-4fcd2000 r-xs 00028000 68:02 44679331   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/xml-apis-1.3.03.jar
+4fcd2000-4fcd4000 r-xs 0000d000 68:02 44679310   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/commons-codec-1.4.jar
+4fcd4000-4fcd7000 r-xs 0000f000 68:02 44679352   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/logkit-1.0.1.jar
+4fcd7000-4fcd8000 r-xs 0000c000 68:02 44679330   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/commons-logging-1.1.jar
+4fcd8000-4fce0000 r-xs 0004f000 68:02 44679329   /home/hudson/.hudson/plugins/checkstyle/WEB-INF/lib/log4j-1.2.9.jar
+4fce0000-4fce2000 r-xs 00005000 68:02 22185414   /home/hudson/.hudson/plugins/monitoring/WEB-INF/lib/slf4j-api-1.6.3.jar
+4fce2000-4fcee000 r-xs 00108000 68:02 22185422   /home/hudson/.hudson/plugins/monitoring/WEB-INF/lib/itext-2.1.7.jar
+4fcee000-4fcf3000 r-xs 000bc000 68:02 22185423   /home/hudson/.hudson/plugins/monitoring/WEB-INF/lib/jrobin-1.5.9.jar
+4fcf3000-4fd00000 r-xs 000f2000 68:02 22185417   /home/hudson/.hudson/plugins/monitoring/WEB-INF/lib/javamelody-core-1.39.0.jar
+4fd00000-4fdf5000 rwxp 4fd00000 00:00 0 
+4fdf5000-4fe00000 --xp 4fdf5000 00:00 0 
+4fe05000-4fe07000 r-xs 00015000 68:02 24772807   /home/hudson/.hudson/plugins/violations/WEB-INF/lib/xpp3-1.1.3.3.jar
+4fe07000-4fe09000 r-xs 00005000 68:02 672273     /home/hudson/.hudson/plugins/sloccount/WEB-INF/lib/annotations-1.0.0.jar
+4fe09000-4fe0d000 r-xs 0003c000 68:02 30558385   /home/hudson/.hudson/plugins/sonar/WEB-INF/lib/commons-lang-2.4.jar
+4fe0d000-4fe0f000 r-xs 00006000 68:02 30558368   /home/hudson/.hudson/plugins/sonar/WEB-INF/lib/fest-util-1.1.6.jar
+4fe0f000-4fe12000 r-xs 00011000 68:02 30558365   /home/hudson/.hudson/plugins/sonar/WEB-INF/lib/fest-assert-1.4.jar
+4fe12000-4fe15000 r-xs 00006000 68:02 35799183   /home/hudson/.hudson/plugins/credentials/WEB-INF/lib/jsr305-1.3.9.jar
+4fe15000-4fe17000 r-xs 00002000 68:02 35799178   /home/hudson/.hudson/plugins/credentials/WEB-INF/lib/findbugs-annotations-1.3.9-1.jar
+4fe17000-4fe18000 r-xs 00000000 68:02 35799180   /home/hudson/.hudson/plugins/credentials/WEB-INF/lib/jcip-annotations-1.0.jar
+4fe18000-4fe1b000 r-xs 0000d000 68:02 44813917   /home/hudson/.hudson/plugins/cobertura/WEB-INF/lib/avalon-framework-4.1.3.jar
+4fe1b000-4fe1c000 r-xs 00002000 68:02 44810836   /home/hudson/.hudson/plugins/cobertura/WEB-INF/lib/ant-launcher-1.7.1.jar
+4fe1c000-4fe1e000 r-xs 0000d000 68:02 44813889   /home/hudson/.hudson/plugins/cobertura/WEB-INF/lib/commons-codec-1.4.jar
+4fe1e000-4fe21000 r-xs 0000f000 68:02 44813945   /home/hudson/.hudson/plugins/cobertura/WEB-INF/lib/logkit-1.0.1.jar
+4fe21000-4fe22000 r-xs 0000c000 68:02 44813930   /home/hudson/.hudson/plugins/cobertura/WEB-INF/lib/commons-logging-1.1.jar
+4fe22000-4fe2a000 r-xs 0004f000 68:02 44813927   /home/hudson/.hudson/plugins/cobertura/WEB-INF/lib/log4j-1.2.9.jar
+4fe2a000-4fe2d000 r-xs 00041000 68:02 23412796   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/serializer-2.7.1.jar
+4fe2d000-4fe30000 r-xs 00023000 68:02 23412764   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/jdom-1.0.jar
+4fe30000-4fe33000 r-xs 0000d000 68:02 1278914    /home/hudson/.hudson/plugins/tasks/WEB-INF/lib/avalon-framework-4.1.3.jar
+4fe33000-4fe35000 r-xs 00002000 68:02 1278838    /home/hudson/.hudson/plugins/tasks/WEB-INF/lib/annotations-1.3.9.jar
+4fe35000-4fe38000 r-xs 00006000 68:02 1278959    /home/hudson/.hudson/plugins/tasks/WEB-INF/lib/jsr305-1.3.9.jar
+4fe38000-4fe3a000 r-xs 0000d000 68:02 1278868    /home/hudson/.hudson/plugins/tasks/WEB-INF/lib/commons-codec-1.4.jar
+4fe3a000-4fe3d000 r-xs 0000f000 68:02 1278955    /home/hudson/.hudson/plugins/tasks/WEB-INF/lib/logkit-1.0.1.jar
+4fe3d000-4fe3e000 r-xs 0000c000 68:02 1278922    /home/hudson/.hudson/plugins/tasks/WEB-INF/lib/commons-logging-1.1.jar
+4fe3e000-4fe46000 r-xs 0004f000 68:02 1278918    /home/hudson/.hudson/plugins/tasks/WEB-INF/lib/log4j-1.2.9.jar
+4fe46000-4fe55000 r-xs 000aa000 68:02 44716718   /home/hudson/.hudson/plugins/subversion/WEB-INF/lib/sqljet-1.1.0.jar
+4fe55000-4fe59000 r-xs 00025000 68:02 44716139   /home/hudson/.hudson/plugins/subversion/WEB-INF/lib/antlr-runtime-3.4.jar
+4fe59000-4fe85000 r-xs 0030a000 68:02 44716249   /home/hudson/.hudson/plugins/subversion/WEB-INF/lib/svnkit-1.7.6-jenkins-1.jar
+4fe85000-4fe88000 r-xs 0000f000 68:02 44716588   /home/hudson/.hudson/plugins/subversion/WEB-INF/lib/sequence-library-1.0.1.jar
+4fe88000-4fe9c000 r-xs 000f7000 68:02 23412811   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/pmd-4.2.6.jar
+4fe9c000-4feaa000 r-xs 000db000 68:02 23412778   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/ant-1.6.jar
+4feaa000-4fead000 r-xs 0000d000 68:02 23412770   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/avalon-framework-4.1.3.jar
+4fead000-4feaf000 r-xs 00002000 68:02 23412763   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/annotations-1.3.9.jar
+4feaf000-4fec1000 r-xs 00245000 68:02 23412779   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/icu4j-2.6.1.jar
+4fec1000-4fec4000 r-xs 00006000 68:02 23412813   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/jsr305-1.3.9.jar
+4fec4000-4fec5000 r-xs 0000a000 68:02 23412812   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/asm-3.2.jar
+4fec5000-4fecb000 r-xs 00032000 68:02 23412774   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/jaxen-1.1.1.jar
+4fecb000-4fed1000 r-xs 00019000 68:02 23412767   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/xmlParserAPIs-2.6.2.jar
+4fed1000-4fed3000 r-xs 0000d000 68:02 23412765   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/commons-codec-1.4.jar
+4fed3000-4fed6000 r-xs 0000f000 68:02 23412810   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/logkit-1.0.1.jar
+4fed6000-4fede000 r-xs 00028000 68:02 23412795   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/xml-apis-1.3.02.jar
+4fede000-4fef2000 r-xs 000e3000 68:02 23412794   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/xercesImpl-2.6.2.jar
+4fef2000-4fef7000 r-xs 00048000 68:02 23412766   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/dom4j-1.6.1.jar
+4fef7000-4fef8000 r-xs 0000c000 68:02 23412773   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/commons-logging-1.1.jar
+4fef8000-4fefb000 r-xs 00018000 68:02 23412768   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/xom-1.0.jar
+4fefb000-4ff03000 r-xs 0004f000 68:02 23412771   /home/hudson/.hudson/plugins/pmd/WEB-INF/lib/log4j-1.2.9.jar
+4ff03000-4ff0b000 r-xs 00028000 68:02 23005145   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/xml-apis-1.3.04.jar
+4ff0b000-4ff0e000 r-xs 0000d000 68:02 23005135   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/avalon-framework-4.1.3.jar
+4ff0e000-4ff10000 r-xs 00002000 68:02 23005021   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/annotations-1.3.9.jar
+4ff10000-4ff13000 r-xs 00006000 68:02 23005173   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/jsr305-1.3.9.jar
+4ff13000-4ff71000 r-xs 005ad000 68:02 23005139   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/library-2.0.0.jar
+4ff71000-4ff73000 r-xs 0000d000 68:02 23005132   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/commons-codec-1.4.jar
+4ff73000-4ff76000 r-xs 0000f000 68:02 23005171   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/logkit-1.0.1.jar
+4ff76000-4ff8e000 r-xs 00115000 68:02 23005191   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/xercesImpl-2.9.1.jar
+4ff8e000-4ff8f000 r-xs 0000c000 68:02 23005138   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/commons-logging-1.1.jar
+4ff8f000-4ff97000 r-xs 0004f000 68:02 23005137   /home/hudson/.hudson/plugins/findbugs/WEB-INF/lib/log4j-1.2.9.jar
+4ff97000-4ff9a000 r-xs 0000d000 68:02 25559090   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/avalon-framework-4.1.3.jar
+4ff9a000-4ff9c000 r-xs 00002000 68:02 25559074   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/annotations-1.3.9.jar
+4ff9c000-4ff9f000 r-xs 00006000 68:02 25591984   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/jsr305-1.3.9.jar
+4ff9f000-4ffa1000 r-xs 0000d000 68:02 25559085   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/commons-codec-1.4.jar
+4ffa1000-4ffa4000 r-xs 0000f000 68:02 25591977   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/logkit-1.0.1.jar
+4ffa4000-4ffa5000 r-xs 0000c000 68:02 25591954   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/commons-logging-1.1.jar
+4ffa5000-4ffad000 r-xs 0004f000 68:02 25559098   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/log4j-1.2.9.jar
+4ffad000-4ffb2000 r-xs 0002a000 68:02 25559091   /home/hudson/.hudson/plugins/analysis-core/WEB-INF/lib/java2html-5.0.jar
+4ffb2000-4ffb3000 r-xs 00000000 68:02 36061611   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/javax.inject-1.jar
+4ffb3000-4ffb8000 r-xs 0003e000 68:02 36061574   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/commons-net-3.1.jar
+4ffb8000-4ffba000 r-xs 00006000 68:02 36061562   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/aether-connector-wagon-1.13.1.jar
+4ffba000-4ffbe000 r-xs 00033000 68:02 36061520   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-utils-2.0.6.jar
+4ffbe000-4ffc0000 r-xs 00005000 68:02 36061563   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-http-shared-2.4.jar
+4ffc0000-4ffc2000 r-xs 00004000 68:02 36061642   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-interceptor-1.2.jar
+4ffc2000-4ffc4000 r-xs 0000c000 68:02 36061570   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-aether-provider-3.0.5.jar
+4ffc4000-4ffc5000 r-xs 00002000 68:02 36061573   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/doxia-sink-api-1.0.jar
+4ffc5000-4ffc6000 r-xs 00003000 68:02 36061567   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/aether-spi-1.13.1.jar
+4ffc6000-4ffca000 r-xs 00031000 68:02 36061572   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/jsch-0.1.44-1.jar
+4ffca000-4ffd6000 r-xs 0007d000 68:02 36061569   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-core-3.0.5.jar
+4ffd6000-4ffd8000 r-xs 00009000 68:02 36061613   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/commons-cli-1.2.jar
+4ffd8000-4ffdb000 r-xs 00018000 68:02 36061621   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/commons-io-1.4.jar
+4ffdb000-4ffdc000 r-xs 00004000 68:02 36061622   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/ant-launcher-1.8.3.jar
+4ffdc000-4ffdd000 r-xs 00004000 68:02 36061531   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-interceptor-1.2.jar
+4ffdd000-4ffe0000 r-xs 00008000 68:02 36061609   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-settings-builder-3.0.5.jar
+4ffe0000-4ffe2000 r-xs 0000b000 68:02 36061635   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-provider-api-2.4.jar
+4ffe2000-4ffe3000 r-xs 00003000 68:02 36061601   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-ssh-external-2.4.jar
+4ffe3000-4ffe6000 r-xs 0001d000 68:02 36061640   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/aether-impl-1.13.1.jar
+4ffe6000-50004000 r-xs 001bc000 68:02 36061566   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/ant-1.8.3.jar
+50004000-50005000 r-xs 00003000 68:02 36061624   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-ftp-2.4.jar
+50005000-50007000 r-xs 0000b000 68:02 36061628   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-artifact-3.0.5.jar
+50007000-50009000 r-xs 00006000 68:02 36061631   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-repository-metadata-3.0.5.jar
+50009000-5000b000 r-xs 0000d000 68:02 36061559   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-interpolation-1.14.jar
+5000b000-5000c000 r-xs 00004000 68:02 36061201   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-webdav-jackrabbit-2.4.jar
+5000c000-50027000 r-xs 000fa000 68:02 36061560   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-http-2.4.jar
+50027000-50029000 r-xs 0000a000 68:02 36061632   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-settings-3.0.5.jar
+50029000-5002b000 r-xs 00005000 68:02 36061633   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-ssh-common-2.4.jar
+5002b000-5002f000 r-xs 0001c000 68:02 36061561   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/aether-util-1.13.1.jar
+5002f000-50031000 r-xs 00000000 68:02 36061571   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-component-annotations-1.5.5.jar
+50031000-50032000 r-xs 0000a000 68:02 36061644   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-embedder-3.0.5.jar
+50032000-50034000 r-xs 00000000 68:02 36061565   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/aopalliance-1.0.jar
+50034000-50040000 r-xs 00083000 68:02 36061524   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/sisu-guice-3.1.0.jar
+50040000-50042000 r-xs 0000b000 68:02 36061612   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-plugin-api-3.0.5.jar
+50042000-50043000 r-xs 00006000 68:02 36061639   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-sec-dispatcher-1.3.jar
+50043000-50045000 r-xs 00026000 68:02 36061617   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-model-3.0.5.jar
+50045000-5004b000 r-xs 0002c000 68:02 36061610   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/sisu-inject-plexus-2.3.0.jar
+5004b000-5004e000 r-xs 00013000 68:02 36061619   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/aether-api-1.13.1.jar
+5004e000-50055000 r-xs 00040000 68:02 36061618   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/sisu-inject-bean-2.3.0.jar
+50055000-50056000 r-xs 00003000 68:02 36061517   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/lib-jenkins-maven-artifact-manager-1.2.jar
+50056000-50058000 r-xs 00005000 68:02 36061620   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/slf4j-api-1.6.2.jar
+50058000-50059000 r-xs 00002000 68:02 36061532   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-file-2.4.jar
+50059000-5005a000 r-xs 00001000 68:02 36061623   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven3-agent-1.2.jar
+5005a000-5005b000 r-xs 00002000 68:02 36061568   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-reporting-api-3.0.jar
+5005b000-5005d000 r-xs 00006000 68:02 36061643   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-ssh-2.4.jar
+5005d000-50061000 r-xs 00021000 68:02 36061645   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-model-builder-3.0.5.jar
+50061000-50067000 r-xs 00045000 68:02 36061630   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/commons-httpclient-3.1.jar
+50067000-50069000 r-xs 00001000 68:02 36061634   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-agent-1.2.jar
+50069000-5006b000 r-xs 00002000 68:02 36061638   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-cipher-1.7.jar
+5006b000-50071000 r-xs 0003f000 68:02 36061564   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-compat-3.0.5.jar
+50071000-50072000 r-xs 00005000 68:02 36061636   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/lib-jenkins-maven-embedder-3.9.jar
+50072000-50074000 r-xs 0000a000 68:02 36061637   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-classworlds-2.3.jar
+50074000-50076000 r-xs 00000000 68:02 36061608   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/maven2.1-interceptor-1.2.jar
+50076000-50077000 r-xs 00002000 68:02 36061627   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-interactivity-api-1.0-alpha-6.jar
+50077000-5007f000 r-xs 00048000 68:02 36061641   /home/hudson/.hudson/plugins/maven-plugin/WEB-INF/lib/jackrabbit-webdav-2.5.2.jar
+5007f000-50083000 r-xs 000f3000 68:02 5210569    /home/hudson/.hudson/plugins/pam-auth/WEB-INF/lib/jna-3.4.0.jar
+50083000-50085000 r-xs 00003000 68:02 5210171    /home/hudson/.hudson/plugins/pam-auth/WEB-INF/lib/libpam4j-1.6.jar
+50085000-50088000 --xp 50085000 00:00 0 
+50088000-500d6000 rwxp 50088000 00:00 0 
+500d6000-500d9000 --xp 500d6000 00:00 0 
+500d9000-50127000 rwxp 500d9000 00:00 0 
+50127000-5012a000 --xp 50127000 00:00 0 
+5012a000-50178000 rwxp 5012a000 00:00 0 
+50178000-5017b000 --xp 50178000 00:00 0 
+5017b000-501c9000 rwxp 5017b000 00:00 0 
+501c9000-501cc000 --xp 501c9000 00:00 0 
+501cc000-5021a000 rwxp 501cc000 00:00 0 
+5021a000-5021d000 --xp 5021a000 00:00 0 
+5021d000-5026b000 rwxp 5021d000 00:00 0 
+5026b000-5026e000 --xp 5026b000 00:00 0 
+5026e000-502bc000 rwxp 5026e000 00:00 0 
+502bc000-502bf000 --xp 502bc000 00:00 0 
+502bf000-5030d000 rwxp 502bf000 00:00 0 
+5030d000-50310000 --xp 5030d000 00:00 0 
+50310000-5035e000 rwxp 50310000 00:00 0 
+5035e000-50361000 --xp 5035e000 00:00 0 
+50361000-503af000 rwxp 50361000 00:00 0 
+503af000-503b2000 --xp 503af000 00:00 0 
+503b2000-504fc000 rwxp 503b2000 00:00 0 
+504fc000-50500000 --xp 504fc000 00:00 0 
+5050d000-50510000 --xp 5050d000 00:00 0 
+50510000-5055e000 rwxp 50510000 00:00 0 
+5055e000-50561000 --xp 5055e000 00:00 0 
+50561000-505af000 rwxp 50561000 00:00 0 
+505af000-505b2000 --xp 505af000 00:00 0 
+505b2000-506fd000 rwxp 505b2000 00:00 0 
+506fd000-50700000 --xp 506fd000 00:00 0 
+50740000-50743000 --xp 50740000 00:00 0 
+50743000-50791000 rwxp 50743000 00:00 0 
+50791000-50794000 --xp 50791000 00:00 0 
+50794000-507e2000 rwxp 50794000 00:00 0 
+507e2000-507e5000 --xp 507e2000 00:00 0 
+507e5000-50833000 rwxp 507e5000 00:00 0 
+50833000-50836000 --xp 50833000 00:00 0 
+50836000-50884000 rwxp 50836000 00:00 0 
+50884000-50887000 --xp 50884000 00:00 0 
+50887000-508d5000 rwxp 50887000 00:00 0 
+508d5000-508d8000 r-xs 00013000 68:02 1182000    /home/hudson/jdk1.6.0_18/jre/lib/jce.jar
+508d8000-508db000 --xp 508d8000 00:00 0 
+508db000-50929000 rwxp 508db000 00:00 0 
+50929000-5092c000 --xp 50929000 00:00 0 
+5092c000-5097a000 rwxp 5092c000 00:00 0 
+5097a000-5097d000 --xp 5097a000 00:00 0 
+5097d000-509cb000 rwxp 5097d000 00:00 0 
+509cb000-509ce000 --xp 509cb000 00:00 0 
+509ce000-50a1c000 rwxp 509ce000 00:00 0 
+50a1c000-50a1f000 --xp 50a1c000 00:00 0 
+50a1f000-50a6d000 rwxp 50a1f000 00:00 0 
+50a89000-50ab6000 rwxp 50a89000 00:00 0 
+50ab6000-50ab9000 --xp 50ab6000 00:00 0 
+50ab9000-50b07000 rwxp 50ab9000 00:00 0 
+50b07000-50b0a000 --xp 50b07000 00:00 0 
+50b0a000-50b58000 rwxp 50b0a000 00:00 0 
+50b58000-50b5f000 r-xp 00000000 68:02 1181305    /home/hudson/jdk1.6.0_18/jre/lib/i386/libnio.so
+50b5f000-50b60000 rwxp 00006000 68:02 1181305    /home/hudson/jdk1.6.0_18/jre/lib/i386/libnio.so
+50b60000-50b63000 --xp 50b60000 00:00 0 
+50b63000-50bb1000 rwxp 50b63000 00:00 0 
+50bb1000-50c30000 r-xp 00000000 68:02 1181603    /home/hudson/jdk1.6.0_18/jre/lib/i386/libfontmanager.so
+50c30000-50c3b000 rwxp 0007e000 68:02 1181603    /home/hudson/jdk1.6.0_18/jre/lib/i386/libfontmanager.so
+50c3b000-50c3f000 rwxp 50c3b000 00:00 0 
+50c3f000-50c44000 r-xp 00000000 68:02 1181583    /home/hudson/jdk1.6.0_18/jre/lib/i386/headless/libmawt.so
+50c44000-50c45000 rwxp 00004000 68:02 1181583    /home/hudson/jdk1.6.0_18/jre/lib/i386/headless/libmawt.so
+50c45000-50cc9000 r-xp 00000000 68:02 1181484    /home/hudson/jdk1.6.0_18/jre/lib/i386/libawt.so
+50cc9000-50cd0000 rwxp 00084000 68:02 1181484    /home/hudson/jdk1.6.0_18/jre/lib/i386/libawt.so
+50cd0000-50cf4000 rwxp 50cd0000 00:00 0 
+50cf4000-50cf7000 r-xs 00027000 68:02 1180700    /home/hudson/jdk1.6.0_18/jre/lib/ext/sunjce_provider.jar
+50cf7000-50cfe000 r-xs 00091000 68:02 1181878    /home/hudson/jdk1.6.0_18/jre/lib/jsse.jar
+50cfe000-50d00000 r-xs 00004000 68:02 44731129   /home/hudson/.hudson/war/WEB-INF/lib/sshd-1.5.jar
+50d00000-50df5000 rwxp 50d00000 00:00 0 
+50df5000-50e00000 --xp 50df5000 00:00 0 
+50e00000-50eed000 rwxp 50e00000 00:00 0 
+50eed000-50f00000 --xp 50eed000 00:00 0 
+50f2a000-50f2d000 --xp 50f2a000 00:00 0 
+50f2d000-50f7b000 rwxp 50f2d000 00:00 0 
+50f7b000-50fa8000 r-xs 001bb000 68:02 44731023   /home/hudson/.hudson/war/WEB-INF/lib/bcprov-jdk15on-1.47.jar
+50fa8000-50fa9000 r-xs 00001000 68:02 44731060   /home/hudson/.hudson/war/WEB-INF/lib/instance-identity-1.3.jar
+50fa9000-50fab000 r-xs 00004000 68:02 44731100   /home/hudson/.hudson/war/WEB-INF/lib/launchd-slave-installer-1.2.jar
+50fab000-50fac000 r-xs 00002000 68:02 44731115   /home/hudson/.hudson/war/WEB-INF/lib/upstart-slave-installer-1.1.jar
+50fac000-50fb8000 r-xs 00072000 68:02 44731032   /home/hudson/.hudson/war/WEB-INF/lib/bcpkix-jdk15on-1.47.jar
+50fb8000-50fba000 r-xs 00001000 68:02 44731094   /home/hudson/.hudson/war/WEB-INF/lib/ssh-cli-auth-1.2.jar
+50fba000-50fc7000 r-xs 00091000 68:02 44731123   /home/hudson/.hudson/war/WEB-INF/lib/mina-core-2.0.5.jar
+50fc7000-50fc9000 r-xs 00005000 68:02 44731137   /home/hudson/.hudson/war/WEB-INF/lib/slf4j-api-1.6.2.jar
+50fc9000-50fcc000 r-xs 00006000 68:02 44731071   /home/hudson/.hudson/war/WEB-INF/lib/jsr305-1.3.9.jar
+50fcc000-50fec000 r-xs 00173000 68:02 44731077   /home/hudson/.hudson/war/WEB-INF/lib/guava-11.0.1.jar
+50fec000-50fed000 r-xs 00004000 68:02 44731119   /home/hudson/.hudson/war/WEB-INF/lib/jbcrypt-0.3m.jar
+50fed000-50fef000 r-xs 00000000 68:02 44731057   /home/hudson/.hudson/war/WEB-INF/lib/robust-http-client-1.2.jar
+50fef000-50ff5000 r-xs 0005c000 68:02 44731117   /home/hudson/.hudson/war/WEB-INF/lib/jcifs-1.3.14-kohsuke-1.jar
+50ff5000-50ff7000 r-xs 00003000 68:02 44731067   /home/hudson/.hudson/war/WEB-INF/lib/windows-remote-command-1.3.jar
+50ff7000-50ff8000 r-xs 00001000 68:02 44731024   /home/hudson/.hudson/war/WEB-INF/lib/jinterop-proxy-1.1.jar
+50ff8000-50ffa000 r-xs 00001000 68:02 44731074   /home/hudson/.hudson/war/WEB-INF/lib/jinterop-wmi-1.1.jar
+50ffa000-50ffb000 r-xs 00001000 68:02 44731140   /home/hudson/.hudson/war/WEB-INF/lib/embedded_su4j-1.1.jar
+50ffb000-50ffe000 r-xs 0000d000 68:02 44731150   /home/hudson/.hudson/war/WEB-INF/lib/libzfs-0.5.jar
+50ffe000-51000000 r-xs 00003000 68:02 44731128   /home/hudson/.hudson/war/WEB-INF/lib/libpam4j-1.6.jar
+51000000-510fe000 rwxp 51000000 00:00 0 
+510fe000-51100000 --xp 510fe000 00:00 0 
+51104000-51108000 r-xs 000d0000 68:02 44731050   /home/hudson/.hudson/war/WEB-INF/lib/jna-3.3.0-jenkins-3.jar
+51108000-5110a000 r-xs 00005000 68:02 44731059   /home/hudson/.hudson/war/WEB-INF/lib/stax-api-1.0.1.jar
+5110a000-51110000 r-xs 0007a000 68:02 44731113   /home/hudson/.hudson/war/WEB-INF/lib/wstx-asl-3.2.9.jar
+51110000-51111000 r-xs 00003000 68:02 44731034   /home/hudson/.hudson/war/WEB-INF/lib/memory-monitor-1.7.jar
+51111000-51112000 r-xs 00004000 68:02 44731147   /home/hudson/.hudson/war/WEB-INF/lib/winp-1.16.jar
+51112000-51120000 r-xs 0007f000 68:02 44731046   /home/hudson/.hudson/war/WEB-INF/lib/commons-collections-3.2.1.jar
+51120000-51122000 r-xs 00004000 68:02 44731125   /home/hudson/.hudson/war/WEB-INF/lib/stax-api-1.0-2.jar
+51122000-51125000 r-xs 0000e000 68:02 44731114   /home/hudson/.hudson/war/WEB-INF/lib/txw2-20110809.jar
+51125000-51128000 r-xs 0001b000 68:02 44731139   /home/hudson/.hudson/war/WEB-INF/lib/xpp3-1.1.4c.jar
+51128000-5112e000 r-xs 00040000 68:02 44731078   /home/hudson/.hudson/war/WEB-INF/lib/spring-core-2.5.6.SEC03.jar
+5112e000-51131000 r-xs 00015000 68:02 44731116   /home/hudson/.hudson/war/WEB-INF/lib/spring-context-support-2.5.6.SEC03.jar
+51131000-5113d000 r-xs 00069000 68:02 44731136   /home/hudson/.hudson/war/WEB-INF/lib/spring-context-2.5.6.SEC03.jar
+5113d000-51147000 r-xs 0006e000 68:02 44731069   /home/hudson/.hudson/war/WEB-INF/lib/spring-beans-2.5.6.SEC03.jar
+51147000-51149000 r-xs 00014000 68:02 44731092   /home/hudson/.hudson/war/WEB-INF/lib/jline-0.9.94.jar
+51149000-511a5000 r-xs 0057f000 68:02 44731107   /home/hudson/.hudson/war/WEB-INF/lib/groovy-all-1.8.5.jar
+511a5000-511a7000 r-xs 0000e000 68:02 44731145   /home/hudson/.hudson/war/WEB-INF/lib/oro-2.0.8.jar
+511a7000-511ac000 r-xs 00029000 68:02 44731027   /home/hudson/.hudson/war/WEB-INF/lib/spring-jdbc-1.2.9.jar
+511ac000-511ae000 r-xs 00004000 68:02 44731065   /home/hudson/.hudson/war/WEB-INF/lib/commons-jelly-tags-define-1.0.1-hudson-20071021.jar
+511ae000-511b0000 r-xs 00008000 68:02 44731061   /home/hudson/.hudson/war/WEB-INF/lib/commons-jelly-tags-xml-1.1.jar
+511b0000-511b1000 r-xs 00005000 68:02 44731127   /home/hudson/.hudson/war/WEB-INF/lib/commons-jelly-tags-fmt-1.0.jar
+511b1000-511b7000 r-xs 00035000 68:02 44731104   /home/hudson/.hudson/war/WEB-INF/lib/jaxen-1.1-beta-11.jar
+511b7000-511be000 r-xs 00072000 68:02 44731031   /home/hudson/.hudson/war/WEB-INF/lib/mail-1.4.4.jar
+511be000-511c3000 r-xs 00034000 68:02 44731101   /home/hudson/.hudson/war/WEB-INF/lib/commons-beanutils-1.8.3.jar
+511c3000-511c9000 r-xs 0002b000 68:02 44731096   /home/hudson/.hudson/war/WEB-INF/lib/commons-digester-2.1.jar
+511c9000-511cc000 r-xs 00018000 68:02 44731108   /home/hudson/.hudson/war/WEB-INF/lib/commons-io-1.4.jar
+511cc000-511cd000 r-xs 00004000 68:02 44731022   /home/hudson/.hudson/war/WEB-INF/lib/ant-launcher-1.8.3.jar
+511cd000-511eb000 r-xs 001bc000 68:02 44731045   /home/hudson/.hudson/war/WEB-INF/lib/ant-1.8.3.jar
+511eb000-511f1000 r-xs 00046000 68:02 44731122   /home/hudson/.hudson/war/WEB-INF/lib/jcommon-1.0.12.jar
+511f1000-511f3000 r-xs 00005000 68:02 44731066   /home/hudson/.hudson/war/WEB-INF/lib/xpp3_min-1.1.4c.jar
+511f3000-511f4000 r-xs 00001000 68:02 44731038   /home/hudson/.hudson/war/WEB-INF/lib/xmlpull-1.1.3.1.jar
+511f4000-51200000 r-xs 0006b000 68:02 44731039   /home/hudson/.hudson/war/WEB-INF/lib/xstream-1.4.4-jenkins-3.jar
+51200000-512ff000 rwxp 51200000 00:00 0 
+512ff000-51300000 --xp 512ff000 00:00 0 
+51301000-51307000 r-xs 00067000 68:02 44731143   /home/hudson/.hudson/war/WEB-INF/lib/antlr-2.7.6.jar
+51307000-51308000 r-xs 00001000 68:02 44731089   /home/hudson/.hudson/war/WEB-INF/lib/localizer-1.10.jar
+51308000-51309000 r-xs 00004000 68:02 44731041   /home/hudson/.hudson/war/WEB-INF/lib/task-reactor-1.2.jar
+51309000-5130a000 r-xs 00003000 68:02 44731084   /home/hudson/.hudson/war/WEB-INF/lib/annotation-indexer-1.4.jar
+5130a000-5130c000 r-xs 0000d000 68:02 44731120   /home/hudson/.hudson/war/WEB-INF/lib/args4j-2.0.21.jar
+5130c000-5130f000 r-xs 00013000 68:02 44731133   /home/hudson/.hudson/war/WEB-INF/lib/ezmorph-1.0.6.jar
+5130f000-51312000 r-xs 00020000 68:02 44731054   /home/hudson/.hudson/war/WEB-INF/lib/json-lib-2.4-jenkins-1.jar
+51312000-51314000 r-xs 0000d000 68:02 44731053   /home/hudson/.hudson/war/WEB-INF/lib/stapler-adjunct-codemirror-1.2.jar
+51314000-51318000 r-xs 00025000 68:02 44731106   /home/hudson/.hudson/war/WEB-INF/lib/stapler-adjunct-timeline-1.4.jar
+51318000-5131e000 r-xs 0004f000 68:02 44731090   /home/hudson/.hudson/war/WEB-INF/lib/asm3-3.3.0.jar
+5131e000-51320000 r-xs 00003000 68:02 44731095   /home/hudson/.hudson/war/WEB-INF/lib/tiger-types-1.3.jar
+51320000-51327000 r-xs 00043000 68:02 44731076   /home/hudson/.hudson/war/WEB-INF/lib/stapler-1.207.jar
+51327000-51328000 r-xs 00001000 68:02 44731049   /home/hudson/.hudson/war/WEB-INF/lib/stapler-jrebel-1.207.jar
+51328000-5132d000 r-xs 0003d000 68:02 44731072   /home/hudson/.hudson/war/WEB-INF/lib/dom4j-1.6.1-hudson-3.jar
+5132d000-5132f000 r-xs 00006000 68:02 44731062   /home/hudson/.hudson/war/WEB-INF/lib/stapler-groovy-1.207.jar
+5132f000-51333000 r-xs 0003a000 68:02 44731036   /home/hudson/.hudson/war/WEB-INF/lib/trilead-ssh2-build214-jenkins-2.jar
+51333000-51336000 r-xs 00013000 68:02 44731121   /home/hudson/.hudson/war/WEB-INF/lib/jna-posix-1.0.3.jar
+51336000-51338000 r-xs 00000000 68:02 44731142   /home/hudson/.hudson/war/WEB-INF/lib/aopalliance-1.0.jar
+51338000-51339000 r-xs 00000000 68:02 44731130   /home/hudson/.hudson/war/WEB-INF/lib/javax.inject-1.jar
+51339000-51345000 r-xs 00083000 68:02 44731086   /home/hudson/.hudson/war/WEB-INF/lib/sisu-guice-3.1.0.jar
+51345000-51410000 r-xs 0078b000 68:02 44731146   /home/hudson/.hudson/war/WEB-INF/lib/jenkins-core-1.514.jar
+51410000-51418000 r-xs 0004f000 68:02 44731029   /home/hudson/.hudson/war/WEB-INF/lib/log4j-1.2.9.jar
+51418000-5141a000 r-xs 00002000 68:02 44731111   /home/hudson/.hudson/war/WEB-INF/lib/stapler-adjunct-zeroclipboard-1.1.7-1.jar
+5141a000-51420000 r-xs 00033000 68:02 44731088   /home/hudson/.hudson/war/WEB-INF/lib/commons-codec-1.6.jar
+51420000-51425000 r-xs 0002b000 68:02 44731118   /home/hudson/.hudson/war/WEB-INF/lib/spring-web-2.5.6.SEC03.jar
+51425000-5142d000 r-xs 00048000 68:02 44731063   /home/hudson/.hudson/war/WEB-INF/lib/spring-aop-2.5.6.SEC03.jar
+5142d000-5142e000 r-xs 00000000 68:02 44731033   /home/hudson/.hudson/war/WEB-INF/lib/bridge-method-annotation-1.4.jar
+5142e000-51433000 r-xs 00041000 68:02 44731126   /home/hudson/.hudson/war/WEB-INF/lib/commons-lang-2.6.jar
+5144f000-51464000 r-xp 00000000 68:02 1181460    /home/hudson/jdk1.6.0_18/jre/lib/i386/libdcpr.so
+51464000-51477000 rwxp 00014000 68:02 1181460    /home/hudson/jdk1.6.0_18/jre/lib/i386/libdcpr.so
+51477000-51479000 r-xs 00009000 68:02 44731047   /home/hudson/.hudson/war/WEB-INF/lib/hamcrest-core-1.3.jar
+51479000-5147b000 r-xs 00000000 68:02 44731141   /home/hudson/.hudson/war/WEB-INF/lib/windows-package-checker-1.0.jar
+5147b000-5147d000 r-xs 00000000 68:02 44731091   /home/hudson/.hudson/war/WEB-INF/lib/crypto-util-1.1.jar
+514a4000-514a7000 --xp 514a4000 00:00 0 
+514a7000-514f5000 rwxp 514a7000 00:00 0 
+514f5000-514f8000 r-xs 0001a000 68:02 44731124   /home/hudson/.hudson/war/WEB-INF/lib/j-interopdeps-2.0.6-kohsuke-1.jar
+514f8000-51500000 r-xs 00054000 68:02 44731056   /home/hudson/.hudson/war/WEB-INF/lib/sshd-core-0.8.0.jar
+51500000-515fb000 rwxp 51500000 00:00 0 
+515fb000-51600000 --xp 515fb000 00:00 0 
+51600000-516fc000 rwxp 51600000 00:00 0 
+516fc000-51700000 --xp 516fc000 00:00 0 
+51704000-5170f000 r-xs 0007d000 68:02 44666965   /home/hudson/apache-maven-3.0.3/lib/maven-core-3.0.3.jar
+51714000-51773000 r-xs 00ba5000 68:02 2004230    /home/hudson/jdk1.6.0_18/lib/tools.jar
+51787000-5178b000 r-xp 00000000 68:02 8880175    /lib/libnss_dns-2.3.4.so
+5178b000-5178d000 rwxp 00003000 68:02 8880175    /lib/libnss_dns-2.3.4.so
+5178d000-5178e000 r-xs 00004000 68:02 44731070   /home/hudson/.hudson/war/WEB-INF/lib/relaxngDatatype-20020414.jar
+5178e000-5179d000 r-xs 0012d000 68:02 44731110   /home/hudson/.hudson/war/WEB-INF/lib/jfreechart-1.0.9.jar
+5179d000-5179e000 r-xs 00001000 68:02 44731109   /home/hudson/.hudson/war/WEB-INF/lib/access-modifier-annotation-1.4.jar
+5179e000-517a0000 r-xs 0000d000 68:02 44731035   /home/hudson/.hudson/war/WEB-INF/lib/commons-logging-1.1.1.jar
+517a0000-517a2000 r-xs 00010000 68:02 44731051   /home/hudson/.hudson/war/WEB-INF/lib/activation-1.1.1-hudson-1.jar
+517a2000-517a6000 r-xs 00026000 68:02 44731040   /home/hudson/.hudson/war/WEB-INF/lib/commons-jelly-1.1-jenkins-20120928.jar
+517a6000-517a8000 r-xs 00003000 68:02 44731103   /home/hudson/.hudson/war/WEB-INF/lib/jstl-1.1.0.jar
+517a8000-517a9000 r-xs 00002000 68:02 44731058   /home/hudson/.hudson/war/WEB-INF/lib/version-number-1.1.jar
+517a9000-517ab000 r-xs 0001a000 68:02 44731135   /home/hudson/.hudson/war/WEB-INF/lib/jansi-1.9.jar
+517ab000-517ac000 r-xs 00004000 68:02 44731105   /home/hudson/.hudson/war/WEB-INF/lib/akuma-1.9.jar
+517ac000-517af000 r-xs 0000c000 68:02 44731052   /home/hudson/.hudson/war/WEB-INF/lib/commons-fileupload-1.2.1.jar
+517af000-517b5000 r-xs 0005a000 68:02 44731075   /home/hudson/.hudson/war/WEB-INF/lib/jmdns-3.4.0-jenkins-3.jar
+517b5000-517bb000 r-xs 00059000 68:02 44731043   /home/hudson/.hudson/war/WEB-INF/lib/j-interop-2.0.6-kohsuke-1.jar
+517bb000-517be000 r-xs 00010000 68:02 44731026   /home/hudson/.hudson/war/WEB-INF/lib/commons-discovery-0.4.jar
+517be000-517c4000 r-xs 00045000 68:02 44731144   /home/hudson/.hudson/war/WEB-INF/lib/commons-httpclient-3.1.jar
+517c4000-517c5000 r-xs 00001000 68:02 44731138   /home/hudson/.hudson/war/WEB-INF/lib/trilead-putty-extension-1.2.jar
+517c5000-517c7000 r-xs 00006000 68:02 44731037   /home/hudson/.hudson/war/WEB-INF/lib/sezpoz-1.9.jar
+517c7000-517c9000 r-xs 00014000 68:02 44731151   /home/hudson/.hudson/war/WEB-INF/lib/owasp-html-sanitizer-r88.jar
+517c9000-517cb000 r-xs 00003000 68:02 44731097   /home/hudson/.hudson/war/WEB-INF/lib/slave-installer-1.2.jar
+517cb000-517cd000 r-xs 00001000 68:02 44731132   /home/hudson/.hudson/war/WEB-INF/lib/slf4j-jdk14-1.6.2.jar
+517cd000-517d0000 r-xs 0001c000 68:02 44731149   /home/hudson/.hudson/war/WEB-INF/lib/jtidy-4aug2000r7-dev-hudson-1.jar
+517d0000-517d3000 r-xs 00012000 68:02 44731148   /home/hudson/.hudson/war/WEB-INF/lib/stapler-jelly-1.207.jar
+517d3000-517d4000 r-xs 00008000 68:02 44731025   /home/hudson/.hudson/war/WEB-INF/lib/cli-1.514.jar
+517d4000-517e1000 r-xs 00079000 68:02 44731028   /home/hudson/.hudson/war/WEB-INF/lib/acegi-security-1.0.7.jar
+517e1000-517ea000 r-xs 0005a000 68:02 44731042   /home/hudson/.hudson/war/WEB-INF/lib/spring-webmvc-2.5.6.SEC03.jar
+517ea000-517ec000 r-xs 00002000 68:02 44731112   /home/hudson/.hudson/war/WEB-INF/lib/windows-slave-installer-1.2.jar
+517ec000-517f0000 r-xs 0001f000 68:02 44731064   /home/hudson/.hudson/war/WEB-INF/lib/commons-jexl-1.1-jenkins-20111212.jar
+517f0000-517f6000 r-xs 00040000 68:02 44731030   /home/hudson/.hudson/war/WEB-INF/lib/remoting-2.23.jar
+517f6000-517fc000 r-xs 00036000 68:02 44731131   /home/hudson/.hudson/war/WEB-INF/lib/junit-4.11.jar
+517fc000-51800000 r-xs 00014000 68:02 44731134   /home/hudson/.hudson/war/WEB-INF/lib/spring-dao-1.2.9.jar
+51800000-518f2000 rwxp 51800000 00:00 0 
+518f2000-51900000 --xp 518f2000 00:00 0 
+5190a000-5190b000 r-xs 00002000 68:02 2001295    /home/hudson/jdk1.6.0_18/lib/visualvm/profiler3/lib/jfluid-server-15.jar
+5190b000-5190f000 r-xs 00047000 68:02 2001296    /home/hudson/jdk1.6.0_18/lib/visualvm/profiler3/lib/jfluid-server.jar
+5190f000-51918000 r-xp 00000000 68:02 1181335    /home/hudson/jdk1.6.0_18/jre/lib/i386/libinstrument.so
+51918000-51919000 rwxp 00008000 68:02 1181335    /home/hudson/jdk1.6.0_18/jre/lib/i386/libinstrument.so
+51919000-5191c000 --xp 51919000 00:00 0 
+5191c000-5196a000 rwxp 5191c000 00:00 0 
+5196a000-5196d000 --xp 5196a000 00:00 0 
+5196d000-519bb000 rwxp 5196d000 00:00 0 
+519bb000-519be000 --xp 519bb000 00:00 0 
+519be000-51a0c000 rwxp 519be000 00:00 0 
+51a0c000-51a13000 r-xs 00111000 68:02 1182610    /home/hudson/jdk1.6.0_18/jre/lib/resources.jar
+51a13000-51a16000 r-xs 000cb000 68:02 1183202    /home/hudson/jdk1.6.0_18/jre/lib/ext/localedata.jar
+51a16000-51a1b000 r-xs 00054000 68:02 22800465   /tmp/winstone552090082665340809.jar
+51a24000-51a37000 r-xp 00000000 68:02 22859583   /tmp/jna/jna7881244936520523860.tmp
+51a37000-51a38000 rwxp 00013000 68:02 22859583   /tmp/jna/jna7881244936520523860.tmp
+51a38000-51a39000 --xp 51a38000 00:00 0 
+51a39000-51ab9000 rwxp 51a39000 00:00 0 
+51ab9000-51abc000 --xp 51ab9000 00:00 0 
+51abc000-51b0a000 rwxp 51abc000 00:00 0 
+51b0a000-51b0d000 --xp 51b0a000 00:00 0 
+51b0d000-51b5b000 rwxp 51b0d000 00:00 0 
+51b5b000-51b5e000 --xp 51b5b000 00:00 0 
+51b5e000-51bac000 rwxp 51b5e000 00:00 0 
+51bac000-51bc9000 r-xs 03615000 68:02 44668666   /home/hudson/hudson.war
+51bc9000-51bec000 rwxp 51bc9000 00:00 0 
+51bec000-51bff000 r-xp 00000000 68:02 1181288    /home/hudson/jdk1.6.0_18/jre/lib/i386/libnet.so
+51bff000-51c00000 rwxp 00013000 68:02 1181288    /home/hudson/jdk1.6.0_18/jre/lib/i386/libnet.so
+51c00000-51cfb000 rwxp 51c00000 00:00 0 
+51cfb000-51d00000 --xp 51cfb000 00:00 0 
+51d00000-51d01000 r-xp 00000000 68:02 1181664    /home/hudson/jdk1.6.0_18/jre/lib/i386/librmi.so
+51d01000-51d02000 rwxp 00000000 68:02 1181664    /home/hudson/jdk1.6.0_18/jre/lib/i386/librmi.so
+51d05000-51d0b000 r-xp 00000000 68:02 1181320    /home/hudson/jdk1.6.0_18/jre/lib/i386/libmanagement.so
+51d0b000-51d0c000 rwxp 00005000 68:02 1181320    /home/hudson/jdk1.6.0_18/jre/lib/i386/libmanagement.so
+51d0c000-51d0f000 --xp 51d0c000 00:00 0 
+51d0f000-51d5d000 rwxp 51d0f000 00:00 0 
+51d5d000-51d60000 --xp 51d5d000 00:00 0 
+51d60000-51dde000 rwxp 51d60000 00:00 0 
+51dde000-51de1000 --xp 51dde000 00:00 0 
+51de1000-51e5f000 rwxp 51de1000 00:00 0 
+51e5f000-51e62000 --xp 51e5f000 00:00 0 
+51e62000-51eb0000 rwxp 51e62000 00:00 0 
+51eb0000-520b0000 r-xp 00000000 68:02 21449918   /usr/lib/locale/locale-archive
+520b0000-520b3000 --xp 520b0000 00:00 0 
+520b3000-52101000 rwxp 520b3000 00:00 0 
+52101000-52104000 --xp 52101000 00:00 0 
+52104000-52152000 rwxp 52104000 00:00 0 
+52152000-52153000 --xp 52152000 00:00 0 
+52153000-52206000 rwxp 52153000 00:00 0 
+52206000-5239c000 r-xs 02fc6000 68:02 1183208    /home/hudson/jdk1.6.0_18/jre/lib/rt.jar
+5239c000-5239d000 --xp 5239c000 00:00 0 
+5239d000-5241d000 rwxp 5239d000 00:00 0 
+5241d000-5241e000 --xp 5241d000 00:00 0 
+5241e000-5249e000 rwxp 5241e000 00:00 0 
+5249e000-5249f000 --xp 5249e000 00:00 0 
+5249f000-5251f000 rwxp 5249f000 00:00 0 
+5251f000-52520000 --xp 5251f000 00:00 0 
+52520000-525eb000 rwxp 52520000 00:00 0 
+525eb000-525ed000 --xp 525eb000 00:00 0 
+525ed000-52620000 rwxp 525ed000 00:00 0 
+52620000-5271c000 rwxp 52620000 00:00 0 
+5271c000-527d3000 rwxp 5271c000 00:00 0 
+527d3000-5281e000 rwxp 527d3000 00:00 0 
+5281e000-52820000 --xp 5281e000 00:00 0 
+52820000-52853000 rwxp 52820000 00:00 0 
+52853000-5294f000 rwxp 52853000 00:00 0 
+5294f000-52a05000 rwxp 5294f000 00:00 0 
+52a05000-52adf000 rwxp 52a05000 00:00 0 
+52adf000-5bfe0000 rwxp 52adf000 00:00 0 
+5bfe0000-5c4e0000 --xp 5bfe0000 00:00 0 
+5c4e0000-62ae0000 rwxp 5c4e0000 00:00 0 
+62ae0000-82170000 rwxp 62ae0000 00:00 0 
+82170000-99040000 rwxp 82170000 00:00 0 
+99040000-b42c0000 rwxp 99040000 00:00 0 
+b42c0000-b42e0000 --xp b42c0000 00:00 0 
+b42e7000-b42e8000 r-xp b42e7000 00:00 0 
+b42e8000-b42ea000 r-xs 00001000 68:02 1180717    /home/hudson/jdk1.6.0_18/jre/lib/ext/dnsns.jar
+b42ea000-b4334000 rwxp b42ea000 00:00 0 
+b4334000-b43aa000 rwxp b4334000 00:00 0 
+b43aa000-b561a000 rwxp b43aa000 00:00 0 
+b561a000-b73aa000 rwxp b561a000 00:00 0 
+b73aa000-b73b9000 r-xp 00000000 68:02 1181176    /home/hudson/jdk1.6.0_18/jre/lib/i386/libzip.so
+b73b9000-b73bb000 rwxp 0000e000 68:02 1181176    /home/hudson/jdk1.6.0_18/jre/lib/i386/libzip.so
+b73bb000-b73c4000 r-xp 00000000 68:02 8880178    /lib/libnss_files-2.3.4.so
+b73c4000-b73c6000 rwxp 00008000 68:02 8880178    /lib/libnss_files-2.3.4.so
+b73d3000-b73db000 rwxs 00000000 68:02 22790412   /tmp/hsperfdata_hudson/21945
+b73db000-b73e1000 r-xp 00000000 68:02 1180764    /home/hudson/jdk1.6.0_18/jre/lib/i386/native_threads/libhpi.so
+b73e1000-b73e2000 rwxp 00006000 68:02 1180764    /home/hudson/jdk1.6.0_18/jre/lib/i386/native_threads/libhpi.so
+b73e2000-b73e3000 rwxp b73e2000 00:00 0 
+b73e3000-b73e4000 r-xp b73e3000 00:00 0 
+b73e4000-b7407000 r-xp 00000000 68:02 1181078    /home/hudson/jdk1.6.0_18/jre/lib/i386/libjava.so
+b7407000-b7409000 rwxp 00023000 68:02 1181078    /home/hudson/jdk1.6.0_18/jre/lib/i386/libjava.so
+b7409000-b7414000 r-xp 00000000 68:02 1181061    /home/hudson/jdk1.6.0_18/jre/lib/i386/libverify.so
+b7414000-b7415000 rwxp 0000b000 68:02 1181061    /home/hudson/jdk1.6.0_18/jre/lib/i386/libverify.so
+b7415000-b7418000 --xp b7415000 00:00 0 
+b7418000-b7466000 rwxp b7418000 00:00 0 
+b7466000-b7b71000 r-xp 00000000 68:02 1180797    /home/hudson/jdk1.6.0_18/jre/lib/i386/server/libjvm.so
+b7b71000-b7bc2000 rwxp 0070a000 68:02 1180797    /home/hudson/jdk1.6.0_18/jre/lib/i386/server/libjvm.so
+b7bc2000-b7fe1000 rwxp b7bc2000 00:00 0 
+b7fe1000-b7fe8000 r-xp 00000000 68:02 1181132    /home/hudson/jdk1.6.0_18/jre/lib/i386/jli/libjli.so
+b7fe8000-b7fea000 rwxp 00006000 68:02 1181132    /home/hudson/jdk1.6.0_18/jre/lib/i386/jli/libjli.so
+b7fea000-b7feb000 rwxp b7fea000 00:00 0 
+bfff9000-c0000000 rwxp bfff9000 00:00 0 
+ffffe000-fffff000 ---p 00000000 00:00 0 
+
+VM Arguments:
+jvm_args: -XX:MaxPermSize=256m -XX:PermSize=128m -Xms512m -Xmx1303m -XX:+HeapDumpOnOutOfMemoryError -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=18888 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false 
+java_command: hudson.war --javaHome=/home/hudson/jdk1.6.0_18 --httpPort=6080 --argumentsRealm.passwd.admin=huds0n123 --argumentsRealm.roles.admin=admin
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/java/jdk1.5.0_19
+PATH=/usr/java/jdk1.5.0_19/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin:/home/hudson/bin:/home/hudson/apache-ant-1.7.1/bin:/opt/CollabNet_Subversion/bin:/dba/oracle/bin:/dba/oracle/product/10r2/bin
+LD_LIBRARY_PATH=/home/hudson/jdk1.6.0_18/jre/lib/i386/server:/home/hudson/jdk1.6.0_18/jre/lib/i386:/home/hudson/jdk1.6.0_18/jre/../lib/i386
+SHELL=/bin/bash
+DISPLAY=0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x68c0e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x68c0e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x55b780], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x55b780], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x55b780], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x55b780], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x55e3c0], sa_mask[0]=0x00000000, sa_flags=0x10000004
+SIGHUP: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGINT: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGTERM: [libjvm.so+0x55e0f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x55e0f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Red Hat Enterprise Linux ES release 4 (Nahant Update 4)
+
+uname:Linux 2.6.9-42.ELsmp #1 SMP Wed Jul 12 23:27:17 EDT 2006 i686
+libc:glibc 2.3.4 NPTL 2.3.4 
+rlimit: STACK 10240k, CORE 0k, NPROC 176127, NOFILE 5096, AS infinity
+load average:19.40 25.50 29.28
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 10389896k(32860k free), swap 40957708k(40948876k free)
+
+vm_info: Java HotSpot(TM) Server VM (16.0-b13) for linux-x86 JRE (1.6.0_18-b07), built on Dec 17 2009 13:41:30 by "java_re" with gcc 3.2.1-7a (J2SE release)
+
+time: Wed Jun 26 14:59:05 2013
+elapsed time: 10108 seconds
+

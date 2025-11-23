@@ -1,0 +1,13 @@
+--- a/main/core/src/main/resources/hudson/model/Job/buildTimeTrend.jelly
++++ b/main/core/src/main/resources/hudson/model/Job/buildTimeTrend.jelly
+@@ -50,7 +50,9 @@ THE SOFTWARE.
+                   	<img width="16" height="16" src="${imagesURL}/16x16/${r.buildStatusUrl}" alt="${r.iconColor.description}" />
+                   </td>
+                   <td data="${r.number}">
+-                    ${r.displayName}
++                    <a href="/${r.url}">
++                      ${r.displayName}
++                    </a>
+                   </td>
+                   <td data="${r.duration}">
+                     ${r.durationString}

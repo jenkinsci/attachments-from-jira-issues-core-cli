@@ -1,0 +1,19 @@
+--- src/main/java/hudson/remoting/RemoteClassLoader.java	2012-06-07 16:24:34.093017000 +0200
++++ src/main/java/hudson/remoting/RemoteClassLoader.java	2012-06-07 16:47:38.350454492 +0200
+@@ -126,9 +126,13 @@
+                 ClassLoader cl = channel.importedClassLoaders.get(cf.classLoader);
+                 if (cl instanceof RemoteClassLoader) {
+                     RemoteClassLoader rcl = (RemoteClassLoader) cl;
+-                    Class<?> c = rcl.findLoadedClass(name);
+-                    if (c==null)
+-                        c = rcl.loadClassFile(name,cf.classImage);
++                	Class<?> c;
++                    synchronized (this) {
++                    	c = rcl.findLoadedClass(name);
++                    
++                    	if (c==null)
++                    		c = rcl.loadClassFile(name,cf.classImage);
++                    }
+                     return c;
+                 } else {
+                     return cl.loadClass(name);

@@ -1,0 +1,27 @@
+Index: core/src/main/java/hudson/tasks/ArtifactArchiver.java
+===================================================================
+--- core/src/main/java/hudson/tasks/ArtifactArchiver.java	(revision 16210)
++++ core/src/main/java/hudson/tasks/ArtifactArchiver.java	(working copy)
+@@ -27,11 +27,9 @@
+ import hudson.Launcher;
+ import hudson.Util;
+ import hudson.Extension;
+-import hudson.maven.AbstractMavenProject;
+ import hudson.model.AbstractBuild;
+ import hudson.model.AbstractProject;
+ import hudson.model.BuildListener;
+-import hudson.model.Descriptor;
+ import hudson.model.Result;
+ import hudson.model.Hudson;
+ import hudson.util.FormFieldValidator;
+@@ -177,9 +175,7 @@
+         }
+ 
+         public boolean isApplicable(Class<? extends AbstractProject> jobType) {
+-            // for Maven, this happens automatically.
+-            // TODO: we should still consider enabling this for additional controls?
+-            return !AbstractMavenProject.class.isAssignableFrom(jobType);
++            return true;
+         }
+     }
+ }

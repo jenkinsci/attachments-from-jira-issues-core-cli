@@ -1,0 +1,51 @@
+Index: main/core/src/main/java/hudson/scm/CVSSCM.java
+===================================================================
+RCS file: /shared/data/ccvs/repository/hudson/hudson/main/core/src/main/java/hudson/scm/CVSSCM.java,v
+retrieving revision 1.11
+diff -u -r1.11 CVSSCM.java
+--- main/core/src/main/java/hudson/scm/CVSSCM.java	7 Dec 2006 21:47:39 -0000	1.11
++++ main/core/src/main/java/hudson/scm/CVSSCM.java	8 Dec 2006 19:13:30 -0000
+@@ -41,6 +41,7 @@
+ import java.io.StringWriter;
+ import java.io.PrintWriter;
+ import java.util.ArrayList;
++import java.util.Date;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.StringTokenizer;
+@@ -167,6 +168,8 @@
+                 return false;
+         }
+ 
++        Date endOfUpdate = new Date(); // #192
++
+         // archive the workspace to support later tagging
+         // TODO: doing this partially remotely would be faster
+         File archiveFile = getArchiveFile(build);
+@@ -185,7 +188,7 @@
+         // contribute the tag action
+         build.getActions().add(new TagAction(build));
+ 
+-        return calcChangeLog(build, changedFiles, changelogFile, listener);
++        return calcChangeLog(build, changedFiles, changelogFile, listener, endOfUpdate);
+     }
+ 
+     /**
+@@ -422,7 +425,7 @@
+      *      This is provided if the previous operation is update, otherwise null,
+      *      which means we have to fall back to the default slow computation.
+      */
+-    private boolean calcChangeLog(Build build, List<String> changedFiles, File changelogFile, final BuildListener listener) {
++    private boolean calcChangeLog(Build build, List<String> changedFiles, File changelogFile, final BuildListener listener, Date endOfUpdate) {
+         if(build.getPreviousBuild()==null || (changedFiles!=null && changedFiles.isEmpty())) {
+             // nothing to compare against, or no changes
+             // (note that changedFiles==null means fallback, so we have to run cvs log.
+@@ -461,7 +464,7 @@
+         task.setDestfile(changelogFile);
+         task.setBranch(branch);
+         task.setStart(build.getPreviousBuild().getTimestamp().getTime());
+-        task.setEnd(build.getTimestamp().getTime());
++        task.setEnd(endOfUpdate);
+         if(changedFiles!=null) {
+             // if the directory doesn't exist, cvs changelog will die, so filter them out.
+             // this means we'll lose the log of those changes

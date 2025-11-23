@@ -1,0 +1,49 @@
+Index: resources/WEB-INF/side-files/hudson/model/Build/sidepanel.jsp
+===================================================================
+RCS file: /cvs/hudson/hudson/resources/WEB-INF/side-files/hudson/model/Build/sidepanel.jsp,v
+retrieving revision 1.12
+diff -u -u -r1.12 sidepanel.jsp
+--- resources/WEB-INF/side-files/hudson/model/Build/sidepanel.jsp	27 May 2006 17:28:37 -0000	1.12
++++ resources/WEB-INF/side-files/hudson/model/Build/sidepanel.jsp	18 Jul 2006 16:18:25 -0000
+@@ -8,7 +8,11 @@
+ <%@ taglib prefix="h" uri="http://hudson.dev.java.net/" %>
+ 
+ <l:header title="${it.parent.name} build &#x23;${it.number}" />
+-<l:side-panel>
++<table id="main-table" width="100%" border="0">
++<tr>
++  <td id="side-panel" width="20%">
++    <div style="margin-left: 20px; margin-right: 20px; border-top: 1px solid #bbb"></div>
++    <div id="navigation">
+   <l:tasks>
+     <c:set var="buildUrl" value="${h:buildUrlDecompose(staplerRequest)}" />
+     <l:task icon="images/24x24/up.gif" href="${rootURL}/${it.parent.url}" title="Back to Project" />
+@@ -23,4 +27,5 @@
+       <l:task icon="images/24x24/next.gif" href="${buildUrl.nextBuildUrl}" title="Next Build" />
+     </c:if>
+   </l:tasks>
+-</l:side-panel>
++    </div>
++  </td>
+Index: resources/WEB-INF/side-files/hudson/model/Run/console.jsp
+===================================================================
+RCS file: /cvs/hudson/hudson/resources/WEB-INF/side-files/hudson/model/Run/console.jsp,v
+retrieving revision 1.6
+diff -u -u -r1.6 console.jsp
+--- resources/WEB-INF/side-files/hudson/model/Run/console.jsp	3 Jun 2006 18:34:03 -0000	1.6
++++ resources/WEB-INF/side-files/hudson/model/Run/console.jsp	18 Jul 2006 16:18:25 -0000
+@@ -12,6 +12,8 @@
+ <t:buildCaption>
+   Console Output
+ </t:buildCaption>
++</l:main-panel>
++<hr/>
+ <c:choose>
+   <%-- do progressive console output --%>
+   <c:when test="${it.building}">
+@@ -26,5 +28,4 @@
+     <pre><c:out value="${it.log}" escapeXml="true" /></pre>
+   </c:otherwise>
+ </c:choose>
+-</l:main-panel>
+ <l:footer/>

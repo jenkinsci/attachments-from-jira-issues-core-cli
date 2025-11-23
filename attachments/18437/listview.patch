@@ -1,0 +1,167 @@
+Index: C:/entw/hudson-org/main/core/src/main/java/hudson/model/ListView.java
+===================================================================
+--- C:/entw/hudson-org/main/core/src/main/java/hudson/model/ListView.java	(revision 12819)
++++ C:/entw/hudson-org/main/core/src/main/java/hudson/model/ListView.java	(working copy)
+@@ -48,7 +48,36 @@
+      * Include regex string.
+      */
+     private String includeRegex;
+-    
++
++    private String showType;
++
++    public String getShowType() {
++        return showType;
++    }
++
++    private static final String TYPEALL      = "ALL";
++    private static final String TYPESUCCESS  = "Successes";
++    private static final String TYPEFAILURE  = "Failures";
++    private static final String TYPEUNSTABLE = "Unstables";
++    private static final String TYPEDISABLED = "Disabled";
++
++    public String getTYPEALL() {
++        return TYPEALL;
++    }
++    public String getTYPESUCCESS() {
++        return TYPESUCCESS;
++    }
++    public String getTYPEFAILURE() {
++        return TYPEFAILURE;
++    }
++    public String getTYPEUNSTABLE() {
++        return TYPEUNSTABLE;
++    }
++    public String getTYPEDISABLED() {
++        return TYPEDISABLED;
++    }
++
++
+     /**
+      * Compiled include pattern from the includeRegex string.
+      */
+@@ -84,6 +113,25 @@
+             } catch (PatternSyntaxException pse) {
+             }
+         }
++        for (Iterator<String> iterator = names.iterator(); iterator.hasNext();) {
++            String name = iterator.next();
++            Result result = Result.NOT_BUILT;
++            if (((AbstractProject<?, ?>) owner.getItem(name)).getLastBuild() != null) {
++               result = ((AbstractProject<?, ?>) owner.getItem(name)).getLastBuild().getResult();
++            }
++            boolean isDisabled = ((AbstractProject<?, ?>) owner.getItem(name)).isDisabled();
++            if (showType != null){
++               if ((showType.equals(TYPEFAILURE)) && ((result != Result.FAILURE) || isDisabled)) {
++                  iterator.remove();
++               } else if ((showType.equals(TYPESUCCESS)) && ((result != Result.SUCCESS) || isDisabled)) {
++                  iterator.remove();
++               } else if ((showType.equals(TYPEUNSTABLE)) && ((result != Result.UNSTABLE) || isDisabled)) {
++                  iterator.remove();
++               } else if ((showType.equals(TYPEDISABLED)) && (!isDisabled)) {
++                  iterator.remove();
++             }
++            }
++        }
+ 
+         List<TopLevelItem> items = new ArrayList<TopLevelItem>(names.size());
+         for (String name : names) {
+@@ -117,7 +165,7 @@
+     public String getDisplayName() {
+         return name;
+     }
+-    
++
+     public String getIncludeRegex() {
+         return includeRegex;
+     }
+@@ -142,7 +190,7 @@
+         checkPermission(CONFIGURE);
+ 
+         req.setCharacterEncoding("UTF-8");
+-        
++
+         jobNames.clear();
+         for (TopLevelItem item : owner.getItems()) {
+             if(req.getParameter(item.getName())!=null)
+@@ -150,7 +198,12 @@
+         }
+ 
+         description = Util.nullify(req.getParameter("description"));
+-        
++
++        if (req.getParameter("showType") != null)
++           showType = req.getParameter("showType");
++        else
++           showType = TYPEALL;
++
+         if (req.getParameter("useincluderegex") != null) {
+             includeRegex = Util.nullify(req.getParameter("includeregex"));
+         } else {
+@@ -195,6 +248,18 @@
+     }
+ 
+     /**
++     * Build all jobs of this view.
++     * @throws ServletException
++     */
++    public synchronized void doBuild(StaplerRequest req, StaplerResponse rsp)
++        throws IOException, ServletException {
++          for (TopLevelItem item : this.getItems()) {
++            ((AbstractProject<?, ?>) item).scheduleBuild();
++        }
++        rsp.sendRedirect(".");
++    }
++
++    /**
+      * Checks if the include regular expression is valid.
+      */
+     public synchronized void doIncludeRegexCheck( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException, InterruptedException  {
+Index: C:/entw/hudson-org/main/core/src/main/resources/hudson/model/ListView/configure.jelly
+===================================================================
+--- C:/entw/hudson-org/main/core/src/main/resources/hudson/model/ListView/configure.jelly	(revision 12819)
++++ C:/entw/hudson-org/main/core/src/main/resources/hudson/model/ListView/configure.jelly	(working copy)
+@@ -19,17 +19,28 @@
+             <br/>
+           </j:forEach>
+         </f:entry>
+-        
++
+         <f:optionalBlock name="useincluderegex" title="${%Use a regular expression to include jobs into the view}" checked="${it.includeRegex != null}" help="/help/view-config/includeregex.html">
+           <f:entry title="${%Regular expression}">
+             <f:textbox name="includeregex" value="${it.includeRegex}" checkUrl="'${rootURL}/${it.url}/includeRegexCheck?value='+escape(this.value)" />
+           </f:entry>
+         </f:optionalBlock>
+-
++        <f:entry title="${%Which jobs to show?}">
++           <f:radio name="showType" value="${it.TYPEALL}"       checked="${it.showType==it.TYPEALL || it.showType==null}"/>
++           <label>${%All builds}</label>
++           <f:radio name="showType" value="${it.TYPESUCCESS}"   checked="${it.showType==it.TYPESUCCESS}"/>
++           <label>${%Only successful builds}</label>
++           <f:radio name="showType" value="${it.TYPEFAILURE}"   checked="${it.showType==it.TYPEFAILURE}"/>
++           <label>${%Only failing builds}</label>
++           <f:radio name="showType" value="${it.TYPEUNSTABLE}"  checked="${it.showType==it.TYPEUNSTABLE}"/>
++           <label>${%Only unstable builds}</label>
++           <f:radio name="showType" value="${it.TYPEDISABLED}" checked="${it.showType==it.TYPEDISABLED}"/>
++           <label>${%Disabled builds}</label>
++        </f:entry>
+         <f:block>
+           <f:submit value="OK" />
+         </f:block>
+       </f:form>
+     </l:main-panel>
+   </l:layout>
+-</j:jelly>
++</j:jelly>
+\ No newline at end of file
+Index: C:/entw/hudson-org/main/core/src/main/resources/hudson/model/ListView/sidepanel2.jelly
+===================================================================
+--- C:/entw/hudson-org/main/core/src/main/resources/hudson/model/ListView/sidepanel2.jelly	(revision 12819)
++++ C:/entw/hudson-org/main/core/src/main/resources/hudson/model/ListView/sidepanel2.jelly	(working copy)
+@@ -1,4 +1,5 @@
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+ 	<l:task icon="images/24x24/gear.gif" href="configure" title="${%Edit View}"  permission="${it.CONFIGURE}" />
+ 	<l:task icon="images/24x24/edit-delete.gif" href="delete" title="${%Delete View}"  permission="${it.CONFIGURE}" />
++	<l:task icon="images/24x24/clock.gif" href="build" title="${%Build View}"  permission="${it.CONFIGURE}" />
+ </j:jelly>
+\ No newline at end of file

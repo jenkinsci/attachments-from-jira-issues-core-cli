@@ -1,0 +1,183 @@
+jstack 18373
+2020-05-06 10:49:58
+Full thread dump OpenJDK 64-Bit Server VM (25.252-b09 mixed mode):
+
+"Attach Listener" #19 daemon prio=9 os_prio=0 tid=0x00007fbdb8001000 nid=0x491f waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"pool-1-thread-4 for channel id=17236" #15 prio=5 os_prio=0 tid=0x00007fbd9000b000 nid=0x47d9 waiting for monitor entry [0x00007fbddd2b4000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.slaves.SlaveComputer$SlaveInitializer$1.publish(SlaveComputer.java:1026)
+	- waiting to lock <0x000000076e658428> (a hudson.slaves.SlaveComputer$SlaveInitializer$1)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:788)
+	at java.util.logging.Logger.fine(Logger.java:1516)
+	at hudson.remoting.Channel.send(Channel.java:762)
+	- locked <0x000000076d788780> (a hudson.remoting.Channel)
+	at hudson.remoting.Request.call(Request.java:160)
+	- locked <0x000000076e17b1a0> (a hudson.remoting.RemoteInvocationHandler$RPCRequest)
+	- locked <0x000000076d788780> (a hudson.remoting.Channel)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:288)
+	at com.sun.proxy.$Proxy5.fetch3(Unknown Source)
+	at hudson.remoting.RemoteClassLoader.findClass(RemoteClassLoader.java:211)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	- locked <0x000000076ded1cc8> (a hudson.remoting.RemoteClassLoader)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at hudson.remoting.MultiClassLoaderSerializer$Input.resolveClass(MultiClassLoaderSerializer.java:132)
+	at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:1925)
+	at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1808)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2099)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1625)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:465)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:423)
+	at hudson.remoting.UserRequest.deserialize(UserRequest.java:290)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:189)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:54)
+	at hudson.remoting.Request$2.run(Request.java:369)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+"Channel reader thread: channel" #11 prio=5 os_prio=0 tid=0x00007fbdf43b8800 nid=0x47d5 waiting for monitor entry [0x00007fbddd6ba000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.slaves.SlaveComputer$SlaveInitializer$1.publish(SlaveComputer.java:1026)
+	- locked <0x000000076e658428> (a hudson.slaves.SlaveComputer$SlaveInitializer$1)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:851)
+	at hudson.remoting.Channel$1.handle(Channel.java:608)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:85)
+
+"RemoteInvocationHandler [#1]" #10 daemon prio=5 os_prio=0 tid=0x00007fbdf43b2800 nid=0x47d4 in Object.wait() [0x00007fbddd7bb000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x000000076d772008> (a java.lang.ref.ReferenceQueue$Lock)
+	at hudson.remoting.RemoteInvocationHandler$Unexporter.run(RemoteInvocationHandler.java:600)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at hudson.remoting.AtmostOneThreadExecutor$Worker.run(AtmostOneThreadExecutor.java:111)
+	at java.lang.Thread.run(Thread.java:748)
+
+"Service Thread" #8 daemon prio=9 os_prio=0 tid=0x00007fbdf4192800 nid=0x47d2 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread2" #7 daemon prio=9 os_prio=0 tid=0x00007fbdf4187800 nid=0x47d1 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" #6 daemon prio=9 os_prio=0 tid=0x00007fbdf4186000 nid=0x47d0 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #5 daemon prio=9 os_prio=0 tid=0x00007fbdf4183000 nid=0x47cf waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=0 tid=0x00007fbdf4181800 nid=0x47ce runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" #3 daemon prio=8 os_prio=0 tid=0x00007fbdf414e000 nid=0x47cd in Object.wait() [0x00007fbdde61c000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000076c708ee0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x000000076c708ee0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+"Reference Handler" #2 daemon prio=10 os_prio=0 tid=0x00007fbdf4149800 nid=0x47cc in Object.wait() [0x00007fbdde71d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000076c706c00> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	- locked <0x000000076c706c00> (a java.lang.ref.Reference$Lock)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+"main" #1 prio=5 os_prio=0 tid=0x00007fbdf400b000 nid=0x47c6 waiting for monitor entry [0x00007fbdfc682000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000076d788780> (a hudson.remoting.Channel)
+	at hudson.remoting.Channel.join(Channel.java:1182)
+	- locked <0x000000076d788780> (a hudson.remoting.Channel)
+	at hudson.remoting.Launcher.main(Launcher.java:796)
+	at hudson.remoting.Launcher.runWithStdinStdout(Launcher.java:718)
+	at hudson.remoting.Launcher.run(Launcher.java:398)
+	at hudson.remoting.Launcher.main(Launcher.java:298)
+
+"VM Thread" os_prio=0 tid=0x00007fbdf4140000 nid=0x47cb runnable 
+
+"GC task thread#0 (ParallelGC)" os_prio=0 tid=0x00007fbdf4020800 nid=0x47c7 runnable 
+
+"GC task thread#1 (ParallelGC)" os_prio=0 tid=0x00007fbdf4022800 nid=0x47c8 runnable 
+
+"GC task thread#2 (ParallelGC)" os_prio=0 tid=0x00007fbdf4024000 nid=0x47c9 runnable 
+
+"GC task thread#3 (ParallelGC)" os_prio=0 tid=0x00007fbdf4026000 nid=0x47ca runnable 
+
+"VM Periodic Task Thread" os_prio=0 tid=0x00007fbdf4195000 nid=0x47d3 waiting on condition 
+
+JNI global references: 329
+
+
+Found one Java-level deadlock:
+=============================
+"pool-1-thread-4 for channel id=17236":
+  waiting to lock monitor 0x00007fbd8c015bc8 (object 0x000000076e658428, a hudson.slaves.SlaveComputer$SlaveInitializer$1),
+  which is held by "Channel reader thread: channel"
+"Channel reader thread: channel":
+  waiting to lock monitor 0x00007fbd9401aed8 (object 0x000000076ded1cc8, a hudson.remoting.RemoteClassLoader),
+  which is held by "pool-1-thread-4 for channel id=17236"
+
+Java stack information for the threads listed above:
+===================================================
+"pool-1-thread-4 for channel id=17236":
+	at hudson.slaves.SlaveComputer$SlaveInitializer$1.publish(SlaveComputer.java:1026)
+	- waiting to lock <0x000000076e658428> (a hudson.slaves.SlaveComputer$SlaveInitializer$1)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:788)
+	at java.util.logging.Logger.fine(Logger.java:1516)
+	at hudson.remoting.Channel.send(Channel.java:762)
+	- locked <0x000000076d788780> (a hudson.remoting.Channel)
+	at hudson.remoting.Request.call(Request.java:160)
+	- locked <0x000000076e17b1a0> (a hudson.remoting.RemoteInvocationHandler$RPCRequest)
+	- locked <0x000000076d788780> (a hudson.remoting.Channel)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:288)
+	at com.sun.proxy.$Proxy5.fetch3(Unknown Source)
+	at hudson.remoting.RemoteClassLoader.findClass(RemoteClassLoader.java:211)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	- locked <0x000000076ded1cc8> (a hudson.remoting.RemoteClassLoader)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at hudson.remoting.MultiClassLoaderSerializer$Input.resolveClass(MultiClassLoaderSerializer.java:132)
+	at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:1925)
+	at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1808)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2099)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1625)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:465)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:423)
+	at hudson.remoting.UserRequest.deserialize(UserRequest.java:290)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:189)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:54)
+	at hudson.remoting.Request$2.run(Request.java:369)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+"Channel reader thread: channel":
+	at hudson.slaves.SlaveComputer$SlaveInitializer$1.publish(SlaveComputer.java:1026)
+	- locked <0x000000076e658428> (a hudson.slaves.SlaveComputer$SlaveInitializer$1)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:851)
+	at hudson.remoting.Channel$1.handle(Channel.java:608)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:85)
+
+Found 1 deadlock.
+

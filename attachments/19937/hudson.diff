@@ -1,0 +1,51 @@
+Index: core/src/main/java/hudson/util/XStream2.java
+===================================================================
+--- core/src/main/java/hudson/util/XStream2.java	(revision 36657)
++++ core/src/main/java/hudson/util/XStream2.java	(working copy)
+@@ -113,7 +113,7 @@
+         Mapper m = new CompatibilityMapper(new MapperWrapper(next) {
+             @Override
+             public String serializedClass(Class type) {
+-                if (ImmutableMap.class.isAssignableFrom(type))
++                if (type!=null && ImmutableMap.class.isAssignableFrom(type))
+                     return super.serializedClass(ImmutableMap.class);
+                 else
+                     return super.serializedClass(type);
+Index: core/src/test/java/hudson/util/XStream2Test.java
+===================================================================
+--- core/src/test/java/hudson/util/XStream2Test.java	(revision 36645)
++++ core/src/test/java/hudson/util/XStream2Test.java	(working copy)
+@@ -29,6 +29,7 @@
+ import hudson.model.Run;
+ 
+ import java.util.Map;
++import java.util.Stack;
+ 
+ /**
+  * Tests for XML serialization of java objects.
+@@ -137,6 +138,25 @@
+         roundtripImmutableMapAsPlainMap(xs, ImmutableMap.of("abc", "xyz", "def","ghi"));
+     }
+ 
++    /*
++     * test for NPE when we have an empty stack object
++     */
++    private static class EmptyStack {
++        private Stack<String> stack;
++    }
++
++    public void testEmptyStack() {
++        EmptyStack s = new EmptyStack();
++        s.stack=new Stack<String>();
++        try {
++            String xml = Run.XSTREAM.toXML(s);
++            System.out.println(xml);
++        }
++        catch(Exception ex) {
++            assertTrue("execption: "+ex,false);
++        }
++    }
++
+     /**
+      * Since the field type is {@link ImmutableMap}, XML shouldn't contain a reference to the type name.
+      */

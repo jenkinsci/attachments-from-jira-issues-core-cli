@@ -1,0 +1,95 @@
+Index: Run.java
+===================================================================
+--- Run.java	(revision 28758)
++++ Run.java	(working copy)
+@@ -1,7 +1,7 @@
+ /*
+  * The MIT License
+  * 
+- * Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi, Daniel Dyer, Red Hat, Inc., Tom Huybrechts
++ * Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi, Daniel Dyer, Red Hat, Inc., Tom Huybrechts, Stellar Science Ltd Co, K. R. Walker
+  * 
+  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  * of this software and associated documentation files (the "Software"), to deal
+@@ -36,6 +36,7 @@
+ import hudson.console.ConsoleNote;
+ import hudson.matrix.MatrixBuild;
+ import hudson.matrix.MatrixRun;
++import hudson.model.Hudson.MasterComputer;
+ import hudson.model.listeners.RunListener;
+ import hudson.model.listeners.SaveableListener;
+ import hudson.search.SearchIndexBuilder;
+@@ -43,11 +44,15 @@
+ import hudson.security.AccessControlled;
+ import hudson.security.Permission;
+ import hudson.security.PermissionGroup;
++import hudson.slaves.EnvironmentVariablesNodeProperty;
++import hudson.slaves.NodeProperty;
++import hudson.slaves.NodePropertyDescriptor;
+ import hudson.tasks.LogRotator;
+ import hudson.tasks.Mailer;
+ import hudson.tasks.BuildWrapper;
+ import hudson.tasks.BuildStep;
+ import hudson.tasks.test.AbstractTestResultAction;
++import hudson.util.DescribableList;
+ import hudson.util.IOException2;
+ import hudson.util.IOUtils;
+ import hudson.util.LogTaskListener;
+@@ -76,6 +81,7 @@
+ import java.util.Date;
+ import java.util.GregorianCalendar;
+ import java.util.HashMap;
++import java.util.Iterator;
+ import java.util.LinkedHashMap;
+ import java.util.LinkedList;
+ import java.util.List;
+@@ -1640,7 +1646,7 @@
+      * @since 1.305
+      */
+     public EnvVars getEnvironment(TaskListener log) throws IOException, InterruptedException {
+-        EnvVars env = Computer.currentComputer().getEnvironment().overrideAll(getCharacteristicEnvVars());
++        EnvVars env = Computer.currentComputer().getEnvironment();
+         String rootUrl = Hudson.getInstance().getRootUrl();
+         if(rootUrl!=null) {
+             env.put("HUDSON_URL", rootUrl);
+@@ -1649,13 +1655,28 @@
+         }
+         if(!env.containsKey("HUDSON_HOME"))
+             env.put("HUDSON_HOME", Hudson.getInstance().getRootDir().getPath() );
++        Executor executor = getExecutor();
++        if (executor != null) {
++            env.put("EXECUTOR_NUMBER",String.valueOf(executor.getNumber()));
++            Computer computer = executor.getOwner();
++            env.put("NODE_NAME",computer.getName());
++            DescribableList<NodeProperty<?>, NodePropertyDescriptor> nodeProperties = null;
++            if (computer instanceof MasterComputer) {
++                nodeProperties = Hudson.getInstance().getGlobalNodeProperties();
++            } else {
++                nodeProperties = computer.getNode().getNodeProperties();
++            }
++            Iterator<NodeProperty<?>> iterator = nodeProperties.iterator();
++            while (iterator.hasNext()) {
++                NodeProperty<?> next = iterator.next();
++                if (next instanceof EnvironmentVariablesNodeProperty) {
++                    EnvironmentVariablesNodeProperty envVarProp = (EnvironmentVariablesNodeProperty) next;
++                    env.overrideAll(envVarProp.getEnvVars());
++                }
++            }
+ 
+-        Thread t = Thread.currentThread();
+-        if (t instanceof Executor) {
+-            Executor e = (Executor) t;
+-            env.put("EXECUTOR_NUMBER",String.valueOf(e.getNumber()));
+-            env.put("NODE_NAME",e.getOwner().getName());
+         }
++        env.overrideAll(getCharacteristicEnvVars());
+ 
+         return env;
+     }
+@@ -1803,4 +1824,4 @@
+             out.flush();
+         }
+     }
+-}
+\ No newline at end of file
++}

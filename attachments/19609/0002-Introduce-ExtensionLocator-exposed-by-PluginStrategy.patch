@@ -1,0 +1,226 @@
+From 13fc9cfcdae7f7bc48a0e7b621faf297a18768a6 Mon Sep 17 00:00:00 2001
+From: Jason Dillon <jason@planet57.com>
+Date: Sat, 24 Jul 2010 22:29:26 -0700
+Subject: [PATCH 2/2] Introduce ExtensionLocator, exposed by PluginStrategy.
+ ClassPluginStrategy.DefaultExtensionLocator performs the same behavior as before, using ExtensionFinders, bootstrapping with ExtensionFinder.Sezpoz
+
+---
+ .../main/java/hudson/ClassicPluginStrategy.java    |   74 ++++++++++++++++++++
+ core/src/main/java/hudson/ExtensionList.java       |   34 +--------
+ core/src/main/java/hudson/ExtensionLocator.java    |   37 ++++++++++
+ core/src/main/java/hudson/PluginStrategy.java      |    7 ++
+ 4 files changed, 121 insertions(+), 31 deletions(-)
+ create mode 100644 core/src/main/java/hudson/ExtensionLocator.java
+
+diff --git a/core/src/main/java/hudson/ClassicPluginStrategy.java b/core/src/main/java/hudson/ClassicPluginStrategy.java
+index 8b69e09..556d1d8 100644
+--- a/core/src/main/java/hudson/ClassicPluginStrategy.java
++++ b/core/src/main/java/hudson/ClassicPluginStrategy.java
+@@ -27,6 +27,7 @@ import hudson.PluginWrapper.Dependency;
+ import hudson.model.Describable;
+ import hudson.model.DescribableFactoryDelegate;
+ import hudson.model.Descriptor;
++import hudson.model.Hudson;
+ import hudson.util.IOException2;
+ import hudson.util.MaskingClassLoader;
+ import hudson.util.VersionNumber;
+@@ -494,4 +495,77 @@ public class ClassicPluginStrategy implements PluginStrategy {
+         }
+         return describableFactoryDelegate;
+     }
++
++    //
++    // ExtensionLocator
++    //
++
++    /**
++     * Provides extension location based on {@link ExtensionFinder} components, bootstrapping with {@link ExtensionFinder.Sezpoz}.
++     * 
++     * @since 1.368
++     */
++    public static class DefaultExtensionLocator
++        implements ExtensionLocator
++    {
++        private final Hudson hudson = Hudson.getInstance();
++
++        private final ExtensionFinder root = new ExtensionFinder.Sezpoz();
++
++        private List<ExtensionFinder> finders;
++
++        public <T> List<ExtensionComponent<T>> locate(final Class<T> type) {
++            List<ExtensionComponent<T>> components = new ArrayList<ExtensionComponent<T>>();
++
++            // For the bootstrap case of finding finders, use the root finder
++            if (type == ExtensionFinder.class) {
++                components.addAll(root.find(type, hudson));
++            }
++            else {
++                // Lazily init the finders, triggers the above
++                if (finders == null) {
++                    finders = locateFinders();
++                }
++
++                for (ExtensionFinder finder : finders) {
++                    try {
++                        components.addAll(finder._find(type, hudson));
++                    }
++                    catch (AbstractMethodError e) {
++                        // backward compatibility
++                        for (T t : finder.findExtensions(type, hudson)) {
++                            components.add(new ExtensionComponent<T>(t));
++                        }
++                    }
++                }
++            }
++
++            return components;
++        }
++
++        private List<ExtensionFinder> locateFinders() {
++            // Mimic the ExtensionList sorting behavior, not sure it really matters in this case though
++            List<ExtensionComponent<ExtensionFinder>> components = locate(ExtensionFinder.class);
++            Collections.sort(components);
++
++            List<ExtensionFinder> found = new ArrayList<ExtensionFinder>();
++            for (ExtensionComponent<ExtensionFinder> component : components) {
++                found.add(component.getInstance());
++            }
++
++            return found;
++        }
++    }
++
++    private ExtensionLocator extensionLocator;
++
++    /**
++     * @since 1.368
++     */
++    public ExtensionLocator getExtensionLocator() {
++        if (extensionLocator == null) {
++            extensionLocator = new DefaultExtensionLocator();
++        }
++        return extensionLocator;
++    }
+ }
+diff --git a/core/src/main/java/hudson/ExtensionList.java b/core/src/main/java/hudson/ExtensionList.java
+index 5e3d6c7..0a51d74 100644
+--- a/core/src/main/java/hudson/ExtensionList.java
++++ b/core/src/main/java/hudson/ExtensionList.java
+@@ -195,14 +195,6 @@ public class ExtensionList<T> extends AbstractList<T> {
+         return null;
+     }
+ 
+-
+-    /**
+-     * Returns {@link ExtensionFinder}s used to search for the extension instances.
+-     */
+-    protected Iterable<? extends ExtensionFinder> finders() {
+-        return hudson.getExtensionList(ExtensionFinder.class);
+-    }
+-
+     private List<ExtensionComponent<T>> ensureLoaded() {
+         if(extensions!=null)
+             return extensions; // already loaded
+@@ -226,17 +218,8 @@ public class ExtensionList<T> extends AbstractList<T> {
+         if (LOGGER.isLoggable(Level.FINE))
+             LOGGER.log(Level.FINE,"Loading ExtensionList: "+extensionType, new Throwable());
+ 
+-        List<ExtensionComponent<T>> r = new ArrayList<ExtensionComponent<T>>();
+-        for (ExtensionFinder finder : finders()) {
+-            try {
+-                r.addAll(finder._find(extensionType, hudson));
+-            } catch (AbstractMethodError e) {
+-                // backward compatibility
+-                for (T t : finder.findExtensions(extensionType, hudson))
+-                    r.add(new ExtensionComponent<T>(t));
+-            }
+-        }
+-        return r;
++        ExtensionLocator locator = hudson.getPluginManager().getPluginStrategy().getExtensionLocator();
++        return locator.locate(extensionType);
+     }
+ 
+     /**
+@@ -252,18 +235,7 @@ public class ExtensionList<T> extends AbstractList<T> {
+         return r;
+     }
+ 
+-    public static <T> ExtensionList<T> create(Hudson hudson, Class<T> type) {
+-        if(type==ExtensionFinder.class)
+-            return new ExtensionList<T>(hudson,type) {
+-                /**
+-                 * If this ExtensionList is searching for ExtensionFinders, calling hudson.getExtensionList
+-                 * results in infinite recursion.
+-                 */
+-                @Override
+-                protected Iterable<? extends ExtensionFinder> finders() {
+-                    return Collections.singleton(new ExtensionFinder.Sezpoz());
+-                }
+-            };
++    public static <T> ExtensionList<T> create(final Hudson hudson, Class<T> type) {
+         if(type.getAnnotation(LegacyInstancesAreScopedToHudson.class)!=null)
+             return new ExtensionList<T>(hudson,type);
+         else {
+diff --git a/core/src/main/java/hudson/ExtensionLocator.java b/core/src/main/java/hudson/ExtensionLocator.java
+new file mode 100644
+index 0000000..248f5c9
+--- /dev/null
++++ b/core/src/main/java/hudson/ExtensionLocator.java
+@@ -0,0 +1,37 @@
++/*
++ * The MIT License
++ *
++ * Copyright (c) 2004-2010, Sun Microsystems, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++package hudson;
++
++import java.util.List;
++
++/**
++ * Allows {@link hudson.PluginStrategy} complete control over how extensions are found.
++ *
++ * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
++ * @since 1.368
++ */
++public interface ExtensionLocator
++{
++    <T> List<ExtensionComponent<T>> locate(Class<T> type);
++}
+diff --git a/core/src/main/java/hudson/PluginStrategy.java b/core/src/main/java/hudson/PluginStrategy.java
+index db1ea6e..f0075d7 100644
+--- a/core/src/main/java/hudson/PluginStrategy.java
++++ b/core/src/main/java/hudson/PluginStrategy.java
+@@ -71,4 +71,11 @@ public interface PluginStrategy extends ExtensionPoint {
+      * @since 1.368
+      */
+     DescribableFactoryDelegate getDescribableFactoryDelegate();
++
++    /**
++     * Returns the system {@link ExtensionLocator}.
++     *
++     * @since 1.368
++     */
++    ExtensionLocator getExtensionLocator();
+ }
+\ No newline at end of file
+-- 
+1.7.1.1
+

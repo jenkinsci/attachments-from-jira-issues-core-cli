@@ -1,0 +1,36 @@
+diff -Nur -x build -x .gradle steps-2.176.3/build.gradle steps-2.190.2/build.gradle
+--- steps-2.176.3/build.gradle	2019-11-26 16:03:11.000000000 -0800
++++ steps-2.190.2/build.gradle	2019-11-26 15:48:29.000000000 -0800
+@@ -33,7 +33,7 @@
+ apply plugin: 'groovy'
+ 
+ project.ext {
+-  jenkinsVersion = '2.176.3'
++  jenkinsVersion = '2.190.2'
+ 
+   groovyVersion = '2.4.15'
+   jobDslVersion = '1.76'
+@@ -56,11 +56,11 @@
+ }
+ 
+ dependencies {
+-  compile 'com.amazonaws:aws-java-sdk-s3:1.11.594',
++  compile 'com.amazonaws:aws-java-sdk-s3:1.11.670',
+           "org.codehaus.groovy:groovy-all:$groovyVersion",
+-          'com.fasterxml.jackson.core:jackson-databind:2.9.9.1',
++          'com.fasterxml.jackson.core:jackson-databind:2.10.0',
+           "org.jenkins-ci.plugins:job-dsl:$jobDslVersion@jar",
+-          'org.jenkins-ci.main:jenkins-test-harness:2.53',
++          'org.jenkins-ci.main:jenkins-test-harness:2.56',
+           "org.jenkins-ci.main:jenkins-war:$jenkinsVersion",
+           'org.slf4j:slf4j-simple:1.7.25'
+ 
+@@ -70,7 +70,7 @@
+   }
+ 
+   jenkinsPlugins "org.codehaus.groovy:groovy-all:$groovyVersion",
+-                 'org.jenkins-ci.plugins:git:3.12.0',
++                 'org.jenkins-ci.plugins:git:4.0.0',
+                  "org.jenkins-ci.plugins:job-dsl:$jobDslVersion",
+                  'org.jenkins-ci.plugins.workflow:workflow-aggregator:2.6'
+ }

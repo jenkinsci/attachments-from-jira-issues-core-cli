@@ -1,0 +1,26 @@
+[GC [PSYoungGen: 2771750K->16212K(2772352K)] 4162386K->1408147K(8364800K), 0.0172880 secs] [Times: user=0.09 sys=0.01, real=0.02 secs]
+ Exception in thread "bot1-output" java.lang.RuntimeException: Exception encountered when writing to socket
+         at org.pircbotx.OutputThread.sendRawLineNow(OutputThread.java:70)
+         at org.pircbotx.OutputThread.run(OutputThread.java:104)
+ Caused by: java.net.SocketException: Connection closed by remote host
+         at sun.security.ssl.SSLSocketImpl.checkWrite(SSLSocketImpl.java:1490)
+         at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:70)
+         at sun.nio.cs.StreamEncoder.writeBytes(StreamEncoder.java:221)
+         at sun.nio.cs.StreamEncoder.implFlushBuffer(StreamEncoder.java:291)
+         at sun.nio.cs.StreamEncoder.implFlush(StreamEncoder.java:295)
+         at sun.nio.cs.StreamEncoder.flush(StreamEncoder.java:141)
+         at java.io.OutputStreamWriter.flush(OutputStreamWriter.java:229)
+         at java.io.BufferedWriter.flush(BufferedWriter.java:254)
+         at org.pircbotx.OutputThread.sendRawLineNow(OutputThread.java:66)
+         ... 1 more
+ Oct 22, 2013 3:07:36 PM winstone.Logger logInternal 
+ INFO: JVM is terminating. Shutting down Winstone 
+ Heap
+  PSYoungGen      total 2772352K, used 1314956K [0x0000000755560000, 0x0000000800000000, 0x0000000800000000)
+   eden space 2756096K, 47% used [0x0000000755560000,0x00000007a49ae060,0x00000007fd8e0000)
+   from space 16256K, 99% used [0x00000007fd8e0000,0x00000007fe8b5220,0x00000007fe8c0000)
+   to   space 20544K, 0% used [0x00000007febf0000,0x00000007febf0000,0x0000000800000000)
+  ParOldGen       total 5592448K, used 1391935K [0x0000000600000000, 0x0000000755560000, 0x0000000755560000)
+   object space 5592448K, 24% used [0x0000000600000000,0x0000000654f4fcb8,0x0000000755560000)
+  PSPermGen       total 76736K, used 76670K [0x00000005f8000000, 0x00000005fcaf0000, 0x0000000600000000)
+   object space 76736K, 99% used [0x00000005f8000000,0x00000005fcadf8c0,0x00000005fcaf0000)

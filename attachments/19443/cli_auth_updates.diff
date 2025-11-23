@@ -1,0 +1,351 @@
+Index: core/src/main/java/hudson/security/SecurityRealm.java
+===================================================================
+--- core/src/main/java/hudson/security/SecurityRealm.java	(revision 2087)
++++ core/src/main/java/hudson/security/SecurityRealm.java	(working copy)
+@@ -161,6 +161,22 @@
+     }
+ 
+     /**
++     * Creates a {@link CliAuthenticator} object that authenticates an invocation of a CLI command.
++     * See {@link CliAuthenticator} for more details.
++     *
++     * @param command
++     *      The command about to be executed.
++     *
++     * @param auth Authentication to use; not used in default implementation of this method 
++     * @return
++     *      never null. By default, this method returns a no-op authenticator that always authenticates
++     *      the session as an anonymous user.
++     */
++    public CliAuthenticator createCliAuthenticator(CLICommand command, Authentication auth) {
++        return createCliAuthenticator(command);
++    }
++
++    /**
+      * {@inheritDoc}
+      *
+      * <p>
+Index: core/src/main/java/hudson/security/LegacySecurityRealm.java
+===================================================================
+--- core/src/main/java/hudson/security/LegacySecurityRealm.java	(revision 2087)
++++ core/src/main/java/hudson/security/LegacySecurityRealm.java	(working copy)
+@@ -23,16 +23,17 @@
+  */
+ package hudson.security;
+ 
+-import org.acegisecurity.AuthenticationManager;
+-import org.acegisecurity.Authentication;
+-import org.acegisecurity.AuthenticationException;
+-import org.springframework.web.context.WebApplicationContext;
+-import org.kohsuke.stapler.StaplerRequest;
+ import groovy.lang.Binding;
++import hudson.Extension;
++import hudson.cli.CLICommand;
+ import hudson.model.Descriptor;
+ import hudson.util.spring.BeanBuilder;
+-import hudson.Extension;
+ import net.sf.json.JSONObject;
++import org.acegisecurity.Authentication;
++import org.acegisecurity.AuthenticationException;
++import org.acegisecurity.AuthenticationManager;
++import org.kohsuke.stapler.StaplerRequest;
++import org.springframework.web.context.WebApplicationContext;
+ 
+ import javax.servlet.Filter;
+ import javax.servlet.FilterConfig;
+@@ -70,6 +71,19 @@
+         return "loginEntry";
+     }
+ 
++    @Override
++    public CliAuthenticator createCliAuthenticator(CLICommand command, final Authentication auth) {
++        if (auth == null) {
++            return createCliAuthenticator(command);
++        } else {
++            return new CliAuthenticator() {
++                public Authentication authenticate() {
++                    return auth;
++                }
++            };
++        }
++    }
++
+     /**
+      * Filter to run for the LegacySecurityRealm is the
+      * ChainServletFilter legacy from /WEB-INF/security/SecurityFilters.groovy.
+@@ -102,3 +116,4 @@
+         }
+     };
+ }
++
+Index: core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- core/src/main/java/hudson/model/Hudson.java	(revision 2087)
++++ core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -2910,7 +2910,7 @@
+         if(req.getHeader("Side").equals("download")) {
+             duplexChannels.put(uuid,server=new FullDuplexHttpChannel(uuid, !hasPermission(ADMINISTER)) {
+                 protected void main(Channel channel) throws IOException, InterruptedException {
+-                    channel.setProperty(CliEntryPoint.class.getName(),new CliManagerImpl());
++                    channel.setProperty(CliEntryPoint.class.getName(),new CliManagerImpl(getAuthentication()));
+                 }
+             });
+             try {
+@@ -3740,3 +3740,4 @@
+         assert ADMINISTER!=null;
+     }
+ }
++
+Index: core/src/main/java/hudson/cli/declarative/CLIRegisterer.java
+===================================================================
+--- core/src/main/java/hudson/cli/declarative/CLIRegisterer.java	(revision 2087)
++++ core/src/main/java/hudson/cli/declarative/CLIRegisterer.java	(working copy)
+@@ -105,7 +105,7 @@
+                         }
+ 
+                         @Override
+-                        public int main(List<String> args, Locale locale, InputStream stdin, PrintStream stdout, PrintStream stderr) {
++                        public int main(List<String> args, Locale locale, InputStream stdin, PrintStream stdout, PrintStream stderr, Authentication auth) {
+                             CmdLineParser parser = new CmdLineParser(null);
+                             try {
+                                 SecurityContext sc = SecurityContextHolder.getContext();
+@@ -134,7 +134,7 @@
+                                         binders.add(new MethodBinder(chains.pop(),parser));
+ 
+                                     // authentication
+-                                    CliAuthenticator authenticator = Hudson.getInstance().getSecurityRealm().createCliAuthenticator(this);
++                                    CliAuthenticator authenticator = Hudson.getInstance().getSecurityRealm().createCliAuthenticator(this, auth);
+                                     new ClassParser().parse(authenticator,parser);
+ 
+                                     // fill up all the binders
+@@ -195,3 +195,4 @@
+ 
+     private static final Logger LOGGER = Logger.getLogger(CLIRegisterer.class.getName());
+ }
++
+Index: core/src/main/java/hudson/cli/CLICommand.java
+===================================================================
+--- core/src/main/java/hudson/cli/CLICommand.java	(revision 2087)
++++ core/src/main/java/hudson/cli/CLICommand.java	(working copy)
+@@ -60,7 +60,7 @@
+  *
+  * <p>
+  * The Hudson master then picks the right {@link CLICommand} to execute, clone it, and
+- * calls {@link #main(List, Locale, InputStream, PrintStream, PrintStream)} method.
++ * calls {@link #main(List, Locale, InputStream, PrintStream, PrintStream, Authentication)} method.
+  *
+  * <h2>Note for CLI command implementor</h2>
+  * Start with <a href="http://wiki.hudson-ci.org/display/HUDSON/Writing+CLI+commands">this document</a>
+@@ -73,7 +73,7 @@
+  * <li>
+  * Use <a href="http://args4j.dev.java.net/">args4j</a> annotation on your implementation to define
+  * options and arguments (however, if you don't like that, you could override
+- * the {@link #main(List, Locale, InputStream, PrintStream, PrintStream)} method directly.
++ * the {@link #main(List, Locale, InputStream, PrintStream, PrintStream, Authentication)} method directly.
+  *
+  * <li>
+  * stdin, stdout, stderr are remoted, so proper buffering is necessary for good user experience.
+@@ -150,7 +150,7 @@
+      */
+     public abstract String getShortDescription();
+ 
+-    public int main(List<String> args, Locale locale, InputStream stdin, PrintStream stdout, PrintStream stderr) {
++    public int main(List<String> args, Locale locale, InputStream stdin, PrintStream stdout, PrintStream stderr, Authentication auth) {
+         this.stdin = new BufferedInputStream(stdin);
+         this.stdout = stdout;
+         this.stderr = stderr;
+@@ -162,15 +162,15 @@
+         SecurityContext sc = SecurityContextHolder.getContext();
+         Authentication old = sc.getAuthentication();
+ 
+-        CliAuthenticator authenticator = Hudson.getInstance().getSecurityRealm().createCliAuthenticator(this);
++        CliAuthenticator authenticator = Hudson.getInstance().getSecurityRealm().createCliAuthenticator(this, auth);
+         new ClassParser().parse(authenticator,p);
+ 
+         try {
+             p.parseArgument(args.toArray(new String[args.size()]));
+-            Authentication auth = authenticator.authenticate();
+-            if (auth==Hudson.ANONYMOUS)
+-                auth = loadStoredAuthentication();
+-            sc.setAuthentication(auth); // run the CLI with the right credential
++            Authentication a = authenticator.authenticate();
++            if (a == Hudson.ANONYMOUS)
++                a = loadStoredAuthentication();
++            sc.setAuthentication(a); // run the CLI with the right credential
+             return run();
+         } catch (CmdLineException e) {
+             stderr.println(e.getMessage());
+@@ -305,3 +305,4 @@
+ 
+     private static final Logger LOGGER = Logger.getLogger(CLICommand.class.getName());
+ }
++
+Index: core/src/main/java/hudson/cli/GroovyshCommand.java
+===================================================================
+--- core/src/main/java/hudson/cli/GroovyshCommand.java	(revision 2087)
++++ core/src/main/java/hudson/cli/GroovyshCommand.java	(working copy)
+@@ -23,27 +23,32 @@
+  */
+ package hudson.cli;
+ 
++import groovy.lang.Binding;
++import groovy.lang.Closure;
++import hudson.AbortException;
+ import hudson.Extension;
+ import hudson.model.Hudson;
+ import hudson.remoting.ChannelClosedException;
+-import groovy.lang.Binding;
+-import groovy.lang.Closure;
++import hudson.security.CliAuthenticator;
++import jline.Terminal;
++import jline.UnsupportedTerminal;
+ import org.acegisecurity.Authentication;
++import org.acegisecurity.context.SecurityContext;
++import org.acegisecurity.context.SecurityContextHolder;
+ import org.codehaus.groovy.tools.shell.Groovysh;
+ import org.codehaus.groovy.tools.shell.IO;
+ import org.codehaus.groovy.tools.shell.Shell;
+ import org.codehaus.groovy.tools.shell.util.XmlCommandRegistrar;
++import org.kohsuke.args4j.ClassParser;
++import org.kohsuke.args4j.CmdLineParser;
+ 
++import java.io.BufferedInputStream;
++import java.io.InputStream;
++import java.io.PrintStream;
++import java.io.PrintWriter;
+ import java.util.List;
+ import java.util.Locale;
+-import java.io.PrintStream;
+-import java.io.InputStream;
+-import java.io.BufferedInputStream;
+-import java.io.PrintWriter;
+ 
+-import jline.UnsupportedTerminal;
+-import jline.Terminal;
+-
+ /**
+  * Executes Groovy shell.
+  *
+@@ -57,16 +62,40 @@
+     }
+ 
+     @Override
+-    public int main(List<String> args, Locale locale, InputStream stdin, PrintStream stdout, PrintStream stderr) {
+-        // this allows the caller to manipulate the JVM state, so require the admin privilege.
+-        Hudson.getInstance().checkPermission(Hudson.ADMINISTER);
++    public int main(List<String> args, Locale locale, InputStream stdin, PrintStream stdout, PrintStream stderr, Authentication auth) {
+ 
+-        // this being remote means no jline capability is available
+-        System.setProperty("jline.terminal", UnsupportedTerminal.class.getName());
+-        Terminal.resetTerminal();
++        CmdLineParser p = new CmdLineParser(this);
+ 
+-        Groovysh shell = createShell(stdin, stdout, stderr);
+-        return shell.run(args.toArray(new String[args.size()]));
++        // add options from the authenticator
++        SecurityContext sc = SecurityContextHolder.getContext();
++        Authentication old = sc.getAuthentication();
++        CliAuthenticator authenticator = Hudson.getInstance().getSecurityRealm().createCliAuthenticator(this, auth);
++        new ClassParser().parse(authenticator, p);
++        
++        try {
++
++            sc.setAuthentication(authenticator.authenticate());
++
++            // this allows the caller to manipulate the JVM state, so require the admin privilege.
++            Hudson.getInstance().checkPermission(Hudson.ADMINISTER);
++
++            // this being remote means no jline capability is available
++            System.setProperty("jline.terminal", UnsupportedTerminal.class.getName());
++            Terminal.resetTerminal();
++
++            Groovysh shell = createShell(stdin, stdout, stderr);
++            return shell.run(args.toArray(new String[args.size()]));
++        } catch (AbortException e) {
++            // signals an error without stack trace
++            stderr.println(e.getMessage());
++            return -1;
++        } catch (Exception e) {
++            e.printStackTrace(stderr);
++            return -1;
++        } finally {
++            sc.setAuthentication(old); // restore
++        }
++
+     }
+ 
+     protected Groovysh createShell(InputStream stdin, PrintStream stdout,
+Index: core/src/main/java/hudson/cli/CliManagerImpl.java
+===================================================================
+--- core/src/main/java/hudson/cli/CliManagerImpl.java	(revision 2087)
++++ core/src/main/java/hudson/cli/CliManagerImpl.java	(working copy)
+@@ -23,24 +23,25 @@
+  */
+ package hudson.cli;
+ 
++import hudson.model.Hudson;
+ import hudson.remoting.Channel;
+-import hudson.model.Hudson;
++import org.acegisecurity.Authentication;
++import org.apache.commons.discovery.ResourceClassIterator;
++import org.apache.commons.discovery.ResourceNameIterator;
+ import org.apache.commons.discovery.resource.ClassLoaders;
+ import org.apache.commons.discovery.resource.classes.DiscoverClasses;
+ import org.apache.commons.discovery.resource.names.DiscoverServiceNames;
+-import org.apache.commons.discovery.ResourceNameIterator;
+-import org.apache.commons.discovery.ResourceClassIterator;
++import org.jvnet.tiger_types.Types;
++import org.kohsuke.args4j.CmdLineParser;
+ import org.kohsuke.args4j.spi.OptionHandler;
+-import org.kohsuke.args4j.CmdLineParser;
+-import org.jvnet.tiger_types.Types;
+ 
+-import java.util.List;
+-import java.util.Locale;
+-import java.util.Collections;
+ import java.io.InputStream;
+ import java.io.OutputStream;
+ import java.io.PrintStream;
+ import java.io.Serializable;
++import java.util.Collections;
++import java.util.List;
++import java.util.Locale;
+ 
+ /**
+  * {@link CliEntryPoint} implementation exposed to the remote CLI.
+@@ -48,7 +49,15 @@
+  * @author Kohsuke Kawaguchi
+  */
+ public class CliManagerImpl implements CliEntryPoint, Serializable {
++
++    private final Authentication auth;
++
++    public CliManagerImpl(Authentication auth) {
++        this.auth = auth!=null ? auth : Hudson.ANONYMOUS;
++    }
++
+     public CliManagerImpl() {
++        this(null);
+     }
+ 
+     public int main(List<String> args, Locale locale, InputStream stdin, OutputStream stdout, OutputStream stderr) {
+@@ -64,11 +73,11 @@
+         CLICommand cmd = CLICommand.clone(subCmd);
+         if(cmd!=null) {
+             // execute the command, do so with the originator of the request as the principal
+-            return cmd.main(args.subList(1,args.size()),locale, stdin, out, err);
++            return cmd.main(args.subList(1,args.size()),locale, stdin, out, err, auth);
+         }
+ 
+         err.println("No such command: "+subCmd);
+-        new HelpCommand().main(Collections.<String>emptyList(), locale, stdin, out, err);
++        new HelpCommand().main(Collections.<String>emptyList(), locale, stdin, out, err, auth);
+         return -1;
+     }
+ 
+@@ -101,3 +110,5 @@
+         }
+     }
+ }
++
++

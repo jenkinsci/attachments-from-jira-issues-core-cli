@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+  <suites>
+    <suite>
+      <file>/mnt/hudson/workspace/foo/results/SPEC-Foo-approve-on-foo-gateway.xml</file>
+      <name>Foo#approve! is called by approve_on_foo?</name>
+      <stdout>
+      </stdout>
+      <stderr>
+      </stderr>
+      <duration>0.186719</duration>
+      <cases>
+        <case>
+          <duration>0.186719</duration>
+          <className>Foo#approve! is called by approve_on_foo?</className>
+          <testName>notifies owner when approved</testName>
+          <skipped>false</skipped>
+          <errorStackTrace>
+                private method `gsub' called for nil:NilClass (NoMethodError)
+                /mnt/hudson/workspace/foo/app/models/transaction.rb:267:in `perform_process'
+                /mnt/hudson/workspace/foo/app/models/transaction.rb:262:in `process'
+                /mnt/hudson/workspace/foo/app/models/transaction/security.rb:49:in `process'
+                /mnt/hudson/workspace/foo/vendor/plugins/deadlock_retry/lib/deadlock_retry.rb:45:in `transaction'
+                /mnt/hudson/workspace/foo/app/models/foo.rb:243:in `create_authorisation_transaction'
+                /mnt/hudson/workspace/foo/app/models/foo.rb:247:in `approve_on_foo?'
+                /mnt/hudson/workspace/foo/app/models/foo.rb:117:in `approve!'
+                ./spec/models/foo_spec.rb:141
+                script/spec:10
+                </errorStackTrace>
+          <errorDetails>private method `gsub' called for nil:NilClass</errorDetails>
+          <failedSince>2</failedSince>
+        </case>
+      </cases>
+    </suite>
+  </suites>
+</result>

@@ -1,0 +1,114 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGILL (0x4) at pc=0x4dcef744, pid=14179, tid=1306850416
+#
+# JRE version: Java(TM) SE Embedded Runtime Environment (7.0_71-b14) (build 1.7.0_71-b14)
+# Java VM: Java HotSpot(TM) Embedded Client VM (24.71-b01 mixed mode linux-arm )
+# Problematic frame:
+# C  [jna2987138414235790802.tmp+0x12744]  ffi_prep_cif_machdep+0x16c
+#
+# Core dump written. Default location: //core or core.14179
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x4dd88400):  JavaThread "UpdateCenter.init" daemon [_thread_in_native, id=14219, stack(0x4de00000,0x4de50000)]
+
+siginfo:si_signo=SIGILL: si_errno=0, si_code=1 (ILL_ILLOPC), si_addr=0x4dcef744
+
+Registers:
+  r0  = 0x4dcf3828
+  r1  = 0x00000002
+  r2  = 0x00000000
+  r3  = 0x0000000a
+  r4  = 0x4de4d734
+  r5  = 0x4dce4d54
+  r6  = 0x4de4cef0
+  r7  = 0x00000000
+  r8  = 0x4de4d81c
+  r9  = 0x4de4d810
+  r10 = 0x00000000
+  fp  = 0x4de4ceb4
+  r12 = 0x4dcef5d8
+  sp  = 0x4de4ce90
+  lr  = 0x4dcec520
+  pc  = 0x4dcef744
+  cpsr = 0x80000010
+
+Top of Stack: (sp=0x4de4ce90)
+0x4de4ce90:   00000000 00000000 4dce4d54 4de4cef0
+0x4de4cea0:   00000000 4de4d81c 4de4d810 00000000
+0x4de4ceb0:   4de4cecc 4dcec520 00000000 4dcf3828
+0x4de4cec0:   4de4cee0 4dcf3828 4de4d794 4dce2a1c
+0x4de4ced0:   4de4cee0 40b716b0 00000000 4dce4d54
+0x4de4cee0:   00000000 00000000 4de4d81c 4dce2720
+0x4de4cef0:   00e69508 40748554 44df9488 4058f354
+0x4de4cf00:   00000001 409042b8 4074f600 4dd83ec8 
+
+Instructions: (pc=0x4dcef744)
+0x4dcef724:   1a000001 eaffffc9 e2822001 e1a03251
+0x4dcef734:   e3130001 1afffffb e1c421bc eaffffc3
+0x4dcef744:   e6bf2073 e3a01001 e1a02211 e312000d
+0x4dcef754:   0a000005 e5843014 e5943000 e3530002 
+
+Register to memory mapping:
+
+  r0  = 0x4dcf3828
+0x4dcf3828: ffi_type_sint32+0 in /tmp/jna--1712433994/jna2987138414235790802.tmp at 0x4dcdd000
+
+  r1  = 0x00000002
+0x00000002 is an unknown value
+
+  r2  = 0x00000000
+0x00000000 is an unknown value
+
+  r3  = 0x0000000a
+0x0000000a is an unknown value
+
+  r4  = 0x4de4d734
+0x4de4d734 is pointing into the stack for thread: 0x4dd88400
+
+  r5  = 0x4dce4d54
+0x4dce4d54: Java_com_sun_jna_Native_invokeInt+0 in /tmp/jna--1712433994/jna2987138414235790802.tmp at 0x4dcdd000
+
+  r6  = 0x4de4cef0
+0x4de4cef0 is pointing into the stack for thread: 0x4dd88400
+
+  r7  = 0x00000000
+0x00000000 is an unknown value
+
+  r8  = 0x4de4d81c
+0x4de4d81c is pointing into the stack for thread: 0x4dd88400
+
+  r9  = 0x4de4d810
+0x4de4d810 is pointing into the stack for thread: 0x4dd88400
+
+  r10 = 0x00000000
+0x00000000 is an unknown value
+
+  fp  = 0x4de4ceb4
+0x4de4ceb4 is pointing into the stack for thread: 0x4dd88400
+
+  r12 = 0x4dcef5d8
+0x4dcef5d8: ffi_prep_cif_machdep+0 in /tmp/jna--1712433994/jna2987138414235790802.tmp at 0x4dcdd000
+
+  sp  = 0x4de4ce90
+0x4de4ce90 is pointing into the stack for thread: 0x4dd88400
+
+  lr  = 0x4dcec520
+0x4dcec520: ffi_prep_cif+0x2c in /tmp/jna--1712433994/jna2987138414235790802.tmp at 0x4dcdd000
+
+  pc  = 0x4dcef744
+0x4dcef744: ffi_prep_cif_machdep+0x16c in /tmp/jna--1712433994/jna2987138414235790802.tmp at 0x4dcdd000
+
+
+
+Stack: [0x4de00000,0x4de50000],  sp=0x4de4ce90,  free space=307k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [jna2987138414235790802.tmp+0x12744]  ffi_prep_cif_machdep+0x16c

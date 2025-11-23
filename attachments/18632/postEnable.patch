@@ -1,0 +1,12 @@
+Index: core/src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- core/src/main/java/hudson/model/AbstractProject.java	(revision 18218)
++++ core/src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -1266,6 +1266,7 @@
+     }
+ 
+     public void doEnable(StaplerResponse rsp) throws IOException, ServletException {
++        requirePOST();
+         checkPermission(CONFIGURE);
+         makeDisabled(false);
+         rsp.sendRedirect2(".");

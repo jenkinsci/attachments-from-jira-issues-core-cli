@@ -1,0 +1,1118 @@
+just before slave team-ph-build-c1.2xlarge-738 gets launched ...
+executing pre-launch scripts ...
+[12/12/17 08:48:53] [SSH] Opening SSH connection to 10.204.48.133:22.
+[12/12/17 08:48:53] [SSH] WARNING: SSH Host Keys are not being verified. Man-in-the-middle attacks may be possible against this connection.
+[12/12/17 08:48:53] [SSH] Authentication successful.
+[12/12/17 08:48:53] [SSH] The remote user's environment is:
+BASH=/bin/bash
+BASHOPTS=cmdhist:complete_fullquote:extquote:force_fignore:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath
+BASH_ALIASES=()
+BASH_ARGC=()
+BASH_ARGV=()
+BASH_CMDS=()
+BASH_EXECUTION_STRING=set
+BASH_LINENO=()
+BASH_SOURCE=()
+BASH_VERSINFO=([0]="4" [1]="3" [2]="11" [3]="1" [4]="release" [5]="x86_64-pc-linux-gnu")
+BASH_VERSION='4.3.11(1)-release'
+DIRSTACK=()
+EUID=1001
+GROUPS=()
+HOME=/home/bar
+HOSTNAME=team-ph-build-c1
+HOSTTYPE=x86_64
+IFS=$' \t\n'
+LANG=en_US.UTF-8
+LOGNAME=bar
+MACHTYPE=x86_64-pc-linux-gnu
+MAIL=/var/mail/bar
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+PIPESTATUS=([0]="0")
+PPID=1810
+PS4='+ '
+PWD=/home/bar
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:hashall:interactive-comments
+SHLVL=1
+SSH_CLIENT='200.200.24.186 51426 22'
+SSH_CONNECTION='200.200.24.186 51426 10.0.0.13 22'
+TERM=dumb
+UID=1001
+USER=bar
+XDG_RUNTIME_DIR=/run/user/1001
+XDG_SESSION_ID=1
+_=']'
+no_proxy='localhost,127.0.0.0/8,*.local,local,docker.foo,/var/run/docker.sock'
+[12/12/17 08:48:53] [SSH] Checking java version of java
+[12/12/17 08:48:54] [SSH] java -version returned 1.8.0_144.
+[12/12/17 08:48:54] [SSH] Starting sftp client.
+[12/12/17 08:48:54] [SSH] Copying latest slave.jar...
+[12/12/17 08:48:54] [SSH] Copied 745,674 bytes.
+Expanded the channel window size to 4MB
+[12/12/17 08:48:54] [SSH] Starting slave process: cd "/opt/jenkins" && java  -jar slave.jar
+<===[JENKINS REMOTING CAPACITY]===>channel started
+Remoting version: 3.14
+This is a Unix agent
+Evacuated stdout
+just before slave team-ph-build-c1.2xlarge-738 gets online ...
+executing prepare script ...
+setting up slave team-ph-build-c1.2xlarge-738 ...
+Executing script '#!/bin/bash -xe
+
+# Add instance hostname to /etc/hosts
+sudo sed -i "/^127.0.0.1/ s/$/ ${HOSTNAME}/" /etc/hosts;
+sudo sed -i "/^::1/ s/$/ ${HOSTNAME}/" /etc/hosts;
+
+if [ ! -e /swapfile ]; then
+    # Create swap equal to the total memory
+    total_mem=$(free -m | grep 'Mem:' | awk '{print int($2)}')
+    fourth_of_disk=$(df -m / | tail -1 | awk '{print int($2/4)}')
+    swap_size=$total_mem
+
+    if [ $swap_size -ge $fourth_of_disk ] ; then
+        swap_size=$fourth_of_disk
+    fi;
+
+    if [ $swap_size -ge 16049 ] ; then
+        swap_size=16049
+    fi;
+
+    sudo fallocate -l ${swap_size}MiB /swapfile
+    sudo mkswap /swapfile
+    echo "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
+    sudo swapon /swapfile
+fi
+
+if grep -q 'id: ci.*-openstack$' /etc/salt/minion.d/foo.conf ; then
+    sudo service salt-minion stop || true
+    # Make salt id unique
+    sudo sed -i "s/^id:\(.*\)/id:\1-$(head /dev/urandom | tr -dc '[:alnum:]' | fold -w 8 | head -n 1)/" /etc/salt/minion.d/foo.conf
+fi
+
+# Enable salt-minion service
+sudo rm /etc/init/salt-minion.override || true
+
+# Start salt-minion service
+sudo service salt-minion start || true
+
+# Make sure the new minion id gets connected to the master before proceeding
+ATTEMPTS=0
+while ! sudo salt-call -l debug test.ping ; do
+  if [ $ATTEMPTS -ge 5 ]; then
+    echo "Failed to ping salt master $ATTEMPTS times"
+    exit 1
+  fi
+  let ATTEMPTS=ATTEMPTS+1
+  sleep 0.5
+done
+
+# Set salt env to match the cimaster env
+sudo salt-call --local grains.setval env prod
+
+# Run highstate to update config
+# Remove the docker_restart once dnsmasq has been fully disabled and removed
+sudo salt-call --retcode-passthrough state.highstate pillar="{docker_restart: True}"' on team-ph-build-c1.2xlarge-738
+[jenkins] $ /bin/bash -xe /tmp/jenkins8770160450289328373.sh
++ sudo sed -i '/^127.0.0.1/ s/$/ team-ph-build-c1/' /etc/hosts
+sudo: unable to resolve host team-ph-build-c1
++ sudo sed -i '/^::1/ s/$/ team-ph-build-c1/' /etc/hosts
++ '[' '!' -e /swapfile ']'
+++ free -m
+++ grep Mem:
+++ awk '{print int($2)}'
++ total_mem=16047
+++ df -m /
+++ tail -1
+++ awk '{print int($2/4)}'
++ fourth_of_disk=20150
++ swap_size=16047
++ '[' 16047 -ge 20150 ']'
++ '[' 16047 -ge 16049 ']'
++ sudo fallocate -l 16047MiB /swapfile
++ sudo mkswap /swapfile
+Setting up swapspace version 1, size = 16432124 KiB
+no label, UUID=5d2a7102-4069-431c-9d52-55bcefc9c9e7
++ echo '/swapfile swap swap defaults 0 0'
++ sudo tee -a /etc/fstab
+/swapfile swap swap defaults 0 0
++ sudo swapon /swapfile
++ grep -q 'id: ci.*-openstack$' /etc/salt/minion.d/foo.conf
++ sudo service salt-minion stop
+stop: Unknown instance: 
++ true
+++ head /dev/urandom
+++ tr -dc '[:alnum:]'
+++ fold -w 8
+++ head -n 1
++ sudo sed -i 's/^id:\(.*\)/id:\1-X3THzYcu/' /etc/salt/minion.d/foo.conf
++ sudo rm /etc/init/salt-minion.override
++ sudo service salt-minion start
+salt-minion start/running, process 1926
++ ATTEMPTS=0
++ sudo salt-call -l debug test.ping
+[DEBUG   ] Reading configuration from /etc/salt/minion
+[DEBUG   ] Including configuration from '/etc/salt/minion.d/00_log_settings.conf'
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/00_log_settings.conf
+[DEBUG   ] Including configuration from '/etc/salt/minion.d/_schedule.conf'
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Including configuration from '/etc/salt/minion.d/foo.conf'
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/foo.conf
+[DEBUG   ] Configuration file path: /etc/salt/minion
+[WARNING ] Insecure logging configuration detected! Sensitive data may be logged.
+[DEBUG   ] Reading configuration from /etc/salt/minion
+[DEBUG   ] Including configuration from '/etc/salt/minion.d/00_log_settings.conf'
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/00_log_settings.conf
+[DEBUG   ] Including configuration from '/etc/salt/minion.d/_schedule.conf'
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/_schedule.conf
+[DEBUG   ] Including configuration from '/etc/salt/minion.d/foo.conf'
+[DEBUG   ] Reading configuration from /etc/salt/minion.d/foo.conf
+[DEBUG   ] Please install 'virt-what' to improve results of the 'virtual' grain.
+[DEBUG   ] Connecting to master. Attempt 1 of 1
+[DEBUG   ] Initializing new AsyncAuth for ('/etc/salt/pki/minion', 'cibuild-openstack-X3THzYcu', 'tcp://200.200.200.113:4506')
+[DEBUG   ] Generated random reconnect delay between '1000ms' and '11000ms' (2816)
+[DEBUG   ] Setting zmq_reconnect_ivl to '2816ms'
+[DEBUG   ] Setting zmq_reconnect_ivl_max to '11000ms'
+[DEBUG   ] Initializing new AsyncZeroMQReqChannel for ('/etc/salt/pki/minion', 'cibuild-openstack-X3THzYcu', 'tcp://200.200.200.113:4506', 'clear')
+[DEBUG   ] Decrypting the current master AES key
+[DEBUG   ] Loaded minion key: /etc/salt/pki/minion/minion.pem
+[DEBUG   ] SaltEvent PUB socket URI: /var/run/salt/minion/minion_event_51df87dad7_pub.ipc
+[DEBUG   ] SaltEvent PULL socket URI: /var/run/salt/minion/minion_event_51df87dad7_pull.ipc
+[DEBUG   ] Initializing new IPCClient for path: /var/run/salt/minion/minion_event_51df87dad7_pull.ipc
+[DEBUG   ] Sending event: tag = salt/auth/creds; data = {'_stamp': '2017-12-12T14:48:59.887724', 'creds': {'publish_port': 4505, 'aes': '+0vJRgKA4EYCjIfJdIMdpWa3lZuNpyCc+zm75moMJCl8j4GxAxJt95POX5x3z59lGAUejsGMm8M=', 'master_uri': 'tcp://200.200.200.113:4506'}, 'key': ('/etc/salt/pki/minion', 'cibuild-openstack-X3THzYcu', 'tcp://200.200.200.113:4506')}
+[DEBUG   ] Loaded minion key: /etc/salt/pki/minion/minion.pem
+[DEBUG   ] Determining pillar cache
+[DEBUG   ] Initializing new AsyncZeroMQReqChannel for ('/etc/salt/pki/minion', 'cibuild-openstack-X3THzYcu', 'tcp://200.200.200.113:4506', 'aes')
+[DEBUG   ] Initializing new AsyncAuth for ('/etc/salt/pki/minion', 'cibuild-openstack-X3THzYcu', 'tcp://200.200.200.113:4506')
+[DEBUG   ] Loaded minion key: /etc/salt/pki/minion/minion.pem
+[DEBUG   ] LazyLoaded jinja.render
+[DEBUG   ] LazyLoaded yaml.render
+[DEBUG   ] LazyLoaded test.ping
+[DEBUG   ] test.ping received for minion 'cibuild-openstack-X3THzYcu'
+[DEBUG   ] Initializing new AsyncZeroMQReqChannel for ('/etc/salt/pki/minion', 'cibuild-openstack-X3THzYcu', 'tcp://200.200.200.113:4506', 'aes')
+[DEBUG   ] Initializing new AsyncAuth for ('/etc/salt/pki/minion', 'cibuild-openstack-X3THzYcu', 'tcp://200.200.200.113:4506')
+[DEBUG   ] LazyLoaded nested.output
+local:
+    True
++ sudo salt-call --local grains.setval env prod
+local:
+    ----------
+    env:
+        prod
++ sudo salt-call --retcode-passthrough state.highstate 'pillar={docker_restart: True}'
+[INFO    ] Loading fresh modules for state activity
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/clouds'
+[INFO    ] Syncing clouds for environment 'base'
+[INFO    ] Loading cache from salt://_clouds, for base)
+[INFO    ] Caching directory '_clouds/' for environment 'base'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/beacons'
+[INFO    ] Syncing beacons for environment 'base'
+[INFO    ] Loading cache from salt://_beacons, for base)
+[INFO    ] Caching directory '_beacons/' for environment 'base'
+[INFO    ] Syncing modules for environment 'base'
+[INFO    ] Loading cache from salt://_modules, for base)
+[INFO    ] Caching directory '_modules/' for environment 'base'
+[INFO    ] Copying '/var/cache/salt/minion/files/base/_modules/postgres_ext.py' to '/var/cache/salt/minion/extmods/modules/postgres_ext.py'
+[INFO    ] Syncing states for environment 'base'
+[INFO    ] Loading cache from salt://_states, for base)
+[INFO    ] Caching directory '_states/' for environment 'base'
+[INFO    ] Copying '/var/cache/salt/minion/files/base/_states/postgres_tablespace.py' to '/var/cache/salt/minion/extmods/states/postgres_tablespace.py'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/sdb'
+[INFO    ] Syncing sdb for environment 'base'
+[INFO    ] Loading cache from salt://_sdb, for base)
+[INFO    ] Caching directory '_sdb/' for environment 'base'
+[INFO    ] Syncing grains for environment 'base'
+[INFO    ] Loading cache from salt://_grains, for base)
+[INFO    ] Caching directory '_grains/' for environment 'base'
+[INFO    ] Copying '/var/cache/salt/minion/files/base/_grains/puppet_agent.py' to '/var/cache/salt/minion/extmods/grains/puppet_agent.py'
+[INFO    ] Copying '/var/cache/salt/minion/files/base/_grains/vagrant.py' to '/var/cache/salt/minion/extmods/grains/vagrant.py'
+[INFO    ] Copying '/var/cache/salt/minion/files/base/_grains/vas.py' to '/var/cache/salt/minion/extmods/grains/vas.py'
+[INFO    ] Copying '/var/cache/salt/minion/files/base/_grains/vmware_properties.py' to '/var/cache/salt/minion/extmods/grains/vmware_properties.py'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/renderers'
+[INFO    ] Syncing renderers for environment 'base'
+[INFO    ] Loading cache from salt://_renderers, for base)
+[INFO    ] Caching directory '_renderers/' for environment 'base'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/returners'
+[INFO    ] Syncing returners for environment 'base'
+[INFO    ] Loading cache from salt://_returners, for base)
+[INFO    ] Caching directory '_returners/' for environment 'base'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/output'
+[INFO    ] Syncing output for environment 'base'
+[INFO    ] Loading cache from salt://_output, for base)
+[INFO    ] Caching directory '_output/' for environment 'base'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/utils'
+[INFO    ] Syncing utils for environment 'base'
+[INFO    ] Loading cache from salt://_utils, for base)
+[INFO    ] Caching directory '_utils/' for environment 'base'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/log_handlers'
+[INFO    ] Syncing log_handlers for environment 'base'
+[INFO    ] Loading cache from salt://_log_handlers, for base)
+[INFO    ] Caching directory '_log_handlers/' for environment 'base'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/proxy'
+[INFO    ] Syncing proxy for environment 'base'
+[INFO    ] Loading cache from salt://_proxy, for base)
+[INFO    ] Caching directory '_proxy/' for environment 'base'
+[INFO    ] Creating module dir '/var/cache/salt/minion/extmods/engines'
+[INFO    ] Syncing engines for environment 'base'
+[INFO    ] Loading cache from salt://_engines, for base)
+[INFO    ] Caching directory '_engines/' for environment 'base'
+[INFO    ] Loading fresh modules for state activity
+[INFO    ] Executing command ['dpkg-query', '--showformat', '${Status} ${Package} ${Version} ${Architecture}', '-W'] in directory '/home/bar'
+[INFO    ] Fetching file from saltenv 'base', ** done ** 'java/ubuntu.sls'
+[INFO    ] Running state [python-pip] at time 08:49:06.967544
+[INFO    ] Executing state pkg.latest for [python-pip]
+[INFO    ] Executing command ['apt-get', '-q', 'update'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'python-pip'] in directory '/home/bar'
+[INFO    ] Package python-pip is already up-to-date
+[INFO    ] Completed state [python-pip] at time 08:49:12.356005 duration_in_ms=5388.461
+[INFO    ] Running state [/etc/apt/apt.conf.d/98foo] at time 08:49:12.362416
+[INFO    ] Executing state file.managed for [/etc/apt/apt.conf.d/98foo]
+[INFO    ] File /etc/apt/apt.conf.d/98foo is in the correct state
+[INFO    ] Completed state [/etc/apt/apt.conf.d/98foo] at time 08:49:12.389539 duration_in_ms=27.123
+[INFO    ] Running state [postfix_debconf_selections.sh] at time 08:49:12.392228
+[INFO    ] Executing state cmd.script for [postfix_debconf_selections.sh]
+[INFO    ] Executing command 'debconf-get-selections | grep postfix/mailname | grep -q ip6-localhost && ([ ! -f /etc/postfix/main.cf ] || grep -q ip6-localhost /etc/postfix/main.cf)' in directory '/home/bar'
+[INFO    ] Executing command '/tmp/__salt.tmp.UKanFV.sh' in directory '/home/bar'
+[INFO    ] {'pid': 2464, 'retcode': 0, 'stderr': '', 'stdout': ' * Reloading Postfix configuration...\n   ...done.'}
+[INFO    ] Completed state [postfix_debconf_selections.sh] at time 08:49:14.368840 duration_in_ms=1976.612
+[INFO    ] Running state [/etc/apt/sources.list] at time 08:49:14.369057
+[INFO    ] Executing state file.managed for [/etc/apt/sources.list]
+[INFO    ] File /etc/apt/sources.list is in the correct state
+[INFO    ] Completed state [/etc/apt/sources.list] at time 08:49:14.370184 duration_in_ms=1.127
+[INFO    ] Running state [/etc/apt/sources.list.d/ubuntu-mate-dev.list] at time 08:49:14.370326
+[INFO    ] Executing state file.absent for [/etc/apt/sources.list.d/ubuntu-mate-dev.list]
+[INFO    ] Executing command ['git', '--version'] in directory '/home/bar'
+[INFO    ] Executing command 'test $(wc -l < /etc/apt/sources.list.d/ubuntu-mate-dev.list) -eq 1' in directory '/home/bar'
+[INFO    ] unless execution succeeded
+[INFO    ] Completed state [/etc/apt/sources.list.d/ubuntu-mate-dev.list] at time 08:49:15.569338 duration_in_ms=1199.01
+[INFO    ] Running state [deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/ppa/ubuntu trusty main] at time 08:49:15.569635
+[INFO    ] Executing state pkgrepo.managed for [deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/ppa/ubuntu trusty main]
+[INFO    ] Package repo 'deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/ppa/ubuntu trusty main' already configured
+[INFO    ] Completed state [deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/ppa/ubuntu trusty main] at time 08:49:15.607865 duration_in_ms=38.23
+[INFO    ] Running state [/etc/apt/sources.list.d/trusty-mate-dev.list] at time 08:49:15.608067
+[INFO    ] Executing state file.absent for [/etc/apt/sources.list.d/trusty-mate-dev.list]
+[INFO    ] Executing command 'test $(wc -l < /etc/apt/sources.list.d/trusty-mate-dev.list) -eq 1' in directory '/home/bar'
+[INFO    ] unless execution succeeded
+[INFO    ] Completed state [/etc/apt/sources.list.d/trusty-mate-dev.list] at time 08:49:15.618008 duration_in_ms=9.941
+[INFO    ] Running state [deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/trusty-mate/ubuntu trusty main] at time 08:49:15.618282
+[INFO    ] Executing state pkgrepo.managed for [deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/trusty-mate/ubuntu trusty main]
+[INFO    ] Package repo 'deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/trusty-mate/ubuntu trusty main' already configured
+[INFO    ] Completed state [deb https://artifactory.foo.com/ppa.launchpad.net/ubuntu-mate-dev/trusty-mate/ubuntu trusty main] at time 08:49:15.637525 duration_in_ms=19.243
+[INFO    ] Running state [deb https://artifactory.foo.com/ppa.launchpad.net/nginx/stable/ubuntu trusty main] at time 08:49:15.637720
+[INFO    ] Executing state pkgrepo.managed for [deb https://artifactory.foo.com/ppa.launchpad.net/nginx/stable/ubuntu trusty main]
+[INFO    ] Package repo 'deb https://artifactory.foo.com/ppa.launchpad.net/nginx/stable/ubuntu trusty main' already configured
+[INFO    ] Completed state [deb https://artifactory.foo.com/ppa.launchpad.net/nginx/stable/ubuntu trusty main] at time 08:49:15.655770 duration_in_ms=18.05
+[INFO    ] Running state [/etc/apt/sources.list.d/foo.list] at time 08:49:15.655988
+[INFO    ] Executing state file.absent for [/etc/apt/sources.list.d/foo.list]
+[INFO    ] Executing command 'test $(wc -l < /etc/apt/sources.list.d/foo.list) -eq 1' in directory '/home/bar'
+[INFO    ] unless execution succeeded
+[INFO    ] Completed state [/etc/apt/sources.list.d/foo.list] at time 08:49:15.663957 duration_in_ms=7.969
+[INFO    ] Running state [deb https://artifactory.foo.com/debian trusty main] at time 08:49:15.664201
+[INFO    ] Executing state pkgrepo.managed for [deb https://artifactory.foo.com/debian trusty main]
+[INFO    ] Package repo 'deb https://artifactory.foo.com/debian trusty main' already configured
+[INFO    ] Completed state [deb https://artifactory.foo.com/debian trusty main] at time 08:49:15.683160 duration_in_ms=18.959
+[INFO    ] Running state [/etc/environment] at time 08:49:15.684145
+[INFO    ] Executing state file.managed for [/etc/environment]
+[INFO    ] File /etc/environment is in the correct state
+[INFO    ] Completed state [/etc/environment] at time 08:49:15.700410 duration_in_ms=16.265
+[INFO    ] Running state [/etc/pip.conf] at time 08:49:15.700605
+[INFO    ] Executing state file.managed for [/etc/pip.conf]
+[INFO    ] File /etc/pip.conf is in the correct state
+[INFO    ] Completed state [/etc/pip.conf] at time 08:49:15.713959 duration_in_ms=13.354
+[INFO    ] Running state [pip >= 9.0.1] at time 08:49:15.714180
+[INFO    ] Executing state pip.installed for [pip >= 9.0.1]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install', '--index-url', 'https://artifactory.foo.com/api/pypi/pypi/simple'] in directory '/home/bar'
+[INFO    ] Python package pip >= 9.0.1 was already installed
+All packages were successfully installed
+[INFO    ] Completed state [pip >= 9.0.1] at time 08:49:17.038709 duration_in_ms=1324.528
+[INFO    ] Running state [tox >= 2.4.1] at time 08:49:17.038925
+[INFO    ] Executing state pip.installed for [tox >= 2.4.1]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install', '--index-url', 'https://artifactory.foo.com/api/pypi/pypi/simple'] in directory '/home/bar'
+[INFO    ] Python package tox >= 2.4.1 was already installed
+All packages were successfully installed
+[INFO    ] Completed state [tox >= 2.4.1] at time 08:49:18.098034 duration_in_ms=1059.107
+[INFO    ] Running state [boto >= 2.48.0] at time 08:49:18.098254
+[INFO    ] Executing state pip.installed for [boto >= 2.48.0]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install', '--index-url', 'https://artifactory.foo.com/api/pypi/pypi/simple'] in directory '/home/bar'
+[INFO    ] Python package boto >= 2.48.0 was already installed
+All packages were successfully installed
+[INFO    ] Completed state [boto >= 2.48.0] at time 08:49:19.131252 duration_in_ms=1032.997
+[INFO    ] Running state [pyasn1] at time 08:49:19.131501
+[INFO    ] Executing state pip.installed for [pyasn1]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install'] in directory '/home/bar'
+[INFO    ] Python package pyasn1 was already installed
+All packages were successfully installed
+[INFO    ] Completed state [pyasn1] at time 08:49:20.185465 duration_in_ms=1053.963
+[INFO    ] Running state [ndg-httpsclient] at time 08:49:20.185693
+[INFO    ] Executing state pip.installed for [ndg-httpsclient]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install', '--index-url', 'https://artifactory.foo.com/api/pypi/pypi/simple'] in directory '/home/bar'
+[INFO    ] Python package ndg-httpsclient was already installed
+All packages were successfully installed
+[INFO    ] Completed state [ndg-httpsclient] at time 08:49:21.227058 duration_in_ms=1041.364
+[INFO    ] Running state [pip_ssl_packages_nonbsp] at time 08:49:21.227295
+[INFO    ] Executing state pip.installed for [pip_ssl_packages_nonbsp]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install'] in directory '/home/bar'
+[INFO    ] Python package pyOpenSSL was already installed
+Python package certifi was already installed
+All packages were successfully installed
+[INFO    ] Completed state [pip_ssl_packages_nonbsp] at time 08:49:23.349517 duration_in_ms=2122.22
+[INFO    ] Running state [git] at time 08:49:23.349740
+[INFO    ] Executing state pkg.latest for [git]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'git'] in directory '/home/bar'
+[INFO    ] Package git is already up-to-date
+[INFO    ] Completed state [git] at time 08:49:23.369028 duration_in_ms=19.288
+[INFO    ] Running state [/usr/local/share/ca-certificates/JD_Corporate_Root_CA_2016.crt] at time 08:49:23.369306
+[INFO    ] Executing state file.managed for [/usr/local/share/ca-certificates/JD_Corporate_Root_CA_2016.crt]
+[INFO    ] File /usr/local/share/ca-certificates/JD_Corporate_Root_CA_2016.crt is in the correct state
+[INFO    ] Completed state [/usr/local/share/ca-certificates/JD_Corporate_Root_CA_2016.crt] at time 08:49:23.391453 duration_in_ms=22.147
+[INFO    ] Running state [/usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02_2016.crt] at time 08:49:23.391682
+[INFO    ] Executing state file.managed for [/usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02_2016.crt]
+[INFO    ] File /usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02_2016.crt is in the correct state
+[INFO    ] Completed state [/usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02_2016.crt] at time 08:49:23.403112 duration_in_ms=11.43
+[INFO    ] Running state [/usr/local/share/ca-certificates/JD_Corporate_Root_CA.crt] at time 08:49:23.403333
+[INFO    ] Executing state file.managed for [/usr/local/share/ca-certificates/JD_Corporate_Root_CA.crt]
+[INFO    ] File /usr/local/share/ca-certificates/JD_Corporate_Root_CA.crt is in the correct state
+[INFO    ] Completed state [/usr/local/share/ca-certificates/JD_Corporate_Root_CA.crt] at time 08:49:23.416216 duration_in_ms=12.883
+[INFO    ] Running state [/usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02.crt] at time 08:49:23.416447
+[INFO    ] Executing state file.managed for [/usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02.crt]
+[INFO    ] File /usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02.crt is in the correct state
+[INFO    ] Completed state [/usr/local/share/ca-certificates/JD_Corporate_Issuing_CA_02.crt] at time 08:49:23.431009 duration_in_ms=14.562
+[INFO    ] Running state [update-ca-certificates] at time 08:49:23.434385
+[INFO    ] Executing state cmd.wait for [update-ca-certificates]
+[INFO    ] No changes made for update-ca-certificates
+[INFO    ] Completed state [update-ca-certificates] at time 08:49:23.435093 duration_in_ms=0.707
+[INFO    ] Running state [jq] at time 08:49:23.435305
+[INFO    ] Executing state pkg.installed for [jq]
+[INFO    ] Package jq is already installed
+[INFO    ] Completed state [jq] at time 08:49:23.439560 duration_in_ms=4.255
+[INFO    ] Running state [/usr/bin/salt-checkin] at time 08:49:23.440286
+[INFO    ] Executing state file.managed for [/usr/bin/salt-checkin]
+[INFO    ] File /usr/bin/salt-checkin is in the correct state
+[INFO    ] Completed state [/usr/bin/salt-checkin] at time 08:49:23.462967 duration_in_ms=22.682
+[INFO    ] Running state [/etc/cron.d/salt-minion] at time 08:49:23.463886
+[INFO    ] Executing state file.managed for [/etc/cron.d/salt-minion]
+[INFO    ] File /etc/cron.d/salt-minion is in the correct state
+[INFO    ] Completed state [/etc/cron.d/salt-minion] at time 08:49:23.465201 duration_in_ms=1.316
+[INFO    ] Running state [/var/run/salt/last_highstate] at time 08:49:23.465399
+[INFO    ] Executing state file.touch for [/var/run/salt/last_highstate]
+[INFO    ] {'new': '/var/run/salt/last_highstate'}
+[INFO    ] Completed state [/var/run/salt/last_highstate] at time 08:49:23.466764 duration_in_ms=1.365
+[INFO    ] Running state [/etc/cron.daily/salt-minion] at time 08:49:23.467029
+[INFO    ] Executing state file.managed for [/etc/cron.daily/salt-minion]
+[INFO    ] File /etc/cron.daily/salt-minion is in the correct state
+[INFO    ] Completed state [/etc/cron.daily/salt-minion] at time 08:49:23.474183 duration_in_ms=7.154
+[INFO    ] Running state [/etc/salt/minion.d/foo.conf] at time 08:49:23.474401
+[INFO    ] Executing state file.managed for [/etc/salt/minion.d/foo.conf]
+[INFO    ] File /etc/salt/minion.d/foo.conf is in the correct state
+[INFO    ] Completed state [/etc/salt/minion.d/foo.conf] at time 08:49:23.488341 duration_in_ms=13.94
+[INFO    ] Running state [/etc/salt/minion.d/00_log_settings.conf] at time 08:49:23.488562
+[INFO    ] Executing state file.managed for [/etc/salt/minion.d/00_log_settings.conf]
+[INFO    ] File /etc/salt/minion.d/00_log_settings.conf is in the correct state
+[INFO    ] Completed state [/etc/salt/minion.d/00_log_settings.conf] at time 08:49:23.502544 duration_in_ms=13.982
+[INFO    ] Running state [deb https://artifactory.foo.com/repo.saltstack.com/apt/ubuntu/14.04/amd64/archive/2017.7.1 trusty main] at time 08:49:23.502765
+[INFO    ] Executing state pkgrepo.managed for [deb https://artifactory.foo.com/repo.saltstack.com/apt/ubuntu/14.04/amd64/archive/2017.7.1 trusty main]
+[INFO    ] Package repo 'deb https://artifactory.foo.com/repo.saltstack.com/apt/ubuntu/14.04/amd64/archive/2017.7.1 trusty main' already configured
+[INFO    ] Completed state [deb https://artifactory.foo.com/repo.saltstack.com/apt/ubuntu/14.04/amd64/archive/2017.7.1 trusty main] at time 08:49:23.524666 duration_in_ms=21.901
+[INFO    ] Running state [salt-minion] at time 08:49:23.526227
+[INFO    ] Running state [salt-minion] at time 08:49:23.531781
+[INFO    ] Executing state pkg.installed for [salt-minion]
+[INFO    ] Version 2017.7.1+ds-1 of package 'salt-minion' is already installed
+[INFO    ] Completed state [salt-minion] at time 08:49:23.536099 duration_in_ms=4.318
+[INFO    ] Running state [salt-minion] at time 08:49:23.536767
+[INFO    ] Executing state service.enabled for [salt-minion]
+[INFO    ] Executing command ['runlevel', '/run/utmp'] in directory '/home/bar'
+[INFO    ] Service salt-minion is already enabled, and is in the desired state
+[INFO    ] Completed state [salt-minion] at time 08:49:23.559831 duration_in_ms=23.064
+[INFO    ] Running state [get_py_dependencies] at time 08:49:23.560665
+[INFO    ] Executing state pkg.installed for [get_py_dependencies]
+[INFO    ] All specified packages are already installed
+[INFO    ] Completed state [get_py_dependencies] at time 08:49:23.564856 duration_in_ms=4.191
+[INFO    ] Running state [get_py_dependencies_non_bsp] at time 08:49:23.565040
+[INFO    ] Executing state pkg.installed for [get_py_dependencies_non_bsp]
+[INFO    ] All specified packages are already installed
+[INFO    ] Completed state [get_py_dependencies_non_bsp] at time 08:49:23.569145 duration_in_ms=4.105
+[INFO    ] Running state [salt-minion] at time 08:49:23.569330
+[INFO    ] Executing state service.running for [salt-minion]
+[INFO    ] Executing command ['service', 'salt-minion', 'status'] in directory '/home/bar'
+[INFO    ] The service salt-minion is already running
+[INFO    ] Completed state [salt-minion] at time 08:49:23.587490 duration_in_ms=18.16
+[INFO    ] Running state [install_vim] at time 08:49:23.587735
+[INFO    ] Executing state pkg.installed for [install_vim]
+[INFO    ] All specified packages are already installed
+[INFO    ] Completed state [install_vim] at time 08:49:23.592476 duration_in_ms=4.741
+[INFO    ] Running state [trusty-desktop-location] at time 08:49:23.592680
+[INFO    ] Executing state grains.absent for [trusty-desktop-location]
+[INFO    ] Grain trusty-desktop-location does not exist
+[INFO    ] Completed state [trusty-desktop-location] at time 08:49:23.593366 duration_in_ms=0.686
+[INFO    ] Running state [trusty-proxy-server] at time 08:49:23.593574
+[INFO    ] Executing state grains.absent for [trusty-proxy-server]
+[INFO    ] Grain trusty-proxy-server does not exist
+[INFO    ] Completed state [trusty-proxy-server] at time 08:49:23.594369 duration_in_ms=0.795
+[INFO    ] Running state [iam] at time 08:49:23.594566
+[INFO    ] Executing state pkg.purged for [iam]
+[INFO    ] All specified packages are already absent
+[INFO    ] Completed state [iam] at time 08:49:23.601692 duration_in_ms=7.126
+[INFO    ] Running state [/etc/apt/sources.list.d/google-chrome-foo.list] at time 08:49:23.601918
+[INFO    ] Executing state file.absent for [/etc/apt/sources.list.d/google-chrome-foo.list]
+[INFO    ] File /etc/apt/sources.list.d/google-chrome-foo.list is not present
+[INFO    ] Completed state [/etc/apt/sources.list.d/google-chrome-foo.list] at time 08:49:23.602539 duration_in_ms=0.622
+[INFO    ] Running state [/etc/apt/sources.list.d/google-chrome.list] at time 08:49:23.602724
+[INFO    ] Executing state file.absent for [/etc/apt/sources.list.d/google-chrome.list]
+[INFO    ] File /etc/apt/sources.list.d/google-chrome.list is not present
+[INFO    ] Completed state [/etc/apt/sources.list.d/google-chrome.list] at time 08:49:23.603278 duration_in_ms=0.553
+[INFO    ] Running state [/etc/apt/sources.list.d/salt.list] at time 08:49:23.603483
+[INFO    ] Executing state file.absent for [/etc/apt/sources.list.d/salt.list]
+[INFO    ] File /etc/apt/sources.list.d/salt.list is not present
+[INFO    ] Completed state [/etc/apt/sources.list.d/salt.list] at time 08:49:23.604046 duration_in_ms=0.563
+[INFO    ] Running state [/etc/apt/sources.list.d/docker-foo.list] at time 08:49:23.604233
+[INFO    ] Executing state file.absent for [/etc/apt/sources.list.d/docker-foo.list]
+[INFO    ] File /etc/apt/sources.list.d/docker-foo.list is not present
+[INFO    ] Completed state [/etc/apt/sources.list.d/docker-foo.list] at time 08:49:23.604801 duration_in_ms=0.564
+[INFO    ] Running state [pkg.refresh_db] at time 08:49:23.604979
+[INFO    ] Executing state module.run for [pkg.refresh_db]
+[WARNING ] The function "module.run" is using its deprecated version and will expire in version "Sodium".
+[INFO    ] Executing command ['apt-get', '-q', 'update'] in directory '/home/bar'
+[INFO    ] {'ret': {'https://artifactory.foo.com docker Release': None, 'https://artifactory.foo.com ubuntu-trusty InRelease': None, 'https://artifactory.foo.com trusty/main amd64 Packages/DiffIndex': False, 'https://artifactory.foo.com docker Release.gpg': None, 'https://artifactory.foo.com trusty-updates/restricted amd64 Packages': None, 'https://artifactory.foo.com trusty-updates/universe amd64 Packages': None, 'https://artifactory.foo.com trusty-security/universe amd64 Packages': None, 'https://artifactory.foo.com trusty/restricted amd64 Packages': None, 'https://artifactory.foo.com trusty-backports/main amd64 Packages': None, 'https://artifactory.foo.com trusty-security/multiverse amd64 Packages': None, 'https://artifactory.foo.com trusty/main amd64 Packages': None, 'https://artifactory.foo.com ubuntu-trusty/main amd64 Packages': None, 'https://artifactory.foo.com trusty Release': None, 'https://artifactory.foo.com docker/main amd64 Packages': None, 'https://artifactory.foo.com trusty-security/main amd64 Packages': None, 'https://artifactory.foo.com trusty InRelease': None, 'https://artifactory.foo.com trusty-updates/multiverse amd64 Packages': None, 'https://artifactory.foo.com trusty-backports/multiverse amd64 Packages': None, 'https://artifactory.foo.com trusty-updates InRelease': None, 'https://artifactory.foo.com trusty-security InRelease': None, 'https://artifactory.foo.com trusty-updates/main amd64 Packages': None, 'https://artifactory.foo.com docker InRelease': False, 'https://artifactory.foo.com trusty-backports InRelease': None, 'https://artifactory.foo.com trusty-security/restricted amd64 Packages': None, 'https://artifactory.foo.com trusty/multiverse amd64 Packages': None, 'https://artifactory.foo.com trusty/universe amd64 Packages': None, 'https://artifactory.foo.com trusty Release.gpg': False, 'https://artifactory.foo.com trusty-backports/universe amd64 Packages': None, 'https://artifactory.foo.com trusty-backports/restricted amd64 Packages': None}}
+[INFO    ] Completed state [pkg.refresh_db] at time 08:49:27.026883 duration_in_ms=3421.903
+[INFO    ] Running state [/usr/java] at time 08:49:27.027112
+[INFO    ] Executing state file.directory for [/usr/java]
+[INFO    ] Directory /usr/java is in the correct state
+Directory /usr/java updated
+[INFO    ] Completed state [/usr/java] at time 08:49:27.029317 duration_in_ms=2.204
+[INFO    ] Running state [/usr/java] at time 08:49:27.030466
+[INFO    ] Executing state archive.extracted for [/usr/java]
+[INFO    ] /usr/java/jre1.8.0_144 exists
+[INFO    ] Completed state [/usr/java] at time 08:49:31.132800 duration_in_ms=4102.333
+[INFO    ] Running state [/usr/java/latest] at time 08:49:31.133754
+[INFO    ] Executing state file.symlink for [/usr/java/latest]
+[INFO    ] Symlink /usr/java/latest is present and owned by root:root
+[INFO    ] Completed state [/usr/java/latest] at time 08:49:31.135042 duration_in_ms=1.287
+[INFO    ] Running state [java] at time 08:49:31.135227
+[INFO    ] Executing state alternatives.install for [java]
+[INFO    ] Alternatives for java is already set to /usr/java/latest/bin/java
+[INFO    ] Completed state [java] at time 08:49:31.135932 duration_in_ms=0.704
+[INFO    ] Running state [libnss3-tools] at time 08:49:31.136157
+[INFO    ] Executing state pkg.latest for [libnss3-tools]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'libnss3-tools'] in directory '/home/bar'
+[INFO    ] Package libnss3-tools is already up-to-date
+[INFO    ] Completed state [libnss3-tools] at time 08:49:31.155096 duration_in_ms=18.939
+[INFO    ] Running state [/usr/local/bin/browser_jd_ca_setup.sh] at time 08:49:31.155911
+[INFO    ] Executing state file.managed for [/usr/local/bin/browser_jd_ca_setup.sh]
+[INFO    ] File /usr/local/bin/browser_jd_ca_setup.sh is in the correct state
+[INFO    ] Completed state [/usr/local/bin/browser_jd_ca_setup.sh] at time 08:49:31.174567 duration_in_ms=18.656
+[INFO    ] Running state [/etc/profile.d/profile_cert_install.sh] at time 08:49:31.175086
+[INFO    ] Executing state file.managed for [/etc/profile.d/profile_cert_install.sh]
+[INFO    ] File /etc/profile.d/profile_cert_install.sh is in the correct state
+[INFO    ] Completed state [/etc/profile.d/profile_cert_install.sh] at time 08:49:31.188751 duration_in_ms=13.665
+[INFO    ] Running state [echo 'dash dash/sh boolean true' | debconf-set-selections ; DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash] at time 08:49:31.188972
+[INFO    ] Executing state cmd.run for [echo 'dash dash/sh boolean true' | debconf-set-selections ; DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash]
+[INFO    ] Executing command 'test $(readlink /bin/sh) = "dash"' in directory '/home/bar'
+[INFO    ] unless execution succeeded
+[INFO    ] Completed state [echo 'dash dash/sh boolean true' | debconf-set-selections ; DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash] at time 08:49:31.196473 duration_in_ms=7.5
+[INFO    ] Running state [docker] at time 08:49:31.196772
+[INFO    ] Executing state service.running for [docker]
+[INFO    ] Executing command ['service', 'docker', 'status'] in directory '/home/bar'
+[INFO    ] The service docker is already running
+[INFO    ] Completed state [docker] at time 08:49:31.218488 duration_in_ms=21.715
+[INFO    ] Running state [dnsmasq] at time 08:49:31.222330
+[INFO    ] Executing state pkg.purged for [dnsmasq]
+[INFO    ] All specified packages are already absent
+[INFO    ] Completed state [dnsmasq] at time 08:49:31.230348 duration_in_ms=8.019
+[INFO    ] Running state [/etc/default/docker] at time 08:49:31.232206
+[INFO    ] Executing state file.managed for [/etc/default/docker]
+[INFO    ] Executing command 'grep -q "### Salt managed - Changes in this block will be overwritten ###" /etc/default/docker' in directory '/home/bar'
+[INFO    ] unless execution succeeded
+[INFO    ] Completed state [/etc/default/docker] at time 08:49:31.240632 duration_in_ms=8.426
+[INFO    ] Running state [/etc/default/docker] at time 08:49:31.241530
+[INFO    ] Executing state file.blockreplace for [/etc/default/docker]
+[INFO    ] No changes needed to be made
+[INFO    ] Completed state [/etc/default/docker] at time 08:49:31.243497 duration_in_ms=1.966
+[INFO    ] Running state [/etc/init/docker.override] at time 08:49:31.243748
+[INFO    ] Executing state file.managed for [/etc/init/docker.override]
+[INFO    ] File /etc/init/docker.override is in the correct state
+[INFO    ] Completed state [/etc/init/docker.override] at time 08:49:31.258074 duration_in_ms=14.326
+[INFO    ] Running state [docker] at time 08:49:31.259355
+[INFO    ] Executing state service.running for [docker]
+[INFO    ] Executing command '[ `docker ps | wc -l` -eq 1 ]' in directory '/home/bar'
+[INFO    ] Executing command ['service', 'docker', 'status'] in directory '/home/bar'
+[INFO    ] The service docker is already running
+[INFO    ] Completed state [docker] at time 08:49:31.319336 duration_in_ms=59.979
+[INFO    ] Running state [/etc/NetworkManager/NetworkManager.conf] at time 08:49:31.319581
+[INFO    ] Executing state file.replace for [/etc/NetworkManager/NetworkManager.conf]
+[INFO    ] Executing command 'test -e /etc/NetworkManager/NetworkManager.conf' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [/etc/NetworkManager/NetworkManager.conf] at time 08:49:31.328557 duration_in_ms=8.976
+[INFO    ] Running state [/etc/hosts] at time 08:49:31.329707
+[INFO    ] Executing state file.blockreplace for [/etc/hosts]
+[INFO    ] File changed:
+--- 
++++ 
+@@ -8,4 +8,5 @@
+ ff02::2 ip6-allrouters
+ ff02::3 ip6-allhosts
+ ### Salt configuration - Anything between these hashtags may be overwritten at any time ###
++200.200.151.173 docker.foo
+ 200.200.151.173 docker.foo### Salt configuration - end ###
+
+[INFO    ] Completed state [/etc/hosts] at time 08:49:31.331337 duration_in_ms=1.631
+[INFO    ] Running state [deb https://artifactory.foo.com/apt.dockerproject.org/repo ubuntu-trusty main] at time 08:49:31.331484
+[INFO    ] Executing state pkgrepo.managed for [deb https://artifactory.foo.com/apt.dockerproject.org/repo ubuntu-trusty main]
+[INFO    ] Package repo 'deb https://artifactory.foo.com/apt.dockerproject.org/repo ubuntu-trusty main' already configured
+[INFO    ] Completed state [deb https://artifactory.foo.com/apt.dockerproject.org/repo ubuntu-trusty main] at time 08:49:31.354143 duration_in_ms=22.66
+[INFO    ] Running state [deb https://artifactory.foo.com/get.docker.com/ubuntu docker main] at time 08:49:31.354286
+[INFO    ] Executing state pkgrepo.managed for [deb https://artifactory.foo.com/get.docker.com/ubuntu docker main]
+[INFO    ] Package repo 'deb https://artifactory.foo.com/get.docker.com/ubuntu docker main' already configured
+[INFO    ] Completed state [deb https://artifactory.foo.com/get.docker.com/ubuntu docker main] at time 08:49:31.372669 duration_in_ms=18.382
+[INFO    ] Running state [pkg.unhold] at time 08:49:31.372815
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list lxc-docker | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:31.391992 duration_in_ms=19.177
+[INFO    ] Running state [lxc-docker-1.9.1] at time 08:49:31.394444
+[INFO    ] Executing state pkg.installed for [lxc-docker-1.9.1]
+[INFO    ] Version 1.9.1 of package 'lxc-docker-1.9.1' is already installed
+[INFO    ] Completed state [lxc-docker-1.9.1] at time 08:49:31.398966 duration_in_ms=4.522
+[INFO    ] Running state [dockeruser.sh] at time 08:49:31.399111
+[INFO    ] Executing state cmd.script for [dockeruser.sh]
+[INFO    ] Executing command '/tmp/__salt.tmp.Ule83R.sh' in directory '/home/bar'
+[INFO    ] {'pid': 2702, 'retcode': 0, 'stderr': '', 'stdout': ''}
+[INFO    ] Completed state [dockeruser.sh] at time 08:49:31.441595 duration_in_ms=42.483
+[INFO    ] Running state [jdx] at time 08:49:31.442757
+[INFO    ] Executing state pkg.latest for [jdx]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'jdx'] in directory '/home/bar'
+[INFO    ] Executing command ['dpkg', '--get-selections', '*'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-get', '-q', '-y', '-o', 'DPkg::Options::=--force-confold', '-o', 'DPkg::Options::=--force-confdef', '--allow-unauthenticated', 'install', 'jdx'] in directory '/home/bar'
+[INFO    ] Executing command ['dpkg-query', '--showformat', '${Status} ${Package} ${Version} ${Architecture}', '-W'] in directory '/home/bar'
+[INFO    ] Made the following changes:
+'python-argcomplete' changed from 'absent' to '1.6.0'
+'qemu-user-static' changed from 'absent' to '2.0.0+dfsg-2ubuntu1.36'
+'binfmt-support' changed from 'absent' to '2.1.4-1'
+'jdx' changed from 'absent' to '1.12.8'
+'python-support' changed from 'absent' to '1.0.15'
+
+[INFO    ] Loading fresh modules for state activity
+[INFO    ] Completed state [jdx] at time 08:49:39.142395 duration_in_ms=7699.638
+[INFO    ] Running state [pkg.unhold] at time 08:49:39.143950
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list jdx | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:39.626450 duration_in_ms=482.499
+[INFO    ] Running state [/etc/jdx/repos.json] at time 08:49:39.627553
+[INFO    ] Executing state file.managed for [/etc/jdx/repos.json]
+[INFO    ] Fetching file from saltenv 'base', ** done ** 'ubuntu/files/repos.json'
+[INFO    ] File changed:
+--- 
++++ 
+@@ -9,9 +9,7 @@
+                  "http://artifactory.foo.com/bazz-prod/tools/sisko-x86_64",
+                  "http://artifactory.foo.com/bazz-prod/tools/sisko-exp"
+                  ],
+-        "debs": [
+-                    "deb http://artifactory.foo.com/debian trusty main"
+-                ]
++        "debs": []
+     },
+     "rc": {
+         "sysroots": "http://artifactory.foo.com/bazz-rc/sysroots",
+@@ -24,7 +22,7 @@
+                  "http://artifactory.foo.com/bazz-rc/tools/sisko-exp"
+                 ],
+         "debs": [
+-                    "deb http://artifactory.foo.com/debian trusty main"
++                    "deb http://artifactory.foo.com/debian trusty jdx"
+                 ]
+     },
+     "dev": {
+
+[INFO    ] Completed state [/etc/jdx/repos.json] at time 08:49:39.648759 duration_in_ms=21.206
+[INFO    ] Running state [/etc/sysctl.d/30-foo-core-pattern.conf] at time 08:49:39.648933
+[INFO    ] Executing state file.managed for [/etc/sysctl.d/30-foo-core-pattern.conf]
+[INFO    ] Fetching file from saltenv 'base', ** done ** 'ubuntu/files/30-foo-core-pattern.conf'
+[INFO    ] File changed:
+New file
+[INFO    ] Completed state [/etc/sysctl.d/30-foo-core-pattern.conf] at time 08:49:39.666351 duration_in_ms=17.418
+[INFO    ] Running state [invoke-rc.d procps start] at time 08:49:39.667199
+[INFO    ] Executing state cmd.run for [invoke-rc.d procps start]
+[INFO    ] Executing command 'invoke-rc.d procps start' in directory '/home/bar'
+[INFO    ] {'pid': 3306, 'retcode': 0, 'stderr': '', 'stdout': 'procps stop/waiting'}
+[INFO    ] Completed state [invoke-rc.d procps start] at time 08:49:39.699620 duration_in_ms=32.42
+[INFO    ] Running state [/etc/security/limits.d/30-jdx-limits.conf] at time 08:49:39.699850
+[INFO    ] Executing state file.managed for [/etc/security/limits.d/30-jdx-limits.conf]
+[INFO    ] Fetching file from saltenv 'base', ** done ** 'ubuntu/files/30-jdx-limits.conf'
+[INFO    ] File changed:
+New file
+[INFO    ] Completed state [/etc/security/limits.d/30-jdx-limits.conf] at time 08:49:39.716977 duration_in_ms=17.128
+[INFO    ] Running state [/etc/security/limits.d/30-foo-core-dump.conf] at time 08:49:39.717131
+[INFO    ] Executing state file.absent for [/etc/security/limits.d/30-foo-core-dump.conf]
+[INFO    ] File /etc/security/limits.d/30-foo-core-dump.conf is not present
+[INFO    ] Completed state [/etc/security/limits.d/30-foo-core-dump.conf] at time 08:49:39.717828 duration_in_ms=0.697
+[INFO    ] Running state [icecc] at time 08:49:39.718041
+[INFO    ] Executing state pkg.installed for [icecc]
+[INFO    ] Version 1.1-1.master.37.2193b9625614.trusty of package 'icecc' is already installed
+[INFO    ] Completed state [icecc] at time 08:49:39.722492 duration_in_ms=4.451
+[INFO    ] Running state [icecc-dbg] at time 08:49:39.722653
+[INFO    ] Executing state pkg.installed for [icecc-dbg]
+[INFO    ] Version 1.1-1.master.37.2193b9625614.trusty of package 'icecc-dbg' is already installed
+[INFO    ] Completed state [icecc-dbg] at time 08:49:39.726698 duration_in_ms=4.046
+[INFO    ] Running state [/var/log/icecc] at time 08:49:39.726875
+[INFO    ] Executing state file.directory for [/var/log/icecc]
+[INFO    ] Directory /var/log/icecc is in the correct state
+Directory /var/log/icecc updated
+[INFO    ] Completed state [/var/log/icecc] at time 08:49:39.727603 duration_in_ms=0.728
+[INFO    ] Running state [/etc/default/icecc] at time 08:49:39.727744
+[INFO    ] Executing state file.managed for [/etc/default/icecc]
+[INFO    ] File /etc/default/icecc is in the correct state
+[INFO    ] Completed state [/etc/default/icecc] at time 08:49:39.740107 duration_in_ms=12.363
+[INFO    ] Running state [/etc/icecc/icecc.conf] at time 08:49:39.740269
+[INFO    ] Executing state file.managed for [/etc/icecc/icecc.conf]
+[INFO    ] File changed:
+--- 
++++ 
+@@ -5,4 +5,4 @@
+ ICECC_MAX_JOBS=""
+ ICECC_BASEDIR="/var/cache/icecc"
+ ICECC_SCHEDULER_LOG_FILE="/var/log/icecc/icecc_scheduler.log"
+-ICECC_SCHEDULER_HOST="icecc-bar.cert.virtd.foo.com"
++ICECC_SCHEDULER_HOST="icecc-bar.virtd.foo.com"
+
+[INFO    ] Completed state [/etc/icecc/icecc.conf] at time 08:49:39.752006 duration_in_ms=11.737
+[INFO    ] Running state [iceccd] at time 08:49:39.752187
+[INFO    ] Executing state service.running for [iceccd]
+[INFO    ] Executing command ['service', 'iceccd', 'status'] in directory '/home/bar'
+[INFO    ] The service iceccd is already running
+[INFO    ] Completed state [iceccd] at time 08:49:39.775977 duration_in_ms=23.79
+[INFO    ] Running state [/usr/local/bin/clean-icecream-restart.sh] at time 08:49:39.776183
+[INFO    ] Executing state file.managed for [/usr/local/bin/clean-icecream-restart.sh]
+[INFO    ] File /usr/local/bin/clean-icecream-restart.sh is in the correct state
+[INFO    ] Completed state [/usr/local/bin/clean-icecream-restart.sh] at time 08:49:39.790380 duration_in_ms=14.198
+[INFO    ] Running state [/usr/local/bin/clean-icecream-restart.sh] at time 08:49:39.793055
+[INFO    ] Executing state cmd.wait for [/usr/local/bin/clean-icecream-restart.sh]
+[INFO    ] No changes made for /usr/local/bin/clean-icecream-restart.sh
+[INFO    ] Completed state [/usr/local/bin/clean-icecream-restart.sh] at time 08:49:39.794156 duration_in_ms=1.101
+[INFO    ] Running state [/usr/local/bin/clean-icecream-restart.sh] at time 08:49:39.794301
+[INFO    ] Executing state cmd.mod_watch for [/usr/local/bin/clean-icecream-restart.sh]
+[INFO    ] Executing command '/usr/local/bin/clean-icecream-restart.sh' in directory '/home/bar'
+[INFO    ] {'pid': 3346, 'retcode': 0, 'stderr': '', 'stdout': ' * Restarting distributed compiler daemon iceccd\n   ...done.'}
+[INFO    ] Completed state [/usr/local/bin/clean-icecream-restart.sh] at time 08:49:40.821157 duration_in_ms=1026.856
+[INFO    ] Running state [icecc-scheduler] at time 08:49:40.821556
+[INFO    ] Executing state service.dead for [icecc-scheduler]
+[INFO    ] Executing command ['service', 'icecc-scheduler', 'status'] in directory '/home/bar'
+[ERROR   ] Command '['service', 'icecc-scheduler', 'status']' failed with return code: 3
+[ERROR   ] output:  * icecc-scheduler is not running
+[INFO    ] The service icecc-scheduler is already dead
+[INFO    ] Completed state [icecc-scheduler] at time 08:49:40.845382 duration_in_ms=23.827
+[INFO    ] Running state [pkg.unhold] at time 08:49:40.845628
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list openssh-server | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:40.864741 duration_in_ms=19.113
+[INFO    ] Running state [openssh-server] at time 08:49:40.865360
+[INFO    ] Executing state pkg.latest for [openssh-server]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'openssh-server'] in directory '/home/bar'
+[INFO    ] Package openssh-server is already up-to-date
+[INFO    ] Completed state [openssh-server] at time 08:49:40.886901 duration_in_ms=21.541
+[INFO    ] Running state [pkg.unhold] at time 08:49:40.887195
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list htop | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:40.911479 duration_in_ms=24.283
+[INFO    ] Running state [htop] at time 08:49:40.911827
+[INFO    ] Executing state pkg.latest for [htop]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'htop'] in directory '/home/bar'
+[INFO    ] Package htop is already up-to-date
+[INFO    ] Completed state [htop] at time 08:49:40.930972 duration_in_ms=19.146
+[INFO    ] Running state [pkg.unhold] at time 08:49:40.931232
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list postfix | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:40.950301 duration_in_ms=19.069
+[INFO    ] Running state [postfix] at time 08:49:40.950574
+[INFO    ] Executing state pkg.latest for [postfix]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'postfix'] in directory '/home/bar'
+[INFO    ] Package postfix is already up-to-date
+[INFO    ] Completed state [postfix] at time 08:49:40.967682 duration_in_ms=17.108
+[INFO    ] Running state [pkg.unhold] at time 08:49:40.967941
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list bash-doc | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:40.986786 duration_in_ms=18.845
+[INFO    ] Running state [bash-doc] at time 08:49:40.987054
+[INFO    ] Executing state pkg.latest for [bash-doc]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'bash-doc'] in directory '/home/bar'
+[INFO    ] Package bash-doc is already up-to-date
+[INFO    ] Completed state [bash-doc] at time 08:49:41.004493 duration_in_ms=17.439
+[INFO    ] Running state [pkg.unhold] at time 08:49:41.004709
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list plymouth-theme-foo-logo | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:41.024647 duration_in_ms=19.938
+[INFO    ] Running state [plymouth-theme-foo-logo] at time 08:49:41.025396
+[INFO    ] Executing state pkg.latest for [plymouth-theme-foo-logo]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'plymouth-theme-foo-logo'] in directory '/home/bar'
+[INFO    ] Package plymouth-theme-foo-logo is already up-to-date
+[INFO    ] Completed state [plymouth-theme-foo-logo] at time 08:49:41.043696 duration_in_ms=18.3
+[INFO    ] Running state [pkg.unhold] at time 08:49:41.043958
+[INFO    ] Executing state module.run for [pkg.unhold]
+[INFO    ] Executing command 'dpkg --list wget | grep -q '^hi'' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [pkg.unhold] at time 08:49:41.063722 duration_in_ms=19.764
+[INFO    ] Running state [wget] at time 08:49:41.063995
+[INFO    ] Executing state pkg.latest for [wget]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'wget'] in directory '/home/bar'
+[INFO    ] Package wget is already up-to-date
+[INFO    ] Completed state [wget] at time 08:49:41.082510 duration_in_ms=18.515
+[INFO    ] Running state [unattended-upgrades] at time 08:49:41.082773
+[INFO    ] Executing state pkg.latest for [unattended-upgrades]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'unattended-upgrades'] in directory '/home/bar'
+[INFO    ] Package unattended-upgrades is already up-to-date
+[INFO    ] Completed state [unattended-upgrades] at time 08:49:41.098778 duration_in_ms=16.004
+[INFO    ] Running state [/etc/xdg/autostart/update-notifier.desktop] at time 08:49:41.099002
+[INFO    ] Executing state file.absent for [/etc/xdg/autostart/update-notifier.desktop]
+[INFO    ] File /etc/xdg/autostart/update-notifier.desktop is not present
+[INFO    ] Completed state [/etc/xdg/autostart/update-notifier.desktop] at time 08:49:41.101250 duration_in_ms=2.247
+[INFO    ] Running state [/etc/apt/apt.conf.d/50unattended-upgrades] at time 08:49:41.101437
+[INFO    ] Executing state file.managed for [/etc/apt/apt.conf.d/50unattended-upgrades]
+[INFO    ] File /etc/apt/apt.conf.d/50unattended-upgrades is in the correct state
+[INFO    ] Completed state [/etc/apt/apt.conf.d/50unattended-upgrades] at time 08:49:41.102648 duration_in_ms=1.211
+[INFO    ] Running state [/etc/apt/apt.conf.d/10periodic] at time 08:49:41.102850
+[INFO    ] Executing state file.managed for [/etc/apt/apt.conf.d/10periodic]
+[INFO    ] File /etc/apt/apt.conf.d/10periodic is in the correct state
+[INFO    ] Completed state [/etc/apt/apt.conf.d/10periodic] at time 08:49:41.104659 duration_in_ms=1.809
+[INFO    ] Running state [dpkg --configure -a; apt-get -f -y --force-yes install; apt-get -y autoremove] at time 08:49:41.105050
+[INFO    ] Executing state cmd.run for [dpkg --configure -a; apt-get -f -y --force-yes install; apt-get -y autoremove]
+[INFO    ] Executing command 'dpkg-query --show --showformat='${db:Status-Abbrev}\n' "*" | grep -q [HUF]' in directory '/home/bar'
+[INFO    ] onlyif execution failed
+[INFO    ] Completed state [dpkg --configure -a; apt-get -f -y --force-yes install; apt-get -y autoremove] at time 08:49:41.121783 duration_in_ms=16.734
+[INFO    ] Running state [/opt/rclone/] at time 08:49:41.122066
+[INFO    ] Executing state archive.extracted for [/opt/rclone/]
+[INFO    ] /opt/rclone/rclone-v1.32-linux-amd64 exists
+[INFO    ] Completed state [/opt/rclone/] at time 08:49:44.154924 duration_in_ms=3032.856
+[INFO    ] Running state [/opt/rclone/] at time 08:49:44.156520
+[INFO    ] Executing state file.directory for [/opt/rclone/]
+[INFO    ] Directory /opt/rclone is in the correct state
+Directory /opt/rclone updated
+[INFO    ] Completed state [/opt/rclone/] at time 08:49:44.159455 duration_in_ms=2.936
+[INFO    ] Running state [/usr/local/bin/rclone] at time 08:49:44.160130
+[INFO    ] Executing state file.symlink for [/usr/local/bin/rclone]
+[INFO    ] Symlink /usr/local/bin/rclone is present and owned by root:root
+[INFO    ] Completed state [/usr/local/bin/rclone] at time 08:49:44.161794 duration_in_ms=1.664
+[INFO    ] Running state [docker] at time 08:49:44.162132
+[INFO    ] Executing state group.present for [docker]
+[INFO    ] Group docker is present and up to date
+[INFO    ] Completed state [docker] at time 08:49:44.162862 duration_in_ms=0.73
+[INFO    ] Running state [admin] at time 08:49:44.163066
+[INFO    ] Executing state group.present for [admin]
+[INFO    ] Group admin is present and up to date
+[INFO    ] Completed state [admin] at time 08:49:44.163713 duration_in_ms=0.648
+[INFO    ] Running state [bar] at time 08:49:44.163914
+[INFO    ] Executing state user.present for [bar]
+[INFO    ] User bar is present and up to date
+[INFO    ] Completed state [bar] at time 08:49:44.164981 duration_in_ms=1.067
+[INFO    ] Running state [virtdtemp] at time 08:49:44.165166
+[INFO    ] Executing state group.absent for [virtdtemp]
+[INFO    ] Group not present
+[INFO    ] Completed state [virtdtemp] at time 08:49:44.165858 duration_in_ms=0.692
+[INFO    ] Running state [virtdtemp] at time 08:49:44.166187
+[INFO    ] Executing state user.absent for [virtdtemp]
+[INFO    ] User virtdtemp is not present
+[INFO    ] Completed state [virtdtemp] at time 08:49:44.167137 duration_in_ms=0.95
+[INFO    ] Running state [/etc/sudoers.d/bar] at time 08:49:44.167546
+[INFO    ] Executing state file.managed for [/etc/sudoers.d/bar]
+[INFO    ] File /etc/sudoers.d/bar is in the correct state
+[INFO    ] Completed state [/etc/sudoers.d/bar] at time 08:49:44.179631 duration_in_ms=12.086
+[INFO    ] Running state [/home/bar/.ssh/authorized_keys] at time 08:49:44.179854
+[INFO    ] Executing state file.managed for [/home/bar/.ssh/authorized_keys]
+[INFO    ] File /home/bar/.ssh/authorized_keys is in the correct state
+[INFO    ] Completed state [/home/bar/.ssh/authorized_keys] at time 08:49:44.192440 duration_in_ms=12.586
+[INFO    ] Running state [/etc/ssh/sshd_config] at time 08:49:44.192648
+[INFO    ] Executing state file.replace for [/etc/ssh/sshd_config]
+[INFO    ] No changes needed to be made
+[INFO    ] Completed state [/etc/ssh/sshd_config] at time 08:49:44.194823 duration_in_ms=2.176
+[INFO    ] Running state [ssh] at time 08:49:44.195680
+[INFO    ] Executing state service.running for [ssh]
+[INFO    ] Executing command ['service', 'ssh', 'status'] in directory '/home/bar'
+[INFO    ] The service ssh is already running
+[INFO    ] Completed state [ssh] at time 08:49:44.216399 duration_in_ms=20.718
+[INFO    ] Running state [America/Chicago] at time 08:49:44.216668
+[INFO    ] Executing state timezone.system for [America/Chicago]
+[INFO    ] Executing command ['timedatectl'] in directory '/home/bar'
+[INFO    ] Executing command 'timedatectl set-timezone America/Chicago' in directory '/home/bar'
+[INFO    ] {'timezone': 'America/Chicago'}
+[INFO    ] Completed state [America/Chicago] at time 08:49:44.288242 duration_in_ms=71.574
+[INFO    ] Running state [pbr>=1.8] at time 08:49:44.288527
+[INFO    ] Executing state pip.installed for [pbr>=1.8]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install'] in directory '/home/bar'
+[INFO    ] Python package pbr>=1.8 was already installed
+All packages were successfully installed
+[INFO    ] Completed state [pbr>=1.8] at time 08:49:45.360356 duration_in_ms=1071.828
+[INFO    ] Running state [positional>=1.1] at time 08:49:45.360587
+[INFO    ] Executing state pip.installed for [positional>=1.1]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install'] in directory '/home/bar'
+[INFO    ] Python package positional>=1.1 was already installed
+All packages were successfully installed
+[INFO    ] Completed state [positional>=1.1] at time 08:49:46.545161 duration_in_ms=1184.573
+[INFO    ] Running state [install_openstack_tools] at time 08:49:46.546587
+[INFO    ] Executing state pip.installed for [install_openstack_tools]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install', 'openstacksdk==0.9.1', 'python-openstackclient==2.6.0'] in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] {'python-openstackclient==2.6.0': 'Installed', 'openstacksdk==0.9.1': 'Installed'}
+[INFO    ] Completed state [install_openstack_tools] at time 08:49:53.215992 duration_in_ms=6669.403
+[INFO    ] Running state [/etc/.openstack_profile] at time 08:49:53.216234
+[INFO    ] Executing state file.managed for [/etc/.openstack_profile]
+[INFO    ] File /etc/.openstack_profile is in the correct state
+[INFO    ] Completed state [/etc/.openstack_profile] at time 08:49:53.218587 duration_in_ms=2.354
+[INFO    ] Running state [/etc/.rclone.conf] at time 08:49:53.219448
+[INFO    ] Executing state file.managed for [/etc/.rclone.conf]
+[INFO    ] File /etc/.rclone.conf is in the correct state
+[INFO    ] Completed state [/etc/.rclone.conf] at time 08:49:53.221091 duration_in_ms=1.642
+[INFO    ] Running state [/home/bar/jenkins] at time 08:49:53.221316
+[INFO    ] Executing state file.directory for [/home/bar/jenkins]
+[INFO    ] Directory /home/bar/jenkins is in the correct state
+Directory /home/bar/jenkins updated
+[INFO    ] Completed state [/home/bar/jenkins] at time 08:49:53.222294 duration_in_ms=0.978
+[INFO    ] Running state [/opt/jenkins/workspace] at time 08:49:53.223110
+[INFO    ] Executing state file.directory for [/opt/jenkins/workspace]
+[INFO    ] Directory /opt/jenkins/workspace is in the correct state
+Directory /opt/jenkins/workspace updated
+[INFO    ] Completed state [/opt/jenkins/workspace] at time 08:49:53.224199 duration_in_ms=1.09
+[INFO    ] Running state [/opt/jenkins/workspaceRepos] at time 08:49:53.224416
+[INFO    ] Executing state file.directory for [/opt/jenkins/workspaceRepos]
+[INFO    ] Directory /opt/jenkins/workspaceRepos is in the correct state
+Directory /opt/jenkins/workspaceRepos updated
+[INFO    ] Completed state [/opt/jenkins/workspaceRepos] at time 08:49:53.225702 duration_in_ms=1.286
+[INFO    ] Running state [/opt/jenkins/buildspace] at time 08:49:53.225949
+[INFO    ] Executing state file.directory for [/opt/jenkins/buildspace]
+[INFO    ] Directory /opt/jenkins/buildspace is in the correct state
+Directory /opt/jenkins/buildspace updated
+[INFO    ] Completed state [/opt/jenkins/buildspace] at time 08:49:53.227605 duration_in_ms=1.656
+[INFO    ] Running state [/home/bar/.ssh] at time 08:49:53.227875
+[INFO    ] Executing state file.recurse for [/home/bar/.ssh]
+[INFO    ] The directory /home/bar/.ssh is in the correct state
+[INFO    ] Completed state [/home/bar/.ssh] at time 08:49:53.329204 duration_in_ms=101.329
+[INFO    ] Running state [/home/bar/.gnupg] at time 08:49:53.329455
+[INFO    ] Executing state file.recurse for [/home/bar/.gnupg]
+[INFO    ] The directory /home/bar/.gnupg is in the correct state
+[INFO    ] Completed state [/home/bar/.gnupg] at time 08:49:53.424355 duration_in_ms=94.9
+[INFO    ] Running state [/home/bar/.rpmmacros] at time 08:49:53.424607
+[INFO    ] Executing state file.managed for [/home/bar/.rpmmacros]
+[INFO    ] File /home/bar/.rpmmacros is in the correct state
+[INFO    ] Completed state [/home/bar/.rpmmacros] at time 08:49:53.443261 duration_in_ms=18.653
+[INFO    ] Running state [ethtool] at time 08:49:53.443489
+[INFO    ] Executing state pkg.installed for [ethtool]
+[INFO    ] Package ethtool is already installed
+[INFO    ] Completed state [ethtool] at time 08:49:53.448646 duration_in_ms=5.156
+[INFO    ] Running state [/etc/network/if-up.d/tcpoffset] at time 08:49:53.448859
+[INFO    ] Executing state file.managed for [/etc/network/if-up.d/tcpoffset]
+[INFO    ] File /etc/network/if-up.d/tcpoffset is in the correct state
+[INFO    ] Completed state [/etc/network/if-up.d/tcpoffset] at time 08:49:53.450243 duration_in_ms=1.383
+[INFO    ] Running state [bazz-deploy-utils == 0.7.4] at time 08:49:53.452138
+[INFO    ] Executing state pip.installed for [bazz-deploy-utils == 0.7.4]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install'] in directory '/home/bar'
+[INFO    ] Python package bazz-deploy-utils == 0.7.4 was already installed
+All packages were successfully installed
+[INFO    ] Completed state [bazz-deploy-utils == 0.7.4] at time 08:49:54.475568 duration_in_ms=1023.429
+[INFO    ] Running state [autopinner==1.4.53] at time 08:49:54.475792
+[INFO    ] Executing state pip.installed for [autopinner==1.4.53]
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'install', '--upgrade', 'autopinner==1.4.53'] in directory '/home/bar'
+[INFO    ] Executing command '/usr/local/bin/pip2.7 --version' in directory '/home/bar'
+[INFO    ] Executing command ['/usr/local/bin/pip2.7', 'freeze', '--all'] in directory '/home/bar'
+[INFO    ] {'autopinner==1.4.53': 'Installed'}
+[INFO    ] Loading fresh modules for state activity
+[INFO    ] Completed state [autopinner==1.4.53] at time 08:49:56.882042 duration_in_ms=2406.25
+[INFO    ] Running state [ntp] at time 08:49:56.886099
+[INFO    ] Executing state pkg.latest for [ntp]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'ntp'] in directory '/home/bar'
+[INFO    ] Package ntp is already up-to-date
+[INFO    ] Completed state [ntp] at time 08:49:56.908763 duration_in_ms=22.663
+[INFO    ] Running state [/etc/ntp.conf] at time 08:49:56.910942
+[INFO    ] Executing state file.managed for [/etc/ntp.conf]
+[INFO    ] File /etc/ntp.conf is in the correct state
+[INFO    ] Completed state [/etc/ntp.conf] at time 08:49:56.928279 duration_in_ms=17.336
+[INFO    ] Running state [/etc/localtime] at time 08:49:56.928522
+[INFO    ] Executing state file.symlink for [/etc/localtime]
+[INFO    ] {'new': '/etc/localtime'}
+[INFO    ] Completed state [/etc/localtime] at time 08:49:56.934690 duration_in_ms=6.168
+[INFO    ] Running state [ntp] at time 08:49:57.197716
+[INFO    ] Executing state service.dead for [ntp]
+[INFO    ] Executing command ['service', 'ntp', 'status'] in directory '/home/bar'
+[INFO    ] Executing command ['service', 'ntp', 'stop'] in directory '/home/bar'
+[INFO    ] Executing command ['service', 'ntp', 'status'] in directory '/home/bar'
+[ERROR   ] Command '['service', 'ntp', 'status']' failed with return code: 3
+[ERROR   ] output:  * NTP server is not running
+[INFO    ] {'ntp': False}
+[INFO    ] Completed state [ntp] at time 08:49:59.246233 duration_in_ms=2048.517
+[INFO    ] Running state [sleep 1; ntpdate jdnet.foo.com] at time 08:49:59.247067
+[INFO    ] Executing state cmd.run for [sleep 1; ntpdate jdnet.foo.com]
+[INFO    ] Executing command 'sleep 1; ntpdate jdnet.foo.com' in directory '/home/bar'
+[INFO    ] {'pid': 3652, 'retcode': 0, 'stderr': '', 'stdout': '12 Dec 08:50:10 ntpdate[3654]: adjust time server 200.200.162.57 offset -0.383993 sec'}
+[INFO    ] Completed state [sleep 1; ntpdate jdnet.foo.com] at time 08:50:10.761046 duration_in_ms=11513.978
+[INFO    ] Running state [ntp] at time 08:50:10.762430
+[INFO    ] Executing state service.running for [ntp]
+[INFO    ] Executing command ['service', 'ntp', 'status'] in directory '/home/bar'
+[ERROR   ] Command '['service', 'ntp', 'status']' failed with return code: 3
+[ERROR   ] output:  * NTP server is not running
+[INFO    ] Executing command ['service', 'ntp', 'start'] in directory '/home/bar'
+[INFO    ] Executing command ['service', 'ntp', 'status'] in directory '/home/bar'
+[INFO    ] {'ntp': True}
+[INFO    ] Completed state [ntp] at time 08:50:10.808390 duration_in_ms=45.96
+[INFO    ] Running state [/etc/nagios/nrpe.cfg] at time 08:50:10.808635
+[INFO    ] Executing state file.managed for [/etc/nagios/nrpe.cfg]
+[INFO    ] File /etc/nagios/nrpe.cfg is in the correct state
+[INFO    ] Completed state [/etc/nagios/nrpe.cfg] at time 08:50:10.861427 duration_in_ms=52.793
+[INFO    ] Running state [ubuntu_nrpe] at time 08:50:10.861659
+[INFO    ] Executing state pkg.latest for [ubuntu_nrpe]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'dnsutils'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'bc'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'nagios-plugins'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'nagios-nrpe-server'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'nagios-plugins-basic'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'nagios-plugins-standard'] in directory '/home/bar'
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'libwww-perl'] in directory '/home/bar'
+[INFO    ] All packages are up-to-date (bc, dnsutils, libwww-perl, nagios-nrpe-server, nagios-plugins, nagios-plugins-basic, nagios-plugins-standard).
+[INFO    ] Completed state [ubuntu_nrpe] at time 08:50:11.025021 duration_in_ms=163.362
+[INFO    ] Running state [/usr/lib/nagios/plugins] at time 08:50:11.025262
+[INFO    ] Executing state file.recurse for [/usr/lib/nagios/plugins]
+[INFO    ] The directory /usr/lib/nagios/plugins is in the correct state
+[INFO    ] Completed state [/usr/lib/nagios/plugins] at time 08:50:12.287299 duration_in_ms=1262.036
+[INFO    ] Running state [/usr/lib/nagios/scripts] at time 08:50:12.288480
+[INFO    ] Executing state file.recurse for [/usr/lib/nagios/scripts]
+[INFO    ] The directory /usr/lib/nagios/scripts is in the correct state
+[INFO    ] Completed state [/usr/lib/nagios/scripts] at time 08:50:12.339045 duration_in_ms=50.565
+[INFO    ] Running state [nagios-nrpe-server] at time 08:50:12.340973
+[INFO    ] Executing state service.running for [nagios-nrpe-server]
+[INFO    ] Executing command ['service', 'nagios-nrpe-server', 'status'] in directory '/home/bar'
+[INFO    ] The service nagios-nrpe-server is already running
+[INFO    ] Completed state [nagios-nrpe-server] at time 08:50:12.362017 duration_in_ms=21.044
+[INFO    ] Running state [/etc/sudoers.d/nagios] at time 08:50:12.362219
+[INFO    ] Executing state file.managed for [/etc/sudoers.d/nagios]
+[INFO    ] File /etc/sudoers.d/nagios is in the correct state
+[INFO    ] Completed state [/etc/sudoers.d/nagios] at time 08:50:12.363552 duration_in_ms=1.333
+[INFO    ] Running state [nfs-common] at time 08:50:12.363710
+[INFO    ] Executing state pkg.installed for [nfs-common]
+[INFO    ] Package nfs-common is already installed
+[INFO    ] Completed state [nfs-common] at time 08:50:12.370438 duration_in_ms=6.728
+[INFO    ] Running state [/etc/update-motd.d/10-help-text] at time 08:50:12.370656
+[INFO    ] Executing state file.absent for [/etc/update-motd.d/10-help-text]
+[INFO    ] File /etc/update-motd.d/10-help-text is not present
+[INFO    ] Completed state [/etc/update-motd.d/10-help-text] at time 08:50:12.371325 duration_in_ms=0.669
+[INFO    ] Running state [/etc/update-motd.d/51-cloudguest] at time 08:50:12.371536
+[INFO    ] Executing state file.absent for [/etc/update-motd.d/51-cloudguest]
+[INFO    ] File /etc/update-motd.d/51-cloudguest is not present
+[INFO    ] Completed state [/etc/update-motd.d/51-cloudguest] at time 08:50:12.372106 duration_in_ms=0.571
+[INFO    ] Running state [/etc/update-motd.d/97-virtdmotd] at time 08:50:12.372316
+[INFO    ] Executing state file.managed for [/etc/update-motd.d/97-virtdmotd]
+[INFO    ] File /etc/update-motd.d/97-virtdmotd is in the correct state
+[INFO    ] Completed state [/etc/update-motd.d/97-virtdmotd] at time 08:50:12.385548 duration_in_ms=13.232
+[INFO    ] Running state [/etc/mercurial/hgrc.d/foo.rc] at time 08:50:12.385767
+[INFO    ] Executing state file.managed for [/etc/mercurial/hgrc.d/foo.rc]
+[INFO    ] File /etc/mercurial/hgrc.d/foo.rc is in the correct state
+[INFO    ] Completed state [/etc/mercurial/hgrc.d/foo.rc] at time 08:50:12.405470 duration_in_ms=19.703
+[INFO    ] Running state [mercurial] at time 08:50:12.405690
+[INFO    ] Executing state pkg.latest for [mercurial]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'mercurial'] in directory '/home/bar'
+[INFO    ] Package mercurial is already up-to-date
+[INFO    ] Completed state [mercurial] at time 08:50:12.426496 duration_in_ms=20.806
+[INFO    ] Running state [xvfb] at time 08:50:12.428058
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'xvfb'] in directory '/home/bar'
+[INFO    ] Running state [xvfb] at time 08:50:12.447661
+[INFO    ] Executing state pkg.latest for [xvfb]
+[INFO    ] Executing command ['apt-cache', '-q', 'policy', 'xvfb'] in directory '/home/bar'
+[INFO    ] Package xvfb is already up-to-date
+[INFO    ] Completed state [xvfb] at time 08:50:12.466710 duration_in_ms=19.05
+[INFO    ] Running state [/etc/init/xvfb.conf] at time 08:50:12.466951
+[INFO    ] Executing state file.managed for [/etc/init/xvfb.conf]
+[INFO    ] File /etc/init/xvfb.conf is in the correct state
+[INFO    ] Completed state [/etc/init/xvfb.conf] at time 08:50:12.468582 duration_in_ms=1.631
+[INFO    ] Running state [xvfb] at time 08:50:12.470429
+[INFO    ] Executing state service.running for [xvfb]
+[INFO    ] Executing command 'ps -efHww' in directory '/home/bar'
+[INFO    ] The service xvfb is already running
+[INFO    ] Completed state [xvfb] at time 08:50:12.498150 duration_in_ms=27.721
+[INFO    ] Running state [sleep 60 && salt-call --local service.restart salt-minion] at time 08:50:12.500250
+[INFO    ] Executing state cmd.wait for [sleep 60 && salt-call --local service.restart salt-minion]
+[INFO    ] No changes made for sleep 60 && salt-call --local service.restart salt-minion
+[INFO    ] Completed state [sleep 60 && salt-call --local service.restart salt-minion] at time 08:50:12.501194 duration_in_ms=0.944
+local:
+  Name: postfix_debconf_selections.sh - Function: cmd.script - Result: Changed Started: - 08:49:12.392228 Duration: 1976.612 ms
+  Name: /var/run/salt/last_highstate - Function: file.touch - Result: Changed Started: - 08:49:23.465399 Duration: 1.365 ms
+  Name: pkg.refresh_db - Function: module.run - Result: Changed Started: - 08:49:23.604980 Duration: 3421.903 ms
+  Name: /etc/hosts - Function: file.blockreplace - Result: Changed Started: - 08:49:31.329706 Duration: 1.631 ms
+  Name: dockeruser.sh - Function: cmd.script - Result: Changed Started: - 08:49:31.399112 Duration: 42.483 ms
+  Name: jdx - Function: pkg.latest - Result: Changed Started: - 08:49:31.442757 Duration: 7699.638 ms
+  Name: /etc/jdx/repos.json - Function: file.managed - Result: Changed Started: - 08:49:39.627553 Duration: 21.206 ms
+  Name: /etc/sysctl.d/30-foo-core-pattern.conf - Function: file.managed - Result: Changed Started: - 08:49:39.648933 Duration: 17.418 ms
+  Name: invoke-rc.d procps start - Function: cmd.run - Result: Changed Started: - 08:49:39.667200 Duration: 32.42 ms
+  Name: /etc/security/limits.d/30-jdx-limits.conf - Function: file.managed - Result: Changed Started: - 08:49:39.699849 Duration: 17.128 ms
+  Name: /etc/icecc/icecc.conf - Function: file.managed - Result: Changed Started: - 08:49:39.740269 Duration: 11.737 ms
+  Name: /usr/local/bin/clean-icecream-restart.sh - Function: cmd.wait - Result: Changed Started: - 08:49:39.794301 Duration: 1026.856 ms
+  Name: America/Chicago - Function: timezone.system - Result: Changed Started: - 08:49:44.216668 Duration: 71.574 ms
+  Name: install_openstack_tools - Function: pip.installed - Result: Changed Started: - 08:49:46.546589 Duration: 6669.403 ms
+  Name: autopinner==1.4.53 - Function: pip.installed - Result: Changed Started: - 08:49:54.475792 Duration: 2406.25 ms
+  Name: /etc/localtime - Function: file.symlink - Result: Changed Started: - 08:49:56.928522 Duration: 6.168 ms
+  Name: ntp - Function: service.dead - Result: Changed Started: - 08:49:57.197716 Duration: 2048.517 ms
+  Name: sleep 1; ntpdate jdnet.foo.com - Function: cmd.run - Result: Changed Started: - 08:49:59.247068 Duration: 11513.978 ms
+  Name: ntp - Function: service.running - Result: Changed Started: - 08:50:10.762430 Duration: 45.96 ms
+
+Summary for local
+--------------
+Succeeded: 160 (changed=19)
+Failed:      0
+--------------
+Total states run:     160
+Total run time:    65.153 s
+script executed successfully.
+slave setup done.
+Dec 12, 2017 8:50:12 AM com.youdevise.hudson.slavestatus.SlaveListener call
+INFO: Slave-status listener starting
+Dec 12, 2017 8:50:12 AM com.youdevise.hudson.slavestatus.SocketHTTPListener waitForConnection
+INFO: Slave-status listener ready on port 3141
+Agent successfully connected and online
+Slave JVM has not reported exit code. Is it still running?
+ERROR: Connection terminated
+java.io.EOFException
+	at java.io.ObjectInputStream$PeekInputStream.readFully(ObjectInputStream.java:2675)
+	at java.io.ObjectInputStream$BlockDataInputStream.readShort(ObjectInputStream.java:3150)
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:859)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:355)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:48)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:35)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:63)
+Caused: java.io.IOException: Unexpected termination of the channel
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:77)
+[12/12/17 08:50:15] [SSH] Connection closed.

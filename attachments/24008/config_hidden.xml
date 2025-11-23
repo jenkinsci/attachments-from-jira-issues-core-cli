@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>###### 7.0 Nightly Build</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.24">
+    <configVersion>1</configVersion>
+    <p4User>#####</p4User>
+    <p4Passwd>#####</p4Passwd>
+    <p4Port>#####</p4Port>
+    <p4Client>JS-LON-NSMBUILD01-NIGHTLY-A1-7-0</p4Client>
+    <projectPath>//depot/NSM/3rdParty/... //ws/3rdParty/...&#xd;
+//depot/NSM/Build.config/*	//ws/Build.config/*&#xd;
+//depot/NSM/Build.config/#####_7.0/... //ws/Build.config/#####_7.0/...&#xd;
+//depot/NSM/Branches/#####_7.0/... //ws/Branches/#####_7.0/...&#xd;
+//depot/NSM/Branches/#####_7.0* //ws/Branches/#####_7.0*</projectPath>
+    <projectOptions>noallwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <clientOwner></clientOwner>
+    <p4SysDrive>C:</p4SysDrive>
+    <p4SysRoot>C:\WINDOWS</p4SysRoot>
+    <browser class="hudson.plugins.perforce.browsers.P4Web">
+      <url>######</url>
+      <p4WebEndShite>?ac=22</p4WebEndShite>
+      <p4DifEndShite>?ac=19</p4DifEndShite>
+      <p4ClEndShite>?ac=10</p4ClEndShite>
+    </browser>
+    <p4Tool>Perforce</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>true</exposeP4Passwd>
+    <wipeBeforeBuild>false</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>false</wipeRepoBeforeBuild>
+    <firstChange>-1</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${nodename}</slaveClientNameFormat>
+    <lineEndValue>local</lineEndValue>
+    <useViewMask>false</useViewMask>
+    <useViewMaskForPolling>false</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>30 0 * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>call C:\dev\jenkins\jobs\jenkins.bat Branches\#####_7.0 build-and-publish %P4CLIENT%</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.4">
+      <recipients>######</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <ruby-proxy-object>
+      <ruby-object ruby-class="Jenkins::Plugin::Proxies::BuildWrapper" pluginid="pathignore">
+        <pluginid pluginid="pathignore" ruby-class="String">pathignore</pluginid>
+        <object ruby-class="PathignoreWrapper" pluginid="pathignore">
+          <ignored__paths pluginid="pathignore" ruby-class="String">**/Products/#####/version.txt,**/Src/Client/ApplicationContainer/src/version.as,**/Src/Client/Modules/DrillDown/src/version.as,**/Src/Client/Modules/DrillDown/version.txt,**/Src/DatabaseSchema/#####/build_number.sql,**/Src/Platform/Core/Ginkgo/ginkgo/version.py,**/Src/Platform/Core/Ginkgo/version.txt,**/Src/Platform/Core/Orchestrator/version.php,**/Src/Platform/Core/Orchestrator/version.txt,**/Src/Platform/Daemons/ProcessingNode/version.h,**/Src/Platform/Daemons/ProcessingNode/version.txt,**/Src/Platform/Reporting/ReportConverter/Source/version.h,**/Src/Platform/Services/DataExtraction/src/resources/Version.properties</ignored__paths>
+          <invert__ignore pluginid="pathignore" ruby-class="FalseClass">false</invert__ignore>
+        </object>
+      </ruby-object>
+    </ruby-proxy-object>
+  </buildWrappers>
+</project>

@@ -1,0 +1,32 @@
+diff --git i/core/src/main/java/hudson/DependencyRunner.java w/core/src/main/java/hudson/DependencyRunner.java
+index 49b8693..8ada0d8 100644
+--- i/core/src/main/java/hudson/DependencyRunner.java
++++ w/core/src/main/java/hudson/DependencyRunner.java
+@@ -25,14 +25,17 @@ package hudson;
+ 
+ import hudson.model.AbstractProject;
+ import hudson.model.Hudson;
++import hudson.security.ACL;
+ 
+ import java.util.ArrayList;
++import java.util.Collection;
+ import java.util.HashSet;
+ import java.util.List;
+ import java.util.Set;
+-import java.util.Collection;
+ import java.util.logging.Logger;
+ 
++import org.acegisecurity.context.SecurityContextHolder;
++
+ /**
+  * Runs a job on all projects in the order of dependencies
+  */
+@@ -49,6 +52,8 @@ public class DependencyRunner implements Runnable {
+     }
+ 
+     public void run() {
++        SecurityContextHolder.getContext().setAuthentication(ACL.SYSTEM);
++
+         Set<AbstractProject> topLevelProjects = new HashSet<AbstractProject>();
+         // Get all top-level projects
+     	LOGGER.fine("assembling top level projects");

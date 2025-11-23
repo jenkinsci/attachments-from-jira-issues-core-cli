@@ -1,0 +1,15 @@
+Index: ParameterizedDependency.java
+===================================================================
+--- ParameterizedDependency.java	(revision 31483)
++++ ParameterizedDependency.java	(working copy)
+@@ -40,9 +40,8 @@
+ 			List<Action> actionList = config.getBaseActions(build, listener);
+ 			if (!actionList.isEmpty()) {
+ 				actions.addAll(config.getBuildActions(actionList, getDownstreamProject()));
+-				return true;
+ 			}
+-                        return false;
++    return true;
+ 		} catch (AbstractBuildParameters.DontTriggerException ex) {
+ 			// don't trigger on this configuration
+ 			return false;

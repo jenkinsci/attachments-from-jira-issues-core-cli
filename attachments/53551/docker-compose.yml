@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  master:
+    build: .
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+      - "33848:33848/udp"  
+    volumes:
+      - type: bind
+        source: ./jenkins_home
+        target: /var/jenkins_home
+  slave:
+    build:
+      context: .
+      dockerfile: Dockerfile_slave
+    privileged: true
+    links:
+      - master
+    command: -labels linux -master http://master:8080/

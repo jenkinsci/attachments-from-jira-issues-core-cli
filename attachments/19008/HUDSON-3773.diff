@@ -1,0 +1,185 @@
+Index: test/src/test/java/hudson/maven/RedeployPublisherTest.java
+===================================================================
+--- test/src/test/java/hudson/maven/RedeployPublisherTest.java	(revision 25670)
++++ test/src/test/java/hudson/maven/RedeployPublisherTest.java	(working copy)
+@@ -25,6 +25,7 @@
+ 
+ import hudson.model.Result;
+ import org.jvnet.hudson.test.Bug;
++import org.jvnet.hudson.test.ExtractResourceSCM;
+ import org.jvnet.hudson.test.HudsonTestCase;
+ import org.jvnet.hudson.test.SingleFileSCM;
+ import org.jvnet.hudson.test.Email;
+@@ -43,7 +44,7 @@
+ 
+         // a fake build
+         m2.setScm(new SingleFileSCM("pom.xml",getClass().getResource("big-artifact.pom")));
+-        m2.getPublishersList().add(new RedeployPublisher("",repo.toURI().toString(),true));
++        m2.getPublishersList().add(new RedeployPublisher("",repo.toURI().toString(),true, false));
+ 
+         MavenModuleSetBuild b = m2.scheduleBuild2(0).get();
+         assertBuildStatus(Result.SUCCESS, b);
+@@ -57,10 +58,10 @@
+ 
+     public void testConfigRoundtrip() throws Exception {
+         MavenModuleSet p = createMavenProject();
+-        RedeployPublisher rp = new RedeployPublisher("theId", "http://some.url/", true);
++        RedeployPublisher rp = new RedeployPublisher("theId", "http://some.url/", true, true);
+         p.getPublishersList().add(rp);
+         submit(new WebClient().getPage(p,"configure").getFormByName("config"));
+-        assertEqualBeans(rp,p.getPublishersList().get(RedeployPublisher.class),"id,url,uniqueVersion");
++        assertEqualBeans(rp,p.getPublishersList().get(RedeployPublisher.class),"id,url,uniqueVersion,evenIfUnstable");
+     }
+ 
+ //    /**
+@@ -90,11 +91,28 @@
+ 
+         // a fake build
+         m2.setScm(new SingleFileSCM("pom.xml",getClass().getResource("targz-artifact.pom")));
+-        m2.getPublishersList().add(new RedeployPublisher("",repo.toURI().toString(),false));
++        m2.getPublishersList().add(new RedeployPublisher("",repo.toURI().toString(),false, false));
+ 
+         MavenModuleSetBuild b = m2.scheduleBuild2(0).get();
+         assertBuildStatus(Result.SUCCESS, b);
+ 
+         assertTrue("tar.gz doesn't exist",new File(repo,"test/test/0.1-SNAPSHOT/test-0.1-SNAPSHOT-bin.tar.gz").exists());
+     }
++
++    @Bug(3773)
++    public void testDeployUnstable() throws Exception {
++        configureDefaultMaven();
++        MavenModuleSet m2 = createMavenProject();
++        File repo = createTmpDir();
++
++        // a build with a failing unit tests
++        m2.setScm(new ExtractResourceSCM(getClass().getResource("maven-test-failure-findbugs.zip")));
++        m2.getPublishersList().add(new RedeployPublisher("",repo.toURI().toString(),false, true));
++
++        MavenModuleSetBuild b = m2.scheduleBuild2(0).get();
++        assertBuildStatus(Result.UNSTABLE, b);
++
++        assertTrue("Artifact should have been published even when the build is unstable",
++                   new File(repo,"test/test/1.0-SNAPSHOT/test-1.0-SNAPSHOT.jar").exists());
++    }
+ }
+Index: maven-plugin/src/main/java/hudson/maven/RedeployPublisher.java
+===================================================================
+--- maven-plugin/src/main/java/hudson/maven/RedeployPublisher.java	(revision 25670)
++++ maven-plugin/src/main/java/hudson/maven/RedeployPublisher.java	(working copy)
+@@ -63,16 +63,18 @@
+      */
+     public final String url;
+     public final boolean uniqueVersion;
++    public final boolean evenIfUnstable;
+ 
+     @DataBoundConstructor
+-    public RedeployPublisher(String id, String url, boolean uniqueVersion) {
++    public RedeployPublisher(String id, String url, boolean uniqueVersion, boolean evenIfUnstable) {
+         this.id = id;
+         this.url = url;
+         this.uniqueVersion = uniqueVersion;
++        this.evenIfUnstable = evenIfUnstable;
+     }
+ 
+     public boolean perform(AbstractBuild<?,?> build, Launcher launcher, BuildListener listener) throws InterruptedException, IOException {
+-        if(build.getResult().isWorseThan(Result.SUCCESS))
++        if(build.getResult().isWorseThan(getTreshold()))
+             return true;    // build failed. Don't publish
+ 
+         MavenAbstractArtifactRecord mar = getAction(build);
+@@ -121,6 +123,14 @@
+     public BuildStepMonitor getRequiredMonitorService() {
+         return BuildStepMonitor.NONE;
+     }
++
++    protected Result getTreshold() {
++        if (evenIfUnstable) {
++            return Result.UNSTABLE;
++        } else {
++            return Result.SUCCESS;
++        }
++    }
+     
+     @Extension
+     public static class DescriptorImpl extends BuildStepDescriptor<Publisher> {
+@@ -146,5 +156,10 @@
+         public String getDisplayName() {
+             return Messages.RedeployPublisher_getDisplayName();
+         }
++
++        public boolean showEvenIfUnstableOption() {
++            // little hack to avoid showing this option on the redeploy action's screen
++            return true;
++        }
+     }
+ }
+Index: maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/config.jelly
+===================================================================
+--- maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/config.jelly	(revision 25670)
++++ maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/config.jelly	(working copy)
+@@ -34,5 +34,11 @@
+       <f:checkbox />
+       <label class="attach-previous">${%Assign unique versions to snapshots}</label>
+     </f:entry>
++    <j:if test="${descriptor.showEvenIfUnstableOption()}">
++      <f:entry field="evenIfUnstable">
++        <f:checkbox />
++        <label>${%Deploy even if the build is unstable}</label>
++      </f:entry>
++    </j:if>
+   </f:advanced>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+Index: maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_fr.html
+===================================================================
+--- maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_fr.html	(revision 0)
++++ maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_fr.html	(revision 0)
+@@ -0,0 +1,8 @@
++<div>
++  If checked, the deployment will be performed even if the build is unstable.
++
++  <p>
++  This can be useful if the same build definition is being used for continuous integration
++  and to deploy nightly snapshots.
++  </p>
++</div>
+Index: maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable.html
+===================================================================
+--- maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable.html	(revision 0)
++++ maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable.html	(revision 0)
+@@ -0,0 +1,8 @@
++<div>
++  If checked, the deployment will be performed even if the build is unstable.
++
++  <p>
++  This can be useful if the same build definition is being used for continuous integration
++  and to deploy nightly snapshots.
++  </p>
++</div>
+Index: maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_de.html
+===================================================================
+--- maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_de.html	(revision 0)
++++ maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_de.html	(revision 0)
+@@ -0,0 +1,8 @@
++<div>
++  If checked, the deployment will be performed even if the build is unstable.
++
++  <p>
++  This can be useful if the same build definition is being used for continuous integration
++  and to deploy nightly snapshots.
++  </p>
++</div>
+Index: maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_ja.html
+===================================================================
+--- maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_ja.html	(revision 0)
++++ maven-plugin/src/main/resources/hudson/maven/RedeployPublisher/help-evenIfUnstable_ja.html	(revision 0)
+@@ -0,0 +1,8 @@
++<div>
++  If checked, the deployment will be performed even if the build is unstable.
++
++  <p>
++  This can be useful if the same build definition is being used for continuous integration
++  and to deploy nightly snapshots.
++  </p>
++</div>

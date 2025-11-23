@@ -1,0 +1,71 @@
+Index: main/war/resources/css/style.css
+===================================================================
+--- main/war/resources/css/style.css	(revision 31066)
++++ main/war/resources/css/style.css	(working copy)
+@@ -235,10 +235,22 @@
+   width: 100%;
+ }
+ 
++.setting-row td {
++  padding-top: 6px;
++}
++
+ .setting-description {
+   font-size: 0.8em;
+   margin-top: 0;
+   padding-top: 0;
++  padding-bottom: 10px;
++}
++table.parameter-definition-form {
++  border-collapse: collapse;
++}
++
++tbody.parameter-definition-entry:hover {
++  background-color: #f0f0f0;
+ }
+ 
+ /* div that looks like a hyperlink */
+Index: main/core/src/main/resources/lib/form/entry.jelly
+===================================================================
+--- main/core/src/main/resources/lib/form/entry.jelly	(revision 31066)
++++ main/core/src/main/resources/lib/form/entry.jelly	(working copy)
+@@ -63,7 +63,7 @@
+   </j:if>
+   <!-- expose this so that we can look up the @field value later from prepareDatabinding.jelly -->
+   <j:set var="entry" value="${attrs}" />
+-  <tr>
++  <tr class="setting-row">
+     <td class="setting-leftspace"><st:nbsp/></td>
+     <td class="setting-name">
+       ${attrs.title}
+Index: main/core/src/main/resources/lib/form/form.jelly
+===================================================================
+--- main/core/src/main/resources/lib/form/form.jelly	(revision 31066)
++++ main/core/src/main/resources/lib/form/form.jelly	(working copy)
+@@ -46,7 +46,7 @@
+     </st:attribute>
+   </st:documentation>
+ 	<form action="${action}" method="${method}" enctype="${attrs.enctype}" name="${name}" target="${attrs.target}">
+-	  <table width="100%">
++	  <table width="100%" class="${tableClass}">
+ 	    <d:invokeBody/>
+ 	  </table>
+ 	</form>
+Index: main/core/src/main/resources/hudson/model/ParametersDefinitionProperty/index.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/model/ParametersDefinitionProperty/index.jelly	(revision 31066)
++++ main/core/src/main/resources/hudson/model/ParametersDefinitionProperty/index.jelly	(working copy)
+@@ -38,10 +38,12 @@
+ 		<l:main-panel>
+ 			<h1>${it.owner.pronoun} ${it.owner.displayName}</h1>
+       <p>${%description}</p>
+-      <f:form method="post" action="build" name="parameters">
++      <f:form method="post" action="build" name="parameters" tableClass="parameter-definition-form">
+ 				<j:forEach var="parameterDefinition" items="${it.parameterDefinitions}">
++					<tbody class="parameter-definition-entry">
+ 					<st:include it="${parameterDefinition}"
+ 						page="${parameterDefinition.descriptor.valuePage}" />
++					</tbody>
+ 				</j:forEach>
+ 				<f:block>
+ 					<f:submit value="${%Build}" />

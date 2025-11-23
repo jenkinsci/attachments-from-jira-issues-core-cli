@@ -1,0 +1,24 @@
+Konfigurowanie pakietu jenkins (2.108) ...
+Job for jenkins.service failed because the control process exited with error code. See "systemctl status jenkins.service" and "journalctl -xe" for details.
+invoke-rc.d: initscript jenkins, action "start" failed.
+● jenkins.service - LSB: Start Jenkins at boot time
+   Loaded: loaded (/etc/init.d/jenkins; bad; vendor preset: enabled)
+   Active: failed (Result: exit-code) since wto 2018-02-20 20:44:56 CET; 7ms ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 7065 ExecStart=/etc/init.d/jenkins start (code=exited, status=7)
+
+lut 20 20:44:55 topaz jenkins[7065]: Correct java version found
+lut 20 20:44:55 topaz jenkins[7065]:  * Starting Jenkins Automation Server jenkins
+lut 20 20:44:55 topaz su[7118]: Successful su for jenkins by root
+lut 20 20:44:55 topaz su[7118]: + ??? root:jenkins
+lut 20 20:44:55 topaz su[7118]: pam_unix(su:session): session opened for user jenkins by (uid=0)
+lut 20 20:44:56 topaz jenkins[7065]:    ...fail!
+lut 20 20:44:56 topaz systemd[1]: jenkins.service: Control process exited, code=exited status=7
+lut 20 20:44:56 topaz systemd[1]: Failed to start LSB: Start Jenkins at boot time.
+lut 20 20:44:56 topaz systemd[1]: jenkins.service: Unit entered failed state.
+lut 20 20:44:56 topaz systemd[1]: jenkins.service: Failed with result 'exit-code'.
+dpkg: błąd przetwarzania pakietu jenkins (--configure):
+ podproces zainstalowany skrypt post-installation zwrócił kod błędu 1
+Wystąpiły błędy podczas przetwarzania:
+ jenkins
+E: Sub-process /usr/bin/dpkg returned an error code (1)

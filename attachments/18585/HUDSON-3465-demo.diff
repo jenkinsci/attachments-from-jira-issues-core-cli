@@ -1,0 +1,86 @@
+Index: core/src/main/java/hudson/views/LastSuccessColumn.java
+===================================================================
+--- core/src/main/java/hudson/views/LastSuccessColumn.java	(revision 17347)
++++ core/src/main/java/hudson/views/LastSuccessColumn.java	(working copy)
+@@ -27,10 +27,22 @@
+ import hudson.model.Descriptor;
+ import net.sf.json.JSONObject;
+ 
++import org.kohsuke.stapler.DataBoundConstructor;
+ import org.kohsuke.stapler.StaplerRequest;
+ 
+ public class LastSuccessColumn extends ListViewColumn {
+ 
++    private boolean showFailureCount;
++
++    @DataBoundConstructor
++    public LastSuccessColumn(boolean showFailureCount) {
++        this.showFailureCount = showFailureCount;
++    }
++
++    public boolean getShowFailureCount() {
++        return showFailureCount;
++    }
++
+     public Descriptor<ListViewColumn> getDescriptor() {
+         return DESCRIPTOR;
+     }
+@@ -41,8 +53,7 @@
+     public static class DescriptorImpl extends Descriptor<ListViewColumn> {
+         @Override
+         public ListViewColumn newInstance(StaplerRequest req, JSONObject formData) throws FormException {
+-            // This will be called with req == null also the Descriptor's doc tells you not. so the default impl fails
+-            return new LastSuccessColumn();
++            throw new FormException("unimplemented", "???");
+         }
+ 
+         @Override
+Index: core/src/main/resources/hudson/views/LastSuccessColumn/config.jelly
+===================================================================
+--- core/src/main/resources/hudson/views/LastSuccessColumn/config.jelly	(revision 0)
++++ core/src/main/resources/hudson/views/LastSuccessColumn/config.jelly	(revision 0)
+@@ -0,0 +1,30 @@
++<!--
++The MIT License
++
++Copyright (c) 2004-2009, Sun Microsystems, Inc., Jesse Glick
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in
++all copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++THE SOFTWARE.
++-->
++
++<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
++    <f:entry field="showFailureCount">
++        <f:checkbox/>
++        <label class="attach-previous">${%Show Test Failure Count}</label>
++    </f:entry>
++</j:jelly>
+Index: core/src/main/resources/hudson/views/LastSuccessColumn/column.jelly
+===================================================================
+--- core/src/main/resources/hudson/views/LastSuccessColumn/column.jelly	(revision 17347)
++++ core/src/main/resources/hudson/views/LastSuccessColumn/column.jelly	(working copy)
+@@ -33,5 +33,8 @@
+                   ${%N/A}
+               </j:otherwise>
+           </j:choose>
++          <j:if test="${it.showFailureCount &amp;&amp; lsBuild!=null &amp;&amp; lsBuild.testResultAction!=null}">
++              (${lsBuild.testResultAction.failCount} failures)
++          </j:if>
+       </td>
+ </j:jelly>
+\ No newline at end of file

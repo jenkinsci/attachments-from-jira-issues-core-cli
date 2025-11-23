@@ -1,0 +1,73 @@
+Index: src/main/java/hudson/maven/MavenModule.java
+===================================================================
+--- src/main/java/hudson/maven/MavenModule.java	(revision 10228)
++++ src/main/java/hudson/maven/MavenModule.java	(working copy)
+@@ -392,8 +392,9 @@
+ 
+         for (MavenModule m : Hudson.getInstance().getAllItems(MavenModule.class)) {
+             if(m.isDisabled())  continue;
+-            modules.put(m.asDependency(),m);
+-            modules.put(m.asDependency().withUnknownVersion(),m);
++            ModuleDependency moduleDependency = m.asDependency();
++            modules.put(moduleDependency,m);
++            modules.put(moduleDependency.withUnknownVersion(),m);
+         }
+ 
+         // in case two modules with the same name is defined, modules in the same MavenModuleSet
+@@ -401,8 +402,9 @@
+ 
+         for (MavenModule m : getParent().getModules()) {
+             if(m.isDisabled())  continue;
+-            modules.put(m.asDependency(),m);
+-            modules.put(m.asDependency().withUnknownVersion(),m);
++            ModuleDependency moduleDependency = m.asDependency();
++            modules.put(moduleDependency,m);
++            modules.put(moduleDependency.withUnknownVersion(),m);
+         }
+ 
+         // if the build style is the aggregator build, define dependencies against project,
+Index: src/main/java/hudson/maven/ModuleDependency.java
+===================================================================
+--- src/main/java/hudson/maven/ModuleDependency.java	(revision 10228)
++++ src/main/java/hudson/maven/ModuleDependency.java	(working copy)
+@@ -51,8 +51,10 @@
+     public ModuleDependency(String groupId, String artifactId, String version) {
+         this.groupId = groupId.intern();
+         this.artifactId = artifactId.intern();
+-        if(version==null)   version=UNKNOWN;
+-        this.version = version.intern();
++        if(version==null)
++            this.version = UNKNOWN;
++        else
++            this.version = version.intern();
+     }
+ 
+     public ModuleDependency(ModuleName name, String version) {
+@@ -81,6 +83,15 @@
+         this(ext.getGroupId(),ext.getArtifactId(),ext.getVersion());
+     }
+ 
++    private ModuleDependency(String groupId, String artifactId) {
++        // to be used only by the withUnknownVersion() method
++        // where we know that groupId and artifactId are already interned
++        // and where we want an UNKNOWN version
++        this.groupId = groupId;
++        this.artifactId = artifactId;
++        this.version = UNKNOWN;
++    }
++    
+     public ModuleName getName() {
+         return new ModuleName(groupId,artifactId);
+     }
+@@ -89,7 +100,10 @@
+      * Returns groupId+artifactId plus unknown version.
+      */
+     public ModuleDependency withUnknownVersion() {
+-        return new ModuleDependency(groupId,artifactId,UNKNOWN);
++        if (UNKNOWN.equals(version))
++            return this;
++        else
++            return new ModuleDependency(groupId,artifactId);
+     }
+ 
+     public boolean equals(Object o) {

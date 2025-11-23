@@ -1,0 +1,131 @@
+Index: core/src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- core/src/main/java/hudson/model/AbstractProject.java	(revision 22683)
++++ core/src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -315,17 +315,32 @@
+      *      use {@link #getSomeWorkspace()}
+      */
+     public final FilePath getWorkspace() {
++        AbstractBuild b = getBuildForDeprecatedMethods();
++        if (b != null) {
++            return b.getWorkspace();
++        }
++        
++        return null;
++    }
++    
++    /**
++     * Various deprecated methods in this class all need the 'current' build.  This method returns
++     * the build suitable for that purpose.
++     * 
++     * @return An AbstractBuild for deprecated methods to use.
++     */
++    private AbstractBuild getBuildForDeprecatedMethods() {
+         Executor e = Executor.currentExecutor();
+         if(e!=null) {
+             Executable exe = e.getCurrentExecutable();
+             if (exe instanceof AbstractBuild) {
+                 AbstractBuild b = (AbstractBuild) exe;
+                 if(b.getProject()==this)
+-                    return b.getWorkspace();
++                    return b;
+             }
+         }
+         R lb = getLastBuild();
+-        if(lb!=null)    return lb.getWorkspace();
++        if(lb!=null)    return lb;
+         return null;
+     }
+ 
+@@ -370,9 +385,9 @@
+      *      See {@link #getWorkspace()} for a migration strategy.
+      */
+     public FilePath getModuleRoot() {
+-        FilePath ws = getWorkspace();
+-        if(ws==null)    return null;
+-        return getScm().getModuleRoot(ws);
++        AbstractBuild b = getBuildForDeprecatedMethods();
++        if(b==null)    return null;
++        return b.getModuleRoot();
+     }
+ 
+     /**
+@@ -386,7 +401,9 @@
+      *      See {@link #getWorkspace()} for a migration strategy.
+      */
+     public FilePath[] getModuleRoots() {
+-        return getScm().getModuleRoots(getWorkspace());
++        AbstractBuild b = getBuildForDeprecatedMethods();
++        if (b==null) return null;
++        return b.getModuleRoots();
+     }
+ 
+     public int getQuietPeriod() {
+Index: core/src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+--- core/src/main/java/hudson/model/AbstractBuild.java	(revision 22683)
++++ core/src/main/java/hudson/model/AbstractBuild.java	(working copy)
+@@ -226,7 +226,7 @@
+     public final FilePath getModuleRoot() {
+         FilePath ws = getWorkspace();
+         if(ws==null)    return null;
+-        return getParent().getScm().getModuleRoot(ws);
++        return getParent().getScm().getModuleRoot(ws, this);
+     }
+ 
+     /**
+@@ -239,7 +239,7 @@
+     public FilePath[] getModuleRoots() {
+         FilePath ws = getWorkspace();
+         if(ws==null)    return null;
+-        return getParent().getScm().getModuleRoots(ws);
++        return getParent().getScm().getModuleRoots(ws, this);
+     }
+ 
+     /**
+Index: core/src/main/java/hudson/scm/SCM.java
+===================================================================
+--- core/src/main/java/hudson/scm/SCM.java	(revision 22683)
++++ core/src/main/java/hudson/scm/SCM.java	(working copy)
+@@ -303,7 +303,18 @@
+      *
+      * @param workspace
+      *      The workspace root directory.
++     * @param build
++     *      The build for which the module root is desired.
+      */
++    public FilePath getModuleRoot(FilePath workspace, AbstractBuild build) {
++        // For backwards compatibility, call the one argument version of the method.
++        return getModuleRoot(workspace);
++    }
++    
++    /**
++     * @deprecated
++     *      Use {@link #getModuleRoot(FilePath, AbstractBuild)} instead.
++     */
+     public FilePath getModuleRoot(FilePath workspace) {
+         return workspace;
+     }
+@@ -330,11 +341,21 @@
+      *
+      * <p>
+      * For normal SCMs, the array will be of length <code>1</code> and it's contents
+-     * will be identical to calling {@link #getModuleRoot(FilePath)}.
++     * will be identical to calling {@link #getModuleRoot(FilePath, AbstractBuild)}.
+      *
+      * @param workspace The workspace root directory
++     * @param build The build for which the module roots are desired.
+      * @return An array of all module roots.
+      */
++    public FilePath[] getModuleRoots(FilePath workspace, AbstractBuild build) {
++        // For backwards compatibility, call the one argument version of the method.
++        return getModuleRoots(workspace);
++    }
++    
++    /**
++     * @deprecated
++     *      Use {@link #getModuleRoots(FilePath, AbstractBuild)} instead.
++     */
+     public FilePath[] getModuleRoots(FilePath workspace) {
+         return new FilePath[] { getModuleRoot(workspace), };
+     }

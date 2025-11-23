@@ -1,0 +1,75 @@
+Name:         jenkins-slave-jxk94-6c6sd
+Namespace:    jenkins
+Node:         xyz-kube-local-ssd-workers-46a50e38-2r8m
+Start Time:   Wed, 05 Sep 2018 11:55:09 -0400
+Labels:       jenkins=slave
+              jenkins/project-dev-pod=true
+Annotations:  <none>
+Status:       Failed
+IP:           10.52.13.3
+Containers:
+  jnlp:
+    Container ID:  docker://xyz
+    Image:         gcr.io/xyz/jenkins/project-dev-slave:latest
+    Image ID:      docker-pullable://gcr.io/xyz/jenkins/project-dev-slave@sha256:0667bf39cbe062d0c88695826d1ab25e2c69dc88cab54dd8a09a7c5f9660a779
+    Port:          <none>
+    Args:
+      xyz
+      jenkins-slave-jxk94-6c6sd
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Wed, 05 Sep 2018 11:57:43 -0400
+      Finished:     Wed, 05 Sep 2018 12:07:50 -0400
+    Ready:          False
+    Restart Count:  0
+    Requests:
+      cpu:     3250m
+      memory:  4Gi
+    Environment:
+      JENKINS_SECRET:  xyz
+      HUDSON_HOME:     /var/jenkins_home
+      JENKINS_NAME:    jenkins-slave-jxk94-6c6sd
+      JENKINS_HOME:    /var/jenkins_home
+      JENKINS_URL:     http://jenkins-discovery/
+      HOME:            /home/jenkins
+    Mounts:
+      /mnt/localssd from volume-0 (rw)
+      /var/jenkins_home from workspace-volume (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-rdxn1 (ro)
+Conditions:
+  Type           Status
+  Initialized    True 
+  Ready          False 
+  PodScheduled   True 
+Volumes:
+  volume-0:
+    Type:          HostPath (bare host directory volume)
+    Path:          /mnt/disks/ssd0
+    HostPathType:  
+  workspace-volume:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  default-token-rdxn1:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-rdxn1
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  cloud.google.com/gke-local-ssd=true
+                 cloud.google.com/gke-nodepool=local-ssd-workers
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason                 Age                From                                                         Message
+  ----     ------                 ----               ----                                                         -------
+  Normal   TriggeredScaleUp       20m                cluster-autoscaler                                           pod triggered scale-up: [{https://content.googleapis.com/compute/v1/projects/ xyz 4->6 (max: 14)}]
+  Warning  FailedScheduling       20m (x7 over 21m)  default-scheduler                                            0/13 nodes are available: 10 Insufficient memory, 11 Insufficient cpu, 9 node(s) didn't match node selector.
+  Warning  FailedScheduling       19m (x2 over 19m)  default-scheduler                                            0/15 nodes are available: 10 Insufficient memory, 11 Insufficient cpu, 2 node(s) had unavailable network, 2 node(s) were not ready, 9 node(s) didn't match node selector.
+  Normal   Scheduled              18m                default-scheduler                                            Successfully assigned jenkins-slave-jxk94-6c6sd to xyz
+  Normal   SuccessfulMountVolume  18m                kubelet, xyz-kube-local-ssd-workers-46a50e38-2r8m  MountVolume.SetUp succeeded for volume "volume-0"
+  Normal   SuccessfulMountVolume  18m                kubelet, xyz-kube-local-ssd-workers-46a50e38-2r8m  MountVolume.SetUp succeeded for volume "workspace-volume"
+  Normal   SuccessfulMountVolume  18m                kubelet, xyz-kube-local-ssd-workers-46a50e38-2r8m  MountVolume.SetUp succeeded for volume "default-token-rdxn1"
+  Normal   Pulling                18m                kubelet, xyz-kube-local-ssd-workers-46a50e38-2r8m  pulling image "gcr.io/xyz/jenkins/project-dev-slave:latest"
+  Normal   Pulled                 16m                kubelet, xyz-kube-local-ssd-workers-46a50e38-2r8m  Successfully pulled image "gcr.io/xyz/jenkins/project-dev-slave:latest"
+  Normal   Created                16m                kubelet, xyz-kube-local-ssd-workers-46a50e38-2r8m  Created container
+  Normal   Started                16m                kubelet, xyz-kube-local-ssd-workers-46a50e38-2r8m  Started container

@@ -1,0 +1,140 @@
+Index: plugins/python/src/main/java/hudson/plugins/python/PluginImpl.java
+===================================================================
+--- plugins/python/src/main/java/hudson/plugins/python/PluginImpl.java	(revisión: 0)
++++ plugins/python/src/main/java/hudson/plugins/python/PluginImpl.java	(revisión: 0)
+@@ -0,0 +1,14 @@
++package hudson.plugins.python;
++
++import hudson.Plugin;
++import hudson.tasks.BuildStep;
++
++/**
++ * Entry point for Python plugin
++ *
++ */
++public class PluginImpl extends Plugin {
++    public void start() throws Exception {
++        BuildStep.BUILDERS.add(Python.DESCRIPTOR);
++    }
++}
+Index: plugins/python/src/main/java/hudson/plugins/python/Python.java
+===================================================================
+--- plugins/python/src/main/java/hudson/plugins/python/Python.java	(revisión: 0)
++++ plugins/python/src/main/java/hudson/plugins/python/Python.java	(revisión: 0)
+@@ -0,0 +1,59 @@
++package hudson.plugins.python;
++
++import hudson.FilePath;
++import hudson.model.Descriptor;
++import hudson.tasks.Builder;
++import hudson.tasks.CommandInterpreter;
++import net.sf.json.JSONObject;
++import org.kohsuke.stapler.StaplerRequest;
++
++/**
++ * Invokes the Python interpreter and invokes the Python script entered on the
++ * hudson build configuration.
++ * 
++ * It is expected that the Python interpreter is available on the system PATH.
++ *
++ */
++public class Python extends CommandInterpreter {
++
++    private Python(String command) {
++        super(command);
++    }
++
++    protected String[] buildCommandLine(FilePath script) {
++        return new String[]{"python", script.getRemote()};
++    }
++
++    protected String getContents() {
++        return command;
++    }
++
++    protected String getFileExtension() {
++        return ".py";
++    }
++
++    public Descriptor<Builder> getDescriptor() {
++        return DESCRIPTOR;
++    }
++
++    public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
++
++    public static final class DescriptorImpl extends Descriptor<Builder> {
++        private DescriptorImpl() {
++            super(Python.class);
++        }
++
++        public Builder newInstance(StaplerRequest req, JSONObject formData) {
++            return new Python(formData.getString("python"));
++        }
++
++        public String getDisplayName() {
++            return "Execute Python script";
++        }
++
++        @Override
++        public String getHelpFile() {
++            return "/plugin/python/help.html";
++        }
++    }
++}
+Index: plugins/python/src/main/resources/hudson/plugins/python/Python/config.jelly
+===================================================================
+--- plugins/python/src/main/resources/hudson/plugins/python/Python/config.jelly	(revisión: 0)
++++ plugins/python/src/main/resources/hudson/plugins/python/Python/config.jelly	(revisión: 0)
+@@ -0,0 +1,7 @@
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
++         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
++    <f:entry title="Script"
++             description="See &lt;a href='${rootURL}/env-vars.html' target=_new>the list of available environment variables&lt;/a>">
++        <f:textarea name="python" value="${instance.command}"/>
++    </f:entry>
++</j:jelly>
+\ No newline at end of file
+Index: plugins/python/src/main/resources/index.jelly
+===================================================================
+--- plugins/python/src/main/resources/index.jelly	(revisión: 0)
++++ plugins/python/src/main/resources/index.jelly	(revisión: 0)
+@@ -0,0 +1,8 @@
++<!--
++  This view is used to render the plugin list page.
++
++  Since we don't really have anything dynamic here, let's just use static HTML. 
++-->
++<div>
++    This is Python plugin. The build scripts written in python will be executed by this plugin.
++</div>
+Index: plugins/python/src/main/webapp/help.html
+===================================================================
+--- plugins/python/src/main/webapp/help.html	(revisión: 0)
++++ plugins/python/src/main/webapp/help.html	(revisión: 0)
+@@ -0,0 +1,6 @@
++<div>
++    <p>
++        Runs a Python script (defaults to <tt>python</tt> interpreter) for building the project.
++        The script will be run with the workspace as the current directory.
++    </p>
++</div>
+Index: plugins/python/pom.xml
+===================================================================
+--- plugins/python/pom.xml	(revisión: 0)
++++ plugins/python/pom.xml	(revisión: 0)
+@@ -0,0 +1,15 @@
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
++    <modelVersion>4.0.0</modelVersion>
++    <parent>
++        <groupId>org.jvnet.hudson.plugins</groupId>
++        <artifactId>plugin</artifactId>
++        <version>1.310</version>
++        <relativePath>../pom.xml</relativePath>
++    </parent>
++
++    <artifactId>python</artifactId>
++    <packaging>hpi</packaging>
++    <version>1.0-SNAPSHOT</version>
++    <name>Hudson Python Plugin</name>
++    <url>http://wiki.hudson-ci.org/display/HUDSON/Python+Plugin</url>
++</project>

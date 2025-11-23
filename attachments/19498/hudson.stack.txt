@@ -1,0 +1,104 @@
+2010-06-07 16:28:25
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (14.2-b01 mixed mode):
+
+"DestroyJavaVM" prio=10 tid=0x0000000058b28800 nid=0x2ac6 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"com.google.common.base.internal.Finalizer" daemon prio=10 tid=0x0000000058e20800 nid=0x2b85 in Object.wait() [0x0000000042773000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaadf823b00> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00002aaadf823b00> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at com.google.common.base.internal.Finalizer.run(Finalizer.java:127)
+
+"Attach Listener" daemon prio=10 tid=0x0000000059620800 nid=0x2b7f waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"pool-3-thread-1" prio=10 tid=0x00002aaaf407f800 nid=0x2b2b waiting on condition [0x0000000042672000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00002aaab3d20888> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+	at java.util.concurrent.DelayQueue.take(DelayQueue.java:160)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:583)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:576)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+"IM-Reconnector-Thread" daemon prio=10 tid=0x00002aaaf4084000 nid=0x2b2a waiting on condition [0x0000000040a80000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00002aaab3d1c5a0> (a java.util.concurrent.Semaphore$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:747)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:905)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1217)
+	at java.util.concurrent.Semaphore.acquire(Semaphore.java:286)
+	at hudson.plugins.im.IMConnectionProvider$ConnectorRunnable.run(IMConnectionProvider.java:115)
+	at java.lang.Thread.run(Thread.java:619)
+
+"TP-Processor4" daemon prio=10 tid=0x00002aaaf40ae800 nid=0x2b23 in Object.wait() [0x000000004216d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaab3cdb768> (a org.apache.jk.common.ChannelSocket)
+	at java.lang.Object.wait(Object.java:485)
+	at org.apache.jk.common.ChannelSocket.accept(ChannelSocket.java:301)
+	- locked <0x00002aaab3cdb768> (a org.apache.jk.common.ChannelSocket)
+	at org.apache.jk.common.ChannelSocket.acceptConnections(ChannelSocket.java:661)
+	at org.apache.jk.common.ChannelSocket$SocketAcceptor.runIt(ChannelSocket.java:872)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Java2D Disposer" daemon prio=10 tid=0x00002aaaf4351000 nid=0x2b0e in Object.wait() [0x00000000406b8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaab39a80c8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00002aaab39a80c8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at sun.java2d.Disposer.run(Disposer.java:125)
+	at java.lang.Thread.run(Thread.java:619)
+
+"Low Memory Detector" daemon prio=10 tid=0x0000000058bb3000 nid=0x2acf runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread1" daemon prio=10 tid=0x0000000058bb0000 nid=0x2ace waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread0" daemon prio=10 tid=0x0000000058bad800 nid=0x2acd waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=10 tid=0x0000000058bab800 nid=0x2acc runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=10 tid=0x0000000058b89000 nid=0x2acb in Object.wait() [0x0000000041b97000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaab3935db0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00002aaab3935db0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+"Reference Handler" daemon prio=10 tid=0x0000000058b87000 nid=0x2aca in Object.wait() [0x0000000040cc9000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00002aaab3935d28> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+	- locked <0x00002aaab3935d28> (a java.lang.ref.Reference$Lock)
+
+"VM Thread" prio=10 tid=0x0000000058b80000 nid=0x2ac9 runnable 
+
+"GC task thread#0 (ParallelGC)" prio=10 tid=0x0000000058b32800 nid=0x2ac7 runnable 
+
+"GC task thread#1 (ParallelGC)" prio=10 tid=0x0000000058b34800 nid=0x2ac8 runnable 
+
+"VM Periodic Task Thread" prio=10 tid=0x0000000058bb5800 nid=0x2ad0 waiting on condition 
+
+JNI global references: 964
+

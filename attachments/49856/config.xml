@@ -1,0 +1,419 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>jenkins.security.s2m.MasterKillSwitchWarning</string>
+    <string>jenkins.security.QueueItemAuthenticatorMonitor</string>
+    <string>jenkins.security.csrf.CSRFAdministrativeMonitor</string>
+  </disabledAdministrativeMonitors>
+  <version>2.194</version>
+  <installStateName>RESTART</installStateName>
+  <numExecutors>6</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>hudson.model.Computer.Build:authenticated</permission>
+    <permission>hudson.model.Computer.Configure:authenticated</permission>
+    <permission>hudson.model.Computer.Connect:authenticated</permission>
+    <permission>hudson.model.Computer.Disconnect:authenticated</permission>
+    <permission>hudson.model.Hudson.Administer:acoop</permission>
+    <permission>hudson.model.Hudson.Administer:List-BRI-SVRnD-Architects</permission>
+    <permission>hudson.model.Hudson.Administer:List-BRI-SVRnD-DevOps</permission>
+    <permission>hudson.model.Hudson.Administer:List-BRI-SVRnD-PSG</permission>
+    <permission>hudson.model.Hudson.Administer:List-BRI-SVRnD-SMs</permission>
+    <permission>hudson.model.Hudson.Administer:perkar02</permission>
+    <permission>hudson.model.Hudson.Administer:pwi</permission>
+    <permission>hudson.model.Hudson.Administer:shird</permission>
+    <permission>hudson.model.Hudson.Administer:stw</permission>
+    <permission>hudson.model.Hudson.Administer:yshah</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Item.Build:authenticated</permission>
+    <permission>hudson.model.Item.Cancel:authenticated</permission>
+    <permission>hudson.model.Item.Configure:authenticated</permission>
+    <permission>hudson.model.Item.Create:authenticated</permission>
+    <permission>hudson.model.Item.Delete:authenticated</permission>
+    <permission>hudson.model.Item.Discover:authenticated</permission>
+    <permission>hudson.model.Item.Move:authenticated</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
+    <permission>hudson.model.Item.Read:authenticated</permission>
+    <permission>hudson.model.Item.Workspace:authenticated</permission>
+    <permission>hudson.model.Run.Delete:authenticated</permission>
+    <permission>hudson.model.Run.Update:authenticated</permission>
+    <permission>hudson.model.View.Configure:authenticated</permission>
+    <permission>hudson.model.View.Create:authenticated</permission>
+    <permission>hudson.model.View.Delete:authenticated</permission>
+    <permission>hudson.model.View.Read:authenticated</permission>
+    <permission>hudson.scm.SCM.Tag:authenticated</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.plugins.active_directory.ActiveDirectorySecurityRealm" plugin="active-directory@2.16">
+    <domains>
+      <hudson.plugins.active__directory.ActiveDirectoryDomain>
+        <name>csgicorp.com</name>
+        <servers>bricsgiadds01.csgicorp.com:3268,bricsgiadds02.csgicorp.com:3268</servers>
+        <bindName>CN=svc_bri_jenkins,OU=SVC Accounts,OU=Specialized Accounts,OU=CSGI Users,DC=CSGICORP,DC=COM</bindName>
+        <bindPassword>{AQAAABAAAAAgd1Er2x6/STRuX4C7dDGbNqsLl5qFFg5GfTalLuam8s7rzxzI4yGcFbBVnHI9DB5e}</bindPassword>
+        <tlsConfiguration>TRUST_ALL_CERTIFICATES</tlsConfiguration>
+      </hudson.plugins.active__directory.ActiveDirectoryDomain>
+    </domains>
+    <startTls>true</startTls>
+    <groupLookupStrategy>AUTO</groupLookupStrategy>
+    <removeIrrelevantGroups>false</removeIrrelevantGroups>
+    <cache>
+      <size>256</size>
+      <ttl>600</ttl>
+    </cache>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter" plugin="antisamy-markup-formatter@1.6">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Relgen</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ajcPipeline</string>
+        <string>BuildRelgen</string>
+        <string>Relgen_STBuild</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Multibranch</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>AJC_Locks</string>
+        <string>CBTest</string>
+        <string>docker-build-sv-package</string>
+        <string>docker-cleanHosts</string>
+        <string>docker-create-HA-DC</string>
+        <string>docker-create-HA-DC-rhel7.5</string>
+        <string>docker-create-ST-image</string>
+        <string>docker-os-image-rebuild</string>
+        <string>docker-update-ct-db-layer</string>
+        <string>docker-update-ct-db-layer-rhel7.5</string>
+        <string>docker-update-ct-dev-layer</string>
+        <string>docker-update-ct-dev-layer-rhel7.5</string>
+        <string>docker-update-jenkins-agent</string>
+        <string>docker-update-oraclelinux-6.9</string>
+        <string>docker-update-rhel-7.5</string>
+        <string>docker_HAAA_aws</string>
+        <string>HA_Build</string>
+        <string>leons-test</string>
+        <string>LS-Multi</string>
+        <string>LS-Pipeline</string>
+        <string>LS_FreeStyle</string>
+        <string>LS_FreeStyleA</string>
+        <string>LS_FreeStyleB</string>
+        <string>LS_FreeStyleMB</string>
+        <string>LS_SystemTest</string>
+        <string>PipelineTest</string>
+        <string>Push-image-to-ECR</string>
+        <string>PWIPostBuildChildTriggeredJob</string>
+        <string>shird-matrix</string>
+        <string>shird-test-large</string>
+        <string>shird-test-small</string>
+        <string>stw-test</string>
+        <string>temp-perkar</string>
+        <string>TestSlave1</string>
+        <string>zRunSystemTest</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>PWI</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>JRDGroovyLibrary</string>
+        <string>PWI</string>
+        <string>PWIArithmetic</string>
+        <string>PWIArithmetic2</string>
+        <string>PWIAssignment2</string>
+        <string>PWIAssignment3</string>
+        <string>PWIChild</string>
+        <string>PWIChildKillTest</string>
+        <string>PWIConditional</string>
+        <string>PWIEmailNotification</string>
+        <string>PWIFleet</string>
+        <string>PWIFreestyeMultiBranch</string>
+        <string>PWIFreestyle</string>
+        <string>PWIFreestyleMultibranch2</string>
+        <string>PWIFreestyleMultibranchSVNRegex</string>
+        <string>PWIGroovyLibrary</string>
+        <string>PWILibraryTest</string>
+        <string>PWIMultiBranchPipeline</string>
+        <string>PWIMultibranchPipeline2</string>
+        <string>PWINew20191022</string>
+        <string>PWIParametersAction</string>
+        <string>PWIParent</string>
+        <string>PWIPipeline</string>
+        <string>PWIPipelineBuild</string>
+        <string>PWIPipelineConvert</string>
+        <string>PWIPipelineEarlyExit</string>
+        <string>PWIPipelineTimestamp</string>
+        <string>PWIPostBuild</string>
+        <string>PWIPostBuildChild</string>
+        <string>PWIPostBuildParent</string>
+        <string>PWIShortText</string>
+        <string>PWIStringAssignment</string>
+        <string>PWIXUnit</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>AJC</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ajc_epmtestharness_unit</string>
+        <string>ajc_Nightly</string>
+        <string>ajc_ReleaseLockableResource</string>
+        <string>ajcAcceptUpstreamJob</string>
+        <string>ajcCallDownstreamJob</string>
+        <string>ajcCBTest</string>
+        <string>ajcCBTestPipeline</string>
+        <string>ajcInputPipeline</string>
+        <string>ajcLRdelay_freeLabel</string>
+        <string>ajcLRdelay_freeLabelAll</string>
+        <string>ajcLRdelay_freeResource</string>
+        <string>ajcLRdelay_pipelineLabel</string>
+        <string>ajcLRdelay_pipelineLabelAll</string>
+        <string>ajcLRdelay_pipelineLabelExtraLabel</string>
+        <string>ajcLRdelay_pipelineLabelExtraResource</string>
+        <string>ajcLRdelay_pipelineResource</string>
+        <string>ajcMultiparallel</string>
+        <string>ajcNexusDownload</string>
+        <string>ajcParallel</string>
+        <string>ajcPipelineLocal</string>
+        <string>ajcRemoteTrigger</string>
+        <string>ajcRemoteTrigger1</string>
+        <string>ajcTicketAudit</string>
+        <string>ajctttt</string>
+        <string>DoCBTrigger</string>
+        <string>DoPETrigger</string>
+        <string>MainPipeline</string>
+        <string>rescan</string>
+        <string>Siti</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>MEL</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[4]/jobNames/comparator"/>
+        <string>MelTest</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>AJC_Hack</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>ajcBuildAfter_TriggerOnMultipleRepos</string>
+        <string>ajcTriggerOnMultipleRepos</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>PSODEN</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>PSODEN-basic</string>
+        <string>PSODEN-unicorn</string>
+        <string>PSODENConditional</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>PWI1</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>PWIArithmetic</string>
+        <string>PWIArithmetic2</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>LS</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[8]/jobNames/comparator"/>
+        <string>LS-Multi</string>
+        <string>LS-Pipeline</string>
+        <string>LS_SystemTest</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+  </views>
+  <primaryView>Multibranch</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>7</int>
+          <string>CBSVNROOT</string>
+          <string>svn://brirepo/cb</string>
+          <string>JENKINS_COMMON</string>
+          <string>/sv/jenkins/jenkins/common</string>
+          <string>PCOM_BRANCH_TO_INTEGRATE</string>
+          <string>V10_00_50-patcheshgfhfdhfhfdghgfdh</string>
+          <string>PESVNROOT</string>
+          <string>svn://brirepo/pe</string>
+          <string>SPRTSVNROOT</string>
+          <string>svn://brirepo/sprt</string>
+          <string>STSVNROOT</string>
+          <string>svn://brirepo/sv_test</string>
+          <string>WEBSVNROOT</string>
+          <string>svn://brirepo/peweb</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
+  <noUsageStatistics>true</noUsageStatistics>
+</hudson>

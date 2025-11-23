@@ -1,0 +1,35 @@
+Index: main/core/src/main/java/hudson/model/Job.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Job.java	(revision 9587)
++++ main/core/src/main/java/hudson/model/Job.java	(working copy)
+@@ -610,6 +610,17 @@
+             r=r.getPreviousBuild();
+         return r;
+     }
++    
++    /**
++     * Returns the last completed build, if any. Otherwise null.
++     */
++    @Exported @QuickSilver
++    public RunT getLastCompletedBuild() {
++       RunT r = getLastBuild();
++       while(r!=null && r.isBuilding())
++           r=r.getPreviousBuild();
++       return r;
++    }
+ 
+     /**
+      * Used as the color of the status ball for the project.
+Index: main/core/src/main/resources/hudson/model/View/cc.xml.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/model/View/cc.xml.jelly	(revision 9587)
++++ main/core/src/main/resources/hudson/model/View/cc.xml.jelly	(working copy)
+@@ -8,7 +8,7 @@
+ 
+   <Projects>
+     <j:forEach var="p" items="${it.items}">
+-      <j:set var="lb" value="${p.lastBuild}"/>
++      <j:set var="lb" value="${p.lastCompletedBuild}"/>
+       <j:if test="${lb!=null}">
+         <Project  name="${p.displayName}"
+                   activity="${h.ifThenElse(p.isBuilding(),'Building','Sleeping')}"

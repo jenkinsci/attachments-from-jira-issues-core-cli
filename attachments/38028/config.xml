@@ -1,0 +1,38 @@
+<project>
+<actions></actions>
+<description></description>
+<keepDependencies>false</keepDependencies>
+<properties>
+<com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.5">
+<gitLabConnection>gitlab.zycus.com</gitLabConnection>
+</com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+<org.jenkinsci.plugins.gitlablogo.GitlabLogoProperty plugin="gitlab-logo@1.0.3">
+<repositoryName></repositoryName>
+</org.jenkinsci.plugins.gitlablogo.GitlabLogoProperty>
+<com.synopsys.arc.jenkinsci.plugins.jobrestrictions.jobs.JobRestrictionProperty plugin="job-restrictions@0.6"></com.synopsys.arc.jenkinsci.plugins.jobrestrictions.jobs.JobRestrictionProperty>
+<hudson.model.ParametersDefinitionProperty>
+<parameterDefinitions>
+<hudson.model.StringParameterDefinition>
+<name>Key1</name>
+<description></description>
+<defaultValue>Value1</defaultValue>
+</hudson.model.StringParameterDefinition>
+</parameterDefinitions>
+</hudson.model.ParametersDefinitionProperty>
+</properties>
+<scm class="hudson.scm.NullSCM"></scm>
+<canRoam>true</canRoam>
+<disabled>false</disabled>
+<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+<authToken>test_token</authToken>
+<triggers></triggers>
+<concurrentBuild>true</concurrentBuild>
+<builders>
+<hudson.tasks.Shell>
+<command>sleep 100;echo `date`;echo "Job Executed"</command>
+</hudson.tasks.Shell>
+</builders>
+<publishers></publishers>
+<buildWrappers></buildWrappers>
+</project>

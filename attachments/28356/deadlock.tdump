@@ -1,0 +1,54 @@
+Found one Java-level deadlock:
+=============================
+"jenkins.util.Timer [#7]":
+  waiting to lock monitor 0x00007fba0c4e7248 (object 0x00000007002d2e70, a hudson.model.Hudson),
+  which is held by "Executor #0 for e78f713e8889@dev-docker-ci1 : executing DNRS-Coverage #2486"
+"Executor #0 for e78f713e8889@dev-docker-ci1 : executing DNRS-Coverage #2486":
+  waiting to lock monitor 0x00007fba2824bef8 (object 0x00000007003f6790, a hudson.model.Queue),
+  which is held by "jenkins.util.Timer [#7]"
+
+Java stack information for the threads listed above:
+===================================================
+"jenkins.util.Timer [#7]":
+        at jenkins.model.Jenkins.removeNode(Jenkins.java:1703)
+        - waiting to lock <0x00000007002d2e70> (a hudson.model.Hudson)
+        at hudson.slaves.AbstractCloudSlave.terminate(AbstractCloudSlave.java:65)
+        at hudson.slaves.CloudRetentionStrategy$1.run(CloudRetentionStrategy.java:77)
+        at hudson.model.Queue._withLock(Queue.java:1036)
+        - locked <0x00000007003f6790> (a hudson.model.Queue)
+        at hudson.model.Queue.withLock(Queue.java:984)
+        at hudson.slaves.CloudRetentionStrategy.check(CloudRetentionStrategy.java:68)
+        at hudson.slaves.CloudRetentionStrategy.check(CloudRetentionStrategy.java:46)
+        at hudson.slaves.ComputerRetentionWork.doRun(ComputerRetentionWork.java:66)
+        at hudson.triggers.SafeTimerTask.run(SafeTimerTask.java:51)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+        at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:745)
+"Executor #0 for e78f713e8889@dev-docker-ci1 : executing DNRS-Coverage #2486":
+        at hudson.model.Queue._withLock(Queue.java:1036)
+        - waiting to lock <0x00000007003f6790> (a hudson.model.Queue)
+        at hudson.model.Queue.withLock(Queue.java:984)
+        at hudson.model.Computer.setNumExecutors(Computer.java:722)
+        - locked <0x000000070dfbfd60> (a com.nirima.jenkins.plugins.docker.DockerComputer)
+        at hudson.model.Computer.kill(Computer.java:694)
+        at hudson.slaves.SlaveComputer.kill(SlaveComputer.java:622)
+        at hudson.model.AbstractCIBase.killComputer(AbstractCIBase.java:88)
+        at hudson.model.AbstractCIBase.updateComputerList(AbstractCIBase.java:191)
+        - locked <0x00000007002d2f88> (a java.lang.Object)
+        at jenkins.model.Jenkins.updateComputerList(Jenkins.java:1218)
+        at jenkins.model.Jenkins.setNodes(Jenkins.java:1714)
+        at jenkins.model.Jenkins.removeNode(Jenkins.java:1709)
+        - locked <0x00000007002d2e70> (a hudson.model.Hudson)
+        at hudson.slaves.AbstractCloudSlave.terminate(AbstractCloudSlave.java:65)
+        at org.jenkinsci.plugins.durabletask.executors.OnceRetentionStrategy.done(OnceRetentionStrategy.java:81)
+        at org.jenkinsci.plugins.durabletask.executors.OnceRetentionStrategy.taskCompleted(OnceRetentionStrategy.java:63)
+        at hudson.slaves.SlaveComputer.taskCompleted(SlaveComputer.java:296)
+        at com.nirima.jenkins.plugins.docker.DockerComputer.taskCompleted(DockerComputer.java:34)
+        at hudson.model.queue.WorkUnitContext.synchronizeEnd(WorkUnitContext.java:140)
+        at hudson.model.Executor.run(Executor.java:253)
+
+Found 1 deadlock.

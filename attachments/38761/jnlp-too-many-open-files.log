@@ -1,0 +1,22 @@
+May 26, 2017 9:59:53 PM org.jenkinsci.remoting.protocol.impl.ConnectionHeadersFilterLayer onRecv
+INFO: [JNLP4-connect connection from 10.30.0.3/10.30.0.3:41060] Refusing headers from remote: jenkins-slave1 is already connected to this master. Rejecting this connection.
+May 26, 2017 9:59:54 PM hudson.TcpSlaveAgentListener$ConnectionHandler run
+INFO: Accepted connection #386,650 from /10.30.0.3:41074
+May 26, 2017 9:59:54 PM hudson.TcpSlaveAgentListener$ConnectionHandler run
+INFO: Accepted connection #386,651 from /10.30.0.3:41076
+May 26, 2017 10:00:00 PM hudson.triggers.SCMTrigger$Runner runPolling
+SEVERE: Failed to record SCM polling for hudson.model.FreeStyleProject@3cf4a477[my-jenkins-build]
+java.io.FileNotFoundException: /opt/jenkins-ci/jobs/my-jenkins-build/scm-polling.log (Too many open files)
+        at java.io.FileOutputStream.open(Native Method)
+        at java.io.FileOutputStream.<init>(FileOutputStream.java:221)
+        at java.io.FileOutputStream.<init>(FileOutputStream.java:171)
+        at hudson.util.StreamTaskListener.<init>(StreamTaskListener.java:97)
+        at hudson.util.StreamTaskListener.<init>(StreamTaskListener.java:90)
+        at hudson.triggers.SCMTrigger$Runner.runPolling(SCMTrigger.java:590)
+        at hudson.triggers.SCMTrigger$Runner.run(SCMTrigger.java:642)
+        at hudson.util.SequentialExecutionQueue$QueueEntry.run(SequentialExecutionQueue.java:119)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:473)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:748)

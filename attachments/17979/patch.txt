@@ -1,0 +1,37 @@
+Index: dir.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/model/DirectoryBrowserSupport/dir.jelly,v
+retrieving revision 1.10
+diff -c -r1.10 dir.jelly
+*** dir.jelly	13 Aug 2007 05:16:44 -0000	1.10
+--- dir.jelly	9 Nov 2007 22:29:09 -0000
+***************
+*** 45,54 ****
+            <tr>
+              <td style="text-align:right;" colspan="3">
+                <div style="margin-top: 1em;">
+!                 <a href="${backPath}${pattern}/*zip*/${dir.name}.zip">
+!                   <img src="${imagesURL}/16x16/package.gif"/>
+!                   (all files in zip)
+!                 </a>
+                </div>
+              </td>
+            </tr>
+--- 45,61 ----
+            <tr>
+              <td style="text-align:right;" colspan="3">
+                <div style="margin-top: 1em;">
+!                 <j:choose>
+!                   <j:when test="${files.isEmpty()}">
+!                     No files in directory
+!                   </j:when>
+!                   <j:otherwise>
+!                     <a href="${backPath}${pattern}/*zip*/${dir.name}.zip">
+!                       <img src="${imagesURL}/16x16/package.gif"/>
+!                       (all files in zip)
+!                     </a>
+!                   </j:otherwise>
+!                 </j:choose>
+                </div>
+              </td>
+            </tr>

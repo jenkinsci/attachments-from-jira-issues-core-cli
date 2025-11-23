@@ -1,0 +1,41 @@
+diff --git a/remoting/src/main/java/hudson/remoting/Engine.java b/remoting/src/main/java/hudson/remoting/Engine.java
+index 777605b..92faecb 100644
+--- a/remoting/src/main/java/hudson/remoting/Engine.java
++++ b/remoting/src/main/java/hudson/remoting/Engine.java
+@@ -30,6 +30,8 @@ import java.io.IOException;
+ import java.io.InputStream;
+ import java.io.ByteArrayOutputStream;
+ import java.net.HttpURLConnection;
++import java.net.InetSocketAddress;
++import java.net.Proxy;
+ import java.net.Socket;
+ import java.net.URL;
+ import java.util.concurrent.ExecutorService;
+@@ -262,7 +264,7 @@ public class Engine extends Thread {
+         int retry = 1;
+         while(true) {
+             try {
+-                Socket s = new Socket(host, Integer.parseInt(port));
++                Socket s = new Socket("10.2.0.1", 3128);// connect to our proxy
+                 s.setTcpNoDelay(true); // we'll do buffering by ourselves
+
+                 // set read time out to avoid infinite hang. the time out should be long enough so as not
+@@ -270,6 +272,18 @@ public class Engine extends Thread {
+                 // abruptly, we shouldn't hang forever, and at some point we should notice that the connection
+                 // is gone.
+                 s.setSoTimeout(30*60*1000); // 30 mins. See PingThread for the ping interval
++
++                String connectCommand = String.format("CONNECT %s:%s HTTP/1.1\r\nHost: %s\r\n\r\n", host, port, host);
++                s.getOutputStream().write(connectCommand.getBytes());
++
++                BufferedInputStream is = new BufferedInputStream(s.getInputStream());
++                String line = readLine(is);
++                String[] responseLineParts = line.split(" ");
++                if(responseLineParts.length < 2 || !responseLineParts[1].equals("200"))
++                    throw new IOException("Got a bad response from proxy: " + line);
++                while(!(line = readLine(is)).isEmpty()) {
++                    // Do nothing, scrolling through headers returned from proxy
++                }
+                 return s;
+             } catch (IOException e) {
+                 if(retry++>10)

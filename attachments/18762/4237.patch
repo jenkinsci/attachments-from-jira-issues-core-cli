@@ -1,0 +1,21 @@
+Index: plugins/jython/src/main/java/org/jvnet/hudson/plugins/Jython.java
+===================================================================
+--- plugins/jython/src/main/java/org/jvnet/hudson/plugins/Jython.java	(revisión: 20764)
++++ plugins/jython/src/main/java/org/jvnet/hudson/plugins/Jython.java	(copia de trabajo)
+@@ -76,12 +76,14 @@
+     }
+ 
+     public boolean perform(Build build, Launcher launcher, BuildListener listener)  throws IOException, InterruptedException {
+-        PySystemState.initialize();
+-        PythonInterpreter interp = new PythonInterpreter();
++        PySystemState sys = new PySystemState();
++        sys.setCurrentWorkingDir(build.getProject().getWorkspace().getRemote());
++        PythonInterpreter interp = new PythonInterpreter(null, sys);
+ 
+         interp.setOut(listener.getLogger());
+         interp.setErr(listener.getLogger());
+         interp.exec(this.getContents());
++        interp.cleanup();
+ 
+         build.setResult(Result.SUCCESS);
+         return true;

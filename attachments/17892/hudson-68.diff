@@ -1,0 +1,16 @@
+Index: src/hudson/model/Run.java
+===================================================================
+RCS file: /cvs/hudson/hudson/src/hudson/model/Run.java,v
+retrieving revision 1.45
+diff -u -r1.45 Run.java
+--- src/hudson/model/Run.java	24 Jul 2006 00:26:59 -0000	1.45
++++ src/hudson/model/Run.java	24 Jul 2006 16:57:02 -0000
+@@ -141,7 +141,7 @@
+      * may return a temporary intermediate result.
+      */
+     public final Result getResult() {
+-        return result;
++        return result != null ? result : /*???*/ Result.UNSTABLE;
+     }
+ 
+     public void setResult(Result r) {

@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.20">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.2.9"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@1.2.9">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>fa_input_json_file</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>email</name>
+          <description></description>
+          <defaultValue>${BUILD_USER_EMAIL}</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>branch</name>
+          <description></description>
+          <defaultValue>master</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>fresh_build</name>
+          <description>Always true for a new submission. If job is resumed, set this to false.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[2]"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[3]"/>
+        <hudson.model.BooleanParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.BooleanParameterDefinition"/>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[2]"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[3]"/>
+        <hudson.model.BooleanParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.BooleanParameterDefinition"/>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[2]"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[3]"/>
+        <hudson.model.BooleanParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.BooleanParameterDefinition"/>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[2]"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[3]"/>
+        <hudson.model.BooleanParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.BooleanParameterDefinition"/>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[2]"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[3]"/>
+        <hudson.model.BooleanParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.BooleanParameterDefinition"/>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[2]"/>
+        <hudson.model.StringParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[3]"/>
+        <hudson.model.BooleanParameterDefinition reference="../../../hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.BooleanParameterDefinition"/>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>100</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.27">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.49">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.2">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>ssh://commented_out/test.git</url>
+          <credentialsId>test_ssh</credentialsId>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>*/${branch}</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <gitTool>Default</gitTool>
+      <submoduleCfg class="list"/>
+      <extensions/>
+    </scm>
+    <scriptPath>jenkins/testPipeline</scriptPath>
+    <lightweight>false</lightweight>
+  </definition>
+  <triggers/>
+  <authToken>test</authToken>
+  <disabled>false</disabled>
+</flow-definition>

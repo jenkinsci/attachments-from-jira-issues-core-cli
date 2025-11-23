@@ -1,0 +1,16 @@
+Index: src/hudson/Launcher.java
+===================================================================
+RCS file: /cvs/hudson/hudson/src/hudson/Launcher.java,v
+retrieving revision 1.5
+diff -u -r1.5 Launcher.java
+--- src/hudson/Launcher.java	23 Jul 2006 22:22:52 -0000	1.5
++++ src/hudson/Launcher.java	24 Jul 2006 09:19:51 -0000
+@@ -90,7 +90,7 @@
+         StringBuffer buf = new StringBuffer();
+         if (workDir != null) {
+             buf.append('[');
+-            buf.append(workDir.getRemote().replace("^.+[/\\]", ""));
++            buf.append(workDir.getRemote().replaceFirst("^.+[/\\\\]", ""));
+             buf.append("] ");
+         }
+         buf.append('$');

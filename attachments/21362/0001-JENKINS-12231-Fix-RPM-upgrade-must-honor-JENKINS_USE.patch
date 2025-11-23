@@ -1,0 +1,29 @@
+From 338a7be05a0256134b36bb8393c2ca4bf3ca3c03 Mon Sep 17 00:00:00 2001
+From: Fernando Dobladez <fernando@dobladez.com>
+Date: Mon, 26 Dec 2011 18:52:23 -0300
+Subject: [PATCH] [JENKINS-12231] Fix: RPM upgrade must honor JENKINS_USER and
+ JENKINS_HOME configuration
+
+---
+ rpm/SPECS/jenkins.spec |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/rpm/SPECS/jenkins.spec b/rpm/SPECS/jenkins.spec
+index d26587c..f738e69 100644
+--- a/rpm/SPECS/jenkins.spec
++++ b/rpm/SPECS/jenkins.spec
+@@ -109,6 +109,11 @@ if test -d /var/run/hudson; then
+     rmdir /var/run/hudson
+ fi
+ 
++# Ensure the right ownership on files
++. /etc/sysconfig/jenkins
++chown -R ${JENKINS_USER:-jenkins} /var/log/jenkins
++chown -R ${JENKINS_USER:-jenkins} ${JENKINS_HOME:-%{workdir}}
++
+ 
+ %preun
+ if [ "$1" = 0 ] ; then
+-- 
+1.7.7.4
+

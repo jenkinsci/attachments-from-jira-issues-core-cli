@@ -1,0 +1,2946 @@
+2012-12-18 11:39:20
+Full thread dump Java HotSpot(TM) Server VM (1.6.0-b105 mixed mode):
+
+"pool-3-thread-1116" daemon prio=10 tid=0x0f6f2000 nid=0x1f61 waiting on condition [0x0eab7000..0x0eab8050]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x18668110> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:198)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:944)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Attach Listener" daemon prio=10 tid=0x0850c400 nid=0x1f5a waiting on condition [0x00000000..0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"RequestHandlerThread[#1201]" daemon prio=10 tid=0x1031fc00 nid=0x1f2d waiting on condition [0x0ea15000..0x0ea15f50]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x1871e1a0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:198)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:944)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"RequestHandlerThread[#1194]" daemon prio=10 tid=0x0b58cc00 nid=0x194b runnable [0x0ef25000..0x0ef26050]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x2acbdc98> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1193]" daemon prio=10 tid=0x08c0e800 nid=0x18ad runnable [0x0f3ad000..0x0f3ade50]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x2ab42fc0> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"/bin/sh -xe /tmp/hudson35032.sh: stdout copier" prio=10 tid=0x0b6b7800 nid=0x133a runnable [0x0c0ae000..0x0c0aee50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:256)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	- locked <0x28eac0e8> (a java.io.BufferedInputStream)
+	at java.io.FilterInputStream.read(FilterInputStream.java:90)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0b6c5800 nid=0x1338 runnable [0x0e8d1000..0x0e8d1ed0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"RequestHandlerThread[#1190]" daemon prio=10 tid=0x08c71800 nid=0x1329 runnable [0x0e649000..0x0e64a150]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x28e33598> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1186]" daemon prio=10 tid=0x088f4800 nid=0xf8a runnable [0x0ed3f000..0x0ed3ff50]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.zip.Deflater.deflateBytes(Native Method)
+	at java.util.zip.Deflater.deflate(Deflater.java:290)
+	- locked <0x28297310> (a java.util.zip.Deflater)
+	at java.util.zip.DeflaterOutputStream.deflate(DeflaterOutputStream.java:159)
+	at java.util.zip.DeflaterOutputStream.write(DeflaterOutputStream.java:118)
+	at java.util.zip.GZIPOutputStream.write(GZIPOutputStream.java:72)
+	- locked <0x282b0100> (a java.util.zip.GZIPOutputStream)
+	at org.kohsuke.stapler.compression.FilterServletOutputStream.write(FilterServletOutputStream.java:31)
+	at sun.nio.cs.StreamEncoder.writeBytes(StreamEncoder.java:202)
+	at sun.nio.cs.StreamEncoder.implClose(StreamEncoder.java:297)
+	at sun.nio.cs.StreamEncoder.close(StreamEncoder.java:130)
+	- locked <0x282e5b58> (a java.io.OutputStreamWriter)
+	at java.io.OutputStreamWriter.close(OutputStreamWriter.java:216)
+	at java.io.PrintWriter.close(PrintWriter.java:295)
+	- locked <0x282e5b58> (a java.io.OutputStreamWriter)
+	at org.kohsuke.stapler.compression.CompressionFilter.reportException(CompressionFilter.java:77)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:53)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:331)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:215)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:138)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x28147308> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1181]" daemon prio=10 tid=0x093f1c00 nid=0x5a3 runnable [0x0cfde000..0x0cfdefd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x26a4ee30> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1177]" daemon prio=10 tid=0x08678c00 nid=0x7e73 runnable [0x0c702000..0x0c702f50]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x258338e8> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1176]" daemon prio=10 tid=0x08cc0800 nid=0x7e29 runnable [0x0efc7000..0x0efc7e50]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x255d7718> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1175]" daemon prio=10 tid=0x0a385800 nid=0x7d87 runnable [0x0ec9d000..0x0ec9e1d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x24f3b048> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1170]" daemon prio=10 tid=0x0ae79c00 nid=0x76d9 runnable [0x0f15c000..0x0f15d0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x21f34838> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1164]" daemon prio=10 tid=0x0f5ed000 nid=0x710d runnable [0x0e3c1000..0x0e3c1fd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x21b51390> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"Handling POST /cli : RequestHandlerThread[#1162]" daemon prio=10 tid=0x0f638000 nid=0x7078 in Object.wait() [0x0c1f1000..0x0c1f2ed0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x2bcb5ae8> (a jenkins.model.Jenkins$20)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.model.FullDuplexHttpChannel.download(FullDuplexHttpChannel.java:83)
+	- locked <0x2bcb5ae8> (a jenkins.model.Jenkins$20)
+	at jenkins.model.Jenkins.doCli(Jenkins.java:3093)
+	at sun.reflect.GeneratedMethodAccessor1278.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:288)
+	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:151)
+	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:90)
+	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:111)
+	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:573)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:658)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:487)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:164)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:45)
+	at winstone.ServletConfiguration.execute(ServletConfiguration.java:248)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:333)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:376)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:95)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:87)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:47)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.UnwrapSecurityExceptionFilter.doFilter(UnwrapSecurityExceptionFilter.java:51)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:166)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.doFilter(AnonymousProcessingFilter.java:125)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.rememberme.RememberMeProcessingFilter.doFilter(RememberMeProcessingFilter.java:135)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:271)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at jenkins.security.ApiTokenFilter.doFilter(ApiTokenFilter.java:63)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:50)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:331)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:215)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:138)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x21aeead8> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1137]" daemon prio=10 tid=0x09ba7c00 nid=0x60fc runnable [0x0c6b1000..0x0c6b1f50]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x20add648> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1135]" daemon prio=10 tid=0x0b304c00 nid=0x60fa runnable [0x0c753000..0x0c753e50]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x20ade718> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1132]" daemon prio=10 tid=0x09c12400 nid=0x5cfe runnable [0x0f0ba000..0x0f0baed0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x20a564d0> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1131]" daemon prio=10 tid=0x0a4ea800 nid=0x5caa runnable [0x0eb59000..0x0eb59f50]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x20814b20> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1119]" daemon prio=10 tid=0x08f2d000 nid=0x3259 runnable [0x0c05d000..0x0c05ded0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x20247ee0> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1115]" daemon prio=10 tid=0x093fa000 nid=0x3255 runnable [0x0e505000..0x0e5060d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x20248040> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#1025]" daemon prio=10 tid=0x0a0a3400 nid=0x26c3 runnable [0x0f1fe000..0x0f1fefd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x1f89ab98> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#924]" daemon prio=10 tid=0x0a012c00 nid=0x6eb4 runnable [0x0e82f000..0x0e830150]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x1c27a490> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"RequestHandlerThread[#869]" daemon prio=10 tid=0x093ec000 nid=0x5bbb runnable [0x0e31f000..0x0e31fe50]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:239)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x1bebf910> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"Pipe writer thread: eselnvmai1021.mo.sw.ericsson.se (6332)" daemon prio=10 tid=0x071b2400 nid=0x4b76 waiting on condition [0x0b25c000..0x0b25d050]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x1be74018> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@bee186:eselnvmai1021.mo.sw.ericsson.se (6332)" daemon prio=10 tid=0x08236c00 nid=0x4382 waiting on condition [0x0e5a8000..0x0e5a81d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1021.mo.sw.ericsson.se (6332)" daemon prio=10 tid=0x0898d400 nid=0x437f runnable [0x0d632000..0x0d632f50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x1be6cce8> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1021.mo.sw.ericsson.se (6332)" daemon prio=10 tid=0x0900dc00 nid=0x437e runnable [0x0d9fe000..0x0d9fefd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x08c5b800 nid=0x437c runnable [0x0cf8d000..0x0cf8de50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1053.mo.sw.ericsson.se (6620)" daemon prio=10 tid=0x08be8c00 nid=0x49a waiting on condition [0x0e6eb000..0x0e6ebf50]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x18cdd1f0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1033.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x08868c00 nid=0x194 waiting on condition [0x0c7a4000..0x0c7a4f50]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x18ca9cc8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1037.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x08311c00 nid=0x477c waiting on condition [0x0e973000..0x0e974050]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x18d33eb0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1061.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08a29c00 nid=0x4cb6 waiting on condition [0x0abad000..0x0abadfd0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x19333eb0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1069.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08577000 nid=0x4cb5 waiting on condition [0x0abfe000..0x0abfee50]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x190d6500> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1045.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08576400 nid=0x4cb4 waiting on condition [0x0adfe000..0x0adfeed0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x190aa890> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1041.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x08575c00 nid=0x4cb3 waiting on condition [0x0affe000..0x0afff150]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x190ce5d8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1065.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08575800 nid=0x4cb2 waiting on condition [0x0b169000..0x0b16a1d0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x190d5228> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1001.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08816400 nid=0x4cb1 waiting on condition [0x0ad88000..0x0ad89050]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x191167f8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1013.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x081ca400 nid=0x4cb0 waiting on condition [0x0af50000..0x0af510d0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x190271c0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1091.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x080d8000 nid=0x4caf waiting on condition [0x0afa1000..0x0afa1f50]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x191165d8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1086.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x084bd000 nid=0x4cae waiting on condition [0x0b1ba000..0x0b1bafd0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x190997f8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1004.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0dafb000 nid=0x4cad waiting on condition [0x0b20b000..0x0b20be50]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x1904c728> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1096.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x084b6800 nid=0x4cab waiting on condition [0x0b2ad000..0x0b2ae150]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x19109eb8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1107.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x084bc800 nid=0x4caa waiting on condition [0x0b2ff000..0x0b2ff1d0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x1901d610> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1009.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x084b8800 nid=0x4ca8 waiting on condition [0x0b45c000..0x0b45d050]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x190953e8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1025.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x084b5c00 nid=0x4ca7 waiting on condition [0x0b4ad000..0x0b4ae0d0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x1905a1f8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@18e2fc5:eselnvmai1061.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f80f800 nid=0x4ca6 waiting on condition [0x0b4fe000..0x0b4fef50]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1109.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08b56800 nid=0x4ca5 waiting on condition [0x0b874000..0x0b874fd0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x19068030> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Pipe writer thread: eselnvmai1108.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x08a8d800 nid=0x4ca4 waiting on condition [0x0b8c5000..0x0b8c5e50]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x1907bb98> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@113cefe:eselnvmai1069.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f80f000 nid=0x4ca2 waiting on condition [0x0b916000..0x0b916ed0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1061.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f80e800 nid=0x4ca1 runnable [0x0b967000..0x0b968150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x190d5410> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1e2e2f4:eselnvmai1037.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0da4f000 nid=0x4ca0 waiting on condition [0x0b9b9000..0x0b9b91d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@f250f3:eselnvmai1025.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x0f68fc00 nid=0x4c9f waiting on condition [0x0ba09000..0x0ba0a050]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@dd874:eselnvmai1065.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f68d800 nid=0x4c9e waiting on condition [0x0ba5a000..0x0ba5b0d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@140b31:eselnvmai1033.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x12be6000 nid=0x4c9d waiting on condition [0x0baab000..0x0baabf50]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1c2b60e:eselnvmai1009.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x12be5c00 nid=0x4c9c waiting on condition [0x0bafc000..0x0bafcfd0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1ed246d:eselnvmai1091.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0da4fc00 nid=0x4c9b waiting on condition [0x0bb4d000..0x0bb4de50]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@7299a:eselnvmai1045.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x12b94800 nid=0x4c9a waiting on condition [0x0bb9e000..0x0bb9eed0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1f06804:eselnvmai1109.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0868a000 nid=0x4c99 waiting on condition [0x0bbf0000..0x0bbf0150]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1faa3c5:eselnvmai1001.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f6f7000 nid=0x4c98 waiting on condition [0x11138000..0x111381d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@5cccd3:eselnvmai1041.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0fc0b400 nid=0x4c97 waiting on condition [0x0bc40000..0x0bc41050]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"pool-10-thread-1" daemon prio=10 tid=0x0da4a000 nid=0x4c96 waiting on condition [0x0bc91000..0x0bc920d0]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x18d99700> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1889)
+	at java.util.concurrent.DelayQueue.take(DelayQueue.java:160)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:582)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:575)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:946)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:906)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1c9c556:eselnvmai1086.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x12be5400 nid=0x4c95 waiting on condition [0x0bce2000..0x0bce2f50]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@164f4eb:eselnvmai1056.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0fdb3c00 nid=0x4c94 waiting on condition [0x0bd33000..0x0bd33fd0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@103e0e9:eselnvmai1053.mo.sw.ericsson.se (6620)" daemon prio=10 tid=0x0da29000 nid=0x4c93 waiting on condition [0x0bd84000..0x0bd84e50]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@10bbdb8:eselnvmai1096.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x12b9dc00 nid=0x4c92 waiting on condition [0x0bdd5000..0x0bdd5ed0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1fae1cd:eselnvmai1080.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x106d8000 nid=0x4c91 waiting on condition [0x0be27000..0x0be27150]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@838de0:eselnvmai1010.mo.sw.ericsson.se (6632_eririol)" daemon prio=10 tid=0x12b9ac00 nid=0x4c90 waiting on condition [0x0be78000..0x0be781d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@250179:eselnvmai1108.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x089ae400 nid=0x4c8e waiting on condition [0x0bec8000..0x0bec9050]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@e62093:eselnvmai1013.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x089af000 nid=0x4c8d waiting on condition [0x0bf19000..0x0bf1a0d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@197cf78:eselnvmai1106.mo.sw.ericsson.se (6701)" daemon prio=10 tid=0x0fa56c00 nid=0x4c87 waiting on condition [0x0c100000..0x0c1001d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@13291db:eselnvmai1107.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x082f1000 nid=0x4c86 waiting on condition [0x0c150000..0x0c151050]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1a3fb76:Cervi EP1.5 eselnvmai1032.mo.sw.ericsson.se (6620)" daemon prio=10 tid=0x0da27000 nid=0x4c85 waiting on condition [0x0c1a1000..0x0c1a20d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1069.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f5ab800 nid=0x4c83 runnable [0x0c243000..0x0c243fd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x190e9960> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@219c51:eselnvmai1017.mo.sw.ericsson.se (6620) (ST)" daemon prio=10 tid=0x08c5a800 nid=0x4c82 waiting on condition [0x0c294000..0x0c294e50]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@1bbad6f:eselnvmai1004.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x12b99c00 nid=0x4c80 waiting on condition [0x0c337000..0x0c337150]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Ping thread for channel hudson.remoting.Channel@137e2dc:eselnvmai1089.mo.sw.ericsson.se(6632)" daemon prio=10 tid=0x08c59800 nid=0x4c7f waiting on condition [0x0c388000..0x0c3881d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1033.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x105f0000 nid=0x4c7e runnable [0x0c3d8000..0x0c3d9050]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18c9f600> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1025.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x0f5a9000 nid=0x4c7d runnable [0x0c429000..0x0c42a0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x19045868> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1037.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0da25800 nid=0x4c7c runnable [0x0c47a000..0x0c47af50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18d2a830> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1091.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x082bc800 nid=0x4c7b runnable [0x0c4cb000..0x0c4cbfd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x190f4eb8> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1009.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x105ba000 nid=0x4c7a runnable [0x0c51c000..0x0c51ce50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x19082ac0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1045.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x10c94800 nid=0x4c79 runnable [0x0c56d000..0x0c56ded0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x19095c98> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1001.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f692000 nid=0x4c78 runnable [0x0c5be000..0x0c5bf150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x191027a0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1041.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0fc1b800 nid=0x4c77 runnable [0x0c60f000..0x0c6101d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x190c83f0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1065.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08a1e800 nid=0x4c69 runnable [0x0ca7d000..0x0ca7ded0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x190b7558> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1080.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0f218000 nid=0x4c68 runnable [0x0cace000..0x0cacf150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18cb3e18> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1108.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x08b71400 nid=0x4c67 runnable [0x0cb1f000..0x0cb201d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x1906bdf8> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1109.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08b71000 nid=0x4c66 runnable [0x0cb70000..0x0cb71050]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x19053e58> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1096.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x105ef800 nid=0x4c65 runnable [0x0cbc1000..0x0cbc20d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x190ef2e0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1086.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x105b8c00 nid=0x4c64 runnable [0x0cc12000..0x0cc12f50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x19086040> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1107.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x08b6d800 nid=0x4c63 runnable [0x0cc63000..0x0cc63fd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x1900c2a0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1056.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0da03800 nid=0x4c62 runnable [0x0ccb4000..0x0ccb4e50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18d3cff0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1010.mo.sw.ericsson.se (6632_eririol)" daemon prio=10 tid=0x10c8ec00 nid=0x4c61 runnable [0x0cd05000..0x0cd05ed0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18d18c78> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1013.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0898ec00 nid=0x4c60 runnable [0x0cd56000..0x0cd57150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18ff6038> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1053.mo.sw.ericsson.se (6620)" daemon prio=10 tid=0x0da02400 nid=0x4c5f runnable [0x0cda7000..0x0cda81d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18cd6ce0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1089.mo.sw.ericsson.se(6632)" daemon prio=10 tid=0x0898b400 nid=0x4c5e runnable [0x0cdf8000..0x0cdf9050]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18ce6220> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1106.mo.sw.ericsson.se (6701)" daemon prio=10 tid=0x100bd400 nid=0x4c5d runnable [0x0ce49000..0x0ce4a0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18cc4fd8> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1017.mo.sw.ericsson.se (6620) (ST)" daemon prio=10 tid=0x0898e800 nid=0x4c5b runnable [0x0ceeb000..0x0ceebfd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18d07fd0> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: Cervi EP1.5 eselnvmai1032.mo.sw.ericsson.se (6620)" daemon prio=10 tid=0x0898e000 nid=0x4c5a runnable [0x0cf3c000..0x0cf3ce50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x18cf7318> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"Channel reader thread: eselnvmai1004.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0fa88000 nid=0x4c56 runnable [0x0d080000..0x0d081050]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0x19027a70> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2247)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2540)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2550)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1297)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:351)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1017.mo.sw.ericsson.se (6620) (ST)" daemon prio=10 tid=0x08c69400 nid=0x4c55 runnable [0x0d0d1000..0x0d0d20d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1033.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x10c93000 nid=0x4c54 runnable [0x0d122000..0x0d122f50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on Cervi EP1.5 eselnvmai1032.mo.sw.ericsson.se (6620)" daemon prio=10 tid=0x08c68000 nid=0x4c53 runnable [0x0d173000..0x0d173fd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1107.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x08c66c00 nid=0x4c51 runnable [0x0d1c4000..0x0d1c4e50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x08c65800 nid=0x4c50 runnable [0x0d215000..0x0d215ed0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1109.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08c64400 nid=0x4c4f runnable [0x0d267000..0x0d267150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1010.mo.sw.ericsson.se (6632_eririol)" daemon prio=10 tid=0x10c91c00 nid=0x4c4e runnable [0x0d2b8000..0x0d2b81d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1091.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08c63000 nid=0x4c4c runnable [0x0d308000..0x0d309050]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x105b5800 nid=0x4c4b runnable [0x0d359000..0x0d35a0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1001.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x106c0000 nid=0x4c4a runnable [0x0d3aa000..0x0d3aaf50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1065.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08598800 nid=0x4c49 runnable [0x0d3fb000..0x0d3fbfd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1106.mo.sw.ericsson.se (6701)" daemon prio=10 tid=0x106bec00 nid=0x4c48 runnable [0x0d44c000..0x0d44ce50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1096.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x105b4000 nid=0x4c47 runnable [0x0d49d000..0x0d49ded0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1108.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x0859c800 nid=0x4c46 runnable [0x0d4ef000..0x0d4ef150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1009.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x105b6400 nid=0x4c45 runnable [0x0d540000..0x0d5401d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1013.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x08597800 nid=0x4c44 runnable [0x0d590000..0x0d591050]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1080.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x106bdc00 nid=0x4c43 runnable [0x0d5e1000..0x0d5e20d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1086.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x105b3400 nid=0x4c40 runnable [0x0d683000..0x0d683fd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0859ac00 nid=0x4c3f runnable [0x0d6d4000..0x0d6d4e50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1061.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f8fa000 nid=0x4c3e runnable [0x0d725000..0x0d725ed0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1004.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f8f8800 nid=0x4c3d runnable [0x0d777000..0x0d777150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1089.mo.sw.ericsson.se(6632)" daemon prio=10 tid=0x08599800 nid=0x4c3c runnable [0x0d7c8000..0x0d7c81d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1053.mo.sw.ericsson.se (6620)" daemon prio=10 tid=0x08596800 nid=0x4c39 runnable [0x0d818000..0x0d819050]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x105ae800 nid=0x4c38 runnable [0x0d869000..0x0d86a0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1056.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0da00c00 nid=0x4c35 runnable [0x0d8ba000..0x0d8baf50]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1069.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x0f8f7000 nid=0x4c34 runnable [0x0d90b000..0x0d90bfd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x089f7c00 nid=0x4c33 runnable [0x0d95c000..0x0d95ce50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1045.mo.sw.ericsson.se (6632)" daemon prio=10 tid=0x105ad000 nid=0x4c32 runnable [0x0d9ad000..0x0d9aded0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1037.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x089f5800 nid=0x4c30 runnable [0x0db88000..0x0db881d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x105e0000 nid=0x4c2b runnable [0x0dbd8000..0x0dbd9050]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x089f6c00 nid=0x4c29 runnable [0x0dc29000..0x0dc2a0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x089f4400 nid=0x4c27 runnable [0x0dc7a000..0x0dc7af50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x089f3400 nid=0x4c26 runnable [0x0dccb000..0x0dccbfd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x089f2000 nid=0x4c25 runnable [0x0dd1c000..0x0dd1ce50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0f8f6000 nid=0x4c23 runnable [0x0dd6d000..0x0dd6ded0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1041.mo.sw.ericsson.se (6634)" daemon prio=10 tid=0x0835d400 nid=0x4c22 runnable [0x0ddbf000..0x0ddbf150]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"stderr copier for remote agent on eselnvmai1025.mo.sw.ericsson.se (6632) (ST)" daemon prio=10 tid=0x0fff8000 nid=0x4c1f runnable [0x0de10000..0x0de101d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:177)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x105e1000 nid=0x4c1e runnable [0x0de60000..0x0de61050]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0835b000 nid=0x4c1d runnable [0x0deb1000..0x0deb20d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x08946800 nid=0x4c1b runnable [0x0df02000..0x0df02f50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0fff9c00 nid=0x4c1a runnable [0x0df53000..0x0df53fd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x105df800 nid=0x4c16 runnable [0x0dfa4000..0x0dfa4e50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0fff8c00 nid=0x4c15 runnable [0x0dff5000..0x0dff5ed0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x08359400 nid=0x4c13 runnable [0x0e047000..0x0e047150]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x08947800 nid=0x4c10 runnable [0x0e098000..0x0e0981d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x08947000 nid=0x4c0e runnable [0x0e0e8000..0x0e0e9050]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x08945400 nid=0x4c0c runnable [0x0e139000..0x0e13a0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0fff5800 nid=0x4c0a runnable [0x0e18a000..0x0e18af50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0899d400 nid=0x4c09 runnable [0x0e1db000..0x0e1dbfd0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0899bc00 nid=0x4c06 runnable [0x0e22c000..0x0e22ce50]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0899b400 nid=0x4c05 runnable [0x0e27d000..0x0e27ded0]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"process reaper" daemon prio=10 tid=0x0899b000 nid=0x4c04 runnable [0x0e2cf000..0x0e2cf150]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$900(UNIXProcess.java:20)
+	at java.lang.UNIXProcess$1$1.run(UNIXProcess.java:132)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1086.mo.sw.ericsson.se (6632)" prio=10 tid=0x085eec00 nid=0x4c02 in Object.wait() [0x0e370000..0x0e371050]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1080.mo.sw.ericsson.se (6634)" prio=10 tid=0x10cbcc00 nid=0x4c00 in Object.wait() [0x0e412000..0x0e412f50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1089.mo.sw.ericsson.se(6632)" prio=10 tid=0x10cba800 nid=0x4bfe in Object.wait() [0x0e4b4000..0x0e4b4e50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1091.mo.sw.ericsson.se (6632) : executing FT_SAPC13B_LSV_BUGFIX_VTSP_OAM #114 / waiting for hudson.remoting.Channel@1ed246d:eselnvmai1091.mo.sw.ericsson.se (6632)" prio=10 tid=0x10cb8400 nid=0x4bfc in Object.wait() [0x0e556000..0x0e557150]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1f9af618> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1f9af618> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1096.mo.sw.ericsson.se (6632) : executing FT_eSAPC2013B_CBA_Rebase_ft_st_mobile #1 / waiting for hudson.remoting.Channel@10bbdb8:eselnvmai1096.mo.sw.ericsson.se (6632)" prio=10 tid=0x10cb7000 nid=0x4bfa in Object.wait() [0x0e5f8000..0x0e5f9050]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1f91eb70> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1f91eb70> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1109.mo.sw.ericsson.se (6632)" prio=10 tid=0x10cb4c00 nid=0x4bf8 in Object.wait() [0x0e69a000..0x0e69af50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1106.mo.sw.ericsson.se (6701)" prio=10 tid=0x10c9e400 nid=0x4bf6 in Object.wait() [0x0e73c000..0x0e73ce50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1053.mo.sw.ericsson.se (6620)" prio=10 tid=0x10c9c000 nid=0x4bf4 in Object.wait() [0x0e7de000..0x0e7df150]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1056.mo.sw.ericsson.se (6634)" prio=10 tid=0x10c99c00 nid=0x4bf2 in Object.wait() [0x0e880000..0x0e881050]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1061.mo.sw.ericsson.se (6632)" prio=10 tid=0x10c97800 nid=0x4bf0 in Object.wait() [0x0e922000..0x0e922f50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1065.mo.sw.ericsson.se (6632) : executing FT_eSAPC2013B_CBA_Rebase_ft_st #10 / waiting for hudson.remoting.Channel@dd874:eselnvmai1065.mo.sw.ericsson.se (6632)" prio=10 tid=0x10c95400 nid=0x4bee in Object.wait() [0x0e9c4000..0x0e9c4e50]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1ff5a000> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1ff5a000> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1069.mo.sw.ericsson.se (6632) : executing FT_SAPCPROGRAM2012_WP32 #4 / waiting for hudson.remoting.Channel@113cefe:eselnvmai1069.mo.sw.ericsson.se (6632)" prio=10 tid=0x10cb3000 nid=0x4bec in Object.wait() [0x0ea66000..0x0ea67150]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1e8c87d8> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1e8c87d8> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1033.mo.sw.ericsson.se (6634)" prio=10 tid=0x10cb0c00 nid=0x4bea in Object.wait() [0x0eb08000..0x0eb09050]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1037.mo.sw.ericsson.se (6634) : executing FT_SAPC2012A_CP2_MAINTENANCE_LATEST #4 / waiting for hudson.remoting.Channel@1e2e2f4:eselnvmai1037.mo.sw.ericsson.se (6634)" prio=10 tid=0x10cae800 nid=0x4be8 in Object.wait() [0x0ebaa000..0x0ebaaf50]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1f8dc638> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1f8dc638> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1041.mo.sw.ericsson.se (6634) : executing FT_SAPC2012A_CP1_MAINTENANCE_LATEST #9 / waiting for hudson.remoting.Channel@5cccd3:eselnvmai1041.mo.sw.ericsson.se (6634)" prio=10 tid=0x10cac400 nid=0x4be6 in Object.wait() [0x0ec4c000..0x0ec4ce50]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1f88e200> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1f88e200> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1045.mo.sw.ericsson.se (6632) : executing FT_SAPCPROGRAM2012_WP36_MOBILE #14 / waiting for hudson.remoting.Channel@7299a:eselnvmai1045.mo.sw.ericsson.se (6632)" prio=10 tid=0x10caa000 nid=0x4be4 in Object.wait() [0x0ecee000..0x0ecef150]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1ff98240> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1ff98240> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"JmDNS(eselnvlx1360.local.).State.Timer" prio=10 tid=0x0f5f2800 nid=0x4be2 in Object.wait() [0x0ed90000..0x0ed91050]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x191169a0> (a java.util.TaskQueue)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0x191169a0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+   Locked ownable synchronizers:
+	- None
+
+"JmDNS(eselnvlx1360.local.).Timer" daemon prio=10 tid=0x0f5f1800 nid=0x4be1 in Object.wait() [0x0ede1000..0x0ede20d0]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x19129a90> (a java.util.TaskQueue)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0x19129a90> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for Cervi EP1.5 eselnvmai1032.mo.sw.ericsson.se (6620)" prio=10 tid=0x10ca7c00 nid=0x4be0 in Object.wait() [0x0ee32000..0x0ee32f50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1004.mo.sw.ericsson.se (6632) : executing FT_SAPCPROGRAM2012_WP36_FIXED #13 / waiting for hudson.remoting.Channel@1bbad6f:eselnvmai1004.mo.sw.ericsson.se (6632)" prio=10 tid=0x10ca5800 nid=0x4bde in Object.wait() [0x0eed4000..0x0eed4e50]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x21b7a1c8> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x21b7a1c8> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1009.mo.sw.ericsson.se (6632) (ST)" prio=10 tid=0x10ca3400 nid=0x4bdc in Object.wait() [0x0ef76000..0x0ef77150]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1010.mo.sw.ericsson.se (6632_eririol)" prio=10 tid=0x105ce800 nid=0x4bda in Object.wait() [0x0f018000..0x0f019050]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"SocketListener(eselnvlx1360.local.)" daemon prio=10 tid=0x0faadc00 nid=0x4bd9 runnable [0x0f069000..0x0f06a0d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	- locked <0x19116c70> (a java.net.PlainDatagramSocketImpl)
+	at java.net.PlainDatagramSocketImpl.receive(PlainDatagramSocketImpl.java:136)
+	- locked <0x19116c70> (a java.net.PlainDatagramSocketImpl)
+	at java.net.DatagramSocket.receive(DatagramSocket.java:712)
+	- locked <0x191db4a0> (a java.net.DatagramPacket)
+	- locked <0x19116c38> (a java.net.MulticastSocket)
+	at javax.jmdns.impl.SocketListener.run(SocketListener.java:41)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1013.mo.sw.ericsson.se (6632) : executing FT_SAPCPROGRAM2012_WP24_WP34_VTSP_MOBILE #6 / waiting for hudson.remoting.Channel@e62093:eselnvmai1013.mo.sw.ericsson.se (6632)" prio=10 tid=0x10c70400 nid=0x4bd7 in Object.wait() [0x0f10b000..0x0f10bfd0]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1ff08788> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1ff08788> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1017.mo.sw.ericsson.se (6620) (ST)" prio=10 tid=0x12b90c00 nid=0x4bd5 in Object.wait() [0x0f1ad000..0x0f1aded0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1021.mo.sw.ericsson.se (6332)" prio=10 tid=0x12bfa000 nid=0x4bd3 in Object.wait() [0x0f35c000..0x0f35d1d0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1025.mo.sw.ericsson.se (6632) (ST) : executing ST_SAPC13B_TEST_REPORTS_GENERATION #53 / waiting for hudson.remoting.Channel@f250f3:eselnvmai1025.mo.sw.ericsson.se (6632) (ST)" prio=10 tid=0x10590400 nid=0x4bd1 in Object.wait() [0x0f3fe000..0x0f3ff0d0]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x2b900bc8> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x2b900bc8> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1108.mo.sw.ericsson.se (6632) (ST)" prio=10 tid=0x10c43000 nid=0x4bcf in Object.wait() [0x0f9ad000..0x0f9adfd0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1107.mo.sw.ericsson.se (6634) : executing FT_SAPC13B_FT_SAPC13B_HQ39522_LSV5_MOBILE #4 / waiting for hudson.remoting.Channel@13291db:eselnvmai1107.mo.sw.ericsson.se (6634)" prio=10 tid=0x10c36800 nid=0x4bcd in Object.wait() [0x0fb5c000..0x0fb5ced0]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1adde978> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1adde978> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for eselnvmai1001.mo.sw.ericsson.se (6632) : executing FT_SAPC13B_LSV_BUGFIX_VTSP #100 / waiting for hudson.remoting.Channel@1faa3c5:eselnvmai1001.mo.sw.ericsson.se (6632)" prio=10 tid=0x10557000 nid=0x4bcb in Object.wait() [0x0fbfe000..0x0fbff1d0]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1b580758> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:146)
+	- locked <0x1b580758> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:665)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+	at $Proxy34.join(Unknown Source)
+	at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:915)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #5 for master" prio=10 tid=0x10556c00 nid=0x4bca in Object.wait() [0x10b5c000..0x10b5d050]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #4 for master" prio=10 tid=0x10559000 nid=0x4bc9 in Object.wait() [0x10dfe000..0x10dff0d0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #3 for master" prio=10 tid=0x105bdc00 nid=0x4bc8 in Object.wait() [0x10bad000..0x10badf50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #2 for master" prio=10 tid=0x105b0800 nid=0x4bc7 in Object.wait() [0x10b0b000..0x10b0bfd0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #1 for master : executing Create_FT_jobs #215" prio=10 tid=0x10c8b000 nid=0x4bc6 in Object.wait() [0x10d5c000..0x10d5ce50]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x28eac270> (a java.lang.UNIXProcess)
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.UNIXProcess.waitFor(UNIXProcess.java:165)
+	- locked <0x28eac270> (a java.lang.UNIXProcess)
+	at hudson.Proc$LocalProc.join(Proc.java:319)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:360)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+	at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:160)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:586)
+	at hudson.model.Run.execute(Run.java:1516)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+   Locked ownable synchronizers:
+	- None
+
+"Executor #0 for master" prio=10 tid=0x13439400 nid=0x4bc5 in Object.wait() [0x10f51000..0x10f51ed0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x186f3d38> (a hudson.model.Queue)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Queue.pop(Queue.java:875)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+	- locked <0x186f3d38> (a hudson.model.Queue)
+
+   Locked ownable synchronizers:
+	- None
+
+"Jenkins UDP 33848 monitoring thread" prio=10 tid=0x12b64c00 nid=0x4bc3 runnable [0x10bff000..0x10bff1d0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	- locked <0x19129f40> (a java.net.PlainDatagramSocketImpl)
+	at java.net.PlainDatagramSocketImpl.receive(PlainDatagramSocketImpl.java:136)
+	- locked <0x19129f40> (a java.net.PlainDatagramSocketImpl)
+	at java.net.DatagramSocket.receive(DatagramSocket.java:712)
+	- locked <0x191dbcd0> (a java.net.DatagramPacket)
+	- locked <0x1919bfb0> (a java.net.MulticastSocket)
+	at hudson.UDPBroadcastThread.run(UDPBroadcastThread.java:79)
+
+   Locked ownable synchronizers:
+	- None
+
+"TCP slave agent listener port=0" prio=10 tid=0x105f2800 nid=0x4bc2 runnable [0x1015c000..0x1015d050]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:384)
+	- locked <0x19129f90> (a java.net.SocksSocketImpl)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:450)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at hudson.TcpSlaveAgentListener.run(TcpSlaveAgentListener.java:91)
+
+   Locked ownable synchronizers:
+	- None
+
+"NioSocketAcceptor-1" prio=10 tid=0x0899f400 nid=0x4bc1 runnable [0x101ad000..0x101ae0d0]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+	at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:184)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:65)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:69)
+	- locked <0x18c7dd20> (a sun.nio.ch.Util$1)
+	- locked <0x18c7dd10> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x18c7d8e0> (a sun.nio.ch.EPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:80)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:84)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.select(NioSocketAcceptor.java:285)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:401)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- <0x18c7d490> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+
+"ViewJob reload thread" daemon prio=10 tid=0x08a3c400 nid=0x4bc0 in Object.wait() [0x101fe000..0x101fef50]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x191dbdb8> (a java.util.LinkedHashSet)
+	at hudson.model.ViewJob$ReloadThread.getNext(ViewJob.java:171)
+	- locked <0x191dbdb8> (a java.util.LinkedHashSet)
+	at hudson.model.ViewJob$ReloadThread.run(ViewJob.java:188)
+
+   Locked ownable synchronizers:
+	- None
+
+"Jenkins cron thread" prio=10 tid=0x12bbcc00 nid=0x4bb1 in Object.wait() [0x10fa2000..0x10fa2fd0]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x18807270> (a java.util.TaskQueue)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0x18807270> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+   Locked ownable synchronizers:
+	- None
+
+"DestroyJavaVM" prio=10 tid=0x10e01800 nid=0x4b9c waiting on condition [0x00000000..0xb7e47120]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"LauncherControlThread[ControlPort=-1]" prio=10 tid=0x10e00800 nid=0x4bb0 waiting on condition [0x10ff3000..0x10ff3e50]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at winstone.Launcher.run(Launcher.java:265)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"ConnectorThread:[ajp13-8009]" daemon prio=10 tid=0x12b68400 nid=0x4baf runnable [0x11044000..0x11044ed0]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:384)
+	- locked <0x1880daa8> (a java.net.SocksSocketImpl)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:450)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at winstone.ajp13.Ajp13Listener.run(Ajp13Listener.java:116)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"ConnectorThread:[http-7070]" daemon prio=10 tid=0x12b8cc00 nid=0x4bae runnable [0x11096000..0x11096150]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:384)
+	- locked <0x1880db70> (a java.net.SocksSocketImpl)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:450)
+	at java.net.ServerSocket.accept(ServerSocket.java:421)
+	at winstone.HttpListener.run(HttpListener.java:137)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"WinstoneHostConfigurationMgmt:default" daemon prio=10 tid=0x12b4fc00 nid=0x4bad waiting on condition [0x110e7000..0x110e71d0]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at winstone.HostConfiguration.run(HostConfiguration.java:174)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Java2D Disposer" daemon prio=10 tid=0x08525400 nid=0x4bab in Object.wait() [0x12991000..0x129920d0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x18807800> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:116)
+	- locked <0x18807800> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:132)
+	at sun.java2d.Disposer.run(Disposer.java:125)
+	at java.lang.Thread.run(Thread.java:619)
+
+   Locked ownable synchronizers:
+	- None
+
+"Low Memory Detector" daemon prio=10 tid=0x08166800 nid=0x4ba7 runnable [0x00000000..0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"CompilerThread1" daemon prio=10 tid=0x08164c00 nid=0x4ba6 waiting on condition [0x00000000..0x136ce4a8]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"CompilerThread0" daemon prio=10 tid=0x08163800 nid=0x4ba5 waiting on condition [0x00000000..0x1374f528]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Signal Dispatcher" daemon prio=10 tid=0x08157800 nid=0x4ba4 runnable [0x00000000..0x137a0e30]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Finalizer" daemon prio=10 tid=0x0814fc00 nid=0x4ba3 in Object.wait() [0x137f2000..0x137f21d0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x1880e210> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:116)
+	- locked <0x1880e210> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:132)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+   Locked ownable synchronizers:
+	- None
+
+"Reference Handler" daemon prio=10 tid=0x0814f000 nid=0x4ba2 in Object.wait() [0x13842000..0x13843050]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x18806f50> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+	- locked <0x18806f50> (a java.lang.ref.Reference$Lock)
+
+   Locked ownable synchronizers:
+	- None
+
+"VM Thread" prio=10 tid=0x0814c800 nid=0x4ba1 runnable 
+
+"GC task thread#0 (ParallelGC)" prio=10 tid=0x08060400 nid=0x4b9d runnable 
+
+"GC task thread#1 (ParallelGC)" prio=10 tid=0x08061400 nid=0x4b9e runnable 
+
+"GC task thread#2 (ParallelGC)" prio=10 tid=0x08062400 nid=0x4b9f runnable 
+
+"GC task thread#3 (ParallelGC)" prio=10 tid=0x08063400 nid=0x4ba0 runnable 
+
+"VM Periodic Task Thread" prio=10 tid=0x08168000 nid=0x4ba8 waiting on condition 
+
+JNI global references: 1819
+

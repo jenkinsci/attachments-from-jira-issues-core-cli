@@ -1,0 +1,472 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xfeb60518, pid=25138, tid=3
+#
+# JRE version: 6.0_18-b07
+# Java VM: Java HotSpot(TM) Server VM (16.0-b13 mixed mode solaris-sparc )
+# Problematic frame:
+# V  [libjvm.so+0x760518]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00048000):  GCTaskThread [stack: 0x8b700000,0x8b780000] [id=3]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x00000010
+
+Registers:
+ O0=0x8ccb1a78 O1=0x000c6898 O2=0x00000010 O3=0xfa2e1d88
+ O4=0x00000000 O5=0xfee39800 O6=0x8b77fbc8 O7=0xfeb60a94
+ G1=0x00000006 G2=0x00000000 G3=0x00000001 G4=0x00001021
+ G5=0x00003fff G6=0x00000000 G7=0xfee90a00 Y=0x00000000
+ PC=0xfeb60518 nPC=0xfeb6051c
+
+
+Top of Stack: (sp=0x8b77fbc8)
+0x8b77fbc8:   00690073 00000009 00000001 00000008
+0x8b77fbd8:   00000001 00000000 00000001 0000004b
+0x8b77fbe8:   000c6898 fa2e1d80 001a401c 00000010
+0x8b77fbf8:   fee2b800 fa2e1d80 8b77fc78 feb611d8
+0x8b77fc08:   8b77fc30 feb0e868 0000016b fee3a57c
+0x8b77fc18:   fff47edc fee3a57c 00052000 00031400
+0x8b77fc28:   00031400 000317e4 8b77f9d4 00000020
+0x8b77fc38:   fedfa000 fc000224 fedfa000 00000000 
+
+Instructions: (pc=0xfeb60518)
+0xfeb60508:   ec 03 60 60 80 8e e0 01 12 40 00 07 94 0e ff fd
+0xfeb60518:   c4 02 a0 00 83 30 a0 03 9e 08 60 0f 10 80 00 05 
+
+Stack: [0x8b700000,0x8b780000],  sp=0x8b77fbc8,  free space=1fefeb60518k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x760518]
+V  [libjvm.so+0x7611e0]
+V  [libjvm.so+0x1c6094]
+V  [libjvm.so+0x24c0bc]
+V  [libjvm.so+0x728448]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0286a000 JavaThread "Thread-37821" daemon [_thread_in_native, id=55049, stack(0x89080000,0x89100000)]
+  0x03de8c00 JavaThread "pool-6-thread-12391" daemon [_thread_blocked, id=55047, stack(0x89c80000,0x89d00000)]
+  0x01b45000 JavaThread "Pipe writer thread: ALB_bellatrix_S10_Sparc" daemon [_thread_blocked, id=54971, stack(0x78b80000,0x78c00000)]
+  0x02c51c00 JavaThread "Channel reader thread: NJ_W_nj216_LRH5_x86_32" daemon [_thread_in_native, id=54771, stack(0x7c900000,0x7c980000)]
+  0x03b49c00 JavaThread "stderr copier for remote agent on NJ_W_nj216_LRH5_x86_32" daemon [_thread_in_native, id=54769, stack(0x78680000,0x78700000)]
+  0x03b49400 JavaThread "process reaper" daemon [_thread_in_native, id=54768, stack(0x76d80000,0x76e00000)]
+  0x031dd000 JavaThread "Channel reader thread: ALB_bellatrix_S10_Sparc" daemon [_thread_blocked, id=54191, stack(0x78d80000,0x78e00000)]
+  0x031e5000 JavaThread "stderr copier for remote agent on ALB_bellatrix_S10_Sparc" daemon [_thread_blocked, id=54189, stack(0x7d400000,0x7d480000)]
+  0x00c10800 JavaThread "Thread-37775" daemon [_thread_blocked, id=54188, stack(0x88680000,0x88700000)]
+  0x037e4800 JavaThread "Thread-37774" daemon [_thread_blocked, id=54187, stack(0x7b600000,0x7b680000)]
+  0x03a82400 JavaThread "Thread-37773" daemon [_thread_in_native, id=54180, stack(0x7bf00000,0x7bf80000)]
+  0x01634400 JavaThread "Channel reader thread: ALB_W_nbbldlin14_LRH5_x86_32" daemon [_thread_in_native, id=54177, stack(0x77580000,0x77600000)]
+  0x03d24400 JavaThread "stderr copier for remote agent on ALB_W_nbbldlin14_LRH5_x86_32" daemon [_thread_in_native, id=54175, stack(0x7a700000,0x7a780000)]
+  0x0275b000 JavaThread "process reaper" daemon [_thread_in_native, id=54174, stack(0x77380000,0x77400000)]
+  0x023cf400 JavaThread "Pipe writer thread: ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_blocked, id=54137, stack(0x76f80000,0x77000000)]
+  0x02091000 JavaThread "Pipe writer thread: LAN_W_frlanw0f04553_LRH5" daemon [_thread_blocked, id=54080, stack(0x77080000,0x77100000)]
+  0x00206c00 JavaThread "http-28080-Processor175" daemon [_thread_blocked, id=54049, stack(0x77480000,0x77500000)]
+  0x02bcc000 JavaThread "http-28080-Processor173" daemon [_thread_in_native, id=54047, stack(0x77680000,0x77700000)]
+  0x02bcac00 JavaThread "http-28080-Processor172" daemon [_thread_blocked, id=54046, stack(0x77780000,0x77800000)]
+  0x02df2000 JavaThread "http-28080-Processor171" daemon [_thread_blocked, id=54045, stack(0x77880000,0x77900000)]
+  0x0137a400 JavaThread "http-28080-Processor170" daemon [_thread_blocked, id=54044, stack(0x77980000,0x77a00000)]
+  0x01378c00 JavaThread "http-28080-Processor169" daemon [_thread_blocked, id=54043, stack(0x77a80000,0x77b00000)]
+  0x02761400 JavaThread "http-28080-Processor168" daemon [_thread_blocked, id=54042, stack(0x77b80000,0x77c00000)]
+  0x01fdd400 JavaThread "http-28080-Processor167" daemon [_thread_blocked, id=54041, stack(0x77c80000,0x77d00000)]
+  0x01fdc400 JavaThread "http-28080-Processor166" daemon [_thread_blocked, id=54040, stack(0x77d80000,0x77e00000)]
+  0x03d25800 JavaThread "http-28080-Processor165" daemon [_thread_blocked, id=54039, stack(0x77e80000,0x77f00000)]
+  0x03d24c00 JavaThread "http-28080-Processor164" daemon [_thread_blocked, id=54038, stack(0x78280000,0x78300000)]
+  0x00f46c00 JavaThread "http-28080-Processor163" daemon [_thread_blocked, id=54037, stack(0x78880000,0x78900000)]
+  0x01ac6c00 JavaThread "http-28080-Processor162" daemon [_thread_blocked, id=54036, stack(0x78980000,0x78a00000)]
+  0x01fa1400 JavaThread "http-28080-Processor161" daemon [_thread_blocked, id=54035, stack(0x78c80000,0x78d00000)]
+  0x01be0800 JavaThread "http-28080-Processor160" daemon [_thread_blocked, id=54034, stack(0x78e80000,0x78f00000)]
+  0x00dd5000 JavaThread "http-28080-Processor159" daemon [_thread_blocked, id=54033, stack(0x79080000,0x79100000)]
+  0x016c5c00 JavaThread "http-28080-Processor158" daemon [_thread_blocked, id=54032, stack(0x79900000,0x79980000)]
+  0x011b8800 JavaThread "http-28080-Processor157" daemon [_thread_blocked, id=54031, stack(0x79a00000,0x79a80000)]
+  0x00b9fc00 JavaThread "http-28080-Processor156" daemon [_thread_blocked, id=54030, stack(0x7b300000,0x7b380000)]
+  0x00c0e800 JavaThread "http-28080-Processor155" daemon [_thread_blocked, id=54029, stack(0x7b800000,0x7b880000)]
+  0x0100a400 JavaThread "http-28080-Processor154" daemon [_thread_blocked, id=54028, stack(0x7bc00000,0x7bc80000)]
+  0x00b88800 JavaThread "http-28080-Processor153" daemon [_thread_blocked, id=54027, stack(0x7c000000,0x7c080000)]
+  0x002d2000 JavaThread "http-28080-Processor152" daemon [_thread_blocked, id=54026, stack(0x80a00000,0x80a80000)]
+  0x01dbf400 JavaThread "http-28080-Processor151" daemon [_thread_blocked, id=54025, stack(0x88980000,0x88a00000)]
+  0x00b87c00 JavaThread "Pipe writer thread: LAN_W_frlanw0l017012_LRH5" daemon [_thread_blocked, id=54018, stack(0x7c600000,0x7c680000)]
+  0x01dbe000 JavaThread "Channel reader thread: ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_in_native, id=54008, stack(0x7cc00000,0x7cc80000)]
+  0x011a2000 JavaThread "stderr copier for remote agent on ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_in_native, id=54007, stack(0x7f400000,0x7f480000)]
+  0x01dbf000 JavaThread "process reaper" daemon [_thread_in_native, id=54006, stack(0x84700000,0x84780000)]
+  0x00204c00 JavaThread "Channel reader thread: ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_in_native, id=54003, stack(0x7cd00000,0x7cd80000)]
+  0x013b4800 JavaThread "stderr copier for remote agent on ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_in_native, id=54002, stack(0x7e200000,0x7e280000)]
+  0x01dbe800 JavaThread "process reaper" daemon [_thread_in_native, id=54001, stack(0x7ea00000,0x7ea80000)]
+  0x021b9400 JavaThread "Executor #4 for ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_blocked, id=53997, stack(0x7d300000,0x7d380000)]
+  0x0144f000 JavaThread "Executor #3 for ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_blocked, id=53996, stack(0x84900000,0x84980000)]
+  0x0166f000 JavaThread "Executor #2 for ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_blocked, id=53995, stack(0x88b80000,0x88c00000)]
+  0x00aaec00 JavaThread "Executor #1 for ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_blocked, id=53994, stack(0x84b00000,0x84b80000)]
+  0x0275c000 JavaThread "Executor #0 for ALB_W_nbbldlin12_LRH5_x86_32" daemon [_thread_blocked, id=53993, stack(0x7dd00000,0x7dd80000)]
+  0x01f90c00 JavaThread "Pipe writer thread: MRS_S_frctfscc14p_S8_Sparc" daemon [_thread_blocked, id=53941, stack(0x89680000,0x89700000)]
+  0x01530400 JavaThread "Pipe writer thread: MRS_W_frmrszvli005_LIN3_x86_32" daemon [_thread_blocked, id=53940, stack(0x89580000,0x89600000)]
+  0x01417000 JavaThread "Pipe writer thread: MRS_S_frctfscc11p_S8_Sparc" daemon [_thread_blocked, id=53938, stack(0x89e80000,0x89f00000)]
+  0x00c64000 JavaThread "Pipe writer thread: MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_blocked, id=53913, stack(0x7d100000,0x7d180000)]
+  0x019ab400 JavaThread "Pipe writer thread: MRS_W_frmrszvli001_LIN3_x86_32" daemon [_thread_blocked, id=53912, stack(0x80300000,0x80380000)]
+  0x01673400 JavaThread "Channel reader thread: MRS_W_frmrszvli001_LIN3_x86_32" daemon [_thread_in_native, id=53785, stack(0x7d500000,0x7d580000)]
+  0x01f72800 JavaThread "stderr copier for remote agent on MRS_W_frmrszvli001_LIN3_x86_32" daemon [_thread_in_native, id=53784, stack(0x7d900000,0x7d980000)]
+  0x01ac6400 JavaThread "process reaper" daemon [_thread_in_native, id=53783, stack(0x7e600000,0x7e680000)]
+  0x00ae0800 JavaThread "Channel reader thread: MRS_W_frmrszvli005_LIN3_x86_32" daemon [_thread_in_native, id=53780, stack(0x7e300000,0x7e380000)]
+  0x01f6c800 JavaThread "stderr copier for remote agent on MRS_W_frmrszvli005_LIN3_x86_32" daemon [_thread_in_native, id=53779, stack(0x79b00000,0x79b80000)]
+  0x01fa0c00 JavaThread "process reaper" daemon [_thread_in_native, id=53778, stack(0x85800000,0x85880000)]
+  0x01e98c00 JavaThread "Channel reader thread: MRS_S_frctfscc11p_S8_Sparc" daemon [_thread_in_native, id=53763, stack(0x7e500000,0x7e580000)]
+  0x014e6c00 JavaThread "Channel reader thread: MRS_S_frctfscc14p_S8_Sparc" daemon [_thread_in_native, id=53761, stack(0x7e100000,0x7e180000)]
+  0x01fae400 JavaThread "stderr copier for remote agent on MRS_S_frctfscc14p_S8_Sparc" daemon [_thread_in_native, id=53760, stack(0x82900000,0x82980000)]
+  0x01be0400 JavaThread "process reaper" daemon [_thread_in_native, id=53759, stack(0x88c80000,0x88d00000)]
+  0x010b6000 JavaThread "stderr copier for remote agent on MRS_S_frctfscc11p_S8_Sparc" daemon [_thread_in_native, id=53758, stack(0x7d000000,0x7d080000)]
+  0x021b8800 JavaThread "process reaper" daemon [_thread_in_native, id=53757, stack(0x7e900000,0x7e980000)]
+  0x01676400 JavaThread "Channel reader thread: MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_in_native, id=53745, stack(0x7f900000,0x7f980000)]
+  0x013ab400 JavaThread "stderr copier for remote agent on MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_in_native, id=53743, stack(0x85100000,0x85180000)]
+  0x00aae800 JavaThread "process reaper" daemon [_thread_in_native, id=53742, stack(0x89480000,0x89500000)]
+  0x017b8c00 JavaThread "Channel reader thread: LAN_W_frlanw0l018495_LRH5" daemon [_thread_in_native, id=52589, stack(0x88780000,0x88800000)]
+  0x00c59c00 JavaThread "Channel reader thread: LAN_W_frlanw0f04553_LRH5" daemon [_thread_in_native, id=52587, stack(0x8a080000,0x8a100000)]
+  0x02c05c00 JavaThread "stderr copier for remote agent on LAN_W_frlanw0l018495_LRH5" daemon [_thread_in_native, id=52586, stack(0x7f100000,0x7f180000)]
+  0x0144e800 JavaThread "process reaper" daemon [_thread_in_native, id=52585, stack(0x7b200000,0x7b280000)]
+  0x013aa000 JavaThread "stderr copier for remote agent on LAN_W_frlanw0f04553_LRH5" daemon [_thread_in_native, id=52584, stack(0x79280000,0x79300000)]
+  0x03b93400 JavaThread "process reaper" daemon [_thread_in_native, id=52583, stack(0x7db00000,0x7db80000)]
+  0x004b2400 JavaThread "Channel reader thread: LAN_W_frlanw0l017012_LRH5" daemon [_thread_in_native, id=52576, stack(0x7c500000,0x7c580000)]
+  0x02646c00 JavaThread "stderr copier for remote agent on LAN_W_frlanw0l017012_LRH5" daemon [_thread_in_native, id=52575, stack(0x89980000,0x89a00000)]
+  0x019e2c00 JavaThread "process reaper" daemon [_thread_in_native, id=52574, stack(0x7df00000,0x7df80000)]
+  0x01cd7c00 JavaThread "http-28080-Processor144" daemon [_thread_in_native, id=45521, stack(0x79380000,0x79400000)]
+  0x01515c00 JavaThread "Handling POST /nodeb/job/NodeB-xCEM-UA08.A-BPI-STG6/buildHistory/ajax : http-28080-Processor143" daemon [_thread_blocked, id=45520, stack(0x79700000,0x79780000)]
+  0x0177fc00 JavaThread "http-28080-Processor142" daemon [_thread_blocked, id=45519, stack(0x79800000,0x79880000)]
+  0x02b47400 JavaThread "http-28080-Processor141" daemon [_thread_blocked, id=45518, stack(0x79d00000,0x79d80000)]
+  0x01132800 JavaThread "http-28080-Processor140" daemon [_thread_blocked, id=45517, stack(0x79f00000,0x79f80000)]
+  0x00fcd400 JavaThread "http-28080-Processor139" daemon [_thread_in_native, id=45516, stack(0x7a000000,0x7a080000)]
+  0x004cf400 JavaThread "http-28080-Processor138" daemon [_thread_blocked, id=45515, stack(0x7a600000,0x7a680000)]
+  0x01153000 JavaThread "http-28080-Processor137" daemon [_thread_in_native, id=45514, stack(0x7a900000,0x7a980000)]
+  0x00f8b800 JavaThread "http-28080-Processor136" daemon [_thread_blocked, id=45513, stack(0x7aa00000,0x7aa80000)]
+  0x008a9c00 JavaThread "http-28080-Processor135" daemon [_thread_in_native, id=45512, stack(0x7b700000,0x7b780000)]
+  0x010c9800 JavaThread "http-28080-Processor134" daemon [_thread_in_native, id=45511, stack(0x81300000,0x81380000)]
+  0x019ab800 JavaThread "http-28080-Processor133" daemon [_thread_in_native, id=45510, stack(0x84000000,0x84080000)]
+  0x016f4400 JavaThread "http-28080-Processor132" daemon [_thread_in_native, id=45509, stack(0x81400000,0x81480000)]
+  0x02d31000 JavaThread "http-28080-Processor131" daemon [_thread_blocked, id=45508, stack(0x80200000,0x80280000)]
+  0x004c6400 JavaThread "http-28080-Processor130" daemon [_thread_blocked, id=45507, stack(0x7c800000,0x7c880000)]
+  0x0140b000 JavaThread "http-28080-Processor129" daemon [_thread_blocked, id=45506, stack(0x7eb00000,0x7eb80000)]
+  0x0181a400 JavaThread "http-28080-Processor127" daemon [_thread_blocked, id=45504, stack(0x85300000,0x85380000)]
+  0x02760400 JavaThread "Pipe writer thread: NJ_W_nj102_LRH5_x86_32" daemon [_thread_blocked, id=44036, stack(0x7bb00000,0x7bb80000)]
+  0x01bf4400 JavaThread "Pipe writer thread: ALB_nbbldsrv6_S8_Sparc" daemon [_thread_blocked, id=44016, stack(0x86300000,0x86380000)]
+  0x00809400 JavaThread "Pipe writer thread: MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=43659, stack(0x7e800000,0x7e880000)]
+  0x01675000 JavaThread "Pipe writer thread: MRS_W_frmrszvli003_LIN3_x86_32" daemon [_thread_blocked, id=43658, stack(0x84a00000,0x84a80000)]
+  0x00c11800 JavaThread "Channel reader thread: NJ_W_nj102_LRH5_x86_32" daemon [_thread_in_native, id=43624, stack(0x7e400000,0x7e480000)]
+  0x005e3400 JavaThread "Channel reader thread: MRS_W_frmrszvli003_LIN3_x86_32" daemon [_thread_in_native, id=43617, stack(0x7a500000,0x7a580000)]
+  0x0120f800 JavaThread "Channel reader thread: ALB_nbbldsrv6_S8_Sparc" daemon [_thread_in_native, id=43616, stack(0x7e700000,0x7e780000)]
+  0x017fc400 JavaThread "Channel reader thread: MRS_S_frmrsswdd113_W2003" [_thread_in_native, id=43608, stack(0x7d600000,0x7d680000)]
+  0x01d86c00 JavaThread "stderr copier for remote agent on MRS_W_frmrszvli003_LIN3_x86_32" daemon [_thread_in_native, id=43582, stack(0x80800000,0x80880000)]
+  0x00410000 JavaThread "stderr copier for remote agent on NJ_W_nj102_LRH5_x86_32" daemon [_thread_in_native, id=43581, stack(0x80c00000,0x80c80000)]
+  0x014fe000 JavaThread "process reaper" daemon [_thread_in_native, id=43578, stack(0x83400000,0x83480000)]
+  0x00856c00 JavaThread "process reaper" daemon [_thread_in_native, id=43569, stack(0x88d80000,0x88e00000)]
+  0x0019dc00 JavaThread "stderr copier for remote agent on ALB_nbbldsrv6_S8_Sparc" daemon [_thread_in_native, id=43556, stack(0x7c700000,0x7c780000)]
+  0x004cd400 JavaThread "process reaper" daemon [_thread_in_native, id=43555, stack(0x7dc00000,0x7dc80000)]
+  0x0168d800 JavaThread "http-28080-Processor125" daemon [_thread_blocked, id=43386, stack(0x77f80000,0x78000000)]
+  0x01674400 JavaThread "http-28080-Processor124" daemon [_thread_in_native, id=43385, stack(0x78080000,0x78100000)]
+  0x014d8c00 JavaThread "http-28080-Processor123" daemon [_thread_in_native, id=43384, stack(0x78180000,0x78200000)]
+  0x02499000 JavaThread "http-28080-Processor121" daemon [_thread_blocked, id=43382, stack(0x78380000,0x78400000)]
+  0x00c64800 JavaThread "http-28080-Processor120" daemon [_thread_blocked, id=43381, stack(0x78480000,0x78500000)]
+  0x02d5f400 JavaThread "http-28080-Processor118" daemon [_thread_in_native, id=43379, stack(0x78780000,0x78800000)]
+  0x0211c400 JavaThread "http-28080-Processor116" daemon [_thread_in_native, id=43377, stack(0x79480000,0x79500000)]
+  0x00c5a400 JavaThread "http-28080-Processor114" daemon [_thread_blocked, id=43375, stack(0x79e00000,0x79e80000)]
+  0x01759400 JavaThread "http-28080-Processor113" daemon [_thread_blocked, id=43374, stack(0x7a800000,0x7a880000)]
+  0x02d63800 JavaThread "http-28080-Processor112" daemon [_thread_in_native, id=43373, stack(0x7ad00000,0x7ad80000)]
+  0x00fbec00 JavaThread "http-28080-Processor102" daemon [_thread_in_native, id=43363, stack(0x87380000,0x87400000)]
+  0x01e70000 JavaThread "Executor #9 for MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_blocked, id=25076, stack(0x88a80000,0x88b00000)]
+  0x01e6f000 JavaThread "Executor #8 for MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_blocked, id=25075, stack(0x89b80000,0x89c00000)]
+  0x02e1f400 JavaThread "Executor #7 for MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_blocked, id=25074, stack(0x7e000000,0x7e080000)]
+  0x02e1e800 JavaThread "Executor #6 for MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_blocked, id=25073, stack(0x7d800000,0x7d880000)]
+  0x02e1e400 JavaThread "Executor #5 for MRS_S_frctfscc07p_S8_Sparc" daemon [_thread_blocked, id=25072, stack(0x82800000,0x82880000)]
+  0x00a4b400 JavaThread "http-28080-Processor99" daemon [_thread_in_native, id=16400, stack(0x78a80000,0x78b00000)]
+  0x02b67000 JavaThread "http-28080-Processor94" daemon [_thread_blocked, id=16395, stack(0x78f80000,0x79000000)]
+  0x005e4000 JavaThread "http-28080-Processor92" daemon [_thread_blocked, id=16393, stack(0x79180000,0x79200000)]
+  0x011bd000 JavaThread "http-28080-Processor83" daemon [_thread_in_native, id=16384, stack(0x7ba00000,0x7ba80000)]
+  0x0172c000 JavaThread "http-28080-Processor82" daemon [_thread_blocked, id=16383, stack(0x7d200000,0x7d280000)]
+  0x015f7400 JavaThread "http-28080-Processor81" daemon [_thread_in_native, id=16382, stack(0x81a00000,0x81a80000)]
+  0x00406800 JavaThread "http-28080-Processor79" daemon [_thread_blocked, id=16380, stack(0x7da00000,0x7da80000)]
+  0x01227400 JavaThread "http-28080-Processor76" daemon [_thread_in_native, id=16377, stack(0x7be00000,0x7be80000)]
+  0x00995800 JavaThread "http-28080-Processor74" daemon [_thread_blocked, id=1420, stack(0x7a100000,0x7a180000)]
+  0x0022c800 JavaThread "http-28080-Processor71" daemon [_thread_blocked, id=1417, stack(0x7a400000,0x7a480000)]
+  0x004c5800 JavaThread "http-28080-Processor64" daemon [_thread_in_native, id=1410, stack(0x7ab00000,0x7ab80000)]
+  0x00563c00 JavaThread "http-28080-Processor63" daemon [_thread_in_native, id=1409, stack(0x7ac00000,0x7ac80000)]
+  0x010bc000 JavaThread "http-28080-Processor61" daemon [_thread_blocked, id=1407, stack(0x7ae00000,0x7ae80000)]
+  0x00775c00 JavaThread "http-28080-Processor57" daemon [_thread_in_native, id=1403, stack(0x7bd00000,0x7bd80000)]
+  0x00990400 JavaThread "http-28080-Processor54" daemon [_thread_blocked, id=1400, stack(0x7b000000,0x7b080000)]
+  0x020b8800 JavaThread "http-28080-Processor53" daemon [_thread_blocked, id=1399, stack(0x7c100000,0x7c180000)]
+  0x016f1400 JavaThread "http-28080-Processor44" daemon [_thread_blocked, id=307, stack(0x7ca00000,0x7ca80000)]
+  0x016f0000 JavaThread "http-28080-Processor43" daemon [_thread_blocked, id=306, stack(0x7cb00000,0x7cb80000)]
+  0x01da6800 JavaThread "http-28080-Processor40" daemon [_thread_blocked, id=303, stack(0x7ce00000,0x7ce80000)]
+  0x01da2800 JavaThread "http-28080-Processor36" daemon [_thread_blocked, id=299, stack(0x85000000,0x85080000)]
+  0x01531000 JavaThread "http-28080-Processor32" daemon [_thread_in_native, id=295, stack(0x82700000,0x82780000)]
+  0x0087c000 JavaThread "http-28080-Processor31" daemon [_thread_blocked, id=294, stack(0x81c00000,0x81c80000)]
+  0x002be800 JavaThread "Executor #4 for NJ_W_nj216_LRH5_x86_32" [_thread_blocked, id=214, stack(0x7ec00000,0x7ec80000)]
+  0x000b6400 JavaThread "Executor #3 for NJ_W_nj216_LRH5_x86_32" [_thread_blocked, id=213, stack(0x7ed00000,0x7ed80000)]
+  0x00fca400 JavaThread "Executor #2 for NJ_W_nj216_LRH5_x86_32" [_thread_blocked, id=212, stack(0x7ee00000,0x7ee80000)]
+  0x00719400 JavaThread "Executor #1 for NJ_W_nj216_LRH5_x86_32" [_thread_blocked, id=211, stack(0x7ef00000,0x7ef80000)]
+  0x01fc2c00 JavaThread "Executor #0 for NJ_W_nj216_LRH5_x86_32" [_thread_blocked, id=210, stack(0x7f000000,0x7f080000)]
+  0x0129e000 JavaThread "Executor #4 for ALB_W_nbbldlin14_LRH5_x86_32" [_thread_blocked, id=208, stack(0x7f200000,0x7f280000)]
+  0x000bbc00 JavaThread "Executor #3 for ALB_W_nbbldlin14_LRH5_x86_32" [_thread_blocked, id=205, stack(0x7f500000,0x7f580000)]
+  0x000ba400 JavaThread "Executor #2 for ALB_W_nbbldlin14_LRH5_x86_32" [_thread_blocked, id=204, stack(0x7f600000,0x7f680000)]
+  0x000b8800 JavaThread "Executor #1 for ALB_W_nbbldlin14_LRH5_x86_32" [_thread_blocked, id=203, stack(0x7f700000,0x7f780000)]
+  0x002bf400 JavaThread "Executor #0 for ALB_W_nbbldlin14_LRH5_x86_32" [_thread_blocked, id=202, stack(0x7f800000,0x7f880000)]
+  0x002bd000 JavaThread "Executor #4 for NJ_W_nj102_LRH5_x86_32 : executing NodeB-ISSNJ-UA08.A-VNR-STG7 #87 / waiting for hudson.remoting.Channel@1750c12:NJ_W_nj102_LRH5_x86_32" [_thread_blocked, id=200, stack(0x7fa00000,0x7fa80000)]
+  0x002bb800 JavaThread "Executor #3 for NJ_W_nj102_LRH5_x86_32" [_thread_blocked, id=199, stack(0x7fb00000,0x7fb80000)]
+  0x002ba000 JavaThread "Executor #2 for NJ_W_nj102_LRH5_x86_32" [_thread_blocked, id=198, stack(0x7fc00000,0x7fc80000)]
+  0x008cb000 JavaThread "Executor #1 for NJ_W_nj102_LRH5_x86_32" [_thread_blocked, id=197, stack(0x7fd00000,0x7fd80000)]
+  0x008c9800 JavaThread "Executor #0 for NJ_W_nj102_LRH5_x86_32" [_thread_blocked, id=196, stack(0x7fe00000,0x7fe80000)]
+  0x002d7c00 JavaThread "Executor #3 for LAN_W_frlanw0l018495_LRH5" [_thread_blocked, id=194, stack(0x80000000,0x80080000)]
+  0x002d3800 JavaThread "Executor #2 for LAN_W_frlanw0l018495_LRH5" [_thread_blocked, id=193, stack(0x80100000,0x80180000)]
+  0x005c6000 JavaThread "Executor #1 for LAN_W_frlanw0l018495_LRH5" [_thread_blocked, id=190, stack(0x80400000,0x80480000)]
+  0x005c3000 JavaThread "Executor #0 for LAN_W_frlanw0l018495_LRH5" [_thread_blocked, id=189, stack(0x80500000,0x80580000)]
+  0x005c1800 JavaThread "Executor #9 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=188, stack(0x80600000,0x80680000)]
+  0x005c0000 JavaThread "Executor #8 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=187, stack(0x80700000,0x80780000)]
+  0x004c8c00 JavaThread "Executor #7 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=185, stack(0x80900000,0x80980000)]
+  0x004ce400 JavaThread "Executor #6 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=183, stack(0x80b00000,0x80b80000)]
+  0x004cc000 JavaThread "Executor #5 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=181, stack(0x80d00000,0x80d80000)]
+  0x001a4400 JavaThread "Executor #4 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=180, stack(0x80e00000,0x80e80000)]
+  0x001a2c00 JavaThread "Executor #3 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=179, stack(0x80f00000,0x80f80000)]
+  0x001a1800 JavaThread "Executor #2 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=178, stack(0x81000000,0x81080000)]
+  0x001a0000 JavaThread "Executor #1 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=177, stack(0x81100000,0x81180000)]
+  0x01fc1800 JavaThread "Executor #0 for MRS_S_frmrsswdd113_W2003" [_thread_blocked, id=176, stack(0x81200000,0x81280000)]
+  0x01fc3c00 JavaThread "Executor #4 for LAN_W_frlanw0f04553_LRH5" [_thread_blocked, id=173, stack(0x81500000,0x81580000)]
+  0x012a0400 JavaThread "Executor #3 for LAN_W_frlanw0f04553_LRH5 : executing NodeB-ISSLAN-UA08.A-VNR-STG7 #61 / waiting for hudson.remoting.Channel@1c649ba:LAN_W_frlanw0f04553_LRH5" [_thread_blocked, id=172, stack(0x81600000,0x81680000)]
+  0x005cf400 JavaThread "Executor #2 for LAN_W_frlanw0f04553_LRH5" [_thread_blocked, id=171, stack(0x81700000,0x81780000)]
+  0x005ca800 JavaThread "Executor #1 for LAN_W_frlanw0f04553_LRH5" [_thread_blocked, id=170, stack(0x81800000,0x81880000)]
+  0x0074a000 JavaThread "Executor #0 for LAN_W_frlanw0f04553_LRH5" [_thread_blocked, id=167, stack(0x81b00000,0x81b80000)]
+  0x00746c00 JavaThread "Executor #9 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=165, stack(0x81d00000,0x81d80000)]
+  0x00745400 JavaThread "Executor #8 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=164, stack(0x81e00000,0x81e80000)]
+  0x00c33800 JavaThread "Executor #7 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=163, stack(0x81f00000,0x81f80000)]
+  0x00502000 JavaThread "Executor #6 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=162, stack(0x82000000,0x82080000)]
+  0x00500800 JavaThread "Executor #5 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=161, stack(0x82100000,0x82180000)]
+  0x004fec00 JavaThread "Executor #4 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=160, stack(0x82200000,0x82280000)]
+  0x004fd800 JavaThread "Executor #3 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=159, stack(0x82300000,0x82380000)]
+  0x004fc000 JavaThread "Executor #2 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=158, stack(0x82400000,0x82480000)]
+  0x004fac00 JavaThread "Executor #1 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=157, stack(0x82500000,0x82580000)]
+  0x00c31400 JavaThread "Executor #0 for MRS_W_frmrszvli005_LIN3_x86_32" [_thread_blocked, id=156, stack(0x82600000,0x82680000)]
+  0x0129d000 JavaThread "Executor #9 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=152, stack(0x82a00000,0x82a80000)]
+  0x01fc4c00 JavaThread "Executor #8 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=151, stack(0x82b00000,0x82b80000)]
+  0x004ec400 JavaThread "Executor #7 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=150, stack(0x82c00000,0x82c80000)]
+  0x01fbfc00 JavaThread "Executor #6 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=149, stack(0x82d00000,0x82d80000)]
+  0x01fbe800 JavaThread "Executor #5 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=148, stack(0x82e00000,0x82e80000)]
+  0x0071fc00 JavaThread "Executor #4 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=147, stack(0x82f00000,0x82f80000)]
+  0x0071e000 JavaThread "Executor #3 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=146, stack(0x83000000,0x83080000)]
+  0x005e1c00 JavaThread "Executor #2 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=145, stack(0x83100000,0x83180000)]
+  0x009e3400 JavaThread "Executor #1 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=144, stack(0x83200000,0x83280000)]
+  0x0071c800 JavaThread "Executor #0 for MRS_W_frmrszvli003_LIN3_x86_32" [_thread_blocked, id=143, stack(0x83300000,0x83380000)]
+  0x009e0400 JavaThread "Executor #9 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=141, stack(0x83500000,0x83580000)]
+  0x009dec00 JavaThread "Executor #8 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=140, stack(0x83600000,0x83680000)]
+  0x009dd400 JavaThread "Executor #7 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=139, stack(0x83700000,0x83780000)]
+  0x004ef800 JavaThread "Executor #6 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=138, stack(0x83800000,0x83880000)]
+  0x004ee400 JavaThread "Executor #5 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=137, stack(0x83900000,0x83980000)]
+  0x004ecc00 JavaThread "Executor #4 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=136, stack(0x83a00000,0x83a80000)]
+  0x004e9c00 JavaThread "Executor #3 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=135, stack(0x83b00000,0x83b80000)]
+  0x01214c00 JavaThread "Executor #2 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=134, stack(0x83c00000,0x83c80000)]
+  0x01213400 JavaThread "Executor #1 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=133, stack(0x83d00000,0x83d80000)]
+  0x01212000 JavaThread "Executor #0 for MRS_W_frmrszvli001_LIN3_x86_32" [_thread_blocked, id=132, stack(0x83e00000,0x83e80000)]
+  0x0120dc00 JavaThread "Executor #4 for ALB_bellatrix_S10_Sparc" [_thread_blocked, id=128, stack(0x84200000,0x84280000)]
+  0x01875400 JavaThread "Executor #3 for ALB_bellatrix_S10_Sparc" [_thread_blocked, id=127, stack(0x84300000,0x84380000)]
+  0x01874000 JavaThread "Executor #2 for ALB_bellatrix_S10_Sparc" [_thread_blocked, id=126, stack(0x84400000,0x84480000)]
+  0x01872800 JavaThread "Executor #1 for ALB_bellatrix_S10_Sparc" [_thread_blocked, id=125, stack(0x84500000,0x84580000)]
+  0x0186f400 JavaThread "Executor #0 for ALB_bellatrix_S10_Sparc : executing NodeB-ISSBGL-UA08.A-VNR-STG7 #65 / waiting for hudson.remoting.Channel@1755c8b:ALB_bellatrix_S10_Sparc" [_thread_blocked, id=124, stack(0x84600000,0x84680000)]
+  0x00edcc00 JavaThread "Executor #4 for ALB_nbbldsrv6_S8_Sparc" [_thread_blocked, id=122, stack(0x84800000,0x84880000)]
+  0x005ddc00 JavaThread "Executor #3 for ALB_nbbldsrv6_S8_Sparc" [_thread_blocked, id=118, stack(0x84c00000,0x84c80000)]
+  0x005dec00 JavaThread "Executor #2 for ALB_nbbldsrv6_S8_Sparc" [_thread_blocked, id=117, stack(0x84d00000,0x84d80000)]
+  0x01224400 JavaThread "Executor #1 for ALB_nbbldsrv6_S8_Sparc" [_thread_blocked, id=116, stack(0x84e00000,0x84e80000)]
+  0x01222c00 JavaThread "Executor #0 for ALB_nbbldsrv6_S8_Sparc" [_thread_blocked, id=115, stack(0x84f00000,0x84f80000)]
+  0x0172a800 JavaThread "Executor #3 for LAN_W_frlanw0l017012_LRH5" [_thread_blocked, id=110, stack(0x85400000,0x85480000)]
+  0x0172e000 JavaThread "Executor #2 for LAN_W_frlanw0l017012_LRH5 : executing NodeB-xCEM-UA08.A-BPI-STG6 #112 / waiting for hudson.remoting.Channel@8a530a:LAN_W_frlanw0l017012_LRH5" [_thread_blocked, id=109, stack(0x85500000,0x85580000)]
+  0x01728800 JavaThread "Executor #1 for LAN_W_frlanw0l017012_LRH5" [_thread_blocked, id=108, stack(0x85600000,0x85680000)]
+  0x01727c00 JavaThread "Executor #0 for LAN_W_frlanw0l017012_LRH5 : executing NodeB-eCEM-UA08.A-BPI-STG6 #113 / waiting for hudson.remoting.Channel@8a530a:LAN_W_frlanw0l017012_LRH5" [_thread_blocked, id=107, stack(0x85700000,0x85780000)]
+  0x011c3400 JavaThread "Executor #9 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=105, stack(0x85900000,0x85980000)]
+  0x011c2000 JavaThread "Executor #8 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=104, stack(0x85a00000,0x85a80000)]
+  0x011c0800 JavaThread "Executor #7 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=103, stack(0x85b00000,0x85b80000)]
+  0x011bf400 JavaThread "Executor #6 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=102, stack(0x85c00000,0x85c80000)]
+  0x0073f000 JavaThread "Executor #5 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=101, stack(0x85d00000,0x85d80000)]
+  0x00469c00 JavaThread "Executor #4 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=100, stack(0x85e00000,0x85e80000)]
+  0x00c49800 JavaThread "Executor #3 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=99, stack(0x85f00000,0x85f80000)]
+  0x0147d400 JavaThread "Executor #2 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=98, stack(0x86000000,0x86080000)]
+  0x00fc2000 JavaThread "Executor #1 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=97, stack(0x86100000,0x86180000)]
+  0x00f74400 JavaThread "Executor #0 for MRS_S_frctfscc14p_S8_Sparc" [_thread_blocked, id=96, stack(0x86200000,0x86280000)]
+  0x00edec00 JavaThread "Executor #4 for MRS_S_frctfscc07p_S8_Sparc" [_thread_blocked, id=94, stack(0x86400000,0x86480000)]
+  0x009a4400 JavaThread "Executor #3 for MRS_S_frctfscc07p_S8_Sparc" [_thread_blocked, id=93, stack(0x86500000,0x86580000)]
+  0x0103f800 JavaThread "Executor #2 for MRS_S_frctfscc07p_S8_Sparc" [_thread_blocked, id=92, stack(0x86600000,0x86680000)]
+  0x00a80000 JavaThread "Executor #1 for MRS_S_frctfscc07p_S8_Sparc" [_thread_blocked, id=91, stack(0x86700000,0x86780000)]
+  0x00623000 JavaThread "Executor #0 for MRS_S_frctfscc07p_S8_Sparc" [_thread_blocked, id=90, stack(0x86800000,0x86880000)]
+  0x00923c00 JavaThread "Executor #9 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=88, stack(0x87480000,0x87500000)]
+  0x01762400 JavaThread "Executor #8 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=87, stack(0x87680000,0x87700000)]
+  0x0148c400 JavaThread "Executor #7 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=86, stack(0x87b80000,0x87c00000)]
+  0x00f75c00 JavaThread "Executor #6 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=85, stack(0x87d80000,0x87e00000)]
+  0x00aa5c00 JavaThread "Executor #5 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=84, stack(0x87780000,0x87800000)]
+  0x009e7c00 JavaThread "Executor #4 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=83, stack(0x87880000,0x87900000)]
+  0x006e4000 JavaThread "Executor #3 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=82, stack(0x87a80000,0x87b00000)]
+  0x00494c00 JavaThread "Executor #2 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=81, stack(0x87280000,0x87300000)]
+  0x00448000 JavaThread "Executor #1 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=80, stack(0x87180000,0x87200000)]
+  0x01315400 JavaThread "Executor #0 for MRS_S_frctfscc11p_S8_Sparc" [_thread_blocked, id=79, stack(0x87980000,0x87a00000)]
+  0x006e7400 JavaThread "JmDNS(frctfscc08p.local.).State.Timer" [_thread_blocked, id=78, stack(0x86e80000,0x86f00000)]
+  0x00ff6800 JavaThread "JmDNS(frctfscc08p.local.).Timer" daemon [_thread_blocked, id=77, stack(0x87c80000,0x87d00000)]
+  0x00b69400 JavaThread "SocketListener(frctfscc08p.local.)" daemon [_thread_in_native, id=76, stack(0x87080000,0x87100000)]
+  0x00a12c00 JavaThread "Hudson UDP 33848 monitoring thread" [_thread_in_native, id=75, stack(0x87580000,0x87600000)]
+  0x00415800 JavaThread "TCP slave agent listener port=0" [_thread_in_native, id=74, stack(0x86f80000,0x87000000)]
+  0x00d18000 JavaThread "ViewJob reload thread" daemon [_thread_blocked, id=73, stack(0x86b80000,0x86c00000)]
+  0x017de000 JavaThread "jrobin  nodeb" daemon [_thread_blocked, id=72, stack(0x86c80000,0x86d00000)]
+  0x01273800 JavaThread "javamelody nodeb" daemon [_thread_blocked, id=71, stack(0x86d80000,0x86e00000)]
+  0x00d72c00 JavaThread "com.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=54, stack(0x87e80000,0x87f00000)]
+  0x00921c00 JavaThread "TP-Monitor" daemon [_thread_blocked, id=53, stack(0x87f80000,0x88000000)]
+  0x00c24000 JavaThread "TP-Processor4" daemon [_thread_in_native, id=52, stack(0x88080000,0x88100000)]
+  0x0091e000 JavaThread "TP-Processor3" daemon [_thread_blocked, id=51, stack(0x88180000,0x88200000)]
+  0x00b6a400 JavaThread "TP-Processor2" daemon [_thread_blocked, id=50, stack(0x88280000,0x88300000)]
+  0x00b69c00 JavaThread "TP-Processor1" daemon [_thread_blocked, id=49, stack(0x88380000,0x88400000)]
+  0x00c25000 JavaThread "Hudson cron thread" [_thread_blocked, id=48, stack(0x88480000,0x88500000)]
+  0x00b8a000 JavaThread "http-28080-Monitor" [_thread_blocked, id=47, stack(0x88580000,0x88600000)]
+  0x0100f000 JavaThread "http-28080-Processor23" daemon [_thread_in_native, id=44, stack(0x88880000,0x88900000)]
+  0x00ccfc00 JavaThread "http-28080-Processor17" daemon [_thread_in_native, id=38, stack(0x88e80000,0x88f00000)]
+  0x00cce400 JavaThread "http-28080-Processor16" daemon [_thread_in_native, id=37, stack(0x88f80000,0x89000000)]
+  0x00ba2c00 JavaThread "http-28080-Processor13" daemon [_thread_in_native, id=34, stack(0x89280000,0x89300000)]
+  0x00ba1400 JavaThread "http-28080-Processor12" daemon [_thread_in_native, id=33, stack(0x89380000,0x89400000)]
+  0x009ba800 JavaThread "http-28080-Processor8" daemon [_thread_blocked, id=29, stack(0x89780000,0x89800000)]
+  0x00b74c00 JavaThread "http-28080-Processor7" daemon [_thread_in_native, id=28, stack(0x89880000,0x89900000)]
+  0x00a86000 JavaThread "http-28080-Processor2" daemon [_thread_blocked, id=23, stack(0x89d80000,0x89e00000)]
+  0x009b8000 JavaThread "ContainerBackgroundProcessor[StandardEngine[Catalina]]" daemon [_thread_blocked, id=21, stack(0x89f80000,0x8a000000)]
+  0x00d26000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=19, stack(0x8a180000,0x8a200000)]
+  0x00177800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=17, stack(0x8a780000,0x8a800000)]
+  0x00174c00 JavaThread "CompilerThread1" daemon [_thread_blocked, id=16, stack(0x8a880000,0x8a900000)]
+  0x00172c00 JavaThread "CompilerThread0" daemon [_thread_blocked, id=15, stack(0x8a980000,0x8aa00000)]
+  0x00171800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=14, stack(0x8aa80000,0x8ab00000)]
+  0x0015b400 JavaThread "Finalizer" daemon [_thread_blocked, id=13, stack(0x8ab80000,0x8ac00000)]
+  0x00159c00 JavaThread "Reference Handler" daemon [_thread_blocked, id=12, stack(0x8ac80000,0x8ad00000)]
+  0x00041c00 JavaThread "main" [_thread_in_native, id=2, stack(0xfe300000,0xfe380000)]
+
+Other Threads:
+  0x00157800 VMThread [stack: 0x8ad80000,0x8ae00000] [id=11]
+  0x00182000 WatcherThread [stack: 0x8a680000,0x8a700000] [id=18]
+
+=>0x00048000 (exited) GCTaskThread [stack: 0x8b700000,0x8b780000] [id=3]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00030198] Threads_lock - owner thread: 0x00157800
+[0x000305a8] Heap_lock - owner thread: 0x01515c00
+
+Heap
+ PSYoungGen      total 256896K, used 255377K [0xebc00000, 0xfbc00000, 0xfbc00000)
+  eden space 251776K, 100% used [0xebc00000,0xfb1e0000,0xfb1e0000)
+  from space 5120K, 70% used [0xfb1e0000,0xfb5645a8,0xfb6e0000)
+  to   space 5056K, 58% used [0xfb710000,0xfb9f82e8,0xfbc00000)
+ PSOldGen        total 1310720K, used 1139908K [0x9bc00000, 0xebc00000, 0xebc00000)
+  object space 1310720K, 86% used [0x9bc00000,0xe1531090,0xebc00000)
+ PSPermGen       total 262144K, used 71977K [0x8bc00000, 0x9bc00000, 0x9bc00000)
+  object space 262144K, 27% used [0x8bc00000,0x9024a568,0x9bc00000)
+
+Dynamic libraries:
+0x00010000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/bin/java
+0xff3a0000 	/lib/libthread.so.1
+0xff360000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/bin/../jre/lib/sparc/jli/libjli.so
+0xff340000 	/lib/libdl.so.1
+0xff200000 	/lib/libc.so.1
+0xff390000 	/platform/SUNW,Sun-Fire-V490/lib/libc_psr.so.1
+0xfe400000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/server/libjvm.so
+0xff1c0000 	/lib/libsocket.so.1
+0xff1e0000 	/usr/lib/libsched.so.1
+0xff1a0000 	/lib/libm.so.1
+0xff170000 	/usr/lib/libCrun.so.1
+0xff150000 	/lib/libdoor.so.1
+0xff080000 	/lib/libnsl.so.1
+0xfef80000 	/lib/libm.so.2
+0xff050000 	/lib/libscf.so.1
+0xff030000 	/lib/libuutil.so.1
+0xfef60000 	/lib/libgen.so.1
+0xfef30000 	/lib/libmd.so.1
+0xfef10000 	/platform/SUNW,Sun-Fire-V490/lib/libmd_psr.so.1
+0xfeef0000 	/lib/libmp.so.2
+0xfee60000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libverify.so
+0xfe3c0000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libjava.so
+0xfe3a0000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/native_threads/libhpi.so
+0xfe2a0000 	/lib/nss_files.so.1
+0xfe280000 	/lib/nss_nis.so.1
+0xfe260000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libzip.so
+0xfe230000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libnet.so
+0xfe210000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libnio.so
+0xfe160000 	/lib/librt.so.1
+0xfe140000 	/lib/libaio.so.1
+0xfe120000 	/usr/lib/libsendfile.so.1
+0xfbfd0000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libj2pkcs11.so
+0xfbf90000 	/usr/lib/libpkcs11.so
+0xfbce0000 	/usr/lib/libcryptoutil.so.1
+0xfbc80000 	/usr/lib/security/pkcs11_softtoken_extra.so
+0x8a380000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libawt.so
+0x8b490000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/headless/libmawt.so
+0x8a280000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libfontmanager.so
+0x8ab50000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libmanagement.so
+0x8ab10000 	/srv/zpool203366/hudson_wcdma/Tomcat_Instances/frctfscc08p_wcdma/temp/jna1303747629195532318.tmp
+0x86a80000 	/lib/libzfs.so
+0x8aa50000 	/lib/libdevinfo.so.1
+0x8aa30000 	/lib/libdevid.so.1
+0x8aa10000 	/lib/libnvpair.so.1
+0x8a960000 	/lib/libavl.so.1
+0x8a940000 	/lib/libefi.so.1
+0x8a910000 	/lib/libadm.so.1
+0x8a840000 	/lib/libumem.so.1
+0x8a810000 	/lib/libsec.so.1
+0x8a760000 	/lib/libuuid.so.1
+0x8a740000 	/lib/libiscsitgt.so.1
+0x86900000 	/usr/lib/libxml2.so.2
+0x8ab40000 	/lib/libpthread.so.1
+0x8a710000 	/usr/lib/libz.so.1
+0x8a650000 	/usr/lib//libshare.so.1
+0x8a610000 	/lib/nss_dns.so.1
+0x8a220000 	/lib/libresolv.so.2
+0x8a120000 	/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/libdcpr.so
+
+VM Arguments:
+jvm_args: -Djava.util.logging.config.file=/data/hudson_wcdma/Tomcat_Instances/frctfscc08p_wcdma/conf/logging.properties -Djavax.net.ssl.trustStore=/data/hudson_wcdma/Tomcat_Instances/security/cacerts -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Xms1536m -Xmx1536m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+DisableExplicitGC -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.endorsed.dirs=/data/hudson_wcdma/Tomcat_Packages/apache-tomcat-5.5.28/common/endorsed -Dcatalina.base=/data/hudson_wcdma/Tomcat_Instances/frctfscc08p_wcdma -Dcatalina.home=/data/hudson_wcdma/Tomcat_Packages/apache-tomcat-5.5.28 -Djava.io.tmpdir=/data/hudson_wcdma/Tomcat_Instances/frctfscc08p_wcdma/temp 
+java_command: org.apache.catalina.startup.Bootstrap start
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10
+JRE_HOME=/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10
+PATH=/usr/sbin:/opt/swe/tools/ext/rational/rosert-2003.06.15/releases/RoseRT.2003.06.00/bin:/usr/dt/bin:/usr/openwin/bin:/usr/atria/bin:/opt/swe/bin/in:/opt/swe/bin:/opt/swe/bin/pao:/bin:/usr/ccs/bin:/usr/ucb
+LD_LIBRARY_PATH=/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc/server:/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/lib/sparc:/opt/swe/tools/ext/sun/jdk-1.6.0.18/sparc-solaris2.10/jre/../lib/sparc:/usr/local/lib
+SHELL=/bin/csh
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x84c6bc], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGBUS: [libjvm.so+0x84c6bc], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGFPE: [libjvm.so+0x1c0168], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGPIPE: [libjvm.so+0x1c0168], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGXFSZ: [libjvm.so+0x1c0168], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGILL: [libjvm.so+0x1c0168], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGQUIT: [libjvm.so+0x72abdc], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGHUP: [libjvm.so+0x72abdc], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGINT: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGTERM: [libjvm.so+0x72abdc], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIG39: [libjvm.so+0x72e608], sa_mask[0]=0x00000000, sa_flags=0x00000008
+SIG40: [libjvm.so+0x1c0168], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+
+
+---------------  S Y S T E M  ---------------
+
+OS:                      Solaris 10 10/09 s10s_u8wos_08a SPARC
+           Copyright 2009 Sun Microsystems, Inc.  All Rights Reserved.
+                        Use is subject to license terms.
+                           Assembled 16 September 2009
+
+uname:SunOS 5.10 Generic_144488-01 sun4u  (T2 libthread)
+rlimit: STACK 8192k, CORE infinity, NOFILE 65536, AS infinity
+load average:0.33 0.40 0.43
+
+CPU:total 8 has_v8, has_v9, popc, has_vis1, has_vis2, is_ultra3
+
+Memory: 8k page, physical 16777216k(2045240k free)
+
+vm_info: Java HotSpot(TM) Server VM (16.0-b13) for solaris-sparc JRE (1.6.0_18-b07), built on Dec 17 2009 14:12:56 by "" with Workshop 5.8
+
+time: Tue May 10 11:19:15 2011
+elapsed time: 2316893 seconds
+

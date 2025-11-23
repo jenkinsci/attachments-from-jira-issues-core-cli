@@ -1,0 +1,21 @@
+### Eclipse Workspace Patch 1.0
+#P HUDSON-TRUNK
+Index: core/src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- core/src/main/java/hudson/model/AbstractProject.java	(revision 32837)
++++ core/src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -867,10 +867,12 @@
+      * @see TransientProjectActionFactory
+      */
+     @Override
+-    public synchronized List<Action> getActions() {
++    public List<Action> getActions() {
+         // add all the transient actions, too
+         List<Action> actions = new Vector<Action>(super.getActions());
+-        actions.addAll(transientActions);
++        synchronized(transientActions){
++        	actions.addAll(transientActions);
++        }
+         // return the read only list to cause a failure on plugins who try to add an action here
+         return Collections.unmodifiableList(actions);
+     }

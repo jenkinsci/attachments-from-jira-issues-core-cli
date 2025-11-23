@@ -1,0 +1,29 @@
+### Eclipse Workspace Patch 1.0
+#P HUDSON-1_366
+Index: core/src/main/resources/hudson/model/AbstractBuild/index.jelly
+===================================================================
+--- core/src/main/resources/hudson/model/AbstractBuild/index.jelly	(revision 11650)
++++ core/src/main/resources/hudson/model/AbstractBuild/index.jelly	(working copy)
+@@ -36,6 +36,9 @@
+         <div style="margin-top:1em">
+           ${%startedAgo(it.timestampString)}
+           </div><div>
++          <j:if test="${it.building}">
++            ${%beingExecuted(it.executor.timestampString)}
++          </j:if>
+           <j:if test="${!it.building}">
+             ${%Took} <a href="${rootURL}/${it.parent.url}buildTimeTrend">${it.durationString}</a>
+           </j:if>
+Index: core/src/main/resources/hudson/model/AbstractBuild/index.properties
+===================================================================
+--- core/src/main/resources/hudson/model/AbstractBuild/index.properties	(revision 11650)
++++ core/src/main/resources/hudson/model/AbstractBuild/index.properties	(working copy)
+@@ -20,4 +20,5 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-startedAgo=Started {0} ago
+\ No newline at end of file
++startedAgo=Started {0} ago
++beingExecuted=Build is being executed for {0}
+\ No newline at end of file

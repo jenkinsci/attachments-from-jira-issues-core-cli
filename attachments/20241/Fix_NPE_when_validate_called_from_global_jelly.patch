@@ -1,0 +1,43 @@
+Index: core/src/main/java/hudson/FilePath.java
+===================================================================
+--- core/src/main/java/hudson/FilePath.java	(revision 63c356b19040e5a5947b8766d3571e4179dee9be)
++++ core/src/main/java/hudson/FilePath.java	(revision )
+@@ -1781,9 +1781,7 @@
+      * @since 1.294
+      */
+     public FormValidation validateFileMask(String value, boolean errorIfNotExist) throws IOException {
+-        AbstractProject subject = Stapler.getCurrentRequest().findAncestorObject(AbstractProject.class);
+-        subject.checkPermission(Item.CONFIGURE);
+-
++        checkPermissionForValidate();
+         value = fixEmpty(value);
+         if(value==null)
+             return FormValidation.ok();
+@@ -1813,9 +1811,7 @@
+      *      Otherwise, the relative path is expected to be pointing to a directory.
+      */
+     public FormValidation validateRelativePath(String value, boolean errorIfNotExist, boolean expectingFile) throws IOException {
+-        AbstractProject subject = Stapler.getCurrentRequest().findAncestorObject(AbstractProject.class);
+-        subject.checkPermission(Item.CONFIGURE);
+-
++        checkPermissionForValidate();
+         value = fixEmpty(value);
+ 
+         // none entered yet, or something is seriously wrong
+@@ -1851,7 +1847,15 @@
+             return FormValidation.ok();
+         }
+     }
+-
++    
++    private void checkPermissionForValidate() {
++        AbstractProject subject = Stapler.getCurrentRequest().findAncestorObject(AbstractProject.class);
++        if (subject == null)
++            Hudson.getInstance().checkPermission(Hudson.ADMINISTER);
++        else
++            subject.checkPermission(Item.CONFIGURE);
++    }
++
+     /**
+      * A convenience method over {@link #validateRelativePath(String, boolean, boolean)}.
+      */

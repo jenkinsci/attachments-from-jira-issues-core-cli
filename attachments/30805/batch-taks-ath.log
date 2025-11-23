@@ -1,0 +1,525 @@
+Error Message
+
+Jenkins error detected:
+javax.servlet.ServletException: java.lang.RuntimeException: java.lang.ClassNotFoundException: org.jenkinsci.lib.envinject.service.EnvVarsResolver
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:796)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+ at org.kohsuke.stapler.MetaClass$6.doDispatch(MetaClass.java:249)
+ at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+ at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+ at javax.servlet.http.HttpServlet.service(HttpServlet.java:848)
+ at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:686)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1494)
+ at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+ at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:123)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+ at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+ at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1474)
+ at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:499)
+ at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+ at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:533)
+ at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231)
+ at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086)
+ at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:428)
+ at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+ at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020)
+ at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+ at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+ at org.eclipse.jetty.server.Server.handle(Server.java:370)
+ at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:489)
+ at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:960)
+ at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:1021)
+ at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:865)
+ at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:240)
+ at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+ at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:668)
+ at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:52)
+ at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+ at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+ at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+ at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: org.jenkinsci.lib.envinject.service.EnvVarsResolver
+ at org.kohsuke.asm5.ClassWriter.getCommonSuperClass(ClassWriter.java:1684)
+ at org.kohsuke.asm5.ClassWriter.getMergedType(ClassWriter.java:1654)
+ at org.kohsuke.asm5.Frame.merge(Frame.java:1426)
+ at org.kohsuke.asm5.Frame.merge(Frame.java:1325)
+ at org.kohsuke.asm5.MethodWriter.visitMaxs(MethodWriter.java:1475)
+ at org.kohsuke.asm5.tree.MethodNode.accept(MethodNode.java:833)
+ at org.kohsuke.asm5.commons.JSRInlinerAdapter.visitEnd(JSRInlinerAdapter.java:187)
+ at org.kohsuke.asm5.MethodVisitor.visitEnd(MethodVisitor.java:877)
+ at org.kohsuke.asm5.ClassReader.readMethod(ClassReader.java:1021)
+ at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:693)
+ at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:506)
+ at org.jenkinsci.bytecode.Transformer.transform(Transformer.java:76)
+ at hudson.ClassicPluginStrategy$AntClassLoader2.defineClassFromData(ClassicPluginStrategy.java:800)
+ at jenkins.util.AntClassLoader.getClassFromStream(AntClassLoader.java:1310)
+ at jenkins.util.AntClassLoader.findClassInComponents(AntClassLoader.java:1366)
+ at jenkins.util.AntClassLoader.findClass(AntClassLoader.java:1326)
+ at jenkins.util.AntClassLoader.loadClass(AntClassLoader.java:1079)
+ at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+ at java.lang.Class.getDeclaredMethods0(Native Method)
+ at java.lang.Class.privateGetDeclaredMethods(Class.java:2615)
+ at java.lang.Class.privateGetPublicMethods(Class.java:2733)
+ at java.lang.Class.getMethods(Class.java:1472)
+ at org.kohsuke.stapler.ClassDescriptor.<init>(ClassDescriptor.java:76)
+ at org.kohsuke.stapler.RequestImpl.bindParametersToList(RequestImpl.java:338)
+ at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:112)
+ at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:94)
+ at hudson.util.DescribableList.rebuild(DescribableList.java:177)
+ at hudson.model.Job.doConfigSubmit(Job.java:1196)
+ at hudson.model.AbstractProject.doConfigSubmit(AbstractProject.java:798)
+ at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+ at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+ at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+ at java.lang.reflect.Method.invoke(Method.java:606)
+ at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:298)
+ at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:161)
+ at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:96)
+ at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:121)
+ at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+ ... 48 more
+Stacktrace
+
+java.lang.AssertionError: Jenkins error detected:
+javax.servlet.ServletException: java.lang.RuntimeException: java.lang.ClassNotFoundException: org.jenkinsci.lib.envinject.service.EnvVarsResolver
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:796)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+ at org.kohsuke.stapler.MetaClass$6.doDispatch(MetaClass.java:249)
+ at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+ at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+ at javax.servlet.http.HttpServlet.service(HttpServlet.java:848)
+ at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:686)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1494)
+ at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+ at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:123)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+ at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+ at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1474)
+ at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:499)
+ at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+ at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:533)
+ at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231)
+ at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086)
+ at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:428)
+ at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+ at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020)
+ at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+ at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+ at org.eclipse.jetty.server.Server.handle(Server.java:370)
+ at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:489)
+ at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:960)
+ at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:1021)
+ at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:865)
+ at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:240)
+ at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+ at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:668)
+ at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:52)
+ at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+ at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+ at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+ at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: org.jenkinsci.lib.envinject.service.EnvVarsResolver
+ at org.kohsuke.asm5.ClassWriter.getCommonSuperClass(ClassWriter.java:1684)
+ at org.kohsuke.asm5.ClassWriter.getMergedType(ClassWriter.java:1654)
+ at org.kohsuke.asm5.Frame.merge(Frame.java:1426)
+ at org.kohsuke.asm5.Frame.merge(Frame.java:1325)
+ at org.kohsuke.asm5.MethodWriter.visitMaxs(MethodWriter.java:1475)
+ at org.kohsuke.asm5.tree.MethodNode.accept(MethodNode.java:833)
+ at org.kohsuke.asm5.commons.JSRInlinerAdapter.visitEnd(JSRInlinerAdapter.java:187)
+ at org.kohsuke.asm5.MethodVisitor.visitEnd(MethodVisitor.java:877)
+ at org.kohsuke.asm5.ClassReader.readMethod(ClassReader.java:1021)
+ at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:693)
+ at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:506)
+ at org.jenkinsci.bytecode.Transformer.transform(Transformer.java:76)
+ at hudson.ClassicPluginStrategy$AntClassLoader2.defineClassFromData(ClassicPluginStrategy.java:800)
+ at jenkins.util.AntClassLoader.getClassFromStream(AntClassLoader.java:1310)
+ at jenkins.util.AntClassLoader.findClassInComponents(AntClassLoader.java:1366)
+ at jenkins.util.AntClassLoader.findClass(AntClassLoader.java:1326)
+ at jenkins.util.AntClassLoader.loadClass(AntClassLoader.java:1079)
+ at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+ at java.lang.Class.getDeclaredMethods0(Native Method)
+ at java.lang.Class.privateGetDeclaredMethods(Class.java:2615)
+ at java.lang.Class.privateGetPublicMethods(Class.java:2733)
+ at java.lang.Class.getMethods(Class.java:1472)
+ at org.kohsuke.stapler.ClassDescriptor.<init>(ClassDescriptor.java:76)
+ at org.kohsuke.stapler.RequestImpl.bindParametersToList(RequestImpl.java:338)
+ at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:112)
+ at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:94)
+ at hudson.util.DescribableList.rebuild(DescribableList.java:177)
+ at hudson.model.Job.doConfigSubmit(Job.java:1196)
+ at hudson.model.AbstractProject.doConfigSubmit(AbstractProject.java:798)
+ at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+ at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+ at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+ at java.lang.reflect.Method.invoke(Method.java:606)
+ at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:298)
+ at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:161)
+ at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:96)
+ at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:121)
+ at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+ ... 48 more
+	at org.jenkinsci.test.acceptance.selenium.SanityChecker.checkSanity(SanityChecker.java:71)
+	at org.jenkinsci.test.acceptance.selenium.SanityChecker.beforeNavigateTo(SanityChecker.java:50)
+	at sun.reflect.GeneratedMethodAccessor25.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$1.invoke(EventFiringWebDriver.java:78)
+	at com.sun.proxy.$Proxy36.beforeNavigateTo(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.get(EventFiringWebDriver.java:158)
+	at org.jenkinsci.test.acceptance.po.CapybaraPortingLayerImpl.visit(CapybaraPortingLayerImpl.java:77)
+	at org.jenkinsci.test.acceptance.po.ContainerPageObject.configure(ContainerPageObject.java:66)
+	at plugins.BatchTaskPluginTest$1.apply(BatchTaskPluginTest.java:152)
+	at plugins.BatchTaskPluginTest$1.apply(BatchTaskPluginTest.java:150)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:208)
+	at plugins.BatchTaskPluginTest.configureBatchTrigger(BatchTaskPluginTest.java:150)
+	at plugins.BatchTaskPluginTest.do_not_trigger_for_failed_build(BatchTaskPluginTest.java:137)
+Standard Output
+
+running with given plugins: []
+=== Starting do_not_trigger_for_failed_build(plugins.BatchTaskPluginTest)
+Starting Jenkins: JAVA_HOME=/opt/jdk/jdk1.7.latest JENKINS_HOME=/scratch/jenkins/workspace/core/acceptance-test-harness/jenkins8279279625169637992home /opt/jdk/jdk1.7.latest/bin/java -Duser.language=en -jar jenkins.war --ajp13Port=-1 --httpPort=55241
+master55241|Running from: /scratch/jenkins/workspace/core/acceptance-test-harness/jenkins.war
+master55241|webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+master55241|Oct 06, 2015 1:59:01 PM winstone.Logger logInternal
+master55241|INFO: Beginning extraction from war file
+master55241|Oct 06, 2015 1:59:02 PM org.eclipse.jetty.util.log.JavaUtilLog info
+master55241|INFO: jetty-winstone-2.8
+master55241|Oct 06, 2015 1:59:05 PM org.eclipse.jetty.util.log.JavaUtilLog info
+master55241|INFO: NO JSP Support for , did not find org.apache.jasper.servlet.JspServlet
+master55241|Jenkins home directory: /scratch/jenkins/workspace/core/acceptance-test-harness/jenkins8279279625169637992home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+master55241|Oct 06, 2015 1:59:06 PM org.eclipse.jetty.util.log.JavaUtilLog info
+master55241|INFO: Started SelectChannelConnector@0.0.0.0:55241
+master55241|Oct 06, 2015 1:59:06 PM winstone.Logger logInternal
+master55241|INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+master55241|Oct 06, 2015 1:59:06 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Started initialization
+master55241|Oct 06, 2015 2:00:31 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Listed all plugins
+master55241|Oct 06, 2015 2:00:31 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Prepared all plugins
+master55241|Oct 06, 2015 2:00:31 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Started all plugins
+master55241|Oct 06, 2015 2:00:31 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Augmented all extensions
+master55241|Oct 06, 2015 2:00:34 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Loaded all jobs
+master55241|Oct 06, 2015 2:00:36 PM hudson.model.AsyncPeriodicWork$1 run
+master55241|INFO: Started Download metadata
+master55241|Oct 06, 2015 2:00:36 PM org.jenkinsci.main.modules.sshd.SSHD start
+master55241|INFO: Started SSHD at port 40012
+master55241|Oct 06, 2015 2:00:36 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Completed initialization
+master55241|Oct 06, 2015 2:00:36 PM hudson.WebAppMain$3 run
+master55241|INFO: Jenkins is fully up and running
+master55241|Oct 06, 2015 2:00:38 PM hudson.model.UpdateSite updateData
+master55241|INFO: Obtained the latest update center data file for UpdateSource default
+master55241|Oct 06, 2015 2:00:38 PM hudson.model.DownloadService$Downloadable load
+master55241|INFO: Obtained the updated data file for hudson.tasks.Maven.MavenInstaller
+master55241|Oct 06, 2015 2:00:38 PM hudson.model.DownloadService$Downloadable load
+master55241|INFO: Obtained the updated data file for hudson.tasks.Ant.AntInstaller
+master55241|Oct 06, 2015 2:00:39 PM hudson.model.DownloadService$Downloadable load
+master55241|INFO: Obtained the updated data file for hudson.tools.JDKInstaller
+master55241|Oct 06, 2015 2:00:39 PM hudson.model.AsyncPeriodicWork$1 run
+master55241|INFO: Finished Download metadata. 2,968 ms
+master55241|Oct 06, 2015 2:00:59 PM hudson.model.UpdateCenter$DownloadJob run
+master55241|INFO: Starting the installation of batch-task on behalf of anonymous
+master55241|Oct 06, 2015 2:00:59 PM hudson.model.UpdateCenter$UpdateCenterConfiguration download
+master55241|INFO: Downloading batch-task
+Plugin /home/jenkins/.m2/repository/org/jenkins-ci/plugins/batch-task/1.17/batch-task-1.17.hpi installed
+master55241|Oct 06, 2015 2:00:59 PM hudson.PluginManager dynamicLoad
+master55241|INFO: Attempting to dynamic load /scratch/jenkins/workspace/core/acceptance-test-harness/jenkins8279279625169637992home/plugins/batch-task.jpi
+master55241|Oct 06, 2015 2:00:59 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Started initialization
+master55241|Oct 06, 2015 2:00:59 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Listed all plugins
+master55241|Oct 06, 2015 2:00:59 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Prepared all plugins
+master55241|Oct 06, 2015 2:00:59 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Started all plugins
+master55241|Oct 06, 2015 2:00:59 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Augmented all extensions
+master55241|Oct 06, 2015 2:00:59 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Loaded all jobs
+master55241|Oct 06, 2015 2:00:59 PM jenkins.InitReactorRunner$1 onAttained
+master55241|INFO: Completed initialization
+master55241|Oct 06, 2015 2:00:59 PM hudson.PluginManager dynamicLoad
+master55241|INFO: Plugin batch-task:1.17 dynamically installed
+master55241|Oct 06, 2015 2:00:59 PM hudson.model.UpdateCenter$DownloadJob run
+master55241|INFO: Installation successful: batch-task
+master55241|Oct 06, 2015 2:01:21 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+master55241|WARNING: Error while serving http://127.0.0.1:55241/job/legislative_access/configSubmit
+master55241|java.lang.reflect.InvocationTargetException
+master55241|	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+master55241|	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+master55241|	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+master55241|	at java.lang.reflect.Method.invoke(Method.java:606)
+master55241|	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:298)
+master55241|	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:161)
+master55241|	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:96)
+master55241|	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:121)
+master55241|	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+master55241|	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+master55241|	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+master55241|	at org.kohsuke.stapler.MetaClass$6.doDispatch(MetaClass.java:249)
+master55241|	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+master55241|	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+master55241|	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+master55241|	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+master55241|	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+master55241|	at javax.servlet.http.HttpServlet.service(HttpServlet.java:848)
+master55241|	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:686)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1494)
+master55241|	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+master55241|	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:123)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+master55241|	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+master55241|	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+master55241|	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+master55241|	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+master55241|	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+master55241|	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+master55241|	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1474)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:499)
+master55241|	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+master55241|	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:533)
+master55241|	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231)
+master55241|	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086)
+master55241|	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:428)
+master55241|	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+master55241|	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020)
+master55241|	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+master55241|	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+master55241|	at org.eclipse.jetty.server.Server.handle(Server.java:370)
+master55241|	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:489)
+master55241|	at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:960)
+master55241|	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:1021)
+master55241|	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:865)
+master55241|	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:240)
+master55241|	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+master55241|	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:668)
+master55241|	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:52)
+master55241|	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+master55241|	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+master55241|	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+master55241|	at java.lang.Thread.run(Thread.java:745)
+master55241|Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: org.jenkinsci.lib.envinject.service.EnvVarsResolver
+master55241|	at org.kohsuke.asm5.ClassWriter.getCommonSuperClass(ClassWriter.java:1684)
+master55241|	at org.kohsuke.asm5.ClassWriter.getMergedType(ClassWriter.java:1654)
+master55241|	at org.kohsuke.asm5.Frame.merge(Frame.java:1426)
+master55241|	at org.kohsuke.asm5.Frame.merge(Frame.java:1325)
+master55241|	at org.kohsuke.asm5.MethodWriter.visitMaxs(MethodWriter.java:1475)
+master55241|	at org.kohsuke.asm5.tree.MethodNode.accept(MethodNode.java:833)
+master55241|	at org.kohsuke.asm5.commons.JSRInlinerAdapter.visitEnd(JSRInlinerAdapter.java:187)
+master55241|	at org.kohsuke.asm5.MethodVisitor.visitEnd(MethodVisitor.java:877)
+master55241|	at org.kohsuke.asm5.ClassReader.readMethod(ClassReader.java:1021)
+master55241|	at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:693)
+master55241|	at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:506)
+master55241|	at org.jenkinsci.bytecode.Transformer.transform(Transformer.java:76)
+master55241|	at hudson.ClassicPluginStrategy$AntClassLoader2.defineClassFromData(ClassicPluginStrategy.java:800)
+master55241|	at jenkins.util.AntClassLoader.getClassFromStream(AntClassLoader.java:1310)
+master55241|	at jenkins.util.AntClassLoader.findClassInComponents(AntClassLoader.java:1366)
+master55241|	at jenkins.util.AntClassLoader.findClass(AntClassLoader.java:1326)
+master55241|	at jenkins.util.AntClassLoader.loadClass(AntClassLoader.java:1079)
+master55241|	at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+master55241|	at java.lang.Class.getDeclaredMethods0(Native Method)
+master55241|	at java.lang.Class.privateGetDeclaredMethods(Class.java:2615)
+master55241|	at java.lang.Class.privateGetPublicMethods(Class.java:2733)
+master55241|	at java.lang.Class.getMethods(Class.java:1472)
+master55241|	at org.kohsuke.stapler.ClassDescriptor.<init>(ClassDescriptor.java:76)
+master55241|	at org.kohsuke.stapler.RequestImpl.bindParametersToList(RequestImpl.java:338)
+master55241|	at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:112)
+master55241|	at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:94)
+master55241|	at hudson.util.DescribableList.rebuild(DescribableList.java:177)
+master55241|	at hudson.model.Job.doConfigSubmit(Job.java:1196)
+master55241|	at hudson.model.AbstractProject.doConfigSubmit(AbstractProject.java:798)
+master55241|	... 58 more
+master55241|
+java.lang.AssertionError: Jenkins error detected:
+javax.servlet.ServletException: java.lang.RuntimeException: java.lang.ClassNotFoundException: org.jenkinsci.lib.envinject.service.EnvVarsResolver
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:796)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+ at org.kohsuke.stapler.MetaClass$6.doDispatch(MetaClass.java:249)
+ at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+ at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+ at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+ at javax.servlet.http.HttpServlet.service(HttpServlet.java:848)
+ at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:686)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1494)
+ at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+ at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:123)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:49)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+ at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+ at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1482)
+ at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+ at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1474)
+ at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:499)
+ at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137)
+ at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:533)
+ at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231)
+ at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086)
+ at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:428)
+ at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+ at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020)
+ at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+ at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+ at org.eclipse.jetty.server.Server.handle(Server.java:370)
+ at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:489)
+ at org.eclipse.jetty.server.AbstractHttpConnection.content(AbstractHttpConnection.java:960)
+ at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content(AbstractHttpConnection.java:1021)
+ at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:865)
+ at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:240)
+ at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+ at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:668)
+ at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:52)
+ at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+ at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+ at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+ at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: org.jenkinsci.lib.envinject.service.EnvVarsResolver
+ at org.kohsuke.asm5.ClassWriter.getCommonSuperClass(ClassWriter.java:1684)
+ at org.kohsuke.asm5.ClassWriter.getMergedType(ClassWriter.java:1654)
+ at org.kohsuke.asm5.Frame.merge(Frame.java:1426)
+ at org.kohsuke.asm5.Frame.merge(Frame.java:1325)
+ at org.kohsuke.asm5.MethodWriter.visitMaxs(MethodWriter.java:1475)
+ at org.kohsuke.asm5.tree.MethodNode.accept(MethodNode.java:833)
+ at org.kohsuke.asm5.commons.JSRInlinerAdapter.visitEnd(JSRInlinerAdapter.java:187)
+ at org.kohsuke.asm5.MethodVisitor.visitEnd(MethodVisitor.java:877)
+ at org.kohsuke.asm5.ClassReader.readMethod(ClassReader.java:1021)
+ at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:693)
+ at org.kohsuke.asm5.ClassReader.accept(ClassReader.java:506)
+ at org.jenkinsci.bytecode.Transformer.transform(Transformer.java:76)
+ at hudson.ClassicPluginStrategy$AntClassLoader2.defineClassFromData(ClassicPluginStrategy.java:800)
+ at jenkins.util.AntClassLoader.getClassFromStream(AntClassLoader.java:1310)
+ at jenkins.util.AntClassLoader.findClassInComponents(AntClassLoader.java:1366)
+ at jenkins.util.AntClassLoader.findClass(AntClassLoader.java:1326)
+ at jenkins.util.AntClassLoader.loadClass(AntClassLoader.java:1079)
+ at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+ at java.lang.Class.getDeclaredMethods0(Native Method)
+ at java.lang.Class.privateGetDeclaredMethods(Class.java:2615)
+ at java.lang.Class.privateGetPublicMethods(Class.java:2733)
+ at java.lang.Class.getMethods(Class.java:1472)
+ at org.kohsuke.stapler.ClassDescriptor.<init>(ClassDescriptor.java:76)
+ at org.kohsuke.stapler.RequestImpl.bindParametersToList(RequestImpl.java:338)
+ at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:112)
+ at hudson.plugins.batch_task.BatchTaskProperty$DescriptorImpl.newInstance(BatchTaskProperty.java:94)
+ at hudson.util.DescribableList.rebuild(DescribableList.java:177)
+ at hudson.model.Job.doConfigSubmit(Job.java:1196)
+ at hudson.model.AbstractProject.doConfigSubmit(AbstractProject.java:798)
+ at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+ at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+ at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+ at java.lang.reflect.Method.invoke(Method.java:606)
+ at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:298)
+ at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:161)
+ at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:96)
+ at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:121)
+ at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:53)
+ at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+ ... 48 more
+	at org.jenkinsci.test.acceptance.selenium.SanityChecker.checkSanity(SanityChecker.java:71)
+	at org.jenkinsci.test.acceptance.selenium.SanityChecker.beforeNavigateTo(SanityChecker.java:50)
+	at sun.reflect.GeneratedMethodAccessor25.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$1.invoke(EventFiringWebDriver.java:78)
+	at com.sun.proxy.$Proxy36.beforeNavigateTo(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.get(EventFiringWebDriver.java:158)
+	at org.jenkinsci.test.acceptance.po.CapybaraPortingLayerImpl.visit(CapybaraPortingLayerImpl.java:77)
+	at org.jenkinsci.test.acceptance.po.ContainerPageObject.configure(ContainerPageObject.java:66)
+	at plugins.BatchTaskPluginTest$1.apply(BatchTaskPluginTest.java:152)
+	at plugins.BatchTaskPluginTest$1.apply(BatchTaskPluginTest.java:150)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:208)
+	at plugins.BatchTaskPluginTest.configureBatchTrigger(BatchTaskPluginTest.java:150)
+	at plugins.BatchTaskPluginTest.do_not_trigger_for_failed_build(BatchTaskPluginTest.java:137)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.jenkinsci.test.acceptance.junit.WithPlugins$RuleImpl$1.evaluate(WithPlugins.java:102)
+	at org.jenkinsci.test.acceptance.junit.JenkinsAcceptanceTestRule$1$2$1.evaluate(JenkinsAcceptanceTestRule.java:129)
+	at org.jenkinsci.test.acceptance.junit.FilterRule$1.evaluate(FilterRule.java:62)
+	at org.jenkinsci.test.acceptance.junit.JenkinsAcceptanceTestRule$1.evaluate(JenkinsAcceptanceTestRule.java:55)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:200)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+It looks like the test failed/errored, so here's the console from Jenkins:
+--------------------------------------------------------------------------
+
+Standard Error
+
+Oct 06, 2015 1:59:00 PM org.jenkinsci.test.acceptance.controller.LocalController startNow
+INFO: Waiting for Jenkins to become running in http://127.0.0.1:55241/
+Oct 06, 2015 2:00:36 PM org.jenkinsci.test.acceptance.controller.LocalController startNow
+INFO: Jenkins is running in http://127.0.0.1:55241/
+Oct 06, 2015 2:00:59 PM org.jenkinsci.test.acceptance.po.PluginManager installationStatus
+INFO: batch-task is not installed
+Oct 06, 2015 2:00:59 PM org.jenkinsci.test.acceptance.po.PluginManager installationStatus
+INFO: batch-task is not installed
+Oct 06, 2015 2:00:59 PM org.jenkinsci.test.acceptance.po.PluginManager installationStatus
+INFO: batch-task@1.17 is not installed
+Oct 06, 2015 2:01:00 PM org.jenkinsci.test.acceptance.po.PluginManager installationStatus
+INFO: batch-task is up to date
+Oct 06, 2015 2:01:00 PM org.jenkinsci.test.acceptance.junit.WithPlugins$RuleImpl$1 evaluate
+INFO: for do_not_trigger_for_failed_build(plugins.BatchTaskPluginTest) asked to install [batch-task]; restartRequired? false

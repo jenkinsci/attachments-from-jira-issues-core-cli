@@ -1,0 +1,242 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x770f3740, pid=4584, tid=984
+#
+# JRE version: 6.0_26-b03
+# Java VM: Java HotSpot(TM) Client VM (20.1-b02 mixed mode windows-x86 )
+# Problematic frame:
+# C  [ntdll.dll+0x33740]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x011fa400):  JavaThread "Finalizer" daemon [_thread_in_native, id=984, stack(0x17440000,0x17490000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0xfffffff8
+
+Registers:
+EAX=0x00000000, EBX=0x00000000, ECX=0x008f00c4, EDX=0x0000003b
+ESP=0x1748f70c, EBP=0x1748f7ec, ESI=0x17dedee8, EDI=0x008f0000
+EIP=0x770f3740, EFLAGS=0x00010206
+
+Top of Stack: (sp=0x1748f70c)
+0x1748f70c:   799c3978 00000000 008f0000 17dedef0
+0x1748f71c:   1748f740 6d813d69 00000000 0000000e
+0x1748f72c:   6d8ffbc9 00000002 00000000 00000000
+0x1748f73c:   1748f854 008f0000 008f3e00 1366f324
+0x1748f74c:   02000002 008f3e00 00000000 011fab28
+0x1748f75c:   00000000 011fab28 1748f770 6d96b06c
+0x1748f76c:   00000003 1748f780 00000081 0000011e
+0x1748f77c:   011fab28 ac0002ae 6d8e314c 011fab28 
+
+Instructions: (pc=0x770f3740)
+0x770f3720:   84 41 0b 00 00 33 db 89 85 48 ff ff ff 8d 8f c4
+0x770f3730:   00 00 00 3b c8 74 32 39 5f 4c 0f 84 8d 68 04 00
+0x770f3740:   8b 48 f8 89 8d 70 ff ff ff 85 4f 4c 74 09 33 4f
+0x770f3750:   50 89 8d 70 ff ff ff 0f b7 c9 8b 75 08 0f b7 c9 
+
+
+Register to memory mapping:
+
+EAX=0x00000000 is an unknown value
+EBX=0x00000000 is an unknown value
+ECX=0x008f00c4 is an unknown value
+EDX=0x0000003b is an unknown value
+ESP=0x1748f70c is pointing into the stack for thread: 0x011fa400
+EBP=0x1748f7ec is pointing into the stack for thread: 0x011fa400
+ESI=0x17dedee8 is an unknown value
+EDI=0x008f0000 is an unknown value
+
+
+Stack: [0x17440000,0x17490000],  sp=0x1748f70c,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [ntdll.dll+0x33740]
+C  [ntdll.dll+0x33472]
+C  [msvcrt.dll+0x98cd]
+C  [jna4046026594898219680.dll+0x3591]
+j  com.sun.jna.Native.free(J)V+0
+j  com.sun.jna.Memory.free(J)V+1
+j  com.sun.jna.Memory.dispose()V+4
+j  com.sun.jna.Memory.finalize()V+1
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfae4b]
+V  [jvm.dll+0x18c531]
+V  [jvm.dll+0xfaecd]
+V  [jvm.dll+0x95a51]
+V  [jvm.dll+0x98819]
+C  [java.dll+0x2100]
+J  java.lang.ref.Finalizer.runFinalizer()V
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfae4b]
+V  [jvm.dll+0x18c531]
+V  [jvm.dll+0xfaff1]
+V  [jvm.dll+0xfb04b]
+V  [jvm.dll+0xb56b9]
+V  [jvm.dll+0x1190d4]
+V  [jvm.dll+0x1411ac]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0x133ca]
+C  [ntdll.dll+0x39ed2]
+C  [ntdll.dll+0x39ea5]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.jna.Native.free(J)V+0
+j  com.sun.jna.Memory.free(J)V+1
+j  com.sun.jna.Memory.dispose()V+4
+j  com.sun.jna.Memory.finalize()V+1
+v  ~StubRoutines::call_stub
+J  java.lang.ref.Finalizer.invokeFinalizeMethod(Ljava/lang/Object;)V
+J  java.lang.ref.Finalizer.runFinalizer()V
+J  java.lang.ref.Finalizer.access$100(Ljava/lang/ref/Finalizer;)V
+j  java.lang.ref.Finalizer$FinalizerThread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x17803400 JavaThread "ViewJob reload thread" daemon [_thread_blocked, id=2796, stack(0x198f0000,0x19940000)]
+  0x17802c00 JavaThread "Handling GET / : RequestHandlerThread[#9]" daemon [_thread_in_native, id=1728, stack(0x196b0000,0x19700000)]
+  0x17802800 JavaThread "RequestHandlerThread[#8]" daemon [_thread_blocked, id=4556, stack(0x19620000,0x19670000)]
+  0x17802000 JavaThread "RequestHandlerThread[#7]" daemon [_thread_blocked, id=4508, stack(0x19590000,0x195e0000)]
+  0x17801c00 JavaThread "RequestHandlerThread[#6]" daemon [_thread_blocked, id=3812, stack(0x19500000,0x19550000)]
+  0x17801400 JavaThread "RequestHandlerThread[#5]" daemon [_thread_blocked, id=2544, stack(0x19470000,0x194c0000)]
+  0x17800c00 JavaThread "RequestHandlerThread[#4]" daemon [_thread_blocked, id=6020, stack(0x19280000,0x192d0000)]
+  0x17800800 JavaThread "RequestHandlerThread[#3]" daemon [_thread_blocked, id=1144, stack(0x191f0000,0x19240000)]
+  0x17800000 JavaThread "DestroyJavaVM" [_thread_blocked, id=5208, stack(0x00380000,0x003d0000)]
+  0x177ffc00 JavaThread "LauncherControlThread[ControlPort=-1]" [_thread_blocked, id=3088, stack(0x19160000,0x191b0000)]
+  0x177ff400 JavaThread "RequestHandlerThread[#2] Acceptor0 SelectChannelConnector@0.0.0.0:8080" daemon [_thread_in_native, id=3344, stack(0x190d0000,0x19120000)]
+  0x177ff000 JavaThread "RequestHandlerThread[#1] Selector0" daemon [_thread_in_native, id=4420, stack(0x19040000,0x19090000)]
+  0x187a9800 JavaThread "pool-2-thread-8" daemon [_thread_blocked, id=4880, stack(0x18fb0000,0x19000000)]
+  0x187a9000 JavaThread "NullIdDescriptorMonitor.verifyId" daemon [_thread_blocked, id=4320, stack(0x18f20000,0x18f70000)]
+  0x187aa400 JavaThread "pool-2-thread-6" daemon [_thread_blocked, id=5020, stack(0x18e90000,0x18ee0000)]
+  0x1874ec00 JavaThread "Loading global config" daemon [_thread_in_native, id=4012, stack(0x18db0000,0x18e00000)]
+  0x18751000 JavaThread "pool-2-thread-4" daemon [_thread_blocked, id=4060, stack(0x18d20000,0x18d70000)]
+  0x1874e400 JavaThread "UpdateCenter.init" daemon [_thread_blocked, id=908, stack(0x18c90000,0x18ce0000)]
+  0x18750800 JavaThread "pool-2-thread-2" daemon [_thread_blocked, id=4680, stack(0x17fa0000,0x17ff0000)]
+  0x18795800 JavaThread "pool-2-thread-1" daemon [_thread_blocked, id=3632, stack(0x17f10000,0x17f60000)]
+  0x1864fc00 JavaThread "Jenkins cron thread" [_thread_blocked, id=2540, stack(0x17d60000,0x17db0000)]
+  0x1865f800 JavaThread "Jenkins initialization thread" [_thread_blocked, id=5868, stack(0x17c80000,0x17cd0000)]
+  0x18597800 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=1116, stack(0x17be0000,0x17c30000)]
+  0x1843f000 JavaThread "HashSessionScavenger-0" daemon [_thread_blocked, id=6044, stack(0x17aa0000,0x17af0000)]
+  0x0122ec00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=4656, stack(0x175f0000,0x17640000)]
+  0x01228800 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=460, stack(0x17560000,0x175b0000)]
+  0x01227800 JavaThread "Attach Listener" daemon [_thread_blocked, id=3572, stack(0x174d0000,0x17520000)]
+=>0x011fa400 JavaThread "Finalizer" daemon [_thread_in_native, id=984, stack(0x17440000,0x17490000)]
+  0x011f8c00 JavaThread "Reference Handler" daemon [_thread_blocked, id=3984, stack(0x173b0000,0x17400000)]
+
+Other Threads:
+  0x011f4400 VMThread [stack: 0x008a0000,0x008f0000] [id=1332]
+  0x01239400 WatcherThread [stack: 0x17680000,0x176d0000] [id=4024]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 8640K, used 711K [0x03260000, 0x03bb0000, 0x087b0000)
+  eden space 7744K,   9% used [0x03260000, 0x03311df0, 0x039f0000)
+  from space 896K,   0% used [0x039f0000, 0x039f0000, 0x03ad0000)
+  to   space 896K,   0% used [0x03ad0000, 0x03ad0000, 0x03bb0000)
+ tenured generation   total 19040K, used 11422K [0x087b0000, 0x09a48000, 0x13260000)
+   the space 19040K,  59% used [0x087b0000, 0x092d78a8, 0x092d7a00, 0x09a48000)
+ compacting perm gen  total 26624K, used 26474K [0x13260000, 0x14c60000, 0x17260000)
+   the space 26624K,  99% used [0x13260000, 0x14c3aa78, 0x14c3ac00, 0x14c60000)
+No shared spaces configured.
+
+Code Cache  [0x01260000, 0x01608000, 0x03260000)
+ total_blobs=1991 nmethods=1793 adapters=133 free_code_cache=29847168 largest_free_block=44480
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files (x86)\Jenkins\jre\bin\java.exe
+0x770c0000 - 0x77240000 	C:\Windows\SysWOW64\ntdll.dll
+0x764d0000 - 0x765e0000 	C:\Windows\syswow64\kernel32.dll
+0x75f60000 - 0x75fa6000 	C:\Windows\syswow64\KERNELBASE.dll
+0x768f0000 - 0x76990000 	C:\Windows\syswow64\ADVAPI32.dll
+0x75fb0000 - 0x7605c000 	C:\Windows\syswow64\msvcrt.dll
+0x76840000 - 0x76859000 	C:\Windows\SysWOW64\sechost.dll
+0x75cd0000 - 0x75dc0000 	C:\Windows\syswow64\RPCRT4.dll
+0x74c20000 - 0x74c80000 	C:\Windows\syswow64\SspiCli.dll
+0x74c10000 - 0x74c1c000 	C:\Windows\syswow64\CRYPTBASE.dll
+0x7c340000 - 0x7c396000 	C:\Program Files (x86)\Jenkins\jre\bin\msvcr71.dll
+0x6d7f0000 - 0x6da9f000 	C:\Program Files (x86)\Jenkins\jre\bin\client\jvm.dll
+0x759d0000 - 0x75ad0000 	C:\Windows\syswow64\USER32.dll
+0x76860000 - 0x768f0000 	C:\Windows\syswow64\GDI32.dll
+0x76290000 - 0x7629a000 	C:\Windows\syswow64\LPK.dll
+0x74c80000 - 0x74d1d000 	C:\Windows\syswow64\USP10.dll
+0x734a0000 - 0x734d2000 	C:\Windows\system32\WINMM.dll
+0x76470000 - 0x764d0000 	C:\Windows\system32\IMM32.DLL
+0x76bf0000 - 0x76cbc000 	C:\Windows\syswow64\MSCTF.dll
+0x71d70000 - 0x71dbc000 	C:\Windows\system32\apphelp.dll
+0x6d7a0000 - 0x6d7ac000 	C:\Program Files (x86)\Jenkins\jre\bin\verify.dll
+0x6d320000 - 0x6d33f000 	C:\Program Files (x86)\Jenkins\jre\bin\java.dll
+0x762a0000 - 0x762a5000 	C:\Windows\system32\PSAPI.DLL
+0x6d7e0000 - 0x6d7ef000 	C:\Program Files (x86)\Jenkins\jre\bin\zip.dll
+0x74d80000 - 0x759ca000 	C:\Windows\system32\SHELL32.DLL
+0x74d20000 - 0x74d77000 	C:\Windows\syswow64\SHLWAPI.dll
+0x766b0000 - 0x7680c000 	C:\Windows\syswow64\ole32.dll
+0x73080000 - 0x73096000 	C:\Windows\system32\CRYPTSP.dll
+0x73040000 - 0x7307b000 	C:\Windows\system32\rsaenh.dll
+0x73030000 - 0x7303b000 	C:\Windows\system32\profapi.dll
+0x6d600000 - 0x6d613000 	C:\Program Files (x86)\Jenkins\jre\bin\net.dll
+0x76250000 - 0x76285000 	C:\Windows\syswow64\WS2_32.dll
+0x762c0000 - 0x762c6000 	C:\Windows\syswow64\NSI.dll
+0x73550000 - 0x7358c000 	C:\Windows\system32\mswsock.dll
+0x72f90000 - 0x72f96000 	C:\Windows\System32\wship6.dll
+0x735c0000 - 0x735d0000 	C:\Windows\system32\NLAapi.dll
+0x735b0000 - 0x735c0000 	C:\Windows\system32\napinsp.dll
+0x73590000 - 0x735a2000 	C:\Windows\system32\pnrpnsp.dll
+0x73500000 - 0x73544000 	C:\Windows\system32\DNSAPI.dll
+0x734f0000 - 0x734f8000 	C:\Windows\System32\winrnr.dll
+0x734e0000 - 0x734ed000 	C:\Windows\system32\wshbth.dll
+0x63560000 - 0x63568000 	C:\Program Files (x86)\National Instruments\Shared\mDNS Responder\nimdnsNSP.dll
+0x63550000 - 0x6355b000 	C:\Windows\system32\nimdnsResponder.dll
+0x735e0000 - 0x73683000 	C:\Windows\WinSxS\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.6161_none_50934f2ebcb7eb57\MSVCR90.dll
+0x73480000 - 0x7349c000 	C:\Windows\system32\Iphlpapi.DLL
+0x73420000 - 0x73427000 	C:\Windows\system32\WINNSI.DLL
+0x732a0000 - 0x732a5000 	C:\Windows\System32\wshtcpip.dll
+0x733d0000 - 0x733d6000 	C:\Windows\system32\rasadhlp.dll
+0x733e0000 - 0x73418000 	C:\Windows\System32\fwpuclnt.dll
+0x6d780000 - 0x6d788000 	C:\Program Files (x86)\Jenkins\jre\bin\sunmscapi.dll
+0x76ad0000 - 0x76bed000 	C:\Windows\syswow64\CRYPT32.dll
+0x77090000 - 0x7709c000 	C:\Windows\syswow64\MSASN1.dll
+0x6d000000 - 0x6d14b000 	C:\Program Files (x86)\Jenkins\jre\bin\awt.dll
+0x72d20000 - 0x72d71000 	C:\Windows\system32\WINSPOOL.DRV
+0x728a0000 - 0x72a3e000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.17514_none_41e6975e2bd6f2b2\COMCTL32.dll
+0x72d80000 - 0x72e04000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.7601.17514_none_ec83dffa859149af\comctl32.dll
+0x6d230000 - 0x6d27f000 	C:\Program Files (x86)\Jenkins\jre\bin\fontmanager.dll
+0x72b30000 - 0x72b43000 	C:\Windows\system32\DWMAPI.DLL
+0x6d620000 - 0x6d629000 	C:\Program Files (x86)\Jenkins\jre\bin\nio.dll
+0x193d0000 - 0x19425000 	C:\Windows\Temp\jna\jna4046026594898219680.dll
+
+VM Arguments:
+jvm_args: -Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle 
+java_command: C:\Program Files (x86)\Jenkins\jenkins.war --httpPort=8080
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\Program Files (x86)\IVI Foundation\IVI\bin;C:\Program Files\IVI Foundation\IVI\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseHg\;C:\Program Files (x86)\PXISA\PXIMC\;C:\Program Files\PXISA\PXIMC\;
+USERNAME=HIL-AUTOBUILD$
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt
+
+Memory: 4k page, physical 4193784k(2429984k free), swap 8385724k(6612356k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.1-b02) for windows-x86 JRE (1.6.0_26-b03), built on May  4 2011 00:50:59 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Mon Nov 25 16:07:27 2013
+elapsed time: 63 seconds
+

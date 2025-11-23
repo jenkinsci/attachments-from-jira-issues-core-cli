@@ -1,0 +1,78 @@
+Started by user admin
+[Pipeline] node
+Running on master in /home/testuser/data/jenkins2/jenkins_home/workspace/stash-fail
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (stash)
+[Pipeline] sh
+[stash-fail] Running shell script
++ touch Provıder.class
+[Pipeline] stash
+Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] node
+Running on localhost_1 in /home/testuser/data/jenkins-nodes/1/workspace/stash-fail
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (unstash)
+[Pipeline] unstash
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+java.nio.file.InvalidPathException: Malformed input or input contains unmappable characters: /home/testuser/data/jenkins-nodes/1/workspace/stash-fail/Prov��der.class
+	at sun.nio.fs.UnixPath.encode(UnixPath.java:147)
+	at sun.nio.fs.UnixPath.<init>(UnixPath.java:71)
+	at sun.nio.fs.UnixFileSystem.getPath(UnixFileSystem.java:281)
+	at java.io.File.toPath(File.java:2234)
+	at hudson.util.IOUtils.copy(IOUtils.java:39)
+Caused: java.io.IOException
+	at hudson.util.IOUtils.copy(IOUtils.java:42)
+	at hudson.FilePath.readFromTar(FilePath.java:2287)
+	at hudson.FilePath.access$400(FilePath.java:196)
+	at hudson.FilePath$4.invoke(FilePath.java:530)
+	at hudson.FilePath$4.invoke(FilePath.java:528)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2739)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:153)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:50)
+	at hudson.remoting.Request$2.run(Request.java:336)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:68)
+Caused: java.io.IOException: Failed to extract foo.tar.gz
+	at hudson.FilePath.readFromTar(FilePath.java:2297)
+	at hudson.FilePath.access$400(FilePath.java:196)
+	at hudson.FilePath$4.invoke(FilePath.java:530)
+	at hudson.FilePath$4.invoke(FilePath.java:528)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2739)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:153)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:50)
+	at hudson.remoting.Request$2.run(Request.java:336)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:68)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at ......remote call to localhost_1(Native Method)
+	at hudson.remoting.Channel.attachCallSiteStackTrace(Channel.java:1545)
+	at hudson.remoting.UserResponse.retrieve(UserRequest.java:253)
+	at hudson.remoting.Channel.call(Channel.java:830)
+	at hudson.FilePath.act(FilePath.java:986)
+Caused: java.io.IOException: remote file operation failed: /home/testuser/data/jenkins-nodes/1/workspace/stash-fail at hudson.remoting.Channel@671b4d49:localhost_1
+	at hudson.FilePath.act(FilePath.java:993)
+	at hudson.FilePath.act(FilePath.java:975)
+	at hudson.FilePath.untar(FilePath.java:528)
+	at org.jenkinsci.plugins.workflow.flow.StashManager.unstash(StashManager.java:129)
+	at org.jenkinsci.plugins.workflow.support.steps.stash.UnstashStep$Execution.run(UnstashStep.java:74)
+	at org.jenkinsci.plugins.workflow.support.steps.stash.UnstashStep$Execution.run(UnstashStep.java:61)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution$1$1.call(SynchronousNonBlockingStepExecution.java:49)
+	at hudson.security.ACL.impersonate(ACL.java:260)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution$1.run(SynchronousNonBlockingStepExecution.java:46)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Finished: FAILURE

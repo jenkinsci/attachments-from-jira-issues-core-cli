@@ -1,0 +1,103 @@
+From ce1f9faa795598bdad68fc90e54942763161cdf0 Mon Sep 17 00:00:00 2001
+From: Peter Collingbourne <peter@pcc.me.uk>
+Date: Tue, 17 Nov 2009 21:55:27 -0800
+Subject: [PATCH 1/2] Added plugin mechanism for extending a build's display name
+
+---
+ .../main/java/hudson/model/DisplayNameAction.java  |   36 ++++++++++++++++++++
+ core/src/main/java/hudson/model/Run.java           |   26 +++++++++++++-
+ 2 files changed, 60 insertions(+), 2 deletions(-)
+ create mode 100644 core/src/main/java/hudson/model/DisplayNameAction.java
+
+diff --git a/core/src/main/java/hudson/model/DisplayNameAction.java b/core/src/main/java/hudson/model/DisplayNameAction.java
+new file mode 100644
+index 0000000..f2ccbad
+--- /dev/null
++++ b/core/src/main/java/hudson/model/DisplayNameAction.java
+@@ -0,0 +1,36 @@
++/*
++ * The MIT License
++ * 
++ * Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi
++ * 
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ * 
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ * 
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++package hudson.model;
++
++/**
++ * {@link Action} that supplies additional text to be appended
++ * to a Run's display name.  Intended to be used by SCM plugins to
++ * display a branch name or revision number as part of the display
++ * name.
++ */
++public interface DisplayNameAction extends Action {
++
++    public String getDisplayNameText();
++
++}
+diff --git a/core/src/main/java/hudson/model/Run.java b/core/src/main/java/hudson/model/Run.java
+index 05f31cc..9ed996e 100644
+--- a/core/src/main/java/hudson/model/Run.java
++++ b/core/src/main/java/hudson/model/Run.java
+@@ -328,6 +328,19 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+         else            return r;
+     }
+ 
++    private List<DisplayNameAction> getDisplayNameActions() {
++        List<DisplayNameAction> r = null;
++        for (Action a : getActions()) {
++            if(a instanceof DisplayNameAction) {
++                if(r==null)
++                    r = new ArrayList<DisplayNameAction>();
++                r.add((DisplayNameAction)a);
++            }
++        }
++        if(r==null)     return Collections.emptyList();
++        else            return r;
++    }
++
+     private StackTraceElement findCaller(StackTraceElement[] stackTrace, String callee) {
+         for(int i=0; i<stackTrace.length-1; i++) {
+             StackTraceElement e = stackTrace[i];
+@@ -550,11 +563,20 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+ 
+     @Exported
+     public String getFullDisplayName() {
+-        return project.getFullDisplayName()+" #"+number;
++        return project.getFullDisplayName()+" "+getDisplayName();
+     }
+ 
+     public String getDisplayName() {
+-        return "#"+number;
++        StringBuffer sb = new StringBuffer("#");
++        sb.append(number);
++        for (DisplayNameAction dna : getDisplayNameActions()) {
++            String s = dna.getDisplayNameText();
++            if (s != null) {
++                sb.append(" ");
++                sb.append(s);
++            }
++        }
++        return sb.toString();
+     }
+ 
+     @Exported(visibility=2)
+-- 
+1.6.3.3
+

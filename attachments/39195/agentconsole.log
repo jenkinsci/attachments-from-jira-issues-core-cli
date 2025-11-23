@@ -1,0 +1,116 @@
+
+Aug 08, 2017 2:09:03 AM hudson.remoting.Request$2 run
+SEVERE: Failed to send back a reply
+hudson.remoting.ChannelClosedException: channel is already closed
+at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer$ByteBufferCommandTransport.write(ChannelApplicationLayer.java:302)
+at hudson.remoting.AbstractByteBufferCommandTransport.write(AbstractByteBufferCommandTransport.java:304)
+at hudson.remoting.Channel.send(Channel.java:617)
+at hudson.remoting.Request$2.run(Request.java:350)
+at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:68)
+at java.util.concurrent.FutureTask.run(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+at hudson.remoting.Engine$1$1.run(Engine.java:98)
+at java.lang.Thread.run(Unknown Source)
+Caused by: java.nio.channels.ClosedChannelException
+... 10 more
+Aug 08, 2017 2:09:37 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Terminated
+Aug 08, 2017 2:11:51 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Locating server among [http://redacted/jenkins/]
+Aug 08, 2017 2:11:54 AM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Aug 08, 2017 2:12:44 AM hudson.util.ProcessTree getKillers
+WARNING: Failed to obtain killers
+hudson.remoting.ChannelClosedException: channel is already closed
+at hudson.remoting.Channel.send(Channel.java:613)
+at hudson.remoting.Request.call(Request.java:130)
+at hudson.remoting.Channel.call(Channel.java:838)
+at hudson.util.ProcessTree.getKillers(ProcessTree.java:159)
+at hudson.util.ProcessTree$OSProcess.killByKiller(ProcessTree.java:218)
+at hudson.util.ProcessTree$WindowsOSProcess.killRecursively(ProcessTree.java:434)
+at hudson.util.ProcessTree$Windows.killAll(ProcessTree.java:547)
+at hudson.Launcher$RemoteLauncher$KillTask.call(Launcher.java:1091)
+at hudson.Launcher$RemoteLauncher$KillTask.call(Launcher.java:1082)
+at hudson.remoting.UserRequest.perform(UserRequest.java:181)
+at hudson.remoting.UserRequest.perform(UserRequest.java:52)
+at hudson.remoting.Request$2.run(Request.java:336)
+at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:68)
+at java.util.concurrent.FutureTask.run(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+at hudson.remoting.Engine$1$1.run(Engine.java:98)
+at java.lang.Thread.run(Unknown Source)
+Caused by: java.nio.channels.ClosedChannelException
+at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:154)
+at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$1500(BIONetworkLayer.java:48)
+at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:247)
+... 4 more
+Aug 08, 2017 2:12:47 AM hudson.util.ProcessTree getKillers
+WARNING: Failed to obtain killers
+hudson.remoting.ChannelClosedException: channel is already closed
+at hudson.remoting.Channel.send(Channel.java:613)
+at hudson.remoting.Request.call(Request.java:130)
+at hudson.remoting.Channel.call(Channel.java:838)
+at hudson.util.ProcessTree.getKillers(ProcessTree.java:159)
+at hudson.util.ProcessTree$OSProcess.killByKiller(ProcessTree.java:218)
+at hudson.util.ProcessTree$WindowsOSProcess.killRecursively(ProcessTree.java:434)
+at hudson.util.ProcessTree$Windows.killAll(ProcessTree.java:547)
+at hudson.Launcher$RemoteLauncher$KillTask.call(Launcher.java:1091)
+at hudson.Launcher$RemoteLauncher$KillTask.call(Launcher.java:1082)
+at hudson.remoting.UserRequest.perform(UserRequest.java:181)
+at hudson.remoting.UserRequest.perform(UserRequest.java:52)
+at hudson.remoting.Request$2.run(Request.java:336)
+at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:68)
+at java.util.concurrent.FutureTask.run(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+at hudson.remoting.Engine$1$1.run(Engine.java:98)
+at java.lang.Thread.run(Unknown Source)
+Caused by: java.nio.channels.ClosedChannelException
+at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:154)
+at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$1500(BIONetworkLayer.java:48)
+at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:247)
+... 4 more
+Aug 08, 2017 2:13:05 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Agent discovery successful
+Agent address: redacted
+Agent port: 50002
+Identity: 9b:03:b3:4c:87:42:8e:92:3d:66:e5:bf:e1:2e:21:4d
+Aug 08, 2017 2:15:12 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Handshaking
+Aug 08, 2017 2:15:12 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connecting to redacted:50002
+Aug 08, 2017 2:15:15 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Aug 08, 2017 2:17:56 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Remote identity confirmed: 9b:03:b3:4c:87:42:8e:92:3d:66:e5:bf:e1:2e:21:4d
+Aug 08, 2017 2:18:03 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connected
+Aug 08, 2017 4:28:16 AM org.jvnet.winp.Native loadByUrl
+WARNING: Failed to load DLL from static location
+java.lang.UnsatisfiedLinkError: Native Library C:\Users\redacted\.jenkins\cache\jars\8D\winp.x64.59DDBA6E777434D039AE09539E6AE899.dll already lo
+aded in another classloader
+at java.lang.ClassLoader.loadLibrary0(Unknown Source)
+at java.lang.ClassLoader.loadLibrary(Unknown Source)
+at java.lang.Runtime.load0(Unknown Source)
+at java.lang.System.load(Unknown Source)
+at org.jvnet.winp.Native.loadDll(Native.java:199)
+at org.jvnet.winp.Native.loadByUrl(Native.java:130)
+at org.jvnet.winp.Native.load(Native.java:99)
+at org.jvnet.winp.Native.<clinit>(Native.java:70)
+at org.jvnet.winp.WinProcess.enableDebugPrivilege(WinProcess.java:226)
+at hudson.util.ProcessTree$Windows.<clinit>(ProcessTree.java:555)
+at hudson.util.ProcessTree.get(ProcessTree.java:350)
+at hudson.Launcher$RemoteLauncher$KillTask.call(Launcher.java:1091)
+at hudson.Launcher$RemoteLauncher$KillTask.call(Launcher.java:1082)
+at hudson.remoting.UserRequest.perform(UserRequest.java:181)
+at hudson.remoting.UserRequest.perform(UserRequest.java:52)
+at hudson.remoting.Request$2.run(Request.java:336)
+at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:68)
+at java.util.concurrent.FutureTask.run(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+at hudson.remoting.Engine$1$1.run(Engine.java:98)
+at java.lang.Thread.run(Unknown Source)
+ 

@@ -1,0 +1,134 @@
+Index: src/main/java/hudson/model/Hudson.java
+===================================================================
+--- src/main/java/hudson/model/Hudson.java	(revision 16175)
++++ src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -731,6 +731,8 @@
+ 
+     /**
+      * Gets the {@link Descriptor} instance in the current Hudson by its type.
++     * 
++     * @return <code>null</code> if no descriptor was found (might be a cause of NullPointerException)
+      */
+     public <T extends Descriptor> T getDescriptorByType(Class<T> type) {
+         for( Descriptor d : getExtensionList(Descriptor.class) )
+Index: src/main/java/hudson/triggers/Trigger.java
+===================================================================
+--- src/main/java/hudson/triggers/Trigger.java	(revision 16175)
++++ src/main/java/hudson/triggers/Trigger.java	(working copy)
+@@ -159,6 +159,8 @@
+ 
+     /**
+      * Runs every minute to check {@link TimerTrigger} and schedules build.
++     * 
++     * Initialization is performed in {@link Trigger#init()}.
+      */
+     private static class Cron extends SafeTimerTask {
+         private final Calendar cal = new GregorianCalendar();
+@@ -170,7 +172,7 @@
+                 try {
+                     checkTriggers(cal);
+                 } catch (Throwable e) {
+-                    LOGGER.log(Level.WARNING,"Cron thread throw an exception",e);
++                    LOGGER.log(Level.WARNING,"Cron thread throwed an exception",e);
+                     // bug in the code. Don't let the thread die.
+                     e.printStackTrace();
+                 }
+@@ -182,39 +184,46 @@
+ 
+     private static Future previousSynchronousPolling;
+ 
++    /**
++     * <code>checkTriggers</code> is registered for triggering every minute in {@link Trigger.Cron#doRun}.
++     */
+     public static void checkTriggers(final Calendar cal) {
+-        Hudson inst = Hudson.getInstance();
++        Hudson hudson = Hudson.getInstance();
+ 
+-        // Are we using synchronous polling?
+-        SCMTrigger.DescriptorImpl scmd = inst.getDescriptorByType(SCMTrigger.DescriptorImpl.class);
+-        if (scmd.synchronousPolling) {
+-            LOGGER.fine("using synchronous polling");
+-
+-            // Check that previous synchronous polling job is done to prevent piling up too many jobs
+-            if (previousSynchronousPolling == null || previousSynchronousPolling.isDone()) {
+-                // Process SCMTriggers in the order of dependencies. Note that the crontab spec expressed per-project is
+-                // ignored, only the global setting is honored. The polling job is submitted only if the previous job has
+-                // terminated.
+-                // FIXME allow to set a global crontab spec
+-                previousSynchronousPolling = scmd.getExecutor().submit(new DependencyRunner(new ProjectRunnable() {
+-                    public void run(AbstractProject p) {
+-                        for (Trigger t : (Collection<Trigger>) p.getTriggers().values()) {
+-                            if (t instanceof SCMTrigger) {
+-                                LOGGER.fine("synchronously triggering SCMTrigger for project " + t.job.getName());
+-                                t.run();
+-                            }
+-                        }
+-                    }
+-                }));
+-            } else {
+-                LOGGER.fine("synchronous polling has detected unfinished jobs, will not trigger additional jobs.");
+-            }
++        // Are we using synchronous polling for SCM?
++        SCMTrigger.DescriptorImpl scmd = hudson.getDescriptorByType(SCMTrigger.DescriptorImpl.class);
++        if (scmd != null) {
++	        if (scmd.synchronousPolling) {
++	            LOGGER.fine("using synchronous polling");
++	            
++	            // Check that previous synchronous polling job is done to prevent piling up too many jobs
++	            if (previousSynchronousPolling == null || previousSynchronousPolling.isDone()) {
++	                // Process SCMTriggers in the order of dependencies. Note that the crontab spec expressed per-project is
++	                // ignored, only the global setting is honored. The polling job is submitted only if the previous job has
++	                // terminated.
++	                // FIXME allow to set a global crontab spec
++	                previousSynchronousPolling = scmd.getExecutor().submit(new DependencyRunner(new ProjectRunnable() {
++	                    public void run(AbstractProject p) {
++	                        for (Trigger t : (Collection<Trigger>) p.getTriggers().values()) {
++	                            if (t instanceof SCMTrigger) {
++	                                LOGGER.fine("synchronously triggering SCMTrigger for project " + t.job.getName());
++	                                t.run();
++	                            }
++	                        }
++	                    }
++	                }));
++	            } else {
++	                LOGGER.fine("synchronous polling has detected unfinished jobs, will not trigger additional jobs");
++	            }
++	        }
++	    } else {
++        	LOGGER.fine("no SCMTrigger defined; usually means no SCM are configured");
+         }
+ 
+-        // Process all triggers, except SCMTriggers when synchronousPolling is set
+-        for (AbstractProject<?,?> p : inst.getAllItems(AbstractProject.class)) {
++        // Process all triggers, except SCMTriggers when synchronousPolling is set which were processed first
++        for (AbstractProject<?,?> p : hudson.getAllItems(AbstractProject.class)) {
+             for (Trigger t : p.getTriggers().values()) {
+-                if (! (t instanceof SCMTrigger && scmd.synchronousPolling)) {
++                if (! (t instanceof SCMTrigger && scmd != null && scmd.synchronousPolling)) {
+                     LOGGER.fine("cron checking "+p.getName());
+ 
+                     if (t.tabs.check(cal)) {
+@@ -236,6 +245,10 @@
+      */
+     public static Timer timer;
+ 
++    /**
++     * Initialization is done in {@link WebAppMain} just after {@link Hudson} is being instantiated
++     * ==> timer can't be <code>null</code>
++     */
+     public static void init() {
+         long MIN = 1000*60;
+         long HOUR =60*MIN;
+Index: src/main/java/hudson/WebAppMain.java
+===================================================================
+--- src/main/java/hudson/WebAppMain.java	(revision 16175)
++++ src/main/java/hudson/WebAppMain.java	(working copy)
+@@ -112,7 +112,7 @@
+ 
+             final File home = getHomeDir(event).getAbsoluteFile();
+             home.mkdirs();
+-            System.out.println("hudson home directory: "+home);
++            LOGGER.config("hudson home directory: "+home);
+ 
+             // check that home exists (as mkdirs could have failed silently), otherwise throw a meaningful error
+             if (! home.exists()) {

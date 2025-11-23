@@ -1,0 +1,380 @@
+2012-12-12 17:09:19
+Full thread dump Java HotSpot(TM) Server VM (17.1-b03 mixed mode):
+
+"Attach Listener" daemon prio=10 tid=0xac700c00 nid=0x2c75 waiting on condition [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"pool-1-thread-1293" prio=10 tid=0xabe07800 nid=0x2238 runnable [0xadb7d000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.zip.Deflater.deflateBytes(Native Method)
+	at java.util.zip.Deflater.deflate(Deflater.java:306)
+	- locked <0xeb0d0ac0> (a java.util.zip.ZStreamRef)
+	at java.util.zip.DeflaterOutputStream.deflate(DeflaterOutputStream.java:159)
+	at java.util.zip.DeflaterOutputStream.write(DeflaterOutputStream.java:118)
+	at java.util.zip.GZIPOutputStream.write(GZIPOutputStream.java:72)
+	- locked <0xeb0d0a40> (a java.util.zip.GZIPOutputStream)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:105)
+	- locked <0xeb0d0d48> (a hudson.util.io.TarArchiver$1)
+	at org.apache.tools.tar.TarBuffer.writeBlock(TarBuffer.java:410)
+	at org.apache.tools.tar.TarBuffer.writeRecord(TarBuffer.java:388)
+	at hudson.org.apache.tools.tar.TarOutputStream.write(TarOutputStream.java:337)
+	at hudson.util.io.TarArchiver.visit(TarArchiver.java:108)
+	at hudson.util.DirScanner$Glob.scan(DirScanner.java:104)
+	at hudson.FilePath.writeToTar(FilePath.java:1686)
+	at hudson.FilePath.access$1000(FilePath.java:164)
+	at hudson.FilePath$34.invoke(FilePath.java:1627)
+	at hudson.FilePath$34.invoke(FilePath.java:1624)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2048)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:287)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+"pool-1-thread-1240" prio=10 tid=0xabe06400 nid=0x6d7d runnable [0xac57d000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.StringBuffer.append(StringBuffer.java:224)
+	- locked <0xed341ed0> (a java.lang.StringBuffer)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1227)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1184)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1146)
+	at org.apache.tools.ant.DirectoryScanner.checkIncludePatterns(DirectoryScanner.java:928)
+	at org.apache.tools.ant.DirectoryScanner.scan(DirectoryScanner.java:882)
+	- locked <0xd0f24ea0> (a org.apache.tools.ant.DirectoryScanner)
+	at org.apache.tools.ant.types.AbstractFileSet.getDirectoryScanner(AbstractFileSet.java:490)
+	at hudson.FilePath$35.invoke(FilePath.java:1795)
+	at hudson.FilePath$35.invoke(FilePath.java:1754)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2048)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:287)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+"pool-1-thread-1239" prio=10 tid=0xabe05c00 nid=0x6d5e runnable [0xab6fe000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.Arrays.copyOf(Arrays.java:2882)
+	at java.lang.AbstractStringBuilder.expandCapacity(AbstractStringBuilder.java:100)
+	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:390)
+	at java.lang.StringBuffer.append(StringBuffer.java:224)
+	- locked <0xec941c18> (a java.lang.StringBuffer)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1227)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1184)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1146)
+	at org.apache.tools.ant.DirectoryScanner.checkIncludePatterns(DirectoryScanner.java:928)
+	at org.apache.tools.ant.DirectoryScanner.scan(DirectoryScanner.java:882)
+	- locked <0xcaaa4740> (a org.apache.tools.ant.DirectoryScanner)
+	at org.apache.tools.ant.types.AbstractFileSet.getDirectoryScanner(AbstractFileSet.java:490)
+	at hudson.FilePath$35.invoke(FilePath.java:1795)
+	at hudson.FilePath$35.invoke(FilePath.java:1754)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2048)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:287)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+"pool-1-thread-1237" prio=10 tid=0xabe05800 nid=0x6b13 runnable [0xad37d000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.Arrays.copyOf(Arrays.java:2882)
+	at java.lang.AbstractStringBuilder.expandCapacity(AbstractStringBuilder.java:100)
+	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:390)
+	at java.lang.StringBuffer.append(StringBuffer.java:224)
+	- locked <0xecbc1d98> (a java.lang.StringBuffer)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1227)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1184)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1146)
+	at org.apache.tools.ant.DirectoryScanner.checkIncludePatterns(DirectoryScanner.java:928)
+	at org.apache.tools.ant.DirectoryScanner.scan(DirectoryScanner.java:882)
+	- locked <0xc3650b98> (a org.apache.tools.ant.DirectoryScanner)
+	at org.apache.tools.ant.types.AbstractFileSet.getDirectoryScanner(AbstractFileSet.java:490)
+	at hudson.FilePath$35.invoke(FilePath.java:1795)
+	at hudson.FilePath$35.invoke(FilePath.java:1754)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2048)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:287)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+"pool-1-thread-1236" prio=10 tid=0xabe05000 nid=0x6af9 runnable [0xab05c000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.Arrays.copyOf(Arrays.java:2882)
+	at java.lang.AbstractStringBuilder.expandCapacity(AbstractStringBuilder.java:100)
+	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:390)
+	at java.lang.StringBuffer.append(StringBuffer.java:224)
+	- locked <0xece41e00> (a java.lang.StringBuffer)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1227)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1184)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1146)
+	at org.apache.tools.ant.DirectoryScanner.checkIncludePatterns(DirectoryScanner.java:928)
+	at org.apache.tools.ant.DirectoryScanner.scan(DirectoryScanner.java:882)
+	- locked <0xbd723438> (a org.apache.tools.ant.DirectoryScanner)
+	at org.apache.tools.ant.types.AbstractFileSet.getDirectoryScanner(AbstractFileSet.java:490)
+	at hudson.FilePath$35.invoke(FilePath.java:1795)
+	at hudson.FilePath$35.invoke(FilePath.java:1754)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2048)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:287)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+"pool-1-thread-1235" prio=10 tid=0xabe04c00 nid=0x697e runnable [0xad97c000]
+   java.lang.Thread.State: RUNNABLE
+	at org.apache.tools.ant.util.VectorSet.doAdd(VectorSet.java:64)
+	- locked <0xb71d44a0> (a org.apache.tools.ant.util.VectorSet)
+	at org.apache.tools.ant.util.VectorSet.addElement(VectorSet.java:75)
+	- locked <0xb71d44a0> (a org.apache.tools.ant.util.VectorSet)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1236)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1184)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1146)
+	at org.apache.tools.ant.DirectoryScanner.checkIncludePatterns(DirectoryScanner.java:928)
+	at org.apache.tools.ant.DirectoryScanner.scan(DirectoryScanner.java:882)
+	- locked <0xb717dd28> (a org.apache.tools.ant.DirectoryScanner)
+	at org.apache.tools.ant.types.AbstractFileSet.getDirectoryScanner(AbstractFileSet.java:490)
+	at hudson.FilePath$35.invoke(FilePath.java:1795)
+	at hudson.FilePath$35.invoke(FilePath.java:1754)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2048)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:287)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+"pool-1-thread-1234" prio=10 tid=0xabe04400 nid=0x6975 runnable [0xad066000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.Arrays.copyOf(Arrays.java:2882)
+	at java.lang.AbstractStringBuilder.expandCapacity(AbstractStringBuilder.java:100)
+	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:390)
+	at java.lang.StringBuffer.append(StringBuffer.java:224)
+	- locked <0xed0c1e68> (a java.lang.StringBuffer)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1227)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1259)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1184)
+	at org.apache.tools.ant.DirectoryScanner.scandir(DirectoryScanner.java:1146)
+	at org.apache.tools.ant.DirectoryScanner.checkIncludePatterns(DirectoryScanner.java:928)
+	at org.apache.tools.ant.DirectoryScanner.scan(DirectoryScanner.java:882)
+	- locked <0xb3a248d8> (a org.apache.tools.ant.DirectoryScanner)
+	at org.apache.tools.ant.types.AbstractFileSet.getDirectoryScanner(AbstractFileSet.java:490)
+	at hudson.FilePath$35.invoke(FilePath.java:1795)
+	at hudson.FilePath$35.invoke(FilePath.java:1754)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2048)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:287)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+"Ping thread for channel hudson.remoting.Channel@1c9a690:channel" daemon prio=10 tid=0xabc02000 nid=0x4b39 waiting on condition [0xae37d000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+"Pipe writer thread: channel" prio=10 tid=0xabe01800 nid=0x4b38 waiting on condition [0xae57d000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0xb3941c10> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:662)
+
+"Ping thread for channel hudson.remoting.Channel@1c9a690:channel" daemon prio=10 tid=0xabf46000 nid=0x4b36 waiting on condition [0xae97d000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+"Channel reader thread: channel" prio=10 tid=0xabf56800 nid=0x4b35 runnable [0xaeb7d000]
+   java.lang.Thread.State: RUNNABLE
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(FileInputStream.java:199)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:237)
+	- locked <0xb3941098> (a java.io.BufferedInputStream)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2248)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2541)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2551)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1296)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:350)
+	at hudson.remoting.Channel$ReaderThread.run(Channel.java:1109)
+
+"Low Memory Detector" daemon prio=10 tid=0xacfb9800 nid=0x4b33 runnable [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread1" daemon prio=10 tid=0xacfb7c00 nid=0x4b32 waiting on condition [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"CompilerThread0" daemon prio=10 tid=0xacfb5c00 nid=0x4b31 waiting on condition [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=10 tid=0xacfb4400 nid=0x4b30 runnable [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=10 tid=0xacfa4800 nid=0x4b2f in Object.wait() [0xaf17d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0xb3941f28> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0xb3941f28> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+"Reference Handler" daemon prio=10 tid=0xacfa3400 nid=0x4b2e in Object.wait() [0xace7d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0xb3942af0> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+	- locked <0xb3942af0> (a java.lang.ref.Reference$Lock)
+
+"main" prio=10 tid=0xf6a04000 nid=0x4b1a in Object.wait() [0xf6bff000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0xb3941fb8> (a hudson.remoting.Channel)
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.remoting.Channel.join(Channel.java:780)
+	- locked <0xb3941fb8> (a hudson.remoting.Channel)
+	at hudson.remoting.Launcher.main(Launcher.java:420)
+	at hudson.remoting.Launcher.runWithStdinStdout(Launcher.java:366)
+	at hudson.remoting.Launcher.run(Launcher.java:206)
+	at hudson.remoting.Launcher.main(Launcher.java:168)
+
+"VM Thread" prio=10 tid=0xacfa0800 nid=0x4b2d runnable 
+
+"GC task thread#0 (ParallelGC)" prio=10 tid=0xf6a0b400 nid=0x4b1b runnable 
+
+"GC task thread#1 (ParallelGC)" prio=10 tid=0xf6a0cc00 nid=0x4b1c runnable 
+
+"GC task thread#2 (ParallelGC)" prio=10 tid=0xf6a0e000 nid=0x4b1d runnable 
+
+"GC task thread#3 (ParallelGC)" prio=10 tid=0xf6a0f800 nid=0x4b1e runnable 
+
+"GC task thread#4 (ParallelGC)" prio=10 tid=0xf6a10c00 nid=0x4b1f runnable 
+
+"GC task thread#5 (ParallelGC)" prio=10 tid=0xf6a12400 nid=0x4b20 runnable 
+
+"GC task thread#6 (ParallelGC)" prio=10 tid=0xf6a13800 nid=0x4b21 runnable 
+
+"GC task thread#7 (ParallelGC)" prio=10 tid=0xf6a15000 nid=0x4b22 runnable 
+
+"GC task thread#8 (ParallelGC)" prio=10 tid=0xf6a16400 nid=0x4b23 runnable 
+
+"GC task thread#9 (ParallelGC)" prio=10 tid=0xf6a17c00 nid=0x4b24 runnable 
+
+"GC task thread#10 (ParallelGC)" prio=10 tid=0xf6a19000 nid=0x4b25 runnable 
+
+"GC task thread#11 (ParallelGC)" prio=10 tid=0xf6a1a800 nid=0x4b26 runnable 
+
+"GC task thread#12 (ParallelGC)" prio=10 tid=0xf6a1bc00 nid=0x4b27 runnable 
+
+"GC task thread#13 (ParallelGC)" prio=10 tid=0xf6a1d400 nid=0x4b28 runnable 
+
+"GC task thread#14 (ParallelGC)" prio=10 tid=0xf6a1e800 nid=0x4b29 runnable 
+
+"GC task thread#15 (ParallelGC)" prio=10 tid=0xf6a20000 nid=0x4b2a runnable 
+
+"GC task thread#16 (ParallelGC)" prio=10 tid=0xf6a21400 nid=0x4b2b runnable 
+
+"GC task thread#17 (ParallelGC)" prio=10 tid=0xf6a22c00 nid=0x4b2c runnable 
+
+"VM Periodic Task Thread" prio=10 tid=0xacfbb800 nid=0x4b34 waiting on condition 
+
+JNI global references: 1722
+

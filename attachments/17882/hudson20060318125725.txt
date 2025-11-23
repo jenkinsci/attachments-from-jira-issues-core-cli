@@ -1,0 +1,272 @@
+
+          ---------------------------
+          STATIC VERIFICATION RESULTS
+          ---------------------------
+
+	
+	 ----------------------------------
+	 NUMBER OF FAILURES/WARNINGS/ERRORS
+	 ----------------------------------
+	 # of Failures : 4
+         # of Warnings : 1
+	 # of Errors : 0
+
+          -----------------------------
+          RESULTS FOR WEB-RELATED TESTS
+          -----------------------------
+	
+	 -----------
+	 WARNINGS :
+	 -----------
+	
+	 Test Name : tests.web.URLPatternUniqueInServletMappings
+	 Test Assertion : All the servlet-mappings contain unique url-patterns. Please refer to Java Servlet 2.4 Specification Section #SRV.11.2, 13.3 for further information.
+	 Test Description : For [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ]
+url-pattern [ / ] already exists in web archive [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ]
+
+	 --------------
+	 FAILED TESTS : 
+	 --------------
+	
+	 Test Name : tests.web.WebResourceName
+	 Test Assertion : The web-resource-name element contains the name of this Web resource collection. Please refer to Java Servlet 2.4 Specification Section #SRV.13.3   for further information.
+	 Test Description : For [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ]
+Error: web-resource-name [  ] does not contain the name of this Web resource collection within Web application [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ].
+
+	 Test Name : tests.web.FormLoginPage
+	 Test Assertion : Web form-login-page value defines the location in the Web application where the page to be used for login can be found. Please refer to Java Servlet 2.4 Specification Section #SRV.13.3   for further information.
+	 Test Description : For [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ]
+Error: The form-login-page [ login ] value does not define the location in the Web application [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ] where the page to be used for login can be found.
+
+	 Test Name : tests.web.FormErrorPage
+	 Test Assertion : Web form-error-page value defines the location in the Web application where the error page that is displayed when login is not successful can be found. Please refer to Java Servlet 2.4 Specification Section #SRV.13.3   for further information.
+	 Test Description : For [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ]
+Error: The form-error-page [ loginError ] value does not define the location in Web application [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ] where the error page that is displayed when login is not successful can be found.
+
+	 Test Name : tests.web.WebArchiveClassesLoadable
+	 Test Assertion : All classes in this Web Archive are loadable excluding classes used in JSPs. The test AllJSPsMustBeCompilable takes care of reporting non portable errors in JSP classes.   Please refer to J2EE 1.4 Specification Section #8.1.2   for further information.
+	 Test Description : For [ /opt/glassfish/domains/domain1/applications/j2ee-modules/hudson ]
+
+Failed to find following classes:
+[
+	org.apache.tools.ant.launch.Locator
+]
+
+referenced in the following call stack :
+
+	at org.apache.tools.ant.util.LoaderUtils
+	at org.apache.tools.ant.ProjectHelper
+	at org.apache.tools.ant.RuntimeConfigurable
+	at org.apache.tools.ant.Target
+	at org.apache.tools.ant.Task
+	at org.apache.tools.ant.taskdefs.PreSetDef
+	at org.apache.tools.ant.taskdefs.PreSetDef$PreSetDefinition
+	at org.apache.tools.ant.UnknownElement
+	at org.apache.tools.ant.Project
+	at org.apache.tools.ant.ProjectComponent
+	at org.apache.tools.ant.util.LineTokenizer
+	at org.apache.tools.ant.util.FileUtils
+	at org.apache.tools.ant.Location
+	at org.apache.tools.ant.BuildException
+	at org.apache.tools.ant.DirectoryScanner
+	at hudson.tasks.junit.TestResultAction
+	at hudson.tasks.junit.TestResult
+	at hudson.model.Build
+	at hudson.model.Executor
+	at hudson.model.Run
+	at hudson.model.Run$Runner
+	at hudson.model.ExternalRun$1
+	at hudson.model.ExternalRun
+	at hudson.model.ExternalJob
+	at hudson.model.Hudson
+	at hudson.PluginManager
+	at hudson.WebAppMain
+
+Failed to find following classes:
+[
+	org.jaxen.NamespaceContext
+]
+
+referenced in the following call stack :
+
+	at org.dom4j.xpath.DefaultNamespaceContext
+	at org.dom4j.xpath.DefaultXPath
+	at org.dom4j.DocumentFactory
+	at org.dom4j.QName
+	at org.dom4j.Element
+	at hudson.tasks.junit.CaseResult
+	at hudson.tasks.junit.ClassResult
+	at hudson.tasks.junit.PackageResult
+	at hudson.tasks.junit.TestResult
+	at hudson.model.Build
+	at hudson.model.Executor
+	at hudson.model.Run
+	at hudson.model.Run$Runner
+	at hudson.model.ExternalRun$1
+	at hudson.model.ExternalRun
+	at hudson.model.ExternalJob
+	at hudson.model.Hudson
+	at hudson.PluginManager
+	at hudson.WebAppMain
+
+Failed to find following classes:
+[
+	org.jaxen.VariableContext,
+	org.jaxen.FunctionContext,
+	org.jaxen.SimpleNamespaceContext,
+	org.jaxen.JaxenException,
+	org.jaxen.dom4j.Dom4jXPath,
+	org.jaxen.NamespaceContext,
+	org.jaxen.XPath
+]
+
+referenced in the following call stack :
+
+	at org.dom4j.xpath.DefaultXPath
+	at org.dom4j.DocumentFactory
+	at org.dom4j.QName
+	at org.dom4j.Element
+	at hudson.tasks.junit.CaseResult
+	at hudson.tasks.junit.ClassResult
+	at hudson.tasks.junit.PackageResult
+	at hudson.tasks.junit.TestResult
+	at hudson.model.Build
+	at hudson.model.Executor
+	at hudson.model.Run
+	at hudson.model.Run$Runner
+	at hudson.model.ExternalRun$1
+	at hudson.model.ExternalRun
+	at hudson.model.ExternalJob
+	at hudson.model.Hudson
+	at hudson.PluginManager
+	at hudson.WebAppMain
+
+Failed to find following classes:
+[
+	org.jaxen.saxpath.SAXPathException,
+	org.jaxen.JaxenException,
+	org.jaxen.SimpleVariableContext,
+	org.jaxen.VariableContext,
+	org.jaxen.XPathFunctionContext,
+	org.jaxen.Context,
+	org.jaxen.dom4j.DocumentNavigator,
+	org.jaxen.SimpleNamespaceContext,
+	org.jaxen.ContextSupport,
+	org.jaxen.pattern.Pattern,
+	org.jaxen.pattern.PatternParser
+]
+
+referenced in the following call stack :
+
+	at org.dom4j.xpath.XPathPattern
+	at org.dom4j.DocumentFactory
+	at org.dom4j.QName
+	at org.dom4j.Element
+	at hudson.tasks.junit.CaseResult
+	at hudson.tasks.junit.ClassResult
+	at hudson.tasks.junit.PackageResult
+	at hudson.tasks.junit.TestResult
+	at hudson.model.Build
+	at hudson.model.Executor
+	at hudson.model.Run
+	at hudson.model.Run$Runner
+	at hudson.model.ExternalRun$1
+	at hudson.model.ExternalRun
+	at hudson.model.ExternalJob
+	at hudson.model.Hudson
+	at hudson.PluginManager
+	at hudson.WebAppMain
+
+Failed to find following classes:
+[
+	org.jaxen.NamespaceContext,
+	org.jaxen.FunctionContext,
+	org.jaxen.VariableContext
+]
+
+referenced in the following call stack :
+
+	at org.dom4j.XPath
+	at org.dom4j.tree.AbstractNode
+	at org.dom4j.Namespace
+	at org.dom4j.Attribute
+	at org.dom4j.Visitor
+	at org.dom4j.Node
+	at org.dom4j.ProcessingInstruction
+	at org.dom4j.io.XMLWriter
+	at org.dom4j.tree.AbstractDocument
+	at org.dom4j.DocumentFactory
+	at org.dom4j.QName
+	at org.dom4j.Element
+	at hudson.tasks.junit.CaseResult
+	at hudson.tasks.junit.ClassResult
+	at hudson.tasks.junit.PackageResult
+	at hudson.tasks.junit.TestResult
+	at hudson.model.Build
+	at hudson.model.Executor
+	at hudson.model.Run
+	at hudson.model.Run$Runner
+	at hudson.model.ExternalRun$1
+	at hudson.model.ExternalRun
+	at hudson.model.ExternalJob
+	at hudson.model.Hudson
+	at hudson.PluginManager
+	at hudson.WebAppMain
+
+Failed to find following classes:
+[
+	org.apache.tools.ant.launch.Locator
+]
+
+referenced in the following call stack :
+
+	at org.apache.tools.ant.util.FileUtils
+	at org.apache.tools.ant.Location
+	at org.apache.tools.ant.BuildException
+	at org.apache.tools.ant.DirectoryScanner
+	at hudson.tasks.junit.TestResultAction
+	at hudson.tasks.junit.TestResult
+	at hudson.model.Build
+	at hudson.model.Executor
+	at hudson.model.Run
+	at hudson.model.Run$Runner
+	at hudson.model.ExternalRun$1
+	at hudson.model.ExternalRun
+	at hudson.model.ExternalJob
+	at hudson.model.Hudson
+	at hudson.PluginManager
+	at hudson.WebAppMain
+
+Failed to find following classes:
+[
+	org.jaxen.VariableContext
+]
+
+referenced in the following call stack :
+
+	at org.dom4j.DocumentFactory
+	at org.dom4j.QName
+	at org.dom4j.Element
+	at hudson.tasks.junit.CaseResult
+	at hudson.tasks.junit.ClassResult
+	at hudson.tasks.junit.PackageResult
+	at hudson.tasks.junit.TestResult
+	at hudson.model.Build
+	at hudson.model.Executor
+	at hudson.model.Run
+	at hudson.model.Run$Runner
+	at hudson.model.ExternalRun$1
+	at hudson.model.ExternalRun
+	at hudson.model.ExternalJob
+	at hudson.model.Hudson
+	at hudson.PluginManager
+	at hudson.WebAppMain
+
+
+Please either bundle the above mentioned classes in the application or use optional packaging support for them.
+
+        
+          ----------------------------------
+          END OF STATIC VERIFICATION RESULTS
+          ----------------------------------
+    

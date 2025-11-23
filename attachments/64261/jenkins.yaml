@@ -1,0 +1,30 @@
+jenkins:
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  numExecutors: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "mwaite"
+        name: "Mark Waite"
+        properties:
+        - "consoleUrlProvider"
+        - "myView"
+        - preferredProvider:
+            providerId: "default"
+        - "timezone"
+        - "experimentalFlags"
+        - mailer:
+            emailAddress: "mwaite@cloudbees.com"
+        - "apiToken"
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://westeurope.cloudflare.jenkins.io/current/update-center.json"
+unclassified:
+  location:
+    adminAddress: "mwaite@cloudbees.com"
+    url: "${MY_JENKINS_URL}"

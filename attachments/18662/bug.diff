@@ -1,0 +1,36 @@
+Index: core/src/main/resources/lib/hudson/executors.jelly
+===================================================================
+--- core/src/main/resources/lib/hudson/executors.jelly	(revision 19066)
++++ core/src/main/resources/lib/hudson/executors.jelly	(working copy)
+@@ -117,11 +117,11 @@
+ 	      </tr>
+ 	    </j:forEach>
+ 	  </j:forEach>
++	</l:pane>
+     <!-- schedule updates only for the full page reload -->
+     <j:if test="${ajax==null and !h.isAutoRefresh(request) and h.hasPermission(app.READ)}">
+       <script defer="defer">
+         refreshPart('executors',"${h.hasView(it,'ajaxExecutors')?'.':rootURL}/ajaxExecutors");
+       </script>
+     </j:if>
+-	</l:pane>
+ </j:jelly>
+Index: core/src/main/resources/lib/hudson/queue.jelly
+===================================================================
+--- core/src/main/resources/lib/hudson/queue.jelly	(revision 19066)
++++ core/src/main/resources/lib/hudson/queue.jelly	(working copy)
+@@ -79,11 +79,11 @@
+         </j:forEach>
+       </j:otherwise>
+     </j:choose>
++  </l:pane>
+     <!-- schedule updates only for the full page reload -->
+     <j:if test="${ajax==null and !h.isAutoRefresh(request) and h.hasPermission(app.READ)}">
+       <script defer="defer">
+         refreshPart('buildQueue',"${h.hasView(it,'ajaxBuildQueue')?'.':rootURL}/ajaxBuildQueue");
+       </script>
+     </j:if>
+-  </l:pane>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>

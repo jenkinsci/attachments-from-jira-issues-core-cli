@@ -1,0 +1,17 @@
+Index: core/src/main/java/hudson/model/Run.java
+===================================================================
+--- core/src/main/java/hudson/model/Run.java	(revision 32105)
++++ core/src/main/java/hudson/model/Run.java	(working copy)
+@@ -500,7 +500,11 @@
+         }
+ 
+         String truncDesc = description;
+-        
++
++        // Could not find a preferred truncable index, force a trunc at maxTruncLength
++        if (lastTruncatablePoint == -1)
++            lastTruncatablePoint = maxTruncLength;
++
+         if (displayChars >= maxDescrLength) {
+             truncDesc = truncDesc.substring(0, lastTruncatablePoint) + ending;
+         }

@@ -1,0 +1,611 @@
+
+ 
+ 
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+                             
+ 
+ <head>
+ <style type="text/css"> /* <![CDATA[ */
+ @import "/branding/css/tigris.css";
+ @import "/branding/css/inst.css";
+ /* ]]> */</style>
+ <link rel="stylesheet" type="text/css" href="/branding/css/print.css" media="print" />
+ <script src="/branding/scripts/tigris.js" type="text/javascript"></script>
+  
+             
+ 
+  <script src="/branding/scripts/alm.js" type="text/javascript"></script>
+ <style type="text/css">
+    /* <![CDATA[ */
+    @import "/branding/css/alm.css";
+   /* ]]> */
+ </style>
+ 
+ 
+ 
+ 
+                                                       <title>
+        hudson:        an extensible continuous integration engine
+    </title>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta http-equiv="Content-Style-Type" content="text/css" />
+ <meta name="version" content="4.5.2.148.4" />
+ 
+ 
+	
+	<link rel="alternate" title="Hudson announcements" href="https://hudson.dev.java.net/servlets/ProjectNewsRSS" type="application/rss+xml">
+	<style>
+		dt {
+			font-weight: bold;
+			margin-left: 1em;
+		}
+		
+		#apphead {
+		  display:none;
+		}
+		TABLE.axial {
+		  display:none;
+		}
+		
+		.application .directory A {
+			text-decoration: none !important;
+		}
+		.application .directory A:link {
+			text-decoration: none !important;
+		}
+		.application .directory A:hover {
+			text-decoration: underline;
+			color: black;
+		}
+		.directory .title {
+			color: black;
+			font-weight: bold;
+			font-size: 1.5em;
+		}
+		.directory TD {
+			vertical-align: middle;
+		}
+		.directory .description {
+			color: gray;
+		}
+		.directory .logo {
+			border: 0px;
+			width: 96px;
+			height: 96px;
+			margin-right: 1em;
+		}
+		#downloadBox A {
+			text-decoration: none;
+			color: black;
+		}
+		#downloadBox A:link {
+			text-decoration: none;
+			color: black;
+		}
+		#downloadBox A:visited {
+			color: black;
+		}
+		#downloadBox A:hover {
+			text-decoration: underline;
+		}
+		
+		/* delete all navigation bars in the left except the one that we care */
+		DL.navgroup {
+			display: none;
+		}
+		#projecttools {
+			display: block;
+		}
+		#footer {
+			display: none;
+		}
+		
+		#subprojects {
+			display:none;
+		}
+		
+		#feeds {
+			margin: 0px;
+			padding: 0px;
+		}
+		#feeds li{
+			/* display: inline; */
+			list-style-type: none;
+			margin-left: 0.3em;
+			margin-right: 1em;
+			padding-left: 16px;
+			background-image: url(feed-icon.png);
+			background-position: left middle;
+			background-repeat: no-repeat;
+		}
+
+	</style>
+
+</head>
+ 
+ 
+<body  class="composite">
+ 
+ 
+ <div id="collabnet">
+ <div id="login"> 
+     <div>
+      <a href="https://www.dev.java.net/servlets/Login?detour=https://hudson.dev.java.net/servlets/ProjectHome;jsessionid=FD6E55FA29E842BB2423953437F294DD">Login</a>
+      |    <a href="https://www.dev.java.net/servlets/Join">Register</a>    </div>
+ </div>
+ <a href="http://www.collab.net/special/clickpbc0502.html" id="cnlogo">
+<span class="alt">CollabNet Enterprise Edition</span></a>
+</div>
+ 
+ 
+ 
+ 
+ 
+
+<div class="topline">
+<div class="topbar">
+<div id="banner">
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td>
+		  	<div><a href="http://www.java.net"><img src="/branding/images/header_jnet_new.jpg" width="500" height="60" alt="The Source for Java Technology Collaboration" /></a></div>
+  		</td>
+	  	<td class="right" style="vertical-align:middle">
+  			<div id="domainlinks">
+				
+								<div id="loginbox">
+												<div>
+				   <a href="https://www.dev.java.net/servlets/TLogin?detour=https://hudson.dev.java.net/servlets/ProjectHome;jsessionid=FD6E55FA29E842BB2423953437F294DD">Login</a>								|    <a href="https://www.dev.java.net/servlets/Join">Register</a>								</div>
+								</div>
+								
+			</div>
+		</td>
+  	</tr>
+</table>
+</div>
+</div>
+</div> 
+ 
+ 
+ 
+ <div id="toptabs">
+
+<table cellpadding="4" cellspacing="0" border="0"><tr>
+
+
+<td>   <a href="https://www.dev.java.net/servlets/StartPage">My pages</a></td>
+
+<th><a href="http://community.java.net/projects/">Projects</a></th>
+
+
+  <td><a href="http://community.java.net/">Communities</a></td>
+
+
+
+<td><a href="http://www.java.net">java.net</a></td>
+
+
+</tr></table>
+</div>
+
+  
+ 
+ <div id="breadcrumbs">
+   <a href="https://www.dev.java.net/servlets/ProjectList">Projects</a>    >
+     
+
+    <a href="https://javatools.dev.java.net/"
+     >javatools</a>
+     >
+     
+
+   <strong>   <a href="https://hudson.dev.java.net/"
+    class="selfref"   >hudson</a>
+   </strong>  </div>
+ 
+ 
+ 
+ 
+<table border="0" cellspacing="0" cellpadding="4" width="100%" id="main">
+<tr>
+<td id="navcol">
+ 
+ 
+ <dl class="navgroup"> <dt>Get Involved</dt> <dd>  <ul>   <li><a href="https://java-net.dev.java.net/">java-net Project</a></li>   <li><a href="http://www.java.net/request_project.csp">Request a Project</a></li>   <li><a href="http://community.java.net/help_wanted/">Project Help Wanted Ads</a></li>   <li><a href="http://community.java.net/projects/publicize.csp">Publicize your Project</a></li>   <li><a href="http://today.java.net/cs/user/create/bl?x-layout=content">Submit Content</a></li>   <li><a href="/servlets/OpenCollabNet">Site Help</a></li>  </ul> </dd> </dl>
+
+
+  
+             
+ 
+   
+ 
+ 
+                                                           <dl id="projecttools" class="navgroup">
+   <dt>Project tools</dt>
+   <dd>
+    <ul>
+          <li>   <a href="https://hudson.dev.java.net/servlets/ProjectHome;jsessionid=FD6E55FA29E842BB2423953437F294DD" class="selfref">Project home</a> </li>
+           
+       
+ 
+   </ul>
+</dd>
+ 
+ 
+                  
+ 
+   <dd><ul>
+    <li>   <a href="https://hudson.dev.java.net/servlets/ProjectNewsList;jsessionid=FD6E55FA29E842BB2423953437F294DD">Announcements</a></li>
+ 
+ 
+            
+ 
+        <li>   <a href="https://hudson.dev.java.net/servlets/ProjectForumView;jsessionid=FD6E55FA29E842BB2423953437F294DD">Discussion forums</a></li>
+  
+ 
+         
+ 
+   <li>   <a href="https://hudson.dev.java.net/servlets/ProjectMailingListList;jsessionid=FD6E55FA29E842BB2423953437F294DD">Mailing lists</a></li>
+      </ul></dd>
+       
+ 
+            
+ 
+   <dd><ul>
+    <li>   <a href="https://hudson.dev.java.net/servlets/ProjectDocumentList;jsessionid=FD6E55FA29E842BB2423953437F294DD">Documents &amp; files</a></li>
+ 
+ 
+            
+ 
+   <li><a href="https://hudson.dev.java.net/source/browse/hudson/"
+>Subversion</a></li>
+      </ul></dd>
+       
+ 
+            
+ 
+   <dd><ul>
+  <li>   <a href="https://hudson.dev.java.net/servlets/ProjectIssues;jsessionid=FD6E55FA29E842BB2423953437F294DD">Issue tracker</a></li>
+ 
+ 
+                               	</ul>
+       </dd>
+                <dd>
+      </dd>
+<script>document.getElementById("main").parentNode.style.display="none";</script>
+<dd id=menubar>
+<ul>
+  <li>
+    <a href="/servlets/ProjectDocumentList" match="/servlets/ProjectDocumentList.*">Downloads</a>
+  <li>
+    <a href="/servlets/ProjectMemberList">Membership</a>
+  <li>
+    <a href="/servlets/ProjectMailingListList">Mailing lists</a>
+  <li>
+    <a href="http://fisheye4.cenqua.com/browse/hudson/trunk/hudson/">Source code</a>
+  <li>
+    <a href="http://hudson.gotdns.com/wiki/display/HUDSON/Use+Hudson#UseHudson-License">License</a>
+  <li>
+    <a href="/issues/">Issue tracker</a>
+  <li>
+    <form name="ProjectIssuesForm" method="get" action="/issues/show_bug.cgi" style="margin-left:2em">
+      <input type="submit" value="Go to" /> # <input name="id" size="3" />
+    </form>
+</ul>
+<!--
+  Theis script determines the logo on the top-left corner of the page.
+  The title is mandatory, but the logo is optional.
+-->
+<script>
+var info = {
+	title: "Hudson",
+	logo: "",
+	noGF: true
+}
+</script>
+<script src="https://glassfish-theme.dev.java.net/zone-tools.js"></script>
+<script src="https://glassfish-theme.dev.java.net/theme.js"></script>
+<script src="https://glassfish-theme.dev.java.net/sortable.js"></script>
+<script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+_uacct = "UA-1257975-1";
+urchinTracker();
+</script>
+
+      </dd> 
+          
+     </dl>
+   
+
+
+
+
+<form action="https://hudson.dev.java.net/servlets/Search;jsessionid=FD6E55FA29E842BB2423953437F294DD" method="get">
+ <dl id="searchbox" class="navgroup">
+  
+      <dt>Search</dt>
+  <dd>
+   <div>
+       <select name="scope">
+           <option value="project" selected="selected">This project</option>
+               <option value="domain" >All projects</option>
+    </select>
+      </div>
+   <div>
+    <input type="hidden" name="resultsPerPage" value="40" /> 
+    <input type="text" name="query" size="10" maxlength="99" /> 
+    <input type="submit" name="Button" value="Go" />
+   </div>
+   <div>
+       <a href="https://hudson.dev.java.net/servlets/Search;jsessionid=FD6E55FA29E842BB2423953437F294DD?mode=advanced">Advanced search</a>   </div>
+  </dd>
+
+ </dl>
+</form>
+
+
+<dl id="helptext" class="navgroup">
+ <dt>How do I...</dt>
+ <dd>
+  <ul>
+      
+ 
+  <li>  <a href="https://www.dev.java.net/scdocs/Learning" onclick="return launch(this.href, 1)" 
+ title="Note: link may open in new window" class="helplink">
+ 
+ Learn about projects?</a>
+</li>
+ <li>  <a href="https://www.dev.java.net/scdocs/ContentEditor_C" onclick="return launch(this.href, 1)" 
+ title="Note: link may open in new window" class="helplink">
+ 
+ Customize my project home page?</a>
+</li>
+  
+ 
+ 
+     
+   <li> <a href="http://www.collab.net/rn/" onclick="return launch(this.href, 1)" 
+ title="Note: link may open in new window" class="helplink">
+ 
+ Get release notes for CollabNet 4.5.2?</a>
+</li>
+
+   <li><a href="https://hudson.dev.java.net/nonav/servlets/HelpTOC" onclick="return launch(this.href, 1)" 
+title="Note: link may open in new window" class="helplink">Get help?</a></li>
+  </ul>
+ </dd>
+</dl>
+
+ 
+ 
+<div class="strut">&nbsp;</div>
+</td>
+<td id="midcol">
+ 
+<div id="bodycol">
+<div id="apphead">
+<h1><small>hudson</small><br />    
+  Project home
+  
+ </h1>
+</div>
+ 
+ 
+ 
+        
+                 
+                 
+           
+    
+  
+
+ 
+ 
+ 
+ 
+ <p class="tasknav">
+
+
+
+
+
+      
+     If you were <a href="https://www.dev.java.net/servlets/Join">registered</a> and <a href="https://www.dev.java.net/servlets/Login?detour=https://hudson.dev.java.net/servlets/ProjectHome;jsessionid=FD6E55FA29E842BB2423953437F294DD">logged in</a>, you could join this project.
+    
+  
+  
+</p>
+ 
+ 
+
+
+
+ 
+ 
+
+ 
+ 
+ <div id="projecthome" class="application">
+
+
+
+
+
+
+
+ 
+             
+ 
+          
+      <!-- Project metadata component start -->
+   <div class="pagecomponent">
+       <div>
+    
+       <table class="axial">
+      <tr>
+       <th>Summary</th>
+       <td>Automated build monitoring system</td>
+      </tr>
+         <tr>
+       <th>
+             Categories
+          </th> 
+     <td>
+           None 
+          </td>
+    </tr>  
+        
+             
+               <tr>
+        <th>License</th> 
+       <td>
+        <a href="http://www.opensource.org/licenses/mit-license.php">The MIT License</a>
+       </td>
+      </tr>
+             
+        
+    
+         <tr>
+       <th>Owner(s)</th> 
+       <td>
+          <a href="mailto:kohsuke@dev.java.net">kohsuke</a>, <a href="mailto:role_manager@dev.java.net">role_manager</a>       </td>
+     </tr>  
+            </table>
+    </div>
+    
+        </div>
+   
+   <!-- Project metadata component end -->
+          <!-- html component start -->
+   <div class="pagecomponent"> 
+         <div>
+                       
+<div style="float:right">
+	<div style="padding-right: 1em; margin-top: 1em; font-size: 1.5em;" id="downloadBox">
+	  <a href="/servlets/ProjectDocumentList?folderID=2761">
+	  <img src="images/download.gif" style="vertical-align: middle;" border="0">Download
+	  </a>
+	  <center>
+		  <a href="changelog.html" style="font-size:0.5em; color:black">(changelog)</a>
+		</center>
+	</div>
+	
+	<!--div style="margin-top: 3em;">
+		<div style="font-size:1.5em;">JavaOne BOF</div>
+		<div style="width:15em; margin-top:0.5em;">
+			Join us at Javaone. <a href="http://www.nabble.com/Hudson-BOF-at-JavaOne-tf3393217.html">BOF-9529 May 10th 21:55</a></div>
+	</div-->
+	
+	<div style="margin-top: 3em;">
+		<ul id="feeds">
+			<li><a href="http://feeds.feedburner.com/KohsukesHudsonBlogs">Blog</a>
+			<li><a href="http://feeds.feedburner.com/HudsonBlogs-ja">日本語ブログ</a>
+			<li><a href="https://hudson.dev.java.net/servlets/ProjectRSS?type=news">Releases</a>
+		</ul>
+	</div>
+	
+	<div style="margin-top: 3em; text-align: center;">
+	  <a href="http://java.sun.com/javaone/sf/2008/articles/2008dukeschoiceawards.jsp">
+	    <img src="images/award08.gif" />
+	  </a>
+	</div>
+</div>
+<!--
+<div align=center style="font-weight:bold; margin:2em; padding-left:4em; padding-right:4em; color:red">
+Useful for posting note
+</div>
+-->
+<div align=center>
+	<div style="font-size:3em; font-weight:bold; margin-top: 1em;">Hudson</div>
+	<div style="margin:1em">
+		Extensible continuous integration engine
+	</div>
+</div>
+
+<div align=center>
+	<table valign=middle class=directory>
+		<tr>
+			<td><a href="http://hudson.gotdns.com/wiki/display/HUDSON/Meet+Hudson"><img src="images/visitor.gif" class=logo></a></td>
+			<td><a href="http://hudson.gotdns.com/wiki/display/HUDSON/Meet+Hudson">
+			<div class=title>Meet Hudson</div>
+			<div class=description>Find out what is Hudson and get started.</div>
+			</a></td>
+		</tr>
+		<tr>
+			<td><a href="http://hudson.gotdns.com/wiki/display/HUDSON/Use+Hudson"><img src="images/user.gif" class=logo></a></td>
+			<td><a href="http://hudson.gotdns.com/wiki/display/HUDSON/Use+Hudson">
+			<div class=title>Use Hudson</div>
+			<div class=description>See how to get more out of your Hudson.</div>
+			</a></td>
+		</tr>
+		<tr>
+			<td><a href="http://hudson.gotdns.com/wiki/display/HUDSON/Extend+Hudson"><img src="images/developer.gif" class=logo></a></td>
+			<td><a href="http://hudson.gotdns.com/wiki/display/HUDSON/Extend+Hudson">
+			<div class=title>Extend Hudson</div>
+			<div class=description>Learn how to build Hudson or extend Hudson by writing plugins.</div>
+			</a></td>
+		</tr>
+	</table>
+</div>
+ 
+               	   	  	 </div>
+ 	 </div>
+   <!-- html component end -->
+          <!-- Subproject component start -->
+   <div class="pagecomponent">
+       
+            
+            
+       </div>
+   <!-- Subproject component end -->
+     
+ 
+ 
+                                                          
+
+
+</div>
+ 
+ 
+
+ 
+ 
+ 
+</div>
+</td>
+</tr>
+</table>
+ 
+ 
+ <div id="footer">
+   <p><a href="http://today.java.net/pub/q/java_net_rss"><img src="/branding/images/xml.gif" width="36" height="14" alt="XML" style="vertical-align:middle"/></a>&nbsp;<b>java.net RSS</b></p>
+   <table border="0" cellspacing="0" cellpadding="4" width="100%">
+   	<tr>
+   		<td><a href="http://www.collab.net/special/clickpbc0502.html" id="poweredby"><span class="alt">Powered by CollabNet</span></a></td>
+ 		<td><a href="http://java-net.dev.java.net/feedback.html"  onclick="return launch(this.href, 1)" title="Note: link may open in new window" class="helplink">Feedback</a>   |
+ 		<a href="http://java.net/faq.csp">FAQ</a> |
+ 		<a href="http://java.net/presscenter/">Press</a> |
+ 		 		<a href="http://www.collab.net/developers/tools/" onclick="return launch(this.href, 1)" title="Note: link may open in new window">Developer tools</a> 	   <div>
+ 
+ 	<a href="http://java.net/terms.csp">Terms of Use</a> | 
+ 	<a href="http://www.sun.com/privacy">Privacy</a> |
+ 	<a href="http://www.sun.com/suntrademarks/">Trademarks</a> | 
+ 	<a href="https://java-net.dev.java.net/sitemap.html">Site Map</a> 
+</div>
+	   <p>&#169; 1995 - 2007 CollabNet. CollabNet is a registered trademark of CollabNet, Inc.</p>
+
+	    </td>
+	   <td><a href="http://www.sun.com" onclick="return launch(this.href, 1)"><img src="/branding/images/logo_sun_small.gif" id="logosun" width="61" height="29" alt="Sun" /></a>
+		<a href="http://www.oreilly.com" onclick="return launch(this.href, 1)"><img src="/branding/images/montague_logo_oreilly.gif" id="logooreilly" width="74" height="19" alt="Oreilly" /></a></td>
+		</tr></table>
+		
+		<!-- Begin SiteCatalyst code-->
+		<script language="JavaScript" 
+		src="https://www.dev.java.net/branding/images/s_code_remote.js "></script>
+<!-- End SiteCatalyst code --> 
+ 
+</body>
+</html>
+ 
+ 

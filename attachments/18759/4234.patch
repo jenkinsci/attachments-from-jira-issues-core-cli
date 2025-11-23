@@ -1,0 +1,22 @@
+Index: plugins/jython/src/main/java/org/jvnet/hudson/plugins/Jython.java
+===================================================================
+--- plugins/jython/src/main/java/org/jvnet/hudson/plugins/Jython.java	(revisión: 20764)
++++ plugins/jython/src/main/java/org/jvnet/hudson/plugins/Jython.java	(copia de trabajo)
+@@ -46,7 +46,7 @@
+         this.command = command;
+     }
+ 
+-    protected String getContents() {
++    public String getCommand() {
+         return command;
+     }
+ 
+@@ -81,7 +81,7 @@
+ 
+         interp.setOut(listener.getLogger());
+         interp.setErr(listener.getLogger());
+-        interp.exec(this.getContents());
++        interp.exec(this.getCommand());
+ 
+         build.setResult(Result.SUCCESS);
+         return true;

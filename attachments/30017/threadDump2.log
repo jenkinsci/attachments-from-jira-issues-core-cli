@@ -1,0 +1,1117 @@
+2015-06-26 08:55:16
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (24.45-b08 mixed mode):
+
+"JmDNS(AP4S201-ivv-verbund-de.local.).State.Timer" prio=3 tid=0x0000000100651800 nid=0x154 in Object.wait() [0xffffffff176ff000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007f8507ad0> (a java.util.TaskQueue)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007f8507ad0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"JmDNS(AP4S201-ivv-verbund-de.local.).Timer" daemon prio=3 tid=0x000000010092c800 nid=0x153 in Object.wait() [0xffffffff1c2ff000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007f85073d0> (a java.util.TaskQueue)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007f85073d0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"SocketListener(AP4S201-ivv-verbund-de.local.)" daemon prio=3 tid=0x0000000100dc8800 nid=0x152 runnable [0xffffffff24dff000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	- locked <0x00000007f84e2bf0> (a java.net.PlainDatagramSocketImpl)
+	at java.net.AbstractPlainDatagramSocketImpl.receive(AbstractPlainDatagramSocketImpl.java:145)
+	- locked <0x00000007f84e2bf0> (a java.net.PlainDatagramSocketImpl)
+	at java.net.DatagramSocket.receive(DatagramSocket.java:786)
+	- locked <0x00000007f84e79a0> (a java.net.DatagramPacket)
+	- locked <0x00000007f84d5378> (a java.net.MulticastSocket)
+	at javax.jmdns.impl.SocketListener.run(SocketListener.java:41)
+
+"Jenkins UDP 33848 monitoring thread" prio=3 tid=0x0000000101459000 nid=0x14e runnable [0xffffffff1f8ff000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainDatagramSocketImpl.receive0(Native Method)
+	- locked <0x00000007f81ecc78> (a java.net.PlainDatagramSocketImpl)
+	at java.net.AbstractPlainDatagramSocketImpl.receive(AbstractPlainDatagramSocketImpl.java:145)
+	- locked <0x00000007f81ecc78> (a java.net.PlainDatagramSocketImpl)
+	at java.net.DatagramSocket.receive(DatagramSocket.java:786)
+	- locked <0x00000007f82712d8> (a java.net.DatagramPacket)
+	- locked <0x00000007f81ebe40> (a java.net.MulticastSocket)
+	at hudson.UDPBroadcastThread.run(UDPBroadcastThread.java:82)
+
+"TCP slave agent listener port=0" prio=3 tid=0x0000000100f9a800 nid=0x14d runnable [0xffffffff242ff000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.ServerSocketChannelImpl.accept0(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:241)
+	- locked <0x00000007f81e53f8> (a java.lang.Object)
+	at hudson.TcpSlaveAgentListener.run(TcpSlaveAgentListener.java:95)
+
+"NioSocketAcceptor-1" prio=3 tid=0x0000000101c6f000 nid=0x14b runnable [0xffffffff174fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007fc1e00f8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007fc1e0108> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007fc1e00b0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:102)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.select(NioSocketAcceptor.java:238)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:432)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#10]" daemon prio=3 tid=0x00000001008f4800 nid=0xbe waiting on condition [0xffffffff2a4fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#9]" daemon prio=3 tid=0x0000000100d40000 nid=0xb9 waiting on condition [0xffffffff2aefe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#8]" daemon prio=3 tid=0x00000001017fb000 nid=0xb6 waiting on condition [0xffffffff2b4fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#7]" daemon prio=3 tid=0x0000000100f9f800 nid=0xb5 waiting on condition [0xffffffff2b6fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#6]" daemon prio=3 tid=0x0000000100f9c000 nid=0xb4 waiting on condition [0xffffffff2b8fe000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:226)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2082)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1090)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#5]" daemon prio=3 tid=0x0000000100657800 nid=0xb3 waiting on condition [0xffffffff2bafe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#4]" daemon prio=3 tid=0x0000000101b2e000 nid=0xa6 waiting on condition [0xffffffff2d4fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#3]" daemon prio=3 tid=0x000000010132e000 nid=0xa5 waiting on condition [0xffffffff2d6fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#2]" daemon prio=3 tid=0x0000000101801000 nid=0xa4 waiting on condition [0xffffffff2d8fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"jenkins.util.Timer [#1]" daemon prio=3 tid=0x0000000101b07000 nid=0x88 waiting on condition [0xffffffff310fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000783856d30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2043)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1085)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:807)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1068)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"Jenkins cron thread" prio=3 tid=0x0000000101ace000 nid=0x87 in Object.wait() [0xffffffff312ff000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007838ffbf0> (a java.util.TaskQueue)
+	at java.lang.Object.wait(Object.java:503)
+	at java.util.TimerThread.mainLoop(Timer.java:526)
+	- locked <0x00000007838ffbf0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"DestroyJavaVM" prio=3 tid=0x00000001002e7800 nid=0x2 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"LauncherControlThread[ControlPort=-1]" prio=3 tid=0x00000001016d4800 nid=0x86 waiting on condition [0xffffffff314ff000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at winstone.Launcher.run(Launcher.java:245)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#40] Selector39" daemon prio=3 tid=0x00000001016d2000 nid=0x85 runnable [0xffffffff316fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x000000078390c700> (a sun.nio.ch.Util$2)
+	- locked <0x000000078390c6f0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000078390c5c8> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#39] Selector38" daemon prio=3 tid=0x00000001016d0000 nid=0x84 runnable [0xffffffff318fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838f6520> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838f6510> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838f63e8> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#38] Selector37" daemon prio=3 tid=0x00000001016ce000 nid=0x83 runnable [0xffffffff31afe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x000000078385bcc8> (a sun.nio.ch.Util$2)
+	- locked <0x000000078385bcd8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000078385bc80> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#37] Selector36" daemon prio=3 tid=0x000000010161e000 nid=0x82 runnable [0xffffffff31cfe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838aacd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838aace8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838aac90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#36] Selector35" daemon prio=3 tid=0x000000010161c000 nid=0x81 runnable [0xffffffff31efe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838accd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838acce8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838acc90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#35] Selector34" daemon prio=3 tid=0x000000010161a000 nid=0x80 runnable [0xffffffff320fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838b0cd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838b0ce8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838b0c90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#34] Selector33" daemon prio=3 tid=0x0000000101228000 nid=0x7f runnable [0xffffffff322fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838ccb80> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838ccb70> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838cca58> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#33] Selector32" daemon prio=3 tid=0x0000000101618000 nid=0x7e runnable [0xffffffff324fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838b6cd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838b6ce8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838b6c90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#32] Selector31" daemon prio=3 tid=0x0000000101616000 nid=0x7d runnable [0xffffffff326fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838b4cd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838b4ce8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838b4c90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#31] Selector30" daemon prio=3 tid=0x00000001013be800 nid=0x7c runnable [0xffffffff328fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838b8cd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838b8ce8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838b8c90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#30] Selector29" daemon prio=3 tid=0x00000001013bc800 nid=0x7b runnable [0xffffffff32afe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x0000000783a04db0> (a sun.nio.ch.Util$2)
+	- locked <0x0000000783a04da0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000783a04c78> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#29] Selector28" daemon prio=3 tid=0x00000001013ba800 nid=0x7a runnable [0xffffffff32cfe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x0000000783859cc8> (a sun.nio.ch.Util$2)
+	- locked <0x0000000783859cd8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000783859c80> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#28] Selector27" daemon prio=3 tid=0x00000001013b8800 nid=0x79 runnable [0xffffffff32efe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838becd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838bece8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838bec90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#27] Selector26" daemon prio=3 tid=0x00000001013b7000 nid=0x78 runnable [0xffffffff330fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838bccd8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838bcce8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838bcc90> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#26] Selector25" daemon prio=3 tid=0x000000010198f800 nid=0x77 runnable [0xffffffff332fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007839847d0> (a sun.nio.ch.Util$2)
+	- locked <0x00000007839847c0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000783984698> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#25] Selector24" daemon prio=3 tid=0x000000010198b800 nid=0x76 runnable [0xffffffff334fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x000000078385c3a0> (a sun.nio.ch.Util$2)
+	- locked <0x000000078385c390> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000078385c268> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#24] Selector23" daemon prio=3 tid=0x0000000101b00000 nid=0x75 runnable [0xffffffff336fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838f7ba8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838f7b98> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838f7a70> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#23] Selector22" daemon prio=3 tid=0x0000000101afe000 nid=0x74 runnable [0xffffffff338fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007839b70b8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007839b70a8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007839b6f80> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#22] Selector21" daemon prio=3 tid=0x0000000101afc000 nid=0x73 runnable [0xffffffff33afe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x0000000783887680> (a sun.nio.ch.Util$2)
+	- locked <0x0000000783887690> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000783887638> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#21] Selector20" daemon prio=3 tid=0x0000000101afa000 nid=0x72 runnable [0xffffffff33cfe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838c7ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838c7cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838c7ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#20] Selector19" daemon prio=3 tid=0x0000000101306800 nid=0x71 runnable [0xffffffff33efe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007839eafb0> (a sun.nio.ch.Util$2)
+	- locked <0x00000007839eafa0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000783905ae0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#19] Selector18" daemon prio=3 tid=0x0000000101304800 nid=0x70 runnable [0xffffffff340fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838cfce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838cfcf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838cfca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#18] Selector17" daemon prio=3 tid=0x0000000101303000 nid=0x6f runnable [0xffffffff342fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x0000000783a05a50> (a sun.nio.ch.Util$2)
+	- locked <0x0000000783a05a40> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000783a05918> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#17] Selector16" daemon prio=3 tid=0x0000000101b86800 nid=0x6e runnable [0xffffffff344fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838d3ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838d3cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838d3ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#16] Selector15" daemon prio=3 tid=0x0000000101b84800 nid=0x6d runnable [0xffffffff346fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838dfce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838dfcf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838dfca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#15] Selector14" daemon prio=3 tid=0x0000000101b82800 nid=0x6c runnable [0xffffffff348fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838d5ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838d5cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838d5ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#14] Selector13" daemon prio=3 tid=0x0000000101b81000 nid=0x6b runnable [0xffffffff34afe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x000000078385d8a0> (a sun.nio.ch.Util$2)
+	- locked <0x000000078385d890> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x000000078385d778> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#13] Selector12" daemon prio=3 tid=0x00000001016a6800 nid=0x6a runnable [0xffffffff34cfe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838f8310> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838f8300> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838f81d8> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#12] Selector11" daemon prio=3 tid=0x00000001016a4800 nid=0x69 runnable [0xffffffff34efe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838d9ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838d9cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838d9ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#11] Selector10" daemon prio=3 tid=0x00000001016da800 nid=0x68 runnable [0xffffffff350fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838ddce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838ddcf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838ddca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#10] Selector9" daemon prio=3 tid=0x00000001016d9000 nid=0x67 runnable [0xffffffff352fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838e1ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838e1cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838e1ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#9] Selector8" daemon prio=3 tid=0x00000001016d7800 nid=0x66 runnable [0xffffffff354fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x0000000783966e88> (a sun.nio.ch.Util$2)
+	- locked <0x0000000783966e78> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x0000000783966d50> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#8] Selector7" daemon prio=3 tid=0x00000001013b0800 nid=0x65 runnable [0xffffffff356fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838e7ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838e7cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838e7ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#7] Selector6" daemon prio=3 tid=0x00000001010f7000 nid=0x64 runnable [0xffffffff358fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838a5770> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838a5760> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838a5648> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#6] Selector5" daemon prio=3 tid=0x0000000101adc000 nid=0x63 runnable [0xffffffff35afe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838e9ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838e9cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838e9ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#5] Selector4" daemon prio=3 tid=0x0000000101ad9800 nid=0x62 runnable [0xffffffff35dfe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838ebce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838ebcf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838ebca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#4] Selector3" daemon prio=3 tid=0x0000000101511000 nid=0x61 runnable [0xffffffff35ffe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838edce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838edcf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838edca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#3] Selector2" daemon prio=3 tid=0x0000000101510000 nid=0x60 runnable [0xffffffff361fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007839384e0> (a sun.nio.ch.Util$2)
+	- locked <0x00000007839384d0> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007839383b8> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#2] Selector1" daemon prio=3 tid=0x0000000101b3c800 nid=0x5f runnable [0xffffffff363fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838efce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838efcf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838efca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"RequestHandlerThread[#1] Selector0" daemon prio=3 tid=0x0000000101b37000 nid=0x5e runnable [0xffffffff365fe000]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.DevPollArrayWrapper.poll0(Native Method)
+	at sun.nio.ch.DevPollArrayWrapper.poll(DevPollArrayWrapper.java:223)
+	at sun.nio.ch.DevPollSelectorImpl.doSelect(DevPollSelectorImpl.java:84)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+	- locked <0x00000007838f3ce8> (a sun.nio.ch.Util$2)
+	- locked <0x00000007838f3cf8> (a java.util.Collections$UnmodifiableSet)
+	- locked <0x00000007838f3ca0> (a sun.nio.ch.DevPollSelectorImpl)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+	at org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:569)
+	at org.eclipse.jetty.io.nio.SelectorManager$1.run(SelectorManager.java:290)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"Java2D Disposer" daemon prio=3 tid=0x0000000101006000 nid=0x5c in Object.wait() [0xffffffff36bfe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007838ffc20> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:135)
+	- locked <0x00000007838ffc20> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:151)
+	at sun.java2d.Disposer.run(Disposer.java:145)
+	at java.lang.Thread.run(Thread.java:744)
+
+"HashSessionScavenger-0" daemon prio=3 tid=0x0000000100e72000 nid=0x5b in Object.wait() [0xffffffff376ff000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007838ffc08> (a java.util.TaskQueue)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007838ffc08> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"Service Thread" daemon prio=3 tid=0x00000001003c0000 nid=0x59 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" daemon prio=3 tid=0x00000001003bb800 nid=0x58 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" daemon prio=3 tid=0x00000001003b8800 nid=0x57 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=3 tid=0x00000001001e0000 nid=0x56 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=3 tid=0x00000001001bd800 nid=0x55 in Object.wait() [0xffffffff3ecff000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000783897660> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:135)
+	- locked <0x0000000783897660> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:151)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:189)
+
+"Reference Handler" daemon prio=3 tid=0x00000001001b4000 nid=0x54 in Object.wait() [0xffffffff3eeff000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007838970d8> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:503)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:133)
+	- locked <0x00000007838970d8> (a java.lang.ref.Reference$Lock)
+
+"VM Thread" prio=3 tid=0x00000001001b2000 nid=0x53 runnable 
+
+"GC task thread#0 (ParallelGC)" prio=3 tid=0x00000001001e6800 nid=0x3 runnable 
+
+"GC task thread#1 (ParallelGC)" prio=3 tid=0x00000001001e8000 nid=0x4 runnable 
+
+"GC task thread#2 (ParallelGC)" prio=3 tid=0x00000001001eb800 nid=0x5 runnable 
+
+"GC task thread#3 (ParallelGC)" prio=3 tid=0x00000001001ed800 nid=0x6 runnable 
+
+"GC task thread#4 (ParallelGC)" prio=3 tid=0x00000001001ef000 nid=0x7 runnable 
+
+"GC task thread#5 (ParallelGC)" prio=3 tid=0x00000001001f0800 nid=0x8 runnable 
+
+"GC task thread#6 (ParallelGC)" prio=3 tid=0x000000010020e000 nid=0x9 runnable 
+
+"GC task thread#7 (ParallelGC)" prio=3 tid=0x000000010020f800 nid=0xa runnable 
+
+"GC task thread#8 (ParallelGC)" prio=3 tid=0x0000000100211000 nid=0xb runnable 
+
+"GC task thread#9 (ParallelGC)" prio=3 tid=0x0000000100212800 nid=0xc runnable 
+
+"GC task thread#10 (ParallelGC)" prio=3 tid=0x0000000100216800 nid=0xd runnable 
+
+"GC task thread#11 (ParallelGC)" prio=3 tid=0x0000000100218000 nid=0xe runnable 
+
+"GC task thread#12 (ParallelGC)" prio=3 tid=0x0000000100219800 nid=0xf runnable 
+
+"GC task thread#13 (ParallelGC)" prio=3 tid=0x000000010021b000 nid=0x10 runnable 
+
+"GC task thread#14 (ParallelGC)" prio=3 tid=0x000000010021f000 nid=0x11 runnable 
+
+"GC task thread#15 (ParallelGC)" prio=3 tid=0x0000000100220800 nid=0x12 runnable 
+
+"GC task thread#16 (ParallelGC)" prio=3 tid=0x0000000100222000 nid=0x13 runnable 
+
+"GC task thread#17 (ParallelGC)" prio=3 tid=0x0000000100224000 nid=0x14 runnable 
+
+"GC task thread#18 (ParallelGC)" prio=3 tid=0x0000000100252000 nid=0x15 runnable 
+
+"GC task thread#19 (ParallelGC)" prio=3 tid=0x0000000100253800 nid=0x16 runnable 
+
+"GC task thread#20 (ParallelGC)" prio=3 tid=0x0000000100255000 nid=0x17 runnable 
+
+"GC task thread#21 (ParallelGC)" prio=3 tid=0x0000000100257000 nid=0x18 runnable 
+
+"GC task thread#22 (ParallelGC)" prio=3 tid=0x000000010025a800 nid=0x19 runnable 
+
+"GC task thread#23 (ParallelGC)" prio=3 tid=0x000000010025c000 nid=0x1a runnable 
+
+"GC task thread#24 (ParallelGC)" prio=3 tid=0x000000010025e000 nid=0x1b runnable 
+
+"GC task thread#25 (ParallelGC)" prio=3 tid=0x000000010025f800 nid=0x1c runnable 
+
+"GC task thread#26 (ParallelGC)" prio=3 tid=0x0000000100263000 nid=0x1d runnable 
+
+"GC task thread#27 (ParallelGC)" prio=3 tid=0x0000000100264800 nid=0x1e runnable 
+
+"GC task thread#28 (ParallelGC)" prio=3 tid=0x0000000100266800 nid=0x1f runnable 
+
+"GC task thread#29 (ParallelGC)" prio=3 tid=0x0000000100268000 nid=0x20 runnable 
+
+"GC task thread#30 (ParallelGC)" prio=3 tid=0x000000010028d800 nid=0x21 runnable 
+
+"GC task thread#31 (ParallelGC)" prio=3 tid=0x000000010028f800 nid=0x22 runnable 
+
+"GC task thread#32 (ParallelGC)" prio=3 tid=0x0000000100291000 nid=0x23 runnable 
+
+"GC task thread#33 (ParallelGC)" prio=3 tid=0x0000000100292800 nid=0x24 runnable 
+
+"GC task thread#34 (ParallelGC)" prio=3 tid=0x0000000100296800 nid=0x25 runnable 
+
+"GC task thread#35 (ParallelGC)" prio=3 tid=0x0000000100298000 nid=0x26 runnable 
+
+"GC task thread#36 (ParallelGC)" prio=3 tid=0x0000000100299800 nid=0x27 runnable 
+
+"GC task thread#37 (ParallelGC)" prio=3 tid=0x000000010029b000 nid=0x28 runnable 
+
+"GC task thread#38 (ParallelGC)" prio=3 tid=0x000000010029f000 nid=0x29 runnable 
+
+"GC task thread#39 (ParallelGC)" prio=3 tid=0x00000001002a0800 nid=0x2a runnable 
+
+"GC task thread#40 (ParallelGC)" prio=3 tid=0x00000001002a2000 nid=0x2b runnable 
+
+"GC task thread#41 (ParallelGC)" prio=3 tid=0x00000001002a3800 nid=0x2c runnable 
+
+"GC task thread#42 (ParallelGC)" prio=3 tid=0x00000001002a7800 nid=0x2d runnable 
+
+"GC task thread#43 (ParallelGC)" prio=3 tid=0x00000001002a9000 nid=0x2e runnable 
+
+"GC task thread#44 (ParallelGC)" prio=3 tid=0x00000001002aa800 nid=0x2f runnable 
+
+"GC task thread#45 (ParallelGC)" prio=3 tid=0x00000001002ac800 nid=0x30 runnable 
+
+"GC task thread#46 (ParallelGC)" prio=3 tid=0x00000001002d4800 nid=0x31 runnable 
+
+"GC task thread#47 (ParallelGC)" prio=3 tid=0x00000001002d6000 nid=0x32 runnable 
+
+"GC task thread#48 (ParallelGC)" prio=3 tid=0x00000001001f4000 nid=0x33 runnable 
+
+"GC task thread#49 (ParallelGC)" prio=3 tid=0x00000001001f6000 nid=0x34 runnable 
+
+"GC task thread#50 (ParallelGC)" prio=3 tid=0x00000001001f7800 nid=0x35 runnable 
+
+"GC task thread#51 (ParallelGC)" prio=3 tid=0x00000001001f9000 nid=0x36 runnable 
+
+"GC task thread#52 (ParallelGC)" prio=3 tid=0x00000001001fc800 nid=0x37 runnable 
+
+"GC task thread#53 (ParallelGC)" prio=3 tid=0x00000001001fe800 nid=0x38 runnable 
+
+"GC task thread#54 (ParallelGC)" prio=3 tid=0x0000000100200000 nid=0x39 runnable 
+
+"GC task thread#55 (ParallelGC)" prio=3 tid=0x0000000100201800 nid=0x3a runnable 
+
+"GC task thread#56 (ParallelGC)" prio=3 tid=0x0000000100205000 nid=0x3b runnable 
+
+"GC task thread#57 (ParallelGC)" prio=3 tid=0x0000000100207000 nid=0x3c runnable 
+
+"GC task thread#58 (ParallelGC)" prio=3 tid=0x0000000100208800 nid=0x3d runnable 
+
+"GC task thread#59 (ParallelGC)" prio=3 tid=0x000000010020a000 nid=0x3e runnable 
+
+"GC task thread#60 (ParallelGC)" prio=3 tid=0x0000000100227800 nid=0x3f runnable 
+
+"GC task thread#61 (ParallelGC)" prio=3 tid=0x0000000100229000 nid=0x40 runnable 
+
+"GC task thread#62 (ParallelGC)" prio=3 tid=0x000000010022a800 nid=0x41 runnable 
+
+"GC task thread#63 (ParallelGC)" prio=3 tid=0x000000010022c000 nid=0x42 runnable 
+
+"GC task thread#64 (ParallelGC)" prio=3 tid=0x0000000100230000 nid=0x43 runnable 
+
+"GC task thread#65 (ParallelGC)" prio=3 tid=0x0000000100231800 nid=0x44 runnable 
+
+"GC task thread#66 (ParallelGC)" prio=3 tid=0x0000000100233000 nid=0x45 runnable 
+
+"GC task thread#67 (ParallelGC)" prio=3 tid=0x0000000100235000 nid=0x46 runnable 
+
+"GC task thread#68 (ParallelGC)" prio=3 tid=0x0000000100238800 nid=0x47 runnable 
+
+"GC task thread#69 (ParallelGC)" prio=3 tid=0x000000010023a000 nid=0x48 runnable 
+
+"GC task thread#70 (ParallelGC)" prio=3 tid=0x000000010023b800 nid=0x49 runnable 
+
+"GC task thread#71 (ParallelGC)" prio=3 tid=0x000000010023d800 nid=0x4a runnable 
+
+"GC task thread#72 (ParallelGC)" prio=3 tid=0x0000000100241000 nid=0x4b runnable 
+
+"GC task thread#73 (ParallelGC)" prio=3 tid=0x0000000100242800 nid=0x4c runnable 
+
+"GC task thread#74 (ParallelGC)" prio=3 tid=0x0000000100244800 nid=0x4d runnable 
+
+"GC task thread#75 (ParallelGC)" prio=3 tid=0x0000000100246000 nid=0x4e runnable 
+
+"GC task thread#76 (ParallelGC)" prio=3 tid=0x0000000100249800 nid=0x4f runnable 
+
+"GC task thread#77 (ParallelGC)" prio=3 tid=0x000000010024b000 nid=0x50 runnable 
+
+"GC task thread#78 (ParallelGC)" prio=3 tid=0x000000010024d000 nid=0x51 runnable 
+
+"GC task thread#79 (ParallelGC)" prio=3 tid=0x000000010024e800 nid=0x52 runnable 
+
+"VM Periodic Task Thread" prio=3 tid=0x00000001003d2000 nid=0x5a waiting on condition 
+
+JNI global references: 411
+
+Heap
+ PSYoungGen      total 98816K, used 23796K [0x00000007f8000000, 0x0000000800000000, 0x0000000800000000)
+  eden space 67072K, 16% used [0x00000007f8000000,0x00000007f8ab8160,0x00000007fc180000)
+  from space 31744K, 40% used [0x00000007fc180000,0x00000007fce05a98,0x00000007fe080000)
+  to   space 30208K, 0% used [0x00000007fe280000,0x00000007fe280000,0x0000000800000000)
+ ParOldGen       total 917504K, used 95125K [0x0000000780000000, 0x00000007b8000000, 0x00000007f8000000)
+  object space 917504K, 10% used [0x0000000780000000,0x0000000785ce5400,0x00000007b8000000)
+ PSPermGen       total 524288K, used 40746K [0x0000000700000000, 0x0000000720000000, 0x0000000780000000)
+  object space 524288K, 7% used [0x0000000700000000,0x00000007027cab10,0x0000000720000000)
+

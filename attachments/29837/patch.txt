@@ -1,0 +1,71 @@
+diff --git a/src/main/java/hudson/tasks/junit/JUnitResultArchiver.java b/src/main/java/hudson/tasks/junit/JUnitResultArchiver.java
+index ade236b..7bce2c4 100644
+--- a/src/main/java/hudson/tasks/junit/JUnitResultArchiver.java
++++ b/src/main/java/hudson/tasks/junit/JUnitResultArchiver.java
+@@ -30,6 +30,7 @@ import hudson.FilePath;
+ import hudson.Launcher;
+ import hudson.model.AbstractBuild;
+ import hudson.model.AbstractProject;
++import hudson.model.Action;
+ import hudson.model.BuildListener;
+ import hudson.model.Descriptor;
+ import hudson.model.Result;
+@@ -41,6 +42,7 @@ import hudson.tasks.BuildStepMonitor;
+ import hudson.tasks.Publisher;
+ import hudson.tasks.Recorder;
+ import hudson.tasks.junit.TestResultAction.Data;
++import hudson.tasks.test.TestResultProjectAction;
+ import hudson.util.DescribableList;
+ import hudson.util.FormValidation;
+ import org.apache.tools.ant.DirectoryScanner;
+@@ -52,6 +54,8 @@ import org.kohsuke.stapler.QueryParameter;
+ import java.io.IOException;
+ import java.util.Collections;
+ import java.util.List;
++import java.util.Collection;
++import java.util.Collections;
+ import javax.annotation.Nonnull;
+ import jenkins.tasks.SimpleBuildStep;
+ import org.kohsuke.stapler.DataBoundSetter;
+@@ -218,6 +222,11 @@ public class JUnitResultArchiver extends Recorder implements SimpleBuildStep {
+         this.testDataPublishers.addAll(testDataPublishers);
+     }
+ 
++        @Override
++        public Collection<Action> getProjectActions(AbstractProject<?, ?> project) {
++                return Collections.<Action>singleton(new TestResultProjectAction(project));
++        }
++    
+ 	/**
+ 	 * @return the keepLongStdio
+ 	 */
+diff --git a/src/main/java/hudson/tasks/junit/TestResultAction.java b/src/main/java/hudson/tasks/junit/TestResultAction.java
+index 8f3c651..5f41ec1 100644
+--- a/src/main/java/hudson/tasks/junit/TestResultAction.java
++++ b/src/main/java/hudson/tasks/junit/TestResultAction.java
+@@ -59,7 +59,7 @@ import jenkins.tasks.SimpleBuildStep;
+  *
+  * @author Kohsuke Kawaguchi
+  */
+-public class TestResultAction extends AbstractTestResultAction<TestResultAction> implements StaplerProxy, SimpleBuildStep.LastBuildAction {
++public class TestResultAction extends AbstractTestResultAction<TestResultAction> implements StaplerProxy {
+     private transient WeakReference<TestResult> result;
+ 
+     // Hudson < 1.25 didn't set these fields, so use Integer
+@@ -88,16 +88,6 @@ public class TestResultAction extends AbstractTestResultAction<TestResultAction>
+         this((Run) null, result, listener);
+     }
+ 
+-    @SuppressWarnings("deprecation")
+-    @Override public Collection<? extends Action> getProjectActions() {
+-        Job<?,?> job = run.getParent();
+-        if (/* getAction(Class) produces a StackOverflowError */!Util.filter(job.getActions(), TestResultProjectAction.class).isEmpty()) {
+-            // JENKINS-26077: someone like XUnitPublisher already added one
+-            return Collections.emptySet();
+-        }
+-        return Collections.singleton(new TestResultProjectAction(job));
+-    }
+-
+     /**
+      * Overwrites the {@link TestResult} by a new data set.
+      * @since 1.2-beta-1

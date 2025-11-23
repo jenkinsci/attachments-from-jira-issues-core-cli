@@ -1,0 +1,475 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@2.31">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.triggers.TimerTrigger_-TimerTriggerCause/>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>FOO</name>
+          <value>BAR</value>
+        </hudson.model.StringParameterValue>
+      </parameters>
+      <parameterDefinitionNames>
+        <string>DC_CLOUD</string>
+        <string>DC_GROUP</string>
+        <string>DC_CLI_HOST</string>
+        <string>KERNEL</string>
+        <string>GIT_HASH</string>
+      </parameterDefinitionNames>
+    </hudson.model.ParametersAction>
+    <jenkins.metrics.impl.TimeInQueueAction plugin="metrics@3.1.2.12">
+      <queuingDurationMillis>21285</queuingDurationMillis>
+    </jenkins.metrics.impl.TimeInQueueAction>
+    <org.jenkinsci.plugins.workflow.libs.LibrariesAction plugin="workflow-cps-global-lib@2.12">
+      <libraries>
+        <org.jenkinsci.plugins.workflow.libs.LibraryRecord>
+          <name>pipeline-shared</name>
+          <version>master</version>
+          <variables class="sorted-set">
+            <string>pipelineHelpers</string>
+            <string>reviewStatus</string>
+            <string>versionHelpers</string>
+          </variables>
+          <trusted>true</trusted>
+          <changelog>false</changelog>
+        </org.jenkinsci.plugins.workflow.libs.LibraryRecord>
+      </libraries>
+    </org.jenkinsci.plugins.workflow.libs.LibrariesAction>
+    <hudson.plugins.git.util.BuildData plugin="git@3.9.1">
+      <buildsByBranchName>
+        <entry>
+          <string>master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1>2930c48b57e7981ae3eb490a37c32f3f8a72de32</sha1>
+              <branches class="singleton-set">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>63</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <remoteUrls>
+        <string>https://example.com/devops/pipeline-shared.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@3.9.1">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>master</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/var/jenkins_home/workspace/repo1/master/regression-tests/mssql_full/MSSQL_2016_NATIVE@libs/pipeline-shared</ws>
+    </hudson.plugins.git.GitTagAction>
+    <org.jenkinsci.plugins.workflow.cps.EnvActionImpl plugin="workflow-cps@2.61">
+      <env class="tree-map">
+        <entry>
+          <string>CLOUD</string>
+          <string>AWS</string>
+        </entry>
+      </env>
+    </org.jenkinsci.plugins.workflow.cps.EnvActionImpl>
+    <hudson.plugins.git.util.BuildData plugin="git@3.9.1">
+      <buildsByBranchName>
+        <entry>
+          <string>qa-gate/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1>45f6b5f4d01cd5dd2b81df904ffa62d0741653a4</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>qa-gate/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision plugin="git-client@2.7.4">
+              <sha1 reference="../../marked/sha1"/>
+              <branches class="list">
+                <hudson.plugins.git.Branch reference="../../../marked/branches/hudson.plugins.git.Branch"/>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>31</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>repo2/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1>41afb49573a4365ee7b7e49e5bb6593869af677b</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>repo2/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>63</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry[2]/hudson.plugins.git.util.Build"/>
+      <remoteUrls>
+        <string>http://example.com/app/repo2.git</string>
+      </remoteUrls>
+      <index>2</index>
+    </hudson.plugins.git.util.BuildData>
+    <org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState plugin="workflow-scm-step@2.7">
+      <revisionStates>
+        <entry>
+          <string>git http://example.com/app/repo2.git</string>
+          <hudson.scm.SCMRevisionState_-None/>
+        </entry>
+      </revisionStates>
+    </org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState>
+    <hudson.plugins.git.util.BuildData plugin="git@3.9.1">
+      <buildsByBranchName>
+        <entry>
+          <string>detached</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1>34599fe5da8c67fad89fb4f7385d7a2e21900ee4</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>detached</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>63</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>qa-gate/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1 reference="../../../../../../hudson.plugins.git.util.BuildData[2]/buildsByBranchName/entry/hudson.plugins.git.util.Build/marked/sha1"/>
+              <branches class="list">
+                <hudson.plugins.git.Branch reference="../../../../../../../hudson.plugins.git.util.BuildData[2]/buildsByBranchName/entry/hudson.plugins.git.util.Build/marked/branches/hudson.plugins.git.Branch"/>
+              </branches>
+            </marked>
+            <revision plugin="git-client@2.7.4">
+              <sha1 reference="../../../../../../hudson.plugins.git.util.BuildData[2]/buildsByBranchName/entry/hudson.plugins.git.util.Build/marked/sha1"/>
+              <branches class="list">
+                <hudson.plugins.git.Branch reference="../../../../../../../hudson.plugins.git.util.BuildData[2]/buildsByBranchName/entry/hudson.plugins.git.util.Build/marked/branches/hudson.plugins.git.Branch"/>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>31</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>repo2/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1>562d0087cbf8424d49dc77c7b7740565011f386d</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>repo2/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision plugin="git-client@2.7.4">
+              <sha1 reference="../../marked/sha1"/>
+              <branches class="list">
+                <hudson.plugins.git.Branch reference="../../../marked/branches/hudson.plugins.git.Branch"/>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>62</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <remoteUrls>
+        <string>http://example.com/app/repo2.git</string>
+      </remoteUrls>
+      <index>3</index>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.ansicolor.ColorizedAction plugin="ansicolor@0.6.0">
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.ColorizedAction>
+    <hudson.plugins.git.util.BuildData plugin="git@3.9.1">
+      <buildsByBranchName>
+        <entry>
+          <string>qa-gate/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1>45f6b5f4d01cd5dd2b81df904ffa62d0741653a4</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>qa-gate/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision plugin="git-client@2.7.4">
+              <sha1 reference="../../marked/sha1"/>
+              <branches class="list">
+                <hudson.plugins.git.Branch reference="../../../marked/branches/hudson.plugins.git.Branch"/>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>31</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>repo2/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.4">
+              <sha1>f60db321e9c6aebf38c0dade9283b4295c771d94</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>repo2/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>63</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry[2]/hudson.plugins.git.util.Build"/>
+      <remoteUrls>
+        <string>http://example.com/app/repo2.git</string>
+      </remoteUrls>
+      <index>4</index>
+    </hudson.plugins.git.util.BuildData>
+    <com.sonyericsson.rebuild.RebuildAction plugin="rebuild@1.29"/>
+  </actions>
+  <queueId>993435</queueId>
+  <timestamp>1548153459916</timestamp>
+  <startTime>1548153460074</startTime>
+  <result>FAILURE</result>
+  <duration>86452787</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>FAILURE</result>
+    <script>redacted</script>
+    <loadedScripts class="map"/>
+    <durabilityHint>MAX_SURVIVABILITY</durabilityHint>
+    <timings class="map">
+      <entry>
+        <string>flowNode</string>
+        <long>35322963218</long>
+      </entry>
+      <entry>
+        <string>classLoad</string>
+        <long>4553358015</long>
+      </entry>
+      <entry>
+        <string>run</string>
+        <long>223379503970</long>
+      </entry>
+      <entry>
+        <string>parse</string>
+        <long>11722814959</long>
+      </entry>
+      <entry>
+        <string>saveProgram</string>
+        <long>10174647302</long>
+      </entry>
+    </timings>
+    <sandbox>true</sandbox>
+    <iota>184</iota>
+    <head>1:184</head>
+    <done>true</done>
+    <resumeBlocked>false</resumeBlocked>
+  </execution>
+  <completed>true</completed>
+  <checkouts class="hudson.util.PersistedList">
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name>origin</name>
+            <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+            <url>https://example.com/devops/pipeline-shared.git</url>
+            <credentialsId>git-ci-key</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches class="singleton-list">
+          <hudson.plugins.git.BranchSpec>
+            <name>master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="empty-list"/>
+        <extensions>
+          <jenkins.plugins.git.GitSCMSourceDefaults>
+            <includeTags>false</includeTags>
+          </jenkins.plugins.git.GitSCMSourceDefaults>
+          <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+            <buildChooser class="jenkins.plugins.git.AbstractGitSCMSource$SpecificRevisionBuildChooser">
+              <revision reference="../../../../../../../actions/hudson.plugins.git.util.BuildData/buildsByBranchName/entry/hudson.plugins.git.util.Build/marked"/>
+            </buildChooser>
+          </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+        </extensions>
+      </scm>
+      <node></node>
+      <workspace>/var/jenkins_home/workspace/repo1/master/regression-tests/mssql_full/MSSQL_2016_NATIVE@libs/pipeline-shared</workspace>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name>repo2</name>
+            <url>http://example.com/app/repo2.git</url>
+            <credentialsId>git-ci-key</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>false</shallow>
+            <noTags>false</noTags>
+            <timeout>60</timeout>
+            <depth>1</depth>
+            <honorRefspec>false</honorRefspec>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+          <hudson.plugins.git.extensions.impl.CleanCheckout/>
+          <hudson.plugins.git.extensions.impl.CheckoutOption>
+            <timeout>60</timeout>
+          </hudson.plugins.git.extensions.impl.CheckoutOption>
+        </extensions>
+      </scm>
+      <node>jenkins-agent4-prod-usw2</node>
+      <workspace>/var/tmp/jenkins_slaves/jenkins-regression/workspace/repo1/master/regression-tests/mssql_full/MSSQL_2016_NATIVE/repo2</workspace>
+      <changelogFile>/var/jenkins_home/jobs/repo1/jobs/master/jobs/regression-tests/jobs/mssql_full/jobs/MSSQL_2016_NATIVE/builds/63/changelog0.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name>repo2</name>
+            <url>http://example.com/app/repo2.git</url>
+            <credentialsId>git-ci-key</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>34599fe5da8c67fad89fb4f7385d7a2e21900ee4</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>false</shallow>
+            <noTags>false</noTags>
+            <timeout>60</timeout>
+            <depth>1</depth>
+            <honorRefspec>false</honorRefspec>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+          <hudson.plugins.git.extensions.impl.CleanCheckout/>
+          <hudson.plugins.git.extensions.impl.CheckoutOption>
+            <timeout>60</timeout>
+          </hudson.plugins.git.extensions.impl.CheckoutOption>
+        </extensions>
+      </scm>
+      <node>jenkins-agent4-prod-usw2</node>
+      <workspace>/var/tmp/jenkins_slaves/jenkins-regression/workspace/repo1/master/regression-tests/mssql_full/MSSQL_2016_NATIVE/repo2</workspace>
+      <changelogFile>/var/jenkins_home/jobs/repo1/jobs/master/jobs/regression-tests/jobs/mssql_full/jobs/MSSQL_2016_NATIVE/builds/63/changelog1.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout[2]/pollingBaseline"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name>repo2</name>
+            <url>http://example.com/app/repo2.git</url>
+            <credentialsId>git-ci-key</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>false</shallow>
+            <noTags>false</noTags>
+            <timeout>60</timeout>
+            <depth>1</depth>
+            <honorRefspec>false</honorRefspec>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+          <hudson.plugins.git.extensions.impl.CleanCheckout/>
+          <hudson.plugins.git.extensions.impl.CheckoutOption>
+            <timeout>60</timeout>
+          </hudson.plugins.git.extensions.impl.CheckoutOption>
+        </extensions>
+      </scm>
+      <node>jenkins-agent3-prod-usw2</node>
+      <workspace>/var/tmp/jenkins_slaves/jenkins-regression/workspace/repo1/master/regression-tests/mssql_full/MSSQL_2016_NATIVE/repo2</workspace>
+      <changelogFile>/var/jenkins_home/jobs/repo1/jobs/master/jobs/regression-tests/jobs/mssql_full/jobs/MSSQL_2016_NATIVE/builds/63/changelog2.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../../actions/org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState/revisionStates/entry/hudson.scm.SCMRevisionState_-None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name>repo2</name>
+            <url>http://example.com/app/repo2.git</url>
+            <credentialsId>git-ci-key</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>34599fe5da8c67fad89fb4f7385d7a2e21900ee4</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>false</shallow>
+            <noTags>false</noTags>
+            <timeout>60</timeout>
+            <depth>1</depth>
+            <honorRefspec>false</honorRefspec>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+          <hudson.plugins.git.extensions.impl.CleanCheckout/>
+          <hudson.plugins.git.extensions.impl.CheckoutOption>
+            <timeout>60</timeout>
+          </hudson.plugins.git.extensions.impl.CheckoutOption>
+        </extensions>
+      </scm>
+      <node>jenkins-agent3-prod-usw2</node>
+      <workspace>/var/tmp/jenkins_slaves/jenkins-regression/workspace/repo1/master/regression-tests/mssql_full/MSSQL_2016_NATIVE/repo2</workspace>
+      <changelogFile>/var/jenkins_home/jobs/repo1/jobs/master/jobs/regression-tests/jobs/mssql_full/jobs/MSSQL_2016_NATIVE/builds/63/changelog3.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../../actions/org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState/revisionStates/entry/hudson.scm.SCMRevisionState_-None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+  </checkouts>
+</flow-build>

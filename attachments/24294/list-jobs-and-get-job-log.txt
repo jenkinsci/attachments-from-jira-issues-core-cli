@@ -1,0 +1,31 @@
+shell $ java -jar ./jenkins-cli.jar -i $HOME/.ssh/test_id_dsa -s http://jenkins-1:8080 list-jobs
+Job 1
+shell $ java -jar ./jenkins-cli.jar -i $HOME/.ssh/test_id_dsa -s http://jenkins-1:8080 get-job "Job 1"
+No such job 'Job 1' perhaps you meant 'job-1'?
+java -jar jenkins-cli.jar get-job args...
+Dumps the job definition XML to stdout
+ JOB                 : Name of the job
+ --username VAL      : User name to authenticate yourself to Jenkins
+ --password VAL      : Password for authentication. Note that passing a
+                       password in arguments is insecure.
+ --password-file VAL : File that contains the password
+shell $ java -jar ./jenkins-cli.jar -i $HOME/.ssh/test_id_dsa -s http://jenkins-1:8080 get-job "job-1"
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <displayName>Job 1</displayName>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders/>
+  <publishers/>
+  <buildWrappers/>
+</project>
+shell $

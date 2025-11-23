@@ -1,0 +1,31 @@
+properties properties: [[$class: 'GitLabConnectionProperty', gitLabConnection: 'gitlab']]
+
+node {
+    gitlabCommitStatus {
+        stage "checkout"
+
+            checkout scm
+            // download surf
+            //sh 'wget -q https://github.com/TYPO3/Surf/releases/download/2.0.0-beta6/surf.phar -O surf.phar'
+
+        stage "test"
+           echo 'no tests for now'
+
+        stage "deploy"
+
+            if (env.BRANCH_NAME == 'master') {
+                echo 'Deploy'
+                sshagent(['*****']) {
+                    echo 'Make sure fingerprint is ok'
+                    // preview1
+                    //sh 'ssh -oStrictHostKeyChecking=no -p22 server.com echo "ok"'
+echo "ok"'
+
+                    sh 'SURF_WORKSPACE=surf-build php surf.phar deploy test'
+                }
+
+            } else {
+                echo 'no action'
+            }
+    }
+}

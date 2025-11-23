@@ -1,0 +1,107 @@
+From fbbde8e5d2c47fee7bb8f093557cd28e341f4b5d Mon Sep 17 00:00:00 2001
+From: Stephen Ware <stephen.e.ware@intel.com>
+Date: Wed, 7 Sep 2011 12:14:26 -0700
+Subject: [PATCH] add file size to job artifact list displays
+
+Signed-off-by: Stephen Ware <stephen.e.ware@intel.com>
+---
+ core/src/main/java/hudson/model/Run.java           |   21 ++++++++++++++++---
+ .../hudson/model/Run/artifacts-index.jelly         |    2 +-
+ .../main/resources/lib/hudson/artifactList.jelly   |    2 +-
+ 3 files changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/core/src/main/java/hudson/model/Run.java b/core/src/main/java/hudson/model/Run.java
+index 784e758..fb19be2 100644
+--- a/core/src/main/java/hudson/model/Run.java
++++ b/core/src/main/java/hudson/model/Run.java
+@@ -878,17 +878,20 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+             String childPath = path + child;
+             String childHref = pathHref + Util.rawEncode(child);
+             File sub = new File(dir, child);
++            String length = sub.isFile() ? String.valueOf(sub.length()) : "0";
+             boolean collapsed = (children.length==1 && parent!=null);
+             Artifact a;
+             if (collapsed) {
+                 // Collapse single items into parent node where possible:
+                 a = new Artifact(parent.getFileName() + '/' + child, childPath,
+-                                 sub.isDirectory() ? null : childHref, parent.getTreeNodeId());
++                                 sub.isDirectory() ? null : childHref, length,
++                                 parent.getTreeNodeId());
+                 r.tree.put(a, r.tree.remove(parent));
+             } else {
+                 // Use null href for a directory:
+                 a = new Artifact(child, childPath,
+-                                 sub.isDirectory() ? null : childHref, "n" + ++r.idSeq);
++                                 sub.isDirectory() ? null : childHref, length,
++                                 "n" + ++r.idSeq);
+                 r.tree.put(a, parent!=null ? parent.getTreeNodeId() : null);
+             }
+             if (sub.isDirectory()) {
+@@ -896,7 +899,7 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+                 if (n>=upTo) break;
+             } else {
+                 // Don't store collapsed path in ArrayList (for correct data in external API)
+-                r.add(collapsed ? new Artifact(child, a.relativePath, a.href, a.treeNodeId) : a);
++                r.add(collapsed ? new Artifact(child, a.relativePath, a.href, length, a.treeNodeId) : a);
+                 if (++n>=upTo) break;
+             }
+         }
+@@ -1031,11 +1034,17 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+          */
+         private String treeNodeId;
+ 
+-        /*package for test*/ Artifact(String name, String relativePath, String href, String treeNodeId) {
++        /**
++         *length of this artifact for files.
++         */
++        private String length;
++
++        /*package for test*/ Artifact(String name, String relativePath, String href, String len, String treeNodeId) {
+             this.name = name;
+             this.relativePath = relativePath;
+             this.href = href;
+             this.treeNodeId = treeNodeId;
++            this.length = len;
+         }
+ 
+         /**
+@@ -1062,6 +1071,10 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+             return href;
+         }
+ 
++        public String getLength() {
++            return length;
++        }
++
+         public String getTreeNodeId() {
+             return treeNodeId;
+         }
+diff --git a/core/src/main/resources/hudson/model/Run/artifacts-index.jelly b/core/src/main/resources/hudson/model/Run/artifacts-index.jelly
+index 4cc5cb6..f1df32b 100644
+--- a/core/src/main/resources/hudson/model/Run/artifacts-index.jelly
++++ b/core/src/main/resources/hudson/model/Run/artifacts-index.jelly
+@@ -33,7 +33,7 @@ THE SOFTWARE.
+         </t:buildCaption>
+         <ul>
+           <j:forEach var="f" items="${it.artifacts}">
+-            <li><a href="artifact/${f.href}">${f.displayPath}</a></li>
++            <li><a href="artifact/${f.href}">${f.displayPath}</a><st:nbsp/>${f.length}${%Bytes}</li>
+           </j:forEach>
+         </ul>
+       </l:main-panel>
+diff --git a/core/src/main/resources/lib/hudson/artifactList.jelly b/core/src/main/resources/lib/hudson/artifactList.jelly
+index 459341a..c293b97 100644
+--- a/core/src/main/resources/lib/hudson/artifactList.jelly
++++ b/core/src/main/resources/lib/hudson/artifactList.jelly
+@@ -51,7 +51,7 @@ THE SOFTWARE.
+               <j:forEach var="f" items="${artifacts}">
+                 <li>
+                   <a href="${baseURL}artifact/${f.href}">${f.displayPath}</a>
+-                  <st:nbsp/>
++                  <st:nbsp/>${f.length}${%Bytes}<st:nbsp/>
+                   <a href="${baseURL}artifact/${f.href}/*fingerprint*/"><img src="${imagesURL}/16x16/fingerprint.png" alt="[fingerprint]" height="16" width="16" /></a>
+                 </li>
+               </j:forEach>
+-- 
+1.7.4.4
+

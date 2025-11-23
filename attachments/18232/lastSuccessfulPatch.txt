@@ -1,0 +1,83 @@
+Index: main/core/src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+--- main/core/src/main/java/hudson/model/AbstractBuild.java	(revision 10859)
++++ main/core/src/main/java/hudson/model/AbstractBuild.java	(working copy)
+@@ -21,6 +21,7 @@
+ import hudson.tasks.test.AbstractTestResultAction;
+ import hudson.util.AdaptedIterator;
+ import hudson.util.Iterators;
++import hudson.util.StreamTaskListener;
+ import org.kohsuke.stapler.Stapler;
+ import org.kohsuke.stapler.StaplerRequest;
+ import org.kohsuke.stapler.StaplerResponse;
+@@ -243,10 +244,6 @@
+             return Result.SUCCESS;
+         }
+ 
+-        private void createLastSuccessfulLink(BuildListener listener) throws InterruptedException {
+-            Util.createSymlink(getProject().getBuildDir(),"builds/"+getId(),"../lastSuccessful",listener);
+-        }
+-
+         private boolean checkout(BuildListener listener) throws Exception {
+             if(!project.checkout(AbstractBuild.this,launcher,listener,new File(getRootDir(),"changelog.xml")))
+                 return true;
+@@ -326,6 +323,31 @@
+         }
+     }
+ 
++    private void createLastSuccessfulLink(TaskListener listener) throws InterruptedException {
++        Util.createSymlink(getProject().getBuildDir(),"builds/"+getId(),"../lastSuccessful",listener);
++    }
++
++    private void deleteLastSuccessfulLink(TaskListener listener) throws InterruptedException {
++        Util.deleteSymlink(getProject().getBuildDir(),"../lastSuccessful",listener);
++    }
++
++    @Override
++    public void delete() throws IOException {
++        super.delete();
++
++        try {
++            R last = getProject().getLastSuccessfulBuild();
++            if (last != null) {
++                last.createLastSuccessfulLink(new StreamTaskListener());
++            } else {
++                deleteLastSuccessfulLink(new StreamTaskListener());
++            }
++        } catch (InterruptedException e) {
++             // handle the interrupt later
++            Thread.currentThread().interrupt();
++        }
++    }
++
+     /**
+      * Gets the changes incorporated into this build.
+      *
+Index: main/core/src/main/java/hudson/Util.java
+===================================================================
+--- main/core/src/main/java/hudson/Util.java	(revision 10859)
++++ main/core/src/main/java/hudson/Util.java	(working copy)
+@@ -736,6 +736,23 @@
+     }
+ 
+     /**
++     * Deletes symlink baseDir+symlinkPath.
++     */
++    public static void deleteSymlink(File baseDir, String symlinkPath, TaskListener listener) throws InterruptedException {
++        if(!isWindows()) {
++            try {
++                // ignore a failure.
++                new LocalProc(new String[]{"rm","-rf", symlinkPath},new String[0],listener.getLogger(), baseDir).join();
++            } catch (IOException e) {
++                PrintStream log = listener.getLogger();
++                log.println("rm failed");
++                Util.displayIOException(e,listener);
++                e.printStackTrace( log );
++            }
++        }
++    }
++
++    /**
+      * Encodes the URL by RFC 2396.
+      *
+      * I thought there's another spec that refers to UTF-8 as the encoding,

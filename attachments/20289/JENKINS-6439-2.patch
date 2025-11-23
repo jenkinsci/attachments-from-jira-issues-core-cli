@@ -1,0 +1,13 @@
+diff --git a/core/src/main/resources/hudson/model/BuildTimelineWidget/control.jelly b/core/src/main/resources/hudson/model/BuildTimelineWidget/control.jelly
+index c168f54..a6648fd 100644
+--- a/core/src/main/resources/hudson/model/BuildTimelineWidget/control.jelly
++++ b/core/src/main/resources/hudson/model/BuildTimelineWidget/control.jelly
+@@ -70,7 +70,7 @@ THE SOFTWARE.
+         theme1.timeline_start = new Date(${it.firstBuild.timeInMillis-24*60*60*1000});
+         theme1.timeline_stop  = new Date(${it.lastBuild.timeInMillis+24*60*60*1000});
+ 
+-        var d = theme1.timeline_stop;
++        var d = new Date(${it.lastBuild.timeInMillis});
+         var bandInfos = [
+             // the bar that shows outline
+             Timeline.createBandInfo({

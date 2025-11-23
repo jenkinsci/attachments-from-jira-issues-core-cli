@@ -1,0 +1,99 @@
+From 268194c8c3e172da60212713cae7a5f7fe243220 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bj=C3=B6rn=20Pedersen?= <bjoern.pedersen@frm2.tum.de>
+Date: Wed, 13 Feb 2013 17:31:43 +0100
+Subject: [PATCH] [JENKINS-14955] Fix wrong root URL with --prefix
+
+If jenkins is run with --prefix then the rootURL has to be adjusted.
+---
+ .../com/tikal/jenkins/plugins/multijob/MultiJobBuild/main.jelly       | 4 ++--
+ .../com/tikal/jenkins/plugins/multijob/MultiJobProject/main.jelly     | 4 ++--
+ .../tikal/jenkins/plugins/multijob/views/ConsoleColumn/column.jelly   | 2 +-
+ .../com/tikal/jenkins/plugins/multijob/views/JobColumn/column.jelly   | 4 ++--
+ .../tikal/jenkins/plugins/multijob/views/WeatherColumn/column.jelly   | 4 ++--
+ 5 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobBuild/main.jelly b/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobBuild/main.jelly
+index d347b07..d42fda0 100644
+--- a/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobBuild/main.jelly
++++ b/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobBuild/main.jelly
+@@ -17,7 +17,7 @@
+ 	 			<td class="no-wrap">
+ 	 				<j:choose>
+ 		 				<j:when test="${builder.url.length() > 0}">
+-			 				<a href="/${builder.url}">
++			 				<a href="${rootURL}/${builder.url}">
+ 		                		build #${builder.buildNumber}
+ 		              		</a>
+ 	              		</j:when>
+@@ -31,4 +31,4 @@
+ 
+ 	<p:upstream-downstream />
+ 
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobProject/main.jelly b/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobProject/main.jelly
+index feba30d..4e06667 100644
+--- a/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobProject/main.jelly
++++ b/src/main/resources/com/tikal/jenkins/plugins/multijob/MultiJobProject/main.jelly
+@@ -6,7 +6,7 @@
+ 		<j:when test="${it.topMost}"-->
+ 			<br />
+ 			<t:projectView jobs="${it.view.getRootItem(it)}"
+-				jobBaseUrl="${it.rootUrl}" showViewTabs="false" columnExtensions="${it.view.columns}">
++				jobBaseUrl="${rootURL}/" showViewTabs="false" columnExtensions="${it.view.columns}">
+ 			</t:projectView>
+ 		<!--/j:when>
+ 	</j:choose-->
+@@ -49,4 +49,4 @@
+ 	</j:forEach>
+ 
+ 	<p:upstream-downstream />
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/src/main/resources/com/tikal/jenkins/plugins/multijob/views/ConsoleColumn/column.jelly b/src/main/resources/com/tikal/jenkins/plugins/multijob/views/ConsoleColumn/column.jelly
+index b8b98c1..46e4a01 100644
+--- a/src/main/resources/com/tikal/jenkins/plugins/multijob/views/ConsoleColumn/column.jelly
++++ b/src/main/resources/com/tikal/jenkins/plugins/multijob/views/ConsoleColumn/column.jelly
+@@ -5,7 +5,7 @@
+ 	<td data="${lBuild.duration ?: '0'}">
+ 		<j:choose>
+ 			<j:when test="${lBuild!=null}">
+-				<a href="${jobBaseUrl}${lBuild.url}console">
++				<a href="${rootURL}/${lBuild.url}console">
+ 					<img src="${imagesURL}/${subIconSize}/terminal.gif" title="${%Console output}"
+ 						alt="${%Console output}" border="0" />
+ 				</a>
+diff --git a/src/main/resources/com/tikal/jenkins/plugins/multijob/views/JobColumn/column.jelly b/src/main/resources/com/tikal/jenkins/plugins/multijob/views/JobColumn/column.jelly
+index 9ece022..76c83b1 100644
+--- a/src/main/resources/com/tikal/jenkins/plugins/multijob/views/JobColumn/column.jelly
++++ b/src/main/resources/com/tikal/jenkins/plugins/multijob/views/JobColumn/column.jelly
+@@ -7,8 +7,8 @@
+ 				${job.displayName}
+ 			</j:when>
+ 			<j:when test="${!job.phase}">
+-				<a href="${jobBaseUrl}${job.shortUrl}"> ${job.displayName}</a>
++				<a href="${rootURL}/${job.shortUrl}"> ${job.displayName}</a>
+ 			</j:when>
+ 		</j:choose>
+ 	</td>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/src/main/resources/com/tikal/jenkins/plugins/multijob/views/WeatherColumn/column.jelly b/src/main/resources/com/tikal/jenkins/plugins/multijob/views/WeatherColumn/column.jelly
+index 609cb31..ff0021b 100644
+--- a/src/main/resources/com/tikal/jenkins/plugins/multijob/views/WeatherColumn/column.jelly
++++ b/src/main/resources/com/tikal/jenkins/plugins/multijob/views/WeatherColumn/column.jelly
+@@ -1,5 +1,5 @@
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+ 	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
+ 	xmlns:i="jelly:fmt">
+-	<t:buildHealth td="true" link="${jobBaseUrl}${job.shortUrl}lastBuild" />
+-</j:jelly>
+\ No newline at end of file
++	<t:buildHealth td="true" link="${rootURL}/${job.shortUrl}lastBuild" />
++</j:jelly>
+-- 
+1.8.0.1.244.g77b598b
+

@@ -1,0 +1,514 @@
++ /usr/local/bin/jenkins-hook.sh https://jenkins.grunnbok.no/jnlpJars/agent.jar nnriap636.statkart.no:8090 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo/dgGDMcMwI1CotFrc1qRxgAKtUqnrL5eMDOyqqmTm/jQljsc4lgw5n+6GzcI5HK0U+61TvgcMWPLHk/m1gHFgmBPnYnOcAlTU4bPWGqSptChjMlBCrpLQ8PsHS6SyFvxLc64m3+PDF472PLX7MbZTmaAVh+mtq9/7tOiF4znIZ6jFftkxNcNsOAGcoiPjR/zJd7FqzotHuq50TtRNKigvwtGYHQhIPhhLMBkpbjCCLbK1LJ6msHaJJ3wj2VjPLWENrSI0qrwquQVVwwc0A4i9Mt8iKQrOQhZdFKKPUDFPbXcQ75aJLkd+6nCbdKG1oO7N25obgvgr1KA3KCjxKpeQIDAQAB 2e7a24667d5e80555cbe01098f0343fe463437102e5358b094fcd973c028914b agt-arm_MAT_19208_8-13
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 1489k  100 1489k    0     0  3316k      0 --:--:-- --:--:-- --:--:-- 3316k
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main createEngine
+INFO: Setting up agent: agt-arm_MAT_19208_8-13
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main$CuiListener <init>
+INFO: Jenkins agent is running in headless mode.
+apr 05, 2022 1:21:18 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 4.12
+apr 05, 2022 1:21:18 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /tmp/remoting as a remoting work directory
+apr 05, 2022 1:21:18 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /tmp/remoting
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Locating server among []
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Agent discovery successful
+  Agent address: nnriap636.statkart.no
+  Agent port:    8090
+  Identity:      dc:27:a4:3d:43:1f:0a:5e:ed:3e:57:12:60:d6:4b:82
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Handshaking
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connecting to nnriap636.statkart.no:8090
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+apr 05, 2022 1:21:18 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+apr 05, 2022 1:21:18 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Remote identity confirmed: dc:27:a4:3d:43:1f:0a:5e:ed:3e:57:12:60:d6:4b:82
+apr 05, 2022 1:21:19 PM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connected
+2022-04-05 11:21:42
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.311-b11 mixed mode):
+"pool-1-thread-15" #29 daemon prio=5 os_prio=0 tid=0x00007f508c056800 nid=0x44 waiting on condition [0x00007f50736f7000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007492059d0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-14 / waiting for JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090 id=64" #28 daemon prio=5 os_prio=0 tid=0x00007f508c054800 nid=0x43 waiting for monitor entry [0x00007f50737f7000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.remoting.Request.call(Request.java:162)
+	- waiting to lock <0x00000007492483d0> (a hudson.remoting.Channel)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:288)
+	at com.sun.proxy.$Proxy5.fetch3(Unknown Source)
+	at hudson.remoting.RemoteClassLoader.prefetchClassReference(RemoteClassLoader.java:348)
+	at hudson.remoting.RemoteClassLoader.loadWithMultiClassLoader(RemoteClassLoader.java:253)
+	at hudson.remoting.RemoteClassLoader.findClass(RemoteClassLoader.java:223)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	- locked <0x0000000749248178> (a hudson.remoting.RemoteClassLoader)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at java.lang.Class.getDeclaringClass0(Native Method)
+	at java.lang.Class.getDeclaringClass(Class.java:1235)
+	at java.lang.Class.getEnclosingClass(Class.java:1277)
+	at java.lang.Class.getSimpleBinaryName(Class.java:1443)
+	at java.lang.Class.getSimpleName(Class.java:1309)
+	at java.lang.Class.isAnonymousClass(Class.java:1411)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings.doCheck(AnonymousClassWarnings.java:76)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings.lambda$check$0(AnonymousClassWarnings.java:66)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings$$Lambda$27/2072680620.run(Unknown Source)
+	at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+	at hudson.remoting.InterceptingExecutorService$$Lambda$28/1484161692.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-13" #27 daemon prio=5 os_prio=0 tid=0x00007f508c053800 nid=0x42 waiting on condition [0x00007f50738f9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007492059d0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"Ping thread for channel hudson.remoting.Channel@40bc3a5:JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090" #26 daemon prio=5 os_prio=0 tid=0x00007f5064007000 nid=0x41 waiting on condition [0x00007f50739fa000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at java.lang.Thread.sleep(Thread.java:340)
+	at java.util.concurrent.TimeUnit.sleep(TimeUnit.java:386)
+	at hudson.remoting.PingThread.run(PingThread.java:93)
+"pool-1-thread-12 for JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090 id=35853" #25 daemon prio=5 os_prio=0 tid=0x00007f5088008800 nid=0x40 waiting for monitor entry [0x00007f5073af9000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
+	at java.lang.Class.getDeclaredMethod(Class.java:2128)
+	at java.io.ObjectStreamClass.getPrivateMethod(ObjectStreamClass.java:1644)
+	at java.io.ObjectStreamClass.access$1700(ObjectStreamClass.java:79)
+	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:520)
+	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:494)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.io.ObjectStreamClass.<init>(ObjectStreamClass.java:494)
+	at java.io.ObjectStreamClass.lookup(ObjectStreamClass.java:391)
+	at java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:681)
+	at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2026)
+	at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1873)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2183)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1690)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2428)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2352)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2210)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1690)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:508)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:466)
+	at hudson.remoting.UserRequest.deserialize(UserRequest.java:289)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:189)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:54)
+	at hudson.remoting.Request$2.run(Request.java:376)
+	at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+	at hudson.remoting.InterceptingExecutorService$$Lambda$28/1484161692.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-11" #24 daemon prio=5 os_prio=0 tid=0x00007f508c04d800 nid=0x3f waiting for monitor entry [0x00007f5073df9000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.remoting.RemoteClassLoader.loadRemoteClass(RemoteClassLoader.java:272)
+	- waiting to lock <0x0000000749248178> (a hudson.remoting.RemoteClassLoader)
+	at hudson.remoting.RemoteClassLoader.loadWithMultiClassLoader(RemoteClassLoader.java:264)
+	at hudson.remoting.RemoteClassLoader.findClass(RemoteClassLoader.java:223)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	- locked <0x000000074935eb68> (a hudson.remoting.RemoteClassLoader)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:756)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:635)
+	at hudson.remoting.RemoteClassLoader.loadClassFile(RemoteClassLoader.java:453)
+	at hudson.remoting.RemoteClassLoader.loadRemoteClass(RemoteClassLoader.java:295)
+	- locked <0x000000074935eb68> (a hudson.remoting.RemoteClassLoader)
+	at hudson.remoting.RemoteClassLoader.loadWithMultiClassLoader(RemoteClassLoader.java:264)
+	at hudson.remoting.RemoteClassLoader.findClass(RemoteClassLoader.java:223)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	- locked <0x000000074935eb68> (a hudson.remoting.RemoteClassLoader)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at java.lang.Class.getDeclaringClass0(Native Method)
+	at java.lang.Class.getDeclaringClass(Class.java:1235)
+	at java.lang.Class.getEnclosingClass(Class.java:1277)
+	at java.lang.Class.getSimpleBinaryName(Class.java:1443)
+	at java.lang.Class.getSimpleName(Class.java:1309)
+	at java.lang.Class.isAnonymousClass(Class.java:1411)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings.doCheck(AnonymousClassWarnings.java:76)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings.lambda$check$0(AnonymousClassWarnings.java:66)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings$$Lambda$27/2072680620.run(Unknown Source)
+	at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+	at hudson.remoting.InterceptingExecutorService$$Lambda$28/1484161692.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-10 for JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090 id=35852" #23 daemon prio=5 os_prio=0 tid=0x00007f508c04a800 nid=0x3e waiting for monitor entry [0x00007f5073efb000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2583)
+	at java.lang.Class.getDeclaredField(Class.java:2068)
+	at java.io.ObjectStreamClass.getDeclaredSUID(ObjectStreamClass.java:1872)
+	at java.io.ObjectStreamClass.access$700(ObjectStreamClass.java:79)
+	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:506)
+	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:494)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.io.ObjectStreamClass.<init>(ObjectStreamClass.java:494)
+	at java.io.ObjectStreamClass.lookup(ObjectStreamClass.java:391)
+	at java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:681)
+	at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2026)
+	at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1873)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2183)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1690)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:508)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:466)
+	at hudson.remoting.UserRequest.deserialize(UserRequest.java:289)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:189)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:54)
+	at hudson.remoting.Request$2.run(Request.java:376)
+	at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+	at hudson.remoting.InterceptingExecutorService$$Lambda$28/1484161692.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-9" #22 daemon prio=5 os_prio=0 tid=0x00007f5080006800 nid=0x3d waiting on condition [0x00007f5073ffe000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007492059d0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-8 : IO ID=278 : seq#=277" #21 daemon prio=5 os_prio=0 tid=0x00007f5080005000 nid=0x3c waiting for monitor entry [0x00007f50e01d5000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.util.RingBufferLogHandler.publish(RingBufferLogHandler.java:78)
+	- waiting to lock <0x00000007492b1f50> (a hudson.util.RingBufferLogHandler)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:788)
+	at java.util.logging.Logger.fine(Logger.java:1516)
+	at hudson.remoting.Channel.send(Channel.java:763)
+	- locked <0x00000007492483d0> (a hudson.remoting.Channel)
+	at hudson.remoting.ProxyOutputStream$Chunk.lambda$execute$0(ProxyOutputStream.java:275)
+	at hudson.remoting.ProxyOutputStream$Chunk$$Lambda$31/921186177.run(Unknown Source)
+	at hudson.remoting.PipeWriter$1.run(PipeWriter.java:159)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+	at hudson.remoting.InterceptingExecutorService$$Lambda$28/1484161692.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-7" #20 daemon prio=5 os_prio=0 tid=0x00007f509001b800 nid=0x3b waiting on condition [0x00007f50e02d7000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007492059d0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"JarCacheSupport [#1] / waiting for JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090 id=25" #19 daemon prio=5 os_prio=0 tid=0x00007f5090018000 nid=0x3a in Object.wait() [0x00007f50e03d8000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000074938ff48> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Request.call(Request.java:177)
+	- locked <0x000000074938ff48> (a hudson.remoting.UserRequest)
+	at hudson.remoting.Channel.call(Channel.java:999)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:285)
+	at com.sun.proxy.$Proxy3.writeJarTo(Unknown Source)
+	at hudson.remoting.FileSystemJarCache.retrieve(FileSystemJarCache.java:115)
+	at hudson.remoting.JarCacheSupport$DownloadRunnable.run(JarCacheSupport.java:113)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at hudson.remoting.AtmostOneThreadExecutor$Worker.run(AtmostOneThreadExecutor.java:121)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-6" #18 daemon prio=5 os_prio=0 tid=0x00007f508c044800 nid=0x39 waiting on condition [0x00007f50e04d9000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007492059d0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-5" #17 daemon prio=5 os_prio=0 tid=0x00007f508c037800 nid=0x38 waiting for monitor entry [0x00007f50e05da000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.util.RingBufferLogHandler.publish(RingBufferLogHandler.java:78)
+	- waiting to lock <0x00000007492b1f50> (a hudson.util.RingBufferLogHandler)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:831)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Writer.run(BIONetworkLayer.java:219)
+	- locked <0x000000074937ca38> (a org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Writer)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"RemoteInvocationHandler [#1]" #16 daemon prio=5 os_prio=0 tid=0x00007f508c02e000 nid=0x37 waiting for monitor entry [0x00007f50e06db000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.remoting.Channel.send(Channel.java:760)
+	- waiting to lock <0x00000007492483d0> (a hudson.remoting.Channel)
+	at hudson.remoting.RemoteInvocationHandler$PhantomReferenceImpl.cleanup(RemoteInvocationHandler.java:397)
+	at hudson.remoting.RemoteInvocationHandler$PhantomReferenceImpl.access$1000(RemoteInvocationHandler.java:356)
+	at hudson.remoting.RemoteInvocationHandler$Unexporter.run(RemoteInvocationHandler.java:614)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at hudson.remoting.AtmostOneThreadExecutor$Worker.run(AtmostOneThreadExecutor.java:121)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-4" #15 daemon prio=5 os_prio=0 tid=0x00007f50a00c0000 nid=0x36 waiting on condition [0x00007f50e09dc000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007492059d0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-3" #14 daemon prio=5 os_prio=0 tid=0x00007f50a00be000 nid=0x35 waiting for monitor entry [0x00007f50e8145000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.util.RingBufferLogHandler.publish(RingBufferLogHandler.java:78)
+	- locked <0x00000007492b1f50> (a hudson.util.RingBufferLogHandler)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:851)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processResult(SSLEngineFilterLayer.java:439)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processRead(SSLEngineFilterLayer.java:347)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.onRecv(SSLEngineFilterLayer.java:118)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.onRecv(ProtocolStack.java:677)
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRead(NetworkLayer.java:136)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$2200(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"Windows IOHub Watcher for IOHub#1: Selector[keys:0, gen:0] / pool-1-thread-2" #13 daemon prio=5 os_prio=0 tid=0x00007f50a0024000 nid=0x34 in Object.wait() [0x00007f50e86b6000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000074937ce88> (a java.lang.Object)
+	at org.jenkinsci.remoting.protocol.IOHub$IOHubSelectorWatcher.run(IOHub.java:548)
+	- locked <0x000000074937ce88> (a java.lang.Object)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"IOHub#1: Selector[keys:0, gen:0] / pool-1-thread-1" #12 daemon prio=5 os_prio=0 tid=0x00007f50a0021800 nid=0x33 waiting for monitor entry [0x00007f50e87b7000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at hudson.util.RingBufferLogHandler.publish(RingBufferLogHandler.java:78)
+	- waiting to lock <0x00000007492b1f50> (a hudson.util.RingBufferLogHandler)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:831)
+	at org.jenkinsci.remoting.protocol.IOHub.processScheduledTasks(IOHub.java:571)
+	at org.jenkinsci.remoting.protocol.IOHub.run(IOHub.java:447)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"Thread-1" #11 prio=5 os_prio=0 tid=0x00007f510c2b1000 nid=0x32 in Object.wait() [0x00007f50e88b8000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007492483d0> (a hudson.remoting.Channel)
+	at hudson.remoting.Channel.join(Channel.java:1183)
+	- locked <0x00000007492483d0> (a hudson.remoting.Channel)
+	at hudson.remoting.Engine.innerRun(Engine.java:812)
+	at hudson.remoting.Engine.run(Engine.java:539)
+"Service Thread" #9 daemon prio=9 os_prio=0 tid=0x00007f510c0d7000 nid=0x30 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+"C1 CompilerThread3" #8 daemon prio=9 os_prio=0 tid=0x00007f510c0cc000 nid=0x2f waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+"C2 CompilerThread2" #7 daemon prio=9 os_prio=0 tid=0x00007f510c0c9800 nid=0x2e waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+"C2 CompilerThread1" #6 daemon prio=9 os_prio=0 tid=0x00007f510c0c8000 nid=0x2d waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+"C2 CompilerThread0" #5 daemon prio=9 os_prio=0 tid=0x00007f510c0c5000 nid=0x2c waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+"Signal Dispatcher" #4 daemon prio=9 os_prio=0 tid=0x00007f510c0c3800 nid=0x2b waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+"Finalizer" #3 daemon prio=8 os_prio=0 tid=0x00007f510c091000 nid=0x2a in Object.wait() [0x00007f50e96ab000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000749420b78> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x0000000749420b78> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+"Reference Handler" #2 daemon prio=10 os_prio=0 tid=0x00007f510c08c800 nid=0x29 in Object.wait() [0x00007f50e97ac000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000749420d30> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	- locked <0x0000000749420d30> (a java.lang.ref.Reference$Lock)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+"main" #1 prio=5 os_prio=0 tid=0x00007f510c00b800 nid=0x1f in Object.wait() [0x00007f5114676000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000749200c98> (a hudson.remoting.Engine)
+	at java.lang.Thread.join(Thread.java:1252)
+	- locked <0x0000000749200c98> (a hudson.remoting.Engine)
+	at java.lang.Thread.join(Thread.java:1326)
+	at hudson.remoting.jnlp.Main.main(Main.java:289)
+	at hudson.remoting.jnlp.Main._main(Main.java:282)
+	at hudson.remoting.jnlp.Main.main(Main.java:237)
+"VM Thread" os_prio=0 tid=0x00007f510c082800 nid=0x28 runnable 
+"GC task thread#0 (ParallelGC)" os_prio=0 tid=0x00007f510c021800 nid=0x20 runnable 
+"GC task thread#1 (ParallelGC)" os_prio=0 tid=0x00007f510c023000 nid=0x21 runnable 
+"GC task thread#2 (ParallelGC)" os_prio=0 tid=0x00007f510c025000 nid=0x22 runnable 
+"GC task thread#3 (ParallelGC)" os_prio=0 tid=0x00007f510c026800 nid=0x23 runnable 
+"GC task thread#4 (ParallelGC)" os_prio=0 tid=0x00007f510c028800 nid=0x24 runnable 
+"GC task thread#5 (ParallelGC)" os_prio=0 tid=0x00007f510c02a000 nid=0x25 runnable 
+"GC task thread#6 (ParallelGC)" os_prio=0 tid=0x00007f510c02c000 nid=0x26 runnable 
+"GC task thread#7 (ParallelGC)" os_prio=0 tid=0x00007f510c02d800 nid=0x27 runnable 
+"VM Periodic Task Thread" os_prio=0 tid=0x00007f510c0db800 nid=0x31 waiting on condition 
+JNI global references: 289
+Found one Java-level deadlock:
+=============================
+"pool-1-thread-14 / waiting for JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090 id=64":
+  waiting to lock monitor 0x00007f50bc006318 (object 0x00000007492483d0, a hudson.remoting.Channel),
+  which is held by "pool-1-thread-8 : IO ID=278 : seq#=277"
+"pool-1-thread-8 : IO ID=278 : seq#=277":
+  waiting to lock monitor 0x00007f5074001878 (object 0x00000007492b1f50, a hudson.util.RingBufferLogHandler),
+  which is held by "pool-1-thread-3"
+"pool-1-thread-3":
+  waiting to lock monitor 0x00007f508c03b3b8 (object 0x0000000749248178, a hudson.remoting.RemoteClassLoader),
+  which is held by "pool-1-thread-14 / waiting for JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090 id=64"
+Java stack information for the threads listed above:
+===================================================
+"pool-1-thread-14 / waiting for JNLP4-connect connection to nnriap636.statkart.no/159.162.48.115:8090 id=64":
+	at hudson.remoting.Request.call(Request.java:162)
+	- waiting to lock <0x00000007492483d0> (a hudson.remoting.Channel)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:288)
+	at com.sun.proxy.$Proxy5.fetch3(Unknown Source)
+	at hudson.remoting.RemoteClassLoader.prefetchClassReference(RemoteClassLoader.java:348)
+	at hudson.remoting.RemoteClassLoader.loadWithMultiClassLoader(RemoteClassLoader.java:253)
+	at hudson.remoting.RemoteClassLoader.findClass(RemoteClassLoader.java:223)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	- locked <0x0000000749248178> (a hudson.remoting.RemoteClassLoader)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at java.lang.Class.getDeclaringClass0(Native Method)
+	at java.lang.Class.getDeclaringClass(Class.java:1235)
+	at java.lang.Class.getEnclosingClass(Class.java:1277)
+	at java.lang.Class.getSimpleBinaryName(Class.java:1443)
+	at java.lang.Class.getSimpleName(Class.java:1309)
+	at java.lang.Class.isAnonymousClass(Class.java:1411)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings.doCheck(AnonymousClassWarnings.java:76)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings.lambda$check$0(AnonymousClassWarnings.java:66)
+	at org.jenkinsci.remoting.util.AnonymousClassWarnings$$Lambda$27/2072680620.run(Unknown Source)
+	at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+	at hudson.remoting.InterceptingExecutorService$$Lambda$28/1484161692.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-8 : IO ID=278 : seq#=277":
+	at hudson.util.RingBufferLogHandler.publish(RingBufferLogHandler.java:78)
+	- waiting to lock <0x00000007492b1f50> (a hudson.util.RingBufferLogHandler)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:788)
+	at java.util.logging.Logger.fine(Logger.java:1516)
+	at hudson.remoting.Channel.send(Channel.java:763)
+	- locked <0x00000007492483d0> (a hudson.remoting.Channel)
+	at hudson.remoting.ProxyOutputStream$Chunk.lambda$execute$0(ProxyOutputStream.java:275)
+	at hudson.remoting.ProxyOutputStream$Chunk$$Lambda$31/921186177.run(Unknown Source)
+	at hudson.remoting.PipeWriter$1.run(PipeWriter.java:159)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+	at hudson.remoting.InterceptingExecutorService$$Lambda$28/1484161692.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"pool-1-thread-3":
+	at hudson.util.RingBufferLogHandler.publish(RingBufferLogHandler.java:78)
+	- locked <0x00000007492b1f50> (a hudson.util.RingBufferLogHandler)
+	at java.util.logging.Logger.log(Logger.java:738)
+	at java.util.logging.Logger.doLog(Logger.java:765)
+	at java.util.logging.Logger.log(Logger.java:851)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processResult(SSLEngineFilterLayer.java:439)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processRead(SSLEngineFilterLayer.java:347)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.onRecv(SSLEngineFilterLayer.java:118)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.onRecv(ProtocolStack.java:677)
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRead(NetworkLayer.java:136)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$2200(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:121)
+	at hudson.remoting.Engine$1$$Lambda$8/1259383450.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+Found 1 deadlock.
+Heap
+ PSYoungGen      total 112128K, used 27119K [0x0000000743400000, 0x000000074b100000, 0x00000007c0000000)
+  eden space 96256K, 20% used [0x0000000743400000,0x00000007447016e0,0x0000000749200000)
+  from space 15872K, 48% used [0x0000000749200000,0x000000074997a828,0x000000074a180000)
+  to   space 15872K, 0% used [0x000000074a180000,0x000000074a180000,0x000000074b100000)
+ ParOldGen       total 257024K, used 24K [0x0000000649c00000, 0x0000000659700000, 0x0000000743400000)
+  object space 257024K, 0% used [0x0000000649c00000,0x0000000649c06000,0x0000000659700000)
+ Metaspace       used 14497K, capacity 14978K, committed 15232K, reserved 1062912K
+  class space    used 1704K, capacity 1818K, committed 1920K, reserved 1048576K

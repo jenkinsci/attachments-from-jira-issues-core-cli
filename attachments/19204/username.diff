@@ -1,0 +1,13 @@
+Index: src/main/java/hudson/model/User.java
+===================================================================
+--- src/main/java/hudson/model/User.java	(revision 28266)
++++ src/main/java/hudson/model/User.java	(working copy)
+@@ -269,7 +269,7 @@
+     public static User get(String idOrFullName, boolean create) {
+         if(idOrFullName==null)
+             return null;
+-        String id = idOrFullName.replace('\\', '_').replace('/', '_').replace('<','_');
++        String id = idOrFullName.replace('\\', '_').replace('/', '_').replace('<','_').replace('>','_');
+         
+         synchronized(byName) {
+             User u = byName.get(id);

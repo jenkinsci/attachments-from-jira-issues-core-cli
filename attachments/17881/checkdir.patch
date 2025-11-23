@@ -1,0 +1,18 @@
+? checkdir.patch
+Index: src/hudson/model/Hudson.java
+===================================================================
+RCS file: /cvs/hudson/hudson/src/hudson/model/Hudson.java,v
+retrieving revision 1.19
+diff -u -u -r1.19 Hudson.java
+--- src/hudson/model/Hudson.java	27 Sep 2005 05:42:59 -0000	1.19
++++ src/hudson/model/Hudson.java	12 Oct 2005 13:49:39 -0000
+@@ -221,6 +221,9 @@
+                 return child.isDirectory();
+             }
+         });
++        if (subdirs == null) {
++            throw new RuntimeException("ProjectsDir is empty: " + projectsDir.toString());
++        }
+         jobs.clear();
+         for (File subdir : subdirs) {
+             try {

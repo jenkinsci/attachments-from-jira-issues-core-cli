@@ -1,0 +1,32 @@
+Oct 21, 2014 10:27:49 AM hudson.remoting.SynchronousCommandTransport$ReaderThread run
+SEVERE: I/O error in channel Chunked connection to http://us.astorex.com:4555/cli
+java.io.StreamCorruptedException: invalid stream header: 0A0A0A0A
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:806)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:299)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:40)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+Exception in thread "main" hudson.remoting.RequestAbortedException: hudson.remoting.RequestAbortedException: java.io.StreamCorruptedException: invalid stream header: 0A0A0A0A
+	at hudson.remoting.RequestAbortedException.wrapForRethrow(RequestAbortedException.java:41)
+	at hudson.remoting.RequestAbortedException.wrapForRethrow(RequestAbortedException.java:34)
+	at hudson.remoting.Request.call(Request.java:174)
+	at hudson.remoting.Channel.call(Channel.java:742)
+	at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:168)
+	at hudson.remoting.$Proxy1.waitForProperty(Unknown Source)
+	at hudson.remoting.Channel.waitForRemoteProperty(Channel.java:1125)
+	at hudson.cli.CLI.<init>(CLI.java:145)
+	at hudson.cli.CLIConnectionFactory.connect(CLIConnectionFactory.java:72)
+	at hudson.cli.CLI._main(CLI.java:466)
+	at hudson.cli.CLI.main(CLI.java:382)
+Caused by: hudson.remoting.RequestAbortedException: java.io.StreamCorruptedException: invalid stream header: 0A0A0A0A
+	at hudson.remoting.Request.abort(Request.java:299)
+	at hudson.remoting.Channel.terminate(Channel.java:805)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:69)
+Caused by: java.io.StreamCorruptedException: invalid stream header: 0A0A0A0A
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:806)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:299)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:40)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+

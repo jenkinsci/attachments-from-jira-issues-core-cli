@@ -1,0 +1,11 @@
+--- core/src/main/java/hudson/tasks/test/TestObject.java.old	2010-08-27 20:06:18.000000000 +0300
++++ core/src/main/java/hudson/tasks/test/TestObject.java	2010-08-28 15:38:28.146142459 +0300
+@@ -339,7 +339,7 @@
+         UNIQUIFIED_NAMES.put(this, uniquified);
+         return uniquified;
+     }
+-    private static final Map<TestObject, String> UNIQUIFIED_NAMES = new WeakHashMap<TestObject, String>();
++    private static final Map<TestObject, String> UNIQUIFIED_NAMES = Collections.synchronizedMap(new WeakHashMap<TestObject, String>());
+ 
+     /**
+      * Replaces URL-unsafe characters.

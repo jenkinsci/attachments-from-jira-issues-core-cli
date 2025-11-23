@@ -1,0 +1,247 @@
+Index: core/src/main/java/hudson/ClassicPluginStrategy.java
+===================================================================
+--- core/src/main/java/hudson/ClassicPluginStrategy.java	(revision 26305)
++++ core/src/main/java/hudson/ClassicPluginStrategy.java	(working copy)
+@@ -23,32 +23,33 @@
+  */
+ package hudson;
+ 
++import hudson.Plugin.DummyImpl;
+ import hudson.PluginWrapper.Dependency;
+ import hudson.util.IOException2;
+ import hudson.util.MaskingClassLoader;
++import hudson.util.PluginFirstClassLoader;
+ import hudson.util.VersionNumber;
+-import hudson.Plugin.DummyImpl;
+ 
+ import java.io.BufferedReader;
++import java.io.Closeable;
+ import java.io.File;
+ import java.io.FileInputStream;
+ import java.io.FileReader;
+ import java.io.FilenameFilter;
+ import java.io.IOException;
+-import java.io.Closeable;
+ import java.net.URL;
+ import java.net.URLClassLoader;
+ import java.util.ArrayList;
+-import java.util.List;
+ import java.util.Arrays;
+ import java.util.Collection;
++import java.util.List;
++import java.util.jar.Attributes;
+ import java.util.jar.Manifest;
+-import java.util.jar.Attributes;
+ import java.util.logging.Logger;
+ 
++import org.apache.tools.ant.AntClassLoader;
+ import org.apache.tools.ant.BuildException;
+ import org.apache.tools.ant.Project;
+-import org.apache.tools.ant.AntClassLoader;
+ import org.apache.tools.ant.taskdefs.Expand;
+ import org.apache.tools.ant.types.FileSet;
+ 
+@@ -167,13 +168,18 @@
+         ClassLoader dependencyLoader = new DependencyClassLoader(getBaseClassLoader(atts), archive, Util.join(dependencies,optionalDependencies));
+ 
+         return new PluginWrapper(archive, manifest, baseResourceURL,
+-                createClassLoader(paths, dependencyLoader), disableFile, dependencies, optionalDependencies);
++                createClassLoader(paths, dependencyLoader, atts), disableFile, dependencies, optionalDependencies);
+     }
+ 
++    @Deprecated
++    protected ClassLoader createClassLoader(List<File> paths, ClassLoader parent) throws IOException {
++    	return createClassLoader(paths, parent, new Attributes());
++    }
++    
+     /**
+      * Creates the classloader that can load all the specified jar files and delegate to the given parent.
+      */
+-    protected ClassLoader createClassLoader(List<File> paths, ClassLoader parent) throws IOException {
++    protected ClassLoader createClassLoader(List<File> paths, ClassLoader parent, Attributes atts ) throws IOException {
+         if(useAntClassLoader) {
+             // using AntClassLoader with Closeable so that we can predictably release jar files opened by URLClassLoader
+             AntClassLoader2 classLoader = new AntClassLoader2(parent);
+@@ -185,7 +191,19 @@
+             List<URL> urls = new ArrayList<URL>();
+             for (File path : paths)
+                 urls.add(path.toURI().toURL());
++            if (atts != null ) {
++                String usePluginFirstClassLoader = atts.getValue( "PluginFirstClassLoader" );
++            	String masked = atts.getValue("Mask-Core-Classes");
++            	if(masked!=null) {
++            	    if (Boolean.valueOf( usePluginFirstClassLoader ))
++            	        parent = new PluginFirstClassLoader(parent, new URLClassLoader(urls.toArray(new URL[urls.size()]) ), masked.trim().split("[ \t\r\n]+"));
++            	    else
++            	        parent = new MaskingClassLoader(parent, masked.trim().split("[ \t\r\n]+"));
++            	        
++            	}
++            }
+             return new URLClassLoader(urls.toArray(new URL[urls.size()]),parent);
++            
+         }
+     }
+ 
+Index: core/src/main/java/hudson/util/PluginFirstClassLoader.java
+===================================================================
+--- core/src/main/java/hudson/util/PluginFirstClassLoader.java	(revision 0)
++++ core/src/main/java/hudson/util/PluginFirstClassLoader.java	(revision 0)
+@@ -0,0 +1,150 @@
++/*
++ * The MIT License
++ *
++ * Copyright (c) 2004-2009, Sun Microsystems, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++package hudson.util;
++
++import java.io.IOException;
++import java.io.InputStream;
++import java.net.URL;
++import java.net.URLClassLoader;
++import java.util.Collection;
++import java.util.Enumeration;
++
++/**
++ * {@link ClassLoader} that load classes and resources with a hierarchy.
++ *
++ * <p>
++ * This code is used to create an isolated environment.
++ *
++ * @author olamy
++ */
++public class PluginFirstClassLoader extends ClassLoader {
++    /**
++     * Prefix of the packages that should be hidden.
++     */
++    private final String[] masks;
++    
++    private URLClassLoader pluginClassLoader;
++    
++    public PluginFirstClassLoader(ClassLoader parent, URLClassLoader pluginClassLoader, String... masks) {
++        super(parent);
++        this.pluginClassLoader = pluginClassLoader;
++        this.masks = masks;
++    }    
++
++    @Override
++    protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
++        for (String mask : masks) {
++            if(name.startsWith(mask))
++              if (this.pluginClassLoader == null)
++                  throw new ClassNotFoundException();
++              else
++              {
++                 Class<?> clazz = pluginClassLoader.loadClass( name );
++                 return clazz;
++              }
++        }
++        
++        return super.loadClass(name, resolve);
++    }
++
++    @Override
++    public URL getResource( String name )
++    {
++        for (String mask : masks) {
++            if(name.startsWith(mask))
++              if (this.pluginClassLoader == null)
++                  return null;
++              else
++              {
++                 return pluginClassLoader.getResource( name );
++              }
++        }
++        return super.getResource( name );
++    }
++
++    @Override
++    public Enumeration<URL> getResources( String name )
++        throws IOException
++    {
++        for (String mask : masks) {
++            if(name.startsWith(mask))
++              if (this.pluginClassLoader == null)
++                  return null;
++              else
++              {
++                 return pluginClassLoader.getResources( name );
++              }
++        }
++        return super.getResources( name );
++    }
++
++    @Override
++    protected URL findResource( String name )
++    {
++        for (String mask : masks) {
++            if(name.startsWith(mask))
++              if (this.pluginClassLoader == null)
++                  return null;
++              else
++              {
++                 return pluginClassLoader.findResource( name );
++              }
++        }
++        return super.findResource( name );
++    }
++
++    @Override
++    protected Enumeration<URL> findResources( String name )
++        throws IOException
++    {
++        for (String mask : masks) {
++            if(name.startsWith(mask))
++              if (this.pluginClassLoader == null)
++                  return null;
++              else
++              {
++                 return pluginClassLoader.findResources( name );
++              }
++        }
++        return super.findResources( name );
++    }
++
++    @Override
++    public InputStream getResourceAsStream( String name )
++    {
++        for (String mask : masks) {
++            if(name.startsWith(mask))
++              if (this.pluginClassLoader == null)
++                  return null;
++              else
++              {
++                 return pluginClassLoader.getResourceAsStream( name );
++              }
++        }
++        return super.getResourceAsStream( name );
++    }
++    
++    
++    
++}
+
+Property changes on: core\src\main\java\hudson\util\PluginFirstClassLoader.java
+___________________________________________________________________
+Added: svn:keywords
+   + Author Date Id Revision
+Added: svn:eol-style
+   + native
+

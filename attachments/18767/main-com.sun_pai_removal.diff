@@ -1,0 +1,116 @@
+Index: remoting/src/test/java/hudson/remoting/BinarySafeStreamTest.java
+===================================================================
+--- remoting/src/test/java/hudson/remoting/BinarySafeStreamTest.java	(revision 20816)
++++ remoting/src/test/java/hudson/remoting/BinarySafeStreamTest.java	(working copy)
+@@ -23,7 +23,6 @@
+  */
+ package hudson.remoting;
+ 
+-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+ import junit.framework.TestCase;
+ 
+ import java.io.ByteArrayInputStream;
+@@ -34,6 +33,8 @@
+ import java.util.Arrays;
+ import java.util.Random;
+ 
++import org.apache.commons.codec.binary.Base64;
++
+ /**
+  * @author Kohsuke Kawaguchi
+  */
+@@ -56,7 +57,7 @@
+ 
+     public void testSingleWrite() throws IOException {
+         byte[] ds = getDataSet(65536);
+-        String master = Base64.encode(ds);
++        String master = new String(Base64.encodeBase64(ds));
+ 
+         ByteArrayOutputStream buf = new ByteArrayOutputStream();
+         OutputStream o = BinarySafeStream.wrap(buf);
+@@ -67,7 +68,7 @@
+ 
+     public void testChunkedWrites() throws IOException {
+         byte[] ds = getDataSet(65536);
+-        String master = Base64.encode(ds);
++        String master = new String(Base64.encodeBase64(ds));
+ 
+         Random r = new Random(0);
+         for( int i=0; i<16; i++) {
+@@ -89,7 +90,6 @@
+     private void _testRoundtrip(boolean flush) throws IOException {
+         byte[] dataSet = getDataSet(65536);
+         Random r = new Random(0);
+-        String master = Base64.encode(dataSet);
+ 
+         for(int i=0; i<16; i++) {
+             if(dump)
+@@ -125,7 +125,7 @@
+         int ptr=0;
+ 
+         for( int i=0; i<s.length(); i+=4 ) {
+-            byte[] buf = Base64.decode(s.substring(i,i+4));
++            byte[] buf = Base64.decodeBase64(s.substring(i,i+4).getBytes());
+             for (int j = 0; j < buf.length; j++) {
+                 if(buf[j]!=dataSet[ptr])
+                     fail("encoding error at offset "+ptr);
+Index: remoting/pom.xml
+===================================================================
+--- remoting/pom.xml	(revision 20816)
++++ remoting/pom.xml	(working copy)
+@@ -123,5 +123,11 @@
+       <version>2.0.13</version>
+       <scope>provided</scope>
+     </dependency>
++    <dependency>
++    	<groupId>commons-codec</groupId>
++    	<artifactId>commons-codec</artifactId>
++    	<version>1.3</version>
++    	<scope>test</scope>
++    </dependency>
+   </dependencies>
+ </project>
+Index: core/src/main/java/hudson/security/LDAPSecurityRealm.java
+===================================================================
+--- core/src/main/java/hudson/security/LDAPSecurityRealm.java	(revision 20816)
++++ core/src/main/java/hudson/security/LDAPSecurityRealm.java	(working copy)
+@@ -23,7 +23,6 @@
+  */
+ package hudson.security;
+ 
+-import com.sun.jndi.ldap.LdapCtxFactory;
+ import groovy.lang.Binding;
+ import hudson.Extension;
+ import hudson.Util;
+@@ -62,6 +61,7 @@
+ import javax.naming.directory.Attribute;
+ import javax.naming.directory.Attributes;
+ import javax.naming.directory.DirContext;
++import javax.naming.directory.InitialDirContext;
+ import javax.servlet.ServletException;
+ import java.io.IOException;
+ import java.net.InetAddress;
+@@ -304,7 +304,10 @@
+                 props.put(Context.SECURITY_PRINCIPAL,managerDN);
+                 props.put(Context.SECURITY_CREDENTIALS,getManagerPassword());
+             }
+-            DirContext ctx = LdapCtxFactory.getLdapCtxInstance(getServerUrl()+'/', props);
++            props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
++            props.put(Context.PROVIDER_URL, getServerUrl()+'/');
++
++            DirContext ctx = new InitialDirContext(props);
+             Attributes atts = ctx.getAttributes("");
+             Attribute a = atts.get("defaultNamingContext");
+             if(a!=null) // this entry is available on Active Directory. See http://msdn2.microsoft.com/en-us/library/ms684291(VS.85).aspx
+@@ -496,7 +499,10 @@
+                 if(managerPassword!=null && managerPassword.trim().length() > 0 && !"undefined".equals(managerPassword)) {
+                     props.put(Context.SECURITY_CREDENTIALS,managerPassword);
+                 }
+-                DirContext ctx = LdapCtxFactory.getLdapCtxInstance(addPrefix(server)+'/', props);
++                props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
++                props.put(Context.PROVIDER_URL, addPrefix(server)+'/');
++
++                DirContext ctx = new InitialDirContext(props);
+                 ctx.getAttributes("");
+                 return FormValidation.ok();   // connected
+             } catch (NamingException e) {

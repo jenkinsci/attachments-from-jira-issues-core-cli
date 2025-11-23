@@ -1,0 +1,17 @@
+Index: main/core/src/main/resources/hudson/maven/MavenModuleSet/actions.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/maven/MavenModuleSet/actions.jelly	(revision 8800)
++++ main/core/src/main/resources/hudson/maven/MavenModuleSet/actions.jelly	(working copy)
+@@ -5,8 +5,9 @@
+     </l:isAdmin>
+   </j:if>
+   <!-- Icon TBD -->
+-  <l:task icon="images/24x24/document.gif" href="modules" title="${%Modules}" />
++  <j:set var="url" value="${h.getNearestAncestorUrl(request,it)}"/>
++  <l:task icon="images/24x24/document.gif" href="${url}/modules" title="${%Modules}" />
+ 
+   <!-- include super class definition -->
+   <st:include page="/hudson/model/Actionable/actions.jelly" />
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>

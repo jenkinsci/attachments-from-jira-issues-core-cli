@@ -1,0 +1,27 @@
+From 16b7123bd9a9c61da868039fe1dfdacdc0c2bffe Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Fri, 24 Feb 2012 09:11:48 +0100
+Subject: [PATCH] jenkins.init: wait for network authentication to be up
+
+JENKINS_USER might be set to a LDAP or NIS user so wait for the common
+authentication systems to be started.
+---
+ debian/debian/jenkins.init |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/debian/debian/jenkins.init b/debian/debian/jenkins.init
+index 3d57949..704d551 100644
+--- a/debian/debian/jenkins.init
++++ b/debian/debian/jenkins.init
+@@ -7,6 +7,8 @@
+ # Provides:          jenkins
+ # Required-Start:    $remote_fs $syslog $network
+ # Required-Stop:     $remote_fs $syslog $network
++# Should-Start:      sssd nslcd nis
++# Should-Stop:       sssd nslcd nis
+ # Default-Start:     2 3 4 5
+ # Default-Stop:      0 1 6
+ # Short-Description: Start jenkins at boot time
+-- 
+1.7.9
+

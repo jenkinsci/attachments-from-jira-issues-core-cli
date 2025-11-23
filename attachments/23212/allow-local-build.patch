@@ -1,0 +1,32 @@
+diff --git a/core/src/main/java/hudson/model/BuildAuthorizationToken.java b/core/src/main/java/hudson/model/BuildAuthorizationToken.java
+index ddb9283..eb7d557 100644
+--- a/core/src/main/java/hudson/model/BuildAuthorizationToken.java
++++ b/core/src/main/java/hudson/model/BuildAuthorizationToken.java
+@@ -31,6 +31,9 @@ import org.kohsuke.stapler.StaplerRequest;
+ import org.kohsuke.stapler.StaplerResponse;
+ 
+ import java.io.IOException;
++import java.net.URI;
++import java.net.URISyntaxException;
++
+ import jenkins.security.ApiTokenProperty;
+ import org.acegisecurity.AccessDeniedException;
+ import org.kohsuke.stapler.HttpResponses;
+@@ -80,6 +83,17 @@ public final class BuildAuthorizationToken {
+             return;
+         }
+ 
++        if (req.getReferer() != null) {
++            try {
++                URI uri = new URI(req.getReferer());
++                if (req.getServerName().equals(uri.getHost())) {
++                    return;
++                }
++            } catch (URISyntaxException e) {
++                //proceed
++            }
++        }
++        
+         if (req.getAttribute(ApiTokenProperty.class.getName()) instanceof User) {
+             return;
+         }

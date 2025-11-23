@@ -1,0 +1,36 @@
+Index: jenkins-xstream-1.3.1-hudson-8/xstream/src/java/com/thoughtworks/xstream/core/JVM.java
+===================================================================
+--- jenkins-xstream-1.3.1-hudson-8.orig/xstream/src/java/com/thoughtworks/xstream/core/JVM.java	2010-10-09 17:20:48.000000000 +0000
++++ jenkins-xstream-1.3.1-hudson-8/xstream/src/java/com/thoughtworks/xstream/core/JVM.java	2011-08-17 22:01:49.951226001 +0000
+@@ -31,6 +31,7 @@
+     private final boolean supportsSQL = loadClass("java.sql.Date") != null; 
+ 
+     private static final String vendor = System.getProperty("java.vm.vendor");
++    private static final String runtime = System.getProperty("java.runtime.name");
+     private static final float majorJavaVersion = getMajorJavaVersion();
+     private static final boolean reverseFieldOrder = isHarmony() || (isIBM() && !is15());
+ 
+@@ -63,6 +64,14 @@
+         return majorJavaVersion >= 1.6f;
+     }
+ 
++    private static boolean isIcedTea() {
++        return runtime.indexOf("IcedTea") != -1;
++    }
++
++    private static boolean isOpenJDK() {
++        return runtime.indexOf("OpenJDK") != -1;
++    }
++
+     private static boolean isSun() {
+         return vendor.indexOf("Sun") != -1;
+     }
+@@ -187,6 +196,8 @@
+ 
+     private boolean canUseSun14ReflectionProvider() {
+         return (isSun()
++            || isOpenJDK()
++            || isIcedTea()
+             || isApple()
+             || isHPUX()
+             || isIBM()

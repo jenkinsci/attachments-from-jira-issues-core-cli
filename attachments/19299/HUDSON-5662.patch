@@ -1,0 +1,26 @@
+Index: main/core/src/main/resources/hudson/model/View/People/index.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/model/View/People/index.jelly	(revision 29686)
++++ main/core/src/main/resources/hudson/model/View/People/index.jelly	(working copy)
+@@ -47,7 +47,7 @@
+                  alt=""/></a></td>
+             <td><a href="${rootURL}/${p.user.url}/">${p.user}</a></td>
+             <td data="${p.timeSortKey}">${p.lastChangeTimeString}</td>
+-            <td><a href="${rootURL}/${p.project.url}">${p.project.name}</a></td>
++            <td><a href="${rootURL}/${p.project.url}">${p.project.fullDisplayName}</a></td>
+           </tr>
+         </j:forEach>
+       </table>
+Index: main/core/src/main/resources/lib/hudson/buildListTable.jelly
+===================================================================
+--- main/core/src/main/resources/lib/hudson/buildListTable.jelly	(revision 29686)
++++ main/core/src/main/resources/lib/hudson/buildListTable.jelly	(working copy)
+@@ -52,7 +52,7 @@
+           </a>
+         </td>
+         <td>
+-          <a href="${jobBaseUrl}${b.parent.url}">${b.parent.displayName}</a>
++          <a href="${jobBaseUrl}${b.parent.url}">${b.parent.fullDisplayName}</a>
+           <st:nbsp/>
+           <a href="${jobBaseUrl}${b.url}">#${b.number}</a>
+         </td>

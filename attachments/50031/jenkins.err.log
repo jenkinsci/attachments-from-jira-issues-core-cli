@@ -1,0 +1,181 @@
+2020-01-24 05:10:37.774+0000 [id=1]	INFO	org.eclipse.jetty.util.log.Log#initialized: Logging initialized @1342ms to org.eclipse.jetty.util.log.JavaUtilLog
+2020-01-24 05:10:38.055+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+2020-01-24 05:10:38.149+0000 [id=1]	WARNING	o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2020-01-24 05:10:38.305+0000 [id=1]	INFO	winstone.Logger#logInternal: Exclude Ciphers [^.*_(MD5|SHA|SHA1)$, ^TLS_RSA_.*$, ^SSL_.*$, ^.*_NULL_.*$, ^.*_anon_.*$]
+2020-01-24 05:10:38.383+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-9.4.25.v20191220; built: 2019-12-20T17:00:00.294Z; git: a9729c7e7f33a459d2616a8f9e9ba8a90f432e95; jvm 1.8.0_144-b01
+2020-01-24 05:10:39.696+0000 [id=1]	INFO	o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2020-01-24 05:10:39.805+0000 [id=1]	INFO	o.e.j.s.s.DefaultSessionIdManager#doStart: DefaultSessionIdManager workerName=node0
+2020-01-24 05:10:39.805+0000 [id=1]	INFO	o.e.j.s.s.DefaultSessionIdManager#doStart: No SessionScavenger set, using defaults
+2020-01-24 05:10:39.821+0000 [id=1]	INFO	o.e.j.server.session.HouseKeeper#startScavenging: node0 Scavenging every 600000ms
+2020-01-24 05:10:40.243+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: C:\Program Files (x86)\Jenkins found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2020-01-24 05:10:40.415+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started w.@f74c30{Jenkins v2.217,/,file:///C:/Program%20Files%20(x86)/Jenkins/war/,AVAILABLE}{C:\Program Files (x86)\Jenkins\war}
+2020-01-24 05:10:40.430+0000 [id=1]	INFO	o.e.j.util.ssl.SslContextFactory#load: x509=X509@1760b47(1,h=[jenkins],w=[jenkins]) for SslContextFactory@ece7f4[provider=null,keyStore=null,trustStore=null]
+2020-01-24 05:10:40.446+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStop: Stopped ServerConnector@17e1986{SSL,[ssl, http/1.1]}{0.0.0.0:443}
+2020-01-24 05:10:40.446+0000 [id=1]	INFO	o.e.j.server.session.HouseKeeper#stopScavenging: node0 Stopped scavenging
+2020-01-24 05:10:40.462+0000 [id=1]	INFO	hudson.WebAppMain#contextDestroyed: Shutting down a Jenkins instance that was still starting up
+java.lang.Throwable: reason
+	at hudson.WebAppMain.contextDestroyed(WebAppMain.java:388)
+	at org.eclipse.jetty.server.handler.ContextHandler.callContextDestroyed(ContextHandler.java:937)
+	at org.eclipse.jetty.servlet.ServletContextHandler.callContextDestroyed(ServletContextHandler.java:565)
+	at org.eclipse.jetty.server.handler.ContextHandler.stopContext(ContextHandler.java:905)
+	at org.eclipse.jetty.servlet.ServletContextHandler.stopContext(ServletContextHandler.java:367)
+	at org.eclipse.jetty.webapp.WebAppContext.stopWebapp(WebAppContext.java:1450)
+	at org.eclipse.jetty.webapp.WebAppContext.stopContext(WebAppContext.java:1415)
+	at org.eclipse.jetty.server.handler.ContextHandler.doStop(ContextHandler.java:980)
+	at org.eclipse.jetty.servlet.ServletContextHandler.doStop(ServletContextHandler.java:284)
+	at org.eclipse.jetty.webapp.WebAppContext.doStop(WebAppContext.java:547)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.stop(ContainerLifeCycle.java:180)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:201)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:111)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:454)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:93)
+	at winstone.Launcher.shutdown(Launcher.java:310)
+	at winstone.Launcher.<init>(Launcher.java:201)
+	at winstone.Launcher.main(Launcher.java:359)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at Main._main(Main.java:375)
+	at Main.main(Main.java:151)
+2020-01-24 05:10:40.477+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStop: Stopped w.@f74c30{Jenkins v2.217,/,null,UNAVAILABLE}{C:\Program Files (x86)\Jenkins\war}
+Exception in thread "Jenkins initialization thread" java.lang.NoClassDefFoundError: hudson/util/HudsonFailedToLoad
+	at hudson.WebAppMain$3.run(WebAppMain.java:247)
+Caused by: java.lang.ClassNotFoundException: hudson.util.HudsonFailedToLoad
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.eclipse.jetty.webapp.WebAppClassLoader.loadClass(WebAppClassLoader.java:543)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 1 more
+2020-01-24 05:10:40.477+0000 [id=1]	INFO	winstone.Logger#logInternal: Jetty shutdown successfully
+java.io.IOException: Failed to start Jetty
+	at winstone.Launcher.<init>(Launcher.java:190)
+	at winstone.Launcher.main(Launcher.java:359)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at Main._main(Main.java:375)
+	at Main.main(Main.java:151)
+Caused by: java.lang.IllegalStateException: KeyStores with multiple certificates are not supported on the base class org.eclipse.jetty.util.ssl.SslContextFactory. (Use org.eclipse.jetty.util.ssl.SslContextFactory$Server or org.eclipse.jetty.util.ssl.SslContextFactory$Client instead)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.newSniX509ExtendedKeyManager(SslContextFactory.java:1275)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.getKeyManagers(SslContextFactory.java:1256)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.load(SslContextFactory.java:374)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.doStart(SslContextFactory.java:245)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:117)
+	at org.eclipse.jetty.server.SslConnectionFactory.doStart(SslConnectionFactory.java:92)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:117)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:320)
+	at org.eclipse.jetty.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:81)
+	at org.eclipse.jetty.server.ServerConnector.doStart(ServerConnector.java:231)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:385)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at winstone.Launcher.<init>(Launcher.java:188)
+	... 7 more
+2020-01-24 05:10:40.477+0000 [id=1]	SEVERE	winstone.Logger#logInternal: Container startup failed
+java.lang.IllegalStateException: KeyStores with multiple certificates are not supported on the base class org.eclipse.jetty.util.ssl.SslContextFactory. (Use org.eclipse.jetty.util.ssl.SslContextFactory$Server or org.eclipse.jetty.util.ssl.SslContextFactory$Client instead)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.newSniX509ExtendedKeyManager(SslContextFactory.java:1275)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.getKeyManagers(SslContextFactory.java:1256)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.load(SslContextFactory.java:374)
+	at org.eclipse.jetty.util.ssl.SslContextFactory.doStart(SslContextFactory.java:245)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:117)
+	at org.eclipse.jetty.server.SslConnectionFactory.doStart(SslConnectionFactory.java:92)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:117)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:320)
+	at org.eclipse.jetty.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:81)
+	at org.eclipse.jetty.server.ServerConnector.doStart(ServerConnector.java:231)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:385)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at winstone.Launcher.<init>(Launcher.java:188)
+Caused: java.io.IOException: Failed to start Jetty
+	at winstone.Launcher.<init>(Launcher.java:190)
+	at winstone.Launcher.main(Launcher.java:359)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at Main._main(Main.java:375)
+	at Main.main(Main.java:151)
+2020-01-24 05:26:37.062+0000 [id=1]	INFO	org.eclipse.jetty.util.log.Log#initialized: Logging initialized @1082ms to org.eclipse.jetty.util.log.JavaUtilLog
+2020-01-24 05:26:37.344+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+2020-01-24 05:26:47.266+0000 [id=1]	WARNING	o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2020-01-24 05:26:47.469+0000 [id=1]	INFO	winstone.Logger#logInternal: Exclude Ciphers [^.*_(MD5|SHA|SHA1)$, ^TLS_RSA_.*$, ^SSL_.*$, ^.*_NULL_.*$, ^.*_anon_.*$]
+2020-01-24 05:26:47.562+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-9.4.22.v20191022; built: 2019-10-22T13:37:13.455Z; git: b1e6b55512e008f7fbdf1cbea4ff8a6446d1073b; jvm 1.8.0_144-b01
+2020-01-24 05:26:48.781+0000 [id=1]	INFO	org.eclipse.jetty.util.TypeUtil#<clinit>: JVM Runtime does not support Modules
+2020-01-24 05:26:48.844+0000 [id=1]	INFO	o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2020-01-24 05:26:48.969+0000 [id=1]	INFO	o.e.j.s.s.DefaultSessionIdManager#doStart: DefaultSessionIdManager workerName=node0
+2020-01-24 05:26:48.969+0000 [id=1]	INFO	o.e.j.s.s.DefaultSessionIdManager#doStart: No SessionScavenger set, using defaults
+2020-01-24 05:26:48.984+0000 [id=1]	INFO	o.e.j.server.session.HouseKeeper#startScavenging: node0 Scavenging every 660000ms
+2020-01-24 05:26:50.047+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: C:\Program Files (x86)\Jenkins found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2020-01-24 05:26:50.391+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started w.@1427b69{Jenkins v2.214,/,file:///C:/Program%20Files%20(x86)/Jenkins/war/,AVAILABLE}{C:\Program Files (x86)\Jenkins\war}
+2020-01-24 05:26:50.406+0000 [id=1]	INFO	o.e.j.util.ssl.SslContextFactory#load: x509=X509@102e1c(1,h=[jenkins],w=[jenkins]) for SslContextFactory@1511076[provider=null,keyStore=null,trustStore=null]
+2020-01-24 05:26:50.781+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started ServerConnector@122ef0c{SSL,[ssl, http/1.1]}{0.0.0.0:443}
+2020-01-24 05:26:50.781+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started @14804ms
+2020-01-24 05:26:50.781+0000 [id=20]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2020-01-24 05:26:54.172+0000 [id=29]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+2020-01-24 05:26:54.406+0000 [id=29]	INFO	hudson.ClassicPluginStrategy#createPluginWrapper: Plugin vmware.jpi is disabled
+2020-01-24 05:26:54.437+0000 [id=28]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2020-01-24 05:27:06.859+0000 [id=28]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2020-01-24 05:27:06.859+0000 [id=28]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2020-01-24 05:27:10.594+0000 [id=28]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2020-01-24 05:27:10.812+0000 [id=30]	INFO	jenkins.model.Jenkins#setBuildsAndWorkspacesDir: Using non default workspaces directories: ${JENKINS_HOME}/workspace/${ITEM_FULLNAME}.
+2020-01-24 05:27:11.016+0000 [id=30]	INFO	hudson.slaves.SlaveComputer#tryReconnect: Attempting to reconnect AVM-Ubuntu-16-64
+2020-01-24 05:27:12.047+0000 [id=29]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2020-01-24 05:27:12.094+0000 [id=60]	INFO	hudson.model.AsyncPeriodicWork#lambda$doRun$0: Started Download metadata
+2020-01-24 05:27:12.109+0000 [id=60]	INFO	hudson.model.AsyncPeriodicWork#lambda$doRun$0: Finished Download metadata. 15 ms
+2020-01-24 05:27:12.781+0000 [id=29]	INFO	o.s.c.s.AbstractApplicationContext#prepareRefresh: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@1bb445d: display name [Root WebApplicationContext]; startup date [Thu Jan 23 21:27:12 PST 2020]; root of context hierarchy
+2020-01-24 05:27:12.781+0000 [id=29]	INFO	o.s.c.s.AbstractApplicationContext#obtainFreshBeanFactory: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@1bb445d]: org.springframework.beans.factory.support.DefaultListableBeanFactory@1fa3863
+2020-01-24 05:27:12.797+0000 [id=29]	INFO	o.s.b.f.s.DefaultListableBeanFactory#preInstantiateSingletons: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1fa3863: defining beans [authenticationManager]; root of factory hierarchy
+2020-01-24 05:27:12.984+0000 [id=29]	INFO	o.s.c.s.AbstractApplicationContext#prepareRefresh: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@13d4000: display name [Root WebApplicationContext]; startup date [Thu Jan 23 21:27:12 PST 2020]; root of context hierarchy
+2020-01-24 05:27:12.984+0000 [id=29]	INFO	o.s.c.s.AbstractApplicationContext#obtainFreshBeanFactory: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@13d4000]: org.springframework.beans.factory.support.DefaultListableBeanFactory@142d31
+2020-01-24 05:27:12.984+0000 [id=29]	INFO	o.s.b.f.s.DefaultListableBeanFactory#preInstantiateSingletons: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@142d31: defining beans [filter,legacy]; root of factory hierarchy
+2020-01-24 05:27:13.109+0000 [id=29]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2020-01-24 05:27:13.344+0000 [id=18]	INFO	hudson.WebAppMain$3#run: Jenkins is fully up and running
+2020-01-24 05:27:15.734+0000 [id=78]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #1 failed: java.io.EOFException
+2020-01-24 05:27:15.734+0000 [id=79]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #2 from /10.70.20.73:1776
+2020-01-24 05:27:17.687+0000 [id=100]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #3 failed: java.io.EOFException
+2020-01-24 05:27:17.719+0000 [id=101]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #4 from /10.70.20.55:35402
+2020-01-24 05:27:17.734+0000 [id=102]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #5 from /10.70.20.66:59506
+2020-01-24 05:27:18.062+0000 [id=106]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #6 failed: java.io.EOFException
+2020-01-24 05:27:18.156+0000 [id=110]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #7 from /10.70.20.54:57375
+2020-01-24 05:27:18.180+0000 [id=111]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #8 failed: java.io.EOFException
+2020-01-24 05:27:18.192+0000 [id=112]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #9 from /10.70.20.53:51404
+2020-01-24 05:27:19.544+0000 [id=81]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-WinXP-32 marked online
+2020-01-24 05:27:19.808+0000 [id=104]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer BUILD01 marked online
+2020-01-24 05:27:20.972+0000 [id=144]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #10 failed: java.io.EOFException
+2020-01-24 05:27:20.977+0000 [id=151]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #11 from /10.70.20.103:53667
+2020-01-24 05:27:20.992+0000 [id=152]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #12 failed: java.io.EOFException
+2020-01-24 05:27:21.015+0000 [id=153]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #13 from /10.70.20.102:50479
+2020-01-24 05:27:21.181+0000 [id=154]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #14 failed: java.io.EOFException
+2020-01-24 05:27:21.190+0000 [id=155]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #15 from /10.70.20.76:4589
+2020-01-24 05:27:21.595+0000 [id=163]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #16 failed: java.io.EOFException
+2020-01-24 05:27:21.655+0000 [id=164]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #17 from /10.70.20.139:56359
+2020-01-24 05:27:22.206+0000 [id=57]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-Ubuntu-16-64 marked online
+2020-01-24 05:27:22.703+0000 [id=119]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer DBuild32 marked online
+2020-01-24 05:27:23.154+0000 [id=108]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-WIN10-2-ECC marked online
+2020-01-24 05:27:23.222+0000 [id=97]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-WIN10-1 marked online
+2020-01-24 05:27:23.922+0000 [id=118]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-Mint17-32 marked online
+2020-01-24 05:27:24.050+0000 [id=339]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #18 failed: java.io.EOFException
+2020-01-24 05:27:24.057+0000 [id=115]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer DBuild64 marked online
+2020-01-24 05:27:24.100+0000 [id=341]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #19 from /10.70.20.74:51090
+2020-01-24 05:27:24.107+0000 [id=342]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #20 failed: java.io.EOFException
+2020-01-24 05:27:24.156+0000 [id=343]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #21 from /10.70.20.60:50591
+2020-01-24 05:27:26.539+0000 [id=132]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-Mac10-12 marked online
+2020-01-24 05:27:29.154+0000 [id=347]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #23 from /10.70.20.50:56949
+2020-01-24 05:27:29.156+0000 [id=346]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #22 failed: java.io.EOFException
+2020-01-24 05:27:31.374+0000 [id=307]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-WIN81-64 marked online
+2020-01-24 05:27:31.408+0000 [id=335]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-WinVista-64 marked online
+2020-01-24 05:27:32.565+0000 [id=305]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer AVM-WinXP-64 marked online
+2020-01-24 05:27:37.273+0000 [id=241]	INFO	o.j.p.m.MailWatcherNotification#log: mail-watcher-plugin: notified: Computer MACBUILD1 marked online

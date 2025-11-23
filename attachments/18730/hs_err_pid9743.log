@@ -1,0 +1,671 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x9d829467, pid=9743, tid=2657434512
+#
+# JRE version: 6.0_14-b08
+# Java VM: Java HotSpot(TM) Server VM (14.0-b16 mixed mode linux-x86 )
+# Problematic frame:
+# C  [libc.so.6+0x70467]  __libc_calloc+0xb7
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x9ec36000):  JavaThread "SocketListener0-4" [_thread_in_native, id=9848, stack(0x9e603000,0x9e654000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x00000004
+
+Registers:
+EAX=0x00000000, EBX=0x9d8fbff4, ECX=0x9d8fd140, EDX=0xffffff98
+ESP=0x9e6512f0, EBP=0x9e651318, ESI=0x00000000, EDI=0x9d8fd140
+EIP=0x9d829467, CR2=0x00000004, EFLAGS=0x00010282
+
+Top of Stack: (sp=0x9e6512f0)
+0x9e6512f0:   9e6513b8 a4178e28 00000001 00000001
+0x9e651300:   00000004 00000008 00000001 9dfff234
+0x9e651310:   00000001 9ec36000 9e651328 9dffcec7
+0x9e651320:   00000008 00000001 9e651368 9dffcb74
+0x9e651330:   9dffc8ec 9e651354 00000008 00000001
+0x9e651340:   9e65155c 9d8293b0 a182f68c 9dff4ba0
+0x9e651350:   00000000 9e6514c4 9e65155c 9e651390
+0x9e651360:   9dfff234 9e651408 9e651528 9dfef671 
+
+Instructions: (pc=0x9d829467)
+0x9d829457:   01 f0 0f b1 17 85 c0 0f 85 f4 00 00 00 8b 47 30
+0x9d829467:   8b 50 04 89 45 e8 8d 83 4c 11 00 00 89 45 e4 83 
+
+Stack: [0x9e603000,0x9e654000],  sp=0x9e6512f0,  free space=312k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libc.so.6+0x70467]  __libc_calloc+0xb7
+C  [jna4792881735911914800.tmp+0x10ec7]  ffi_call_SYSV+0x17
+C  [jna4792881735911914800.tmp+0x10b74]  ffi_call+0xb4
+C  [jna4792881735911914800.tmp+0x3671]
+C  [jna4792881735911914800.tmp+0x3d20]  Java_com_sun_jna_Function_invokePointer+0x43
+j  com.sun.jna.Function.invokePointer(I[Ljava/lang/Object;)Lcom/sun/jna/Pointer;+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;+603
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+194
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+344
+j  $Proxy8.calloc(II)Lcom/sun/jna/Pointer;+26
+j  org.jvnet.libpam.PAM$1.callback(ILcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)I+45
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x36c850]
+V  [libjvm.so+0x530638]
+V  [libjvm.so+0x36c6af]
+V  [libjvm.so+0x58028b]
+V  [libjvm.so+0x5831f1]
+V  [libjvm.so+0x3e58bf]
+C  [libjava.so+0x152d4]  Java_sun_reflect_NativeMethodAccessorImpl_invoke0+0x34
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
+j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+161
+j  com.sun.jna.CallbackReference$DefaultCallbackProxy.callback_inner([Ljava/lang/Object;)Ljava/lang/Object;+125
+j  com.sun.jna.CallbackReference$DefaultCallbackProxy.callback([Ljava/lang/Object;)Ljava/lang/Object;+2
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x36c850]
+V  [libjvm.so+0x530638]
+V  [libjvm.so+0x36c6af]
+V  [libjvm.so+0x39cb4b]
+V  [libjvm.so+0x37d99e]
+C  [jna4792881735911914800.tmp+0xaced]
+C  [jna4792881735911914800.tmp+0xae85]
+C  [jna4792881735911914800.tmp+0x10c0a]
+C  [jna4792881735911914800.tmp+0x10f82]
+C  [libpam.so.0.81.12+0x6c3a]  pam_vprompt+0xba
+C  [libpam.so.0.81.12+0x6dd9]  pam_prompt+0x39
+C  [pam_unix.so+0x4b45]
+C  [pam_unix.so+0x2d84]  pam_sm_authenticate+0x244
+C  [libpam.so.0.81.12+0x23b1]
+C  [libpam.so.0.81.12+0x1bdd]  pam_authenticate+0x4d
+C  [jna4792881735911914800.tmp+0x10ec7]  ffi_call_SYSV+0x17
+C  [jna4792881735911914800.tmp+0x10b74]  ffi_call+0xb4
+C  [jna4792881735911914800.tmp+0x3671]
+C  [jna4792881735911914800.tmp+0x3eb3]  Java_com_sun_jna_Function_invokeInt+0x43
+j  com.sun.jna.Function.invokeInt(I[Ljava/lang/Object;)I+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;+309
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+194
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+344
+j  $Proxy7.pam_authenticate(Lorg/jvnet/libpam/impl/PAMLibrary$pam_handle_t;I)I+23
+j  org.jvnet.libpam.PAM.authenticate(Ljava/lang/String;Ljava/lang/String;)Lorg/jvnet/libpam/UnixUser;+34
+j  hudson.security.PAMSecurityRealm$1.authenticate(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+36
+j  org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(Ljavax/servlet/http/HttpServletRequest;)Lorg/acegisecurity/Authentication;+64
+j  org.acegisecurity.ui.AbstractProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+91
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+429
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+259
+j  hudson.security.HttpSessionContextIntegrationFilter2.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+99
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  hudson.security.ChainedServletFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+25
+j  hudson.security.HudsonFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+41
+j  org.mortbay.jetty.servlet.WebApplicationHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+60
+j  org.mortbay.jetty.servlet.WebApplicationHandler.dispatch(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;Lorg/mortbay/jetty/servlet/ServletHolder;I)V+230
+j  org.mortbay.jetty.servlet.ServletHandler.handle(Ljava/lang/String;Ljava/lang/String;Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+287
+j  org.mortbay.http.HttpContext.handle(Ljava/lang/String;Ljava/lang/String;Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+149
+j  org.mortbay.jetty.servlet.WebApplicationContext.handle(Ljava/lang/String;Ljava/lang/String;Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+14
+j  org.mortbay.http.HttpContext.handle(Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+449
+j  org.mortbay.http.HttpServer.service(Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)Lorg/mortbay/http/HttpContext;+226
+j  org.mortbay.http.HttpConnection.service(Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)Lorg/mortbay/http/HttpContext;+24
+j  org.mortbay.http.HttpConnection.handleNext()Z+550
+j  org.mortbay.http.HttpConnection.handle()V+24
+j  org.mortbay.http.SocketListener.handleConnection(Ljava/net/Socket;)V+65
+j  org.mortbay.util.ThreadedServer.handle(Ljava/lang/Object;)V+19
+j  org.mortbay.util.ThreadPool$PoolThread.run()V+106
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x36c850]
+V  [libjvm.so+0x530638]
+V  [libjvm.so+0x36c057]
+V  [libjvm.so+0x36c10a]
+V  [libjvm.so+0x3e9425]
+V  [libjvm.so+0x61068e]
+V  [libjvm.so+0x531ade]
+C  [libpthread.so.0+0x64ff]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.jna.Function.invokePointer(I[Ljava/lang/Object;)Lcom/sun/jna/Pointer;+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;+603
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+194
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+344
+j  $Proxy8.calloc(II)Lcom/sun/jna/Pointer;+26
+j  org.jvnet.libpam.PAM$1.callback(ILcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)I+45
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
+j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+161
+j  com.sun.jna.CallbackReference$DefaultCallbackProxy.callback_inner([Ljava/lang/Object;)Ljava/lang/Object;+125
+j  com.sun.jna.CallbackReference$DefaultCallbackProxy.callback([Ljava/lang/Object;)Ljava/lang/Object;+2
+v  ~StubRoutines::call_stub
+j  com.sun.jna.Function.invokeInt(I[Ljava/lang/Object;)I+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;+309
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+194
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+344
+j  $Proxy7.pam_authenticate(Lorg/jvnet/libpam/impl/PAMLibrary$pam_handle_t;I)I+23
+j  org.jvnet.libpam.PAM.authenticate(Ljava/lang/String;Ljava/lang/String;)Lorg/jvnet/libpam/UnixUser;+34
+j  hudson.security.PAMSecurityRealm$1.authenticate(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+36
+j  org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(Ljavax/servlet/http/HttpServletRequest;)Lorg/acegisecurity/Authentication;+64
+j  org.acegisecurity.ui.AbstractProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+91
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+429
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+259
+j  hudson.security.HttpSessionContextIntegrationFilter2.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+99
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  hudson.security.ChainedServletFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+25
+j  hudson.security.HudsonFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+41
+j  org.mortbay.jetty.servlet.WebApplicationHandler$CachedChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+60
+j  org.mortbay.jetty.servlet.WebApplicationHandler.dispatch(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;Lorg/mortbay/jetty/servlet/ServletHolder;I)V+230
+j  org.mortbay.jetty.servlet.ServletHandler.handle(Ljava/lang/String;Ljava/lang/String;Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+287
+j  org.mortbay.http.HttpContext.handle(Ljava/lang/String;Ljava/lang/String;Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+149
+j  org.mortbay.jetty.servlet.WebApplicationContext.handle(Ljava/lang/String;Ljava/lang/String;Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+14
+j  org.mortbay.http.HttpContext.handle(Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)V+449
+j  org.mortbay.http.HttpServer.service(Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)Lorg/mortbay/http/HttpContext;+226
+j  org.mortbay.http.HttpConnection.service(Lorg/mortbay/http/HttpRequest;Lorg/mortbay/http/HttpResponse;)Lorg/mortbay/http/HttpContext;+24
+j  org.mortbay.http.HttpConnection.handleNext()Z+550
+j  org.mortbay.http.HttpConnection.handle()V+24
+j  org.mortbay.http.SocketListener.handleConnection(Ljava/net/Socket;)V+65
+j  org.mortbay.util.ThreadedServer.handle(Ljava/lang/Object;)V+19
+j  org.mortbay.util.ThreadPool$PoolThread.run()V+106
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x08f04800 JavaThread "Thread-16" [_thread_blocked, id=9859, stack(0x9edd0000,0x9ee21000)]
+  0x9e067000 JavaThread "Executor #1 for master" [_thread_blocked, id=9857, stack(0x9e35e000,0x9e3af000)]
+  0x9ecae400 JavaThread "Executor #0 for master" [_thread_blocked, id=9856, stack(0x9e407000,0x9e458000)]
+  0x9e065400 JavaThread "Hudson UDP 33848 monitoring thread" [_thread_in_native, id=9855, stack(0x9e458000,0x9e4a9000)]
+  0x9e062400 JavaThread "TCP slave agent listener port=0" [_thread_in_native, id=9854, stack(0x9e4a9000,0x9e4fa000)]
+  0x9ec32800 JavaThread "SocketListener0-9" [_thread_in_native, id=9853, stack(0x9e3af000,0x9e400000)]
+  0x9ec37800 JavaThread "SocketListener0-8" [_thread_in_native, id=9852, stack(0x9e510000,0x9e561000)]
+  0x9ec2ec00 JavaThread "SocketListener0-7" [_thread_in_native, id=9851, stack(0x9e6bc000,0x9e70d000)]
+  0x9ec34800 JavaThread "SocketListener0-6" [_thread_in_native, id=9850, stack(0x9e561000,0x9e5b2000)]
+  0x9ec2c400 JavaThread "SocketListener0-5" [_thread_in_native, id=9849, stack(0x9e5b2000,0x9e603000)]
+=>0x9ec36000 JavaThread "SocketListener0-4" [_thread_in_native, id=9848, stack(0x9e603000,0x9e654000)]
+  0x9ec35400 JavaThread "SocketListener0-3" [_thread_blocked, id=9847, stack(0x9e654000,0x9e6a5000)]
+  0x9ec2a400 JavaThread "SocketListener0-2" [_thread_blocked, id=9846, stack(0x9e70d000,0x9e75e000)]
+  0x9ec24400 JavaThread "SocketListener0-1" [_thread_blocked, id=9845, stack(0x9e75e000,0x9e7af000)]
+  0x9ec23400 JavaThread "SocketListener0-0" [_thread_blocked, id=9844, stack(0x9e7af000,0x9e800000)]
+  0x9ec28c00 JavaThread "Acceptor ServerSocket[addr=0.0.0.0/0.0.0.0,port=0,localport=8280]" [_thread_in_native, id=9843, stack(0x9e90d000,0x9e95e000)]
+  0x9ec22000 JavaThread "SessionScavenger" daemon [_thread_blocked, id=9842, stack(0x9e95e000,0x9e9af000)]
+  0x09652c00 JavaThread "Hudson cron thread" [_thread_blocked, id=9841, stack(0x9e9af000,0x9ea00000)]
+  0x9f1a6400 JavaThread "SessionScavenger" daemon [_thread_blocked, id=9840, stack(0x9ed2e000,0x9ed7f000)]
+  0x9f1bb400 JavaThread "SessionScavenger" daemon [_thread_blocked, id=9839, stack(0x9ed7f000,0x9edd0000)]
+  0x9f7b3400 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=9837, stack(0x9ee21000,0x9ee72000)]
+  0x9f18ec00 JavaThread "SessionScavenger" daemon [_thread_blocked, id=9836, stack(0x9f0af000,0x9f100000)]
+  0x9f707800 JavaThread "Rollover" daemon [_thread_blocked, id=9835, stack(0x9f82c000,0x9f87d000)]
+  0x08e48000 JavaThread "Thread-0" daemon [_thread_in_native, id=9801, stack(0x9f906000,0x9f957000)]
+  0x08e04c00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=9792, stack(0x9f9ec000,0x9fa3d000)]
+  0x08e02c00 JavaThread "CompilerThread1" daemon [_thread_blocked, id=9791, stack(0x9fa3d000,0x9fabe000)]
+  0x08e00000 JavaThread "CompilerThread0" daemon [_thread_blocked, id=9790, stack(0x9fabe000,0x9fb3f000)]
+  0x08dfe800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=9788, stack(0x9fb3f000,0x9fb90000)]
+  0x08dee000 JavaThread "Finalizer" daemon [_thread_blocked, id=9774, stack(0x9fbcf000,0x9fc20000)]
+  0x08de9400 JavaThread "Reference Handler" daemon [_thread_blocked, id=9770, stack(0x9fc20000,0x9fc71000)]
+  0x08d69400 JavaThread "main" [_thread_blocked, id=9746, stack(0xb724c000,0xb729d000)]
+
+Other Threads:
+  0x08de5400 VMThread [stack: 0x9fc71000,0x9fcf2000] [id=9765]
+  0x08e06800 WatcherThread [stack: 0x9f96b000,0x9f9ec000] [id=9793]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 25984K, used 13195K [0xb2480000, 0xb40f0000, 0xb40f0000)
+  eden space 22976K, 57% used [0xb2480000,0xb315eff0,0xb3af0000)
+  from space 3008K, 0% used [0xb3e00000,0xb3e04000,0xb40f0000)
+  to   space 3072K, 0% used [0xb3af0000,0xb3af0000,0xb3df0000)
+ PSOldGen        total 18048K, used 9649K [0xa40f0000, 0xa5290000, 0xb2480000)
+  object space 18048K, 53% used [0xa40f0000,0xa4a5c4f0,0xa5290000)
+ PSPermGen       total 37888K, used 23873K [0xa00f0000, 0xa25f0000, 0xa40f0000)
+  object space 37888K, 63% used [0xa00f0000,0xa18405c8,0xa25f0000)
+
+Dynamic libraries:
+08048000-08052000 r-xp 00000000 09:00 21618802   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/bin/java
+08052000-08053000 rwxp 00009000 09:00 21618802   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/bin/java
+08d63000-09868000 rwxp 08d63000 00:00 0          [heap]
+9d7b9000-9d8fa000 r-xp 00000000 09:00 23273489   /lib/libc-2.9.so
+9d8fa000-9d8fc000 r-xp 00141000 09:00 23273489   /lib/libc-2.9.so
+9d8fc000-9d8fd000 rwxp 00143000 09:00 23273489   /lib/libc-2.9.so
+9d8fd000-9d900000 rwxp 9d8fd000 00:00 0 
+9d900000-9d9f3000 rwxp 9d900000 00:00 0 
+9d9f3000-9da00000 ---p 9d9f3000 00:00 0 
+9da00000-9daf8000 rwxp 9da00000 00:00 0 
+9daf8000-9db00000 ---p 9daf8000 00:00 0 
+9db00000-9dbf4000 rwxp 9db00000 00:00 0 
+9dbf4000-9dc00000 ---p 9dbf4000 00:00 0 
+9dc00000-9dced000 rwxp 9dc00000 00:00 0 
+9dced000-9dd00000 ---p 9dced000 00:00 0 
+9dd00000-9dde5000 rwxp 9dd00000 00:00 0 
+9dde5000-9de00000 ---p 9dde5000 00:00 0 
+9de00000-9def9000 rwxp 9de00000 00:00 0 
+9def9000-9df00000 ---p 9def9000 00:00 0 
+9df27000-9df2a000 r-xp 00000000 09:00 23273685   /lib/security/pam_limits.so
+9df2a000-9df2b000 r-xp 00003000 09:00 23273685   /lib/security/pam_limits.so
+9df2b000-9df2c000 rwxp 00004000 09:00 23273685   /lib/security/pam_limits.so
+9df2c000-9df2e000 r-xp 00000000 09:00 21453197   /usr/lib/libck-connector.so.0.0.0
+9df2e000-9df2f000 r-xp 00001000 09:00 21453197   /usr/lib/libck-connector.so.0.0.0
+9df2f000-9df30000 rwxp 00002000 09:00 21453197   /usr/lib/libck-connector.so.0.0.0
+9df30000-9df66000 r-xp 00000000 09:00 23273746   /lib/libdbus-1.so.3.4.0
+9df66000-9df67000 r-xp 00035000 09:00 23273746   /lib/libdbus-1.so.3.4.0
+9df67000-9df68000 rwxp 00036000 09:00 23273746   /lib/libdbus-1.so.3.4.0
+9df68000-9df6a000 r-xp 00000000 09:00 23273690   /lib/security/pam_mail.so
+9df6a000-9df6b000 r-xp 00001000 09:00 23273690   /lib/security/pam_mail.so
+9df6b000-9df6c000 rwxp 00002000 09:00 23273690   /lib/security/pam_mail.so
+9df6c000-9df6d000 r-xp 00000000 09:00 23273692   /lib/security/pam_motd.so
+9df6d000-9df6e000 r-xp 00000000 09:00 23273692   /lib/security/pam_motd.so
+9df6e000-9df6f000 rwxp 00001000 09:00 23273692   /lib/security/pam_motd.so
+9df6f000-9df71000 r-xp 00000000 09:00 23273793   /lib/security/pam_ck_connector.so
+9df71000-9df72000 r-xp 00001000 09:00 23273793   /lib/security/pam_ck_connector.so
+9df72000-9df73000 rwxp 00002000 09:00 23273793   /lib/security/pam_ck_connector.so
+9df73000-9df8b000 r-xp 00000000 09:00 23273552   /lib/libselinux.so.1
+9df8b000-9df8c000 r-xp 00017000 09:00 23273552   /lib/libselinux.so.1
+9df8c000-9df8d000 rwxp 00018000 09:00 23273552   /lib/libselinux.so.1
+9df8d000-9df96000 r-xp 00000000 09:00 23273635   /lib/tls/i686/cmov/libcrypt-2.9.so
+9df96000-9df97000 r-xp 00008000 09:00 23273635   /lib/tls/i686/cmov/libcrypt-2.9.so
+9df97000-9df98000 rwxp 00009000 09:00 23273635   /lib/tls/i686/cmov/libcrypt-2.9.so
+9df98000-9dfbf000 rwxp 9df98000 00:00 0 
+9dfc0000-9dfc1000 r-xp 00000000 09:00 23273695   /lib/security/pam_permit.so
+9dfc1000-9dfc2000 r-xp 00000000 09:00 23273695   /lib/security/pam_permit.so
+9dfc2000-9dfc3000 rwxp 00001000 09:00 23273695   /lib/security/pam_permit.so
+9dfc3000-9dfc4000 r-xp 00000000 09:00 23273542   /lib/security/pam_deny.so
+9dfc4000-9dfc5000 r-xp 00000000 09:00 23273542   /lib/security/pam_deny.so
+9dfc5000-9dfc6000 rwxp 00001000 09:00 23273542   /lib/security/pam_deny.so
+9dfc6000-9dfd2000 r-xp 00000000 09:00 23273707   /lib/security/pam_unix.so
+9dfd2000-9dfd3000 r-xp 0000b000 09:00 23273707   /lib/security/pam_unix.so
+9dfd3000-9dfd4000 rwxp 0000c000 09:00 23273707   /lib/security/pam_unix.so
+9dfd4000-9dfe0000 rwxp 9dfd4000 00:00 0 
+9dfe0000-9dfea000 r-xp 00000000 09:00 23273544   /lib/libpam.so.0.81.12
+9dfea000-9dfeb000 r-xp 00009000 09:00 23273544   /lib/libpam.so.0.81.12
+9dfeb000-9dfec000 rwxp 0000a000 09:00 23273544   /lib/libpam.so.0.81.12
+9dfec000-9dfff000 r-xp 00000000 09:00 20357261   /var/cache/jetty/jna4792881735911914800.tmp
+9dfff000-9e000000 rwxp 00013000 09:00 20357261   /var/cache/jetty/jna4792881735911914800.tmp
+9e000000-9e100000 rwxp 9e000000 00:00 0 
+9e100000-9e1e2000 rwxp 9e100000 00:00 0 
+9e1e2000-9e200000 ---p 9e1e2000 00:00 0 
+9e200000-9e2f9000 rwxp 9e200000 00:00 0 
+9e2f9000-9e300000 ---p 9e2f9000 00:00 0 
+9e301000-9e304000 r-xp 00000000 09:00 23273671   /lib/security/pam_env.so
+9e304000-9e305000 r-xp 00002000 09:00 23273671   /lib/security/pam_env.so
+9e305000-9e306000 rwxp 00003000 09:00 23273671   /lib/security/pam_env.so
+9e306000-9e309000 rwxp 9e306000 00:00 0 
+9e309000-9e357000 rwxp 9e309000 00:00 0 
+9e357000-9e35e000 r-xs 00111000 09:00 21603253   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/resources.jar
+9e35e000-9e361000 ---p 9e35e000 00:00 0 
+9e361000-9e3af000 rwxp 9e361000 00:00 0 
+9e3af000-9e3b2000 ---p 9e3af000 00:00 0 
+9e3b2000-9e400000 rwxp 9e3b2000 00:00 0 
+9e400000-9e406000 r-xp 00000000 09:00 21618842   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libmanagement.so
+9e406000-9e407000 rwxp 00005000 09:00 21618842   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libmanagement.so
+9e407000-9e40a000 ---p 9e407000 00:00 0 
+9e40a000-9e458000 rwxp 9e40a000 00:00 0 
+9e458000-9e45b000 ---p 9e458000 00:00 0 
+9e45b000-9e4a9000 rwxp 9e45b000 00:00 0 
+9e4a9000-9e4ac000 ---p 9e4a9000 00:00 0 
+9e4ac000-9e4fa000 rwxp 9e4ac000 00:00 0 
+9e4fa000-9e510000 r-xs 001ac000 09:00 25174582   /usr/share/jetty/.hudson/plugins/subversion/WEB-INF/lib/svnkit-1.3.0-hudson-1.jar
+9e510000-9e513000 ---p 9e510000 00:00 0 
+9e513000-9e561000 rwxp 9e513000 00:00 0 
+9e561000-9e564000 ---p 9e561000 00:00 0 
+9e564000-9e5b2000 rwxp 9e564000 00:00 0 
+9e5b2000-9e5b5000 ---p 9e5b2000 00:00 0 
+9e5b5000-9e603000 rwxp 9e5b5000 00:00 0 
+9e603000-9e606000 ---p 9e603000 00:00 0 
+9e606000-9e654000 rwxp 9e606000 00:00 0 
+9e654000-9e657000 ---p 9e654000 00:00 0 
+9e657000-9e6a5000 rwxp 9e657000 00:00 0 
+9e6a5000-9e6a6000 r-xp 00000000 09:00 23273694   /lib/security/pam_nologin.so
+9e6a6000-9e6a7000 r-xp 00000000 09:00 23273694   /lib/security/pam_nologin.so
+9e6a7000-9e6a8000 rwxp 00001000 09:00 23273694   /lib/security/pam_nologin.so
+9e6a9000-9e6aa000 rwxs 00000000 09:00 12247054   /tmp/ffi4RpmuC (deleted)
+9e6aa000-9e6b1000 r-xp 00000000 09:00 21618841   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libnio.so
+9e6b1000-9e6b2000 rwxp 00006000 09:00 21618841   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libnio.so
+9e6b2000-9e6b4000 r-xs 00005000 09:00 25174416   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-ssh-common-1.0-beta-2.jar
+9e6b4000-9e6b7000 r-xs 0001b000 09:00 25174204   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/jsch-0.1.27.jar
+9e6b7000-9e6ba000 r-xs 00013000 09:00 25174238   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-artifact-2.0.9.jar
+9e6ba000-9e6bc000 r-xs 00008000 09:00 25174331   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-plugin-descriptor-2.0.9.jar
+9e6bc000-9e6bf000 ---p 9e6bc000 00:00 0 
+9e6bf000-9e70d000 rwxp 9e6bf000 00:00 0 
+9e70d000-9e710000 ---p 9e70d000 00:00 0 
+9e710000-9e75e000 rwxp 9e710000 00:00 0 
+9e75e000-9e761000 ---p 9e75e000 00:00 0 
+9e761000-9e7af000 rwxp 9e761000 00:00 0 
+9e7af000-9e7b2000 ---p 9e7af000 00:00 0 
+9e7b2000-9e800000 rwxp 9e7b2000 00:00 0 
+9e800000-9e8ff000 rwxp 9e800000 00:00 0 
+9e8ff000-9e900000 ---p 9e8ff000 00:00 0 
+9e900000-9e902000 r-xs 0000a000 09:00 25174243   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-provider-api-1.0-beta-2.jar
+9e902000-9e909000 r-xs 00029000 09:00 25174298   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-container-default-1.0-alpha-9-stable-1.jar
+9e909000-9e90b000 r-xs 00006000 09:00 25174376   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-plugin-registry-2.0.9.jar
+9e90b000-9e90d000 r-xs 00002000 09:00 25174338   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-plugin-api-2.0.9.jar
+9e90d000-9e910000 ---p 9e90d000 00:00 0 
+9e910000-9e95e000 rwxp 9e910000 00:00 0 
+9e95e000-9e961000 ---p 9e95e000 00:00 0 
+9e961000-9e9af000 rwxp 9e961000 00:00 0 
+9e9af000-9e9b2000 ---p 9e9af000 00:00 0 
+9e9b2000-9ea00000 rwxp 9e9b2000 00:00 0 
+9ea00000-9eafb000 rwxp 9ea00000 00:00 0 
+9eafb000-9eb00000 ---p 9eafb000 00:00 0 
+9eb00000-9ebf9000 rwxp 9eb00000 00:00 0 
+9ebf9000-9ec00000 ---p 9ebf9000 00:00 0 
+9ec00000-9ed00000 rwxp 9ec00000 00:00 0 
+9ed00000-9ed01000 r-xs 00000000 09:00 12247054   /tmp/ffi4RpmuC (deleted)
+9ed01000-9ed02000 r-xs 00002000 09:00 25174299   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/doxia-sink-api-1.0-alpha-10.jar
+9ed02000-9ed04000 r-xs 00002000 09:00 25174134   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-http-lightweight-1.0-beta-2.jar
+9ed04000-9ed05000 r-xs 00002000 09:00 25174273   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-monitor-2.0.9.jar
+9ed05000-9ed07000 r-xs 0000d000 09:00 25174205   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-artifact-manager-2.0.9.jar
+9ed07000-9ed0b000 r-xs 00027000 09:00 25174216   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/slide-webdavlib-2.1.jar
+9ed0b000-9ed0c000 r-xs 00005000 09:00 25174259   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/xml-im-exporter-1.1.jar
+9ed0c000-9ed0e000 r-xs 00002000 09:00 25174163   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-ssh-external-1.0-beta-2.jar
+9ed0e000-9ed0f000 r-xs 0000b000 09:00 25174187   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-settings-2.0.9.jar
+9ed0f000-9ed11000 r-xs 0000a000 09:00 25174266   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/commons-codec-1.3.jar
+9ed11000-9ed13000 r-xs 00004000 09:00 25174241   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-interceptor-1.317.jar
+9ed13000-9ed14000 r-xs 00002000 09:00 25174068   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-file-1.0-beta-2.jar
+9ed14000-9ed16000 r-xs 00002000 09:00 25174249   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-error-diagnostics-2.0.9.jar
+9ed16000-9ed18000 r-xs 00004000 09:00 25174336   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-plugin-parameter-documenter-2.0.9.jar
+9ed18000-9ed1e000 r-xs 00046000 09:00 25174307   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/commons-httpclient-3.1-rc1.jar
+9ed1e000-9ed20000 r-xs 00014000 09:00 25174164   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-model-2.0.9.jar
+9ed20000-9ed22000 r-xs 00001000 09:00 25174224   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-agent-1.317.jar
+9ed22000-9ed24000 r-xs 00004000 09:00 25174395   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-embedder-2.0.4.jar
+9ed24000-9ed25000 r-xs 00002000 09:00 25174078   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-reporting-api-2.0.9.jar
+9ed25000-9ed27000 r-xs 00007000 09:00 25174181   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-profile-2.0.9.jar
+9ed27000-9ed29000 r-xs 00008000 09:00 25174291   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/commons-logging-1.0.4.jar
+9ed29000-9ed2c000 r-xs 0001b000 09:00 25174150   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-project-2.0.9.jar
+9ed2c000-9ed2e000 r-xs 00002000 09:00 25174213   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-interactivity-api-1.0-alpha-4.jar
+9ed2e000-9ed31000 ---p 9ed2e000 00:00 0 
+9ed31000-9ed7f000 rwxp 9ed31000 00:00 0 
+9ed7f000-9ed82000 ---p 9ed7f000 00:00 0 
+9ed82000-9edd0000 rwxp 9ed82000 00:00 0 
+9edd0000-9edd3000 ---p 9edd0000 00:00 0 
+9edd3000-9ee21000 rwxp 9edd3000 00:00 0 
+9ee21000-9ee24000 ---p 9ee21000 00:00 0 
+9ee24000-9ee72000 rwxp 9ee24000 00:00 0 
+9ee72000-9eef1000 r-xp 00000000 09:00 21618857   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libfontmanager.so
+9eef1000-9eefc000 rwxp 0007e000 09:00 21618857   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libfontmanager.so
+9eefc000-9ef00000 rwxp 9eefc000 00:00 0 
+9ef00000-9effb000 rwxp 9ef00000 00:00 0 
+9effb000-9f000000 ---p 9effb000 00:00 0 
+9f000000-9f084000 r-xp 00000000 09:00 21618851   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libawt.so
+9f084000-9f08b000 rwxp 00084000 09:00 21618851   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libawt.so
+9f08b000-9f0af000 rwxp 9f08b000 00:00 0 
+9f0af000-9f0b2000 ---p 9f0af000 00:00 0 
+9f0b2000-9f100000 rwxp 9f0b2000 00:00 0 
+9f100000-9f1fb000 rwxp 9f100000 00:00 0 
+9f1fb000-9f200000 ---p 9f1fb000 00:00 0 
+9f200000-9f201000 r-xs 00002000 09:00 25174361   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-http-shared-1.0-beta-2.jar
+9f201000-9f203000 r-xs 00000000 09:00 25174244   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven2.1-interceptor-1.2.jar
+9f203000-9f209000 r-xs 00000000 09:00 25191114   /var/cache/fontconfig/945677eb7aeaf62f1d50efc3fb3ec7d8-x86.cache-2
+9f209000-9f20b000 r-xs 00002000 09:00 25174230   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-webdav-1.0-beta-2-hudson-1.jar
+9f20b000-9f20d000 r-xs 00008000 09:00 25174317   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/classworlds-1.1.jar
+9f20d000-9f210000 r-xs 00024000 09:00 25174403   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-core-2.0.9.jar
+9f210000-9f214000 r-xs 00030000 09:00 25174423   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/plexus-utils-1.5.1.jar
+9f214000-9f215000 r-xs 00001000 09:00 25174056   /usr/share/jetty/.hudson/plugins/ssh-slaves/WEB-INF/lib/trilead-putty-extension-1.0.jar
+9f215000-9f21a000 r-xs 00038000 09:00 25174057   /usr/share/jetty/.hudson/plugins/ssh-slaves/WEB-INF/lib/trilead-ssh2-build212-hudson-1.jar
+9f21a000-9f21d000 r-xs 000cb000 09:00 21610984   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/ext/localedata.jar
+9f21d000-9f220000 r-xs 00013000 09:00 21603242   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/jce.jar
+9f220000-9f226000 r-xs 00000000 09:00 25191109   /var/cache/fontconfig/e13b20fdb08344e0e664864cc2ede53d-x86.cache-2
+9f226000-9f22b000 r-xp 00000000 09:00 21626902   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/headless/libmawt.so
+9f22b000-9f22c000 rwxp 00004000 09:00 21626902   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/headless/libmawt.so
+9f22c000-9f22f000 r-xs 00027000 09:00 21610982   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/ext/sunjce_provider.jar
+9f22f000-9f231000 r-xp 00000000 09:00 23273788   /lib/libnss_mdns4.so.2
+9f231000-9f232000 rwxp 00001000 09:00 23273788   /lib/libnss_mdns4.so.2
+9f232000-9f244000 r-xp 00000000 09:00 23273650   /lib/tls/i686/cmov/libresolv-2.9.so
+9f244000-9f245000 r-xp 00011000 09:00 23273650   /lib/tls/i686/cmov/libresolv-2.9.so
+9f245000-9f246000 rwxp 00012000 09:00 23273650   /lib/tls/i686/cmov/libresolv-2.9.so
+9f246000-9f248000 rwxp 9f246000 00:00 0 
+9f248000-9f24d000 r-xp 00000000 09:00 23273642   /lib/tls/i686/cmov/libnss_dns-2.9.so
+9f24d000-9f24e000 r-xp 00004000 09:00 23273642   /lib/tls/i686/cmov/libnss_dns-2.9.so
+9f24e000-9f24f000 rwxp 00005000 09:00 23273642   /lib/tls/i686/cmov/libnss_dns-2.9.so
+9f24f000-9f256000 r-xs 00091000 09:00 21603241   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/jsse.jar
+9f256000-9f258000 r-xs 00015000 09:00 25167249   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/ant-junit-1.7.0.jar
+9f258000-9f2ac000 r-xs 00359000 09:00 25167271   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/hudson-core-1.317.jar
+9f2ac000-9f2ae000 r-xs 0000e000 09:00 25167266   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/activation-1.1.jar
+9f2ae000-9f2b3000 r-xs 00034000 09:00 25167207   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-beanutils-1.8.0.jar
+9f2b3000-9f2b5000 r-xs 00002000 09:00 25167254   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/cli-1.317.jar
+9f2b5000-9f2f8000 r-xs 003ee000 09:00 25167250   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/groovy-all-1.6.0.jar
+9f2f8000-9f2fa000 r-xs 00002000 09:00 25167247   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/libpam4j-1.2.jar
+9f2fa000-9f2fb000 r-xs 00002000 09:00 25167261   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/memory-monitor-1.1.jar
+9f2fb000-9f300000 r-xs 00029000 09:00 25167225   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/spring-jdbc-1.2.9.jar
+9f300000-9f3fe000 rwxp 9f300000 00:00 0 
+9f3fe000-9f400000 ---p 9f3fe000 00:00 0 
+9f400000-9f4fd000 rwxp 9f400000 00:00 0 
+9f4fd000-9f500000 ---p 9f4fd000 00:00 0 
+9f500000-9f5fb000 rwxp 9f500000 00:00 0 
+9f5fb000-9f600000 ---p 9f5fb000 00:00 0 
+9f600000-9f601000 r-xs 00005000 09:00 25174347   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/wagon-ssh-1.0-beta-2.jar
+9f601000-9f603000 r-xp 00000000 09:00 23273789   /lib/libnss_mdns4_minimal.so.2
+9f603000-9f604000 rwxp 00001000 09:00 23273789   /lib/libnss_mdns4_minimal.so.2
+9f604000-9f608000 r-xs 0001f000 09:00 25167216   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-digester-1.7.jar
+9f608000-9f609000 r-xs 00006000 09:00 25167212   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/sezpoz-1.4.jar
+9f609000-9f60f000 r-xs 00059000 09:00 25167228   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/mail-1.4.jar
+9f60f000-9f612000 r-xs 00013000 09:00 25167262   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jna-posix-1.0.1.jar
+9f612000-9f615000 r-xs 0000d000 09:00 25167242   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/avalon-framework-4.1.3.jar
+9f615000-9f617000 r-xs 0000c000 09:00 25167244   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/stapler-jelly-1.107.jar
+9f617000-9f619000 r-xs 00015000 09:00 25167211   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/xpp3-1.1.3.3.jar
+9f619000-9f61a000 r-xs 00001000 09:00 25167222   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jinterop-proxy-1.1.jar
+9f61a000-9f61f000 r-xs 00026000 09:00 25167219   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-jelly-1.1-hudson-20090709.jar
+9f61f000-9f620000 r-xs 00001000 09:00 25167245   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/embedded_su4j-1.1.jar
+9f620000-9f62c000 r-xs 0005f000 09:00 25167232   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/xstream-1.3.1-hudson-3.jar
+9f62c000-9f62f000 r-xs 000c0000 09:00 25167202   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jna-3.0.9.jar
+9f62f000-9f630000 r-xs 00004000 09:00 25167238   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/winp-1.13.jar
+9f630000-9f634000 r-xs 0002a000 09:00 25167253   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/remoting-1.317.jar
+9f634000-9f636000 r-xs 0000a000 09:00 25167227   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/graph-layouter-1.0.jar
+9f636000-9f638000 r-xs 0000a000 09:00 25167226   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/args4j-2.0.13.jar
+9f638000-9f63a000 r-xs 00003000 09:00 25167224   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/tiger-types-1.1.jar
+9f63a000-9f641000 r-xs 0003c000 09:00 25167234   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/spring-core-2.5.jar
+9f641000-9f644000 r-xs 0000f000 09:00 25167199   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/logkit-1.0.1.jar
+9f644000-9f647000 r-xs 00010000 09:00 25167197   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-discovery-0.4.jar
+9f647000-9f649000 r-xs 00001000 09:00 25167230   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jinterop-wmi-1.0.jar
+9f649000-9f64c000 r-xs 00018000 09:00 25167205   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/json-lib-2.1-rev2.jar
+9f64c000-9f650000 r-xs 00014000 09:00 25167270   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/spring-dao-1.2.9.jar
+9f650000-9f651000 r-xs 00001000 09:00 25167239   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/trilead-putty-extension-1.0.jar
+9f651000-9f654000 r-xs 0000d000 09:00 25167251   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/libzfs-0.5.jar
+9f654000-9f65c000 r-xs 00047000 09:00 25167259   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/spring-aop-2.5.jar
+9f65c000-9f65e000 r-xs 0000e000 09:00 25167209   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/oro-2.0.8.jar
+9f65e000-9f665000 r-xs 00079000 09:00 25167269   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/wstx-asl-3.2.7.jar
+9f665000-9f667000 r-xs 00008000 09:00 25167263   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-jelly-tags-xml-1.1.jar
+9f667000-9f66a000 r-xs 0000d000 09:00 25167265   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/txw2-20070624.jar
+9f66a000-9f66b000 r-xs 00002000 09:00 25167217   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/ant-launcher-1.7.0.jar
+9f66b000-9f676000 r-xs 00061000 09:00 25167246   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/spring-context-2.5.jar
+9f676000-9f678000 r-xs 0000a000 09:00 25167210   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-codec-1.3.jar
+9f678000-9f67a000 r-xs 00005000 09:00 25167206   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/stax-api-1.0.1.jar
+9f67a000-9f680000 r-xs 00046000 09:00 25167243   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jcommon-1.0.12.jar
+9f680000-9f693000 r-xs 00128000 09:00 25167264   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/ant-1.7.0.jar
+9f693000-9f698000 r-xs 0003d000 09:00 25167203   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/dom4j-1.6.1-hudson-1.jar
+9f698000-9f6a2000 r-xs 0005f000 09:00 25167218   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jcaptcha-all-1.0-RC6.jar
+9f6a2000-9f6b1000 r-xs 0012d000 09:00 25167208   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jfreechart-1.0.9.jar
+9f6b1000-9f6b4000 r-xs 0001b000 09:00 25167267   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/j-interopdeps-2.0.5.jar
+9f6b4000-9f6b6000 r-xs 00000000 09:00 25167196   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/aopalliance-1.0.jar
+9f6b6000-9f6b7000 r-xs 00005000 09:00 25167237   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-jelly-tags-fmt-1.0.jar
+9f6b7000-9f6ba000 r-xs 00012000 09:00 25167258   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-io-1.3.1.jar
+9f6ba000-9f6c7000 r-xs 0007f000 09:00 25167236   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-collections-3.2.jar
+9f6c7000-9f6cd000 r-xs 00035000 09:00 25167255   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jaxen-1.1-beta-11.jar
+9f6cd000-9f6ce000 r-xs 00001000 09:00 25167229   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/localizer-1.9.jar
+9f6ce000-9f6d3000 r-xs 00038000 09:00 25167215   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/trilead-ssh2-build212-hudson-1.jar
+9f6d3000-9f6d9000 r-xs 00067000 09:00 25167221   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/antlr-2.7.6.jar
+9f6d9000-9f6e6000 r-xs 00079000 09:00 25167235   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/acegi-security-1.0.5.jar
+9f6e6000-9f6f0000 r-xs 00067000 09:00 25167214   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/spring-beans-2.5.jar
+9f6f0000-9f6f3000 r-xs 00011000 09:00 25167220   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/ezmorph-1.0.3.jar
+9f6f3000-9f6f7000 r-xs 0001f000 09:00 25167201   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-jexl-1.1-hudson-20090508.jar
+9f6f7000-9f6fd000 r-xs 00031000 09:00 25167252   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/spring-web-2.5.jar
+9f6fd000-9f700000 r-xs 0001c000 09:00 25167268   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jtidy-4aug2000r7-dev-hudson-1.jar
+9f700000-9f800000 rwxp 9f700000 00:00 0 
+9f800000-9f801000 r-xs 00005000 09:00 25174276   /usr/share/jetty/.hudson/plugins/maven-plugin/WEB-INF/lib/maven-repository-metadata-2.0.9.jar
+9f801000-9f802000 r-xs 0000c000 09:00 25167257   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-logging-1.1.jar
+9f802000-9f806000 r-xs 0002c000 09:00 25167256   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/stapler-1.107.jar
+9f806000-9f807000 r-xs 00003000 09:00 25167231   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/akuma-1.1.jar
+9f807000-9f809000 r-xs 0000e000 09:00 25167204   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-pool-1.3.jar
+9f809000-9f80b000 r-xs 00014000 09:00 25167240   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jline-0.9.94.jar
+9f80b000-9f80f000 r-xs 0003c000 09:00 25167241   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-lang-2.4.jar
+9f80f000-9f815000 r-xs 0005b000 09:00 25167248   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/j-interop-2.0.5.jar
+9f815000-9f817000 r-xs 00003000 09:00 25167213   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jstl-1.1.0.jar
+9f817000-9f81f000 r-xs 0004f000 09:00 25167200   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/log4j-1.2.9.jar
+9f81f000-9f821000 r-xs 00005000 09:00 25167233   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/xpp3_min-1.1.4c.jar
+9f821000-9f827000 r-xs 0005a000 09:00 25167223   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/jcifs-1.3.3.jar
+9f827000-9f82a000 r-xs 0000c000 09:00 25167198   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-fileupload-1.2.1.jar
+9f82a000-9f82c000 r-xs 00004000 09:00 25167260   /var/cache/jetty/Jetty__8280__hudson/webapp/WEB-INF/lib/commons-jelly-tags-define-1.0.1-hudson-20071021.jar
+9f82c000-9f82f000 ---p 9f82c000 00:00 0 
+9f82f000-9f87d000 rwxp 9f82f000 00:00 0 
+9f87d000-9f8dc000 r-xs 00ba3000 09:00 21635205   /usr/lib/jvm/java-6-sun-1.6.0.14/lib/tools.jar
+9f8dc000-9f8e1000 r-xs 00063000 09:00 21881198   /usr/share/tomcat5.5/common/lib/jasper-compiler.jar
+9f8e1000-9f8e3000 r-xs 00011000 09:00 21881196   /usr/share/tomcat5.5/common/lib/jasper-runtime.jar
+9f8e3000-9f8e5000 r-xs 0001a000 09:00 21489646   /usr/share/java/commons-el-1.0.jar
+9f8e5000-9f8e7000 r-xs 0000c000 09:00 21489651   /usr/share/java/commons-logging-1.1.1.jar
+9f8e7000-9f8ff000 r-xs 00114000 09:00 21489605   /usr/share/java/xercesImpl.jar
+9f8ff000-9f906000 r-xs 0009f000 09:00 21881245   /usr/share/jetty/lib/org.mortbay.jetty.jar
+9f906000-9f909000 ---p 9f906000 00:00 0 
+9f909000-9f957000 rwxp 9f909000 00:00 0 
+9f957000-9f96a000 r-xp 00000000 09:00 21618840   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libnet.so
+9f96a000-9f96b000 rwxp 00013000 09:00 21618840   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libnet.so
+9f96b000-9f96c000 ---p 9f96b000 00:00 0 
+9f96c000-9f9ec000 rwxp 9f96c000 00:00 0 
+9f9ec000-9f9ef000 ---p 9f9ec000 00:00 0 
+9f9ef000-9fa3d000 rwxp 9f9ef000 00:00 0 
+9fa3d000-9fa40000 ---p 9fa3d000 00:00 0 
+9fa40000-9fabe000 rwxp 9fa40000 00:00 0 
+9fabe000-9fac1000 ---p 9fabe000 00:00 0 
+9fac1000-9fb3f000 rwxp 9fac1000 00:00 0 
+9fb3f000-9fb42000 ---p 9fb3f000 00:00 0 
+9fb42000-9fb90000 rwxp 9fb42000 00:00 0 
+9fb90000-9fbcf000 r-xp 00000000 09:00 21472814   /usr/lib/locale/en_GB.utf8/LC_CTYPE
+9fbcf000-9fbd2000 ---p 9fbcf000 00:00 0 
+9fbd2000-9fc20000 rwxp 9fbd2000 00:00 0 
+9fc20000-9fc23000 ---p 9fc20000 00:00 0 
+9fc23000-9fc71000 rwxp 9fc23000 00:00 0 
+9fc71000-9fc72000 ---p 9fc71000 00:00 0 
+9fc72000-9fd25000 rwxp 9fc72000 00:00 0 
+9fd25000-9febb000 r-xs 02fb1000 09:00 21603274   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/rt.jar
+9febb000-9febc000 ---p 9febb000 00:00 0 
+9febc000-9ff3c000 rwxp 9febc000 00:00 0 
+9ff3c000-9ff3d000 ---p 9ff3c000 00:00 0 
+9ff3d000-9ffd0000 rwxp 9ff3d000 00:00 0 
+9ffd0000-9ffdd000 rwxp 9ffd0000 00:00 0 
+9ffdd000-9ffe6000 rwxp 9ffdd000 00:00 0 
+9ffe6000-a004f000 rwxp 9ffe6000 00:00 0 
+a004f000-a0062000 rwxp a004f000 00:00 0 
+a0062000-a006f000 rwxp a0062000 00:00 0 
+a006f000-a0078000 rwxp a006f000 00:00 0 
+a0078000-a00e0000 rwxp a0078000 00:00 0 
+a00e0000-a00ef000 rwxp a00e0000 00:00 0 
+a00ef000-a25f0000 rwxp a00ef000 00:00 0 
+a25f0000-a40f0000 rwxp a25f0000 00:00 0 
+a40f0000-a5290000 rwxp a40f0000 00:00 0 
+a5290000-b2480000 rwxp a5290000 00:00 0 
+b2480000-b40f0000 rwxp b2480000 00:00 0 
+b40f0000-b40f2000 r-xs 0000b000 09:00 21489642   /usr/share/java/jsp-api-2.0.jar
+b40f2000-b40fc000 rwxp b40f2000 00:00 0 
+b40fc000-b41b2000 rwxp b40fc000 00:00 0 
+b41b2000-b441a000 rwxp b41b2000 00:00 0 
+b441a000-b71b2000 rwxp b441a000 00:00 0 
+b71b2000-b71c1000 r-xp 00000000 09:00 21618836   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libzip.so
+b71c1000-b71c3000 rwxp 0000e000 09:00 21618836   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libzip.so
+b71c3000-b71cb000 rwxs 00000000 09:00 12247051   /tmp/hsperfdata_jetty/9743
+b71cb000-b71d5000 r-xp 00000000 09:00 23273644   /lib/tls/i686/cmov/libnss_files-2.9.so
+b71d5000-b71d6000 r-xp 00009000 09:00 23273644   /lib/tls/i686/cmov/libnss_files-2.9.so
+b71d6000-b71d7000 rwxp 0000a000 09:00 23273644   /lib/tls/i686/cmov/libnss_files-2.9.so
+b71d7000-b71e0000 r-xp 00000000 09:00 23273646   /lib/tls/i686/cmov/libnss_nis-2.9.so
+b71e0000-b71e1000 r-xp 00008000 09:00 23273646   /lib/tls/i686/cmov/libnss_nis-2.9.so
+b71e1000-b71e2000 rwxp 00009000 09:00 23273646   /lib/tls/i686/cmov/libnss_nis-2.9.so
+b71e2000-b71e9000 r-xp 00000000 09:00 23273641   /lib/tls/i686/cmov/libnss_compat-2.9.so
+b71e9000-b71ea000 r-xp 00006000 09:00 23273641   /lib/tls/i686/cmov/libnss_compat-2.9.so
+b71ea000-b71eb000 rwxp 00007000 09:00 23273641   /lib/tls/i686/cmov/libnss_compat-2.9.so
+b71eb000-b71f2000 r-xs 00000000 09:00 21448701   /usr/lib/gconv/gconv-modules.cache
+b71f2000-b71f8000 r-xp 00000000 09:00 21618818   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/native_threads/libhpi.so
+b71f8000-b71f9000 rwxp 00006000 09:00 21618818   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/native_threads/libhpi.so
+b71f9000-b720e000 r-xp 00000000 09:00 23273640   /lib/tls/i686/cmov/libnsl-2.9.so
+b720e000-b720f000 r-xp 00014000 09:00 23273640   /lib/tls/i686/cmov/libnsl-2.9.so
+b720f000-b7210000 rwxp 00015000 09:00 23273640   /lib/tls/i686/cmov/libnsl-2.9.so
+b7210000-b7212000 rwxp b7210000 00:00 0 
+b7212000-b7235000 r-xp 00000000 09:00 21618835   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libjava.so
+b7235000-b7237000 rwxp 00023000 09:00 21618835   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libjava.so
+b7237000-b7242000 r-xp 00000000 09:00 21618834   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libverify.so
+b7242000-b7243000 rwxp 0000b000 09:00 21618834   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/libverify.so
+b7243000-b724a000 r-xp 00000000 09:00 23273651   /lib/tls/i686/cmov/librt-2.9.so
+b724a000-b724b000 r-xp 00006000 09:00 23273651   /lib/tls/i686/cmov/librt-2.9.so
+b724b000-b724c000 rwxp 00007000 09:00 23273651   /lib/tls/i686/cmov/librt-2.9.so
+b724c000-b724f000 ---p b724c000 00:00 0 
+b724f000-b729d000 rwxp b724f000 00:00 0 
+b729d000-b72c1000 r-xp 00000000 09:00 23273637   /lib/tls/i686/cmov/libm-2.9.so
+b72c1000-b72c2000 r-xp 00023000 09:00 23273637   /lib/tls/i686/cmov/libm-2.9.so
+b72c2000-b72c3000 rwxp 00024000 09:00 23273637   /lib/tls/i686/cmov/libm-2.9.so
+b72c3000-b798f000 r-xp 00000000 09:00 21618820   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/server/libjvm.so
+b798f000-b79dc000 rwxp 006cc000 09:00 21618820   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/server/libjvm.so
+b79dc000-b7e00000 rwxp b79dc000 00:00 0 
+b7e00000-b7f5c000 r-xp 00000000 09:00 23273633   /lib/tls/i686/cmov/libc-2.9.so
+b7f5c000-b7f5d000 ---p 0015c000 09:00 23273633   /lib/tls/i686/cmov/libc-2.9.so
+b7f5d000-b7f5f000 r-xp 0015c000 09:00 23273633   /lib/tls/i686/cmov/libc-2.9.so
+b7f5f000-b7f60000 rwxp 0015e000 09:00 23273633   /lib/tls/i686/cmov/libc-2.9.so
+b7f60000-b7f63000 rwxp b7f60000 00:00 0 
+b7f63000-b7f65000 r-xp 00000000 09:00 23273636   /lib/tls/i686/cmov/libdl-2.9.so
+b7f65000-b7f66000 r-xp 00001000 09:00 23273636   /lib/tls/i686/cmov/libdl-2.9.so
+b7f66000-b7f67000 rwxp 00002000 09:00 23273636   /lib/tls/i686/cmov/libdl-2.9.so
+b7f67000-b7f6e000 r-xp 00000000 09:00 21626894   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/jli/libjli.so
+b7f6e000-b7f70000 rwxp 00006000 09:00 21626894   /usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/jli/libjli.so
+b7f70000-b7f71000 rwxp b7f70000 00:00 0 
+b7f71000-b7f86000 r-xp 00000000 09:00 23273649   /lib/tls/i686/cmov/libpthread-2.9.so
+b7f86000-b7f87000 r-xp 00014000 09:00 23273649   /lib/tls/i686/cmov/libpthread-2.9.so
+b7f87000-b7f88000 rwxp 00015000 09:00 23273649   /lib/tls/i686/cmov/libpthread-2.9.so
+b7f88000-b7f8a000 rwxp b7f88000 00:00 0 
+b7f8a000-b7f8c000 r-xs 00016000 09:00 21489643   /usr/share/java/servlet-api-2.4.jar
+b7f8c000-b7f8e000 r-xs 00001000 09:00 21881250   /usr/share/jetty/lib/org.mortbay.jmx.jar
+b7f8e000-b7f8f000 r-xs 00003000 09:00 21881243   /usr/share/jetty/lib/start.jar
+b7f8f000-b7f90000 rwxp b7f8f000 00:00 0 
+b7f90000-b7f91000 r-xp b7f90000 00:00 0 
+b7f91000-b7f93000 rwxp b7f91000 00:00 0 
+b7f93000-b7f94000 r-xp b7f93000 00:00 0          [vdso]
+b7f94000-b7fb0000 r-xp 00000000 09:00 23273486   /lib/ld-2.9.so
+b7fb0000-b7fb1000 r-xp 0001b000 09:00 23273486   /lib/ld-2.9.so
+b7fb1000-b7fb2000 rwxp 0001c000 09:00 23273486   /lib/ld-2.9.so
+bfb9c000-bfbb1000 rwxp bffeb000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Xmx256m -Djava.awt.headless=true -Djava.io.tmpdir=/var/cache/jetty -Djava.library.path=/usr/lib -DSTART=/etc/jetty/start.config -Djetty.home=/usr/share/jetty 
+java_command: /usr/share/jetty/lib/start.jar /etc/jetty/jetty.xml
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-6-sun
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+USERNAME=root
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386/server:/usr/lib/jvm/java-6-sun-1.6.0.14/jre/lib/i386:/usr/lib/jvm/java-6-sun-1.6.0.14/jre/../lib/i386
+SHELL=/bin/bash
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x650420], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x650420], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x52f410], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x52f410], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x52f410], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x52f410], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x532000], sa_mask[0]=0x00000000, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x531d30], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGTERM: [libjvm.so+0x531d30], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x531d30], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:5.0
+
+uname:Linux 2.6.28-14-generic #47-Ubuntu SMP Sat Jul 25 00:28:35 UTC 2009 i686
+libc:glibc 2.9 NPTL 2.9 
+rlimit: STACK 8192k, CORE 0k, NPROC infinity, NOFILE 1024, AS infinity
+load average:0.30 0.10 0.02
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 3345396k(1443020k free), swap 979832k(979832k free)
+
+vm_info: Java HotSpot(TM) Server VM (14.0-b16) for linux-x86 JRE (1.6.0_14-b08), built on May 21 2009 01:46:22 by "java_re" with gcc 3.2.1-7a (J2SE release)
+
+time: Fri Jul 31 13:07:54 2009
+elapsed time: 33 seconds
+

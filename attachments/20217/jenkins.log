@@ -1,0 +1,159 @@
+Running from: /usr/share/jenkins/jenkins.war
+[Winstone 2011/02/07 10:56:23] - Beginning extraction from war file
+hudson home directory: /var/lib/jenkins
+07.02.2011 10:56:30 hudson.util.CharacterEncodingFilter init
+INFO: CharacterEncodingFilter initialized. DISABLE_FILTER: false FORCE_ENCODING: false
+Using one-time self-signed certificate
+[Winstone 2011/02/07 10:56:30] - HTTP Listener started: port=8080
+[Winstone 2011/02/07 10:56:31] - Winstone Servlet Engine v0.9.10 running: controlPort=disabled
+07.02.2011 10:56:31 hudson.model.Hudson$5 onAttained
+INFO: Started initialization
+07.02.2011 10:56:33 hudson.model.Hudson$5 onAttained
+INFO: Listed all plugins
+07.02.2011 10:56:33 hudson.plugins.greenballs.PluginImpl start
+INFO: Green Balls!
+07.02.2011 10:56:43 hudson.model.Hudson$5 onAttained
+INFO: Prepared all plugins
+07.02.2011 10:56:47 hudson.model.Hudson$5 onAttained
+INFO: Started all plugins
+07.02.2011 10:56:47 hudson.model.Hudson$5 onAttained
+INFO: Augmented all extensions
+07.02.2011 10:56:49 hudson.model.Hudson$5 onAttained
+INFO: Loaded all jobs
+07.02.2011 10:56:51 hudson.model.Hudson$5 onAttained
+INFO: Completed initialization
+07.02.2011 10:56:53 org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@e9493a: display name [Root WebApplicationContext]; startup date [Mon Feb 07 10:56:53 CET 2011]; root of context hierarchy
+07.02.2011 10:56:53 org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@e9493a]: org.springframework.beans.factory.support.DefaultListableBeanFactory@81fb
+07.02.2011 10:56:53 org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@81fb: defining beans [authenticationManager]; root of factory hierarchy
+07.02.2011 10:56:53 org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@cfaf6e: display name [Root WebApplicationContext]; startup date [Mon Feb 07 10:56:53 CET 2011]; root of context hierarchy
+07.02.2011 10:56:53 org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@cfaf6e]: org.springframework.beans.factory.support.DefaultListableBeanFactory@1fc9fee
+07.02.2011 10:56:53 org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1fc9fee: defining beans [filter,legacy]; root of factory hierarchy
+07.02.2011 10:56:53 hudson.TcpSlaveAgentListener <init>
+INFO: JNLP slave agent listener started on TCP port 55210
+07.02.2011 10:57:14 hudson.security.AuthenticationProcessingFilter2 onUnsuccessfulAuthentication
+INFO: Login attempt failed
+org.acegisecurity.BadCredentialsException: pam_authenticate failed : Authentication failure; nested exception is org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:100)
+	at org.acegisecurity.providers.ProviderManager.doAuthentication(ProviderManager.java:195)
+	at org.acegisecurity.AbstractAuthenticationManager.authenticate(AbstractAuthenticationManager.java:45)
+	at org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(AuthenticationProcessingFilter.java:71)
+	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:252)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:333)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:244)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:150)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at org.jvnet.libpam.PAM.check(PAM.java:105)
+	at org.jvnet.libpam.PAM.authenticate(PAM.java:123)
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:90)
+	... 21 more
+07.02.2011 10:57:25 hudson.security.AuthenticationProcessingFilter2 onUnsuccessfulAuthentication
+INFO: Login attempt failed
+org.acegisecurity.BadCredentialsException: pam_authenticate failed : Authentication failure; nested exception is org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:100)
+	at org.acegisecurity.providers.ProviderManager.doAuthentication(ProviderManager.java:195)
+	at org.acegisecurity.AbstractAuthenticationManager.authenticate(AbstractAuthenticationManager.java:45)
+	at org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(AuthenticationProcessingFilter.java:71)
+	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:252)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:333)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:244)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:150)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at org.jvnet.libpam.PAM.check(PAM.java:105)
+	at org.jvnet.libpam.PAM.authenticate(PAM.java:123)
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:90)
+	... 21 more
+07.02.2011 10:59:56 hudson.security.AuthenticationProcessingFilter2 onUnsuccessfulAuthentication
+INFO: Login attempt failed
+org.acegisecurity.BadCredentialsException: pam_authenticate failed : Authentication failure; nested exception is org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:100)
+	at org.acegisecurity.providers.ProviderManager.doAuthentication(ProviderManager.java:195)
+	at org.acegisecurity.AbstractAuthenticationManager.authenticate(AbstractAuthenticationManager.java:45)
+	at org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(AuthenticationProcessingFilter.java:71)
+	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:252)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:333)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:244)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:150)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at org.jvnet.libpam.PAM.check(PAM.java:105)
+	at org.jvnet.libpam.PAM.authenticate(PAM.java:123)
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:90)
+	... 21 more
+07.02.2011 11:07:16 hudson.security.AuthenticationProcessingFilter2 onUnsuccessfulAuthentication
+INFO: Login attempt failed
+org.acegisecurity.BadCredentialsException: pam_authenticate failed : Authentication failure; nested exception is org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:100)
+	at org.acegisecurity.providers.ProviderManager.doAuthentication(ProviderManager.java:195)
+	at org.acegisecurity.AbstractAuthenticationManager.authenticate(AbstractAuthenticationManager.java:45)
+	at org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(AuthenticationProcessingFilter.java:71)
+	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:252)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:195)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:368)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:333)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:244)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:150)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: org.jvnet.libpam.PAMException: pam_authenticate failed : Authentication failure
+	at org.jvnet.libpam.PAM.check(PAM.java:105)
+	at org.jvnet.libpam.PAM.authenticate(PAM.java:123)
+	at hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(PAMSecurityRealm.java:90)
+	... 21 more
+

@@ -1,0 +1,19 @@
+diff --git a/core/src/main/java/hudson/model/queue/MappingWorksheet.java b/core/src/main/java/hudson/model/queue/MappingWorksheet.java
+index 0e21fa3..0516161 100644
+--- a/core/src/main/java/hudson/model/queue/MappingWorksheet.java
++++ b/core/src/main/java/hudson/model/queue/MappingWorksheet.java
+@@ -159,9 +159,12 @@ public class MappingWorksheet {
+             assert capacity() >= wc.size();
+             int e = 0;
+             for (SubTask s : wc) {
+-                while (!get(e).isAvailable())
++                while (e < size() && !get(e).isAvailable()) {
+                     e++;
+-                get(e++).set(wuc.createWorkUnit(s));
++		}
++		if (e < size()) {
++                    get(e++).set(wuc.createWorkUnit(s));
++		}
+             }
+         }
+     }

@@ -1,0 +1,111 @@
+Index: core/src/main/java/hudson/cli/GroovyshCommand.java
+===================================================================
+--- core/src/main/java/hudson/cli/GroovyshCommand.java	(revision 22466)
++++ core/src/main/java/hudson/cli/GroovyshCommand.java	(working copy)
+@@ -25,8 +25,13 @@
+ 
+ import hudson.Extension;
+ import hudson.model.Hudson;
++import hudson.remoting.ChannelClosedException;
++import groovy.lang.Binding;
++import groovy.lang.Closure;
+ import org.codehaus.groovy.tools.shell.Groovysh;
+ import org.codehaus.groovy.tools.shell.IO;
++import org.codehaus.groovy.tools.shell.Shell;
++import org.codehaus.groovy.tools.shell.util.XmlCommandRegistrar;
+ 
+ import java.util.List;
+ import java.util.Locale;
+@@ -59,12 +64,53 @@
+         System.setProperty("jline.terminal", UnsupportedTerminal.class.getName());
+         Terminal.resetTerminal();
+ 
+-        Groovysh shell = new Groovysh(new IO(new BufferedInputStream(stdin),stdout,stderr));
+-        // redirect "println" to the CLI
+-        shell.getInterp().getContext().setProperty("out",new PrintWriter(stdout,true));
++        Groovysh shell = createShell(stdin, stdout, stderr);
+         return shell.run(args.toArray(new String[args.size()]));
+     }
+ 
++    protected Groovysh createShell(InputStream stdin, PrintStream stdout,
++        PrintStream stderr) {
++
++        Binding binding = new Binding();
++        // redirect "println" to the CLI
++        binding.setProperty("out", new PrintWriter(stdout,true));
++        binding.setProperty("hudson", hudson.model.Hudson.getInstance());
++
++        IO io = new IO(new BufferedInputStream(stdin),stdout,stderr);
++
++        final ClassLoader cl = Thread.currentThread().getContextClassLoader();
++        Closure registrar = new Closure(null, null) {
++            public Object doCall(Object[] args) {
++                assert(args.length == 1);
++                assert(args[0] instanceof Shell);
++
++                Shell shell = (Shell)args[0];
++                XmlCommandRegistrar r = new XmlCommandRegistrar(shell, cl);
++                r.register(GroovyshCommand.class.getResource("commands.xml"));
++
++                return null;
++            }
++        };
++        Groovysh shell = new Groovysh(cl, binding, io, registrar);
++        shell.getImports().add("import hudson.model.*");
++
++        // defaultErrorHook doesn't re-throw IOException, so ShellRunner in
++        // Groovysh will keep looping forever if we don't terminate when the
++        // channel is closed
++        final Closure originalErrorHook = shell.getErrorHook();
++        shell.setErrorHook(new Closure(shell, shell) {
++            public Object doCall(Object[] args) throws ChannelClosedException {
++                if (args.length == 1 && args[0] instanceof ChannelClosedException) {
++                    throw (ChannelClosedException)args[0];
++                }
++
++                return originalErrorHook.call(args);
++            }
++        });
++
++        return shell;
++    }
++
+     protected int run() {
+         throw new UnsupportedOperationException();
+     }
+Index: core/src/main/resources/hudson/cli/commands.xml
+===================================================================
+--- core/src/main/resources/hudson/cli/commands.xml	(revision 0)
++++ core/src/main/resources/hudson/cli/commands.xml	(revision 0)
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<!--
++    This list is a subset of commands.xml in org/codehaus/groovy/tools/shell.
++
++    The "load", "save", and "record" commands have been removed because of
++    the ambiguity of their operation on local files in a client/server
++    context and because of a problematic implementation detail in the record
++    command. These commands may be replaced later with Hudson-specific
++    versions that have clearer semantics.
++-->
++<commands>
++    <command>org.codehaus.groovy.tools.shell.commands.HelpCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.ExitCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.ImportCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.DisplayCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.ClearCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.ShowCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.InspectCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.PurgeCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.EditCommand</command>
++    <!--<command>org.codehaus.groovy.tools.shell.commands.LoadCommand</command>-->
++    <!--<command>org.codehaus.groovy.tools.shell.commands.SaveCommand</command>-->
++    <!--<command>org.codehaus.groovy.tools.shell.commands.RecordCommand</command>-->
++    <command>org.codehaus.groovy.tools.shell.commands.HistoryCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.AliasCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.SetCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.ShadowCommand</command>
++    <command>org.codehaus.groovy.tools.shell.commands.RegisterCommand</command>
++</commands>
++

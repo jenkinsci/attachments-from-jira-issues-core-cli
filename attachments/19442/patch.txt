@@ -1,0 +1,335 @@
+### Eclipse Workspace Patch 1.0
+#P hudson-core
+Index: src/test/java/hudson/model/JobTest.java
+===================================================================
+--- src/test/java/hudson/model/JobTest.java	(revision 0)
++++ src/test/java/hudson/model/JobTest.java	(revision 0)
+@@ -0,0 +1,183 @@
++package hudson.model;
++
++import java.io.IOException;
++import java.util.SortedMap;
++import java.util.TreeMap;
++
++import junit.framework.Assert;
++import junit.framework.TestCase;
++
++public class JobTest extends TestCase {
++
++    public void testGetEstimatedDuration() throws IOException {
++        
++        final SortedMap<Integer, TestBuild> runs = new TreeMap<Integer, TestBuild>();
++        
++        Job project = new Job(null, "name") {
++
++            int i = 1;
++            
++            @Override
++            public int assignBuildNumber() throws IOException {
++                return i++;
++            }
++            
++            @Override
++            public SortedMap<Integer, ? extends Run> _getRuns() {
++                return runs;
++            }
++
++            @Override
++            public boolean isBuildable() {
++                return true;
++            }
++
++            @Override
++            protected void removeRun(Run run) {
++            }
++            
++        };
++        
++        TestBuild previousPreviousBuild = new TestBuild(project, Result.SUCCESS, 20, null);
++        runs.put(3, previousPreviousBuild);
++        
++        TestBuild previousBuild = new TestBuild(project, Result.SUCCESS, 15, previousPreviousBuild);
++        runs.put(2, previousBuild);
++        
++        TestBuild lastBuild = new TestBuild(project, Result.SUCCESS, 42, previousBuild);
++        runs.put(1, lastBuild);
++
++        // without assuming to know to much about the internal calculation
++        // we can only assume that the result is between the maximum and the minimum
++        Assert.assertTrue(project.getEstimatedDuration() < 42);
++        Assert.assertTrue(project.getEstimatedDuration() > 15);
++    }
++    
++    public void testGetEstimatedDurationWithOneRun() throws IOException {
++        
++        final SortedMap<Integer, TestBuild> runs = new TreeMap<Integer, TestBuild>();
++        
++        Job project = new Job(null, "name") {
++
++            int i = 1;
++            
++            @Override
++            public int assignBuildNumber() throws IOException {
++                return i++;
++            }
++            
++            @Override
++            public SortedMap<Integer, ? extends Run> _getRuns() {
++                return runs;
++            }
++
++            @Override
++            public boolean isBuildable() {
++                return true;
++            }
++
++            @Override
++            protected void removeRun(Run run) {
++            }
++            
++        };
++        
++        TestBuild lastBuild = new TestBuild(project, Result.SUCCESS, 42, null);
++        runs.put(1, lastBuild);
++
++        Assert.assertEquals(42, project.getEstimatedDuration());
++    }
++    
++    public void testGetEstimatedDurationWithFailedRun() throws IOException {
++        
++        final SortedMap<Integer, TestBuild> runs = new TreeMap<Integer, TestBuild>();
++        
++        Job project = new Job(null, "name") {
++
++            int i = 1;
++            
++            @Override
++            public int assignBuildNumber() throws IOException {
++                return i++;
++            }
++            
++            @Override
++            public SortedMap<Integer, ? extends Run> _getRuns() {
++                return runs;
++            }
++
++            @Override
++            public boolean isBuildable() {
++                return true;
++            }
++
++            @Override
++            protected void removeRun(Run run) {
++            }
++            
++        };
++        
++        TestBuild lastBuild = new TestBuild(project, Result.FAILURE, 42, null);
++        runs.put(1, lastBuild);
++
++        Assert.assertEquals(-1, project.getEstimatedDuration());
++    }
++    
++    public void testGetEstimatedDurationWithNoRuns() throws IOException {
++        
++        final SortedMap<Integer, TestBuild> runs = new TreeMap<Integer, TestBuild>();
++        
++        Job project = new Job(null, "name") {
++
++            int i = 1;
++            
++            @Override
++            public int assignBuildNumber() throws IOException {
++                return i++;
++            }
++            
++            @Override
++            public SortedMap<Integer, ? extends Run> _getRuns() {
++                return runs;
++            }
++
++            @Override
++            public boolean isBuildable() {
++                return true;
++            }
++
++            @Override
++            protected void removeRun(Run run) {
++            }
++            
++        };
++        
++        Assert.assertEquals(-1, project.getEstimatedDuration());
++    }
++    
++    private static class TestBuild extends Run {
++        
++        public TestBuild(Job project, Result result, long duration, TestBuild previousBuild) throws IOException {
++            super(project);
++            this.result = result;
++            this.duration = duration;
++            this.previousBuild = previousBuild;
++        }
++        
++        @Override
++        public int compareTo(Run o) {
++            return 0;
++        }
++        
++        @Override
++        public Result getResult() {
++            return result;
++        }
++        
++        @Override
++        public boolean isBuilding() {
++            return false;
++        }
++        
++    }
++}
+
+Property changes on: src\test\java\hudson\model\JobTest.java
+___________________________________________________________________
+Added: svn:mime-type
+   + text/plain
+Added: svn:keywords
+   + Date Revision Author Id HeadURL
+Added: svn:eol-style
+   + LF
+
+Index: src/main/java/hudson/model/Job.java
+===================================================================
+--- src/main/java/hudson/model/Job.java	(revision 31101)
++++ src/main/java/hudson/model/Job.java	(working copy)
+@@ -347,6 +347,7 @@
+         }).add("configure", "config", "configure");
+     }
+ 
++    @Override
+     public Collection<? extends Job> getAllJobs() {
+         return Collections.<Job> singleton(this);
+     }
+@@ -630,10 +631,12 @@
+     public List<RunT> getBuildsByTimestamp(long start, long end) {
+         final List<RunT> builds = getBuilds();
+         AbstractList<Long> TIMESTAMP_ADAPTER = new AbstractList<Long>() {
++            @Override
+             public Long get(int index) {
+                 return builds.get(index).timestamp;
+             }
+ 
++            @Override
+             public int size() {
+                 return builds.size();
+             }
+@@ -827,7 +830,43 @@
+             r = r.getPreviousBuild();
+         return r;
+     }
++    
++    /**
++     * Returns the last 'numberOfBuilds' builds with a threshold >= 'threshold'
++     * 
++     * @return a list with the builds. May be smaller than 'numberOfBuilds' or even empty
++     *   if not enough builds satisfying the threshold have been found
++     */
++    protected List<RunT> getLastBuildsOverThreshold(int numberOfBuilds, Result threshold) {
++        
++        List<RunT> result = new ArrayList<RunT>(numberOfBuilds);
++        
++        RunT r = getLastBuild();
++        while (r != null && result.size() < numberOfBuilds) {
++            if (!r.isBuilding() && 
++                 (r.getResult() != null && r.getResult().isBetterOrEqualTo(threshold))) {
++                result.add(r);
++            }
++            r = r.getPreviousBuild();
++        }
++        
++        return result;
++    }
++    
++    public final long getEstimatedDuration() {
++        List<RunT> builds = getLastBuildsOverThreshold(3, Result.UNSTABLE);
++        
++        if(builds.isEmpty())     return -1;
+ 
++        long totalDuration = 0;
++        for (RunT b : builds) {
++            totalDuration += b.getDuration();
++        }
++        if(totalDuration==0) return -1;
++
++        return Math.round((double)totalDuration / builds.size());
++    }
++
+     /**
+      * Gets all the {@link Permalink}s defined for this job.
+      *
+Index: src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- src/main/java/hudson/model/AbstractProject.java	(revision 31101)
++++ src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -82,7 +82,6 @@
+ import org.kohsuke.stapler.ForwardToView;
+ 
+ import javax.servlet.ServletException;
+-import javax.servlet.http.HttpServletResponse;
+ import java.io.File;
+ import java.io.IOException;
+ import java.lang.reflect.InvocationTargetException;
+@@ -446,6 +445,7 @@
+         return scmCheckoutRetryCount != null;
+     }
+ 
++    @Override
+     public boolean isBuildable() {
+         return !isDisabled();
+     }
+@@ -784,10 +784,12 @@
+         return authToken;
+     }
+ 
++    @Override
+     public SortedMap<Integer, ? extends R> _getRuns() {
+         return builds.getView();
+     }
+ 
++    @Override
+     public void removeRun(R run) {
+         this.builds.remove(run);
+     }
+@@ -916,6 +918,7 @@
+             this.build = build;
+         }
+ 
++        @Override
+         public String getShortDescription() {
+             Executor e = build.getExecutor();
+             String eta = "";
+@@ -936,6 +939,7 @@
+             this.up = up;
+         }
+ 
++        @Override
+         public String getShortDescription() {
+             return Messages.AbstractProject_UpstreamBuildInProgress(up.getName());
+         }
+@@ -970,16 +974,6 @@
+         return null;
+     }
+ 
+-    public final long getEstimatedDuration() {
+-        AbstractBuild b = getLastSuccessfulBuild();
+-        if(b==null)     return -1;
+-
+-        long duration = b.getDuration();
+-        if(duration==0) return -1;
+-
+-        return duration;
+-    }
+-
+     public R createExecutable() throws IOException {
+         if(isDisabled())    return null;
+         return newBuild();

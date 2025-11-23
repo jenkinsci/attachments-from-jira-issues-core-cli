@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<project>
+  <actions/>
+  <description>&lt;!-- Managed by Job's Done --&gt;</description>
+  <displayName>[master] etk redhat64</displayName>
+  <keepDependencies>false</keepDependencies>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <assignedNode>12.0 &amp;&amp; redhat64 &amp;&amp; !skip-etk</assignedNode>
+  <canRoam>false</canRoam>
+  <logRotator>
+    <daysToKeep>7</daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>URL</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <relativeTargetDir>etk</relativeTargetDir>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.LocalBranch>
+        <localBranch>master</localBranch>
+      </hudson.plugins.git.extensions.impl.LocalBranch>
+    </extensions>
+    <localBranch>master</localBranch>
+  </scm>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>echo hello</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <xunit>
+      <types>
+        <JUnitType>
+          <pattern>**/build/12.0-redhat64-tests/*.xml</pattern>
+          <skipNoTestFiles>true</skipNoTestFiles>
+          <failIfNotNew>false</failIfNotNew>
+          <deleteOutputFiles>true</deleteOutputFiles>
+          <stopProcessingIfError>true</stopProcessingIfError>
+        </JUnitType>
+        <BoostTestJunitHudsonTestType>
+          <pattern>**/build/12.0-redhat64-cpptests/*.xml</pattern>
+          <skipNoTestFiles>true</skipNoTestFiles>
+          <failIfNotNew>false</failIfNotNew>
+          <deleteOutputFiles>true</deleteOutputFiles>
+          <stopProcessingIfError>true</stopProcessingIfError>
+        </BoostTestJunitHudsonTestType>
+      </types>
+      <thresholds>
+        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+          <unstableThreshold>0</unstableThreshold>
+          <unstableNewThreshold>0</unstableNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+      </thresholds>
+      <thresholdMode>1</thresholdMode>
+    </xunit>
+    <hudson.plugins.descriptionsetter.DescriptionSetterPublisher>
+      <regexp>HUDSON DESCRIPTION\: (.*)</regexp>
+      <regexpForFailed>HUDSON DESCRIPTION\: (.*)</regexpForFailed>
+      <setForMatrix>false</setForMatrix>
+    </hudson.plugins.descriptionsetter.DescriptionSetterPublisher>
+    <org.jenkinsci.plugins.stashNotifier.StashNotifier>
+      <stashServerBaseUrl></stashServerBaseUrl>
+      <stashUserName></stashUserName>
+      <stashUserPassword></stashUserPassword>
+    </org.jenkinsci.plugins.stashNotifier.StashNotifier>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <timeoutMinutes>240</timeoutMinutes>
+      <failBuild>true</failBuild>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+  </buildWrappers>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec># build every 2 hours between 2h and 20h
+0 2-20/2 * * *
+</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+</project>

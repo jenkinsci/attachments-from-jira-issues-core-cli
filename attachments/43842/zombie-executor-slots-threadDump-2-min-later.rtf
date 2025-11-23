@@ -1,0 +1,307 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 ProximaNova-Regular;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl480\sa321\partightenfactor0
+
+\f0\b\fs48 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Thread Dump\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\fs36 \cf2 Channel reader thread: channel\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "Channel reader thread: channel" Id=10 Group=main RUNNABLE (in native)\
+	at java.io.FileInputStream.readBytes(Native Method)\
+	at java.io.FileInputStream.read(FileInputStream.java:255)\
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)\
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265)\
+	-  locked java.io.BufferedInputStream@4359e4d0\
+	at hudson.remoting.FlightRecorderInputStream.read(FlightRecorderInputStream.java:91)\
+	at hudson.remoting.ChunkedInputStream.readHeader(ChunkedInputStream.java:72)\
+	at hudson.remoting.ChunkedInputStream.readUntilBreak(ChunkedInputStream.java:103)\
+	at hudson.remoting.ChunkedCommandTransport.readBlock(ChunkedCommandTransport.java:39)\
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:35)\
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:63)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 JGit-WorkQueue\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "JGit-WorkQueue" Id=320 Group=main TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@6cdcde75\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@6cdcde75\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)\
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1093)\
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:809)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 main\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "main" Id=1 Group=main TIMED_WAITING on hudson.remoting.Channel@39ed3c8d\
+	at java.lang.Object.wait(Native Method)\
+	-  waiting on hudson.remoting.Channel@39ed3c8d\
+	at hudson.remoting.Channel.join(Channel.java:1139)\
+	at hudson.remoting.Launcher.main(Launcher.java:768)\
+	at hudson.remoting.Launcher.runWithStdinStdout(Launcher.java:691)\
+	at hudson.remoting.Launcher.run(Launcher.java:373)\
+	at hudson.remoting.Launcher.main(Launcher.java:283)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 Ping thread for channel hudson.remoting.Channel@39ed3c8d:channel\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "Ping thread for channel hudson.remoting.Channel@39ed3c8d:channel" Id=42 Group=main TIMED_WAITING\
+	at java.lang.Thread.sleep(Native Method)\
+	at hudson.remoting.PingThread.run(PingThread.java:95)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-470\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-470" Id=770 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-471\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-471" Id=771 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-472\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-472" Id=772 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-473\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-473" Id=773 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-474\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-474" Id=774 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-475\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-475" Id=775 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-476\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-476" Id=776 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-477\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-477" Id=777 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-478\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-478" Id=778 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-479 for channel id=15005896\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-479 for channel id=15005896" Id=779 Group=main RUNNABLE\
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)\
+	at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:454)\
+	at hudson.Functions.getThreadInfos(Functions.java:1242)\
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:98)\
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:95)\
+	at hudson.remoting.UserRequest.perform(UserRequest.java:212)\
+	at hudson.remoting.UserRequest.perform(UserRequest.java:54)\
+	at hudson.remoting.Request$2.run(Request.java:369)\
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)\
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+	Number of locked synchronizers = 1\
+	- java.util.concurrent.ThreadPoolExecutor$Worker@357686d\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 pool-1-thread-480\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "pool-1-thread-480" Id=780 Group=main TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at sun.misc.Unsafe.park(Native Method)\
+	-  waiting on java.util.concurrent.SynchronousQueue$TransferStack@1d818b72\
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:460)\
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:362)\
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:941)\
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)\
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)\
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 RemoteInvocationHandler [#68]\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "RemoteInvocationHandler [#68]" Id=768 Group=main TIMED_WAITING on java.lang.ref.ReferenceQueue$Lock@170715b3\
+	at java.lang.Object.wait(Native Method)\
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@170715b3\
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)\
+	at hudson.remoting.RemoteInvocationHandler$Unexporter.run(RemoteInvocationHandler.java:598)\
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)\
+	at hudson.remoting.AtmostOneThreadExecutor$Worker.run(AtmostOneThreadExecutor.java:112)\
+	at java.lang.Thread.run(Thread.java:748)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 Finalizer\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "Finalizer" Id=3 Group=system WAITING on java.lang.ref.ReferenceQueue$Lock@52923dd2\
+	at java.lang.Object.wait(Native Method)\
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@52923dd2\
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)\
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:164)\
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:209)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 Reference Handler\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "Reference Handler" Id=2 Group=system WAITING on java.lang.ref.Reference$Lock@20452f15\
+	at java.lang.Object.wait(Native Method)\
+	-  waiting on java.lang.ref.Reference$Lock@20452f15\
+	at java.lang.Object.wait(Object.java:502)\
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)\
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)\
+\
+\pard\pardeftab720\sl360\sa298\partightenfactor0
+
+\f0\b\fs36 \cf2 Signal Dispatcher\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f1\b0\fs34 \cf2 "Signal Dispatcher" Id=4 Group=system RUNNABLE\
+}

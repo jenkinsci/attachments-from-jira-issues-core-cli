@@ -1,0 +1,285 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+# java.lang.OutOfMemoryError: requested 3488 bytes for CodeCache: no room for vtable chunks. Out of swap space?
+#
+#  Internal Error (vtableStubs.cpp:48), pid=7172, tid=1812231
+#  Error: CodeCache: no room for vtable chunks
+#
+# JRE version: 6.0_17-b04
+# Java VM: Java HotSpot(TM) Client VM (14.3-b01 mixed mode solaris-sparc )
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x01858400):  JavaThread "RMI TCP Connection(24225)-127.0.0.1" daemon [_thread_in_vm, id=1812231, stack(0xc9e80000,0xc9f00000)]
+
+Stack: [0xc9e80000,0xc9f00000],  sp=0xc9efd490,  free space=501k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x56d084]
+V  [libjvm.so+0x2b2bc4]
+V  [libjvm.so+0x17df40]
+V  [libjvm.so+0x574068]
+V  [libjvm.so+0x5737b0]
+V  [libjvm.so+0x17dde4]
+V  [libjvm.so+0x17daf0]
+V  [libjvm.so+0x4cf1ac]
+v  ~RuntimeStub::ic_miss_stub
+J  com.sun.enterprise.util.InvocationManagerImpl.postInvoke(Lcom/sun/enterprise/ComponentInvocation;)V
+j  com.sun.appserv.server.ServerLifecycleModule.postInvoke(Lcom/sun/enterprise/InvocationManager;)V+5
+j  com.sun.appserv.server.ServerLifecycleModule.postEvent(ILjava/lang/Object;Lcom/sun/enterprise/InvocationManager;)V+110
+j  com.sun.appserv.server.ServerLifecycleModule.onShutdown()V+15
+j  com.sun.appserv.server.LifecycleModuleService.onShutdown()V+37
+j  com.sun.enterprise.server.ApplicationServer.onShutdown()V+54
+j  com.sun.enterprise.server.ondemand.OnDemandServer.onShutdown()V+1
+j  com.sun.enterprise.server.Shutdown.startShutdown(Lcom/sun/enterprise/admin/event/ShutdownEvent;)V+3
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.invokeShutdownEventListener(Lcom/sun/enterprise/admin/event/ShutdownEventListener;Lcom/sun/enterprise/admin/event/ShutdownEvent;)V+7
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.handleShutdownEvent(Lcom/sun/enterprise/admin/event/AdminEvent;)I+60
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.processEvent(Lcom/sun/enterprise/admin/event/AdminEvent;)V+247
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.multicastEvent(Lcom/sun/enterprise/admin/event/AdminEvent;)Lcom/sun/enterprise/admin/event/AdminEventResult;+37
+j  com.sun.enterprise.admin.server.core.channel.AdminChannelServer.sendNotification([BLcom/sun/enterprise/admin/event/AdminEvent;)Lcom/sun/enterprise/admin/event/AdminEventResult;+52
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0xed9c4]
+V  [libjvm.so+0x4bdcc8]
+V  [libjvm.so+0x18046c]
+V  [libjvm.so+0x17ff2c]
+C  [libjava.so+0x10ca4]  Java_sun_reflect_NativeMethodAccessorImpl_invoke0+0x18
+J  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+j  sun.rmi.server.UnicastServerRef.dispatch(Ljava/rmi/Remote;Ljava/rmi/server/RemoteCall;)V+242
+j  sun.rmi.transport.Transport$1.run()Ljava/lang/Object;+23
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0xed9c4]
+V  [libjvm.so+0xf8b54]
+C  [libjava.so+0xf5d8]  Java_java_security_AccessController_doPrivileged__Ljava_security_PrivilegedExceptionAction_2Ljava_security_AccessControlContext_2+0x1c
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedExceptionAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+j  sun.rmi.transport.Transport.serviceCall(Ljava/rmi/server/RemoteCall;)Z+163
+J  sun.rmi.transport.tcp.TCPTransport.handleMessages(Lsun/rmi/transport/Connection;Z)V
+j  sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0()V+685
+j  sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run()V+50
+J  java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Ljava/lang/Runnable;)V
+J  java.util.concurrent.ThreadPoolExecutor$Worker.run()V
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0xed9c4]
+V  [libjvm.so+0x338f90]
+V  [libjvm.so+0xff8c4]
+V  [libjvm.so+0xff844]
+V  [libjvm.so+0x52422c]
+V  [libjvm.so+0x484aec]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+v  ~RuntimeStub::ic_miss_stub
+J  com.sun.enterprise.util.InvocationManagerImpl.postInvoke(Lcom/sun/enterprise/ComponentInvocation;)V
+j  com.sun.appserv.server.ServerLifecycleModule.postInvoke(Lcom/sun/enterprise/InvocationManager;)V+5
+j  com.sun.appserv.server.ServerLifecycleModule.postEvent(ILjava/lang/Object;Lcom/sun/enterprise/InvocationManager;)V+110
+j  com.sun.appserv.server.ServerLifecycleModule.onShutdown()V+15
+j  com.sun.appserv.server.LifecycleModuleService.onShutdown()V+37
+j  com.sun.enterprise.server.ApplicationServer.onShutdown()V+54
+j  com.sun.enterprise.server.ondemand.OnDemandServer.onShutdown()V+1
+j  com.sun.enterprise.server.Shutdown.startShutdown(Lcom/sun/enterprise/admin/event/ShutdownEvent;)V+3
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.invokeShutdownEventListener(Lcom/sun/enterprise/admin/event/ShutdownEventListener;Lcom/sun/enterprise/admin/event/ShutdownEvent;)V+7
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.handleShutdownEvent(Lcom/sun/enterprise/admin/event/AdminEvent;)I+60
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.processEvent(Lcom/sun/enterprise/admin/event/AdminEvent;)V+247
+j  com.sun.enterprise.admin.event.AdminEventMulticaster.multicastEvent(Lcom/sun/enterprise/admin/event/AdminEvent;)Lcom/sun/enterprise/admin/event/AdminEventResult;+37
+j  com.sun.enterprise.admin.server.core.channel.AdminChannelServer.sendNotification([BLcom/sun/enterprise/admin/event/AdminEvent;)Lcom/sun/enterprise/admin/event/AdminEventResult;+52
+v  ~StubRoutines::call_stub
+J  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+j  sun.rmi.server.UnicastServerRef.dispatch(Ljava/rmi/Remote;Ljava/rmi/server/RemoteCall;)V+242
+j  sun.rmi.transport.Transport$1.run()Ljava/lang/Object;+23
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedExceptionAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+j  sun.rmi.transport.Transport.serviceCall(Ljava/rmi/server/RemoteCall;)Z+163
+J  sun.rmi.transport.tcp.TCPTransport.handleMessages(Lsun/rmi/transport/Connection;Z)V
+j  sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0()V+685
+j  sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run()V+50
+J  java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Ljava/lang/Runnable;)V
+J  java.util.concurrent.ThreadPoolExecutor$Worker.run()V
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00a33800 JavaThread "RMI TCP Connection(24227)-10.5.220.50" daemon [_thread_in_native, id=1812239, stack(0xca980000,0xcaa00000)]
+  0x00a06000 JavaThread "RMI TCP Connection(24226)-10.5.220.50" daemon [_thread_in_native, id=1812237, stack(0xcb280000,0xcb300000)]
+=>0x01858400 JavaThread "RMI TCP Connection(24225)-127.0.0.1" daemon [_thread_in_vm, id=1812231, stack(0xc9e80000,0xc9f00000)]
+  0x01856400 JavaThread "RMI TCP Connection(idle)" daemon [_thread_blocked, id=1812230, stack(0xc8880000,0xc8900000)]
+  0x02c47c00 JavaThread "p: thread-pool-1; w: 4056" daemon [_thread_blocked, id=1812208, stack(0xcab80000,0xcac00000)]
+  0x03269c00 JavaThread "com.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=1811805, stack(0xc4480000,0xc4500000)]
+  0x04b6d400 JavaThread "Hudson - Build-Publisher Thread for audit-trail" daemon [_thread_blocked, id=1650859, stack(0xc6180000,0xc6200000)]
+  0x02cde400 JavaThread "Hudson - Build-Publisher Thread for audit-trail" daemon [_thread_blocked, id=1649863, stack(0xc4880000,0xc4900000)]
+  0x03266800 JavaThread "com.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=1649759, stack(0xcd480000,0xcd500000)]
+  0x047cb800 JavaThread "Channel reader thread: Windows7-64bit" daemon [_thread_blocked, id=1507023, stack(0xc7c80000,0xc7d00000)]
+  0x01917c00 JavaThread "Hudson - Build-Publisher Thread for audit-trail" daemon [_thread_blocked, id=1250094, stack(0xc5680000,0xc5700000)]
+  0x00b7e000 JavaThread "com.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=1249982, stack(0xca680000,0xca700000)]
+  0x01650800 JavaThread "Timer-4029" [_thread_blocked, id=68832, stack(0xc9280000,0xc9300000)]
+  0x01a80400 JavaThread "Hudson - Build-Publisher Thread for audit-trail" daemon [_thread_blocked, id=3294, stack(0xc3380000,0xc3400000)]
+  0x011a7c00 JavaThread "com.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=3183, stack(0xca780000,0xca800000)]
+  0x01953000 JavaThread "File Reaper" daemon [_thread_blocked, id=3139, stack(0xcec80000,0xced00000)]
+  0x01566c00 JavaThread "Handling GET /hudson/job/sherry-batw7/descriptorByName/hudson.tasks.ArtifactArchiver/checkArtifacts : httpSSLWorkerThread-8080-4 / waiting for hudson.remoting.Channel@14b753:Windows7-64bit" daemon [_thread_blocked, id=426, stack(0xcc880000,0xcc900000)]
+  0x01149800 JavaThread "com.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=412, stack(0xcd380000,0xcd400000)]
+  0x00aa7c00 JavaThread "Hudson - Build-Publisher Thread for audit-trail" [_thread_blocked, id=212, stack(0xc5780000,0xc5800000)]
+  0x00053800 JavaThread "DestroyJavaVM" [_thread_blocked, id=2, stack(0xfe700000,0xfe780000)]
+  0x00b01c00 JavaThread "Timer-8" [_thread_blocked, id=86, stack(0xca880000,0xca900000)]
+  0x00aec400 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=80, stack(0xcac80000,0xcad00000)]
+  0x00797000 JavaThread "Thread-20" [_thread_blocked, id=61, stack(0xcc180000,0xcc200000)]
+  0x00a4fc00 JavaThread "RMI RenewClean-[10.5.220.50:60545,com.sun.enterprise.admin.server.core.channel.LocalRMIClientSocketFactory@13e49a8]" daemon [_thread_blocked, id=59, stack(0xcc380000,0xcc400000)]
+  0x009c6c00 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=52, stack(0xcca80000,0xccb00000)]
+  0x009ea800 JavaThread "ClusterDiscoveryService" daemon [_thread_in_native, id=51, stack(0xccb80000,0xccc00000)]
+  0x00579000 JavaThread "MQTimer-Thread" daemon [_thread_blocked, id=48, stack(0xcd180000,0xcd200000)]
+  0x009a2800 JavaThread "RMI RenewClean-[10.5.220.50:60553]" daemon [_thread_blocked, id=43, stack(0xcd580000,0xcd600000)]
+  0x0098dc00 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=41, stack(0xcd880000,0xcd900000)]
+  0x009ccc00 JavaThread "RMI TCP Accept-8686" daemon [_thread_in_native, id=40, stack(0xcd780000,0xcd800000)]
+  0x007d9c00 JavaThread "Thread-11" daemon [_thread_blocked, id=36, stack(0xcd980000,0xcda00000)]
+  0x00876400 JavaThread "Thread-10" [_thread_blocked, id=35, stack(0xcda80000,0xcdb00000)]
+  0x007e1400 JavaThread "Thread-8" [_thread_blocked, id=33, stack(0xcdb80000,0xcdc00000)]
+  0x00110800 JavaThread "p: thread-pool-1; w: 2" daemon [_thread_in_native, id=32, stack(0xcdc80000,0xcdd00000)]
+  0x0010fc00 JavaThread "p: thread-pool-1; w: 1" daemon [_thread_in_native, id=31, stack(0xcdd80000,0xcde00000)]
+  0x00831400 JavaThread "SelectorThread" daemon [_thread_in_native, id=30, stack(0xcde80000,0xcdf00000)]
+  0x00723000 JavaThread "Timer-3" daemon [_thread_blocked, id=29, stack(0xcdf80000,0xce000000)]
+  0x006b2400 JavaThread "Timer-2" [_thread_blocked, id=28, stack(0xce080000,0xce100000)]
+  0x00727800 JavaThread "Timer-0" [_thread_blocked, id=26, stack(0xce280000,0xce300000)]
+  0x00574800 JavaThread "RMI Scheduler(0)" daemon [_thread_blocked, id=25, stack(0xce380000,0xce400000)]
+  0x000c5000 JavaThread "GC Daemon" daemon [_thread_blocked, id=23, stack(0xce780000,0xce800000)]
+  0x000c4400 JavaThread "RMI Reaper" [_thread_blocked, id=22, stack(0xce880000,0xce900000)]
+  0x000f1c00 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=21, stack(0xce980000,0xcea00000)]
+  0x000eec00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=8, stack(0xcf880000,0xcf900000)]
+  0x000ec800 JavaThread "CompilerThread0" daemon [_thread_blocked, id=7, stack(0xcf980000,0xcfa00000)]
+  0x000eb400 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=6, stack(0xcfa80000,0xcfb00000)]
+  0x000d6800 JavaThread "Finalizer" daemon [_thread_blocked, id=5, stack(0xcfb80000,0xcfc00000)]
+  0x000d5000 JavaThread "Reference Handler" daemon [_thread_blocked, id=4, stack(0xcfc80000,0xcfd00000)]
+
+Other Threads:
+  0x000d1000 VMThread [stack: 0xcfd80000,0xcfe00000] [id=3]
+  0x00102400 WatcherThread [stack: 0xcf780000,0xcf800000] [id=9]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00052ff0] CompiledIC_lock - owner thread: 0x01858400
+
+Heap
+ def new generation   total 139776K, used 2277K [0xd0000000, 0xd97a0000, 0xdaaa0000)
+  eden space 124288K,   1% used [0xd0000000, 0xd0239458, 0xd7960000)
+  from space 15488K,   0% used [0xd7960000, 0xd7960000, 0xd8880000)
+  to   space 15488K,   0% used [0xd8880000, 0xd8880000, 0xd97a0000)
+ tenured generation   total 310056K, used 79097K [0xdaaa0000, 0xed96a000, 0xf0000000)
+   the space 310056K,  25% used [0xdaaa0000, 0xdf7de538, 0xdf7de600, 0xed96a000)
+ compacting perm gen  total 148480K, used 148245K [0xf0000000, 0xf9100000, 0xfc000000)
+   the space 148480K,  99% used [0xf0000000, 0xf90c5680, 0xf90c5800, 0xf9100000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00010000 	/space1/jdk1.6.0_17/bin/java
+0xff3a0000 	/lib/libthread.so.1
+0xff370000 	/space1/jdk1.6.0_17/bin/../jre/lib/sparc/jli/libjli.so
+0xff350000 	/lib/libdl.so.1
+0xff200000 	/lib/libc.so.1
+0xff390000 	/platform/SUNW,Sun-Fire-480R/lib/libc_psr.so.1
+0xfe800000 	/space1/jdk1.6.0_17/jre/lib/sparc/client/libjvm.so
+0xff1d0000 	/lib/libsocket.so.1
+0xff1f0000 	/usr/lib/libsched.so.1
+0xff1b0000 	/lib/libm.so.1
+0xff180000 	/usr/lib/libCrun.so.1
+0xff160000 	/lib/libdoor.so.1
+0xff080000 	/lib/libnsl.so.1
+0xfef80000 	/lib/libm.so.2
+0xff050000 	/lib/libscf.so.1
+0xff140000 	/lib/libuutil.so.1
+0xfef60000 	/lib/libgen.so.1
+0xfef30000 	/lib/libmd.so.1
+0xfef10000 	/platform/SUNW,Sun-Fire-480R/lib/libmd_psr.so.1
+0xfe7e0000 	/lib/libmp.so.2
+0xfe6b0000 	/space1/jdk1.6.0_17/jre/lib/sparc/libverify.so
+0xfe670000 	/space1/jdk1.6.0_17/jre/lib/sparc/libjava.so
+0xfe650000 	/space1/jdk1.6.0_17/jre/lib/sparc/native_threads/libhpi.so
+0xfe600000 	/space1/jdk1.6.0_17/jre/lib/sparc/libzip.so
+0xfe5a0000 	/space1/jdk1.6.0_17/jre/lib/sparc/libnet.so
+0xcfd40000 	/space1/jdk1.6.0_17/jre/lib/sparc/libmanagement.so
+0xcfc50000 	/space1/jdk1.6.0_17/jre/lib/sparc/libj2pkcs11.so
+0xcfc20000 	/usr/lib/libpkcs11.so
+0xcfb60000 	/usr/lib/libcryptoutil.so.1
+0xcfa20000 	/usr/lib/security/pkcs11_softtoken_extra.so
+0xcfb40000 	/space1/sges/lib/libjvminfoutil.so
+0xcfd10000 	/lib/libpthread.so.1
+0xcfb20000 	/lib/librt.so.1
+0xcf960000 	/lib/libkstat.so.1
+0xce580000 	/usr/lib/libCstd.so.1
+0xcf940000 	/lib/libaio.so.1
+0xcf840000 	/usr/lib/cpu/sparcv8plus/libCstd_isa.so.1
+0xcf820000 	/space1/jdk1.6.0_17/jre/lib/sparc/librmi.so
+0xcf730000 	/space1/jdk1.6.0_17/jre/lib/sparc/libnio.so
+0xcf420000 	/usr/lib/libsendfile.so.1
+0xcae80000 	/space1/jdk1.6.0_17/jre/lib/sparc/libawt.so
+0xcf360000 	/space1/jdk1.6.0_17/jre/lib/sparc/headless/libmawt.so
+0xcad80000 	/space1/jdk1.6.0_17/jre/lib/sparc/libfontmanager.so
+0xcf3b0000 	/space1/jdk1.6.0_17/jre/lib/sparc/libdcpr.so
+0xcf380000 	/space1/sges/domains/domain1/generated/jsp/j2ee-modules/hudson/loader/com/sun/jna/sunos-sparc/libjnidispatch.so
+0xcf280000 	/lib/libzfs.so
+0xcf1d0000 	/lib/libdevinfo.so.1
+0xcf1b0000 	/lib/libdevid.so.1
+0xcf190000 	/lib/libnvpair.so.1
+0xcf0e0000 	/lib/libavl.so.1
+0xcf0c0000 	/lib/libefi.so.1
+0xcf090000 	/lib/libsec.so.1
+0xceff0000 	/lib/libuuid.so.1
+0xcefd0000 	/lib/libiscsitgt.so.1
+0xc0e00000 	/usr/lib/libxml2.so.2
+0xcefa0000 	/usr/lib/libz.so.1
+0xceee0000 	/usr/lib//libshare.so.1
+
+VM Arguments:
+jvm_args: -Dcom.sun.aas.instanceRoot=/space1/sges/domains/domain1 -DHUDSON_HOME=/export/hudson/server -Dcom.sun.aas.ClassPathPrefix= -Dcom.sun.aas.ClassPathSuffix= -Dcom.sun.aas.ServerClassPath= -Dcom.sun.aas.classloader.appserverChainJars.ee= -Dcom.sun.aas.classloader.appserverChainJars=admin-cli.jar,admin-cli-ee.jar,j2ee-svc.jar -Dcom.sun.aas.classloader.excludesList=admin-cli.jar,appserv-upgrade.jar,sun-appserv-ant.jar -Dcom.sun.aas.classloader.optionalOverrideableChain.ee= -Dcom.sun.aas.classloader.optionalOverrideableChain=webservices-rt.jar,webservices-tools.jar -Dcom.sun.aas.classloader.serverClassPath.ee=Does not exist/lib/hadbjdbc4.jar,/space1/sges/lib/SUNWjdmk/5.1/lib/jdmkrt.jar,Does not exist/lib/dbstate.jar,Does not exist/lib/hadbm.jar,Does not exist/lib/hadbmgt.jar,/opt/SUNWmfwk/lib/mfwk_instrum_tk.jar -Dcom.sun.aas.classloader.serverClassPath=/space1/sges/lib/install/applications/jmsra/imqjmsra.jar,/space1/sges/imq/lib/jaxm-api.jar,/space1/sges/imq/lib/fscontext.jar,/space1/sges/imq/lib/imqbroker.jar,/space1/sges/imq/lib/imqjmx.jar,/space1/sges/lib/ant/lib/ant.jar,/space1/sges/lib/SUNWjdmk/5.1/lib/jdmkrt.jar -Dcom.sun.aas.classloader.sharedChainJars.ee=appserv-se.jar,appserv-ee.jar,jesmf-plugin.jar,Does not exist/lib/dbstate.jar,Does not exist/lib/hadbjdbc4.jar,jgroups-all.jar,/opt/SUNWmfwk/lib/mfwk_instrum_tk.jar -Dcom.sun.aas.classloader.sharedChainJars=javaee.jar,/space1/jdk/lib/tools.jar,install/applications/jmsra/imqjmsra.jar,com-sun-commons-launcher.jar,com-sun-commons-logging.jar,/space1/sges/imq/lib/jaxm-api.jar,/space1/sges/imq/lib/fscontext.jar,/space1/sges/imq/lib/imqbroker.jar,/space1/sges/imq/lib/imqjmx.jar,/space1/sges/imq/lib/imqxm.jar,webservices-rt.jar,webservices-tools.jar,mail.jar,appserv-jstl.jar,jmxremote_optional.jar,/space1/sges/lib/SUNWjdmk/5.1/lib/jdmkrt.jar,activation.jar,appserv-rt.jar,appserv-admin.jar,appserv-cmp.jar,/space1/sges/updatecenter/lib/updatecenter.jar,/space1/sges/jbi/lib/jbi.jar,/space1/sges/imq/lib/imqjmx.jar,/space1/sges/lib/ant/lib/ant.jar,dbschema.jar -Dcom.sun.aas.configName=server-config -Dcom.sun.aas.configRoot=/space1/sges/config -Dcom.sun.aas.defaultLogFile=/space1/sges/domains/domain1/logs/server.log -Dcom.sun.aas.domainName=domain1 -Dcom.sun.aas.installRoot=/space1/sges -Dcom.sun.aas.instanceName=server -Dcom.sun.aas.processLauncher=SE -Dcom.sun.aas.promptForIdentity=true -Dcom.sun.appserv.pluggable.features=com.sun.enterprise.ee.server.pluggable.EEPluggableFeatureImpl -Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory -Dcom.sun.enterprise.overrideablejavaxpackages=javax.help,javax.portlet -Dcom.sun.enterprise.taglibs=appserv-jstl.jar,jsf-impl.jar -Dcom.sun.enterprise.taglisteners=jsf-impl.jar -Dcom.sun.updatecenter.home=/space1/sges/updatecenter -Ddomain.name=domain1 -Djava.endorsed.dirs=/space1/sges/lib/endorsed -Djava.ext.dirs=/space1/jdk/lib/ext:/space1/jdk/jre/lib/ext:/space1/sges/domains/domain1/lib/ext:/space1/sges/javadb/lib:/space1/sges/lib/jdbcdrivers -Djava.library.path=/space1/sges/lib:/space1/sges/lib:/space1/sges/lib -Djava.security.auth.login.config=/space1/sges/domains/domain1/config/login.conf -Djava.security.policy=/space1/sges/domains/domain1/config/server.policy -Djava.util.logging.manager=com.sun.enterprise.server.logging.ServerLogManager -Djavax.management.builder.initial=com.sun.enterprise.ee.admin.AppServerMBeanServerBuilder -Djavax.net.ssl.keyStore=/space1/sges/domains/domain1/config/keystore.jks -Djavax.net.ssl.trustStore=/space1/sges/domains/domain1/config/cacerts.jks -Djdbc.drivers=org.apache.derby.jdbc.ClientDriver -Djmx.invoke.getters=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+UnlockDiagnosticVMOptions -XX:MaxPermSize=192m -Xmx512m -XX:NewRatio=2 -XX:+LogVMOutput -XX:LogFile=/space1/sges/domains/domain1/logs/jvm.log 
+java_command: com.sun.enterprise.server.PELaunch start
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/bin
+LD_LIBRARY_PATH=/space1/jdk1.6.0_17/jre/lib/sparc/client:/space1/jdk1.6.0_17/jre/lib/sparc:/space1/jdk1.6.0_17/jre/../lib/sparc:/space1/jdk1.6.0_17/jre/lib/sparc/server:/space1/jdk1.6.0_17/jre/lib/sparc:/space1/jdk1.6.0_17/jre/../lib/sparc:/space1/sges/lib:/space1/sges/lib:/space1/sges/lib:
+SHELL=/bin/bash
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x56dc60], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGBUS: [libjvm.so+0x56dc60], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGFPE: [libjvm.so+0x19a5ec], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGPIPE: [libjvm.so+0x19a5ec], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGXFSZ: [libjvm.so+0x19a5ec], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGILL: [libjvm.so+0x19a5ec], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGQUIT: [libjvm.so+0x487154], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGHUP: [libjvm.so+0x487154], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGINT: [libjvm.so+0x487154], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGTERM: [libjvm.so+0x487154], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIG39: [libjvm.so+0x48a4d4], sa_mask[0]=0x00000000, sa_flags=0x00000008
+SIG40: [libjvm.so+0x19a5ec], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+
+
+---------------  S Y S T E M  ---------------
+
+OS:                       Solaris 10 5/09 s10s_u7wos_08 SPARC
+           Copyright 2009 Sun Microsystems, Inc.  All Rights Reserved.
+                        Use is subject to license terms.
+                             Assembled 30 March 2009
+
+uname:SunOS 5.10 Generic_139555-08 sun4u  (T2 libthread)
+rlimit: STACK 8192k, CORE infinity, NOFILE 65536, AS infinity
+load average:0.22 0.09 0.10
+
+CPU:total 4 has_v8, has_v9, has_vis1, has_vis2, is_ultra3
+
+Memory: 8k page, physical 16777216k(1125560k free)
+
+vm_info: Java HotSpot(TM) Client VM (14.3-b01) for solaris-sparc JRE (1.6.0_17-b04), built on Oct 11 2009 01:53:21 by "" with Workshop 5.8
+
+time: Mon Feb  1 11:22:04 2010
+elapsed time: 2424225 seconds
+

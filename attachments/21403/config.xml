@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>This is a test job for Iris</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.CVSSCM">
+    <cvsroot>:pserver:elujzho@wales.eeu.us.am.ericsson.se:2401/usr/cvsroot</cvsroot>
+    <module>R1</module>
+    <branch>rel_9f</branch>
+    <canUseUpdate>true</canUseUpdate>
+    <useHeadIfNotFound>true</useHeadIfNotFound>
+    <flatten>true</flatten>
+    <isTag>false</isTag>
+    <excludedRegions></excludedRegions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>bash
+/proj/ems/buildscript/CVS/ci_build_cvs_br_wp4.sh deliver</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <htmlpublisher.HtmlPublisher>
+      <reportTargets>
+        <htmlpublisher.HtmlPublisherTarget>
+          <reportName>Coverage Report</reportName>
+          <reportDir>em/report/coverage/</reportDir>
+          <reportFiles>coverage.html</reportFiles>
+          <keepAll>true</keepAll>
+          <wrapperName>htmlpublisher-wrapper.html</wrapperName>
+        </htmlpublisher.HtmlPublisherTarget>
+        <htmlpublisher.HtmlPublisherTarget>
+          <reportName>Unit Test Report</reportName>
+          <reportDir>em/report/result/</reportDir>
+          <reportFiles>index.html</reportFiles>
+          <keepAll>true</keepAll>
+          <wrapperName>htmlpublisher-wrapper.html</wrapperName>
+        </htmlpublisher.HtmlPublisherTarget>
+      </reportTargets>
+    </htmlpublisher.HtmlPublisher>
+    <hudson.tasks.Mailer>
+      <recipients>iris.zhou@ericsson.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.emailext.ExtendedEmailPublisher>
+      <recipientList>iris.zhou@ericsson.com</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+          <email>
+            <recipientList>$PROJECT_DEFAULT_RECIPIENTS</recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <sendToRequester>false</sendToRequester>
+            <includeCulprits>true</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+        <hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+          <email>
+            <recipientList>$PROJECT_DEFAULT_RECIPIENTS</recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>false</sendToDevelopers>
+            <sendToRequester>false</sendToRequester>
+            <includeCulprits>true</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>!!!!!!-----$DEFAULT_SUBJECT-----!!!!!</defaultSubject>
+      <defaultContent>$DEFAULT_CONTENT 
+&lt;br&gt;&lt;br&gt;
+&lt;FONT face=Arial  size=2&gt; Images and Build Log Files: &lt;a href=&quot;\\150.236.72.6\ems\EMS_Build_Products\CVS\&quot;&gt; \\150.236.72.6\ems\EMS_Build_Products\CVS\ &lt;/a&gt; 
+&lt;/FONT&gt;&lt;br&gt;&lt;br&gt;
+&lt;FONT face=Arial  size=2&gt;
+Source Code branch: rel_9t
+&lt;/FONT&gt;&lt;br&gt;&lt;br&gt;
+&lt;FONT face=Arial  size=2&gt;
+Source Code Dir: @@147.128.20.181:/opt/Jenkins_Home/jobs/EMS_WP4/workspace
+&lt;/FONT&gt;&lt;br&gt;&lt;br&gt;
+&lt;FONT face=Arial  size=2&gt;
+Any question pls contact iris.zhou@ericsson.com
+&lt;/FONT&gt;&lt;br&gt;&lt;br&gt;</defaultContent>
+      <attachmentsPattern></attachmentsPattern>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

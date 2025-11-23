@@ -1,0 +1,105 @@
+[10/25/12 16:09:20] [SSH] Opening SSH connection to 192.168.0.117:22.
+[10/25/12 16:09:20] [SSH] Authenticating as builder with /var/lib/jenkins/slave.pem.
+[10/25/12 16:09:20] [SSH] Authentication successful.
+[10/25/12 16:09:20] [SSH] The remote users environment is:
+BASH=/bin/bash
+BASH_ARGC=()
+BASH_ARGV=()
+BASH_EXECUTION_STRING=set
+BASH_LINENO=()
+BASH_SOURCE=()
+BASH_VERSINFO=([0]="3" [1]="2" [2]="48" [3]="1" [4]="release" [5]="x86_64-apple-darwin11")
+BASH_VERSION='3.2.48(1)-release'
+DIRSTACK=()
+EUID=502
+GROUPS=()
+HOME=/Users/builder
+HOSTNAME=Valerys-Mac-mini.local
+HOSTTYPE=x86_64
+IFS=$' \t\n'
+LOGNAME=builder
+MACHTYPE=x86_64-apple-darwin11
+MAIL=/var/mail/builder
+OPTERR=1
+OPTIND=1
+OSTYPE=darwin11
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
+PPID=95344
+PS4='+ '
+PWD=/Users/builder
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:hashall:interactive-comments
+SHLVL=1
+SSH_CLIENT='192.168.0.206 45592 22'
+SSH_CONNECTION='192.168.0.206 45592 192.168.0.117 22'
+TERM=dumb
+TMPDIR=/var/folders/1z/4xn5vwsd3tx03tc4wmwpxbmr0000gp/T/
+UID=502
+USER=builder
+_=bash
+[10/25/12 16:09:20] [SSH] Checking java version of java
+[10/25/12 16:09:21] [SSH] java -version returned 1.6.0_37.
+[10/25/12 16:09:21] [SSH] Starting sftp client.
+[10/25/12 16:09:21] [SSH] Copying latest slave.jar...
+[10/25/12 16:09:21] [SSH] Copied 278,201 bytes.
+[10/25/12 16:09:21] [SSH] Starting slave process: cd '.' && java  -jar slave.jar
+<===[JENKINS REMOTING CAPACITY]===>channel started
+Slave.jar version: 2.17
+This is a Unix slave
+Evacuated stdout
+java.io.IOException: Remote call on iOS failed
+	at hudson.remoting.Channel.call(Channel.java:673)
+	at org.jenkinsci.modules.launchd_slave_installer.ComputerListenerImpl.onOnline(ComputerListenerImpl.java:30)
+	at hudson.slaves.SlaveComputer.setChannel(SlaveComputer.java:396)
+	at hudson.slaves.SlaveComputer.setChannel(SlaveComputer.java:317)
+	at hudson.plugins.sshslaves.SSHLauncher.startSlave(SSHLauncher.java:454)
+	at hudson.plugins.sshslaves.SSHLauncher.launch(SSHLauncher.java:293)
+	at hudson.slaves.SlaveComputer$1.call(SlaveComputer.java:200)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: java.lang.InternalError: Can't connect to window server - not enough permissions.
+	at java.lang.ClassLoader$NativeLibrary.load(Native Method)
+	at java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1827)
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1724)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:823)
+	at java.lang.System.loadLibrary(System.java:1045)
+	at sun.security.action.LoadLibraryAction.run(LoadLibraryAction.java:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.awt.NativeLibLoader.loadLibraries(NativeLibLoader.java:38)
+	at sun.awt.DebugHelper.<clinit>(DebugHelper.java:29)
+	at java.awt.Component.<clinit>(Component.java:566)
+	at org.jenkinsci.modules.launchd_slave_installer.LaunchdSlaveInstaller.call(LaunchdSlaveInstaller.java:53)
+	at org.jenkinsci.modules.launchd_slave_installer.LaunchdSlaveInstaller.call(LaunchdSlaveInstaller.java:35)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:326)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:680)
+[10/25/12 16:09:22] [SSH] Connection closed.
+ERROR: Connection terminated
+java.io.IOException: Unexpected termination of the channel
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2553)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1296)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:350)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+ERROR: [10/25/12 16:09:22] slave agent was terminated
+java.io.IOException: Unexpected termination of the channel
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2553)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1296)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:350)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)

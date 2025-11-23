@@ -1,0 +1,55 @@
+diff -Nur -x build -x .gradle steps-2.190.2/build.gradle steps-patched/build.gradle
+--- steps-2.190.2/build.gradle	2019-11-26 15:48:29.000000000 -0800
++++ steps-patched/build.gradle	2019-11-26 16:10:57.000000000 -0800
+@@ -72,6 +72,7 @@
+   jenkinsPlugins "org.codehaus.groovy:groovy-all:$groovyVersion",
+                  'org.jenkins-ci.plugins:git:4.0.0',
+                  "org.jenkins-ci.plugins:job-dsl:$jobDslVersion",
++                 'org.jenkins-ci.plugins:matrix-project:1.14',
+                  'org.jenkins-ci.plugins.workflow:workflow-aggregator:2.6'
+ }
+ 
+diff -Nur -x build -x .gradle steps-2.190.2/src/main/groovy/hudson/CustomTestPluginManager.java steps-patched/src/main/groovy/hudson/CustomTestPluginManager.java
+--- steps-2.190.2/src/main/groovy/hudson/CustomTestPluginManager.java	1969-12-31 16:00:00.000000000 -0800
++++ steps-patched/src/main/groovy/hudson/CustomTestPluginManager.java	2019-11-26 15:29:17.000000000 -0800
+@@ -0,0 +1,20 @@
++package hudson;
++
++import java.io.IOException;
++import java.util.logging.Logger;
++
++import org.jvnet.hudson.test.TestPluginManager;
++
++public class CustomTestPluginManager extends TestPluginManager {
++  private static final Logger LOGGER = Logger.getLogger( CustomTestPluginManager.class.getName() );
++
++  public CustomTestPluginManager() throws IOException {
++    super();
++  }
++
++  // Skip loading all detached plugins as they conflict with our explicit build.gradle jenkinsPlugins dependencies
++  @Override
++  void considerDetachedPlugin( String shortName ) {
++    LOGGER.fine( "Skipping load of detached plugin: " + shortName );
++  }
++}
+diff -Nur -x build -x .gradle steps-2.190.2/src/main/groovy/jenkins/testing/TestJenkinsInstance.groovy steps-patched/src/main/groovy/jenkins/testing/TestJenkinsInstance.groovy
+--- steps-2.190.2/src/main/groovy/jenkins/testing/TestJenkinsInstance.groovy	2019-11-26 15:48:48.000000000 -0800
++++ steps-patched/src/main/groovy/jenkins/testing/TestJenkinsInstance.groovy	2019-11-26 15:40:14.000000000 -0800
+@@ -2,6 +2,8 @@
+ 
+ import com.google.common.util.concurrent.Uninterruptibles
+ 
++import hudson.CustomTestPluginManager
++
+ import java.awt.*
+ import java.util.concurrent.TimeUnit
+ import java.util.logging.Level
+@@ -22,6 +24,7 @@
+     JenkinsRule jenkinsRule = new JenkinsRule()
+     jenkinsRule.timeout = 3600
+     jenkinsRule.contextPath = '/jenkins'
++    jenkinsRule.pluginManager = new CustomTestPluginManager()
+ 
+     // Only print severe logs from Jenkins
+     Logger.getLogger( '' ).handlers.each {

@@ -1,0 +1,278 @@
+Nov 07, 2017 2:46:13 PM hudson.cli.CLI _main
+FINE: using connection mode SSH
+Nov 07, 2017 2:46:13 PM hudson.cli.SSHCLI sshConnection
+FINE: Connecting via SSH to: localhost:39600
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.config.hosts.ConfigFileHostEntryResolver resolveEffectiveHost
+FINE: resolveEffectiveHost(someuser@localhost:39600) => null
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.SshClient connect
+FINE: connect(someuser@localhost:39600) no overrides
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Connector connect
+FINE: Connecting to localhost/127.0.0.1:39600
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Service setOption
+FINE: setOption(SO_REUSEADDR)[true] from property=socket-reuseaddr
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session <init>
+FINE: Creating IoSession on /127.0.0.1:49454 from localhost/127.0.0.1:39600
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientSessionImpl <init>
+FINE: Client session created: Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientUserAuthService <init>
+FINE: ClientUserAuthService(ClientSessionImpl[null@localhost/127.0.0.1:39600]) client methods: [publickey, keyboard-interactive, password]
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.SessionTimeoutListener sessionCreated
+FINE: sessionCreated(ClientSessionImpl[null@localhost/127.0.0.1:39600]) tracking
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession sendIdentification
+FINE: sendIdentification(ClientSessionImpl[null@localhost/127.0.0.1:39600]): SSH-2.0-SSHD-CORE-1.6.0
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session write
+FINE: Writing 25 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleCompletedWriteCycle
+FINE: handleCompletedWriteCycle(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) finished writing len=25
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession sendKexInit
+FINE: sendKexInit(ClientSessionImpl[null@localhost/127.0.0.1:39600]) Send SSH_MSG_KEXINIT
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session write
+FINE: Writing 704 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleCompletedWriteCycle
+FINE: handleCompletedWriteCycle(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) finished writing len=704
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleReadCycleCompletion
+FINE: handleReadCycleCompletion(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) read 25 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession doReadIdentification
+FINE: doReadIdentification(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) line='SSH-2.0-SSHD-CORE-1.6.0'
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.AbstractClientSession readIdentification
+FINE: readIdentification(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Server version string: SSH-2.0-SSHD-CORE-1.6.0
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientUserAuthService auth
+FINE: auth(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[ssh-connection] send SSH_MSG_USERAUTH_REQUEST for 'none'
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleReadCycleCompletion
+FINE: handleReadCycleCompletion(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) read 528 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession writePacket
+FINE: writePacket(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[SSH_MSG_USERAUTH_REQUEST] Start flagging packets as pending until key exchange is done
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession handleKexInit
+FINE: handleKexInit(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) SSH_MSG_KEXINIT
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession setNegotiationResult
+FINE: setNegotiationResult(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Kex: server->client aes128-ctr hmac-md5 none
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession setNegotiationResult
+FINE: setNegotiationResult(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Kex: client->server aes128-ctr hmac-md5 none
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.kex.DHGClient init
+FINE: init(DHGClient[ecdh-sha2-nistp521])[ClientSessionImpl[someuser@localhost/127.0.0.1:39600]] Send SSH_MSG_KEXDH_INIT
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session write
+FINE: Writing 152 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleCompletedWriteCycle
+FINE: handleCompletedWriteCycle(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) finished writing len=152
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleReadCycleCompletion
+FINE: handleReadCycleCompletion(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) read 712 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.kex.DHGClient next
+FINE: next(DHGClient[ecdh-sha2-nistp521])[ClientSessionImpl[someuser@localhost/127.0.0.1:39600]] process command=SSH_MSG_KEXDH_REPLY
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession handleKexMessage
+FINE: handleKexMessage(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[ecdh-sha2-nistp521] KEX processing complete after cmd=31
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.keyverifier.DefaultKnownHostsServerKeyVerifier reloadKnownHosts
+FINE: reloadKnownHosts(/var/lib/jenkins/.ssh/known_hosts) check permissions
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.keyverifier.KnownHostsServerKeyVerifier reloadKnownHosts
+FINE: reloadKnownHosts(/var/lib/jenkins/.ssh/known_hosts) loaded 1 entries
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.keyverifier.KnownHostsServerKeyVerifier resolveHostKey
+FINE: resolveHostKey([localhost]:39600 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoomh7alzEhk1hnlUJmpbW5uQi1UjCLX19QrxL2Sbl7w0p0Bw0TM082/aO/U5wZPMIxi03ZXJ6WMBBYH1BbaeHLSqvj/RkjGvFlQH2b1hcPnwNaj1ObpPfikm4wLdUn1pFOgYA8pQLUZESMOrG7RazkZSwRPuOqm+RHtVgeBnLySWDkH3fDd0QsCt2bpz5n7EaKnp34ZHagTUAbO3KVNqmKo/aHqI+Lma6EmQFCaTy2MmM5e7RBwV49Xr87BbO6jRmbi1bwu4Ko9EEf1QkDoQxHOVsjiK9BteDtTm+wp7yzf3CrqjPdtXp/T/tQEljLgWtnsZBXFFJHDjPm8wKOlmv) loaded ssh-rsa-SHA256:lP8VprXF69vwoxQO/Q5wEi3dHvUhH1xYCS0Oh4njeu0
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.keyverifier.KnownHostsServerKeyVerifier findKnownHostEntry
+FINE: findKnownHostEntry(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[localhost/127.0.0.1:39600] host network identities: [localhost:39600]
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.keyverifier.KnownHostsServerKeyVerifier findKnownHostEntry
+FINE: findKnownHostEntry(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[localhost/127.0.0.1:39600] matched host=localhost:39600 for entry=[localhost]:39600 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoomh7alzEhk1hnlUJmpbW5uQi1UjCLX19QrxL2Sbl7w0p0Bw0TM082/aO/U5wZPMIxi03ZXJ6WMBBYH1BbaeHLSqvj/RkjGvFlQH2b1hcPnwNaj1ObpPfikm4wLdUn1pFOgYA8pQLUZESMOrG7RazkZSwRPuOqm+RHtVgeBnLySWDkH3fDd0QsCt2bpz5n7EaKnp34ZHagTUAbO3KVNqmKo/aHqI+Lma6EmQFCaTy2MmM5e7RBwV49Xr87BbO6jRmbi1bwu4Ko9EEf1QkDoQxHOVsjiK9BteDtTm+wp7yzf3CrqjPdtXp/T/tQEljLgWtnsZBXFFJHDjPm8wKOlmv
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.keyverifier.KnownHostsServerKeyVerifier acceptKnownHostEntry
+FINE: acceptKnownHostEntry(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[localhost/127.0.0.1:39600] matched key=ssh-rsa-SHA256:lP8VprXF69vwoxQO/Q5wEi3dHvUhH1xYCS0Oh4njeu0
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.AbstractClientSession checkKeys
+FINE: checkKeys(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) key=ssh-rsa-SHA256:lP8VprXF69vwoxQO/Q5wEi3dHvUhH1xYCS0Oh4njeu0, verified=true
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession sendNewKeys
+FINE: sendNewKeys(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Send SSH_MSG_NEWKEYS
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session write
+FINE: Writing 16 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleCompletedWriteCycle
+FINE: handleCompletedWriteCycle(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) finished writing len=16
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleReadCycleCompletion
+FINE: handleReadCycleCompletion(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) read 16 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession handleNewKeys
+FINE: handleNewKeys(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) SSH_MSG_NEWKEYS command=SSH_MSG_NEWKEYS
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession receiveNewKeys
+FINE: receiveNewKeys(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) session ID=3c:83:07:43:b6:f2:78:d5:ca:d9:79:3e:0f:5a:93:2e:4d:75:89:03:0d:e2:36:d8:30:b7:d4:bd:70:35:9a:03:68:3a:a6:20:d3:db:bf:a3:e4:e6:92:fe:7c:7a:26:00:43:27:c6:dc:42:7b:7f:66:9a:08:17:48:12:56:75:00
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession receiveNewKeys
+FINE: receiveNewKeys(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) inCipher=BaseCipher[AES,16,16,AES/CTR/NoPadding], outCipher=BaseCipher[AES,16,16,AES/CTR/NoPadding], recommended blocks limit=4294967296, actual=4294967296
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientSessionImpl sendInitialServiceRequest
+FINE: sendInitialServiceRequest(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Send SSH_MSG_SERVICE_REQUEST for ssh-userauth
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session write
+FINE: Writing 64 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleCompletedWriteCycle
+FINE: handleCompletedWriteCycle(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) finished writing len=64
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession handleNewKeys
+FINE: handleNewKeys(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Dequeing 1 pending packets
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session write
+FINE: Writing 80 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleCompletedWriteCycle
+FINE: handleCompletedWriteCycle(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) finished writing len=80
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleReadCycleCompletion
+FINE: handleReadCycleCompletion(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) read 64 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.AbstractSession handleServiceAccept
+FINE: handleServiceAccept(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) SSH_MSG_SERVICE_ACCEPT service=ssh-userauth
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2Session handleReadCycleCompletion
+FINE: handleReadCycleCompletion(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) read 64 bytes
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientUserAuthService processUserAuth
+FINE: processUserAuth(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Received SSH_MSG_USERAUTH_FAILURE - partial=false, methods=publickey
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientUserAuthService tryNext
+FINE: tryNext(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) starting authentication mechanisms: client=[publickey, keyboard-interactive, password], server=[publickey]
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientUserAuthService tryNext
+FINE: tryNext(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) attempting method=publickey
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.config.keys.ClientIdentitiesWatcher doGetKeyPair
+WARNING: loadKeys(/var/lib/jenkins/.ssh/id_rsa) failed (NullPointerException) to load key: null
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.config.keys.ClientIdentitiesWatcher doGetKeyPair
+FINE: loadKeys(/var/lib/jenkins/.ssh/id_rsa) key load failure details
+java.lang.NullPointerException
+	at org.apache.sshd.common.config.keys.loader.pem.PKCS8PEMResourceKeyPairParser.getPKCS8AlgorithmIdentifier(PKCS8PEMResourceKeyPairParser.java:139)
+	at org.apache.sshd.common.config.keys.loader.pem.PKCS8PEMResourceKeyPairParser.getPKCS8AlgorithmIdentifier(PKCS8PEMResourceKeyPairParser.java:135)
+	at org.apache.sshd.common.config.keys.loader.pem.PKCS8PEMResourceKeyPairParser.getPKCS8AlgorithmIdentifier(PKCS8PEMResourceKeyPairParser.java:106)
+	at org.apache.sshd.common.config.keys.loader.pem.PKCS8PEMResourceKeyPairParser.extractKeyPairs(PKCS8PEMResourceKeyPairParser.java:73)
+	at org.apache.sshd.common.config.keys.loader.AbstractKeyPairResourceParser.extractKeyPairs(AbstractKeyPairResourceParser.java:163)
+	at org.apache.sshd.common.config.keys.loader.AbstractKeyPairResourceParser.extractKeyPairs(AbstractKeyPairResourceParser.java:140)
+	at org.apache.sshd.common.config.keys.loader.pem.AbstractPEMResourceKeyPairParser.extractKeyPairs(AbstractPEMResourceKeyPairParser.java:148)
+	at org.apache.sshd.common.config.keys.loader.AbstractKeyPairResourceParser.loadKeyPairs(AbstractKeyPairResourceParser.java:106)
+	at org.apache.sshd.common.config.keys.loader.KeyPairResourceParser$2.loadKeyPairs(KeyPairResourceParser.java:160)
+	at org.apache.sshd.common.config.keys.loader.pem.PEMResourceParserUtils$1.loadKeyPairs(PEMResourceParserUtils.java:50)
+	at org.apache.sshd.common.config.keys.loader.KeyPairResourceParser$2.loadKeyPairs(KeyPairResourceParser.java:160)
+	at org.apache.sshd.common.config.keys.loader.KeyPairResourceLoader.loadKeyPairs(KeyPairResourceLoader.java:109)
+	at org.apache.sshd.common.config.keys.loader.KeyPairResourceLoader.loadKeyPairs(KeyPairResourceLoader.java:103)
+	at org.apache.sshd.common.config.keys.loader.KeyPairResourceLoader.loadKeyPairs(KeyPairResourceLoader.java:96)
+	at org.apache.sshd.common.config.keys.loader.KeyPairResourceLoader.loadKeyPairs(KeyPairResourceLoader.java:89)
+	at org.apache.sshd.common.util.security.SecurityUtils.loadKeyPairIdentity(SecurityUtils.java:487)
+	at org.apache.sshd.client.config.keys.ClientIdentityLoader$1.loadClientIdentity(ClientIdentityLoader.java:57)
+	at org.apache.sshd.client.config.keys.ClientIdentityFileWatcher.reloadClientIdentity(ClientIdentityFileWatcher.java:120)
+	at org.apache.sshd.client.config.keys.ClientIdentityFileWatcher.getClientIdentity(ClientIdentityFileWatcher.java:91)
+	at org.apache.sshd.client.config.keys.ClientIdentitiesWatcher.doGetKeyPair(ClientIdentitiesWatcher.java:107)
+	at org.apache.sshd.client.config.keys.ClientIdentitiesWatcher.lambda$safeMap$1(ClientIdentitiesWatcher.java:100)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1351)
+	at java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:294)
+	at java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)
+	at java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:161)
+	at java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:300)
+	at java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)
+	at org.apache.sshd.common.util.GenericUtils.isEmpty(GenericUtils.java:329)
+	at org.apache.sshd.common.util.GenericUtils.isEmpty(GenericUtils.java:320)
+	at org.apache.sshd.common.util.GenericUtils.stream(GenericUtils.java:454)
+	at org.apache.sshd.common.util.GenericUtils.lambda$null$8(GenericUtils.java:862)
+	at java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:267)
+	at java.util.Spliterators$IteratorSpliterator.tryAdvance(Spliterators.java:1812)
+	at java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:294)
+	at java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)
+	at java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:161)
+	at java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:300)
+	at java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)
+	at org.apache.sshd.common.util.GenericUtils.isEmpty(GenericUtils.java:329)
+	at org.apache.sshd.common.util.GenericUtils.isEmpty(GenericUtils.java:320)
+	at org.apache.sshd.common.util.GenericUtils.stream(GenericUtils.java:454)
+	at java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:267)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.stream.Streams$StreamBuilderImpl.forEachRemaining(Streams.java:419)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:270)
+	at java.util.LinkedList$LLSpliterator.tryAdvance(LinkedList.java:1249)
+	at java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:294)
+	at java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)
+	at java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:161)
+	at java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:300)
+	at java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)
+	at org.apache.sshd.client.auth.pubkey.UserAuthPublicKeyIterator.hasNext(UserAuthPublicKeyIterator.java:86)
+	at org.apache.sshd.client.auth.pubkey.UserAuthPublicKey.sendAuthDataRequest(UserAuthPublicKey.java:92)
+	at org.apache.sshd.client.auth.AbstractUserAuth.process(AbstractUserAuth.java:71)
+	at org.apache.sshd.client.session.ClientUserAuthService.tryNext(ClientUserAuthService.java:279)
+	at org.apache.sshd.client.session.ClientUserAuthService.processUserAuth(ClientUserAuthService.java:251)
+	at org.apache.sshd.client.session.ClientUserAuthService.process(ClientUserAuthService.java:198)
+	at org.apache.sshd.common.session.helpers.AbstractSession.doHandleMessage(AbstractSession.java:566)
+	at org.apache.sshd.common.session.helpers.AbstractSession.handleMessage(AbstractSession.java:499)
+	at org.apache.sshd.common.session.helpers.AbstractSession.decode(AbstractSession.java:1413)
+	at org.apache.sshd.common.session.helpers.AbstractSession.messageReceived(AbstractSession.java:460)
+	at org.apache.sshd.common.session.helpers.AbstractSessionIoHandler.messageReceived(AbstractSessionIoHandler.java:66)
+	at org.apache.sshd.common.io.nio2.Nio2Session.handleReadCycleCompletion(Nio2Session.java:284)
+	at org.apache.sshd.common.io.nio2.Nio2Session$1.onCompleted(Nio2Session.java:264)
+	at org.apache.sshd.common.io.nio2.Nio2Session$1.onCompleted(Nio2Session.java:261)
+	at org.apache.sshd.common.io.nio2.Nio2CompletionHandler.lambda$completed$0(Nio2CompletionHandler.java:38)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.apache.sshd.common.io.nio2.Nio2CompletionHandler.completed(Nio2CompletionHandler.java:37)
+	at sun.nio.ch.Invoker.invokeUnchecked(Invoker.java:126)
+	at sun.nio.ch.Invoker$2.run(Invoker.java:218)
+	at sun.nio.ch.AsynchronousChannelGroupImpl$1.run(AsynchronousChannelGroupImpl.java:112)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.config.keys.ClientIdentitiesWatcher doGetKeyPair
+FINE: loadKeys(/var/lib/jenkins/.ssh/id_dsa) no key loaded
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.config.keys.ClientIdentitiesWatcher doGetKeyPair
+FINE: loadKeys(/var/lib/jenkins/.ssh/id_ecdsa) no key loaded
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.config.keys.ClientIdentitiesWatcher doGetKeyPair
+FINE: loadKeys(/var/lib/jenkins/.ssh/id_ed25519) no key loaded
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.auth.pubkey.UserAuthPublicKey sendAuthDataRequest
+FINE: sendAuthDataRequest(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[ssh-connection] no more keys to send
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientUserAuthService tryNext
+FINE: tryNext(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) no initial request sent by method=publickey
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.auth.AbstractUserAuth destroy
+FINE: destroy(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[ssh-connection]
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientUserAuthService tryNext
+FINE: tryNext(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) exhausted all methods - client=[publickey, keyboard-interactive, password], server=[publickey]
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) Closing immediately
+Nov 07, 2017 2:46:13 PM org.apache.sshd.client.session.ClientSessionImpl signalAuthFailure
+FINE: signalAuthFailure(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) type=SshException, signalled=false, message="Session is being closed"
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.session.helpers.SessionTimeoutListener sessionClosed
+FINE: sessionClosed(ClientSessionImpl[someuser@localhost/127.0.0.1:39600]) un-tracked
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(org.apache.sshd.client.session.ClientUserAuthService@204f30ec) Closing immediately
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(org.apache.sshd.client.session.ClientUserAuthService@204f30ec)[Immediately] closed
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(ClientConnectionService[ClientSessionImpl[someuser@localhost/127.0.0.1:39600]]) Closing immediately
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(ClientConnectionService[ClientSessionImpl[someuser@localhost/127.0.0.1:39600]])[Immediately] closed
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600]) Closing immediately
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[Immediately] state already Immediate
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(Nio2Session[local=/127.0.0.1:49454, remote=localhost/127.0.0.1:39600])[Immediately] closed
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.SequentialCloseable$1 operationComplete
+FINE: doClose(true) signal close complete
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(ClientSessionImpl[someuser@localhost/127.0.0.1:39600])[Immediately] closed
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(SshClient[366e2eef]) Closing immediately
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(org.apache.sshd.common.io.nio2.Nio2Connector@13deb50e) Closing immediately
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(org.apache.sshd.common.io.nio2.Nio2Connector@13deb50e)[Immediately] closed
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(org.apache.sshd.common.io.nio2.Nio2ServiceFactory@239963d8) Closing immediately
+Nov 07, 2017 2:46:13 PM org.apache.sshd.common.io.nio2.Nio2ServiceFactory doCloseImmediately
+FINE: Shutdown group
+Nov 07, 2017 2:46:14 PM org.apache.sshd.common.io.nio2.Nio2ServiceFactory doCloseImmediately
+FINE: Group successfully shut down
+Nov 07, 2017 2:46:14 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(org.apache.sshd.common.io.nio2.Nio2ServiceFactory@239963d8)[Immediately] closed
+Nov 07, 2017 2:46:14 PM org.apache.sshd.common.util.closeable.SequentialCloseable$1 operationComplete
+FINE: doClose(true) signal close complete
+Nov 07, 2017 2:46:14 PM org.apache.sshd.common.util.closeable.AbstractCloseable close
+FINE: close(SshClient[366e2eef])[Immediately] closed
+org.apache.sshd.common.SshException: No more authentication methods available
+	at org.apache.sshd.client.session.ClientUserAuthService.tryNext(ClientUserAuthService.java:314)
+	at org.apache.sshd.client.session.ClientUserAuthService.processUserAuth(ClientUserAuthService.java:251)
+	at org.apache.sshd.client.session.ClientUserAuthService.process(ClientUserAuthService.java:198)
+	at org.apache.sshd.common.session.helpers.AbstractSession.doHandleMessage(AbstractSession.java:566)
+	at org.apache.sshd.common.session.helpers.AbstractSession.handleMessage(AbstractSession.java:499)
+	at org.apache.sshd.common.session.helpers.AbstractSession.decode(AbstractSession.java:1413)
+	at org.apache.sshd.common.session.helpers.AbstractSession.messageReceived(AbstractSession.java:460)
+	at org.apache.sshd.common.session.helpers.AbstractSessionIoHandler.messageReceived(AbstractSessionIoHandler.java:66)
+	at org.apache.sshd.common.io.nio2.Nio2Session.handleReadCycleCompletion(Nio2Session.java:284)
+	at org.apache.sshd.common.io.nio2.Nio2Session$1.onCompleted(Nio2Session.java:264)
+	at org.apache.sshd.common.io.nio2.Nio2Session$1.onCompleted(Nio2Session.java:261)
+	at org.apache.sshd.common.io.nio2.Nio2CompletionHandler.lambda$completed$0(Nio2CompletionHandler.java:38)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.apache.sshd.common.io.nio2.Nio2CompletionHandler.completed(Nio2CompletionHandler.java:37)
+	at sun.nio.ch.Invoker.invokeUnchecked(Invoker.java:126)
+	at sun.nio.ch.Invoker$2.run(Invoker.java:218)
+	at sun.nio.ch.AsynchronousChannelGroupImpl$1.run(AsynchronousChannelGroupImpl.java:112)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)

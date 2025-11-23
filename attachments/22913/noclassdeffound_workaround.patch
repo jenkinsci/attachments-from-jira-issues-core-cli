@@ -1,0 +1,34 @@
+From dfe6258271859e797cbd115ce0b0a6bcef2b7005 Mon Sep 17 00:00:00 2001
+From: Peter Darton <peterd@intrinsica.co.uk>
+Date: Mon, 3 Dec 2012 12:03:07 +0000
+Subject: [PATCH 2/2] Bugfix: If isSymlink fails because Windows didn't allow
+ Kernel32 to load then fall through to the (slower)
+ manual method.
+
+---
+ core/src/main/java/hudson/Util.java | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/core/src/main/java/hudson/Util.java b/core/src/main/java/hudson/Util.java
+index f9b5ddf..4845ebb 100644
+--- a/core/src/main/java/hudson/Util.java
++++ b/core/src/main/java/hudson/Util.java
+@@ -433,7 +433,14 @@ public class Util {
+     //Taken from http://svn.apache.org/viewvc/maven/shared/trunk/file-management/src/main/java/org/apache/maven/shared/model/fileset/util/FileSetManager.java?view=markup
+     public static boolean isSymlink(File file) throws IOException {
+         if (Functions.isWindows()) {
+-          return Kernel32Utils.isJunctionOrSymlink(file);
++            try {
++                return Kernel32Utils.isJunctionOrSymlink(file);
++            } catch (NoClassDefFoundError ex) {
++                /*
++                 * Kernel32 does not load reliably.
++                 * If it fails, fall through to the manual method.
++                 */
++            }
+         }
+         String name = file.getName();
+         if (name.equals(".") || name.equals(".."))
+-- 
+1.8.0.msysgit.0
+

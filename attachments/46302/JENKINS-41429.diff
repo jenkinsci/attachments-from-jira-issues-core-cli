@@ -1,0 +1,219 @@
+diff --git a/core/src/main/java/hudson/model/Result.java b/core/src/main/java/hudson/model/Result.java
+index 8b1d05fc4b..4daa98c0c5 100644
+--- a/core/src/main/java/hudson/model/Result.java
++++ b/core/src/main/java/hudson/model/Result.java
+@@ -50,36 +50,34 @@ import javax.annotation.Nonnull;
+  *
+  * @author Kohsuke Kawaguchi
+  */
+-public final class Result implements Serializable, CustomExportedBean {
++public enum Result  {
+     /**
+      * The build had no errors.
+      */
+-    public static final @Nonnull Result SUCCESS = new Result("SUCCESS",BallColor.BLUE,0,true);
++    SUCCESS(BallColor.BLUE,0,true),
+     /**
+      * The build had some errors but they were not fatal.
+      * For example, some tests failed.
+      */
+-    public static final @Nonnull Result UNSTABLE = new Result("UNSTABLE",BallColor.YELLOW,1,true);
++    UNSTABLE(BallColor.YELLOW,1,true),
+     /**
+      * The build had a fatal error.
+      */
+-    public static final @Nonnull Result FAILURE = new Result("FAILURE",BallColor.RED,2,true);
++    FAILURE(BallColor.RED,2,true),
+     /**
+      * The module was not built.
+      * <p>
+      * This status code is used in a multi-stage build (like maven2)
+      * where a problem in earlier stage prevented later stages from building.
+      */
+-    public static final @Nonnull Result NOT_BUILT = new Result("NOT_BUILT",BallColor.NOTBUILT,3,false);
++    NOT_BUILT(BallColor.NOTBUILT,3,false),
+     /**
+      * The build was manually aborted.
+      *
+      * If you are catching {@link InterruptedException} and interpreting it as {@link #ABORTED},
+      * you should check {@link Executor#abortResult()} instead (starting 1.417.)
+      */
+-    public static final @Nonnull Result ABORTED = new Result("ABORTED",BallColor.ABORTED,4,false);
+-
+-    private final @Nonnull String name;
++    ABORTED(BallColor.ABORTED,4,false);
+ 
+     /**
+      * Bigger numbers are worse.
+@@ -97,8 +95,7 @@ public final class Result implements Serializable, CustomExportedBean {
+      */
+     public final boolean completeBuild;
+ 
+-    private Result(@Nonnull String name, @Nonnull BallColor color, @Nonnegative int ordinal, boolean complete) {
+-        this.name = name;
++    private Result(@Nonnull BallColor color, @Nonnegative int ordinal, boolean complete) {
+         this.color = color;
+         this.ordinal = ordinal;
+         this.completeBuild = complete;
+@@ -138,82 +135,21 @@ public final class Result implements Serializable, CustomExportedBean {
+         return this.completeBuild;
+     }
+ 
+-    @Override
+-    public @Nonnull String toString() {
+-        return name;
+-    }
+-
+-    public @Nonnull String toExportedObject() {
+-        return name;
+-    }
+-    
+     public static @Nonnull Result fromString(@Nonnull String s) {
+-        for (Result r : all)
+-            if (s.equalsIgnoreCase(r.name))
++        for (Result r : values())
++            if (s.equalsIgnoreCase(r.name()))
+                 return r;
+         return FAILURE;
+     }
+ 
+-    private static @Nonnull List<String> getNames() {
+-        List<String> l = new ArrayList<String>();
+-        for (Result r : all)
+-            l.add(r.name);
+-        return l;
+-    }
+-
+     // Maintain each Result as a singleton deserialized (like build result from an agent node)
+-    private Object readResolve() {
+-        for (Result r : all)
+-            if (ordinal==r.ordinal)
+-                return r;
+-        return FAILURE;
+-    }
++//    private Object readResolve() {
++//        for (Result r : all)
++//            if (ordinal==r.ordinal)
++//                return r;
++//        return FAILURE;
++//    }
+ 
+-    private static final long serialVersionUID = 1L;
+-
+-    private static final Result[] all = new Result[] {SUCCESS,UNSTABLE,FAILURE,NOT_BUILT,ABORTED};
+-
+-    public static final SingleValueConverter conv = new AbstractSingleValueConverter () {
+-        @Override
+-        public boolean canConvert(Class clazz) {
+-            return clazz==Result.class;
+-        }
+-
+-        @Override
+-        public Object fromString(String s) {
+-            return Result.fromString(s);
+-        }
+-    };
+-
+-    @OptionHandlerExtension
+-    public static final class OptionHandlerImpl extends OptionHandler<Result> {
+-        public OptionHandlerImpl(CmdLineParser parser, OptionDef option, Setter<? super Result> setter) {
+-            super(parser, option, setter);
+-        }
+-
+-        @Override
+-        public int parseArguments(Parameters params) throws CmdLineException {
+-            String param = params.getParameter(0);
+-            Result v = fromString(param.replace('-', '_'));
+-            if (v==null)
+-                throw new CmdLineException(owner,"No such status '"+param+"'. Did you mean "+
+-                        EditDistance.findNearest(param.replace('-', '_').toUpperCase(), getNames()));
+-            setter.addValue(v);
+-            return 1;
+-        }
+-
+-        @Override
+-        public String getDefaultMetaVariable() {
+-            return "STATUS";
+-        }
+-    }
++//    private static final long serialVersionUID = 1L;
+ 
+-    @Initializer
+-    public static void init() {
+-        Stapler.CONVERT_UTILS.register(new Converter() {
+-            public Object convert(Class type, Object value) {
+-                return Result.fromString(value.toString());
+-            }
+-        }, Result.class);
+-    }
+ }
+diff --git a/core/src/test/java/hudson/model/ResultTest.java b/core/src/test/java/hudson/model/ResultTest.java
+new file mode 100644
+index 0000000000..45b95a395a
+--- /dev/null
++++ b/core/src/test/java/hudson/model/ResultTest.java
+@@ -0,0 +1,64 @@
++/*
++ * The MIT License
++ *
++ * Copyright 2017 CloudBees, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++
++package hudson.model;
++
++import hudson.remoting.ObjectInputStreamEx;
++import java.io.ByteArrayInputStream;
++import java.io.ByteArrayOutputStream;
++import java.io.ObjectInputStream;
++import java.io.ObjectOutputStream;
++import java.util.Arrays;
++import org.junit.Test;
++import static org.junit.Assert.*;
++
++public class ResultTest {
++    
++    private static final Result[] ALL = {Result.SUCCESS, Result.UNSTABLE, Result.FAILURE, Result.NOT_BUILT, Result.ABORTED};
++//SUCCESS → [-84, -19, 0, 5, 115, 114, 0, 19, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 82, 101, 115, 117, 108, 116, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 90, 0, 13, 99, 111, 109, 112, 108, 101, 116, 101, 66, 117, 105, 108, 100, 73, 0, 7, 111, 114, 100, 105, 110, 97, 108, 76, 0, 5, 99, 111, 108, 111, 114, 116, 0, 24, 76, 104, 117, 100, 115, 111, 110, 47, 109, 111, 100, 101, 108, 47, 66, 97, 108, 108, 67, 111, 108, 111, 114, 59, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 1, 0, 0, 0, 0, 126, 114, 0, 22, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 66, 97, 108, 108, 67, 111, 108, 111, 114, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 114, 0, 14, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 69, 110, 117, 109, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 112, 116, 0, 4, 66, 76, 85, 69, 116, 0, 7, 83, 85, 67, 67, 69, 83, 83]
++//UNSTABLE → [-84, -19, 0, 5, 115, 114, 0, 19, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 82, 101, 115, 117, 108, 116, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 90, 0, 13, 99, 111, 109, 112, 108, 101, 116, 101, 66, 117, 105, 108, 100, 73, 0, 7, 111, 114, 100, 105, 110, 97, 108, 76, 0, 5, 99, 111, 108, 111, 114, 116, 0, 24, 76, 104, 117, 100, 115, 111, 110, 47, 109, 111, 100, 101, 108, 47, 66, 97, 108, 108, 67, 111, 108, 111, 114, 59, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 1, 0, 0, 0, 1, 126, 114, 0, 22, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 66, 97, 108, 108, 67, 111, 108, 111, 114, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 114, 0, 14, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 69, 110, 117, 109, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 112, 116, 0, 6, 89, 69, 76, 76, 79, 87, 116, 0, 8, 85, 78, 83, 84, 65, 66, 76, 69]
++//FAILURE → [-84, -19, 0, 5, 115, 114, 0, 19, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 82, 101, 115, 117, 108, 116, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 90, 0, 13, 99, 111, 109, 112, 108, 101, 116, 101, 66, 117, 105, 108, 100, 73, 0, 7, 111, 114, 100, 105, 110, 97, 108, 76, 0, 5, 99, 111, 108, 111, 114, 116, 0, 24, 76, 104, 117, 100, 115, 111, 110, 47, 109, 111, 100, 101, 108, 47, 66, 97, 108, 108, 67, 111, 108, 111, 114, 59, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 1, 0, 0, 0, 2, 126, 114, 0, 22, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 66, 97, 108, 108, 67, 111, 108, 111, 114, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 114, 0, 14, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 69, 110, 117, 109, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 112, 116, 0, 3, 82, 69, 68, 116, 0, 7, 70, 65, 73, 76, 85, 82, 69]
++//NOT_BUILT → [-84, -19, 0, 5, 115, 114, 0, 19, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 82, 101, 115, 117, 108, 116, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 90, 0, 13, 99, 111, 109, 112, 108, 101, 116, 101, 66, 117, 105, 108, 100, 73, 0, 7, 111, 114, 100, 105, 110, 97, 108, 76, 0, 5, 99, 111, 108, 111, 114, 116, 0, 24, 76, 104, 117, 100, 115, 111, 110, 47, 109, 111, 100, 101, 108, 47, 66, 97, 108, 108, 67, 111, 108, 111, 114, 59, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 0, 0, 0, 0, 3, 126, 114, 0, 22, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 66, 97, 108, 108, 67, 111, 108, 111, 114, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 114, 0, 14, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 69, 110, 117, 109, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 112, 116, 0, 8, 78, 79, 84, 66, 85, 73, 76, 84, 116, 0, 9, 78, 79, 84, 95, 66, 85, 73, 76, 84]
++//ABORTED → [-84, -19, 0, 5, 115, 114, 0, 19, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 82, 101, 115, 117, 108, 116, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 90, 0, 13, 99, 111, 109, 112, 108, 101, 116, 101, 66, 117, 105, 108, 100, 73, 0, 7, 111, 114, 100, 105, 110, 97, 108, 76, 0, 5, 99, 111, 108, 111, 114, 116, 0, 24, 76, 104, 117, 100, 115, 111, 110, 47, 109, 111, 100, 101, 108, 47, 66, 97, 108, 108, 67, 111, 108, 111, 114, 59, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 0, 0, 0, 0, 4, 126, 114, 0, 22, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 66, 97, 108, 108, 67, 111, 108, 111, 114, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 114, 0, 14, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 69, 110, 117, 109, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 112, 116, 0, 7, 65, 66, 79, 82, 84, 69, 68, 113, 0, 126, 0, 7]
++
++    @Test public void serialization() throws Exception {
++        for (Result r : ALL) {
++            try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
++                try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
++                    oos.writeObject(r);
++                }
++                System.out.println(r + " → " + Arrays.toString(baos.toByteArray()));
++            }
++        }
++    }
++
++    @Test public void deserialization() throws Exception {
++        try (ByteArrayInputStream bais = new ByteArrayInputStream(new byte[] {-84, -19, 0, 5, 115, 114, 0, 19, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 82, 101, 115, 117, 108, 116, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 4, 90, 0, 13, 99, 111, 109, 112, 108, 101, 116, 101, 66, 117, 105, 108, 100, 73, 0, 7, 111, 114, 100, 105, 110, 97, 108, 76, 0, 5, 99, 111, 108, 111, 114, 116, 0, 24, 76, 104, 117, 100, 115, 111, 110, 47, 109, 111, 100, 101, 108, 47, 66, 97, 108, 108, 67, 111, 108, 111, 114, 59, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 1, 0, 0, 0, 1, 126, 114, 0, 22, 104, 117, 100, 115, 111, 110, 46, 109, 111, 100, 101, 108, 46, 66, 97, 108, 108, 67, 111, 108, 111, 114, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 114, 0, 14, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 69, 110, 117, 109, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 120, 112, 116, 0, 6, 89, 69, 76, 76, 79, 87, 116, 0, 8, 85, 78, 83, 84, 65, 66, 76, 69})) {
++            try (ObjectInputStream ois = new ObjectInputStreamEx(bais, ResultTest.class.getClassLoader())) {
++                System.out.println(ois.readObject());
++            }
++        }
++    }
++
++}

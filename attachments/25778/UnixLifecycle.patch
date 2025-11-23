@@ -1,0 +1,11 @@
+--- UnixLifecycle.java.orig	2014-05-08 16:54:00.000000000 +0200
++++ UnixLifecycle.java	2014-05-08 16:54:32.000000000 +0200
+@@ -80,7 +80,7 @@
+ 
+         // exec to self
+         String exe = args.get(0);
+-        LIBC.execv(exe, new StringArray(args.toArray(new String[args.size()])));
++        LIBC.execvp(exe, new StringArray(args.toArray(new String[args.size()])));
+         throw new IOException("Failed to exec '"+exe+"' "+LIBC.strerror(Native.getLastError()));
+     }
+ 

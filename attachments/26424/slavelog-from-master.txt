@@ -1,0 +1,93 @@
+[07/23/14 05:39:42] [SSH] Opening SSH connection to karman.pg.osuosl.org:22.
+[07/23/14 05:39:45] [SSH] Authentication successful.
+[07/23/14 05:39:45] [SSH] The remote users environment is:
+BASH=/bin/bash
+BASHOPTS=cmdhist:extquote:force_fignore:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath
+BASH_ALIASES=()
+BASH_ARGC=()
+BASH_ARGV=()
+BASH_CMDS=()
+BASH_EXECUTION_STRING=set
+BASH_LINENO=()
+BASH_SOURCE=()
+BASH_VERSINFO=([0]="4" [1]="2" [2]="28" [3]="1" [4]="release" [5]="powerpc64-koji-linux-gnu")
+BASH_VERSION='4.2.28(1)-release'
+CCACHE_HASHDIR=
+CVS_RSH=ssh
+DIRSTACK=()
+EUID=1004
+GROUPS=()
+HOME=/home/jenkins
+HOSTNAME=karman.pg.osuosl.org
+HOSTTYPE=powerpc64
+IFS=$' \t\n'
+LANG=en_US.UTF-8
+LESSOPEN='||/usr/bin/lesspipe.sh %s'
+LOGNAME=jenkins
+MACHTYPE=powerpc64-koji-linux-gnu
+MAIL=/var/mail/jenkins
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/usr/lib64/ccache:/usr/local/bin:/bin:/usr/bin
+PIPESTATUS=([0]="0")
+PPID=27062
+PS4='+ '
+PWD=/home/jenkins
+SELINUX_LEVEL_REQUESTED=
+SELINUX_ROLE_REQUESTED=
+SELINUX_USE_CURRENT_RANGE=
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:hashall:interactive-comments
+SHLVL=1
+SSH_CLIENT='54.246.156.213 38423 22'
+SSH_CONNECTION='54.246.156.213 38423 140.211.15.147 22'
+TERM=dumb
+UID=1004
+USER=jenkins
+XDG_RUNTIME_DIR=/run/user/jenkins
+XDG_SESSION_ID=11648
+_=/etc/bashrc
+[07/23/14 05:39:46] [SSH] Checking java version of java
+[07/23/14 05:39:46] [SSH] java -version returned 1.6.0_24.
+[07/23/14 05:39:46] [SSH] Starting sftp client.
+[07/23/14 05:39:47] [SSH] Copying latest slave.jar...
+[07/23/14 05:39:52] [SSH] Copied 416,060 bytes.
+Expanded the channel window size to 4MB
+[07/23/14 05:39:52] [SSH] Starting slave process: ulimit -c unlimited && cd "/home/jenkins" && java  -jar slave.jar -slaveLog "log-$(date -Iseconds).txt"
+<===[JENKINS REMOTING CAPACITY]===>channel started
+Slave.jar version: 2.43
+This is a Unix slave
+Slave successfully connected and online
+Jul 23, 2014 5:43:19 AM hudson.remoting.SynchronousCommandTransport$ReaderThread run
+SEVERE: I/O error in channel channel
+java.io.StreamCorruptedException: invalid stream header: 009AACED
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:800)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:297)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:40)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+channel stopped
+ERROR: Connection terminated
+java.io.IOException: Unexpected termination of the channel
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+	at java.io.ObjectInputStream$PeekInputStream.readFully(ObjectInputStream.java:2323)
+	at java.io.ObjectInputStream$BlockDataInputStream.readShort(ObjectInputStream.java:2792)
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:800)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:298)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:40)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+[07/23/14 05:43:20] [SSH] Connection closed.
+ERROR: [07/23/14 05:43:20] slave agent was terminated
+java.io.IOException: Unexpected termination of the channel
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+	at java.io.ObjectInputStream$PeekInputStream.readFully(ObjectInputStream.java:2323)
+	at java.io.ObjectInputStream$BlockDataInputStream.readShort(ObjectInputStream.java:2792)
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:800)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:298)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:40)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1">
+    <dep:environment xmlns:dep="http://geronimo.apache.org/xml/ns/deployment-1.2">
+        <dep:moduleId>
+            <dep:groupId>dev.java.net</dep:groupId>
+            <dep:artifactId>hudson</dep:artifactId>
+            <dep:version>1.211</dep:version>
+            <dep:type>war</dep:type>
+        </dep:moduleId>
+        <dep:inverse-classloading/>
+    </dep:environment>
+    <context-root>hudson</context-root>
+
+	<security-realm-name>geronimo-admin</security-realm-name>
+        
+        <security>
+                <role-mappings>                 
+                        <role role-name="admin">
+                                <realm realm-name="geronimo-admin">
+                                        <principal name="admin"
+                                           class="org.apache.geronimo.security.realm.providers.GeronimoGroupPrincipal"
+                                        />                                      
+                                </realm>                                                                
+                        </role>
+                </role-mappings>
+    </security>
+    
+</web-app>

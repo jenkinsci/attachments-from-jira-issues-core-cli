@@ -1,0 +1,127 @@
+Index: main/core/src/main/java/hudson/model/Computer.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Computer.java	(revision 19102)
++++ main/core/src/main/java/hudson/model/Computer.java	(working copy)
+@@ -100,6 +100,8 @@
+     private final CopyOnWriteArrayList<Executor> executors = new CopyOnWriteArrayList<Executor>();
+ 
+     private int numExecutors;
++    
++    private long connectTime = 0;
+ 
+     /**
+      * True if Hudson shouldn't start new builds on this node.
+@@ -196,9 +198,44 @@
+      *      both a successful completion and a non-successful completion (such distinction typically doesn't
+      *      make much sense because as soon as {@link Computer} is connected it can be disconnected by some other threads.)
+      */
+-    public abstract Future<?> connect(boolean forceReconnect);
++    public final Future<?> connect(boolean forceReconnect)
++    {
++    	connectTime = System.currentTimeMillis();
++    	return doConnect(forceReconnect);
++    }
++    
++    /**
++     * Allows implementing-classes to provide an implementation for the connect method.
++     *
++     * <p>
++     * If already connected or if this computer doesn't support proactive launching, no-op.
++     * This method may return immediately
++     * while the launch operation happens asynchronously.
++     *
++     * @see #disconnect()
++     *
++     * @param forceReconnect
++     *      If true and a connect activity is already in progress, it will be cancelled and
++     *      the new one will be started. If false, and a connect activity is already in progress, this method
++     *      will do nothing and just return the pending connection operation.
++     * @return
++     *      A {@link Future} representing pending completion of the task. The 'completion' includes
++     *      both a successful completion and a non-successful completion (such distinction typically doesn't
++     *      make much sense because as soon as {@link Computer} is connected it can be disconnected by some other threads.)
++     */
++    public abstract Future<?> doConnect(boolean forceReconnect);
+ 
+     /**
++     * Gets the time (since epoch) when this computer connected.
++     *  
++     * @return The time in ms since epoch when this computer last connected.
++     */
++    public final long getConnectTime()
++    {
++    	return connectTime;
++    }
++    
++    /**
+      * Disconnect this computer.
+      *
+      * If this is the master, no-op. This method may return immediately
+@@ -208,7 +245,10 @@
+      *      {@link Future} to track the asynchronous disconnect operation.
+      * @see #connect(boolean)
+      */
+-    public Future<?> disconnect() { return Futures.precomputed(null); }
++    public Future<?> disconnect() {
++    	connectTime=0;
++    	return Futures.precomputed(null); 
++	}
+ 
+     /**
+      * Number of {@link Executor}s that are configured for this computer.
+Index: main/core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Hudson.java	(revision 19102)
++++ main/core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -3294,7 +3294,7 @@
+             rsp.sendRedirect2(req.getContextPath()+"/configure");
+         }
+ 
+-        public Future<?> connect(boolean forceReconnect) {
++        public Future<?> doConnect(boolean forceReconnect) {
+             return Futures.precomputed(null);
+         }
+ 
+Index: main/core/src/main/java/hudson/model/Executor.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Executor.java	(revision 19102)
++++ main/core/src/main/java/hudson/model/Executor.java	(working copy)
+@@ -32,6 +32,8 @@
+ import org.kohsuke.stapler.export.Exported;
+ import org.acegisecurity.context.SecurityContextHolder;
+ 
++import com.lotus.sametime.community.kernel.vpkmsg.o;
++
+ import javax.servlet.ServletException;
+ import java.io.IOException;
+ import java.util.logging.Logger;
+@@ -317,7 +319,7 @@
+      */
+     public long getIdleStartMilliseconds() {
+         if (isIdle())
+-            return finishTime;
++            return Math.max(finishTime, owner.getConnectTime());
+         else {
+             return Math.max(startTime + Math.max(0, executable.getParent().getEstimatedDuration()),
+                     System.currentTimeMillis() + 15000);
+Index: main/core/src/main/java/hudson/slaves/SlaveComputer.java
+===================================================================
+--- main/core/src/main/java/hudson/slaves/SlaveComputer.java	(revision 19102)
++++ main/core/src/main/java/hudson/slaves/SlaveComputer.java	(working copy)
+@@ -153,7 +153,7 @@
+         return launcher;
+     }
+ 
+-    public Future<?> connect(boolean forceReconnect) {
++    public Future<?> doConnect(boolean forceReconnect) {
+         if(channel!=null)   return Futures.precomputed(null);
+         if(!forceReconnect && lastConnectActivity!=null)
+             return lastConnectActivity;
+@@ -350,6 +350,7 @@
+ 
+     @Override
+     public Future<?> disconnect() {
++    	super.disconnect();
+         return Computer.threadPoolForRemoting.submit(new Runnable() {
+             public void run() {
+                 // do this on another thread so that any lengthy disconnect operation

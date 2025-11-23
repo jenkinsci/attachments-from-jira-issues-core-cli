@@ -1,0 +1,194 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?><project>
+  <actions/>
+  <description>Build Umajin Editor Lite for iOS with engine from Git</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>-1</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>30</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.32">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>PROJECT_ID</name>
+          <description>Project ID to take frameworks from</description>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BUILD_ID</name>
+          <description>Publishing build ID</description>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SCRIPT_REVISION</name>
+          <description>Mercurial changeset, tag or branch (tip) to build</description>
+          <defaultValue>${EDITOR_NEW_SCRIPT_REVISION}</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>UMAJIN_REVISION</name>
+          <description>Git branch or commit Id to build</description>
+          <defaultValue>${ENGINE_GIT_REVISION_FOR_EDITOR}</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>APP_NAME_CLEAN</name>
+          <description>Clean version of app name.  Spaces removed and all lower case</description>
+          <defaultValue>umajin_viewer</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>BUILD_TYPE</name>
+          <description>&lt;ul&gt;
+  &lt;li&gt;&lt;b&gt;Test&lt;/b&gt;: build with Umajin ad-hoc mobile provision, for side loading&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;Release&lt;/b&gt;: build with Umajin release provision, for app store&lt;/li&gt;
+&lt;/ul&gt;</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Test</string>
+              <string>Release</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>PUBLISH_SYSTEM_REVISION</name>
+          <description>SPECIAL: A branch or revision of the publish scripts to use. Leave on default unless debugging publishing system itself.</description>
+          <defaultValue>default</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>ios||ios-m1</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>urtoken</authToken>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.5.4">
+      <buildStepId>1d438a9a-7225-4dfa-9c65-2d4e2059086a</buildStepId>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.5.4">
+      <buildStepId>636f89e1-d898-4ced-a2bf-038218a5ab92</buildStepId>
+      <buildStepArgs>
+        <string>${IOS_ADHOC_PROVISION}</string>
+      </buildStepArgs>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.5.4">
+      <buildStepId>8115820e-3494-4549-bc1a-4696fb474077</buildStepId>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.5.4">
+      <buildStepId>b3ce693c-1406-493e-a845-a73ab62314cb</buildStepId>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.5.4">
+      <buildStepId>38d09805-c624-4b4e-bfbb-3ba8d9cb234b</buildStepId>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <hudson.plugins.descriptionsetter.DescriptionSetterBuilder plugin="description-setter@1.10">
+      <regexp>VersionIdentifiers: (.*)</regexp>
+    </hudson.plugins.descriptionsetter.DescriptionSetterBuilder>
+    <hudson.plugins.descriptionsetter.DescriptionSetterBuilder plugin="description-setter@1.10">
+      <regexp/>
+      <description>(${BUILD_TYPE} Build)</description>
+    </hudson.plugins.descriptionsetter.DescriptionSetterBuilder>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.5.4">
+      <buildStepId>7774a16d-3023-49f5-ade2-9fdad5daaf8f</buildStepId>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <hudson.tasks.Shell>
+      <command>cd dev
+python3 extern/build_desktop.py --release-only
+python3 extern/build_desktop.py --platform ios --release-only
+python3 build_desktop.py
+cd build-desktop/umajin/osx-xcode-x86_64
+xcodebuild -target umajinc -configuration Release
+
+</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command># Get framework(s) from specified project
+
+python3 -u publish/add_native_libraries.py</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd dev
+cp build-desktop/extern-osx-x86_64/bin/llc build-desktop/umajin/osx-xcode-x86_64/Release
+
+if [[ "${BUILD_TYPE}" == "Test" ]]; then
+  #Remove app.entitlements file, because wildcard provision doesn't need it
+  rm -f app/manifest/preview/ios/app.entitlements
+  PROVISIONING_PROFILE=${IOS_ADHOC_PROVISION}
+else
+  #Umajin release profile
+  PROVISIONING_PROFILE="f7a69ac8-46ae-4568-bdc6-480f291bd6c2"
+fi
+
+# We hates the CMakeCache.txt precious. It makes us do wrong things
+rm -f build-desktop/${APP_NAME_CLEAN}/ios-xcode-arm64/CMakeCache.txt
+
+python3 build_desktop_aot.py --platform=ios --cross-tools=build-desktop/umajin/osx-xcode-x86_64/Release/  --app_name="Umajin Lite" --app_name_clean="${APP_NAME_CLEAN}" --rev-dns-name="com.umajin.umajinviewer" --package-files=app/manifest/preview/package.txt --script=app/app_viewer.u --manifest-dir=app/manifest/preview --versionfile=app/manifest/preview/version.py -o google_maps --ios-codesign="${IOS_CODE_SIGN_IDENTITY}" --ios-provisioning=${PROVISIONING_PROFILE} | grep Build\ files\ have\ been\ written\ to\:\ | tail -1 &gt; baotpy.txt
+</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd dev
+
+export AOT_BUILD_DIR=$(cat baotpy.txt | sed s/\-\-\ Build\ files\ have\ been\ written\ to\:\ //g)
+
+echo "AOT_BUILD_DIR=" ${AOT_BUILD_DIR}
+cd ${AOT_BUILD_DIR}
+
+xcodebuild -project ${APP_NAME_CLEAN}.xcodeproj -target ${APP_NAME_CLEAN} -configuration Release
+
+xcrun -sdk iphoneos PackageApplication -v "Release/${APP_NAME_CLEAN}.app" -o "${AOT_BUILD_DIR}/${APP_NAME_CLEAN}.ipa"
+
+cd ${WORKSPACE}
+
+if [[ "${BUILD_TYPE}" == "Test" ]]; then
+  VARIANT="_test"
+else
+  VARIANT=""
+fi
+
+rm -f *.ipa
+python3 dev/app/rename_to_version.py ${AOT_BUILD_DIR}/${APP_NAME_CLEAN}.ipa dev/app/manifest/preview/version.py ${APP_NAME_CLEAN}${VARIANT}_#version#.ipa copy
+
+
+</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>${APP_NAME_CLEAN}*.ipa, dev/app/rev.txt, dev/app/changeset.txt, dev/app/index.htm</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+      <followSymlinks>true</followSymlinks>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.13"/>
+  </buildWrappers>
+</project>

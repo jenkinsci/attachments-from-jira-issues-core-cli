@@ -1,0 +1,26 @@
+Index: main/maven-plugin/src/main/java/hudson/maven/reporters/SurefireArchiver.java
+===================================================================
+--- main/maven-plugin/src/main/java/hudson/maven/reporters/SurefireArchiver.java	(revision 32408)
++++ main/maven-plugin/src/main/java/hudson/maven/reporters/SurefireArchiver.java	(working copy)
+@@ -135,6 +135,7 @@
+ 
+     private boolean isSurefireTest(MojoInfo mojo) {
+         if ((!mojo.is("com.sun.maven", "maven-junit-plugin", "test"))
++            && (!mojo.is("org.sonatype.flexmojos", "flexmojos-maven-plugin", "test-run"))
+             && (!mojo.is("org.apache.maven.plugins", "maven-surefire-plugin", "test")))
+             return false;
+ 
+@@ -168,6 +169,13 @@
+                     return false;
+                 }
+             }
++            else if (mojo.is("org.sonatype.flexmojos", "flexmojos-maven-plugin", "test-run")) {
++		Boolean skipTests = mojo.getConfigurationValue("skipTest", Boolean.class);
++		
++		if (((skipTests != null) && (skipTests))) {
++		    return false;
++		}
++	    }
+ 
+         } catch (ComponentConfigurationException e) {
+             return false;

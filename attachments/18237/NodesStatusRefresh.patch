@@ -1,0 +1,64 @@
+
+Property changes on: plugins/cvs-tag
+___________________________________________________________________
+Name: svn:ignore
+   + target
+
+
+
+Property changes on: plugins/warnings
+___________________________________________________________________
+Name: svn:ignore
+   + target
+
+
+
+Property changes on: plugins/checkstyle
+___________________________________________________________________
+Name: svn:ignore
+   + target
+
+
+Index: main/core/src/main/java/hudson/model/ComputerSet.java
+===================================================================
+--- main/core/src/main/java/hudson/model/ComputerSet.java	(revision 10724)
++++ main/core/src/main/java/hudson/model/ComputerSet.java	(working copy)
+@@ -8,6 +8,7 @@
+ import java.util.ArrayList;
+ import java.util.List;
+ import java.io.IOException;
++import javax.servlet.ServletException;
+ import org.kohsuke.stapler.export.ExportedBean;
+ import org.kohsuke.stapler.export.Exported;
+ 
+@@ -49,6 +50,14 @@
+         rsp.sendRedirect(".");
+     }
+ 
++    public void doUpdateNow( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
++        for (NodeMonitor nodeMonitor : NodeMonitor.getAll()) {
++            Thread t = nodeMonitor.triggerUpdate();
++            t.setName(nodeMonitor.getColumnCaption());
++        }
++        rsp.forwardToPreviousPage(req);
++    }
++
+     public Api getApi() {
+         return new Api(this);
+     }
+Index: main/core/src/main/resources/hudson/model/ComputerSet/index.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/model/ComputerSet/index.jelly	(revision 10724)
++++ main/core/src/main/resources/hudson/model/ComputerSet/index.jelly	(working copy)
+@@ -5,6 +5,11 @@
+ <l:layout title="Nodes" permission="${app.ADMINISTER}">
+   <st:include page="sidepanel.jelly" />
+   <l:main-panel>
++     <div style="float:top">
++     <form method="get" action="updateNow">
++            <s:submit value="Refresh status"/>
++      </form>
++    </div>
+     <j:set var="monitors" value="${it._monitors}"/>
+     <table id="computers" class="sortable pane bigtable">
+       <tr>

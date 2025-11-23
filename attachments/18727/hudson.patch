@@ -1,0 +1,352 @@
+Index: pom.xml
+===================================================================
+--- pom.xml	(revision 20219)
++++ pom.xml	(working copy)
+@@ -319,7 +319,7 @@
+     <dependency>
+       <groupId>org.kohsuke.stapler</groupId>
+       <artifactId>stapler-jelly</artifactId>
+-      <version>1.107</version>
++      <version>1.108-SNAPSHOT</version>
+       <exclusions>
+         <exclusion>
+           <groupId>dom4j</groupId>
+@@ -687,7 +687,7 @@
+     <dependency>
+       <groupId>net.java.sezpoz</groupId>
+       <artifactId>sezpoz</artifactId>
+-      <version>1.4</version>
++      <version>1.5</version>
+     </dependency>
+     <dependency>
+       <groupId>org.jvnet.hudson</groupId>
+Index: src/main/java/hudson/model/Hudson.java
+===================================================================
+--- src/main/java/hudson/model/Hudson.java	(revision 20219)
++++ src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -23,43 +23,43 @@
+  */
+ package hudson.model;
+ 
+-import com.thoughtworks.xstream.XStream;
++import static hudson.Util.fixEmpty;
++import static hudson.Util.fixNull;
++import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
++import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
++import groovy.lang.GroovyShell;
+ import hudson.BulkChange;
++import hudson.DescriptorExtensionList;
++import hudson.Extension;
++import hudson.ExtensionList;
++import hudson.ExtensionListView;
++import hudson.ExtensionPoint;
+ import hudson.FilePath;
+ import hudson.Functions;
+ import hudson.Launcher;
+-import hudson.Launcher.LocalLauncher;
+ import hudson.Plugin;
+ import hudson.PluginManager;
+ import hudson.PluginWrapper;
+ import hudson.ProxyConfiguration;
+ import hudson.StructuredForm;
+ import hudson.TcpSlaveAgentListener;
++import hudson.UDPBroadcastThread;
+ import hudson.Util;
+-import static hudson.Util.fixEmpty;
+-import static hudson.Util.fixNull;
+ import hudson.WebAppMain;
+ import hudson.XmlFile;
+-import hudson.UDPBroadcastThread;
+-import hudson.ExtensionList;
+-import hudson.ExtensionPoint;
+-import hudson.DescriptorExtensionList;
+-import hudson.ExtensionListView;
+-import hudson.Extension;
+-import hudson.tools.ToolInstallation;
+-import hudson.tools.ToolDescriptor;
++import hudson.Launcher.LocalLauncher;
+ import hudson.cli.CliEntryPoint;
+ import hudson.cli.CliManagerImpl;
++import hudson.lifecycle.Lifecycle;
+ import hudson.logging.LogRecorderManager;
+-import hudson.lifecycle.Lifecycle;
+ import hudson.model.Descriptor.FormException;
+ import hudson.model.listeners.ItemListener;
+ import hudson.model.listeners.JobListener;
++import hudson.model.listeners.SCMListener;
+ import hudson.model.listeners.JobListener.JobListenerAdapter;
+-import hudson.model.listeners.SCMListener;
++import hudson.remoting.Channel;
+ import hudson.remoting.LocalChannel;
+ import hudson.remoting.VirtualChannel;
+-import hudson.remoting.Channel;
+ import hudson.scm.CVSSCM;
+ import hudson.scm.RepositoryBrowser;
+ import hudson.scm.SCM;
+@@ -78,87 +78,60 @@
+ import hudson.security.SecurityMode;
+ import hudson.security.SecurityRealm;
+ import hudson.security.csrf.CrumbIssuer;
++import hudson.slaves.Cloud;
+ import hudson.slaves.ComputerListener;
++import hudson.slaves.DumbSlave;
++import hudson.slaves.NodeDescriptor;
++import hudson.slaves.NodeList;
+ import hudson.slaves.NodeProperty;
+ import hudson.slaves.NodePropertyDescriptor;
++import hudson.slaves.NodeProvisioner;
+ import hudson.slaves.RetentionStrategy;
+-import hudson.slaves.NodeList;
+-import hudson.slaves.Cloud;
+-import hudson.slaves.DumbSlave;
+-import hudson.slaves.NodeDescriptor;
+-import hudson.slaves.NodeProvisioner;
+ import hudson.tasks.BuildWrapper;
+ import hudson.tasks.Builder;
+ import hudson.tasks.DynamicLabeler;
+ import hudson.tasks.LabelFinder;
+ import hudson.tasks.Mailer;
+ import hudson.tasks.Publisher;
++import hudson.tools.ToolDescriptor;
++import hudson.tools.ToolInstallation;
+ import hudson.triggers.Trigger;
+ import hudson.triggers.TriggerDescriptor;
++import hudson.util.AdministrativeError;
+ import hudson.util.CaseInsensitiveComparator;
+ import hudson.util.ClockDifference;
+ import hudson.util.CopyOnWriteList;
+ import hudson.util.CopyOnWriteMap;
+ import hudson.util.DaemonThreadFactory;
++import hudson.util.DescribableList;
++import hudson.util.FormValidation;
++import hudson.util.Futures;
+ import hudson.util.HudsonIsLoading;
++import hudson.util.HudsonIsRestarting;
++import hudson.util.Iterators;
++import hudson.util.Memoizer;
+ import hudson.util.MultipartFormDataParser;
+ import hudson.util.RemotingDiagnostics;
++import hudson.util.StreamTaskListener;
+ import hudson.util.TextFile;
++import hudson.util.VersionNumber;
+ import hudson.util.XStream2;
+-import hudson.util.HudsonIsRestarting;
+-import hudson.util.DescribableList;
+-import hudson.util.Futures;
+-import hudson.util.Memoizer;
+-import hudson.util.Iterators;
+-import hudson.util.FormValidation;
+-import hudson.util.VersionNumber;
+-import hudson.util.StreamTaskListener;
+-import hudson.util.AdministrativeError;
+ import hudson.widgets.Widget;
+-import net.sf.json.JSONObject;
+-import org.acegisecurity.*;
+-import org.acegisecurity.context.SecurityContextHolder;
+-import org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken;
+-import org.acegisecurity.ui.AbstractProcessingFilter;
+-import org.apache.commons.logging.LogFactory;
+-import org.apache.commons.jelly.Script;
+-import org.apache.commons.jelly.JellyException;
+-import org.apache.commons.io.FileUtils;
+-import org.kohsuke.stapler.MetaClass;
+-import org.kohsuke.stapler.Stapler;
+-import org.kohsuke.stapler.StaplerProxy;
+-import org.kohsuke.stapler.StaplerRequest;
+-import org.kohsuke.stapler.StaplerResponse;
+-import org.kohsuke.stapler.StaplerFallback;
+-import org.kohsuke.stapler.WebApp;
+-import org.kohsuke.stapler.QueryParameter;
+-import org.kohsuke.stapler.HttpRedirect;
+-import org.kohsuke.stapler.jelly.JellyClassLoaderTearOff;
+-import org.kohsuke.stapler.jelly.JellyRequestDispatcher;
+-import org.kohsuke.stapler.framework.adjunct.AdjunctManager;
+-import org.kohsuke.stapler.export.Exported;
+-import org.kohsuke.stapler.export.ExportedBean;
+-import org.xml.sax.InputSource;
+ 
+-import javax.servlet.ServletContext;
+-import javax.servlet.ServletException;
+-import javax.servlet.http.Cookie;
+-import javax.servlet.http.HttpServletResponse;
+-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+ import java.io.File;
+ import java.io.FileFilter;
+ import java.io.FileInputStream;
+ import java.io.FileOutputStream;
+ import java.io.IOException;
++import java.io.InputStream;
+ import java.io.PrintWriter;
+-import java.io.InputStream;
++import java.net.BindException;
+ import java.net.URL;
+-import java.net.BindException;
++import java.nio.charset.Charset;
+ import java.security.SecureRandom;
++import java.text.Collator;
+ import java.text.NumberFormat;
+ import java.text.ParseException;
+-import java.text.Collator;
+ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.Collection;
+@@ -169,35 +142,72 @@
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.Map;
+-import java.util.Map.Entry;
++import java.util.Properties;
+ import java.util.Set;
+ import java.util.Stack;
+ import java.util.StringTokenizer;
+ import java.util.Timer;
+ import java.util.TreeSet;
+-import java.util.Properties;
+ import java.util.UUID;
++import java.util.Map.Entry;
+ import java.util.concurrent.Callable;
+ import java.util.concurrent.ConcurrentHashMap;
+ import java.util.concurrent.CopyOnWriteArrayList;
++import java.util.concurrent.CopyOnWriteArraySet;
+ import java.util.concurrent.ExecutionException;
+ import java.util.concurrent.ExecutorService;
+ import java.util.concurrent.Future;
++import java.util.concurrent.LinkedBlockingQueue;
+ import java.util.concurrent.ThreadPoolExecutor;
+ import java.util.concurrent.TimeUnit;
+-import java.util.concurrent.LinkedBlockingQueue;
+ import java.util.concurrent.TimeoutException;
+-import java.util.concurrent.CopyOnWriteArraySet;
+ import java.util.logging.Level;
+ import java.util.logging.LogRecord;
+ import java.util.logging.Logger;
+ import java.util.regex.Pattern;
+-import java.nio.charset.Charset;
++
++import javax.crypto.SecretKey;
+ import javax.servlet.RequestDispatcher;
+-import javax.crypto.SecretKey;
++import javax.servlet.ServletContext;
++import javax.servlet.ServletException;
++import javax.servlet.http.Cookie;
++import javax.servlet.http.HttpServletResponse;
+ 
+-import groovy.lang.GroovyShell;
++import net.java.sezpoz.Index;
++import net.java.sezpoz.IndexItem;
++import net.sf.json.JSONObject;
+ 
++import org.acegisecurity.AccessDeniedException;
++import org.acegisecurity.AcegiSecurityException;
++import org.acegisecurity.Authentication;
++import org.acegisecurity.GrantedAuthority;
++import org.acegisecurity.GrantedAuthorityImpl;
++import org.acegisecurity.context.SecurityContextHolder;
++import org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken;
++import org.acegisecurity.ui.AbstractProcessingFilter;
++import org.apache.commons.io.FileUtils;
++import org.apache.commons.jelly.JellyException;
++import org.apache.commons.jelly.Script;
++import org.apache.commons.logging.LogFactory;
++import org.kohsuke.stapler.HttpRedirect;
++import org.kohsuke.stapler.MetaClass;
++import org.kohsuke.stapler.QueryParameter;
++import org.kohsuke.stapler.Stapler;
++import org.kohsuke.stapler.StaplerFallback;
++import org.kohsuke.stapler.StaplerProxy;
++import org.kohsuke.stapler.StaplerRequest;
++import org.kohsuke.stapler.StaplerResponse;
++import org.kohsuke.stapler.WebApp;
++import org.kohsuke.stapler.WrapperManager;
++import org.kohsuke.stapler.export.Exported;
++import org.kohsuke.stapler.export.ExportedBean;
++import org.kohsuke.stapler.framework.adjunct.AdjunctManager;
++import org.kohsuke.stapler.jelly.JellyClassLoaderTearOff;
++import org.kohsuke.stapler.jelly.JellyRequestDispatcher;
++import org.xml.sax.InputSource;
++
++import com.thoughtworks.xstream.XStream;
++
+ /**
+  * Root object of the system.
+  *
+@@ -553,7 +563,9 @@
+             if(slaves==null)    slaves = new NodeList();
+ 
+             adjuncts = new AdjunctManager(servletContext, pluginManager.uberClassLoader,"adjuncts/"+VERSION_HASH);
+-
++            
++            setupWrappers(context, pluginManager.uberClassLoader);
++            
+             load();
+ 
+     //        try {
+@@ -3321,6 +3333,23 @@
+         TWICE_CPU_NUM, TWICE_CPU_NUM,
+         5L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), new DaemonThreadFactory());
+ 
++	private static void setupWrappers(ServletContext context,
++			ClassLoader classLoader) throws IOException {
++		WrapperManager.Builder builder = new WrapperManager.Builder();
++		for (IndexItem<Wrapper, Object> i : Index.load(Wrapper.class,
++				Object.class, classLoader)) {
++			try {
++				Class<?> wrapper = (Class<?>) i.element();
++				for (Class wrapped : i.annotation().value()) {
++					builder.add(wrapped, wrapper);
++				}
++			} catch (InstantiationException e) {
++				throw new IOException("Could not load Wrapper IndexItem "
++						+ i, e);
++			}
++		}
++		context.setAttribute(WrapperManager.KEY, builder.build());
++	}
+ 
+     private static void computeVersion(ServletContext context) {
+         // set the version
+@@ -3402,4 +3431,5 @@
+         assert PERMISSIONS!=null;
+         assert ADMINISTER!=null;
+     }
++
+ }
+Index: src/main/java/hudson/model/Wrapper.java
+===================================================================
+--- src/main/java/hudson/model/Wrapper.java	(revision 0)
++++ src/main/java/hudson/model/Wrapper.java	(revision 0)
+@@ -0,0 +1,33 @@
++package hudson.model;
++
++import static java.lang.annotation.ElementType.TYPE;
++
++import java.lang.annotation.Documented;
++import java.lang.annotation.Retention;
++import java.lang.annotation.RetentionPolicy;
++import java.lang.annotation.Target;
++
++import net.java.sezpoz.Indexable;
++
++/**
++ * 
++ * This annotations marks a class as a Stapler wrapper.
++ * 
++ * Each static method Wrapper.methodX(Class Y, ...) on a wrapper class 
++ * will be treated as if it was a Y.methodX(...) method.
++ * 
++ * @author Tom Huybrechts
++ *
++ */
++@Indexable
++@Retention(RetentionPolicy.SOURCE)
++@Target( { TYPE })
++@Documented
++public @interface Wrapper {
++
++	/**
++	 * Limits the use of this wrapper to these classes and their subclasses.
++	 */
++	Class<?>[] value() default Object.class;
++
++}

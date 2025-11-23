@@ -1,0 +1,51 @@
+Index: main/core/src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+--- main/core/src/main/java/hudson/model/AbstractBuild.java	(Revision 22790)
++++ main/core/src/main/java/hudson/model/AbstractBuild.java	(Arbeitskopie)
+@@ -324,6 +324,15 @@
+         return hudsonVersion;
+     }
+ 
++    /**
++     * Returns the initial environment variables, before the WORKSPACE or CLASSPATH settings
++     * are computed for this build.
++     * This method is used to expand variables in the custom workspace path.
++     */
++    protected EnvVars getInitialEnvironment(TaskListener log) throws IOException, InterruptedException {
++        return super.getEnvironment(log);
++    }
++
+     protected abstract class AbstractRunner extends Runner {
+         /**
+          * Since configuration can be changed while a build is in progress,
+@@ -351,6 +360,12 @@
+             return wsl.allocate(n.getWorkspaceFor((TopLevelItem)getProject()));
+         }
+ 
++        protected String determineExpandedWorkspacePathFor(Lease lease, TaskListener listener) throws IOException, InterruptedException {
++            String plainPath = lease.path.getRemote();
++            EnvVars env = getInitialEnvironment(listener);
++            return env.expand(plainPath);
++        }
++
+         public Result run(BuildListener listener) throws Exception {
+             Node node = getCurrentNode();
+             assert builtOn==null;
+@@ -364,7 +379,7 @@
+             final Lease lease = decideWorkspace(node,Computer.currentComputer().getWorkspaceList());
+ 
+             try {
+-                workspace = lease.path.getRemote();
++                workspace = determineExpandedWorkspacePathFor(lease, listener);
+                 node.getFileSystemProvisioner().prepareWorkspace(AbstractBuild.this,lease.path,listener);
+ 
+                 checkout(listener);
+@@ -565,7 +580,7 @@
+ 
+     @Override
+     public EnvVars getEnvironment(TaskListener log) throws IOException, InterruptedException {
+-        EnvVars env = super.getEnvironment(log);
++        EnvVars env = getInitialEnvironment(log);
+         env.put("WORKSPACE", getWorkspace().getRemote());
+         // servlet container may have set CLASSPATH in its launch script,
+         // so don't let that inherit to the new child process.

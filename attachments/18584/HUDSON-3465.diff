@@ -1,0 +1,358 @@
+Index: main/core/src/main/java/hudson/model/ListView.java
+===================================================================
+--- main/core/src/main/java/hudson/model/ListView.java	(revision 17313)
++++ main/core/src/main/java/hudson/model/ListView.java	(working copy)
+@@ -30,6 +30,7 @@
+ import hudson.views.JobColumn;
+ import hudson.views.LastDurationColumn;
+ import hudson.views.LastFailureColumn;
++import hudson.views.LastStableColumn;
+ import hudson.views.LastSuccessColumn;
+ import hudson.views.ListViewColumn;
+ import hudson.views.StatusColumn;
+@@ -64,6 +65,12 @@
+      */
+     /*package*/ final SortedSet<String> jobNames = new TreeSet<String>(CaseInsensitiveComparator.INSTANCE);
+ 
++    /**
++     * List of columns to be displayed, or null to display them all.
++     * Each entry is the name of a {@link ListViewColumn} subclass.
++     */
++    private SortedSet<String> columnNames;
++
+     protected transient List<ListViewColumn> columns = new ArrayList<ListViewColumn>();
+ 
+     // First add all the known instances in the correct order:
+@@ -71,6 +78,7 @@
+         StatusColumn.DESCRIPTOR,
+         WeatherColumn.DESCRIPTOR,
+         JobColumn.DESCRIPTOR,
++        LastStableColumn.DESCRIPTOR,
+         LastSuccessColumn.DESCRIPTOR,
+         LastFailureColumn.DESCRIPTOR,
+         LastDurationColumn.DESCRIPTOR,
+@@ -101,29 +109,12 @@
+     }
+ 
+     protected void initColumns() {
+-        // create all instances
+-        ArrayList<ListViewColumn> r = new ArrayList<ListViewColumn>();
+-        DescriptorExtensionList<ListViewColumn, Descriptor<ListViewColumn>> all = ListViewColumn.all();
+-        ArrayList<Descriptor<ListViewColumn>> left = new ArrayList<Descriptor<ListViewColumn>>();
+-        left.addAll(all);
+-        for (Descriptor d: defaultColumnDescriptors) {
+-            Descriptor<ListViewColumn> des = all.find(d.getClass().getName());
+-            if (des  != null) {
+-                try {
+-                    r.add (des.newInstance(null, null));
+-                   left.remove(des);
+-                } catch (FormException e) {
+-                    // so far impossible. TODO: report
+-                }
+-                
++        List<ListViewColumn> r = new ArrayList<ListViewColumn>();
++        for (ListViewColumn c : getAllColumns()) {
++            if (containsColumn(c)) {
++                r.add(c);
+             }
+         }
+-        for (Descriptor<ListViewColumn> d : left)
+-            try {
+-                r.add(d.newInstance(null,null));
+-            } catch (FormException e) {
+-                // so far impossible. TODO: report
+-            }
+         columns = Collections.unmodifiableList(r);
+     }
+ 
+@@ -140,6 +131,18 @@
+     public List<ListViewColumn> getColumns() {
+         return columns;
+     }
++
++    /**
++     * Checks whether {@link #getColumns} contains a column of this type.
++     * @since 1.301
++     */
++    public boolean containsColumn(ListViewColumn column) {
++        if (columnNames != null) {
++            return columnNames.contains(column.getDescriptor().clazz.getName());
++        } else {
++            return column.shownByDefault();
++        }
++    }
+     
+     public static List<ListViewColumn> getDefaultColumns() {
+         ArrayList<ListViewColumn> r = new ArrayList<ListViewColumn>();
+@@ -148,7 +151,10 @@
+             Descriptor<ListViewColumn> des = all.find(d.getClass().getName());
+             if (des  != null) {
+                 try {
+-                    r.add (des.newInstance(null, null));
++                    ListViewColumn col = des.newInstance(null, null);
++                    if (col.shownByDefault()) {
++                        r.add(col);
++                    }
+                 } catch (FormException e) {
+                     // so far impossible. TODO: report
+                 }
+@@ -159,6 +165,37 @@
+     }
+ 
+     /**
++     * Gets all available columns.
++     * @since 1.301
++     */
++    public static List<ListViewColumn> getAllColumns() {
++        // create all instances
++        ArrayList<ListViewColumn> r = new ArrayList<ListViewColumn>();
++        DescriptorExtensionList<ListViewColumn, Descriptor<ListViewColumn>> all = ListViewColumn.all();
++        ArrayList<Descriptor<ListViewColumn>> left = new ArrayList<Descriptor<ListViewColumn>>();
++        left.addAll(all);
++        for (Descriptor d : defaultColumnDescriptors) {
++            Descriptor<ListViewColumn> des = all.find(d.getClass().getName());
++            if (des != null) {
++                try {
++                    r.add(des.newInstance(null, null));
++                    left.remove(des);
++                } catch (FormException e) {
++                    // so far impossible. TODO: report
++                }
++            }
++        }
++        for (Descriptor<ListViewColumn> d : left) {
++            try {
++                r.add(d.newInstance(null, null));
++            } catch (FormException e) {
++                // so far impossible. TODO: report
++            }
++        }
++        return r;
++    }
++
++    /**
+      * Returns a read-only view of all {@link Job}s in this view.
+      *
+      * <p>
+@@ -229,6 +266,24 @@
+             includeRegex = null;
+             includePattern = null;
+         }
++
++        columnNames = new TreeSet<String>();
++        boolean customized = false;
++        for (Descriptor<ListViewColumn> col : ListViewColumn.all()) {
++            boolean included = req.getParameter(col.getJsonSafeClassName()) != null;
++            if (included) {
++                columnNames.add(col.clazz.getName());
++            }
++            try {
++                customized |= included ^ col.newInstance(null, null).shownByDefault();
++            } catch (FormException e) {
++                // so far impossible. TODO: report
++            }
++        }
++        if (!customized) {
++            columnNames = null;
++        }
++        initColumns();
+     }
+ 
+     @Extension
+Index: main/core/src/main/java/hudson/views/ListViewColumn.java
+===================================================================
+--- main/core/src/main/java/hudson/views/ListViewColumn.java	(revision 17313)
++++ main/core/src/main/java/hudson/views/ListViewColumn.java	(working copy)
+@@ -48,11 +48,6 @@
+  * <p>
+  * This object may have an additional <tt>columHeader.jelly</tt>. The default ColmnHeader
+  * will render ColumnCaption.
+- * <p>
+- * For now, {@link ListView} doesn't allow {@link ListViewColumn}s to be configured
+- * (instead it just shows all the columns available in {@link #all()}),
+- * but the intention is eventually make each {@link ListViewColumn} fully configurable
+- * like {@link Publisher}.
+  *
+  * @author Kohsuke Kawaguchi
+  * @since 1.279
+@@ -83,4 +78,13 @@
+      */
+     public static final DescriptorList<ListViewColumn> LIST = new DescriptorList<ListViewColumn>(ListViewColumn.class);
+ 
++    /**
++     * Whether this column will be shown by default.
++     * The default implementation is true.
++     * @since 1.301
++     */
++    public boolean shownByDefault() {
++        return true;
++    }
++
+ }
+Index: main/core/src/main/java/hudson/views/LastStableColumn.java
+===================================================================
+--- main/core/src/main/java/hudson/views/LastStableColumn.java	(revision 0)
++++ main/core/src/main/java/hudson/views/LastStableColumn.java	(revision 0)
+@@ -0,0 +1,60 @@
++/*
++ * The MIT License
++ * 
++ * Copyright (c) 2009, Sun Microsystems, Inc., Jesse Glick
++ * 
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ * 
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ * 
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++package hudson.views;
++
++import hudson.Extension;
++import hudson.model.Descriptor;
++import net.sf.json.JSONObject;
++
++import org.kohsuke.stapler.StaplerRequest;
++
++public class LastStableColumn extends ListViewColumn {
++
++    @Override
++    public boolean shownByDefault() {
++        return false;
++    }
++
++    public Descriptor<ListViewColumn> getDescriptor() {
++        return DESCRIPTOR;
++    }
++    
++    public static final Descriptor<ListViewColumn> DESCRIPTOR = new DescriptorImpl();
++
++    @Extension
++    public static class DescriptorImpl extends Descriptor<ListViewColumn> {
++
++        @Override
++        public ListViewColumn newInstance(StaplerRequest req, JSONObject formData) throws FormException {
++            return new LastStableColumn();
++        }
++
++        @Override
++        public String getDisplayName() {
++            return "Last Stable";
++        }
++
++    }
++
++}
+
+Property changes on: main/core/src/main/java/hudson/views/LastStableColumn.java
+___________________________________________________________________
+Added: svn:eol-style
+   + native
+
+Index: main/core/src/main/resources/hudson/model/ListView/configure-entries.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/model/ListView/configure-entries.jelly	(revision 17313)
++++ main/core/src/main/resources/hudson/model/ListView/configure-entries.jelly	(working copy)
+@@ -40,4 +40,14 @@
+       <f:textbox name="includeRegex" field="includeRegex" />
+     </f:entry>
+   </f:optionalBlock>
+-</j:jelly>
+\ No newline at end of file
++
++  <f:entry title="${%Columns}">
++    <j:invokeStatic var="columns" className="hudson.model.ListView" method="getAllColumns"/>
++    <j:forEach var="column" items="${columns}">
++      <f:checkbox name="${column.descriptor.jsonSafeClassName}" checked="${it.containsColumn(column)}" />
++      ${column.columnCaption}
++      <br/>
++    </j:forEach>
++  </f:entry>
++
++</j:jelly>
+Index: main/core/src/main/resources/hudson/views/LastStableColumn/columnHeader.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/views/LastStableColumn/columnHeader.jelly	(revision 0)
++++ main/core/src/main/resources/hudson/views/LastStableColumn/columnHeader.jelly	(revision 0)
+@@ -0,0 +1,27 @@
++<!--
++The MIT License
++
++Copyright (c) 2009, Sun Microsystems, Inc., Jesse Glick
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in
++all copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++THE SOFTWARE.
++-->
++
++<j:jelly xmlns:j="jelly:core">
++    <th>${%Last Stable}</th>
++</j:jelly>
+Index: main/core/src/main/resources/hudson/views/LastStableColumn/column.jelly
+===================================================================
+--- main/core/src/main/resources/hudson/views/LastStableColumn/column.jelly	(revision 0)
++++ main/core/src/main/resources/hudson/views/LastStableColumn/column.jelly	(revision 0)
+@@ -0,0 +1,38 @@
++<!--
++The MIT License
++
++Copyright (c) 2009, Sun Microsystems, Inc., Jesse Glick
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in
++all copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++THE SOFTWARE.
++-->
++
++<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
++    <j:set var="lstBuild" value="${job.lastStableBuild}"/>
++    <td data="${lstBuild.timestampString2 ?: '-'}">
++          <j:choose>
++              <j:when test="${lstBuild!=null}">
++                  ${lstBuild.timestampString}
++                  (<a href="${jobBaseUrl}${job.shortUrl}lastStableBuild/">#${lstBuild.number}</a>)
++              </j:when>
++              <j:otherwise>
++                  ${%N/A}
++              </j:otherwise>
++          </j:choose>
++      </td>
++</j:jelly>

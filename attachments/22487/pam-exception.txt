@@ -1,0 +1,95 @@
+java.lang.NoClassDefFoundError: Could not initialize class org.jvnet.libpam.impl.PAMLibrary
+
+        at sun.misc.Unsafe.ensureClassInitialized(Native Method)
+
+        at sun.reflect.UnsafeFieldAccessorFactory.newFieldAccessor(UnsafeFieldAccessorFactory.java:43)
+
+        at sun.reflect.ReflectionFactory.newFieldAccessor(ReflectionFactory.java:140)
+
+        at java.lang.reflect.Field.acquireFieldAccessor(Field.java:936)
+
+        at java.lang.reflect.Field.getFieldAccessor(Field.java:917)
+
+        at java.lang.reflect.Field.get(Field.java:376)
+
+        at com.sun.jna.Native.loadLibraryInstance(Native.java:390)
+
+        at com.sun.jna.Native.getStructureAlignment(Native.java:499)
+
+        at com.sun.jna.Structure.setAlignType(Structure.java:215)
+
+        at com.sun.jna.Structure.<init>(Structure.java:173)
+
+        at com.sun.jna.Structure.<init>(Structure.java:169)
+
+        at com.sun.jna.Structure.<init>(Structure.java:165)
+
+        at com.sun.jna.Structure.<init>(Structure.java:156)
+
+        at org.jvnet.libpam.impl.PAMLibrary$pam_conv.<init>(PAMLibrary.java:107)
+
+        at org.jvnet.libpam.PAM.<init>(PAM.java:73)
+
+        at hudson.security.PAMSecurityRealm.authenticate(PAMSecurityRealm.java:73)
+
+        at hudson.security.AbstractPasswordBasedSecurityRealm$Authenticator.retrieveUser(AbstractPasswordBasedSecurityRealm.java:137)
+
+        at org.acegisecurity.providers.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:119)
+
+        at org.acegisecurity.providers.ProviderManager.doAuthentication(ProviderManager.java:195)
+
+        at org.acegisecurity.AbstractAuthenticationManager.authenticate(AbstractAuthenticationManager.java:45)
+
+        at org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(AuthenticationProcessingFilter.java:71)
+
+        at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:252)
+
+        at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+
+        at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+
+        at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+
+        at jenkins.security.ApiTokenFilter.doFilter(ApiTokenFilter.java:61)
+
+        at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+
+        at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+
+        at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+
+        at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+
+        at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+
+        at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+
+        at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+
+        at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+
+        at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+
+        at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+
+        at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+
+        at winstone.RequestDispatcher.forward(RequestDispatcher.java:331)
+
+        at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:215)
+
+        at winstone.RequestHandlerThread.run(RequestHandlerThread.java:138)
+
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+
+        at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+
+        at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+
+        at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+
+        at java.lang.Thread.run(Thread.java:679)

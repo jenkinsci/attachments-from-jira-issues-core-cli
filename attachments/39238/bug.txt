@@ -1,0 +1,86 @@
+aug. 10, 2017 4:22:38 PM jenkins.model.Jenkins$26 run
+INFO: Restart in 10 seconds
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins$26 run
+SEVERE: Restarting VM as requested by nkj
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins cleanUp
+INFO: Stopping Jenkins
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins$21 onAttained
+INFO: Started termination
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins$21 onAttained
+INFO: Completed termination
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins _cleanUpDisconnectComputers
+INFO: Starting node disconnection
+aug. 10, 2017 4:22:48 PM jenkins.slaves.DefaultJnlpSlaveReceiver channelClosed
+WARNING: safe-restart thread for EAC3 Win10 (dtdkcphpw200044) terminated
+java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer.onReadClosed(ChannelApplicationLayer.java:208)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.onRecvClosed(ApplicationLayer.java:222)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.onRecvClosed(ProtocolStack.java:832)
+	at org.jenkinsci.remoting.protocol.FilterLayer.onRecvClosed(FilterLayer.java:287)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.onRecvClosed(SSLEngineFilterLayer.java:181)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.switchToNoSecure(SSLEngineFilterLayer.java:283)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processWrite(SSLEngineFilterLayer.java:503)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processQueuedWrites(SSLEngineFilterLayer.java:248)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doSend(SSLEngineFilterLayer.java:200)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doCloseSend(SSLEngineFilterLayer.java:213)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.doCloseSend(ProtocolStack.java:800)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.doCloseWrite(ApplicationLayer.java:173)
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer$ByteBufferCommandTransport.closeWrite(ChannelApplicationLayer.java:311)
+	at hudson.remoting.Channel.close(Channel.java:1304)
+	at hudson.remoting.Channel.close(Channel.java:1272)
+	at hudson.slaves.SlaveComputer.closeChannel(SlaveComputer.java:708)
+	at hudson.slaves.SlaveComputer.kill(SlaveComputer.java:675)
+	at hudson.model.AbstractCIBase.killComputer(AbstractCIBase.java:88)
+	at jenkins.model.Jenkins.access$2000(Jenkins.java:307)
+	at jenkins.model.Jenkins$22.run(Jenkins.java:3370)
+	at hudson.model.Queue._withLock(Queue.java:1338)
+	at hudson.model.Queue.withLock(Queue.java:1215)
+	at jenkins.model.Jenkins._cleanUpDisconnectComputers(Jenkins.java:3364)
+	at jenkins.model.Jenkins.cleanUp(Jenkins.java:3240)
+	at hudson.lifecycle.WindowsServiceLifecycle.restart(WindowsServiceLifecycle.java:123)
+	at jenkins.model.Jenkins$26.run(Jenkins.java:4225)
+
+aug. 10, 2017 4:22:48 PM jenkins.slaves.DefaultJnlpSlaveReceiver channelClosed
+WARNING: safe-restart thread for LDC Win10 on own VM (dtdkcphvm200040) terminated
+java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer.onReadClosed(ChannelApplicationLayer.java:208)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.onRecvClosed(ApplicationLayer.java:222)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.onRecvClosed(ProtocolStack.java:832)
+	at org.jenkinsci.remoting.protocol.FilterLayer.onRecvClosed(FilterLayer.java:287)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.onRecvClosed(SSLEngineFilterLayer.java:181)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.switchToNoSecure(SSLEngineFilterLayer.java:283)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processWrite(SSLEngineFilterLayer.java:503)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.processQueuedWrites(SSLEngineFilterLayer.java:248)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doSend(SSLEngineFilterLayer.java:200)
+	at org.jenkinsci.remoting.protocol.impl.SSLEngineFilterLayer.doCloseSend(SSLEngineFilterLayer.java:213)
+	at org.jenkinsci.remoting.protocol.ProtocolStack$Ptr.doCloseSend(ProtocolStack.java:800)
+	at org.jenkinsci.remoting.protocol.ApplicationLayer.doCloseWrite(ApplicationLayer.java:173)
+	at org.jenkinsci.remoting.protocol.impl.ChannelApplicationLayer$ByteBufferCommandTransport.closeWrite(ChannelApplicationLayer.java:311)
+	at hudson.remoting.Channel.close(Channel.java:1304)
+	at hudson.remoting.Channel.close(Channel.java:1272)
+	at hudson.slaves.SlaveComputer.closeChannel(SlaveComputer.java:708)
+	at hudson.slaves.SlaveComputer.kill(SlaveComputer.java:675)
+	at hudson.model.AbstractCIBase.killComputer(AbstractCIBase.java:88)
+	at jenkins.model.Jenkins.access$2000(Jenkins.java:307)
+	at jenkins.model.Jenkins$22.run(Jenkins.java:3370)
+	at hudson.model.Queue._withLock(Queue.java:1338)
+	at hudson.model.Queue.withLock(Queue.java:1215)
+	at jenkins.model.Jenkins._cleanUpDisconnectComputers(Jenkins.java:3364)
+	at jenkins.model.Jenkins.cleanUp(Jenkins.java:3240)
+	at hudson.lifecycle.WindowsServiceLifecycle.restart(WindowsServiceLifecycle.java:123)
+	at jenkins.model.Jenkins$26.run(Jenkins.java:4225)
+
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins _cleanUpShutdownPluginManager
+INFO: Stopping plugin manager
+aug. 10, 2017 4:22:48 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to mddkcphpw106024:22 closed.
+aug. 10, 2017 4:22:48 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to dtdkcphpw200040:22 closed.
+aug. 10, 2017 4:22:48 PM hudson.plugins.sshslaves.PluginImpl closeRegisteredConnections
+INFO: Forcing connection to DTDKCPHAS1060:22 closed.
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins _cleanUpPersistQueue
+INFO: Persisting build queue
+aug. 10, 2017 4:22:48 PM jenkins.model.Jenkins _cleanUpAwaitDisconnects
+INFO: Waiting for node disconnection completion
+aug. 10, 2017 4:23:00 PM jenkins.model.Jenkins cleanUp
+INFO: Jenkins stopped

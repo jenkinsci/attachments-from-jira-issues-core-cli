@@ -1,0 +1,89 @@
+diff --git a/core/src/main/java/hudson/model/AbstractProject.java b/core/src/main/java/hudson/model/AbstractProject.java
+index a5a2301..53a9974 100644
+--- a/core/src/main/java/hudson/model/AbstractProject.java
++++ b/core/src/main/java/hudson/model/AbstractProject.java
+@@ -191,6 +191,11 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
+     private volatile String jdk;
+ 
+     /**
++     * True if this project is using the advanced label affinity chooser.
++     */
++    private boolean advancedAffinityChooser = false;
++    
++    /**
+      * @deprecated since 2007-01-29.
+      */
+     private transient boolean enableRemoteTrigger;
+@@ -288,6 +293,21 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
+     }
+ 
+     /**
++     * Gets whether this project is using the advanced affinity chooser UI.
++     */
++    public boolean isAdvancedAffinityChooser() {
++        return advancedAffinityChooser;
++    }
++
++    /**
++     * Sets whether this project is using the advanced affinity chooser UI.
++     */
++    public void setAdvancedAffinityChooser(boolean b) throws IOException {
++        advancedAffinityChooser = b;
++        save();
++    }
++    
++    /**
+      * If this project is configured to be always built on this node,
+      * return that {@link Node}. Otherwise null.
+      */
+@@ -1531,9 +1551,18 @@ public abstract class AbstractProject<P extends AbstractProject<P,R>,R extends A
+         blockBuildWhenUpstreamBuilding = req.getParameter("blockBuildWhenUpstreamBuilding")!=null;
+ 
+         if(req.getParameter("hasSlaveAffinity")!=null) {
+-            assignedNode = Util.fixEmptyAndTrim(req.getParameter("_.assignedLabelString"));
++            // New logic for handling whether this choice came from the dropdown or textfield.
++            if (req.getParameter("slave")!=null) {
++                assignedNode = Util.fixEmptyAndTrim(req.getParameter("slave"));
++                advancedAffinityChooser = false;
++            }
++            else {
++                assignedNode = Util.fixEmptyAndTrim(req.getParameter("_.assignedLabelString"));
++                advancedAffinityChooser = true;
++            }
+         } else {
+             assignedNode = null;
++            advancedAffinityChooser = false;
+         }
+         canRoam = assignedNode==null;
+ 
+diff --git a/core/src/main/resources/hudson/model/AbstractItem/configure-common.jelly b/core/src/main/resources/hudson/model/AbstractItem/configure-common.jelly
+index af76eac..19c13dd 100644
+--- a/core/src/main/resources/hudson/model/AbstractItem/configure-common.jelly
++++ b/core/src/main/resources/hudson/model/AbstractItem/configure-common.jelly
+@@ -49,9 +49,23 @@ THE SOFTWARE.
+   <j:if test="${app.labels.size() gt 1 || (it.assignedLabel!=null and it.assignedLabel!=app.selfLabel)}">
+     <f:optionalBlock name="hasSlaveAffinity" title="${%Restrict where this project can be run}" checked="${it.assignedLabel!=null}"
+         help="/help/project-config/slave.html">
+-      <f:entry title="${%Label Expression}" field="assignedLabelString">
+-        <f:textbox />
+-      </f:entry>
++      <f:radioBlock name="affinityChooser" value="basic" title="${%Node and label menu}" checked="${!it.advancedAffinityChooser and it.assignedLabel!=null}">
++        <f:entry title="${%Node}">
++          <select class="setting-input" name="slave">
++            <j:forEach var="s" items="${app.labels}">
++              <j:if test="${s.isAssignable()}">
++                <f:option selected="${s==it.assignedLabel}" value="${s.name}"
++                          >${s.name} <j:if test="${!empty(s.description)}">(${s.description})</j:if></f:option>
++              </j:if>
++            </j:forEach>
++          </select>
++        </f:entry>
++      </f:radioBlock>
++      <f:radioBlock name="affinityChooser" value="advanced" title="${%Advanced expressions}" checked="${it.advancedAffinityChooser and it.assignedLabel!=null}">
++        <f:entry title="${%Label Expression}" field="assignedLabelString">
++          <f:textbox />
++        </f:entry>
++      </f:radioBlock>
+     </f:optionalBlock>
+   </j:if>
+ 

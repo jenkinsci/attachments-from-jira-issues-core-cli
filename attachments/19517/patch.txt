@@ -1,0 +1,95 @@
+Index: src/main/java/hudson/model/AbstractBuild.java
+===================================================================
+--- src/main/java/hudson/model/AbstractBuild.java	(revision 32103)
++++ src/main/java/hudson/model/AbstractBuild.java	(working copy)
+@@ -134,6 +134,14 @@
+     private volatile Set<String> culprits;
+ 
+     /**
++     * this is use to protect infinite loops where a project's BuildWrapper
++     * calls this instance's getBuildVariables() method while we are already
++     * in getBuildVariables iterating over each BuildWrapper and calling 
++     * getAdditionalBuildVariables()
++     */
++	private boolean currentlyAppendingBuildVariables = false;
++
++    /**
+      * During the build this field remembers {@link BuildWrapper.Environment}s created by
+      * {@link BuildWrapper}. This design is bit ugly but forced due to compatibility.
+      */
+@@ -740,6 +748,40 @@
+                 if (v!=null) r.put(p.getName(),v);
+             }
+         }
++
++        /*
++         * Iterate over each BuildWrapper associated with the project
++         * and call getAdditionalBuildVariables(), and appending them to the
++         * map.  Note that it will only append new variables.  It will not 
++         * overwrite a variable if it already exists.
++         */
++        if ((project instanceof BuildableItemWithBuildWrappers) && 
++        		!currentlyAppendingBuildVariables ) {
++        	try {
++        		// make sure to set this so to prevent an infinite loop
++        		// where the wrapper itself might call getBuildVariables().
++        		currentlyAppendingBuildVariables = true;
++        		
++        		BuildableItemWithBuildWrappers biwbw = (BuildableItemWithBuildWrappers) project;
++        		for (BuildWrapper bw : biwbw.getBuildWrappersList()) {
++        			Map<String,String> wrapperBuildVars = 
++            		bw.getAdditionalBuildVariables(this);
++
++        			if (wrapperBuildVars != null) {
++        				for (String key: wrapperBuildVars.keySet()) {
++        					// don't let the wrapper override a variable
++        					// when appending. Ignore it if it exists.
++        					if (!r.containsKey(key)) {
++        						r.put(key, wrapperBuildVars.get(key));
++        					}
++        				}
++        			}
++        		}
++        	} finally {
++        		currentlyAppendingBuildVariables = false;
++        	}
++        }
++
+         return r;
+     }
+ 
+Index: src/main/java/hudson/tasks/BuildWrapper.java
+===================================================================
+--- src/main/java/hudson/tasks/BuildWrapper.java	(revision 32103)
++++ src/main/java/hudson/tasks/BuildWrapper.java	(working copy)
+@@ -33,6 +33,7 @@
+ import java.io.IOException;
+ import java.util.Collection;
+ import java.util.Collections;
++import java.util.Map;
+ 
+ /**
+  * Pluggability point for performing pre/post actions for the build process.
+@@ -204,6 +205,22 @@
+     }
+ 
+     /**
++     * Provide an opportunity for a BuildWrapper to append any additional
++     * build variables already defined for the current build.  The default
++     * implementation returns null. Note the variables will only get appended
++     * if they do not exist already for the build -- ie, you can not override
++     * the definition of a build variable if it already exists.
++     * 
++     * @param build
++     *      The build in progress for which this {@link BuildWrapper} is called. Never null.
++     * @return
++     * A map containing the build variables to append 	
++     */
++    public Map<String,String> getAdditionalBuildVariables(AbstractBuild build) {
++    	return null;
++}
++
++    /**
+      * Returns all the registered {@link BuildWrapper} descriptors.
+      */
+     // for compatibility we can't use BuildWrapperDescriptor

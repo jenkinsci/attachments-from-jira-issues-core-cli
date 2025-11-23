@@ -1,0 +1,212 @@
+diff --git a/cli/pom.xml b/cli/pom.xml
+index 28d82aa..7d51fc6 100644
+--- a/cli/pom.xml
++++ b/cli/pom.xml
+@@ -5,7 +5,7 @@
+   <parent>
+     <artifactId>pom</artifactId>
+     <groupId>org.jenkins-ci.main</groupId>
+-    <version>1.532.3</version>
++    <version>1.532.3.JENKINS-22395</version>
+   </parent>
+ 
+   <artifactId>cli</artifactId>
+diff --git a/core/pom.xml b/core/pom.xml
+index 8d63370..351ff96 100644
+--- a/core/pom.xml
++++ b/core/pom.xml
+@@ -29,7 +29,7 @@ THE SOFTWARE.
+   <parent>
+     <groupId>org.jenkins-ci.main</groupId>
+     <artifactId>pom</artifactId>
+-    <version>1.532.3</version>
++    <version>1.532.3.JENKINS-22395</version>
+     <relativePath>../pom.xml</relativePath>
+   </parent>
+ 
+diff --git a/core/src/main/java/hudson/matrix/MatrixBuild.java b/core/src/main/java/hudson/matrix/MatrixBuild.java
+index 5675842..371b6d5 100644
+--- a/core/src/main/java/hudson/matrix/MatrixBuild.java
++++ b/core/src/main/java/hudson/matrix/MatrixBuild.java
+@@ -100,7 +100,7 @@ public class MatrixBuild extends AbstractBuild<MatrixProject,MatrixBuild> {
+         // due to dependencies!
+         String why = getWhyKeepLog();
+         if (why!=null) {
+-            sendError(hudson.model.Messages.Run_UnableToDelete(toString(),why),req,rsp);
++            sendError(hudson.model.Messages.Run_UnableToDelete(getFullDisplayName(), why), req, rsp);
+             return;
+         }
+         
+@@ -108,7 +108,7 @@ public class MatrixBuild extends AbstractBuild<MatrixProject,MatrixBuild> {
+         for(MatrixRun run : runs){
+         	why = run.getWhyKeepLog();
+             if (why!=null) {
+-                sendError(hudson.model.Messages.Run_UnableToDelete(toString(),why),req,rsp);
++                sendError(hudson.model.Messages.Run_UnableToDelete(getFullDisplayName(), why), req, rsp);
+                 return;
+             }
+         	run.delete();
+diff --git a/core/src/main/java/hudson/model/AbstractBuild.java b/core/src/main/java/hudson/model/AbstractBuild.java
+index 49e47ed..ee8ec2f 100644
+--- a/core/src/main/java/hudson/model/AbstractBuild.java
++++ b/core/src/main/java/hudson/model/AbstractBuild.java
+@@ -193,16 +193,12 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
+     void dropLinks() {
+         super.dropLinks();
+ 
+-        if(nextBuild!=null) {
+-            AbstractBuild nb = nextBuild.get();
+-            if (nb!=null) {
+-                nb.previousBuild = previousBuild;
+-            }
+-        }
+-        if(previousBuild!=null) {
+-            AbstractBuild pb = previousBuild.get();
+-            if (pb!=null)   pb.nextBuild = nextBuild;
++        AbstractBuild nb = getNextBuild();
++        if (nb!=null) {
++            nb.previousBuild = previousBuild;
+         }
++        AbstractBuild pb = getPreviousBuild();
++        if (pb!=null)   pb.nextBuild = nextBuild;
+     }
+ 
+     @Override
+diff --git a/core/src/main/java/hudson/model/Run.java b/core/src/main/java/hudson/model/Run.java
+index 9651401..7c318ee 100644
+--- a/core/src/main/java/hudson/model/Run.java
++++ b/core/src/main/java/hudson/model/Run.java
+@@ -426,10 +426,10 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+         // result can only get worse
+         if(result==null) {
+             result = r;
+-            LOGGER.log(FINE, toString()+" : result is set to "+r,new Exception());
++            LOGGER.log(FINE, this + " : result is set to " + r, LOGGER.isLoggable(Level.FINER) ? new Exception() : null);
+         } else {
+             if(r.isWorseThan(result)) {
+-                LOGGER.log(FINE, toString()+" : result is set to "+r,new Exception());
++                LOGGER.log(FINE, this + " : result is set to " + r, LOGGER.isLoggable(Level.FINER) ? new Exception() : null);
+                 result = r;
+             }
+         }
+@@ -736,7 +736,7 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+ 
+     @Override
+     public String toString() {
+-        return getFullDisplayName();
++        return project.getFullName() + " #" + number;
+     }
+ 
+     @Exported
+@@ -1429,7 +1429,7 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+ 
+         File rootDir = getRootDir();
+         if (!rootDir.isDirectory()) {
+-            throw new IOException(rootDir + " looks to have already been deleted");
++            throw new IOException(this + ": " + rootDir + " looks to have already been deleted");
+         }
+         File tmp = new File(rootDir.getParentFile(),'.'+rootDir.getName());
+         
+@@ -1446,6 +1446,7 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+ 
+         if(!renamingSucceeded)
+             throw new IOException(rootDir+" is in use");
++        LOGGER.log(FINE, "{0}: {1} successfully deleted", new Object[] {this, rootDir});
+ 
+         removeRunFromParent();
+     }
+@@ -2098,7 +2099,7 @@ public abstract class Run <JobT extends Job<JobT,RunT>,RunT extends Run<JobT,Run
+         // due to dependencies!
+         String why = getWhyKeepLog();
+         if (why!=null) {
+-            sendError(Messages.Run_UnableToDelete(toString(),why),req,rsp);
++            sendError(Messages.Run_UnableToDelete(getFullDisplayName(), why), req, rsp);
+             return;
+         }
+ 
+diff --git a/plugins/pom.xml b/plugins/pom.xml
+index 87c0659..3ab7759 100644
+--- a/plugins/pom.xml
++++ b/plugins/pom.xml
+@@ -38,25 +38,25 @@
+       <groupId>org.jenkins-ci.main</groupId>
+       <artifactId>jenkins-war</artifactId>
+       <type>war</type>
+-      <version>1.532.3</version>
++      <version>1.532.3.JENKINS-22395</version>
+       <scope>test</scope>
+     </dependency>
+     <dependency>
+       <groupId>org.jenkins-ci.main</groupId>
+       <artifactId>jenkins-core</artifactId>
+-      <version>1.532.3</version>
++      <version>1.532.3.JENKINS-22395</version>
+       <scope>provided</scope>
+     </dependency>
+     <dependency>
+       <groupId>org.jenkins-ci.main</groupId>
+       <artifactId>jenkins-test-harness</artifactId>
+-      <version>1.532.3</version>
++      <version>1.532.3.JENKINS-22395</version>
+       <scope>test</scope>
+     </dependency>
+     <dependency>
+       <groupId>org.jenkins-ci.main</groupId>
+       <artifactId>ui-samples-plugin</artifactId>
+-      <version>1.532.3</version>
++      <version>1.532.3.JENKINS-22395</version>
+       <scope>test</scope>
+     </dependency>
+     <!--
+diff --git a/pom.xml b/pom.xml
+index a61e39c..ccdfabd 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -33,7 +33,7 @@ THE SOFTWARE.
+ 
+   <groupId>org.jenkins-ci.main</groupId>
+   <artifactId>pom</artifactId>
+-  <version>1.532.3</version>
++  <version>1.532.3.JENKINS-22395</version>
+   <packaging>pom</packaging>
+ 
+   <name>Jenkins main module</name>
+diff --git a/test/pom.xml b/test/pom.xml
+index e9a7d98..60ff5d2 100644
+--- a/test/pom.xml
++++ b/test/pom.xml
+@@ -29,7 +29,7 @@ THE SOFTWARE.
+   <parent>
+     <artifactId>pom</artifactId>
+     <groupId>org.jenkins-ci.main</groupId>
+-    <version>1.532.3</version>
++    <version>1.532.3.JENKINS-22395</version>
+   </parent>
+   <groupId>org.jenkins-ci.main</groupId>
+   <artifactId>jenkins-test-harness</artifactId>
+diff --git a/ui-samples-plugin/pom.xml b/ui-samples-plugin/pom.xml
+index cf20b24..bc8784e 100644
+--- a/ui-samples-plugin/pom.xml
++++ b/ui-samples-plugin/pom.xml
+@@ -29,7 +29,7 @@ THE SOFTWARE.
+   <parent>
+     <groupId>org.jenkins-ci.main</groupId>
+     <artifactId>pom</artifactId>
+-    <version>1.532.3</version>
++    <version>1.532.3.JENKINS-22395</version>
+   </parent>
+ 
+   <artifactId>ui-samples-plugin</artifactId>
+diff --git a/war/pom.xml b/war/pom.xml
+index e2c179e..102ab7a 100644
+--- a/war/pom.xml
++++ b/war/pom.xml
+@@ -28,7 +28,7 @@ THE SOFTWARE.
+   <parent>
+     <groupId>org.jenkins-ci.main</groupId>
+     <artifactId>pom</artifactId>
+-    <version>1.532.3</version>
++    <version>1.532.3.JENKINS-22395</version>
+     <relativePath>../pom.xml</relativePath>
+   </parent>
+ 

@@ -1,0 +1,98 @@
+[11/10/14 21:46:59] [SSH] Opening SSH connection to hostname.example.com:22.
+[11/10/14 21:46:59] [SSH] Authentication successful.
+[11/10/14 21:47:00] [SSH] The remote users environment is:
+BASH=/bin/bash
+BASHOPTS=cmdhist:complete_fullquote:extquote:force_fignore:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath
+BASH_ALIASES=()
+BASH_ARGC=()
+BASH_ARGV=()
+BASH_CMDS=()
+BASH_EXECUTION_STRING=set
+BASH_LINENO=()
+BASH_SOURCE=()
+BASH_VERSINFO=([0]="4" [1]="3" [2]="11" [3]="1" [4]="release" [5]="x86_64-pc-linux-gnu")
+BASH_VERSION='4.3.11(1)-release'
+DIRSTACK=()
+EUID=121728894
+GROUPS=()
+HOME=/home/username
+HOSTNAME=hostname
+HOSTTYPE=x86_64
+IFS=$' \t\n'
+KRB5CCNAME=FILE:/tmp/krb5cc_121728894_IFQAXS
+LANG=en_US.UTF-8
+LOGNAME=username
+MACHTYPE=x86_64-pc-linux-gnu
+MAIL=/var/mail/username
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+PIPESTATUS=([0]="0")
+PPID=14356
+PS4='+ '
+PWD=/home/username
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:hashall:interactive-comments
+SHLVL=1
+SSH_CLIENT='16.78.112.147 41013 22'
+SSH_CONNECTION='16.78.112.147 41013 16.78.112.146 22'
+TERM=dumb
+UID=121728894
+USER=username
+_=']'
+[11/10/14 21:47:00] [SSH] Checking java version of java
+[11/10/14 21:47:00] [SSH] java -version returned 1.7.0_65.
+[11/10/14 21:47:00] [SSH] Starting sftp client.
+[11/10/14 21:47:00] [SSH] Copying latest slave.jar...
+[11/10/14 21:47:00] [SSH] Copied 439,117 bytes.
+Expanded the channel window size to 4MB
+[11/10/14 21:47:00] [SSH] Starting slave process: cd "/home/username" && java  -jar slave.jar
+<===[JENKINS REMOTING CAPACITY]===>channel started
+Slave.jar version: 2.47
+This is a Unix slave
+Slave successfully connected and online
+
+bash: line 1: 14375 Killed                  java -jar slave.jar
+ERROR: Connection terminated
+java.io.IOException: Unexpected termination of the channel
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+	at java.io.ObjectInputStream$PeekInputStream.readFully(ObjectInputStream.java:2325)
+	at java.io.ObjectInputStream$BlockDataInputStream.readShort(ObjectInputStream.java:2794)
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:801)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:299)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:40)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+ERROR: [11/10/14 22:05:14] [SSH] Error deleting file.
+com.trilead.ssh2.SFTPException: No such file (SSH_FX_NO_SUCH_FILE: A reference was made to a file which does not exist.)
+	at com.trilead.ssh2.SFTPv3Client.expectStatusOKMessage(SFTPv3Client.java:555)
+	at com.trilead.ssh2.SFTPv3Client.rm(SFTPv3Client.java:973)
+	at hudson.plugins.sshslaves.SSHLauncher.afterDisconnect(SSHLauncher.java:1253)
+	at hudson.slaves.SlaveComputer$2.onClosed(SlaveComputer.java:464)
+	at hudson.remoting.Channel.terminate(Channel.java:831)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:69)
+[11/10/14 22:05:14] [SSH] Connection closed.
+ERROR: [11/10/14 22:05:14] slave agent was terminated
+java.io.IOException: Unexpected termination of the channel
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+	at java.io.ObjectInputStream$PeekInputStream.readFully(ObjectInputStream.java:2325)
+	at java.io.ObjectInputStream$BlockDataInputStream.readShort(ObjectInputStream.java:2794)
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:801)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:299)
+	at hudson.remoting.ObjectInputStreamEx.<init>(ObjectInputStreamEx.java:40)
+	at hudson.remoting.AbstractSynchronousByteArrayCommandTransport.read(AbstractSynchronousByteArrayCommandTransport.java:34)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+
+
+
+
+    Network Error (tcp_error)
+
+    A communication error occurred: ""
+    The Web Server may be down, too busy, or experiencing other problems preventing it from responding to requests. You may wish to try again at a later time.
+
+    For assistance, contact your network support team. 

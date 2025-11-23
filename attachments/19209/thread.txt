@@ -1,0 +1,835 @@
+Deadlocked Threads
+==================
+
+"http-8080-1" Id=90 BLOCKED on java.util.ArrayList@4f2fed4f owned by "Hudson cron thread" Id=69
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.doLoadClass(ChainedClassLoader.java:151)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.loadClass(ChainedClassLoader.java:144)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.BundleWebappClassLoader.loadClass(BundleWebappClassLoader.java:259)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1095)
+    - locked org.apache.catalina.core.StandardWrapper@570028594
+    at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:809)
+    - locked org.apache.catalina.core.StandardWrapper@570028594
+    at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:129)
+    at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+    at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:433)
+    at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+    at com.springsource.server.web.tomcat.ApplicationNameTrackingValve.invoke(ApplicationNameTrackingValve.java:37)
+    at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:567)
+    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+    at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+    at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+    at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Hudson cron thread" Id=69 BLOCKED on com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader@2a3d4350 owned by "Finalizing set up" Id=85
+    at org.eclipse.osgi.baseadaptor.loader.ClasspathManager.findLocalClass_LockClassLoader(ClasspathManager.java:465)
+    at org.eclipse.osgi.baseadaptor.loader.ClasspathManager.findLocalClass(ClasspathManager.java:445)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.findLocalClass(DefaultClassLoader.java:211)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:381)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:457)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:410)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:398)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:105)
+    at com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader.loadClass(KernelBundleClassLoader.java:145)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at org.eclipse.osgi.internal.loader.BundleLoader.loadClass(BundleLoader.java:326)
+    at org.eclipse.osgi.framework.internal.core.BundleHost.loadClass(BundleHost.java:231)
+    at org.eclipse.osgi.framework.internal.core.AbstractBundle.loadClass(AbstractBundle.java:1193)
+    at org.springframework.osgi.util.BundleDelegatingClassLoader.findClass(BundleDelegatingClassLoader.java:99)
+    at org.springframework.osgi.util.BundleDelegatingClassLoader.loadClass(BundleDelegatingClassLoader.java:156)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.doLoadClass(ChainedClassLoader.java:155)
+    - locked java.util.ArrayList@1328541007
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.loadClass(ChainedClassLoader.java:144)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.BundleWebappClassLoader.loadClass(BundleWebappClassLoader.java:259)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at com.springsource.server.web.core.internal.WebAppClassLoaderDelegateHook.postFindClass(WebAppClassLoaderDelegateHook.java:74)
+    at com.springsource.osgi.extensions.equinox.hooks.PluggableDelegatingClassLoaderDelegateHook.postFindClass(PluggableDelegatingClassLoaderDelegateHook.java:69)
+    at org.eclipse.osgi.internal.loader.BundleLoader.searchHooks(BundleLoader.java:508)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:474)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:410)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:398)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:105)
+    at com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader.loadClass(KernelBundleClassLoader.java:145)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at hudson.util.XStream2$AssociatedConverterImpl.findConverter(XStream2.java:159)
+    at hudson.util.XStream2$AssociatedConverterImpl.canConvert(XStream2.java:198)
+    at com.thoughtworks.xstream.core.DefaultConverterLookup.lookupConverterForType(DefaultConverterLookup.java:63)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:66)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:60)
+    at com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter.readItem(AbstractCollectionConverter.java:71)
+    at hudson.util.CopyOnWriteList$ConverterImpl.unmarshal(CopyOnWriteList.java:186)
+    at hudson.util.DescribableList$ConverterImpl.unmarshal(DescribableList.java:229)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:82)
+    at com.thoughtworks.xstream.core.AbstractReferenceUnmarshaller.convert(AbstractReferenceUnmarshaller.java:63)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:76)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:60)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:137)
+    at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+    at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:926)
+    at hudson.util.XStream2.unmarshal(XStream2.java:76)
+    at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:912)
+    at com.thoughtworks.xstream.XStream.fromXML(XStream.java:856)
+    at hudson.XmlFile.read(XmlFile.java:126)
+    at hudson.model.ComputerSet.<clinit>(ComputerSet.java:361)
+    at hudson.model.LoadStatistics$LoadStatisticsUpdater.doRun(LoadStatistics.java:214)
+    at hudson.triggers.SafeTimerTask.run(SafeTimerTask.java:54)
+    at java.util.TimerThread.mainLoop(Timer.java:512)
+    at java.util.TimerThread.run(Timer.java:462)
+
+"Finalizing set up" Id=85 BLOCKED on java.util.ArrayList@4f2fed4f owned by "Hudson cron thread" Id=69
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.doLoadClass(ChainedClassLoader.java:151)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.loadClass(ChainedClassLoader.java:144)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.BundleWebappClassLoader.loadClass(BundleWebappClassLoader.java:259)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at com.springsource.server.web.core.internal.WebAppClassLoaderDelegateHook.postFindClass(WebAppClassLoaderDelegateHook.java:74)
+    at com.springsource.osgi.extensions.equinox.hooks.PluggableDelegatingClassLoaderDelegateHook.postFindClass(PluggableDelegatingClassLoaderDelegateHook.java:69)
+    at org.eclipse.osgi.internal.loader.BundleLoader.searchHooks(BundleLoader.java:508)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:474)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:410)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:398)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:105)
+    at com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader.loadClass(KernelBundleClassLoader.java:145)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:398)
+    - locked com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader@708658000
+    at java.lang.Class.forName0(Native Method)
+    at java.lang.Class.forName(Class.java:169)
+    at groovy.lang.MetaClassRegistry$MetaClassCreationHandle.create(MetaClassRegistry.java:118)
+    at org.codehaus.groovy.reflection.ClassInfo.getMetaClassUnderLock(ClassInfo.java:142)
+    at org.codehaus.groovy.reflection.ClassInfo.getMetaClass(ClassInfo.java:160)
+    at org.codehaus.groovy.runtime.metaclass.MetaClassRegistryImpl.getMetaClass(MetaClassRegistryImpl.java:200)
+    at org.codehaus.groovy.runtime.InvokerHelper.getMetaClass(InvokerHelper.java:695)
+    at groovy.lang.GroovyObjectSupport.<init>(GroovyObjectSupport.java:32)
+    at hudson.util.spring.BeanBuilder.<init>(BeanBuilder.java:96)
+    at hudson.security.PAMSecurityRealm.createSecurityComponents(PAMSecurityRealm.java:113)
+    at hudson.security.SecurityRealm.getSecurityComponents(SecurityRealm.java:340)
+    - locked hudson.security.PAMSecurityRealm@103842693
+    at hudson.security.HudsonFilter.reset(HudsonFilter.java:134)
+    at hudson.model.Hudson.setSecurityRealm(Hudson.java:1739)
+    at hudson.model.Hudson$13.run(Hudson.java:2137)
+    at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+    at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+    at hudson.model.Hudson$3.runTask(Hudson.java:647)
+    at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+    at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+    at java.lang.Thread.run(Thread.java:637)
+
+All Threads
+===========
+
+"http-8080-1" Id=90 BLOCKED on java.util.ArrayList@4f2fed4f owned by "Hudson cron thread" Id=69
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.doLoadClass(ChainedClassLoader.java:151)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.loadClass(ChainedClassLoader.java:144)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.BundleWebappClassLoader.loadClass(BundleWebappClassLoader.java:259)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1095)
+    - locked org.apache.catalina.core.StandardWrapper@570028594
+    at org.apache.catalina.core.StandardWrapper.allocate(StandardWrapper.java:809)
+    - locked org.apache.catalina.core.StandardWrapper@570028594
+    at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:129)
+    at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+    at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:433)
+    at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+    at com.springsource.server.web.tomcat.ApplicationNameTrackingValve.invoke(ApplicationNameTrackingValve.java:37)
+    at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:567)
+    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+    at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+    at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+    at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Thread-35" Id=86 TIMED_WAITING on java.util.LinkedHashSet@525fcf66
+    at java.lang.Object.wait(Native Method)
+    at hudson.model.ViewJob$ReloadThread.getNext(ViewJob.java:159)
+    at hudson.model.ViewJob$ReloadThread.run(ViewJob.java:176)
+
+"Finalizing set up" Id=85 BLOCKED on java.util.ArrayList@4f2fed4f owned by "Hudson cron thread" Id=69
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.doLoadClass(ChainedClassLoader.java:151)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.loadClass(ChainedClassLoader.java:144)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.BundleWebappClassLoader.loadClass(BundleWebappClassLoader.java:259)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at com.springsource.server.web.core.internal.WebAppClassLoaderDelegateHook.postFindClass(WebAppClassLoaderDelegateHook.java:74)
+    at com.springsource.osgi.extensions.equinox.hooks.PluggableDelegatingClassLoaderDelegateHook.postFindClass(PluggableDelegatingClassLoaderDelegateHook.java:69)
+    at org.eclipse.osgi.internal.loader.BundleLoader.searchHooks(BundleLoader.java:508)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:474)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:410)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:398)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:105)
+    at com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader.loadClass(KernelBundleClassLoader.java:145)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:398)
+    - locked com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader@708658000
+    at java.lang.Class.forName0(Native Method)
+    at java.lang.Class.forName(Class.java:169)
+    at groovy.lang.MetaClassRegistry$MetaClassCreationHandle.create(MetaClassRegistry.java:118)
+    at org.codehaus.groovy.reflection.ClassInfo.getMetaClassUnderLock(ClassInfo.java:142)
+    at org.codehaus.groovy.reflection.ClassInfo.getMetaClass(ClassInfo.java:160)
+    at org.codehaus.groovy.runtime.metaclass.MetaClassRegistryImpl.getMetaClass(MetaClassRegistryImpl.java:200)
+    at org.codehaus.groovy.runtime.InvokerHelper.getMetaClass(InvokerHelper.java:695)
+    at groovy.lang.GroovyObjectSupport.<init>(GroovyObjectSupport.java:32)
+    at hudson.util.spring.BeanBuilder.<init>(BeanBuilder.java:96)
+    at hudson.security.PAMSecurityRealm.createSecurityComponents(PAMSecurityRealm.java:113)
+    at hudson.security.SecurityRealm.getSecurityComponents(SecurityRealm.java:340)
+    - locked hudson.security.PAMSecurityRealm@103842693
+    at hudson.security.HudsonFilter.reset(HudsonFilter.java:134)
+    at hudson.model.Hudson.setSecurityRealm(Hudson.java:1739)
+    at hudson.model.Hudson$13.run(Hudson.java:2137)
+    at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+    at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+    at hudson.model.Hudson$3.runTask(Hudson.java:647)
+    at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+    at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-15" Id=84 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-14" Id=83 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-13" Id=82 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-12" Id=81 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-11" Id=80 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-10" Id=79 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-9" Id=78 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-8" Id=77 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-7" Id=76 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-6" Id=75 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-5" Id=74 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-4" Id=73 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-3" Id=72 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-2" Id=71 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"pool-4-thread-1" Id=70 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@10295bca
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Hudson cron thread" Id=69 BLOCKED on com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader@2a3d4350 owned by "Finalizing set up" Id=85
+    at org.eclipse.osgi.baseadaptor.loader.ClasspathManager.findLocalClass_LockClassLoader(ClasspathManager.java:465)
+    at org.eclipse.osgi.baseadaptor.loader.ClasspathManager.findLocalClass(ClasspathManager.java:445)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.findLocalClass(DefaultClassLoader.java:211)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:381)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:457)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:410)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:398)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:105)
+    at com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader.loadClass(KernelBundleClassLoader.java:145)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at org.eclipse.osgi.internal.loader.BundleLoader.loadClass(BundleLoader.java:326)
+    at org.eclipse.osgi.framework.internal.core.BundleHost.loadClass(BundleHost.java:231)
+    at org.eclipse.osgi.framework.internal.core.AbstractBundle.loadClass(AbstractBundle.java:1193)
+    at org.springframework.osgi.util.BundleDelegatingClassLoader.findClass(BundleDelegatingClassLoader.java:99)
+    at org.springframework.osgi.util.BundleDelegatingClassLoader.loadClass(BundleDelegatingClassLoader.java:156)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.doLoadClass(ChainedClassLoader.java:155)
+    - locked java.util.ArrayList@1328541007
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.ChainedClassLoader.loadClass(ChainedClassLoader.java:144)
+    at com.springsource.osgi.webcontainer.tomcat.internal.loading.BundleWebappClassLoader.loadClass(BundleWebappClassLoader.java:259)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at com.springsource.server.web.core.internal.WebAppClassLoaderDelegateHook.postFindClass(WebAppClassLoaderDelegateHook.java:74)
+    at com.springsource.osgi.extensions.equinox.hooks.PluggableDelegatingClassLoaderDelegateHook.postFindClass(PluggableDelegatingClassLoaderDelegateHook.java:69)
+    at org.eclipse.osgi.internal.loader.BundleLoader.searchHooks(BundleLoader.java:508)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:474)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:410)
+    at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:398)
+    at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:105)
+    at com.springsource.kernel.userregion.internal.equinox.KernelBundleClassLoader.loadClass(KernelBundleClassLoader.java:145)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:250)
+    at hudson.util.XStream2$AssociatedConverterImpl.findConverter(XStream2.java:159)
+    at hudson.util.XStream2$AssociatedConverterImpl.canConvert(XStream2.java:198)
+    at com.thoughtworks.xstream.core.DefaultConverterLookup.lookupConverterForType(DefaultConverterLookup.java:63)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:66)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:60)
+    at com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter.readItem(AbstractCollectionConverter.java:71)
+    at hudson.util.CopyOnWriteList$ConverterImpl.unmarshal(CopyOnWriteList.java:186)
+    at hudson.util.DescribableList$ConverterImpl.unmarshal(DescribableList.java:229)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:82)
+    at com.thoughtworks.xstream.core.AbstractReferenceUnmarshaller.convert(AbstractReferenceUnmarshaller.java:63)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:76)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:60)
+    at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:137)
+    at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:33)
+    at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:926)
+    at hudson.util.XStream2.unmarshal(XStream2.java:76)
+    at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:912)
+    at com.thoughtworks.xstream.XStream.fromXML(XStream.java:856)
+    at hudson.XmlFile.read(XmlFile.java:126)
+    at hudson.model.ComputerSet.<clinit>(ComputerSet.java:361)
+    at hudson.model.LoadStatistics$LoadStatisticsUpdater.doRun(LoadStatistics.java:214)
+    at hudson.triggers.SafeTimerTask.run(SafeTimerTask.java:54)
+    at java.util.TimerThread.mainLoop(Timer.java:512)
+    at java.util.TimerThread.run(Timer.java:462)
+
+"hudson initialization thread" Id=68 WAITING on hudson.model.Hudson$3@b493310
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.jvnet.hudson.reactor.Reactor.execute(Reactor.java:244)
+    at hudson.model.Hudson.executeReactor(Hudson.java:665)
+    at hudson.model.Hudson.<init>(Hudson.java:583)
+    at hudson.WebAppMain$2.run(WebAppMain.java:224)
+
+"Java2D Disposer" Id=67 WAITING on java.lang.ref.ReferenceQueue$Lock@72b76539
+    at java.lang.Object.wait(Native Method)
+    at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+    at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+    at sun.java2d.Disposer.run(Disposer.java:125)
+    at java.lang.Thread.run(Thread.java:637)
+
+"AWT-AppKit" Id=65 RUNNABLE (in native)
+
+"Bundle File Closer" Id=64 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@6656bc05
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:393)
+    at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:333)
+
+"fs-watcher" Id=42 TIMED_WAITING
+    at java.lang.Thread.sleep(Native Method)
+    at com.springsource.kernel.deployer.hot.WatchTask.run(WatchTask.java:63)
+    at java.lang.Thread.run(Thread.java:637)
+
+"start-signalling-2" Id=61 TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@485220c0
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:198)
+    at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)
+    at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)
+    at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:945)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"region-dm-5" Id=60 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7e44258
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"region-dm-4" Id=59 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7e44258
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"region-dm-3" Id=58 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7e44258
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"region-dm-2" Id=57 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7e44258
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"TP-Monitor" Id=56 TIMED_WAITING on org.apache.tomcat.util.threads.ThreadPool$MonitorRunnable@1abfa374
+    at java.lang.Object.wait(Native Method)
+    at org.apache.tomcat.util.threads.ThreadPool$MonitorRunnable.run(ThreadPool.java:565)
+    at java.lang.Thread.run(Thread.java:637)
+
+"TP-Processor4" Id=55 RUNNABLE (in native)
+    at java.net.PlainSocketImpl.socketAccept(Native Method)
+    at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+    - locked java.net.SocksSocketImpl@1449658842
+    at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+    at java.net.ServerSocket.accept(ServerSocket.java:421)
+    at org.apache.jk.common.ChannelSocket.accept(ChannelSocket.java:307)
+    at org.apache.jk.common.ChannelSocket.acceptConnections(ChannelSocket.java:661)
+    at org.apache.jk.common.ChannelSocket$SocketAcceptor.runIt(ChannelSocket.java:872)
+    at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:690)
+    at java.lang.Thread.run(Thread.java:637)
+
+"TP-Processor3" Id=54 WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@1b842264
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+    at java.lang.Thread.run(Thread.java:637)
+
+"TP-Processor2" Id=53 WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@7fede158
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+    at java.lang.Thread.run(Thread.java:637)
+
+"TP-Processor1" Id=52 WAITING on org.apache.tomcat.util.threads.ThreadPool$ControlRunnable@5a659a05
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:662)
+    at java.lang.Thread.run(Thread.java:637)
+
+"http-8443-Acceptor-0" Id=51 RUNNABLE (in native)
+    at java.net.PlainSocketImpl.socketAccept(Native Method)
+    at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+    - locked java.net.SocksSocketImpl@1214182279
+    at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+    at com.sun.net.ssl.internal.ssl.SSLServerSocketImpl.accept(SSLServerSocketImpl.java:259)
+    at org.apache.tomcat.util.net.jsse.JSSESocketFactory.acceptSocket(JSSESocketFactory.java:151)
+    at org.apache.tomcat.util.net.JIoEndpoint$Acceptor.run(JIoEndpoint.java:317)
+    at java.lang.Thread.run(Thread.java:637)
+
+"http-8080-Acceptor-0" Id=50 RUNNABLE (in native)
+    at java.net.PlainSocketImpl.socketAccept(Native Method)
+    at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+    - locked java.net.SocksSocketImpl@1371949359
+    at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+    at java.net.ServerSocket.accept(ServerSocket.java:421)
+    at org.apache.tomcat.util.net.DefaultServerSocketFactory.acceptSocket(DefaultServerSocketFactory.java:61)
+    at org.apache.tomcat.util.net.JIoEndpoint$Acceptor.run(JIoEndpoint.java:317)
+    at java.lang.Thread.run(Thread.java:637)
+
+"ContainerBackgroundProcessor[StandardEngine[Catalina]]" Id=49 TIMED_WAITING
+    at java.lang.Thread.sleep(Native Method)
+    at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1579)
+    at java.lang.Thread.run(Thread.java:637)
+
+"region-dm-1" Id=48 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7e44258
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"region-dm-0" Id=47 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7e44258
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Timer-2" Id=46 TIMED_WAITING on java.util.TaskQueue@4462eca0
+    at java.lang.Object.wait(Native Method)
+    at java.util.TimerThread.mainLoop(Timer.java:509)
+    at java.util.TimerThread.run(Timer.java:462)
+
+"NioSocketAcceptor-1" Id=44 RUNNABLE (in native)
+    at sun.nio.ch.KQueueArrayWrapper.kevent0(Native Method)
+    at sun.nio.ch.KQueueArrayWrapper.poll(KQueueArrayWrapper.java:136)
+    at sun.nio.ch.KQueueSelectorImpl.doSelect(KQueueSelectorImpl.java:69)
+    at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:69)
+    - locked sun.nio.ch.Util$1@273363343
+    at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:80)
+    at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:84)
+    at org.apache.mina.transport.socket.nio.NioSocketAcceptor.select(NioSocketAcceptor.java:288)
+    at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:402)
+    at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-11" Id=43 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-10" Id=41 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-9" Id=40 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Framework Event Dispatcher" Id=37 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@217bd515
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:393)
+    at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:333)
+
+"Framework Active Thread" Id=36 TIMED_WAITING on org.eclipse.osgi.framework.internal.core.Framework@48e266df
+    at java.lang.Object.wait(Native Method)
+    at org.eclipse.osgi.framework.internal.core.Framework.run(Framework.java:1654)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-8" Id=35 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Thread-14" Id=34 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@7cfdfdb
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:198)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1963)
+    at java.util.concurrent.DelayQueue.take(DelayQueue.java:164)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:583)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:576)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"deadlock-monitor-thread-1" Id=33 RUNNABLE
+    at sun.management.ThreadImpl.dumpThreads0(Native Method)
+    at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:374)
+    at com.springsource.osgi.medic.dump.impl.thread.StandardThreadMXBeanDelegate.dumpAllThreads(StandardThreadMXBeanDelegate.java:28)
+    at com.springsource.osgi.medic.dump.impl.thread.ThreadDumpContributor.processAllThreads(ThreadDumpContributor.java:82)
+    at com.springsource.osgi.medic.dump.impl.thread.ThreadDumpContributor.contribute(ThreadDumpContributor.java:60)
+    at com.springsource.osgi.medic.dump.impl.StandardDumpGenerator.generateDump(StandardDumpGenerator.java:71)
+    at com.springsource.osgi.medic.dump.impl.StandardDumpGenerator.generateDump(StandardDumpGenerator.java:58)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+    at java.lang.reflect.Method.invoke(Method.java:597)
+    at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:307)
+    at org.springframework.osgi.service.importer.support.internal.aop.ServiceInvoker.doInvoke(ServiceInvoker.java:58)
+    at org.springframework.osgi.service.importer.support.internal.aop.ServiceInvoker.invoke(ServiceInvoker.java:62)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+    at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+    at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+    at org.springframework.osgi.service.util.internal.aop.ServiceTCCLInterceptor.invokeUnprivileged(ServiceTCCLInterceptor.java:56)
+    at org.springframework.osgi.service.util.internal.aop.ServiceTCCLInterceptor.invoke(ServiceTCCLInterceptor.java:39)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+    at org.springframework.osgi.service.importer.support.LocalBundleContextAdvice.invoke(LocalBundleContextAdvice.java:59)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+    at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+    at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+    at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:202)
+    at $Proxy18.generateDump(Unknown Source)
+    at com.springsource.kernel.services.concurrent.monitor.DeadlockMonitor$DeadlockMonitorTask.run(DeadlockMonitor.java:129)
+    - locked java.lang.Object@333303791
+    at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+    at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+    at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-7" Id=32 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"service-monitor-thread-1" Id=31 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@6071a6de
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.DelayQueue.take(DelayQueue.java:160)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:583)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:576)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-6" Id=30 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"DestroyJavaVM" Id=29 RUNNABLE
+
+"kernel-dm-5" Id=28 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-4" Id=27 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-3" Id=26 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-2" Id=25 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-1" Id=24 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"kernel-dm-0" Id=23 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@3a9d1f73
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+    at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1925)
+    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:358)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Timer-1" Id=22 TIMED_WAITING on java.util.TaskQueue@45826a49
+    at java.lang.Object.wait(Native Method)
+    at java.util.TimerThread.mainLoop(Timer.java:509)
+    at java.util.TimerThread.run(Timer.java:462)
+
+"start-signalling-1" Id=21 TIMED_WAITING on java.util.concurrent.SynchronousQueue$TransferStack@485220c0
+    at sun.misc.Unsafe.park(Native Method)
+    at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:198)
+    at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)
+    at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)
+    at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)
+    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:945)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Thread-3" Id=18 WAITING on java.util.ArrayList@75100245
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.apache.felix.eventadmin.impl.dispatch.TaskHandler.next(TaskHandler.java:143)
+    at org.apache.felix.eventadmin.impl.tasks.DispatchTask.run(DispatchTask.java:147)
+    at org.apache.felix.eventadmin.impl.dispatch.CacheThreadPool$PooledThread.run(CacheThreadPool.java:265)
+
+"Thread-2" Id=17 WAITING on java.util.ArrayList@6e053c0d
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.apache.felix.eventadmin.impl.dispatch.TaskHandler.next(TaskHandler.java:143)
+    at org.apache.felix.eventadmin.impl.tasks.DispatchTask.run(DispatchTask.java:147)
+    at org.apache.felix.eventadmin.impl.dispatch.CacheThreadPool$PooledThread.run(CacheThreadPool.java:265)
+
+"Timer-0" Id=16 WAITING on java.util.TaskQueue@19a9b1e9
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at java.util.TimerThread.mainLoop(Timer.java:483)
+    at java.util.TimerThread.run(Timer.java:462)
+
+"Configuration Updater" Id=15 WAITING on java.util.LinkedList@53df4528
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.apache.felix.cm.impl.UpdateThread.run(UpdateThread.java:67)
+
+"Framework Event Dispatcher" Id=14 WAITING on org.eclipse.osgi.framework.eventmgr.EventManager$EventThread@6735701c
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:393)
+    at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:333)
+
+"Framework Active Thread" Id=13 TIMED_WAITING on org.eclipse.osgi.framework.internal.core.Framework@65537333
+    at java.lang.Object.wait(Native Method)
+    at org.eclipse.osgi.framework.internal.core.Framework.run(Framework.java:1654)
+    at java.lang.Thread.run(Thread.java:637)
+
+"RMI TCP Accept-0" Id=12 RUNNABLE (in native)
+    at java.net.PlainSocketImpl.socketAccept(Native Method)
+    at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+    - locked java.net.SocksSocketImpl@961798138
+    at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+    at java.net.ServerSocket.accept(ServerSocket.java:421)
+    at sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept(LocalRMIServerSocketFactory.java:34)
+    at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369)
+    at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:341)
+    at java.lang.Thread.run(Thread.java:637)
+
+"RMI TCP Accept-8888" Id=11 RUNNABLE (in native)
+    at java.net.PlainSocketImpl.socketAccept(Native Method)
+    at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+    - locked java.net.SocksSocketImpl@831894397
+    at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+    at java.net.ServerSocket.accept(ServerSocket.java:421)
+    at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369)
+    at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:341)
+    at java.lang.Thread.run(Thread.java:637)
+
+"RMI TCP Accept-0" Id=10 RUNNABLE (in native)
+    at java.net.PlainSocketImpl.socketAccept(Native Method)
+    at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:390)
+    - locked java.net.SocksSocketImpl@1530588409
+    at java.net.ServerSocket.implAccept(ServerSocket.java:453)
+    at java.net.ServerSocket.accept(ServerSocket.java:421)
+    at javax.rmi.ssl.SslRMIServerSocketFactory$1.accept(SslRMIServerSocketFactory.java:191)
+    at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop(TCPTransport.java:369)
+    at sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run(TCPTransport.java:341)
+    at java.lang.Thread.run(Thread.java:637)
+
+"Signal Dispatcher" Id=5 RUNNABLE
+
+"Finalizer" Id=3 WAITING on java.lang.ref.ReferenceQueue$Lock@49b04d3d
+    at java.lang.Object.wait(Native Method)
+    at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+    at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+    at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+"Reference Handler" Id=2 WAITING on java.lang.ref.Reference$Lock@559f0596
+    at java.lang.Object.wait(Native Method)
+    at java.lang.Object.wait(Object.java:485)
+    at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)

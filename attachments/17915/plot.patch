@@ -1,0 +1,725 @@
+Index: src/main/java/hudson/plugins/plot/PlotCategoryDataset.java
+===================================================================
+--- src/main/java/hudson/plugins/plot/PlotCategoryDataset.java	(revision 20418)
++++ src/main/java/hudson/plugins/plot/PlotCategoryDataset.java	(working copy)
+@@ -45,8 +45,6 @@
+ 	
+ 	/**
+ 	 * Creates a new empty instance.
+-	 * 
+-
+ 	 */
+ 	public PlotCategoryDataset() {
+ 		this.rowKeys = new ArrayList<Comparable>();
+@@ -138,9 +136,8 @@
+ 	// KeyedValues2D interface method
+ 	public List getColumnKeys() {
+ 		int firstIndex = Math.max(0, columnKeys.size() - maxColumns);
+-		int lastIndex = Math.max(0, columnKeys.size() - 1);
+-		List retVal = columnKeys.subList(firstIndex, lastIndex);
+-		return retVal;
++		int lastIndex = Math.max(0, columnKeys.size());
++		return columnKeys.subList(firstIndex, lastIndex);
+ 	}
+ 	
+ 	// KeyedValues2D interface method
+@@ -197,7 +194,7 @@
+ 			rowIndex = rowKeys.size() - 1;
+ 			data.add(new HashMap<Comparable,DataElement>());
+ 		}
+-		if (! columnKeys.contains(columnKey)) {
++		if (!columnKeys.contains(columnKey)) {
+ 			boolean added = false;
+ 			for (int i = 0; i < columnKeys.size(); i++) {
+ 				Comparable key = columnKeys.get(i);
+Index: src/main/java/hudson/plugins/plot/PlotPublisher.java
+===================================================================
+--- src/main/java/hudson/plugins/plot/PlotPublisher.java	(revision 20418)
++++ src/main/java/hudson/plugins/plot/PlotPublisher.java	(working copy)
+@@ -159,6 +159,7 @@
+     /**
+      * Called by Hudson.
+      */
++    @Override
+     public Action getProjectAction(Project project) {
+         return new PlotAction(project, this);
+     }
+@@ -166,6 +167,7 @@
+     /**
+      * Called by Hudson.
+      */
++    @Override
+     public Descriptor<Publisher> getDescriptor() {
+         return DESCRIPTOR;
+     }
+@@ -173,6 +175,7 @@
+     /**
+      * Called by Hudson when a build is finishing.
+      */
++    @Override
+     public boolean perform(Build build, Launcher launcher, 
+     		BuildListener listener) throws IOException, InterruptedException 
+     {
+@@ -191,15 +194,15 @@
+         public DescriptorImpl() {
+             super(PlotPublisher.class);
+         }
++
+         public String getDisplayName() {
+             return "Plot build data";
+         }
+-        public String getHelpFile() {
+-            return "/publisher/PlotPublisher/help";
+-        }
++
+         /**
+          * Called when the user saves the project configuration.
+          */
++        @Override
+         public Publisher newInstance(StaplerRequest req) throws FormException {
+         	Random r = new Random();
+             PlotPublisher publisher = new PlotPublisher();
+@@ -208,24 +211,25 @@
+             String[] yaxises = req.getParameterValues("plotParam.yaxis");
+             String[] groups = req.getParameterValues("plotParam.group");
+             String[] numBuilds = req.getParameterValues("plotParam.numBuilds");
++        	String[] styles = req.getParameterValues("plotParam.style");
++        	String[] useDescr = req.getParameterValues("plotParam.useDescr");
+         	String[] seriesFiles = req.getParameterValues("seriesParam.file");
+         	String[] seriesLabels = req.getParameterValues("seriesParam.label");
+             if (seriesFiles != null) {
+             	//LOGGER.info(fileNames.length+","+titles.length+","+yaxises.length+","+
+             	//	groups.length+","+numBuilds.length+","+seriesFiles.length+","+
+             	//	seriesLabels.length);
+-                int len = fileNames.length;
+                 int seriesCounter = 0;
+-                for (int i=0; i<len; i++) {
++                for (int i = 0; i < fileNames.length; i++) {
+                 	List<Series> seriesList = new ArrayList<Series>();
+-                	while ( seriesCounter < seriesFiles.length &&
++                	while (seriesCounter < seriesFiles.length &&
+                 		    ! seriesFiles[seriesCounter].equals("PLOT_SEPARATOR")) 
+                 	{
+                     	seriesList.add(new Series(seriesFiles[seriesCounter],
+                     							  seriesLabels[seriesCounter]));
+                     	seriesCounter++;
+                     }
+-                	seriesCounter++; //skip past separator
++                	seriesCounter++; // skip past separator
+                 	if (fileNames[i] == null || fileNames[i].trim().equals("")) {
+                 		fileNames[i] = Math.abs(r.nextInt()) + ".csv";
+                 	}
+@@ -241,7 +245,9 @@
+                     		seriesList.toArray(new Series[] {}),
+                     		groups[i],
+                     		builds,
+-                    		fileNames[i]);
++                    		fileNames[i],
++                            styles[i],
++                            useDescr != null && useDescr[i] != null);
+                     //LOGGER.info("new Plot():" + plot.toString());
+                     publisher.addPlot(plot);
+                 }
+Index: src/main/java/hudson/plugins/plot/Plot.java
+===================================================================
+--- src/main/java/hudson/plugins/plot/Plot.java	(revision 20418)
++++ src/main/java/hudson/plugins/plot/Plot.java	(working copy)
+@@ -46,11 +46,12 @@
+ 
+ import au.com.bytecode.opencsv.CSVReader;
+ import au.com.bytecode.opencsv.CSVWriter;
++import org.jfree.chart.renderer.category.AbstractCategoryItemRenderer;
+ 
+ /**
+  * Represents the configuration for a single plot.  A plot can
+  * have one or more data series (lines).  Each data series 
+- * has one data point per build.  The x-axis is alway the
++ * has one data point per build.  The x-axis is always the
+  * build number.
+  * 
+  * A plot has the following characteristics:
+@@ -69,8 +70,8 @@
+  * @author Nigel Daley
+  */
+ public class Plot implements Comparable {
+-    private static transient final Logger LOGGER = Logger.getLogger(Plot.class.getName());
+-    private static transient final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d");
++    private static final Logger LOGGER = Logger.getLogger(Plot.class.getName());
++    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM d");
+     
+     /**
+      * Effectively a 2-dimensional array, where each row is the 
+@@ -93,7 +94,7 @@
+     private transient AbstractProject project;
+     
+     /** All plots share the same JFreeChart drawing supplier object. */
+-    private static transient final DrawingSupplier supplier = new DefaultDrawingSupplier(
++    private static final DrawingSupplier supplier = new DefaultDrawingSupplier(
+             DefaultDrawingSupplier.DEFAULT_PAINT_SEQUENCE,
+             DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE,
+             DefaultDrawingSupplier.DEFAULT_STROKE_SEQUENCE,
+@@ -104,14 +105,16 @@
+     );
+     
+     /** The default plot width. */
+-    private static transient final int DEFAULT_WIDTH = 750;
++    private static final int DEFAULT_WIDTH = 750;
+     
+     /** The default plot height. */
+-    private static transient final int DEFAULT_HEIGHT = 450;
++    private static final int DEFAULT_HEIGHT = 450;
+     
+     /** The default number of builds on plot (all). */
+-    private static transient final String DEFAULT_NUMBUILDS = "";
+-    
++    private static final String DEFAULT_NUMBUILDS = "";
++
++    // Transient values
++
+     /** The width of the plot. */
+     private transient int width;
+     
+@@ -123,12 +126,20 @@
+     
+     /** Whether or not the plot has a legend. */
+     private transient boolean hasLegend = true;
+-    
++
+     /** Number of builds back to show on this plot from url. */
+-    public transient String urlNumBuilds = null;
++    public transient String urlNumBuilds;
+     
+     /** Title of plot from url. */
+-    public transient String urlTitle = null;
++    public transient String urlTitle;
++
++    /** Style of plot from url. */
++    public transient String urlStyle;
++
++    /** Use description flag from url. */
++    public transient Boolean urlUseDescr;
++
++    // Configuration values
+     
+     /** Title of plot. Mandatory. */
+     public String title;
+@@ -156,14 +167,20 @@
+     
+     /** The date of the last change to the CSV file. */
+     private long csvLastModification;
+-    
++
++    /** Optional style of plot: line, line3d, stackedArea, stackedBar, etc. */
++    public String style;
++
++    /** Whether or not to use build descriptions as X-axis labels. Optional. */
++    public boolean useDescr;
++
+     /**
+      * Creates a new plot with the given paramenters.  If numBuilds
+      * is the empty string, then all builds will be included. Must
+      * not be zero.
+      */
+     public Plot(String title, String yaxis, Series[] series,
+-            String group, String numBuilds, String csvFileName) 
++            String group, String numBuilds, String csvFileName, String style, boolean useDescr)
+     {
+         this.title = title;
+         this.yaxis = yaxis;
+@@ -171,6 +188,8 @@
+         this.group = group;
+         this.numBuilds = numBuilds;
+         this.csvFileName = csvFileName;
++        this.style = style;
++        this.useDescr = useDescr;
+     }
+ 
+     // needed for serialization
+@@ -180,12 +199,13 @@
+         return title.compareTo(((Plot)o).getTitle());
+     }
+     
++    @Override
+     public String toString() {
+         return "TITLE("+getTitle()+
+             "),YAXIS("+yaxis+
+             "),NUMSERIES("+series.length+
+             "),GROUP("+group+
+-            "),NUMBUILDS("+getNumBuilds()+
++            "),NUMBUILDS("+numBuilds+
+             "),RIGHTBUILDNUM("+getRightBuildNum()+
+             "),HASLEGEND("+hasLegend()+
+             "),FILENAME("+csvFileName+")";
+@@ -211,16 +231,32 @@
+     private void setTitle(StaplerRequest req) {
+         urlTitle = req.getParameter("title");
+     }
+-    public String getURLTitle() {
+-        if (urlTitle != null) {
+-            return urlTitle;
+-        }
+-        return title;
++    private String getURLTitle() {
++        return urlTitle != null ? urlTitle : title;
+     }
+     public String getTitle() {
+         return title;
+     }
+-    
++
++    private void setStyle(StaplerRequest req) {
++        urlStyle = req.getParameter("style");
++    }
++    private String getUrlStyle() {
++        return urlStyle != null ? urlStyle : style;
++    }
++
++    private void setUseDescr(StaplerRequest req) {
++        String u = req.getParameter("usedescr");
++        if (u == null) {
++            urlUseDescr = null;
++        } else {
++            urlUseDescr = u.equalsIgnoreCase("on") || u.equalsIgnoreCase("true");
++        }
++    }
++    private boolean getUrlUseDescr() {
++        return urlUseDescr != null ? urlUseDescr : useDescr;
++    }
++
+     /**
+      * Sets the number of builds to plot from the "numbuilds" parameter
+      * in the given StaplerRequest.  If the parameter doesn't exist
+@@ -228,15 +264,8 @@
+      */
+     private void setHasLegend(StaplerRequest req) {
+         String legend = req.getParameter("legend");
+-        if (legend == null) {
+-            hasLegend = true;
+-        } else {
+-            try {
+-                hasLegend = Boolean.parseBoolean(legend);
+-            } catch (NumberFormatException nfe) {
+-                hasLegend = true;
+-            }
+-        }
++        hasLegend = legend == null ||
++                legend.equalsIgnoreCase("on") || legend.equalsIgnoreCase("true");
+     }
+     public boolean hasLegend() {
+         return hasLegend;
+@@ -251,21 +280,15 @@
+         urlNumBuilds = req.getParameter("numbuilds");
+         if (urlNumBuilds != null) {
+             try {
+-                int tmp = Integer.parseInt(urlNumBuilds);
++                Integer.parseInt(urlNumBuilds);
+             } catch (NumberFormatException nfe) {
+                 urlNumBuilds = null;
+             }
+         }
+     }
+     public String getURLNumBuilds() {
+-        if (urlNumBuilds != null) {
+-            return urlNumBuilds;
+-        }
+-        return numBuilds;
++        return urlNumBuilds != null ? urlNumBuilds : numBuilds;
+     }
+-    public String getNumBuilds() {
+-        return numBuilds;
+-    }
+ 
+     /**
+      * Sets the right-most build number shown on the plot from
+@@ -309,9 +332,7 @@
+     private int getWidth() {
+         return width;
+     }
+-    private int getHeight() {
+-        return height;
+-    }
++
+     /**
+      * Sets the plot height from the "height" parameter in the
+      * given StaplerRequest.  If the parameter doesn't exist
+@@ -329,6 +350,9 @@
+             }
+         }
+     }
++    private int getHeight() {
++        return height;
++    }
+     
+     /**
+      * A reference to the project is needed to retrieve
+@@ -352,7 +376,7 @@
+     public void plotGraph(StaplerRequest req, StaplerResponse rsp) 
+         throws IOException 
+     {
+-        if (ChartUtil.awtProblem) {
++        if (ChartUtil.awtProblemCause != null) {
+             // Not available. Send out error message.
+             rsp.sendRedirect2(req.getContextPath()+"/images/headless.png");
+             return;
+@@ -363,7 +387,9 @@
+         setRightBuildNum(req);
+         setHasLegend(req);
+         setTitle(req);
+-        // need to force regenerate the plot incase build 
++        setStyle(req);
++        setUseDescr(req);
++        // need to force regenerate the plot in case build
+         // descriptions (used for tool tips) have changed 
+         generatePlot(true); 
+         ChartUtil.generateGraph(req, rsp, plot, getWidth(), getHeight());
+@@ -380,7 +406,7 @@
+     public void plotGraphMap(StaplerRequest req, StaplerResponse rsp) 
+         throws IOException 
+     {
+-        if (ChartUtil.awtProblem) {
++        if (ChartUtil.awtProblemCause != null) {
+             // not available. send out error message
+             rsp.sendRedirect2(req.getContextPath()+"/images/headless.png");
+             return;
+@@ -391,6 +417,8 @@
+         setRightBuildNum(req);
+         setHasLegend(req);
+         setTitle(req);
++        setStyle(req);
++        setUseDescr(req);
+         generatePlot(false);
+         ChartRenderingInfo info = new ChartRenderingInfo();
+         plot.createBufferedImage(getWidth(),getHeight(),info);
+@@ -435,26 +463,33 @@
+      */
+     private void generatePlot(boolean forceGenerate) {
+         class Label implements Comparable<Label> {
+-            private Integer buildNum;
+-            private String buildDate;
+-            public Label(String buildNum, String buildTime) {
++            final private Integer buildNum;
++            final private String buildDate;
++            final private String text;
++            public Label(String buildNum, String buildTime, String text) {
+                 this.buildNum = Integer.parseInt(buildNum);
+-                this.buildDate = dateFormat.format(
++                this.buildDate = DATE_FORMAT.format(
+                         new Date(Long.parseLong(buildTime)));
++                this.text = text;
+             }
++            public Label(String buildNum, String buildTime) {
++                this(buildNum, buildTime, null);
++            }
+             public int compareTo(Label that) {
+-                return this.buildNum-that.buildNum;
++                return this.buildNum - that.buildNum;
+             }
+-            public boolean equals(Object o) {
+-                Label that = (Label) o;
+-                return this.buildNum.equals(that.buildNum);
++            @Override public boolean equals(Object o) {
++                return o instanceof Label && ((Label) o).buildNum.equals(buildNum);
+             }
+-            public int hashCode() {
++            @Override public int hashCode() {
+                 return buildNum.hashCode();
+             }
+-            public String toString() {
++            public String numDateString() {
+                 return "#" + buildNum + " (" + buildDate + ")";
+             }
++            @Override public String toString() {
++                return text != null ? text : numDateString();
++            }
+         }
+         //LOGGER.info("Determining if we should generate plot " + getCsvFileName());
+         File csvFile = new File(project.getRootDir(),getCsvFileName());
+@@ -473,8 +508,7 @@
+         }
+         //LOGGER.info("Generating plot " + getCsvFileName());
+         csvLastModification = csvFile.lastModified();
+-        PlotCategoryDataset dataset = 
+-            new PlotCategoryDataset();
++        PlotCategoryDataset dataset = new PlotCategoryDataset();
+         for (String[] record : rawPlotData) {
+             // record: series y-value, series label, build number, build date, url
+             int buildNum;
+@@ -497,10 +531,12 @@
+                 }
+             }
+             String series = record[1];
+-            Label xlabel = new Label(record[2],record[3]);
++            Label xlabel = getUrlUseDescr()
++                    ? new Label(record[2], record[3], descriptionForBuild(buildNum))
++                    : new Label(record[2], record[3]);
+             String url = null;
+             if (record.length >= 5) url = record[4]; 
+-            dataset.setValue(value,url,series,xlabel);
++            dataset.setValue(value, url, series, xlabel);
+         }
+         int numBuilds;
+         try {
+@@ -509,9 +545,7 @@
+             numBuilds = Integer.MAX_VALUE;
+         }
+         dataset.clipDataset(numBuilds);
+-        plot = ChartFactory.createLineChart(
+-                getURLTitle(),null,getYaxis(),dataset,
+-                PlotOrientation.VERTICAL,hasLegend(),true,false);
++        plot = createChart(dataset);
+         CategoryPlot categoryPlot = (CategoryPlot) plot.getPlot();
+         categoryPlot.setDomainGridlinePaint(Color.black);
+         categoryPlot.setRangeGridlinePaint(Color.black);
+@@ -523,19 +557,15 @@
+         domainAxis.setUpperMargin(0.03);
+         domainAxis.setCategoryMargin(0.0);
+         for (Object category : dataset.getColumnKeys()) {
+-            Run r = project.getBuildByNumber(((Label)category).buildNum);
+-            String tip = null;
+-            if (r != null) {
+-                tip = r.getTruncatedDescription();
+-                if (tip != null) {
+-                    tip = tip.replaceAll("<p> *|<br> *", ", ");
+-                    //LOGGER.info("DESCRIPTION:"+tip);
+-                }
++            Label label = (Label) category;
++            if (label.text != null) {
++                domainAxis.addCategoryLabelToolTip(label, label.numDateString());
++            } else {
++                domainAxis.addCategoryLabelToolTip(label, descriptionForBuild(label.buildNum));
+             }
+-            domainAxis.addCategoryLabelToolTip((Comparable)category, tip);
+         }
+-        LineAndShapeRenderer renderer = 
+-            (LineAndShapeRenderer) categoryPlot.getRenderer();
++        AbstractCategoryItemRenderer renderer =
++            (AbstractCategoryItemRenderer) categoryPlot.getRenderer();
+         Color[] LINE_GRAPH = new Color[] {
+             new Color(0xCC0000), // red
+             new Color(0x3465a4), // blue
+@@ -547,15 +577,84 @@
+             new Color(0x000000)  // black
+         };
+         int n=0;
+-        for (Color c : LINE_GRAPH) renderer.setSeriesPaint(n++,c);
+-        renderer.setShapesVisible(true);
++        for (Color c : LINE_GRAPH)
++            renderer.setSeriesPaint(n++, c);
+         renderer.setStroke(new BasicStroke(2.0f));
+         renderer.setToolTipGenerator(new StandardCategoryToolTipGenerator(
+-                "Build {1}: {2}",NumberFormat.getInstance()));
++                "Build {1}: {2}", NumberFormat.getInstance()));
+         renderer.setItemURLGenerator(new PointURLGenerator());
++        if (renderer instanceof LineAndShapeRenderer) {
++            LineAndShapeRenderer lasRenderer = (LineAndShapeRenderer) renderer;
++            lasRenderer.setShapesVisible(true); // TODO: deprecated, may be unnecessary
++        }
+     }
+-    
++
+     /**
++     * Creates a Chart of the style indicated by getEffStyle() using the given dataset.
++     * Defaults to using createLineChart.
++     */
++    private JFreeChart createChart(PlotCategoryDataset dataset) {
++        String s = getUrlStyle();
++        if (s.equalsIgnoreCase("area")) {
++            return ChartFactory.createAreaChart(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        if (s.equalsIgnoreCase("bar")) {
++            return ChartFactory.createBarChart(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        if (s.equalsIgnoreCase("bar3d")) {
++            return ChartFactory.createBarChart3D(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        if (s.equalsIgnoreCase("line3d")) {
++            return ChartFactory.createLineChart3D(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        if (s.equalsIgnoreCase("stackedarea")) {
++            return ChartFactory.createStackedAreaChart(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        if (s.equalsIgnoreCase("stackedbar")) {
++            return ChartFactory.createStackedBarChart(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        if (s.equalsIgnoreCase("stackedbar3d")) {
++            return ChartFactory.createStackedBarChart3D(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        if (s.equalsIgnoreCase("waterfall")) {
++            return ChartFactory.createWaterfallChart(
++                    getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                    PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++        }
++        return ChartFactory.createLineChart(
++                getURLTitle(), /*categoryAxisLabel=*/null, getYaxis(), dataset,
++                PlotOrientation.VERTICAL, hasLegend(), /*tooltips=*/true, /*url=*/false);
++    }
++
++    /**
++     * Returns a trimmed description string for the build specified by the given build number.
++     */
++    private String descriptionForBuild(int buildNum) {
++        Run r = project.getBuildByNumber(buildNum);
++        if (r != null) {
++            String tip = r.getTruncatedDescription();
++            if (tip != null) {
++                return tip.replaceAll("<p> *|<br> *", ", ");
++            }
++        }
++        return null;
++    }
++
++    /**
+      * Loads the plot data from the CSV file on disk.  The
+      * CSV file is stored in the projects root directory.
+      * The data is stored in the rawPlotData instance variable.
+@@ -571,10 +670,10 @@
+         rawPlotData = new ArrayList<String[]>();
+         try {
+             reader = new CSVReader(new FileReader(plotFile));
+-            String [] nextLine;
+             // throw away 2 header lines
+             reader.readNext(); reader.readNext();
+             // read each line of the CSV file and add to rawPlotData
++            String [] nextLine;
+             while ((nextLine = reader.readNext()) != null) {
+                 rawPlotData.add(nextLine);
+             }
+@@ -633,8 +732,7 @@
+      *         from the workspace
+      */
+     private Properties loadSeriesData(Series series, FilePath workspaceRootDir, PrintStream logger) {
+-        InputStream in = null;
+-        FilePath[] seriesFiles = null;
++        FilePath[] seriesFiles;
+         try {
+             seriesFiles = workspaceRootDir.list(series.getFile());
+         } catch (Exception e) {
+@@ -645,6 +743,7 @@
+             logger.println("No plot data file found: " + series.getFile());
+             return null;
+         }
++        InputStream in = null;
+         try {
+             in = seriesFiles[0].read();
+             logger.println("Saving plot series data from: " + seriesFiles[0]);
+@@ -666,4 +765,3 @@
+     }
+ 
+ }
+-
+Index: src/main/resources/hudson/plugins/plot/PlotPublisher/DescriptorImpl/help.jelly
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+Index: src/main/resources/hudson/plugins/plot/PlotPublisher/config.jelly
+===================================================================
+--- src/main/resources/hudson/plugins/plot/PlotPublisher/config.jelly	(revision 20418)
++++ src/main/resources/hudson/plugins/plot/PlotPublisher/config.jelly	(working copy)
+@@ -21,26 +21,42 @@
+           <f:entry title="Plot y-axis label" help="/plugin/plot/help-yaxis.html">
+             <f:textbox name="plotParam.yaxis" value="${plot.yaxis}" />
+           </f:entry>
++          <f:entry title="Plot style" help="/plugin/plot/help-style.html">
++            <select name="plotParam.style">
++              <f:option value="area" selected="${plot.style=='area'}">Area</f:option>
++              <f:option value="bar" selected="${plot.style=='bar'}">Bar</f:option>
++              <f:option value="bar3d" selected="${plot.style=='bar3d'}">Bar 3D</f:option>
++              <f:option value="line" selected="${plot.style=='line'}">Line</f:option>
++              <f:option value="line3d" selected="${plot.style=='line3d'}">Line 3D</f:option>
++              <f:option value="stackedArea" selected="${plot.style=='stackedArea'}">Stacked Area</f:option>
++              <f:option value="stackedbar" selected="${plot.style=='stackedbar'}">Stacked Bar</f:option>
++              <f:option value="stackedbar3d" selected="${plot.style=='stackedbar3d'}">Stacked Bar 3D</f:option>
++              <f:option value="waterfall" selected="${plot.style=='waterfall'}">Waterfall</f:option>
++            </select>
++          </f:entry>
++          <f:entry title="Build Descriptions as labels" help="/plugin/plot/help-useDescr.html">
++            <f:checkbox name="plotParam.useDescr" checked="${plot.useDescr}" />
++          </f:entry>
+           <f:nested>
+-	          <f:entry title="" description="A new data series definition">
+-	            <f:repeatable var="series" items="${plot.getSeries()}" minimum="1">
+-	              <table width="100%" bgcolor="#EEEEEE">
+-	                <f:entry title="Data series file" help="/plugin/plot/help-series.html">
+-	                  <f:textbox name="seriesParam.file" value="${series.file}" 
+-	                    checkUrl="'${rootURL}/publisher/PlotPublisher/checkSeriesFile?job=${it.fullName}&amp;value='+escape(this.value)"/>
+-	                </f:entry>
+-	                <f:entry title="Data series legend label" help="/plugin/plot/help-legend.html">
+-	                  <f:textbox name="seriesParam.label" value="${series.label}" />
+-	                </f:entry>
+-	                <f:entry title="">
+-	                  <div align="right">
+-	                    <f:repeatableDeleteButton value="Delete Data Series"/>
+-	                  </div>
+-	                </f:entry>
+-	              </table>
+-	              <table width="100%"><tr><td></td></tr></table>
+-	            </f:repeatable>
+-	          </f:entry>
++            <f:entry title="" description="A new data series definition">
++              <f:repeatable var="series" items="${plot.getSeries()}" minimum="1">
++                <table width="100%" bgcolor="#EEEEEE">
++                  <f:entry title="Data series file" help="/plugin/plot/help-series.html">
++                    <f:textbox name="seriesParam.file" value="${series.file}"
++                      checkUrl="'${rootURL}/publisher/PlotPublisher/checkSeriesFile?job=${it.fullName}&amp;value='+escape(this.value)"/>
++                  </f:entry>
++                  <f:entry title="Data series legend label" help="/plugin/plot/help-legend.html">
++                    <f:textbox name="seriesParam.label" value="${series.label}" />
++                  </f:entry>
++                  <f:entry title="">
++                    <div align="right">
++                      <f:repeatableDeleteButton value="Delete Data Series"/>
++                    </div>
++                  </f:entry>
++                </table>
++                <table width="100%"><tr><td></td></tr></table>
++              </f:repeatable>
++            </f:entry>
+           </f:nested>
+           <f:block>
+             <input name="seriesParam.file" type="hidden" value="PLOT_SEPARATOR" />
+Index: src/main/webapp/help-useDescr.html
+===================================================================
+--- src/main/webapp/help-useDescr.html	(revision 0)
++++ src/main/webapp/help-useDescr.html	(revision 0)
+@@ -0,0 +1,7 @@
++<div>
++  When unchecked (default), the X-axis labels are formed using build numbers and dates,
++  and the corresponding tooltips contain the build descriptions.
++  <p/>
++  When checked, the contents of the labels and tooltips are swapped, with the 
++  descriptions used as X-axis labels and the build number and date used for tooltips.
++</div>
+Index: src/main/webapp/help-style.html
+===================================================================
+--- src/main/webapp/help-style.html	(revision 0)
++++ src/main/webapp/help-style.html	(revision 0)
+@@ -0,0 +1,15 @@
++<div>
++  Specifies the graph style of the plot.
++  <!-- This can be any one of:
++  <ul>
++      <li>Area - a filled area graph. (area)</li>
++      <li>Bar - a simple 2D bar graph. (bar)</li>
++      <li>Bar 3D - a 3D styled bar graph. (bar3d)</li>
++      <li>Line - a line graph with indicated data points. (line)</li>
++      <li>Line 3D - (line3d)</li>
++      <li>Stacked Area - an area graph with each plot stacked . (stackedArea)</li>
++      <li>Stacked Bar. (stackedBar)</li>
++      <li>Stacked Bar 3D. (stackedBar3d)</li>
++      <li>Waterfall. (waterfall)</li> 
++  </ul> -->
++</div>

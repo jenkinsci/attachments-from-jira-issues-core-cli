@@ -1,0 +1,15 @@
+Index: main/core/src/main/java/hudson/model/Run.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Run.java	(revision 36786)
++++ main/core/src/main/java/hudson/model/Run.java	(working copy)
+@@ -1549,7 +1549,9 @@
+                 return new Summary(false, Messages.Run_Summary_BrokenForALongTime());
+             if(since==prev)
+                 return new Summary(true, Messages.Run_Summary_BrokenSinceThisBuild());
+-            return new Summary(false, Messages.Run_Summary_BrokenSince(since.getDisplayName()));
++            
++            RunT failedBuild = since.getNextBuild();
++            return new Summary(false, Messages.Run_Summary_BrokenSince(failedBuild.getDisplayName()));
+         }
+ 
+         if(getResult()==Result.ABORTED)

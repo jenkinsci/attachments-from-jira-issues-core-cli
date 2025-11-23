@@ -1,0 +1,31 @@
+node {
+    withEnv(["PATH+JAVA=${tool 'jdk_8u121'}/jdk1.8.0_121/bin",
+             "PATH+MAVEN=${tool 'maven_3.3.3'}/bin",
+             "JAVA_HOME=${tool 'jdk_8u121'}/jdk1.8.0_121",
+    ]) {
+        stage('Checkout') {
+            checkout changelog: true,
+                    poll: false,
+                    scm: [
+                            $class           : 'GitSCM',
+                            branches         : [[name: "${params.GIT_BRANCH}"]],
+                            userRemoteConfigs: [[
+                                                        url          : "git@${env.GIT_HOST}:/${env.GIT_GROUP}/${env.GIT_PROJECT}.git",
+                                                        credentialsId: env.GIT_CREDENTIALS_ID,
+                                                        refspec      : '+refs/heads/*:refs/remotes/origin/*'
+                                                ]],
+                    ]
+        }
+        stage('Build') {
+            withMaven(
+                    maven: 'maven_3.3.3',
+                    mavenLocalRepo: '.repository') {
+                echo "JAVA_HOME = ${env.JAVA_HOME} PATH = ${env.PATH}"
+                sh "mvn versions:set -DnewVersion=${params.GIT_BRANCH.replaceAll('/', '_').replaceAll('^origin_', '')}-SNAPSHOT -DgenerateBackupPoms=false"
+                sh "mvn clean deploy -DskipTests=true -Plibs-local -T C1"
+                sh "touch .skip-archive-generated-artifacts"
+                sh "touch .skip-task-scanner"
+            }
+        }
+    }
+}

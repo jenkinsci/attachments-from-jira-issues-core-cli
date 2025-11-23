@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>&lt;br&gt;&#xd;
+&lt;table border=&quot;1&quot; style=&quot;width:100%&quot; cellpadding=6&gt;&lt;tr&gt;&#xd;
+ &lt;td width=&quot;80%&quot;&gt;&#xd;
+   &lt;B&gt;Purpose:&lt;/B&gt;&lt;br&gt;&#xd;
+Runs the Image Lab Touch parameterized test cases on an Instrument.&lt;br&gt;&#xd;
+   &lt;br&gt;&#xd;
+   REPEATCOUNTER = Specifies how many times the script will cycle in loop.&#xd;
+   Ex: tst_continuous_gallery_imageview test script takes around 12 minutes with REPEATCOUNTER=1. &#xd;
+   With REPEATCOUNTER=2 it will loop twice, it will run around 24 minutes&#xd;
+   tst_continuous_capture: takes 1 hour 20 minutes&#xd;
+   tst_delete_gallery_images: takes 4 minutes&#xd;
+   tst_continuous_filter_flapper - TestRun=0:01:19&#xd;
+   tst_continuous_gallery_imageview - TestRun=0:13:19&#xd;
+   tst_continuous_lens_focus - TestRun=0:00:44&#xd;
+&lt;/td&gt;&#xd;
+&#xd;
+&lt;td&gt;&#xd;
+  &lt;B&gt;job group:&lt;/B&gt;  SQA Development  &lt;br&gt;&#xd;
+  &lt;B&gt;owner:&lt;/B&gt; ACimensel &lt;br&gt;&#xd;
+  &lt;B&gt;created:&lt;/B&gt; 2014-05-19 &lt;br&gt;&#xd;
+  &lt;B&gt;retention policy:&lt;/B&gt;&lt;br&gt;&#xd;
+  keep last 100 builds &lt;br&gt;&#xd;
+&lt;/td&gt;&#xd;
+&lt;/tr&gt;&lt;/table&gt;&#xd;
+&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+&#xd;
+</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>P4_BRANCH</name>
+          <description>Available Automation Script Branches</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>//SQA/Imaging/ImageLabTouch/Main/...</string>
+              <string>//SQA/Imaging/ImageLabTouch/Int/...</string>
+              <string>//SQA/Sandbox/acimensel/Imaging/ImageLabTouch/Int/...</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TESTCASES</name>
+          <description>8 Available Tests (can run one or multiple separated by semicolon):
+tst_continuous_capture; tst_continuous_filter_flapper; tst_continuous_gallery_imageview; tst_continuous_lens_focus; tst_continuous_print; tst_cont_click_size_gallery; tst_delete_gallery_images; tst_welcome_acquire_delete_logout
+or
+regression - runs all test cases (regression test suite)</description>
+          <defaultValue>tst_continuous_gallery_imageview</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>REPEATCOUNTER</name>
+          <description>How many times to CYCLE the loop</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>1</string>
+              <string>2</string>
+              <string>3</string>
+              <string>4</string>
+              <string>5</string>
+              <string>6</string>
+              <string>7</string>
+              <string>8</string>
+              <string>9</string>
+              <string>10</string>
+              <string>11</string>
+              <string>12</string>
+              <string>13</string>
+              <string>14</string>
+              <string>15</string>
+              <string>16</string>
+              <string>17</string>
+              <string>18</string>
+              <string>19</string>
+              <string>20</string>
+              <string>21</string>
+              <string>22</string>
+              <string>23</string>
+              <string>24</string>
+              <string>25</string>
+              <string>30</string>
+              <string>40</string>
+              <string>50</string>
+              <string>100</string>
+              <string>200</string>
+              <string>400</string>
+              <string>500</string>
+              <string>600</string>
+              <string>700</string>
+              <string>800</string>
+              <string>900</string>
+              <string>1000</string>
+              <string>2000</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>buildCLNumber</name>
+          <description>none # do not install any software,
+xxxxxx # install this xxxxxx version,
+(empty) # install latest build</description>
+          <defaultValue>none</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>APPLICATION_TYPE</name>
+          <description>Currently Supported only for script tst_continuous_lens_focus (script defaults to Ethidium Bromide)</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Ethidium Bromide</string>
+              <string>Colorimetric</string>
+              <string>Chemiluminescence</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.27">
+    <configVersion>1</configVersion>
+    <p4User>ReadOnly</p4User>
+    <p4Passwd>0f0kqlwaT/jixFZ2P2rSQEAbcFJOmw==</p4Passwd>
+    <p4Port>PTp4.global.bio-rad.com:1666</p4Port>
+    <p4Client>Jenkins-${JOB_NAME}</p4Client>
+    <projectPath>&quot;${P4_BRANCH}&quot; &quot;//workspace/...&quot;</projectPath>
+    <projectOptions>noallwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <p4SysDrive>C:</p4SysDrive>
+    <p4SysRoot>C:\WINDOWS</p4SysRoot>
+    <p4Tool>Perforce p4</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>true</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>true</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>false</wipeRepoBeforeBuild>
+    <firstChange>-1</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue></lineEndValue>
+    <useViewMask>true</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <assignedNode>PT-SQA-LP2014-5 || PT-SQA-EP-1</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>ECHO 
+ECHO &quot;Environment Settings:&quot;
+SET
+ECHO
+cd %WORKSPACE%\build
+python -V
+python runSquish.py --suite &quot;%TEST_SUITE%&quot; --repeat &quot;%REPEAT%&quot; --squishTCs &quot;%TESTCASES%&quot; --buildCLNumber &quot;%buildCLNumber%&quot; --copySimulator &quot;N&quot; --deleteILTouchDataFolder &quot;N&quot; --squishEnvOS &quot;Windows 7 64-bit&quot;</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers>
+    <hudson.plugins.postbuildtask.PostbuildTask plugin="postbuild-task@1.8">
+      <tasks>
+        <hudson.plugins.postbuildtask.TaskProperties>
+          <logTexts>
+            <hudson.plugins.postbuildtask.LogProperties>
+              <logText>workspace</logText>
+              <operator>AND</operator>
+            </hudson.plugins.postbuildtask.LogProperties>
+          </logTexts>
+          <EscalateStatus>false</EscalateStatus>
+          <RunIfJobSuccessful>false</RunIfJobSuccessful>
+          <script>ECHO &#xd;
+ECHO &quot;Copy Artifact Files:&quot;&#xd;
+ECHO&#xd;
+cd %WORKSPACE%\build&#xd;
+python copyartifacts.py</script>
+        </hudson.plugins.postbuildtask.TaskProperties>
+      </tasks>
+    </hudson.plugins.postbuildtask.PostbuildTask>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>artifacts/*</artifacts>
+      <latestOnly>false</latestOnly>
+      <allowEmptyArchive>true</allowEmptyArchive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.10">
+      <regexp>(Number of (Script Errors|Fatals|Failed Test Cases):\s+\b([1-9]|[1-9][0-9]{1,9})\b)|(\* squishrunner return code is not 0)|(results.xml:([1-9]|[1-9][0-9]{1,9}):([1-9]|[1-9][0-9]{1,9}):\snot\swell-formed\s\(invalid\stoken\))</regexp>
+      <succeedIfFound>false</succeedIfFound>
+      <unstableIfFound>true</unstableIfFound>
+      <alsoCheckConsoleOutput>true</alsoCheckConsoleOutput>
+    </hudson.plugins.textfinder.TextFinderPublisher>
+    <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.3">
+      <reportTargets>
+        <htmlpublisher.HtmlPublisherTarget>
+          <reportName>Squish Report</reportName>
+          <reportDir>Results</reportDir>
+          <reportFiles>results.html</reportFiles>
+          <keepAll>true</keepAll>
+          <allowMissing>false</allowMissing>
+          <wrapperName>htmlpublisher-wrapper.html</wrapperName>
+        </htmlpublisher.HtmlPublisherTarget>
+      </reportTargets>
+    </htmlpublisher.HtmlPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.14"/>
+    <EnvInjectBuildWrapper plugin="envinject@1.73">
+      <info>
+        <propertiesContent>TEST_SUITE=suite_ILTouch_HW
+BuildsFolder=Builds\Branch-Main
+AppInstallersFolder=ImageLabTouch_Windows
+ProjectFolderName=Image Lab
+REPEAT=1
+EXITBETWEENCYCLES=False</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <org.jenkinsci.plugins.buildnamesetter.BuildNameSetter plugin="build-name-setter@1.3">
+      <template>#${BUILD_NUMBER}, ${PROPFILE,file=&quot;jenkinsProperties.txt&quot;, property=&quot;JENKINS_BUILD_NAME&quot;}</template>
+    </org.jenkinsci.plugins.buildnamesetter.BuildNameSetter>
+  </buildWrappers>
+</project>

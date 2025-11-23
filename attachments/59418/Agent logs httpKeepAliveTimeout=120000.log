@@ -1,0 +1,131 @@
+C:\Jenkins>java -jar agent.jar -jnlpUrl http://automation2/manage/computer/srvottinfraut10/jenkins-agent.jnlp -secret ***removed***
+Nov 02, 2022 9:25:44 AM hudson.remoting.jnlp.Main createEngine
+INFO: Setting up agent: srvottinfraut10
+Nov 02, 2022 9:25:44 AM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3068.v09b_895d8da_14
+Nov 02, 2022 9:25:44 AM hudson.remoting.Engine startEngine
+WARNING: No Working Directory. Using the legacy JAR Cache location: C:\Users\autofw\.jenkins\cache\jars
+Nov 02, 2022 9:25:44 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: WebSocket connection open
+Nov 02, 2022 9:25:44 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connected
+Nov 02, 2022 9:25:45 AM com.youdevise.hudson.slavestatus.SlaveListener call
+INFO: Slave-status listener starting
+Nov 02, 2022 9:25:45 AM com.youdevise.hudson.slavestatus.SocketHTTPListener waitForConnection
+INFO: Slave-status listener ready on port 3141
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.jenkinsci.plugins.envinject.service.EnvInjectMasterEnvVarsSetter to method java.lang.Class.getDeclaredFields0(boolean)
+WARNING: Please consider reporting this to the maintainers of org.jenkinsci.plugins.envinject.service.EnvInjectMasterEnvVarsSetter
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+Nov 02, 2022 9:38:29 AM io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.ClientFilter processError
+SEVERE: Connection error has occurred
+java.io.IOException: An established connection was aborted by the software in your host machine
+        at java.base/sun.nio.ch.WindowsAsynchronousSocketChannelImpl.read0(Native Method)
+        at java.base/sun.nio.ch.WindowsAsynchronousSocketChannelImpl$ReadTask.run(Unknown Source)
+        at java.base/sun.nio.ch.WindowsAsynchronousSocketChannelImpl.implRead(Unknown Source)
+        at java.base/sun.nio.ch.AsynchronousSocketChannelImpl.read(Unknown Source)
+        at java.base/sun.nio.ch.AsynchronousSocketChannelImpl.read(Unknown Source)
+        at java.base/java.nio.channels.AsynchronousSocketChannel.read(Unknown Source)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter._read(TransportFilter.java:279)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter$4.completed(TransportFilter.java:297)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter$4.completed(TransportFilter.java:279)
+        at java.base/sun.nio.ch.Invoker.invokeUnchecked(Unknown Source)
+        at java.base/sun.nio.ch.Invoker$2.run(Unknown Source)
+        at java.base/sun.nio.ch.AsynchronousChannelGroupImpl$1.run(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at java.base/java.lang.Thread.run(Unknown Source)
+
+Nov 02, 2022 9:38:29 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Read side closed
+Nov 02, 2022 9:38:29 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Terminated
+Nov 02, 2022 9:38:29 AM hudson.Launcher$RemoteLaunchCallable$1 join
+INFO: Failed to synchronize IO streams on the channel hudson.remoting.Channel@48b6bf49:srvottinfraut10
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@48b6bf49:srvottinfraut10": Remote call on srvottinfraut10 failed. The channel is closing down or has closed down
+        at hudson.remoting.Channel.call(Channel.java:993)
+        at hudson.remoting.Channel.syncIO(Channel.java:1732)
+        at hudson.Launcher$RemoteLaunchCallable$1.join(Launcher.java:1411)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+        at hudson.remoting.RemoteInvocationHandler$RPCRequest.perform(RemoteInvocationHandler.java:924)
+        at hudson.remoting.RemoteInvocationHandler$RPCRequest.call(RemoteInvocationHandler.java:902)
+        at hudson.remoting.RemoteInvocationHandler$RPCRequest.call(RemoteInvocationHandler.java:853)
+        at hudson.remoting.UserRequest.perform(UserRequest.java:211)
+        at hudson.remoting.UserRequest.perform(UserRequest.java:54)
+        at hudson.remoting.Request$2.run(Request.java:377)
+        at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+        at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:125)
+        at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@48b6bf49:srvottinfraut10": channel is already closed
+        at hudson.remoting.Engine$1AgentEndpoint.onClose(Engine.java:628)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.core.TyrusEndpointWrapper.onClose(TyrusEndpointWrapper.java:1241)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.core.TyrusWebSocket.onClose(TyrusWebSocket.java:110)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.core.ProtocolHandler.close(ProtocolHandler.java:481)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.core.TyrusWebSocket.close(TyrusWebSocket.java:244)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.client.TyrusClientEngine$2$1.close(TyrusClientEngine.java:614)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.ClientFilter.processError(ClientFilter.java:235)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.Filter.onError(Filter.java:157)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.Filter.onError(Filter.java:160)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.Filter.onError(Filter.java:160)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter$4.failed(TransportFilter.java:310)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter$4.failed(TransportFilter.java:279)
+        at java.base/sun.nio.ch.Invoker.invokeUnchecked(Unknown Source)
+        at java.base/sun.nio.ch.Invoker.invokeDirect(Unknown Source)
+        at java.base/sun.nio.ch.Invoker.invoke(Unknown Source)
+        at java.base/sun.nio.ch.Invoker.invoke(Unknown Source)
+        at java.base/sun.nio.ch.WindowsAsynchronousSocketChannelImpl$ReadTask.run(Unknown Source)
+        at java.base/sun.nio.ch.WindowsAsynchronousSocketChannelImpl.implRead(Unknown Source)
+        at java.base/sun.nio.ch.AsynchronousSocketChannelImpl.read(Unknown Source)
+        at java.base/sun.nio.ch.AsynchronousSocketChannelImpl.read(Unknown Source)
+        at java.base/java.nio.channels.AsynchronousSocketChannel.read(Unknown Source)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter._read(TransportFilter.java:279)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter$4.completed(TransportFilter.java:297)
+        at io.jenkins.remoting.shaded.org.glassfish.tyrus.container.jdk.client.TransportFilter$4.completed(TransportFilter.java:279)
+        at java.base/sun.nio.ch.Invoker.invokeUnchecked(Unknown Source)
+        at java.base/sun.nio.ch.Invoker$2.run(Unknown Source)
+        at java.base/sun.nio.ch.AsynchronousChannelGroupImpl$1.run(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        ... 1 more
+
+Nov 02, 2022 9:38:29 AM hudson.remoting.Request$2 run
+INFO: Failed to send back a reply to the request UserRequest:UserRPCRequest:hudson.Launcher$RemoteProcess.join[](4): hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@48b6bf49:srvottinfraut10": channel is already closed
+Nov 02, 2022 9:38:29 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Performing onReconnect operation.
+Nov 02, 2022 9:38:29 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: onReconnect operation completed.
+Nov 02, 2022 9:38:29 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: WebSocket connection open
+Nov 02, 2022 9:38:29 AM hudson.remoting.jnlp.Main$CuiListener status
+INFO: Connected
+Nov 02, 2022 9:38:30 AM com.youdevise.hudson.slavestatus.SlaveListener call
+INFO: Slave-status listener starting
+Nov 02, 2022 9:38:30 AM com.youdevise.hudson.slavestatus.SlaveListener$1 run
+SEVERE: Could not listen on port
+java.net.BindException: Address already in use: NET_Bind
+        at java.base/java.net.PlainSocketImpl.bind0(Native Method)
+        at java.base/java.net.PlainSocketImpl.socketBind(Unknown Source)
+        at java.base/java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+        at java.base/java.net.ServerSocket.bind(Unknown Source)
+        at java.base/java.net.ServerSocket.<init>(Unknown Source)
+        at java.base/java.net.ServerSocket.<init>(Unknown Source)
+        at com.youdevise.hudson.slavestatus.SocketHTTPListener.waitForConnection(SlaveListener.java:129)
+        at com.youdevise.hudson.slavestatus.SlaveListener$1.run(SlaveListener.java:63)
+        at com.youdevise.hudson.slavestatus.Daemon.go(Daemon.java:16)
+        at com.youdevise.hudson.slavestatus.SlaveListener.call(SlaveListener.java:83)
+        at hudson.remoting.UserRequest.perform(UserRequest.java:211)
+        at hudson.remoting.UserRequest.perform(UserRequest.java:54)
+        at hudson.remoting.Request$2.run(Request.java:377)
+        at hudson.remoting.InterceptingExecutorService.lambda$wrap$0(InterceptingExecutorService.java:78)
+        at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+        at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:125)
+        at java.base/java.lang.Thread.run(Unknown Source)

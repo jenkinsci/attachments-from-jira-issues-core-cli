@@ -1,0 +1,27 @@
+diff --git a/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly b/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly
+index 6f6da18..6b7b6b9 100644
+--- a/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly
++++ b/core/src/main/resources/hudson/model/AbstractBuild/tasks.jelly
+@@ -27,6 +27,14 @@ THE SOFTWARE.
+ -->
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+       <l:task icon="images/24x24/up.gif" href="${it.upUrl}" title="${%Back to Project}" />
++      <j:choose>
++          <j:when test="${h.hasPermission(it.project,it.project.CONFIGURE)}">
++              <l:task icon="images/24x24/setting.gif" href="${it.upUrl}/configure" title="${%Configure}" />
++          </j:when>
++          <j:when test="${h.hasPermission(it.project,it.project.EXTENDED_READ)}">
++              <l:task icon="images/24x24/setting.gif" href="${it.upUrl}/configure" title="${%View Configuration}" />
++          </j:when>
++      </j:choose>
+       <l:task icon="images/24x24/search.gif" href="${buildUrl.baseUrl}/" title="${%Status}" />
+       <l:task icon="images/24x24/notepad.gif" href="${buildUrl.baseUrl}/changes" title="${%Changes}" />
+       <j:choose>
+@@ -46,5 +54,5 @@ THE SOFTWARE.
+           <l:task icon="images/24x24/terminal.gif" href="${buildUrl.baseUrl}/console" title="${%Console Output}" />
+         </j:otherwise>
+       </j:choose>
+-      <l:task icon="images/24x24/setting.gif" href="${buildUrl.baseUrl}/configure" title="${h.hasPermission(it,it.UPDATE)?'%Configure':'%View Configuration'}"/>
++      <l:task icon="images/24x24/notepad.gif" href="${buildUrl.baseUrl}/configure" title="${h.hasPermission(it,it.UPDATE)?'%Edit Description':'%View Description'}"/>
+ </j:jelly>
+\ No newline at end of file

@@ -1,0 +1,200 @@
+Running from: /usr/share/jenkins/jenkins.war
+Jun 12, 2013 6:26:15 PM winstone.Logger logInternal
+INFO: Beginning extraction from war file
+Jenkins home directory: /var/lib/jenkins found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+Jun 12, 2013 6:26:16 PM winstone.Logger logInternal
+INFO: HTTP Listener started: port=8081
+Jun 12, 2013 6:26:16 PM winstone.Logger logInternal
+INFO: Winstone Servlet Engine v0.9.10 running: controlPort=disabled
+Jun 12, 2013 6:26:16 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started initialization
+Jun 12, 2013 6:26:16 PM hudson.ClassicPluginStrategy createPluginWrapper
+INFO: Plugin rvm.jpi is disabled
+Jun 12, 2013 6:26:16 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Listed all plugins
+Jun 12, 2013 6:26:16 PM ruby.RubyRuntimePlugin start
+INFO: Injecting JRuby into XStream
+java.lang.IncompatibleClassChangeError: Found class com.kenai.jffi.InvocationBuffer, but interface was expected
+	at com.kenai.jaffl.provider.jffi.AsmRuntime.marshal(AsmRuntime.java:169)
+	at org.jruby.ext.posix.LinuxLibC$jaffl$0.setenv(Unknown Source)
+	at org.jruby.ext.posix.BaseNativePOSIX.setenv(BaseNativePOSIX.java:221)
+	at org.jruby.ext.posix.LazyPOSIX.setenv(LazyPOSIX.java:263)
+	at org.jruby.RubyGlobal$StringOnlyRubyHash.case_aware_op_aset(RubyGlobal.java:176)
+	at org.jruby.RubyGlobal$CaseInsensitiveStringOnlyRubyHash.op_aset(RubyGlobal.java:87)
+	at org.jruby.RubyHash$i$2$0$op_aset.call(RubyHash$i$2$0$op_aset.gen:65535)
+	at org.jruby.runtime.callsite.CachingCallSite.cacheAndCall(CachingCallSite.java:332)
+	at org.jruby.runtime.callsite.CachingCallSite.call(CachingCallSite.java:203)
+	at org.jruby.ast.AttrAssignTwoArgNode.interpret(AttrAssignTwoArgNode.java:42)
+	at org.jruby.ast.NewlineNode.interpret(NewlineNode.java:104)
+	at org.jruby.ast.BlockNode.interpret(BlockNode.java:71)
+	at org.jruby.ast.RootNode.interpret(RootNode.java:129)
+	at org.jruby.evaluator.ASTInterpreter.INTERPRET_ROOT(ASTInterpreter.java:120)
+	at org.jruby.Ruby.runInterpreter(Ruby.java:720)
+	at org.jruby.Ruby.runInterpreter(Ruby.java:728)
+	at org.jruby.embed.internal.EmbedEvalUnitImpl.run(EmbedEvalUnitImpl.java:119)
+	at org.jruby.embed.ScriptingContainer.runUnit(ScriptingContainer.java:1231)
+	at org.jruby.embed.ScriptingContainer.runScriptlet(ScriptingContainer.java:1224)
+	at org.kohsuke.stapler.jelly.jruby.haml.HamlLanguage.createContainer(HamlLanguage.java:28)
+	at org.kohsuke.stapler.jelly.jruby.JRubyFacet.<init>(JRubyFacet.java:71)
+	at ruby.RubyRuntimePlugin.registerJRubyFacet(RubyRuntimePlugin.java:39)
+	at ruby.RubyRuntimePlugin.start(RubyRuntimePlugin.java:30)
+	at hudson.ClassicPluginStrategy.startPlugin(ClassicPluginStrategy.java:379)
+	at hudson.ClassicPluginStrategy.load(ClassicPluginStrategy.java:368)
+	at hudson.PluginManager$2$1$1.run(PluginManager.java:334)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:893)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Jun 12, 2013 6:26:18 PM jenkins.InitReactorRunner$1 onTaskFailed
+SEVERE: Failed Loading plugin ruby-runtime
+hudson.util.IOException2: Failed to initialize
+	at hudson.ClassicPluginStrategy.load(ClassicPluginStrategy.java:371)
+	at hudson.PluginManager$2$1$1.run(PluginManager.java:334)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:893)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: org.jruby.embed.EvalFailedException: java.lang.IncompatibleClassChangeError: Found class com.kenai.jffi.InvocationBuffer, but interface was expected
+	at org.jruby.embed.internal.EmbedEvalUnitImpl.run(EmbedEvalUnitImpl.java:141)
+	at org.jruby.embed.ScriptingContainer.runUnit(ScriptingContainer.java:1231)
+	at org.jruby.embed.ScriptingContainer.runScriptlet(ScriptingContainer.java:1224)
+	at org.kohsuke.stapler.jelly.jruby.haml.HamlLanguage.createContainer(HamlLanguage.java:28)
+	at org.kohsuke.stapler.jelly.jruby.JRubyFacet.<init>(JRubyFacet.java:71)
+	at ruby.RubyRuntimePlugin.registerJRubyFacet(RubyRuntimePlugin.java:39)
+	at ruby.RubyRuntimePlugin.start(RubyRuntimePlugin.java:30)
+	at hudson.ClassicPluginStrategy.startPlugin(ClassicPluginStrategy.java:379)
+	at hudson.ClassicPluginStrategy.load(ClassicPluginStrategy.java:368)
+	... 9 more
+Caused by: java.lang.IncompatibleClassChangeError: Found class com.kenai.jffi.InvocationBuffer, but interface was expected
+	at com.kenai.jaffl.provider.jffi.AsmRuntime.marshal(AsmRuntime.java:169)
+	at org.jruby.ext.posix.LinuxLibC$jaffl$0.setenv(Unknown Source)
+	at org.jruby.ext.posix.BaseNativePOSIX.setenv(BaseNativePOSIX.java:221)
+	at org.jruby.ext.posix.LazyPOSIX.setenv(LazyPOSIX.java:263)
+	at org.jruby.RubyGlobal$StringOnlyRubyHash.case_aware_op_aset(RubyGlobal.java:176)
+	at org.jruby.RubyGlobal$CaseInsensitiveStringOnlyRubyHash.op_aset(RubyGlobal.java:87)
+	at org.jruby.RubyHash$i$2$0$op_aset.call(RubyHash$i$2$0$op_aset.gen:65535)
+	at org.jruby.runtime.callsite.CachingCallSite.cacheAndCall(CachingCallSite.java:332)
+	at org.jruby.runtime.callsite.CachingCallSite.call(CachingCallSite.java:203)
+	at org.jruby.ast.AttrAssignTwoArgNode.interpret(AttrAssignTwoArgNode.java:42)
+	at org.jruby.ast.NewlineNode.interpret(NewlineNode.java:104)
+	at org.jruby.ast.BlockNode.interpret(BlockNode.java:71)
+	at org.jruby.ast.RootNode.interpret(RootNode.java:129)
+	at org.jruby.evaluator.ASTInterpreter.INTERPRET_ROOT(ASTInterpreter.java:120)
+	at org.jruby.Ruby.runInterpreter(Ruby.java:720)
+	at org.jruby.Ruby.runInterpreter(Ruby.java:728)
+	at org.jruby.embed.internal.EmbedEvalUnitImpl.run(EmbedEvalUnitImpl.java:119)
+	... 17 more
+
+Jun 12, 2013 6:26:18 PM jenkins.InitReactorRunner$1 onTaskFailed
+SEVERE: Failed Loading plugin pyenv
+java.io.IOException: Dependency ruby-runtime (0.10) doesn't exist
+	at hudson.PluginWrapper.resolvePluginDependencies(PluginWrapper.java:479)
+	at hudson.PluginManager$2$1$1.run(PluginManager.java:333)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:893)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+
+Jun 12, 2013 6:26:18 PM jenkins.InitReactorRunner$1 onTaskFailed
+SEVERE: Failed Loading plugin rbenv
+java.io.IOException: Dependency ruby-runtime (0.10) doesn't exist
+	at hudson.PluginWrapper.resolvePluginDependencies(PluginWrapper.java:479)
+	at hudson.PluginManager$2$1$1.run(PluginManager.java:333)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:893)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+
+Jun 12, 2013 6:26:18 PM hudson.plugins.im.IMConnectionProvider$ConnectorRunnable run
+INFO: Trying to connect
+Jun 12, 2013 6:26:18 PM hudson.plugins.im.HudsonIsBusyListener <init>
+INFO: Executor busy listener created
+Jun 12, 2013 6:26:18 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Prepared all plugins
+Jun 12, 2013 6:26:18 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Started all plugins
+Jun 12, 2013 6:26:18 PM jenkins.InitReactorRunner$1 onAttained
+INFO: Augmented all extensions
+Jun 12, 2013 6:26:18 PM jenkins.InitReactorRunner$1 onTaskFailed
+SEVERE: Failed Loading job test
+hudson.util.IOException2: Unable to read /var/lib/jenkins/jobs/test/config.xml
+	at hudson.XmlFile.read(XmlFile.java:147)
+	at hudson.model.Items.load(Items.java:220)
+	at jenkins.model.Jenkins$17.run(Jenkins.java:2542)
+	at org.jvnet.hudson.reactor.TaskGraphBuilder$TaskImpl.run(TaskGraphBuilder.java:146)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:259)
+	at jenkins.model.Jenkins$7.runTask(Jenkins.java:893)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:187)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:94)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: com.thoughtworks.xstream.converters.ConversionException: null : null
+---- Debugging information ----
+cause-exception     : java.lang.NullPointerException
+cause-message       : null
+class               : org.jruby.runtime.builtin.IRubyObject
+required-type       : org.jruby.runtime.builtin.IRubyObject
+converter-type      : org.jenkinsci.jruby.JRubyXStreamConverter
+path                : /project/buildWrappers/ruby-proxy-object/ruby-object
+line number         : 38
+class[1]            : org.jenkinsci.jruby.JRubyMapper$DynamicProxy
+converter-type[1]   : org.jenkinsci.jruby.JavaProxyConverter
+class[2]            : hudson.util.DescribableList
+converter-type[2]   : hudson.util.DescribableList$ConverterImpl
+class[3]            : hudson.model.FreeStyleProject
+converter-type[3]   : hudson.util.RobustReflectionConverter
+version             : null
+-------------------------------
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:79)
+	at com.thoughtworks.xstream.core.AbstractReferenceUnmarshaller.convert(AbstractReferenceUnmarshaller.java:65)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:66)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:50)
+	at org.jenkinsci.jruby.JavaProxyConverter.unmarshal(JavaProxyConverter.java:60)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:72)
+	at com.thoughtworks.xstream.core.AbstractReferenceUnmarshaller.convert(AbstractReferenceUnmarshaller.java:65)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:66)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:50)
+	at com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter.readItem(AbstractCollectionConverter.java:71)
+	at hudson.util.CopyOnWriteList$ConverterImpl.unmarshal(CopyOnWriteList.java:193)
+	at hudson.util.DescribableList$ConverterImpl.unmarshal(DescribableList.java:263)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:72)
+	at com.thoughtworks.xstream.core.AbstractReferenceUnmarshaller.convert(AbstractReferenceUnmarshaller.java:65)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:66)
+	at hudson.util.RobustReflectionConverter.unmarshalField(RobustReflectionConverter.java:333)
+	at hudson.util.RobustReflectionConverter.doUnmarshal(RobustReflectionConverter.java:275)
+	at hudson.util.RobustReflectionConverter.unmarshal(RobustReflectionConverter.java:222)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:72)
+	at com.thoughtworks.xstream.core.AbstractReferenceUnmarshaller.convert(AbstractReferenceUnmarshaller.java:65)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:66)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convertAnother(TreeUnmarshaller.java:50)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.start(TreeUnmarshaller.java:134)
+	at com.thoughtworks.xstream.core.AbstractTreeMarshallingStrategy.unmarshal(AbstractTreeMarshallingStrategy.java:32)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:1061)
+	at hudson.util.XStream2.unmarshal(XStream2.java:109)
+	at com.thoughtworks.xstream.XStream.unmarshal(XStream.java:1045)
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:925)
+	at hudson.XmlFile.read(XmlFile.java:143)
+	... 10 more
+Caused by: java.lang.NullPointerException
+	at ruby.RubyPluginRuntimeResolver.unmarshal(RubyPluginRuntimeResolver.java:25)
+	at org.jenkinsci.jruby.JRubyXStreamConverter.unmarshal(JRubyXStreamConverter.java:82)
+	at com.thoughtworks.xstream.core.TreeUnmarshaller.convert(TreeUnmarshaller.java:72)
+	... 38 more
+

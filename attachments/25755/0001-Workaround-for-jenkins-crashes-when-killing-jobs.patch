@@ -1,0 +1,78 @@
+From 4f6a18ba512d19a60d6b7c881700db86e06d01fc Mon Sep 17 00:00:00 2001
+From: llewellyn botelho <llewellyn.botelho@redfin.com>
+Date: Wed, 30 Apr 2014 16:15:40 -0700
+Subject: [PATCH] Workaround for jenkins crashes when killing jobs
+
+---
+ core/src/main/java/hudson/util/ProcessTree.java | 20 ++++++++++++++------
+ war/src/main/webapp/WEB-INF/web.xml             |  5 +++++
+ 2 files changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/core/src/main/java/hudson/util/ProcessTree.java b/core/src/main/java/hudson/util/ProcessTree.java
+index 2dd927d..f1e284e 100644
+--- a/core/src/main/java/hudson/util/ProcessTree.java
++++ b/core/src/main/java/hudson/util/ProcessTree.java
+@@ -143,7 +143,7 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+      * Either of the parameter can be null.
+      */
+     public void killAll(Process proc, Map<String, String> modelEnvVars) throws InterruptedException {
+-        LOGGER.fine("killAll: process="+proc+" and envs="+modelEnvVars);
++        LOGGER.info("killAll: process="+proc+" and envs="+modelEnvVars);
+         OSProcess p = get(proc);
+         if(p!=null) p.killRecursively();
+         if(modelEnvVars!=null)
+@@ -548,9 +548,17 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+         public void kill() throws InterruptedException {
+             try {
+                 int pid = getPid();
+-                LOGGER.fine("Killing pid="+pid);
+-                UnixReflection.DESTROY_PROCESS.invoke(null, pid);
+-            } catch (IllegalAccessException e) {
++                LOGGER.info("Killing pid="+pid);
++                //UnixReflection.DESTROY_PROCESS.invoke(null, pid);
++                String cmd = "kill " + String.valueOf(pid); 
++                Runtime rt = Runtime.getRuntime(); 
++                Process proc = rt.exec(cmd);
++                int retVal = proc.waitFor(); 
++                LOGGER.info("kill retval="+retVal);
++            } catch (IOException e) {
++            	LOGGER.log(Level.WARNING, "Failed to terminate pid="+getPid(),e);            
++            }
++            /*} catch (IllegalAccessException e) {
+                 // this is impossible
+                 IllegalAccessError x = new IllegalAccessError();
+                 x.initCause(e);
+@@ -561,12 +569,12 @@ public abstract class ProcessTree implements Iterable<OSProcess>, IProcessTree,
+                     throw (Error)e.getTargetException();
+                 // otherwise log and let go. I need to see when this happens
+                 LOGGER.log(Level.INFO, "Failed to terminate pid="+getPid(),e);
+-            }
++            }*/
+             killByKiller();
+         }
+ 
+         public void killRecursively() throws InterruptedException {
+-            LOGGER.fine("Recursively killing pid="+getPid());
++            LOGGER.info("Recursively killing pid="+getPid());
+             for (OSProcess p : getChildren())
+                 p.killRecursively();
+             kill();
+diff --git a/war/src/main/webapp/WEB-INF/web.xml b/war/src/main/webapp/WEB-INF/web.xml
+index aa14977..7eca3a4 100644
+--- a/war/src/main/webapp/WEB-INF/web.xml
++++ b/war/src/main/webapp/WEB-INF/web.xml
+@@ -206,6 +206,11 @@ THE SOFTWARE.
+     <extension>webm</extension>
+     <mime-type>video/webm</mime-type>
+   </mime-mapping>
++  <mime-mapping>
++    <extension>css</extension>
++    <mime-type>text/css</mime-type>
++  </mime-mapping>
++  
+ 
+   <error-page>
+     <exception-type>java.lang.Throwable</exception-type>
+-- 
+1.9.1
+

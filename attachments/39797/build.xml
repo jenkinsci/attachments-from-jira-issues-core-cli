@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>deployVersion</name>
+          <description></description>
+          <value>branch1</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>branch</name>
+          <description>Branch Name</description>
+          <value>branch1</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>short_build</name>
+          <description>Desc</description>
+          <value>false</value>
+        </hudson.model.BooleanParameterValue>
+        <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterValue plugin="nodelabelparameter@1.7.2">
+          <name>LabelRunJob</name>
+          <description></description>
+          <label>LabelRunJob</label>
+        </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterValue>
+      </parameters>
+      <parameterDefinitionNames class="hudson.model.ParametersDefinitionProperty$1">
+        <outer-class>
+          <parameterDefinitions>
+            <hudson.model.StringParameterDefinition>
+              <name>deployVersion</name>
+              <description></description>
+              <defaultValue>branch1</defaultValue>
+            </hudson.model.StringParameterDefinition>
+            <hudson.model.StringParameterDefinition>
+              <name>branch</name>
+              <description>Branch Name</description>
+              <defaultValue>branch1</defaultValue>
+            </hudson.model.StringParameterDefinition>
+            <hudson.model.BooleanParameterDefinition>
+              <name>short_build</name>
+              <description>Desc</description>
+              <defaultValue>false</defaultValue>
+            </hudson.model.BooleanParameterDefinition>
+            <org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition plugin="nodelabelparameter@1.7.2">
+              <name>LabelRunJob</name>
+              <description></description>
+              <defaultValue>LabelRunJob</defaultValue>
+              <allNodesMatchingLabel>false</allNodesMatchingLabel>
+              <triggerIfResult>allCases</triggerIfResult>
+              <nodeEligibility class="org.jvnet.jenkins.plugins.nodelabelparameter.node.AllNodeEligibility"/>
+            </org.jvnet.jenkins.plugins.nodelabelparameter.LabelParameterDefinition>
+          </parameterDefinitions>
+        </outer-class>
+      </parameterDefinitionNames>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>user1</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <jenkins.metrics.impl.TimeInQueueAction plugin="metrics@3.1.2.9">
+      <queuingDurationMillis>15</queuingDurationMillis>
+    </jenkins.metrics.impl.TimeInQueueAction>
+    <org.jenkinsci.plugins.envinject.EnvInjectPluginAction plugin="envinject@1.93.1">
+      <build class="build" reference="../../.."/>
+    </org.jenkinsci.plugins.envinject.EnvInjectPluginAction>
+    <hudson.plugins.git.util.BuildData plugin="git@3.5.0">
+      <buildsByBranchName>
+        <entry>
+          <string>refs/remotes/origin/branch1</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.5.0">
+              <sha1>11111111111111111111111111</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>refs/remotes/origin/branch1</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>291</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <remoteUrls>
+        <string>https://git/scm/project1/code.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@3.5.0">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>refs/remotes/origin/branch1</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/u01/jenkins_slave/workspace/Job1</ws>
+    </hudson.plugins.git.GitTagAction>
+    <hudson.scm.SCMRevisionState_-None/>
+    <org.jvnet.jenkins.plugins.nodelabelparameter.LabelBadgeAction plugin="nodelabelparameter@1.7.2">
+      <label>LabelRunJob</label>
+      <tooltip>Run with label [LabelRunJob] (node: slave1)</tooltip>
+    </org.jvnet.jenkins.plugins.nodelabelparameter.LabelBadgeAction>
+    <hudson.plugins.parameterizedtrigger.BuildInfoExporterAction plugin="parameterized-trigger@2.35.1">
+      <builds>
+        <hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference>
+          <projectName>ProjectName1</projectName>
+          <buildNumber>0</buildNumber>
+          <buildResult>NOT_BUILT</buildResult>
+        </hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference>
+      </builds>
+      <lastReference reference="../builds/hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference"/>
+    </hudson.plugins.parameterizedtrigger.BuildInfoExporterAction>
+    <com.sonyericsson.rebuild.RebuildAction plugin="rebuild@1.25"/>
+  </actions>
+  <queueId>4443</queueId>
+  <timestamp>1505464749840</timestamp>
+  <startTime>1505464749861</startTime>
+  <result>SUCCESS</result>
+  <duration>3027833</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn>Server1</builtOn>
+  <workspace>/u01/jenkins_slave/workspace/Job1</workspace>
+  <hudsonVersion>2.60.1</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser" plugin="git@3.5.0">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits class="com.google.common.collect.RegularImmutableSortedSet">
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+    <string>user1</string>
+  </culprits>
+</build>

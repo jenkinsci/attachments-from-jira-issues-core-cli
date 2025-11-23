@@ -1,0 +1,28 @@
+Index: core/src/main/java/hudson/tasks/LogRotator.java
+===================================================================
+--- core/src/main/java/hudson/tasks/LogRotator.java	(revision 20073)
++++ core/src/main/java/hudson/tasks/LogRotator.java	(working copy)
+@@ -89,6 +89,7 @@
+         if(numToKeep!=-1) {
+             Run[] builds = job.getBuilds().toArray(new Run[0]);
+             for( int i=numToKeep; i<builds.length; i++ ) {
++                
+                 Run r = builds[i];
+                 if (r.isKeepLog()) {
+                     LOGGER.log(FINER,r.getFullDisplayName()+" is not GC-ed because it's marked as a keeper");
+@@ -102,6 +103,7 @@
+                     LOGGER.log(FINER,r.getFullDisplayName()+" is not GC-ed because it's the last stable build");
+                     continue;
+                 }
++                LOGGER.log(FINER,r.getFullDisplayName()+" is to be removed");
+                 r.delete();
+             }
+         }
+@@ -127,6 +129,7 @@
+                     LOGGER.log(FINER,r.getFullDisplayName()+" is not GC-ed because it's still new");
+                     continue;
+                 }
++                LOGGER.log(FINER,r.getFullDisplayName()+" is to be removed");
+                 r.delete();
+             }
+         }

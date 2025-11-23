@@ -1,0 +1,13 @@
+Index: hudson.postinst
+===================================================================
+--- hudson.postinst	(revision 23629)
++++ hudson.postinst	(working copy)
+@@ -24,7 +24,7 @@
+         # Create hudson user if it doesn't exist.
+ 	    if ! id hudson > /dev/null 2>&1 ; then
+ 	        adduser --system --home /var/lib/hudson --no-create-home \
+-		    --ingroup nogroup --disabled-password --shell /bin/false \
++		    --ingroup nogroup --disabled-password --shell /bin/bash \
+ 		    hudson
+ 	    fi
+ 	

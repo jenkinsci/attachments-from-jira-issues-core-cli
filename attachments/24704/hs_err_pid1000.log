@@ -1,0 +1,264 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x77bf748f, pid=1000, tid=2968
+#
+# JRE version: 6.0_18-b07
+# Java VM: Java HotSpot(TM) Client VM (16.0-b13 mixed mode windows-x86 )
+# Problematic frame:
+# C  [ntdll.dll+0x6748f]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00d1ac00):  JavaThread "Finalizer" daemon [_thread_in_native, id=2968, stack(0x27300000,0x27350000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x00000004
+
+Registers:
+EAX=0x27d0f9c8, EBX=0x001c0000, ECX=0x00000000, EDX=0x00000000
+ESP=0x2734f62c, EBP=0x2734f654, ESI=0x27d0f9c0, EDI=0x27d0f5b8
+EIP=0x77bf748f, EFLAGS=0x00010246
+
+Top of Stack: (sp=0x2734f62c)
+0x2734f62c:   00000000 27d0f5b8 001c0000 3c96847b
+0x2734f63c:   03262df0 6d808a04 00000000 03262df0
+0x2734f64c:   2734f670 6d808a95 2734f74c 77bf719a
+0x2734f65c:   001c0000 27d0f9c0 2734f6fc 00000000
+0x2734f66c:   50fe3b85 00000000 001c0000 27d0f5c0
+0x2734f67c:   00000014 000014dd 0000002a 00e57bf0
+0x2734f68c:   6d8ab792 000014dd 00d1b61c 2734f7b4
+0x2734f69c:   6d96fa34 001c0000 001ca3f8 6d8ebe21 
+
+Instructions: (pc=0x77bf748f)
+0x77bf747f:   85 d9 3e 01 00 8b 56 0c 8d 46 08 8b 08 89 4d f0
+0x77bf748f:   8b 49 04 89 55 f4 8b 12 3b d1 0f 85 ca 40 01 00 
+
+
+Stack: [0x27300000,0x27350000],  sp=0x2734f62c,  free space=13d2734f160k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [ntdll.dll+0x6748f]
+C  [ntdll.dll+0x6719a]
+C  [ntdll.dll+0x673d5]
+C  [kernel32.dll+0x49c46]
+C  [msvcrt.dll+0x9c03]
+C  [jna5646980968416660752.dll+0x3591]
+j  com.sun.jna.Native.free(J)V+0
+j  com.sun.jna.Memory.free(J)V+1
+j  com.sun.jna.Memory.dispose()V+4
+j  com.sun.jna.Memory.finalize()V+1
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf072c]
+V  [jvm.dll+0x17fd51]
+V  [jvm.dll+0xf07ad]
+V  [jvm.dll+0xfa09f]
+V  [jvm.dll+0xfcd94]
+C  [java.dll+0x2100]
+J  java.lang.ref.Finalizer.runFinalizer()V
+J  java.lang.ref.Finalizer.access$100(Ljava/lang/ref/Finalizer;)V
+j  java.lang.ref.Finalizer$FinalizerThread.run()V+11
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf072c]
+V  [jvm.dll+0x17fd51]
+V  [jvm.dll+0xf08f7]
+V  [jvm.dll+0xf096d]
+V  [jvm.dll+0x11a4c0]
+V  [jvm.dll+0x1dd924]
+V  [jvm.dll+0x17f9cc]
+C  [MSVCR71.dll+0x9565]
+C  [kernel32.dll+0x4d309]
+C  [ntdll.dll+0x41603]
+C  [ntdll.dll+0x415d6]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.jna.Native.free(J)V+0
+j  com.sun.jna.Memory.free(J)V+1
+j  com.sun.jna.Memory.dispose()V+4
+j  com.sun.jna.Memory.finalize()V+1
+v  ~StubRoutines::call_stub
+J  java.lang.ref.Finalizer.invokeFinalizeMethod(Ljava/lang/Object;)V
+J  java.lang.ref.Finalizer.runFinalizer()V
+J  java.lang.ref.Finalizer.access$100(Ljava/lang/ref/Finalizer;)V
+j  java.lang.ref.Finalizer$FinalizerThread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x27995c00 JavaThread "ViewJob reload thread" daemon [_thread_blocked, id=2100, stack(0x29f50000,0x29fa0000)]
+  0x27995400 JavaThread "http-8080-exec-10" daemon [_thread_blocked, id=3580, stack(0x29f00000,0x29f50000)]
+  0x27995000 JavaThread "http-8080-exec-9" daemon [_thread_blocked, id=2696, stack(0x29eb0000,0x29f00000)]
+  0x27994800 JavaThread "Handling GET /jenkins/ : http-8080-exec-8" daemon [_thread_blocked, id=1960, stack(0x29e60000,0x29eb0000)]
+  0x27994400 JavaThread "http-8080-exec-7" daemon [_thread_blocked, id=2908, stack(0x29e10000,0x29e60000)]
+  0x27993c00 JavaThread "http-8080-exec-6" daemon [_thread_blocked, id=4068, stack(0x29dc0000,0x29e10000)]
+  0x28421000 JavaThread "http-8080-exec-5" daemon [_thread_blocked, id=2680, stack(0x29d70000,0x29dc0000)]
+  0x28420c00 JavaThread "http-8080-exec-4" daemon [_thread_blocked, id=2932, stack(0x29d20000,0x29d70000)]
+  0x28420400 JavaThread "http-8080-exec-3" daemon [_thread_blocked, id=2880, stack(0x29cd0000,0x29d20000)]
+  0x28420000 JavaThread "http-8080-exec-2" daemon [_thread_blocked, id=2928, stack(0x29c80000,0x29cd0000)]
+  0x2841f800 JavaThread "http-8080-exec-1" daemon [_thread_blocked, id=3332, stack(0x29c30000,0x29c80000)]
+  0x2841f400 JavaThread "GitTool.onLoaded" daemon [_thread_blocked, id=3872, stack(0x29be0000,0x29c30000)]
+  0x2841ec00 JavaThread "UpdateCenter.init" daemon [_thread_in_vm, id=2956, stack(0x29b90000,0x29be0000)]
+  0x2841e800 JavaThread "GitSCM.onLoaded" daemon [_thread_blocked, id=1208, stack(0x29b40000,0x29b90000)]
+  0x2841e000 JavaThread "NullIdDescriptorMonitor.verifyId" daemon [_thread_blocked, id=3944, stack(0x29af0000,0x29b40000)]
+  0x2841dc00 JavaThread "ajp-8009-AsyncTimeout" daemon [_thread_blocked, id=2404, stack(0x29aa0000,0x29af0000)]
+  0x2841d400 JavaThread "ajp-8009-Acceptor-0" daemon [_thread_in_native, id=1288, stack(0x29a50000,0x29aa0000)]
+  0x2841d000 JavaThread "ajp-8009-CometPoller-7" daemon [_thread_blocked, id=2988, stack(0x29a00000,0x29a50000)]
+  0x2841c800 JavaThread "ajp-8009-CometPoller-6" daemon [_thread_blocked, id=3048, stack(0x299b0000,0x29a00000)]
+  0x2841c400 JavaThread "ajp-8009-CometPoller-5" daemon [_thread_blocked, id=3356, stack(0x29960000,0x299b0000)]
+  0x2841bc00 JavaThread "ajp-8009-CometPoller-4" daemon [_thread_blocked, id=396, stack(0x29910000,0x29960000)]
+  0x2841b800 JavaThread "ajp-8009-CometPoller-3" daemon [_thread_blocked, id=2052, stack(0x298c0000,0x29910000)]
+  0x2841b000 JavaThread "ajp-8009-CometPoller-2" daemon [_thread_blocked, id=2224, stack(0x29870000,0x298c0000)]
+  0x2841ac00 JavaThread "ajp-8009-CometPoller-1" daemon [_thread_blocked, id=3792, stack(0x29820000,0x29870000)]
+  0x2841a400 JavaThread "ajp-8009-CometPoller-0" daemon [_thread_blocked, id=3640, stack(0x297d0000,0x29820000)]
+  0x2841a000 JavaThread "ajp-8009-Poller-7" daemon [_thread_blocked, id=1948, stack(0x29780000,0x297d0000)]
+  0x28419800 JavaThread "ajp-8009-Poller-6" daemon [_thread_blocked, id=2204, stack(0x29730000,0x29780000)]
+  0x28401800 JavaThread "ajp-8009-Poller-5" daemon [_thread_blocked, id=1072, stack(0x296e0000,0x29730000)]
+  0x28401400 JavaThread "ajp-8009-Poller-4" daemon [_thread_blocked, id=2736, stack(0x29690000,0x296e0000)]
+  0x28400c00 JavaThread "ajp-8009-Poller-3" daemon [_thread_blocked, id=2336, stack(0x29640000,0x29690000)]
+  0x28400800 JavaThread "ajp-8009-Poller-2" daemon [_thread_blocked, id=2392, stack(0x295f0000,0x29640000)]
+  0x28400000 JavaThread "ajp-8009-Poller-1" daemon [_thread_blocked, id=2800, stack(0x295a0000,0x295f0000)]
+  0x283ffc00 JavaThread "ajp-8009-Poller-0" daemon [_thread_blocked, id=812, stack(0x29150000,0x291a0000)]
+  0x283ff400 JavaThread "http-8080-AsyncTimeout" daemon [_thread_blocked, id=2364, stack(0x29100000,0x29150000)]
+  0x283ff000 JavaThread "http-8080-Acceptor-0" daemon [_thread_in_native, id=2708, stack(0x290b0000,0x29100000)]
+  0x283fe800 JavaThread "http-8080-Sendfile-0" daemon [_thread_blocked, id=2964, stack(0x29060000,0x290b0000)]
+  0x283fe400 JavaThread "http-8080-CometPoller-7" daemon [_thread_blocked, id=3296, stack(0x29010000,0x29060000)]
+  0x283fdc00 JavaThread "http-8080-CometPoller-6" daemon [_thread_blocked, id=1920, stack(0x28fc0000,0x29010000)]
+  0x283fd800 JavaThread "http-8080-CometPoller-5" daemon [_thread_blocked, id=2084, stack(0x28f70000,0x28fc0000)]
+  0x283fd000 JavaThread "http-8080-CometPoller-4" daemon [_thread_blocked, id=3016, stack(0x28f20000,0x28f70000)]
+  0x283fcc00 JavaThread "http-8080-CometPoller-3" daemon [_thread_blocked, id=3900, stack(0x28ed0000,0x28f20000)]
+  0x283fc400 JavaThread "http-8080-CometPoller-2" daemon [_thread_blocked, id=2944, stack(0x28e80000,0x28ed0000)]
+  0x283fc000 JavaThread "http-8080-CometPoller-1" daemon [_thread_blocked, id=2940, stack(0x28e30000,0x28e80000)]
+  0x283fb800 JavaThread "http-8080-CometPoller-0" daemon [_thread_blocked, id=2952, stack(0x28de0000,0x28e30000)]
+  0x283fb400 JavaThread "http-8080-Poller-7" daemon [_thread_blocked, id=3704, stack(0x28340000,0x28390000)]
+  0x283fac00 JavaThread "http-8080-Poller-6" daemon [_thread_blocked, id=2568, stack(0x282f0000,0x28340000)]
+  0x283fa800 JavaThread "http-8080-Poller-5" daemon [_thread_blocked, id=3064, stack(0x282a0000,0x282f0000)]
+  0x283fa000 JavaThread "http-8080-Poller-4" daemon [_thread_blocked, id=3888, stack(0x28250000,0x282a0000)]
+  0x283f9c00 JavaThread "http-8080-Poller-3" daemon [_thread_blocked, id=3280, stack(0x28200000,0x28250000)]
+  0x283f9400 JavaThread "http-8080-Poller-2" daemon [_thread_blocked, id=4088, stack(0x28160000,0x281b0000)]
+  0x283f9000 JavaThread "http-8080-Poller-1" daemon [_thread_blocked, id=3776, stack(0x280d0000,0x28120000)]
+  0x283f8800 JavaThread "http-8080-Poller-0" daemon [_thread_blocked, id=3868, stack(0x28080000,0x280d0000)]
+  0x283f8400 JavaThread "ContainerBackgroundProcessor[StandardEngine[Catalina]]" daemon [_thread_blocked, id=1076, stack(0x28030000,0x28080000)]
+  0x2778b800 JavaThread "Jenkins cron thread" [_thread_blocked, id=2996, stack(0x27f70000,0x27fc0000)]
+  0x276dac00 JavaThread "Jenkins initialization thread" [_thread_blocked, id=2628, stack(0x27f20000,0x27f70000)]
+  0x27a14000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=3344, stack(0x27dc0000,0x27e10000)]
+  0x277d5800 JavaThread "GC Daemon" daemon [_thread_blocked, id=3100, stack(0x27d70000,0x27dc0000)]
+  0x00d88c00 JavaThread "Thread-2" [_thread_in_native, id=732, stack(0x276e0000,0x27730000)]
+  0x00d55c00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=2924, stack(0x27440000,0x27490000)]
+  0x00d50c00 JavaThread "CompilerThread0" daemon [_thread_blocked, id=3304, stack(0x273f0000,0x27440000)]
+  0x00d4d800 JavaThread "Attach Listener" daemon [_thread_blocked, id=3024, stack(0x273a0000,0x273f0000)]
+  0x00d4ac00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=3268, stack(0x27350000,0x273a0000)]
+=>0x00d1ac00 JavaThread "Finalizer" daemon [_thread_in_native, id=2968, stack(0x27300000,0x27350000)]
+  0x00d19800 JavaThread "Reference Handler" daemon [_thread_blocked, id=1892, stack(0x272b0000,0x27300000)]
+  0x00e59c00 JavaThread "main" [_thread_in_native, id=1040, stack(0x00ba0000,0x00bf0000)]
+
+Other Threads:
+  0x00d16000 VMThread [stack: 0x00f90000,0x00fe0000] [id=3276]
+  0x00d67c00 WatcherThread [stack: 0x27490000,0x274e0000] [id=3616]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 17728K, used 2516K [0x03200000, 0x04530000, 0x0dca0000)
+  eden space 15808K,   4% used [0x03200000, 0x032a4ef0, 0x04170000)
+  from space 1920K,  96% used [0x04170000, 0x043402b0, 0x04350000)
+  to   space 1920K,   0% used [0x04350000, 0x04350000, 0x04530000)
+ tenured generation   total 39220K, used 23530K [0x0dca0000, 0x102ed000, 0x23200000)
+   the space 39220K,  59% used [0x0dca0000, 0x0f39a850, 0x0f39aa00, 0x102ed000)
+ compacting perm gen  total 30464K, used 30321K [0x23200000, 0x24fc0000, 0x27200000)
+   the space 30464K,  99% used [0x23200000, 0x24f9c4c0, 0x24f9c600, 0x24fc0000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00400000 - 0x00416000 	C:\Program Files\Apache Software Foundation\Tomcat 7.0\bin\tomcat7.exe
+0x77b90000 - 0x77cb8000 	C:\Windows\system32\ntdll.dll
+0x77ab0000 - 0x77b8c000 	C:\Windows\system32\kernel32.dll
+0x77570000 - 0x77636000 	C:\Windows\system32\ADVAPI32.dll
+0x77360000 - 0x77423000 	C:\Windows\system32\RPCRT4.dll
+0x76220000 - 0x76d31000 	C:\Windows\system32\SHELL32.dll
+0x77230000 - 0x772da000 	C:\Windows\system32\msvcrt.dll
+0x77730000 - 0x7777b000 	C:\Windows\system32\GDI32.dll
+0x77d20000 - 0x77dbd000 	C:\Windows\system32\USER32.dll
+0x76ed0000 - 0x76f29000 	C:\Windows\system32\SHLWAPI.dll
+0x77cf0000 - 0x77d0e000 	C:\Windows\system32\IMM32.DLL
+0x779e0000 - 0x77aa8000 	C:\Windows\system32\MSCTF.dll
+0x77d10000 - 0x77d19000 	C:\Windows\system32\LPK.DLL
+0x77780000 - 0x777fd000 	C:\Windows\system32\USP10.dll
+0x74c40000 - 0x74dde000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.6002.18305_none_5cb72f2a088b0ed3\comctl32.dll
+0x6d800000 - 0x6da97000 	C:\Program Files\Java\jre6\bin\client\jvm.dll
+0x74600000 - 0x74632000 	C:\Windows\system32\WINMM.dll
+0x77890000 - 0x779d5000 	C:\Windows\system32\ole32.dll
+0x76f30000 - 0x76fbd000 	C:\Windows\system32\OLEAUT32.dll
+0x74540000 - 0x7457e000 	C:\Windows\system32\OLEACC.dll
+0x7c340000 - 0x7c396000 	C:\Program Files\Java\jre6\bin\MSVCR71.dll
+0x76030000 - 0x7605c000 	C:\Windows\system32\apphelp.dll
+0x6d7b0000 - 0x6d7bc000 	C:\Program Files\Java\jre6\bin\verify.dll
+0x6d330000 - 0x6d34f000 	C:\Program Files\Java\jre6\bin\java.dll
+0x6d290000 - 0x6d298000 	C:\Program Files\Java\jre6\bin\hpi.dll
+0x77cc0000 - 0x77cc7000 	C:\Windows\system32\PSAPI.DLL
+0x6d7f0000 - 0x6d7ff000 	C:\Program Files\Java\jre6\bin\zip.dll
+0x6d560000 - 0x6d569000 	C:\Program Files\Java\jre6\bin\management.dll
+0x27b30000 - 0x27c07000 	C:\Program Files\Apache Software Foundation\Tomcat 7.0\bin\tcnative-1.dll
+0x77dc0000 - 0x77ded000 	C:\Windows\system32\WS2_32.dll
+0x77ce0000 - 0x77ce6000 	C:\Windows\system32\NSI.dll
+0x75830000 - 0x7586b000 	C:\Windows\system32\MSWSOCK.dll
+0x75770000 - 0x757ab000 	C:\Windows\system32\rsaenh.dll
+0x6d790000 - 0x6d798000 	C:\Program Files\Java\jre6\bin\sunmscapi.dll
+0x75af0000 - 0x75be2000 	C:\Windows\system32\CRYPT32.dll
+0x75c90000 - 0x75ca2000 	C:\Windows\system32\MSASN1.dll
+0x760e0000 - 0x760fe000 	C:\Windows\system32\USERENV.dll
+0x760c0000 - 0x760d4000 	C:\Windows\system32\Secur32.dll
+0x75500000 - 0x75505000 	C:\Windows\System32\wshtcpip.dll
+0x6d610000 - 0x6d623000 	C:\Program Files\Java\jre6\bin\net.dll
+0x75980000 - 0x75985000 	C:\Windows\System32\wship6.dll
+0x75510000 - 0x7551f000 	C:\Windows\system32\NLAapi.dll
+0x75ad0000 - 0x75ae9000 	C:\Windows\system32\IPHLPAPI.DLL
+0x75a50000 - 0x75a85000 	C:\Windows\system32\dhcpcsvc.DLL
+0x75ce0000 - 0x75d0c000 	C:\Windows\system32\DNSAPI.dll
+0x75ac0000 - 0x75ac7000 	C:\Windows\system32\WINNSI.DLL
+0x75a20000 - 0x75a42000 	C:\Windows\system32\dhcpcsvc6.DLL
+0x73d20000 - 0x73d2f000 	C:\Windows\system32\napinsp.dll
+0x73530000 - 0x73538000 	C:\Windows\System32\winrnr.dll
+0x76ff0000 - 0x77039000 	C:\Windows\system32\WLDAP32.dll
+0x734c0000 - 0x734c6000 	C:\Windows\system32\rasadhlp.dll
+0x6d000000 - 0x6d14a000 	C:\Program Files\Java\jre6\bin\awt.dll
+0x71560000 - 0x715a2000 	C:\Windows\system32\WINSPOOL.DRV
+0x746f0000 - 0x74775000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.6002.18305_none_88f3a38569c2c436\COMCTL32.dll
+0x6d230000 - 0x6d284000 	C:\Program Files\Java\jre6\bin\fontmanager.dll
+0x6b220000 - 0x6b22c000 	C:\Windows\system32\DWMAPI.DLL
+0x6d630000 - 0x6d639000 	C:\Program Files\Java\jre6\bin\nio.dll
+0x29fa0000 - 0x29ff5000 	C:\Program Files\Apache Software Foundation\Tomcat 7.0\temp\jna\jna5646980968416660752.dll
+
+VM Arguments:
+jvm_args: -Dcatalina.home=C:\Program Files\Apache Software Foundation\Tomcat 7.0 -Dcatalina.base=C:\Program Files\Apache Software Foundation\Tomcat 7.0 -Djava.endorsed.dirs=C:\Program Files\Apache Software Foundation\Tomcat 7.0\endorsed -Djava.io.tmpdir=C:\Program Files\Apache Software Foundation\Tomcat 7.0\temp -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\Tomcat 7.0\conf\logging.properties -DHUDSON_HOME=E:\.hudson  -Xmx512m 
+java_command: <unknown>
+Launcher Type: generic
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.6.0_18
+PATH=c:\cygwin\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\TortoiseSVN\bin;C:\Program Files\CruiseControl;C:\Program Files\CruiseControl\apache-ant-1.7.0\bin;C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE;C:\Program Files\NUnit 2.5.3\bin\net-2.0;C:\Program Files\MySQL\MySQL Server 5.1\bin;C:\Users\Administrator\AppData\Roaming\npm;C:\Program Files\nodejs\;C:\Windows\System32\WindowsPowerShell\v1.0\;e:\php;C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v1.0;C:\Program Files\Windows NT\Accessories;C:\Program Files\Git\bin;E:\phantomjs-1.9.2-windows;E:\bin\nssm-2.18\win32
+USERNAME=IP-0AFF9AA2$
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 23 Stepping 10, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows Server 2008 Build 6002 Service Pack 2
+
+CPU:total 2 (8 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 1780628k(763796k free), swap 1986516k(84296k free)
+
+vm_info: Java HotSpot(TM) Client VM (16.0-b13) for windows-x86 JRE (1.6.0_18-b07), built on Dec 17 2009 13:35:55 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Tue Nov 19 09:40:52 2013
+elapsed time: 52 seconds
+

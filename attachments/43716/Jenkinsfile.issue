@@ -1,0 +1,108 @@
+#!/usr/bin/env groovy
+
+properties([[$class: 'BuildDiscarderProperty',
+                strategy: [$class: 'LogRotator', numToKeepStr: '10']],
+                pipelineTriggers([cron( env.BRANCH_NAME == 'master' ? '@daily' : '' )]),
+                ])
+
+try {
+  timeout(time:1, unit:'HOURS') {
+    runPipeline()
+  }
+} catch (e) {
+  currentBuild.result = 'FAILED'
+  mail body: "project build error is here: ${env.BUILD_URL}" ,
+       from: 'jenkins@mail.com',
+       subject: 'project build failed',
+       to: 'mail@mail.com'
+  throw e
+} finally {
+}
+
+def runPipeline() {
+  pipeline {
+    node('mwd'){
+      def LAST_SUCCESSFUL_COMMIT_SHA
+
+      withEnv([
+        'JENKINS_API_TOKEN=token',
+        'JENKINS_API_USER=user',
+        'JENKINS_FOLDER=job/deployment/job/docker-images/job',
+        'GIT_DIFF_SIZE=0',
+        'REF_NAME_FOR_DIFF=master'
+      ]) {
+
+        // Checkout
+        stage('Checkout'){
+            checkout scm
+            LAST_SUCCESSFUL_COMMIT_SHA = sh(returnStdout: true, script: "bash jenkins_functions.sh last_commit").trim()
+        }
+
+        // Prepare
+        withEnv([
+          "LAST_SUCCESSFUL_COMMIT_SHA=${LAST_SUCCESSFUL_COMMIT_SHA}"
+        ]) {
+          stage('Prep'){
+              sh('bash jenkins_functions.sh smr')
+          }
+        }
+
+        // Build
+        withEnv([
+            "SMR_CommandOptions=build"
+        ]) {
+            parallel build_parallel_job_map( env.SMR_CommandOptions )
+        }
+
+        // Test
+        withEnv([
+            'SMR_CommandOptions=test'
+        ]) {
+            parallel build_parallel_job_map( env.SMR_CommandOptions )
+        }
+
+        // Push if branch is master
+        if (env.BRANCH_NAME == 'master') {
+          withEnv([
+              "SMR_CommandOptions=push"
+          ]) {
+            parallel build_parallel_job_map( env.SMR_CommandOptions )
+          }
+        }
+
+        // Clean
+        withEnv([
+         "SMR_CommandOptions=clean"
+        ]) {
+          parallel build_parallel_job_map( env.SMR_CommandOptions )
+        }
+
+      } // END outer withEnv()
+    } //END node()
+  } //END pipeline()
+} // END def runPipeline
+
+def build_parallel_job_map( String name ) {
+  def stages = [:]
+  // readFile('SMR_CHANGES').eachLine { line ->
+  // above doesn't work. some curious bug
+  def lines = readFile('SMR_CHANGES').split('\n')
+  for ( String line : lines  ) {
+    //println "Line is "+line
+    if ( line?.trim() ) {
+      clean_line = line.trim()
+      def ( target, command ) = clean_line.split('::')
+      //println "Name: ${name} // Target: ${target} // Command: ${command} EOL"
+      stages["${name}-${target}"] = {
+        node ('mwc') {
+          stage("$name parallel $target") {
+            sh("echo Running command $command")
+          }
+        }
+      }
+    }
+  }
+  return stages
+}
+
+// vim: ts=2 sw=2 expandtab ft=groovy

@@ -1,0 +1,641 @@
+Thread Dump
+
+Channel reader thread: ia64-slave
+
+"Channel reader thread: ia64-slave" Id=201 Group=main WAITING on java.lang.Object@3a315883
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.Object@3a315883
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:144)
+	at java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2248)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:2541)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2551)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1296)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:350)
+	at hudson.remoting.Command.readFrom(Command.java:90)
+	at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+	at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+
+ConnectorThread:[http-8080]
+
+"ConnectorThread:[http-8080]" Id=12 Group=main RUNNABLE (in native)
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:408)
+	-  locked java.net.SocksSocketImpl@7789dc75
+	at java.net.ServerSocket.implAccept(ServerSocket.java:462)
+	at java.net.ServerSocket.accept(ServerSocket.java:430)
+	at winstone.HttpListener.run(HttpListener.java:136)
+	at java.lang.Thread.run(Thread.java:662)
+
+DestroyJavaVM
+
+"DestroyJavaVM" Id=15 Group=main RUNNABLE
+
+Executor #0 for ia64-slave
+
+"Executor #0 for ia64-slave" Id=153 Group=main WAITING on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	at hudson.model.Queue.pop(Queue.java:875)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+
+Executor #0 for master
+
+"Executor #0 for master" Id=38 Group=main WAITING on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	at hudson.model.Queue.pop(Queue.java:875)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+
+Executor #1 for ia64-slave
+
+"Executor #1 for ia64-slave" Id=154 Group=main WAITING on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	at hudson.model.Queue.pop(Queue.java:875)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+
+Executor #1 for master
+
+"Executor #1 for master" Id=39 Group=main WAITING on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	at hudson.model.Queue.pop(Queue.java:875)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+
+Executor #2 for ia64-slave : executing test-ia64 #6
+
+"Executor #2 for ia64-slave : executing test-ia64 #6" Id=155 Group=main TIMED_WAITING on [B@13ea76f1
+	at java.lang.Object.wait(Native Method)
+	-  waiting on [B@13ea76f1
+	at hudson.remoting.FastPipedInputStream.read(FastPipedInputStream.java:173)
+	at hudson.remoting.FastPipedInputStream.read(FastPipedInputStream.java:146)
+	at hudson.util.HeadBufferingStream.read(HeadBufferingStream.java:53)
+	at java.util.zip.CheckedInputStream.read(CheckedInputStream.java:42)
+	at java.util.zip.GZIPInputStream.readUByte(GZIPInputStream.java:247)
+	at java.util.zip.GZIPInputStream.readUShort(GZIPInputStream.java:239)
+	at java.util.zip.GZIPInputStream.readHeader(GZIPInputStream.java:142)
+	at java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:58)
+	at hudson.FilePath$TarCompression$2.extract(FilePath.java:616)
+	at hudson.FilePath.copyRecursiveTo(FilePath.java:1847)
+	at hudson.tasks.ArtifactArchiver.perform(ArtifactArchiver.java:116)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:804)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.performAllBuildSteps(AbstractBuild.java:779)
+	at hudson.model.Build$BuildExecution.post2(Build.java:183)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:726)
+	at hudson.model.Run.execute(Run.java:1541)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:236)
+
+Executor #2 for master
+
+"Executor #2 for master" Id=40 Group=main WAITING on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	at hudson.model.Queue.pop(Queue.java:875)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+
+Executor #3 for master
+
+"Executor #3 for master" Id=41 Group=main WAITING on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	at hudson.model.Queue.pop(Queue.java:875)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+
+Executor #4 for master
+
+"Executor #4 for master" Id=42 Group=main WAITING on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Native Method)
+	-  waiting on hudson.model.Queue@2e0f6c25
+	at java.lang.Object.wait(Object.java:485)
+	at hudson.util.OneShotEvent.block(OneShotEvent.java:72)
+	at hudson.model.Queue.pop(Queue.java:875)
+	at hudson.model.Executor.grabJob(Executor.java:284)
+	at hudson.model.Executor.run(Executor.java:205)
+
+Handling GET /threadDump : RequestHandlerThread[#36]
+
+"Handling GET /threadDump : RequestHandlerThread[#36]" Id=188 Group=main RUNNABLE
+	at java.lang.reflect.Proxy.newProxyInstance(Proxy.java:588)
+	at hudson.remoting.RemoteInvocationHandler.wrap(RemoteInvocationHandler.java:99)
+	at hudson.remoting.Channel.export(Channel.java:536)
+	at hudson.remoting.RemoteClassLoader.export(RemoteClassLoader.java:359)
+	at hudson.remoting.UserRequest.<init>(UserRequest.java:69)
+	at hudson.remoting.Channel.callAsync(Channel.java:691)
+	at hudson.util.RemotingDiagnostics.getThreadDumpAsync(RemotingDiagnostics.java:89)
+	at jenkins.model.Jenkins.getAllThreadDumps(Jenkins.java:2797)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.commons.jexl.util.introspection.UberspectImpl$VelMethodImpl.invoke(UberspectImpl.java:258)
+	at org.apache.commons.jexl.parser.ASTMethod.execute(ASTMethod.java:104)
+	at org.apache.commons.jexl.parser.ASTReference.execute(ASTReference.java:83)
+	at org.apache.commons.jexl.parser.ASTReference.value(ASTReference.java:57)
+	at org.apache.commons.jexl.parser.ASTReferenceExpression.value(ASTReferenceExpression.java:51)
+	at org.apache.commons.jexl.ExpressionImpl.evaluate(ExpressionImpl.java:80)
+	at hudson.ExpressionFactory2$JexlExpression.evaluate(ExpressionFactory2.java:72)
+	at org.apache.commons.jelly.expression.ExpressionSupport.evaluateRecurse(ExpressionSupport.java:61)
+	at org.apache.commons.jelly.expression.ExpressionSupport.evaluateAsIterator(ExpressionSupport.java:94)
+	at org.apache.commons.jelly.tags.core.ForEachTag.doTag(ForEachTag.java:89)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.CallTagLibScript$1.run(CallTagLibScript.java:98)
+	at org.apache.commons.jelly.tags.define.InvokeBodyTag.doTag(InvokeBodyTag.java:91)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$1.run(CoreTagLibrary.java:98)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:119)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.CallTagLibScript$1.run(CallTagLibScript.java:98)
+	at org.apache.commons.jelly.tags.define.InvokeBodyTag.doTag(InvokeBodyTag.java:91)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:119)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.JellyViewScript.run(JellyViewScript.java:81)
+	at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:63)
+	at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:53)
+	at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:95)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:574)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:659)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:488)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:162)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:45)
+	at winstone.ServletConfiguration.execute(ServletConfiguration.java:248)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:333)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:376)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:95)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:87)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:47)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.UnwrapSecurityExceptionFilter.doFilter(UnwrapSecurityExceptionFilter.java:51)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:166)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.doFilter(AnonymousProcessingFilter.java:125)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.rememberme.RememberMeProcessingFilter.doFilter(RememberMeProcessingFilter.java:142)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:271)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at jenkins.security.ApiTokenFilter.doFilter(ApiTokenFilter.java:63)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:50)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:331)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:215)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:138)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@1e6d7f85
+
+Jenkins cron thread
+
+[skip]
+
+
+Ping thread for channel hudson.remoting.Channel@77287915:ia64-slave
+
+"Ping thread for channel hudson.remoting.Channel@77287915:ia64-slave" Id=203 Group=main TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at hudson.remoting.PingThread.run(PingThread.java:86)
+
+pool-3-thread-20
+
+"pool-3-thread-20" Id=210 Group=main RUNNABLE
+	at sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:433)
+	at hudson.Functions.getThreadInfos(Functions.java:889)
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:96)
+	at hudson.util.RemotingDiagnostics$GetThreadDump.call(RemotingDiagnostics.java:92)
+	at hudson.remoting.LocalChannel$1.call(LocalChannel.java:52)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@54a5733f
+
+pool-9-thread-1
+
+"pool-9-thread-1" Id=47 Group=main WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5132d7d
+	at sun.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@5132d7d
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:158)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.DelayQueue.take(DelayQueue.java:160)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:609)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:602)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:947)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:662)
+
+RequestHandlerThread[#37]
+
+"RequestHandlerThread[#37]" Id=211 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:238)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@1e2fce9c
+
+RequestHandlerThread[#38]
+
+"RequestHandlerThread[#38]" Id=212 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:238)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@6b61be00
+
+RequestHandlerThread[#39]
+
+"RequestHandlerThread[#39]" Id=213 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:238)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@77763895
+
+RequestHandlerThread[#40]
+
+"RequestHandlerThread[#40]" Id=214 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:238)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@6a33ee9b
+
+RequestHandlerThread[#41]
+
+"RequestHandlerThread[#41]" Id=215 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at java.net.SocketInputStream.read(SocketInputStream.java:182)
+	at winstone.WinstoneInputStream.read(WinstoneInputStream.java:49)
+	at javax.servlet.ServletInputStream.readLine(ServletInputStream.java:27)
+	at winstone.WinstoneInputStream.readLine(WinstoneInputStream.java:108)
+	at winstone.HttpListener.parseURI(HttpListener.java:238)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:75)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.locks.ReentrantLock$NonfairSync@5356d6db
+
+[skip]
+
+stderr copier for remote agent on ia64-slave
+
+"stderr copier for remote agent on ia64-slave" Id=200 Group=main WAITING on java.lang.Object@7daa1e4d
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.Object@7daa1e4d
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:213)
+	at com.trilead.ssh2.StreamGobbler.read(StreamGobbler.java:171)
+	at hudson.util.StreamCopyThread.run(StreamCopyThread.java:60)
+
+TCP slave agent listener port=0
+
+"TCP slave agent listener port=0" Id=35 Group=main RUNNABLE (in native)
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:408)
+	-  locked java.net.SocksSocketImpl@3d17d603
+	at java.net.ServerSocket.implAccept(ServerSocket.java:462)
+	at java.net.ServerSocket.accept(ServerSocket.java:430)
+	at hudson.TcpSlaveAgentListener.run(TcpSlaveAgentListener.java:91)
+
+Thread-16
+
+"Thread-16" Id=156 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:677)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:475)
+	at java.lang.Thread.run(Thread.java:662)
+
+Thread-22
+
+"Thread-22" Id=191 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:677)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:475)
+	at java.lang.Thread.run(Thread.java:662)
+
+Thread-23
+
+"Thread-23" Id=198 Group=main WAITING on com.trilead.ssh2.channel.Channel@2bab91af
+	at java.lang.Object.wait(Native Method)
+	-  waiting on com.trilead.ssh2.channel.Channel@2bab91af
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+Thread-24
+
+"Thread-24" Id=199 Group=main WAITING on com.trilead.ssh2.channel.Channel@2bab91af
+	at java.lang.Object.wait(Native Method)
+	-  waiting on com.trilead.ssh2.channel.Channel@2bab91af
+	at java.lang.Object.wait(Object.java:485)
+	at com.trilead.ssh2.channel.ChannelManager.getChannelData(ChannelManager.java:985)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:58)
+	at com.trilead.ssh2.channel.ChannelInputStream.read(ChannelInputStream.java:70)
+	at com.trilead.ssh2.StreamGobbler$GobblerThread.run(StreamGobbler.java:48)
+
+Thread-6
+
+"Thread-6" Id=51 Group=main RUNNABLE (in native)
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.fill_buffer(CipherInputStream.java:41)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.internal_read(CipherInputStream.java:52)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.getBlock(CipherInputStream.java:79)
+	at com.trilead.ssh2.crypto.cipher.CipherInputStream.read(CipherInputStream.java:108)
+	at com.trilead.ssh2.transport.TransportConnection.receiveMessage(TransportConnection.java:232)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:677)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:475)
+	at java.lang.Thread.run(Thread.java:662)
+
+ViewJob reload thread
+
+"ViewJob reload thread" Id=33 Group=main TIMED_WAITING on java.util.LinkedHashSet@1054c72e
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.util.LinkedHashSet@1054c72e
+	at hudson.model.ViewJob$ReloadThread.getNext(ViewJob.java:171)
+	at hudson.model.ViewJob$ReloadThread.run(ViewJob.java:188)
+
+WinstoneHostConfigurationMgmt:default
+
+"WinstoneHostConfigurationMgmt:default" Id=11 Group=main TIMED_WAITING
+	at java.lang.Thread.sleep(Native Method)
+	at winstone.HostConfiguration.run(HostConfiguration.java:174)
+	at java.lang.Thread.run(Thread.java:662)
+
+Finalizer
+
+"Finalizer" Id=3 Group=system WAITING on java.lang.ref.ReferenceQueue$Lock@6e42593b
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@6e42593b
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)
+
+Java2D Disposer
+
+"Java2D Disposer" Id=9 Group=system WAITING on java.lang.ref.ReferenceQueue$Lock@7be8c2a2
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@7be8c2a2
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at sun.java2d.Disposer.run(Disposer.java:127)
+	at java.lang.Thread.run(Thread.java:662)
+
+Reference Handler
+
+"Reference Handler" Id=2 Group=system WAITING on java.lang.ref.Reference$Lock@45f0690a
+	at java.lang.Object.wait(Native Method)
+	-  waiting on java.lang.ref.Reference$Lock@45f0690a
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+
+Signal Dispatcher
+
+"Signal Dispatcher" Id=4 Group=system RUNNABLE
+
+ia64-slave
+
+Failed to retrieve thread dump
+
+java.util.concurrent.TimeoutException
+	at hudson.remoting.Request$1.get(Request.java:275)
+	at hudson.remoting.Request$1.get(Request.java:210)
+	at hudson.remoting.FutureAdapter.get(FutureAdapter.java:59)
+	at jenkins.model.Jenkins.getAllThreadDumps(Jenkins.java:2810)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.commons.jexl.util.introspection.UberspectImpl$VelMethodImpl.invoke(UberspectImpl.java:258)
+	at org.apache.commons.jexl.parser.ASTMethod.execute(ASTMethod.java:104)
+	at org.apache.commons.jexl.parser.ASTReference.execute(ASTReference.java:83)
+	at org.apache.commons.jexl.parser.ASTReference.value(ASTReference.java:57)
+	at org.apache.commons.jexl.parser.ASTReferenceExpression.value(ASTReferenceExpression.java:51)
+	at org.apache.commons.jexl.ExpressionImpl.evaluate(ExpressionImpl.java:80)
+	at hudson.ExpressionFactory2$JexlExpression.evaluate(ExpressionFactory2.java:72)
+	at org.apache.commons.jelly.expression.ExpressionSupport.evaluateRecurse(ExpressionSupport.java:61)
+	at org.apache.commons.jelly.expression.ExpressionSupport.evaluateAsIterator(ExpressionSupport.java:94)
+	at org.apache.commons.jelly.tags.core.ForEachTag.doTag(ForEachTag.java:89)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.CallTagLibScript$1.run(CallTagLibScript.java:98)
+	at org.apache.commons.jelly.tags.define.InvokeBodyTag.doTag(InvokeBodyTag.java:91)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$1.run(CoreTagLibrary.java:98)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:119)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.CallTagLibScript$1.run(CallTagLibScript.java:98)
+	at org.apache.commons.jelly.tags.define.InvokeBodyTag.doTag(InvokeBodyTag.java:91)
+	at org.apache.commons.jelly.impl.TagScript.run(TagScript.java:269)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.kohsuke.stapler.jelly.ReallyStaticTagLibrary$1.run(ReallyStaticTagLibrary.java:99)
+	at org.apache.commons.jelly.impl.ScriptBlock.run(ScriptBlock.java:95)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.CallTagLibScript.run(CallTagLibScript.java:119)
+	at org.apache.commons.jelly.tags.core.CoreTagLibrary$2.run(CoreTagLibrary.java:105)
+	at org.kohsuke.stapler.jelly.JellyViewScript.run(JellyViewScript.java:81)
+	at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:63)
+	at org.kohsuke.stapler.jelly.DefaultScriptInvoker.invokeScript(DefaultScriptInvoker.java:53)
+	at org.kohsuke.stapler.jelly.JellyFacet$1.dispatch(JellyFacet.java:95)
+	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:574)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:659)
+	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:488)
+	at org.kohsuke.stapler.Stapler.service(Stapler.java:162)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:45)
+	at winstone.ServletConfiguration.execute(ServletConfiguration.java:248)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:333)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:376)
+	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:95)
+	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:87)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:47)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+	at hudson.security.UnwrapSecurityExceptionFilter.doFilter(UnwrapSecurityExceptionFilter.java:51)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:166)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.doFilter(AnonymousProcessingFilter.java:125)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.rememberme.RememberMeProcessingFilter.doFilter(RememberMeProcessingFilter.java:142)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:271)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(BasicProcessingFilter.java:173)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at jenkins.security.ApiTokenFilter.doFilter(ApiTokenFilter.java:63)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:66)
+	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:164)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:50)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:81)
+	at winstone.FilterConfiguration.execute(FilterConfiguration.java:194)
+	at winstone.RequestDispatcher.doFilter(RequestDispatcher.java:366)
+	at winstone.RequestDispatcher.forward(RequestDispatcher.java:331)
+	at winstone.RequestHandlerThread.processRequest(RequestHandlerThread.java:215)
+	at winstone.RequestHandlerThread.run(RequestHandlerThread.java:138)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)

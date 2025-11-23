@@ -1,0 +1,167 @@
+Index: core/src/main/java/hudson/model/Node.java
+===================================================================
+--- core/src/main/java/hudson/model/Node.java	(revision 2096)
++++ core/src/main/java/hudson/model/Node.java	(revision 2097)
+@@ -27,6 +27,7 @@
+ import hudson.FilePath;
+ import hudson.FileSystemProvisioner;
+ import hudson.Launcher;
++import hudson.model.Queue.Task;
+ import hudson.node_monitors.NodeMonitor;
+ import hudson.remoting.VirtualChannel;
+ import hudson.security.ACL;
+@@ -222,6 +223,34 @@
+     }
+ 
+     /**
++     * Called by the {@link Queue} to determine whether or not this node can
++     * take the given task. The default checks include whether or not this node
++     * is part of the task's assigned label, whether this node is in
++     * {@link Mode#EXCLUSIVE} mode if it is not in the task's assigned label,
++     * and whether or not any of this node's {@link NodeProperty}s say that the
++     * task cannot be run.
++     */
++    public boolean canTake(Task task) {
++        Label l = task.getAssignedLabel();
++        if(l!=null && !l.contains(this))
++            return false;   // the task needs to be executed on label that this node doesn't have.
++
++        if(l==null && getMode()== Mode.EXCLUSIVE)
++            return false;   // this node is reserved for tasks that are tied to it
++
++        // Check each NodeProperty to see whether they object to this node
++        // taking the task
++        for (NodeProperty prop: getNodeProperties()) {
++            if (!prop.canTake(task)) {
++                return false;
++            }
++        }
++
++        // Looks like we can take the task
++        return true;
++    }
++
++    /**
+      * Returns a "workspace" directory for the given {@link TopLevelItem}.
+      *
+      * <p>
+Index: core/src/main/java/hudson/model/Queue.java
+===================================================================
+--- core/src/main/java/hudson/model/Queue.java	(revision 2096)
++++ core/src/main/java/hudson/model/Queue.java	(revision 2097)
+@@ -180,13 +180,9 @@
+             Node node = getNode();
+             if (node==null)     return false;   // this executor is about to die
+ 
+-            Label l = task.getAssignedLabel();
+-            if(l!=null && !l.contains(node))
+-                return false;   // the task needs to be executed on label that this node doesn't have.
++            if(!node.canTake(task))
++                return false;   // this node is not able to take the task
+ 
+-            if(l==null && node.getMode()== Mode.EXCLUSIVE)
+-                return false;   // this node is reserved for tasks that are tied to it
+-
+             return isAvailable();
+         }
+ 
+Index: core/src/main/java/hudson/slaves/NodeProperty.java
+===================================================================
+--- core/src/main/java/hudson/slaves/NodeProperty.java	(revision 2096)
++++ core/src/main/java/hudson/slaves/NodeProperty.java	(revision 2097)
+@@ -33,6 +33,7 @@
+ import hudson.model.Environment;
+ import hudson.model.Hudson;
+ import hudson.model.Node;
++import hudson.model.Queue.Task;
+ 
+ import java.io.IOException;
+ import java.util.List;
+@@ -70,6 +71,16 @@
+     }
+ 
+     /**
++     * Called by the {@link Node} to help determine whether or not it should
++     * take the given task. Individual properties can return <code>false</code>
++     * here if there is some reason the given task should not be run on its
++     * associated node. By default, this method returns <code>true</code>.
++     */
++    public boolean canTake(Task task) {
++        return true;
++    }
++
++    /**
+      * Runs before the {@link SCM#checkout(AbstractBuild, Launcher, FilePath, BuildListener, File)} runs, and performs a set up.
+      * Can contribute additional properties to the environment.
+      * 
+Index: test/src/test/java/hudson/slaves/NodeCanTakeTaskTest.java
+===================================================================
+--- test/src/test/java/hudson/slaves/NodeCanTakeTaskTest.java	(revision 0)
++++ test/src/test/java/hudson/slaves/NodeCanTakeTaskTest.java	(revision 2097)
+@@ -0,0 +1,66 @@
++package hudson.slaves;
++
++import java.util.List;
++import java.util.concurrent.Future;
++import java.util.concurrent.TimeUnit;
++import java.util.concurrent.TimeoutException;
++
++import hudson.model.FreeStyleBuild;
++import hudson.model.FreeStyleProject;
++import hudson.model.Messages;
++import hudson.model.Node;
++import hudson.model.Node.Mode;
++import hudson.model.Project;
++import hudson.model.Result;
++import hudson.model.Queue.BuildableItem;
++import hudson.model.Queue.Task;
++import hudson.model.Slave;
++import hudson.model.queue.CauseOfBlockage;
++
++import junit.framework.Assert;
++
++import org.jvnet.hudson.test.HudsonTestCase;
++
++public class NodeCanTakeTaskTest extends HudsonTestCase {
++    @Override
++    protected void setUp() throws Exception {
++        super.setUp();
++
++        // Set master executor count to zero to force all jobs to slaves
++        hudson.setNumExecutors(0);
++    }
++
++    public void testTakeBlockedByProperty() throws Exception {
++        Slave slave = createSlave();
++        FreeStyleProject project = createFreeStyleProject();
++
++        // First, attempt to run our project before adding the property
++        Future<FreeStyleBuild> build = project.scheduleBuild2(0);
++        assertBuildStatus(Result.SUCCESS, build.get(10, TimeUnit.SECONDS));
++
++        // Add the build-blocker property and try again
++        slave.getNodeProperties().add(new RejectAllTasksProperty());
++
++        build = project.scheduleBuild2(0);
++        try {
++            build.get(10, TimeUnit.SECONDS);
++            fail("Expected timeout exception");
++        } catch (TimeoutException e) {
++            List<BuildableItem> buildables = hudson.getQueue().getBuildableItems();
++            Assert.assertNotNull(buildables);
++            Assert.assertEquals(1, buildables.size());
++
++            BuildableItem item = buildables.get(0);
++            Assert.assertEquals(project, item.task);
++            Assert.assertNotNull(item.getCauseOfBlockage());
++            Assert.assertEquals(Messages.Queue_WaitingForNextAvailableExecutor(), item.getCauseOfBlockage().getShortDescription());
++        }
++    }
++
++    private static class RejectAllTasksProperty extends NodeProperty<Node> {
++        @Override
++        public boolean canTake(Task task) {
++            return false;
++        }
++    }
++}

@@ -1,0 +1,84 @@
+ core/src/main/java/jenkins/model/Jenkins.java | 58 +++++++++++++++++++--------
+ 1 files changed, 42 insertions(+), 16 deletions(-)
+
+diff --git a/core/report-l10n.rb b/core/report-l10n.rb
+old mode 100755
+new mode 100644
+diff --git a/core/src/main/java/jenkins/model/Jenkins.java b/core/src/main/java/jenkins/model/Jenkins.java
+index 7fcf37c..03ced82 100644
+--- a/core/src/main/java/jenkins/model/Jenkins.java
++++ b/core/src/main/java/jenkins/model/Jenkins.java
+@@ -3876,31 +3876,57 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
+         try {
+             checkPermission(READ);
+         } catch (AccessDeniedException e) {
+-            String rest = Stapler.getCurrentRequest().getRestOfPath();
+-            for (String name : ALWAYS_READABLE_PATHS) {
+-                if (rest.startsWith(name)) {
+-                    return this;
+-                }
+-            }
+-            for (String name : getUnprotectedRootActions()) {
+-                if (rest.startsWith("/" + name + "/") || rest.equals("/" + name)) {
+-                    return this;
+-                }
+-            }
+-
+-            // TODO SlaveComputer.doSlaveAgentJnlp; there should be an annotation to request unprotected access
+-            if (rest.matches("/computer/[^/]+/slave-agent[.]jnlp")
+-                && "true".equals(Stapler.getCurrentRequest().getParameter("encrypt"))) {
++            if (isPathUnprotected()) {
+                 return this;
+             }
+ 
+-
+             throw e;
+         }
+         return this;
+     }
+ 
+     /**
++     * Test a path to see if it does not require authentication.
++     * Gets the request information from Stapler
++     * @return true if the path is unprotected
++     */
++    public boolean isPathUnprotected() {
++        String rest = Stapler.getCurrentRequest().getRestOfPath();
++        if (isPathUnprotected(rest)) {
++            return true;
++        }
++
++        // TODO SlaveComputer.doSlaveAgentJnlp; there should be an annotation to request unprotected access
++        if (rest.matches("/computer/[^/]+/slave-agent[.]jnlp")
++            && "true".equals(Stapler.getCurrentRequest().getParameter("encrypt"))) {
++            return true;
++        }
++
++        return false;
++    }
++
++    /**
++     * Test a path to see if it does not require authentication
++     * Use this version if using {@link #isPathUnprotected} with Stapler causes exceptions
++     * @param restOfPath the URI, excluding the Jenkins root URI
++     * @return true if the path is unprotected
++     */
++    public boolean isPathUnprotected(String restOfPath) {        
++        for (String name : ALWAYS_READABLE_PATHS) {
++            if (restOfPath.startsWith(name)) {
++                return true;
++            }
++        }
++        for (String name : getUnprotectedRootActions()) {
++            if (restOfPath.startsWith("/" + name + "/") || restOfPath.equals("/" + name)) {
++                return true;
++            }
++        }
++
++        return false;
++    }
++
++    /**
+      * Gets a list of unprotected root actions.
+      * These URL prefixes should be exempted from access control checks by container-managed security.
+      * Ideally would be synchronized with {@link #getTarget}.

@@ -1,0 +1,16 @@
+--- C:/temp/View.java-revBASE.svn000.tmp.java	Wed Sep 16 09:07:00 2009
++++ //fs3a/User/wss0409/misc/model/View.java	Wed Sep 16 09:06:51 2009
+@@ -220,7 +220,12 @@
+      * even for the default view.
+      */
+     public String getViewUrl() {
+-        return owner.getUrl()+"view/"+getViewName()+'/';
++        if(owner!=null) {
++          return owner.getUrl()+"view/"+getViewName()+'/';
++        } else {
++          return "";
++          //or should it be? -> return "view/"+getViewName()+'/';
++        |
+     }
+ 
+     public String getSearchUrl() {

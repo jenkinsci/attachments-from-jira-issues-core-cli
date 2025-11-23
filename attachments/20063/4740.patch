@@ -1,0 +1,228 @@
+Index: core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- core/src/main/java/hudson/model/Hudson.java	(revision 37296)
++++ core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -1942,7 +1942,11 @@
+      *      Should not be invoked for any other purpose.
+      */
+     public TopLevelItem getJob(String name) {
+-        return getItem(name);
++    	TopLevelItem item = items.get(name);
++        if (item!=null) {
++            item.checkPermission(Item.READ);
++        }
++        return item;
+     }
+ 
+     /**
+@@ -1954,7 +1958,10 @@
+         for (Entry<String, TopLevelItem> e : items.entrySet()) {
+             if(Functions.toEmailSafeString(e.getKey()).equalsIgnoreCase(match)) {
+                 TopLevelItem item = e.getValue();
+-                return item.hasPermission(Item.READ) ? item : null;
++                if (item!=null) {
++                    item.checkPermission(Item.READ);
++                }
++                return item;
+             }
+         }
+         return null;
+Index: test/src/main/java/org/jvnet/hudson/test/HudsonConfigurer.java
+===================================================================
+--- test/src/main/java/org/jvnet/hudson/test/HudsonConfigurer.java	(revision 0)
++++ test/src/main/java/org/jvnet/hudson/test/HudsonConfigurer.java	(revision 0)
+@@ -0,0 +1,72 @@
++/*
++ * The MIT License
++ *
++ * Copyright (c) 2004-2009, Sun Microsystems, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++package org.jvnet.hudson.test;
++
++import hudson.model.FreeStyleProject;
++import hudson.model.Hudson;
++import hudson.model.Project;
++import hudson.security.AuthorizationStrategy;
++import hudson.security.Permission;
++
++import java.io.IOException;
++import java.util.HashMap;
++import java.util.Map;
++import java.util.concurrent.ExecutionException;
++
++/**
++ * Fluent interface for configuring hudson (for tests).
++ *
++ * @author koppernickus
++ */
++public class HudsonConfigurer {
++
++    public static HudsonConfigurer hudson(Hudson hudson) {
++        return new HudsonConfigurer(hudson);
++    }
++
++    private final Hudson hudson;
++    private final Map<String, Project> projects = new HashMap<String, Project>();
++
++    public HudsonConfigurer(Hudson hudson) {
++        this.hudson = hudson;
++    }
++
++    public HudsonConfigurer withAuthorizationStrategy(AuthorizationStrategy strategy) {
++        hudson.setAuthorizationStrategy(strategy);
++        return this;
++    }
++
++    public HudsonConfigurer withAProject(String name) throws IOException {
++        FreeStyleProject project = hudson.createProject(FreeStyleProject.class, name);
++        projects.put(name, project);
++        return this;
++    }  
++
++    public HudsonConfigurer withABuildForProject(String projectName) throws Exception {
++        Project project = projects.get(projectName);
++        project.scheduleBuild2(0).get();
++        return this;
++    }
++
++}
+Index: test/src/main/java/org/jvnet/hudson/test/HudsonTestCase.java
+===================================================================
+--- test/src/main/java/org/jvnet/hudson/test/HudsonTestCase.java	(revision 37296)
++++ test/src/main/java/org/jvnet/hudson/test/HudsonTestCase.java	(working copy)
+@@ -343,6 +343,13 @@
+     }
+ 
+     /**
++     * Convenience method for creating fluent hudson configuration builder
++     */
++    protected HudsonConfigurer hudson() {
++        return new HudsonConfigurer(hudson);
++    }
++
++    /**
+      * Prepares a webapp hosting environment to get {@link ServletContext} implementation
+      * that we need for testing.
+      */
+Index: test/src/test/java/hudson/security/ClickLinkFromEmailWhenNotLoggedTest.java
+===================================================================
+--- test/src/test/java/hudson/security/ClickLinkFromEmailWhenNotLoggedTest.java	(revision 0)
++++ test/src/test/java/hudson/security/ClickLinkFromEmailWhenNotLoggedTest.java	(revision 0)
+@@ -0,0 +1,98 @@
++/*
++ * The MIT License
++ *
++ * Copyright (c) 2004-2009, Sun Microsystems
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++package hudson.security;
++
++import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
++import com.gargoylesoftware.htmlunit.Page;
++import hudson.model.Hudson;
++import hudson.model.Item;
++import hudson.security.GlobalMatrixAuthorizationStrategy;
++import org.jvnet.hudson.test.Bug;
++import org.jvnet.hudson.test.HudsonTestCase;
++import org.jvnet.hudson.test.recipes.PresetData;
++
++import javax.servlet.http.HttpServletResponse;
++
++import static org.jvnet.hudson.test.recipes.PresetData.DataSet;
++
++/**
++ * Tests access rights for correctness of anonymous user. This is especially important when user clicks link in email
++ * received from Hudson's notification service.
++ *
++ * @author koppernickus
++ */
++public class ClickLinkFromEmailWhenNotLoggedTest extends HudsonTestCase {
++
++    @Bug(4740)
++    @PresetData(DataSet.ANONYMOUS_READONLY)
++    public void testShouldRespondWithHttp403WhenAnonymousHasNoReadRightForJob() throws Exception {
++        // given
++        GlobalMatrixAuthorizationStrategy strategy = new GlobalMatrixAuthorizationStrategy();
++        strategy.add(Hudson.READ, "anonymous");
++        hudson().withAuthorizationStrategy(strategy)
++                .withAProject("notLogged")
++                .withABuildForProject("notLogged");
++        // when
++        try {
++            new WebClient().goTo("job/notLogged/1/changes");
++            fail("Expected HTTP 403");
++        } catch (FailingHttpStatusCodeException e) {
++            // then
++            assertEquals(HttpServletResponse.SC_FORBIDDEN, e.getStatusCode());
++        }
++    }
++
++    @PresetData(DataSet.ANONYMOUS_READONLY)
++    public void testShouldRespondOKWhenAnonymousHasReadRightForJob() throws Exception {
++        // given
++        GlobalMatrixAuthorizationStrategy strategy = new GlobalMatrixAuthorizationStrategy();
++        strategy.add(Hudson.READ, "anonymous");
++        strategy.add(Item.READ, "anonymous");
++        hudson().withAuthorizationStrategy(strategy)
++                .withAProject("notLogged")
++                .withABuildForProject("notLogged");
++        // when
++        Page page = new WebClient().goTo("job/notLogged/1/changes");
++        // then
++        assertEquals(HttpServletResponse.SC_OK, page.getWebResponse().getStatusCode());
++    }
++
++    @PresetData(DataSet.NO_ANONYMOUS_READACCESS)
++    public void testShouldRespondWithHttp403WhenAnonymousHasNoReadRightAtAll() throws Exception {
++        // given
++        GlobalMatrixAuthorizationStrategy strategy = new GlobalMatrixAuthorizationStrategy();
++        hudson().withAuthorizationStrategy(strategy)
++                .withAProject("notLogged")
++                .withABuildForProject("notLogged");
++        // when
++        try {
++            new WebClient().goTo("job/notLogged/1/changes");
++            fail("Expected HTTP 403");
++        } catch (FailingHttpStatusCodeException e) {
++            // then
++            assertEquals(HttpServletResponse.SC_FORBIDDEN, e.getStatusCode());
++        }
++    }
++
++}
+\ No newline at end of file

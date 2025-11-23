@@ -1,0 +1,298 @@
+Index: main/core/src/main/java/hudson/model/Hudson.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Hudson.java	(revision 20764)
++++ main/core/src/main/java/hudson/model/Hudson.java	(working copy)
+@@ -89,7 +89,6 @@
+ import hudson.slaves.NodeProvisioner;
+ import hudson.tasks.BuildWrapper;
+ import hudson.tasks.Builder;
+-import hudson.tasks.DynamicLabeler;
+ import hudson.tasks.LabelFinder;
+ import hudson.tasks.Mailer;
+ import hudson.tasks.Publisher;
+@@ -426,7 +425,6 @@
+      */
+     private transient final ConcurrentHashMap<String,Label> labels = new ConcurrentHashMap<String,Label>();
+     private transient volatile Set<Label> labelSet;
+-    private transient volatile Set<Label> dynamicLabels = null;
+ 
+     /**
+      * Load statistics of the entire system.
+@@ -1240,7 +1238,7 @@
+     /**
+      * Gets the label that exists on this system by the name.
+      *
+-     * @return null if no such label exists.
++     * @return null if no name is null.
+      * @see Label#parse(String)
+      */
+     public Label getLabel(String name) {
+@@ -1922,8 +1920,10 @@
+     }
+ 
+     public Set<Label> getAssignedLabels() {
+-        Set<Label> lset = labelSet; // labelSet may be set by another thread while we are in this method, so capture it.
+-        if (lset == null) {
++        // labelSet may be set by another thread while we are in this method,
++        // so capture it.
++        Set<Label> lset = labelSet;
++        if (lset == null || isChangedDynamicLabels()) {
+             Set<Label> r = Label.parse(getLabelString());
+             r.addAll(getDynamicLabels());
+             r.add(getSelfLabel());
+@@ -1938,25 +1938,12 @@
+      * @see hudson.tasks.LabelFinder
+      */
+     public Set<Label> getDynamicLabels() {
+-        if (dynamicLabels == null) {
+-            // in the worst cast, two threads end up doing the same computation twice,
+-            // but that won't break the semantics.
++        if (dynamicLabels == null || dynamicLabels.isChanged(toComputer()))
++            // in the worst cast, two threads end up doing the same computation
++            // twice, but that won't break the semantics.
+             // OTOH, not locking prevents dead-lock. See #1390
+-            Set<Label> r = new HashSet<Label>();
+-            Computer comp = getComputer("");
+-            if (comp != null) {
+-                VirtualChannel channel = comp.getChannel();
+-                if (channel != null) {
+-                    for (DynamicLabeler labeler : LabelFinder.LABELERS) {
+-                        for (String label : labeler.findLabels(channel)) {
+-                            r.add(getLabel(label));
+-                        }
+-                    }
+-                }
+-            }
+-            dynamicLabels = r;
+-        }
+-        return dynamicLabels;
++            dynamicLabels = new DynamicLabels(toComputer());
++        return dynamicLabels.labels;
+     }
+ 
+     public Label getSelfLabel() {
+Index: main/core/src/main/java/hudson/model/DynamicLabels.java
+===================================================================
+--- main/core/src/main/java/hudson/model/DynamicLabels.java	(revision 0)
++++ main/core/src/main/java/hudson/model/DynamicLabels.java	(revision 0)
+@@ -0,0 +1,83 @@
++/*
++ * The MIT License
++ *
++ * Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi, Erik Ramfelt, Koichi Fujikawa, Red Hat, Inc., Seiji Sogabe, Stephen Connolly, Tom Huybrechts, Yahoo! Inc, Robert Collins
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++
++package hudson.model;
++
++import hudson.remoting.VirtualChannel;
++import hudson.tasks.DynamicLabeler;
++import hudson.tasks.LabelFinder;
++import java.util.HashSet;
++import java.util.Set;
++
++/**
++ *
++ * @author Robert Collins <robertc@robertcollins.net>
++ */
++public class DynamicLabels {
++    /**
++     * Stores the hash of the computer object for which dynamic labels have been
++     * computed.
++     */
++    private int computerInstanceHash;
++    /**
++     * Stores the last set of dynamically calculated labels.
++     */
++    public Set<Label> labels;
++
++    /**
++     * Create dynamic labels for a computer.
++     */
++    public DynamicLabels(Computer comp) {
++        labels = new HashSet<Label>();
++        computerInstanceHash = 0;
++        if (comp != null) {
++            computerInstanceHash = comp.hashCode();
++            findLabels(comp.getChannel());
++        }
++    }
++
++
++    /**
++     * Determine if the labels cached in this DynamicLabels is up to date.
++     */
++    public boolean isChanged(Computer comp) {
++        if (null == comp)
++            /* A change has occured if this instance was created from a non-null
++             * computer
++             */
++            return computerInstanceHash != 0;
++        return computerInstanceHash != comp.hashCode();
++    }
++
++    /**
++     * Read labels from channel into this.labels.
++     */
++    private void findLabels(VirtualChannel channel) {
++        if (null == channel)
++            return;
++        for (DynamicLabeler labeler : LabelFinder.LABELERS)
++            for (String label : labeler.findLabels(channel))
++                labels.add(Hudson.getInstance().getLabel(label));
++    }
++}
+Index: main/core/src/main/java/hudson/model/Node.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Node.java	(revision 20764)
++++ main/core/src/main/java/hudson/model/Node.java	(working copy)
+@@ -65,6 +65,11 @@
+      * is saved once.
+      */
+     protected volatile transient boolean holdOffLaunchUntilSave;
++    /**
++     * labels assigned to this node dynamically by plugins or other computation
++     * rather than via user configuration.
++     */
++    protected volatile transient DynamicLabels dynamicLabels;
+ 
+     public String getDisplayName() {
+         return getNodeName(); // default implementation
+@@ -258,6 +263,18 @@
+     public abstract ClockDifference getClockDifference() throws IOException, InterruptedException;
+ 
+     /**
++     * Check if we should rebuild the list of dynamic labels.
++     * @todo make less hacky
++     * @return
++     */
++    protected boolean isChangedDynamicLabels() {
++        Computer comp = toComputer();
++        if (null == dynamicLabels)
++            return true;
++        return dynamicLabels.isChanged(comp);
++    }
++
++    /**
+      * Constants that control how Hudson allocates jobs to slaves.
+      */
+     public enum Mode {
+Index: main/core/src/main/java/hudson/model/Slave.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Slave.java	(revision 20764)
++++ main/core/src/main/java/hudson/model/Slave.java	(working copy)
+@@ -39,7 +39,6 @@
+ import hudson.slaves.NodePropertyDescriptor;
+ import hudson.slaves.RetentionStrategy;
+ import hudson.slaves.SlaveComputer;
+-import hudson.tasks.DynamicLabeler;
+ import hudson.tasks.LabelFinder;
+ import hudson.util.ClockDifference;
+ import hudson.util.DescribableList;
+@@ -54,7 +53,6 @@
+ import java.net.URLConnection;
+ import java.util.ArrayList;
+ import java.util.Collections;
+-import java.util.HashSet;
+ import java.util.List;
+ import java.util.Set;
+ 
+@@ -127,9 +125,6 @@
+      */
+     private transient volatile Set<Label> labels;
+ 
+-    private transient volatile Set<Label> dynamicLabels;
+-    private transient volatile int dynamicLabelsInstanceHash;
+-
+     @DataBoundConstructor
+     public Slave(String name, String nodeDescription, String remoteFS, String numExecutors,
+                  Mode mode, String labelString, ComputerLauncher launcher, RetentionStrategy retentionStrategy, List<? extends NodeProperty<?>> nodeProperties) throws FormException, IOException {
+@@ -236,24 +231,6 @@
+     }
+ 
+     /**
+-     * Check if we should rebuild the list of dynamic labels.
+-     * @todo make less hacky
+-     * @return
+-     */
+-    private boolean isChangedDynamicLabels() {
+-        Computer comp = getComputer();
+-        if (comp == null) {
+-            return dynamicLabelsInstanceHash != 0;
+-        } else {
+-            if (dynamicLabelsInstanceHash == comp.hashCode()) {
+-                return false;
+-            }
+-            dynamicLabels = null; // force a re-calc
+-            return true;
+-        }
+-    }
+-
+-    /**
+      * Returns the possibly empty set of labels that it has been determined as supported by this node.
+      *
+      * @todo make less hacky
+@@ -263,31 +240,14 @@
+      *      never null.
+      */
+     public Set<Label> getDynamicLabels() {
+-        // another thread may preempt and set dynamicLabels field to null,
+-        // so a care needs to be taken to avoid race conditions under all circumstances.
+-        Set<Label> labels = dynamicLabels;
+-        if (labels != null)     return labels;
+-
++        // another thread may preempt and replace dynamicLabels.
++        // so a care needs to be taken to avoid race conditions under all 
++        // circumstances.
+         synchronized (this) {
+-            labels = dynamicLabels;
+-            if (labels != null)     return labels;
+-
+-            dynamicLabels = labels = new HashSet<Label>();
+-            Computer computer = getComputer();
+-            VirtualChannel channel;
+-            if (computer != null && (channel = computer.getChannel()) != null) {
+-                dynamicLabelsInstanceHash = computer.hashCode();
+-                for (DynamicLabeler labeler : LabelFinder.LABELERS) {
+-                    for (String label : labeler.findLabels(channel)) {
+-                        labels.add(Hudson.getInstance().getLabel(label));
+-                    }
+-                }
+-            } else {
+-                dynamicLabelsInstanceHash = 0;
+-            }
+-
+-            return labels;
++            if (dynamicLabels == null || dynamicLabels.isChanged(toComputer()))
++                dynamicLabels = new DynamicLabels(toComputer());
+         }
++        return dynamicLabels.labels;
+     }
+ 
+     public ClockDifference getClockDifference() throws IOException, InterruptedException {
+@@ -381,7 +341,7 @@
+      * Gets the corresponding computer object.
+      */
+     public SlaveComputer getComputer() {
+-        return (SlaveComputer)Hudson.getInstance().getComputer(this);
++        return (SlaveComputer)toComputer();
+     }
+ 
+     public boolean equals(Object o) {

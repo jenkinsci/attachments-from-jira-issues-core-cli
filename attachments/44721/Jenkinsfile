@@ -1,0 +1,81 @@
+pipeline {
+    agent none
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+
+    stages {
+        stage("Bootstrap") {
+            agent any
+            steps {
+                sendSlackNotification 'STARTED'     
+            }
+        }
+
+        stage("Check if release"){
+            agent any
+            when {
+                expression { BRANCH_NAME ==~ /release\/[0-9]+\.[0-9]+\.[0-9]+/ }
+            }
+            steps{
+                script {
+                    def splittedBranchName = BRANCH_NAME.split('/')
+                    releaseVersion = splittedBranchName[1]
+                    println "Release version: " + releaseVersion
+                    isRelease = true
+                }
+            }
+        }
+
+        stage('Build') {
+            failFast false
+            parallel {
+
+                stage("Build Android Dev") {
+                    agent any
+                    when {
+                        expression {return !isRelease}
+                    }
+                    steps {
+                        checkoutAndLink()
+                        gradleWrapper "unity-build --compDirectives=DEVELOPMENT_BUILD"
+                    }
+                }
+
+                stage("Build Android QA") {
+                    agent any
+                    when {
+                        expression {return isRelease}
+                    }
+                    steps {
+                        checkoutAndLink()
+                        gradleWrapper "unity-build--compDirectives=QA_BUILD"
+                    }
+                }
+
+                stage("Build Android Release") {
+                    agent any
+                    when {
+                        expression {return isRelease}
+                    }
+                    steps {
+                        checkoutAndLink()
+                        gradleWrapper "unity-build--compDirectives=RELEASE_BUILD"
+                    }
+                }
+            }
+        }
+
+        stage("Check") {
+            steps {
+                sendSlackNotification 'CHECK'
+            }
+            post {
+                always {
+                    sendSlackNotification currentBuild.result, true
+                }
+            }
+        }
+    }
+}

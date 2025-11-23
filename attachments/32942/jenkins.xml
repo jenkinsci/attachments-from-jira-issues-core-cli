@@ -1,0 +1,26 @@
+<service>
+  <id>Jenkins</id>
+  <name>Jenkins</name>
+  <description>This service runs Jenkins continuous integration system.</description>
+  <env name="JENKINS_HOME" value="%BASE%\data"/>
+  <env name="JAVA_ARGS" value="-server -d64 -Xrs -Xms1024m -Xmx2048m -XX:+AlwaysPreTouch -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -Djava.awt.headless=true -Djava.io.tmpdir=%BASE%\tmp -Djava.net.preferIPv4Stack=true -Djenkins.model.Jenkins.logStartupPerformance=true -Dhudson.udp=-1 -Dhudson.DNSMultiCast.disabled=true"/>
+  <env name="JENKINS_ARGS" value="--httpListenAddress=0.0.0.0 --httpsPort=-1 --httpPort=8080 --ajp13Port=-1 --webroot=%BASE%\webroot"/>
+  <env name="JAVA_VERSION" value="1.8.0_92"/>
+  <env name="JAVA_BASE" value="%BASE%\java\jre"/>
+  <env name="JAVA_EXEC" value="%JAVA_BASE%%JAVA_VERSION%\bin\java"/>
+  <executable>%JAVA_EXEC%</executable>
+  <arguments>%JAVA_ARGS% -jar "%BASE%\jenkins.war" %JENKINS_ARGS%</arguments>
+  <workingdirectory>%BASE%</workingdirectory>
+  <logmode>rotate</logmode>
+  <depend>LanmanWorkstation</depend>
+  <priority>idle</priority>
+  <stoptimeout>10sec</stoptimeout>
+  <stopparentprocessfirst>true</stopparentprocessfirst>
+  <onfailure action="restart" delay="20 sec"/>
+  <serviceaccount>
+   <domain></domain>
+   <user>SYSTEM</user>
+   <password></password>
+   <allowservicelogon>false</allowservicelogon>
+  </serviceaccount>
+</service>

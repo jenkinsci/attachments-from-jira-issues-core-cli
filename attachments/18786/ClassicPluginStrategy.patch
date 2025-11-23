@@ -1,0 +1,52 @@
+Index: ClassicPluginStrategy.java
+===================================================================
+--- ClassicPluginStrategy.java	(revision 21279)
++++ ClassicPluginStrategy.java	(working copy)
+@@ -66,9 +66,12 @@
+     };
+ 
+     private PluginManager pluginManager;
++    private boolean forceExtraction = false;
+ 	
+ 	public ClassicPluginStrategy(PluginManager pluginManager) {
+ 		this.pluginManager = pluginManager;
++		Boolean b = Boolean.parseBoolean(System.getProperty(ClassicPluginStrategy.class.getName() + ".forceExtraction"));
++		this.forceExtraction = b.booleanValue();
+ 	}
+ 
+ 	public PluginWrapper createPluginWrapper(File archive) throws IOException {
+@@ -103,7 +106,7 @@
+ 			}
+ 		} else {
+ 			expandDir = new File(archive.getParentFile(), PluginWrapper.getBaseName(archive));
+-			explode(archive, expandDir);
++			explode(archive, expandDir, this.forceExtraction);
+ 
+ 			File manifestFile = new File(expandDir, "META-INF/MANIFEST.MF");
+ 			if (!manifestFile.exists()) {
+@@ -318,13 +321,14 @@
+     /**
+      * Explodes the plugin into a directory, if necessary.
+      */
+-    private static void explode(File archive, File destDir) throws IOException {
++    private static void explode(File archive, File destDir, boolean forceExtraction) throws IOException {
+         if(!destDir.exists())
+             destDir.mkdirs();
+ 
+         // timestamp check
+         File explodeTime = new File(destDir,".timestamp");
+-        if(explodeTime.exists() && explodeTime.lastModified()>archive.lastModified())
++        boolean skipExtraction = (explodeTime.exists() && explodeTime.lastModified()==archive.lastModified()) && !(forceExtraction); 
++        if(skipExtraction)
+             return; // no need to expand
+ 
+         LOGGER.info("Extracting "+archive);
+@@ -345,7 +349,7 @@
+             throw ioe;
+         }
+ 
+-        Util.touch(explodeTime);
++        explodeTime.setLastModified(archive.lastModified());
+     }
+ 
+ 	/**

@@ -1,0 +1,518 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@2.32">
+  <actions>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>JobType</name>
+          <description>&lt;b&gt;Build&lt;/b&gt;: Will Perform a normal snapshot build, deploy the snapshot and generate a Maven site for master branch.&lt;br&gt;&lt;b&gt;Release&lt;/b&gt;: Will Tag and Release the project &lt;b&gt;(Requires &lt;i&gt;ReleaseVersion&lt;/i&gt; and &lt;i&gt;NextDevVersion&lt;/i&gt; to be filled out)&lt;/b&gt;</description>
+          <value>Build</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>ReleaseVersion</name>
+          <description>Release Version (i.e. 2.0.0)</description>
+          <value></value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>NextDevVersion</name>
+          <description>Next Development Version (i.e. 2.1.0-SNAPSHOT)</description>
+          <value></value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>CleanBuild</name>
+          <description>Indicates wether the workspace should be cleaned-up before build.</description>
+          <value>false</value>
+        </hudson.model.BooleanParameterValue>
+      </parameters>
+      <parameterDefinitionNames>
+        <string>JobType</string>
+        <string>ReleaseVersion</string>
+        <string>NextDevVersion</string>
+        <string>CleanBuild</string>
+      </parameterDefinitionNames>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>nechegut</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <org.jenkinsci.plugins.buildtriggerbadge.BuildTriggerBadgeAction plugin="buildtriggerbadge@2.10">
+      <cause class="hudson.model.Cause$UserIdCause" reference="../../hudson.model.CauseAction/causeBag/entry/hudson.model.Cause_-UserIdCause"/>
+    </org.jenkinsci.plugins.buildtriggerbadge.BuildTriggerBadgeAction>
+    <jenkins.scm.api.SCMRevisionAction plugin="scm-api@2.4.1">
+      <sourceId>org.jenkinsci.plugins.github_branch_source.GitHubSCMNavigator::https://github.mycompany.com/api/v3::github-org::jenkins-pipeline-build-tests</sourceId>
+      <revision class="jenkins.plugins.git.AbstractGitSCMSource$SCMRevisionImpl" plugin="git@4.0.0-rc">
+        <head class="org.jenkinsci.plugins.github_branch_source.BranchSCMHead" plugin="github-branch-source@2.5.0">
+          <name>master</name>
+        </head>
+        <hash>aed72f6a40d0a5991a555d904591432f7c0ae3be</hash>
+      </revision>
+    </jenkins.scm.api.SCMRevisionAction>
+    <org.jenkinsci.plugins.workflow.libs.LibrariesAction plugin="workflow-cps-global-lib@2.13">
+      <libraries>
+        <org.jenkinsci.plugins.workflow.libs.LibraryRecord>
+          <name>standard</name>
+          <version>dev</version>
+          <variables class="sorted-set">
+            <string>grayboxTestsPipeline</string>
+            <string>standardPipeline</string>
+          </variables>
+          <trusted>true</trusted>
+          <changelog>false</changelog>
+        </org.jenkinsci.plugins.workflow.libs.LibraryRecord>
+      </libraries>
+    </org.jenkinsci.plugins.workflow.libs.LibrariesAction>
+    <hudson.plugins.git.util.BuildDetails plugin="git@4.0.0-rc">
+      <build>
+        <marked plugin="git-client@3.0.0-rc">
+          <sha1>ab971e7eee1d34a4690e27f83e44707ab874fa89</sha1>
+          <branches class="singleton-set">
+            <hudson.plugins.git.Branch>
+              <sha1 reference="../../../sha1"/>
+              <name>dev</name>
+            </hudson.plugins.git.Branch>
+          </branches>
+        </marked>
+        <revision reference="../marked"/>
+        <hudsonBuildNumber>13</hudsonBuildNumber>
+      </build>
+      <remoteUrls>
+        <string>https://github.mycompany.com/github-org/jenkins-pipeline-scripts.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildDetails>
+    <hudson.plugins.git.GitTagAction plugin="git@4.0.0-rc">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>dev</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/home/github-org/jenkins/workspace/kins-pipeline-build-tests_master@libs/standard</ws>
+    </hudson.plugins.git.GitTagAction>
+    <com.cloudbees.jenkins.plugins.bitbucket.FirstCheckoutCompletedInvisibleAction plugin="cloudbees-bitbucket-branch-source@2.4.4"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.ExecutionModelAction plugin="pipeline-model-definition@1.3.8">
+      <stagesUUID>1b8e4822-c564-4f62-bedf-7d2becfba6df</stagesUUID>
+      <stagesList>
+        <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStages plugin="pipeline-model-api@1.3.8">
+          <stages>
+            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+              <name>Validation</name>
+              <branches>
+                <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                  <name>default</name>
+                  <steps>
+                    <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                      <name>script</name>
+                      <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                        <arguments class="linked-hash-map">
+                          <entry>
+                            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <key>scriptBlock</key>
+                            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                              <value class="string">validateJob()</value>
+                            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                          </entry>
+                        </arguments>
+                      </args>
+                    </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                  </steps>
+                </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+              </branches>
+              <parallelContent/>
+            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+              <name>Build</name>
+              <when>
+                <conditions>
+                  <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTWhenExpression>
+                    <name>expression</name>
+                    <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                      <arguments class="linked-hash-map">
+                        <entry>
+                          <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                            <key>scriptBlock</key>
+                          </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                          <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                            <value class="string">JobAttributes.isBuildJob</value>
+                          </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                        </entry>
+                      </arguments>
+                    </args>
+                  </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTWhenExpression>
+                </conditions>
+              </when>
+              <branches>
+                <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                  <name>default</name>
+                  <steps>
+                    <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                      <name>script</name>
+                      <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                        <arguments class="linked-hash-map">
+                          <entry>
+                            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <key>scriptBlock</key>
+                            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                              <value class="string">withMaven(maven: JobAttributes.mavenVersion, mavenOpts: JobAttributes.mavenOpts) {
+                            performMavenBuild()
+                        }</value>
+                            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                          </entry>
+                        </arguments>
+                      </args>
+                    </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                  </steps>
+                </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+              </branches>
+              <parallelContent/>
+            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+              <name>Release</name>
+              <when>
+                <conditions>
+                  <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTWhenExpression>
+                    <name>expression</name>
+                    <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                      <arguments class="linked-hash-map">
+                        <entry>
+                          <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                            <key>scriptBlock</key>
+                          </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                          <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                            <value class="string">JobAttributes.isReleaseJob</value>
+                          </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                        </entry>
+                      </arguments>
+                    </args>
+                  </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTWhenExpression>
+                </conditions>
+              </when>
+              <branches>
+                <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                  <name>default</name>
+                  <steps>
+                    <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                      <name>script</name>
+                      <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                        <arguments class="linked-hash-map">
+                          <entry>
+                            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <key>scriptBlock</key>
+                            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                            <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                              <value class="string">withMaven(maven: JobAttributes.mavenVersion, mavenOpts: JobAttributes.mavenOpts) {
+                            performMavenRelease()
+                            performCommanderRelease()
+                        }</value>
+                            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                          </entry>
+                        </arguments>
+                      </args>
+                    </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                  </steps>
+                </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+              </branches>
+              <parallelContent/>
+            </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+          </stages>
+          <uuid>1b8e4822-c564-4f62-bedf-7d2becfba6df</uuid>
+        </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStages>
+      </stagesList>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.ExecutionModelAction>
+    <org.jenkinsci.plugins.workflow.cps.EnvActionImpl plugin="workflow-cps@2.67">
+      <env class="tree-map"/>
+    </org.jenkinsci.plugins.workflow.cps.EnvActionImpl>
+    <hudson.plugins.git.util.BuildDetails plugin="git@4.0.0-rc">
+      <build>
+        <marked plugin="git-client@3.0.0-rc">
+          <sha1>aed72f6a40d0a5991a555d904591432f7c0ae3be</sha1>
+          <branches class="singleton-set">
+            <hudson.plugins.git.Branch>
+              <sha1 reference="../../../sha1"/>
+              <name>master</name>
+            </hudson.plugins.git.Branch>
+          </branches>
+        </marked>
+        <revision reference="../marked"/>
+        <hudsonBuildNumber>13</hudsonBuildNumber>
+      </build>
+      <scmName></scmName>
+      <remoteUrls>
+        <string>https://github.mycompany.com/github-org/jenkins-pipeline-build-tests.git</string>
+      </remoteUrls>
+      <index>2</index>
+    </hudson.plugins.git.util.BuildDetails>
+    <org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState plugin="workflow-scm-step@2.7">
+      <revisionStates>
+        <entry>
+          <string>git https://github.mycompany.com/github-org/jenkins-pipeline-build-tests.git</string>
+          <hudson.scm.SCMRevisionState_-None/>
+        </entry>
+      </revisionStates>
+    </org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState>
+    <hudson.tasks.Fingerprinter_-FingerprintAction>
+      <record>
+        <entry>
+          <string>com/mycompany/myorg/jenkins-pipeline-build-tests/1.22-SNAPSHOT/jenkins-pipeline-build-tests-1.22-SNAPSHOT.pom</string>
+          <string>f125a420feee1afc7e176d368b3cfe7d</string>
+        </entry>
+        <entry>
+          <string>com/mycompany/myorg/jenkins-pipeline-build-tests/1.22-SNAPSHOT/jenkins-pipeline-build-tests-1.22-SNAPSHOT.jar</string>
+          <string>bfcf8d3a231382d6aaf3176c8ca3f3b9</string>
+        </entry>
+        <entry>
+          <string>com/mycompany/myorg/jenkins-pipeline-build-tests/1.22-SNAPSHOT/jenkins-pipeline-build-tests-1.22-SNAPSHOT-sources.jar</string>
+          <string>eec045bccd16ed369e0ff7e7f79517d7</string>
+        </entry>
+        <entry>
+          <string>com/mycompany/myorg/jenkins-pipeline-build-tests/1.22-SNAPSHOT/jenkins-pipeline-build-tests-1.22-SNAPSHOT-javadoc.jar</string>
+          <string>54c5fa05bb6b2c55bb3d0ddbbfcd1c1b</string>
+        </entry>
+      </record>
+    </hudson.tasks.Fingerprinter_-FingerprintAction>
+    <org.jenkinsci.plugins.pipeline.maven.publishers.MavenReport plugin="pipeline-maven@3.6.10"/>
+    <hudson.tasks.junit.TestResultAction plugin="junit@1.27">
+      <descriptions class="concurrent-hash-map"/>
+      <failCount>0</failCount>
+      <skipCount>0</skipCount>
+      <totalCount>17</totalCount>
+      <healthScaleFactor>1.0</healthScaleFactor>
+      <testData/>
+    </hudson.tasks.junit.TestResultAction>
+    <hudson.plugins.clover.CloverHtmlBuildAction plugin="clover@4.10.0">
+      <buildReportPath serialization="custom">
+        <hudson.FilePath>
+          <default>
+            <remote>/home/github-org/jenkins/jobs/github-org/jobs/jenkins-pipeline-build-tests/branches/master/builds/13</remote>
+          </default>
+          <boolean>true</boolean>
+        </hudson.FilePath>
+      </buildReportPath>
+    </hudson.plugins.clover.CloverHtmlBuildAction>
+    <hudson.plugins.clover.CloverBuildAction plugin="clover@4.10.0">
+      <methods>0</methods>
+      <coveredmethods>0</coveredmethods>
+      <conditionals>0</conditionals>
+      <coveredconditionals>0</coveredconditionals>
+      <statements>0</statements>
+      <coveredstatements>0</coveredstatements>
+      <elements>0</elements>
+      <coveredelements>0</coveredelements>
+      <classes>0</classes>
+      <loc>0</loc>
+      <ncloc>0</ncloc>
+      <files>0</files>
+      <packages>0</packages>
+      <buildBaseDir>/home/jenkins/jenkins/workspace/kins-pipeline-build-tests_master/</buildBaseDir>
+    </hudson.plugins.clover.CloverBuildAction>
+    <io.jenkins.plugins.analysis.core.model.ResultAction plugin="warnings-ng@4.0.0">
+      <result>
+        <id>spotbugs</id>
+        <size>3</size>
+        <newSize>0</newSize>
+        <fixedSize>0</fixedSize>
+        <sizePerOrigin>
+          <entry>
+            <string>spotbugs</string>
+            <int>3</int>
+          </entry>
+        </sizePerOrigin>
+        <sizePerSeverity>
+          <entry>
+            <edu.hm.hafner.analysis.Severity plugin="analysis-model-api@4.0.0">
+              <name>NORMAL</name>
+            </edu.hm.hafner.analysis.Severity>
+            <int>3</int>
+          </entry>
+        </sizePerSeverity>
+        <newSizePerSeverity/>
+        <errors/>
+        <referenceBuildId>github-org/jenkins-pipeline-build-tests/master#12</referenceBuildId>
+        <noIssuesSinceBuild>-1</noIssuesSinceBuild>
+        <successfulSinceBuild>-1</successfulSinceBuild>
+        <qualityGateStatus>INACTIVE</qualityGateStatus>
+      </result>
+      <healthDescriptor>
+        <healthy>0</healthy>
+        <unhealthy>0</unhealthy>
+        <minimumSeverity plugin="analysis-model-api@4.0.0">
+          <name>LOW</name>
+        </minimumSeverity>
+      </healthDescriptor>
+      <id>spotbugs</id>
+      <name></name>
+      <charset>UTF-8</charset>
+    </io.jenkins.plugins.analysis.core.model.ResultAction>
+    <io.jenkins.plugins.analysis.core.model.ResultAction plugin="warnings-ng@4.0.0">
+      <result>
+        <id>pmd</id>
+        <size>1</size>
+        <newSize>0</newSize>
+        <fixedSize>0</fixedSize>
+        <sizePerOrigin>
+          <entry>
+            <string>pmd</string>
+            <int>1</int>
+          </entry>
+        </sizePerOrigin>
+        <sizePerSeverity>
+          <entry>
+            <edu.hm.hafner.analysis.Severity plugin="analysis-model-api@4.0.0">
+              <name>NORMAL</name>
+            </edu.hm.hafner.analysis.Severity>
+            <int>1</int>
+          </entry>
+        </sizePerSeverity>
+        <newSizePerSeverity/>
+        <errors/>
+        <referenceBuildId>github-org/jenkins-pipeline-build-tests/master#12</referenceBuildId>
+        <noIssuesSinceBuild>-1</noIssuesSinceBuild>
+        <successfulSinceBuild>-1</successfulSinceBuild>
+        <qualityGateStatus>INACTIVE</qualityGateStatus>
+      </result>
+      <healthDescriptor>
+        <healthy>0</healthy>
+        <unhealthy>0</unhealthy>
+        <minimumSeverity reference="../../../io.jenkins.plugins.analysis.core.model.ResultAction/healthDescriptor/minimumSeverity"/>
+      </healthDescriptor>
+      <id>pmd</id>
+      <name></name>
+      <charset>UTF-8</charset>
+    </io.jenkins.plugins.analysis.core.model.ResultAction>
+    <io.jenkins.plugins.analysis.core.model.AggregationAction plugin="warnings-ng@4.0.0"/>
+    <htmlpublisher.HtmlPublisherTarget_-HTMLPublishedForProjectMarkerAction plugin="htmlpublisher@1.18">
+      <actualHtmlPublisherTarget>
+        <reportName>Maven Site</reportName>
+        <reportDir>target/site</reportDir>
+        <reportFiles>index.html</reportFiles>
+        <alwaysLinkToLastBuild>false</alwaysLinkToLastBuild>
+        <keepAll>false</keepAll>
+        <allowMissing>false</allowMissing>
+      </actualHtmlPublisherTarget>
+    </htmlpublisher.HtmlPublisherTarget_-HTMLPublishedForProjectMarkerAction>
+  </actions>
+  <queueId>28335</queueId>
+  <timestamp>1556634088576</timestamp>
+  <startTime>1556634088586</startTime>
+  <result>SUCCESS</result>
+  <duration>84649</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>SUCCESS</result>
+    <script>@Library(&apos;standard@dev&apos;) _
+standardPipeline {
+    relase_dryrun = true
+}
+</script>
+    <loadedScripts class="map"/>
+    <durabilityHint>MAX_SURVIVABILITY</durabilityHint>
+    <timings class="map">
+      <entry>
+        <string>flowNode</string>
+        <long>1481377380</long>
+      </entry>
+      <entry>
+        <string>classLoad</string>
+        <long>555324653</long>
+      </entry>
+      <entry>
+        <string>run</string>
+        <long>6174219954</long>
+      </entry>
+      <entry>
+        <string>parse</string>
+        <long>1284951990</long>
+      </entry>
+      <entry>
+        <string>saveProgram</string>
+        <long>1316612346</long>
+      </entry>
+    </timings>
+    <sandbox>true</sandbox>
+    <iota>99</iota>
+    <head>1:99</head>
+    <done>true</done>
+    <resumeBlocked>false</resumeBlocked>
+  </execution>
+  <completed>true</completed>
+  <checkouts class="hudson.util.PersistedList">
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@4.0.0-rc">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name>origin</name>
+            <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+            <url>https://github.mycompany.com/github-org/jenkins-pipeline-scripts.git</url>
+            <credentialsId>275c2760-e65a-41a0-a994-42393055304a</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches class="singleton-list">
+          <hudson.plugins.git.BranchSpec>
+            <name>dev</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="empty-list"/>
+        <extensions>
+          <jenkins.plugins.git.GitSCMSourceDefaults>
+            <includeTags>false</includeTags>
+          </jenkins.plugins.git.GitSCMSourceDefaults>
+          <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+            <buildChooser class="jenkins.plugins.git.AbstractGitSCMSource$SpecificRevisionBuildChooser">
+              <revision reference="../../../../../../../actions/hudson.plugins.git.util.BuildDetails/build/marked"/>
+            </buildChooser>
+          </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+        </extensions>
+      </scm>
+      <node></node>
+      <workspace>/home/github-org/jenkins/workspace/kins-pipeline-build-tests_master@libs/standard</workspace>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@4.0.0-rc">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name>origin</name>
+            <refspec>+refs/heads/master:refs/remotes/origin/master</refspec>
+            <url>https://github.mycompany.com/github-org/jenkins-pipeline-build-tests.git</url>
+            <credentialsId>275c2760-e65a-41a0-a994-42393055304a</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches class="singleton-list">
+          <hudson.plugins.git.BranchSpec>
+            <name>master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <browser class="hudson.plugins.git.browser.GithubWeb">
+          <url>https://github.mycompany.com/github-org/jenkins-pipeline-build-tests</url>
+        </browser>
+        <submoduleCfg class="empty-list"/>
+        <extensions>
+          <jenkins.plugins.git.GitSCMSourceDefaults>
+            <includeTags>false</includeTags>
+          </jenkins.plugins.git.GitSCMSourceDefaults>
+          <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+            <buildChooser class="jenkins.plugins.git.AbstractGitSCMSource$SpecificRevisionBuildChooser">
+              <revision reference="../../../../../../../actions/hudson.plugins.git.util.BuildDetails[2]/build/marked"/>
+            </buildChooser>
+          </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+        </extensions>
+      </scm>
+      <node>facjenkinsl306</node>
+      <workspace>/home/jenkins/jenkins/workspace/kins-pipeline-build-tests_master</workspace>
+      <changelogFile>/home/github-org/jenkins/jobs/github-org/jobs/jenkins-pipeline-build-tests/branches/master/builds/13/changelog0.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../../actions/org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState/revisionStates/entry/hudson.scm.SCMRevisionState_-None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+  </checkouts>
+</flow-build>

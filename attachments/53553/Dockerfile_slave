@@ -1,0 +1,28 @@
+FROM debian:sid
+
+RUN true \
+    && apt-get update \
+    && apt-get -y install podman default-jre iptables curl git
+
+RUN true \
+    && touch /etc/containers/nodocker \
+    && chmod 4755 /usr/bin/podman \
+    && ln -f /usr/bin/podman /usr/bin/docker \
+    && echo "[registries.search]\nregistries = ['docker.io']\n" > /etc/containers/registries.conf \
+    && echo "[storage]\ndriver=\"vfs\"\n" > /etc/containers/storage.conf \
+    && echo "[engine]\ncgroup_manager=\"cgroupfs\"\n" > /etc/containers/containers.conf
+
+ENV JENKINS_SWARM_CLIENT_VERSION 3.24
+RUN curl --create-dirs -sSLo "/usr/share/jenkins/swarm-client-jar-with-dependencies.jar" \
+    https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/$JENKINS_SWARM_CLIENT_VERSION/swarm-client-${JENKINS_SWARM_CLIENT_VERSION}.jar
+
+RUN useradd -d /home/jenkins -m jenkins
+RUN true \
+    && mkdir -p /home/jenkins \
+    && chmod -R a+rX /usr/share/jenkins /home/jenkins \
+    && chown -R jenkins /home/jenkins
+USER jenkins
+WORKDIR /home/jenkins
+
+
+ENTRYPOINT ["/usr/bin/java", "-Dfile.encoding=UTF8", "-jar", "/usr/share/jenkins/swarm-client-jar-with-dependencies.jar"]

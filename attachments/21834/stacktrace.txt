@@ -1,0 +1,63 @@
+FATAL: Unable to delete script file C:\Users\qa\AppData\Local\Temp\hudson7895670317029461879.bat
+hudson.util.IOException2: remote file operation failed: C:\Users\qa\AppData\Local\Temp\hudson7895670317029461879.bat at hudson.remoting.Channel@22600136:JENKINS_36
+  at hudson.FilePath.act(FilePath.java:828)
+  at hudson.FilePath.act(FilePath.java:814)
+  at hudson.FilePath.delete(FilePath.java:1119)
+  at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:92)
+  at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+  at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+  at hudson.model.AbstractBuild$AbstractRunner.perform(AbstractBuild.java:710)
+  at hudson.model.Build$RunnerImpl.build(Build.java:178)
+  at hudson.model.Build$RunnerImpl.doRun(Build.java:139)
+  at hudson.model.AbstractBuild$AbstractRunner.run(AbstractBuild.java:480)
+  at hudson.model.Run.run(Run.java:1434)
+  at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+  at hudson.model.ResourceController.execute(ResourceController.java:88)
+  at hudson.model.Executor.run(Executor.java:239)
+Caused by: hudson.remoting.ChannelClosedException: channel is already closed
+  at hudson.remoting.Channel.send(Channel.java:475)
+  at hudson.remoting.Request.call(Request.java:110)
+  at hudson.remoting.Channel.call(Channel.java:646)
+  at hudson.FilePath.act(FilePath.java:821)
+  ... 13 more
+Caused by: java.io.IOException: Unexpected termination of the channel
+  at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+  at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2553)
+  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1296)
+  at java.io.ObjectInputStream.readObject(ObjectInputStream.java:350)
+  at hudson.remoting.Command.readFrom(Command.java:90)
+  at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+  at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)
+FATAL: hudson.remoting.RequestAbortedException: java.io.IOException: Unexpected termination of the channel
+hudson.remoting.RequestAbortedException: hudson.remoting.RequestAbortedException: java.io.IOException: Unexpected termination of the channel
+  at hudson.remoting.Request.call(Request.java:149)
+  at hudson.remoting.Channel.call(Channel.java:646)
+  at hudson.remoting.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:158)
+  at $Proxy60.join(Unknown Source)
+  at hudson.Launcher$RemoteLauncher$ProcImpl.join(Launcher.java:861)
+  at hudson.Launcher$ProcStarter.join(Launcher.java:345)
+  at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:82)
+  at hudson.tasks.CommandInterpreter.perform(CommandInterpreter.java:58)
+  at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:19)
+  at hudson.model.AbstractBuild$AbstractRunner.perform(AbstractBuild.java:710)
+  at hudson.model.Build$RunnerImpl.build(Build.java:178)
+  at hudson.model.Build$RunnerImpl.doRun(Build.java:139)
+  at hudson.model.AbstractBuild$AbstractRunner.run(AbstractBuild.java:480)
+  at hudson.model.Run.run(Run.java:1434)
+  at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:46)
+  at hudson.model.ResourceController.execute(ResourceController.java:88)
+  at hudson.model.Executor.run(Executor.java:239)
+Caused by: hudson.remoting.RequestAbortedException: java.io.IOException: Unexpected termination of the channel
+  at hudson.remoting.Request.abort(Request.java:273)
+  at hudson.remoting.Channel.terminate(Channel.java:702)
+  at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:69)
+Caused by: java.io.IOException: Unexpected termination of the channel
+  at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:50)
+Caused by: java.io.EOFException
+  at java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:2553)
+  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1296)
+  at java.io.ObjectInputStream.readObject(ObjectInputStream.java:350)
+  at hudson.remoting.Command.readFrom(Command.java:90)
+  at hudson.remoting.ClassicCommandTransport.read(ClassicCommandTransport.java:59)
+  at hudson.remoting.SynchronousCommandTransport$ReaderThread.run(SynchronousCommandTransport.java:48)

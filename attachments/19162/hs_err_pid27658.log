@@ -1,0 +1,536 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xce112634, pid=27658, tid=206
+#
+# JRE version: 6.0_18-b07
+# Java VM: Java HotSpot(TM) Client VM (16.0-b13 mixed mode solaris-sparc )
+# Problematic frame:
+# C  [libpam.so.1+0x2634]  pam_get_user+0x2f4
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x01386c00):  JavaThread "httpSSLWorkerThread-8080-4" daemon [_thread_in_native, id=206, stack(0xc4b80000,0xc4c00000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x00000000
+
+Registers:
+ O0=0x00000000 O1=0x00000000 O2=0x00000001 O3=0x00000000
+ O4=0x00000000 O5=0x017c6ad0 O6=0xc4bf9658 O7=0xce112620
+ G1=0x00000001 G2=0xff1e0000 G3=0x00000d80 G4=0x00000001
+ G5=0x00001ffc G6=0x00000000 G7=0xce355200 Y=0x00000000
+ PC=0xce112634 nPC=0xce1124b8
+
+
+Top of Stack: (sp=0xc4bf9658)
+0xc4bf9658:   c4bf96c0 00000002 00000001 00000000
+0xc4bf9668:   ce120768 00000000 ce128000 c4bfd6c0
+0xc4bf9678:   01781980 c4bfd738 ce115670 00000000
+0xc4bf9688:   00000000 017cac28 c4bfd6c8 ce040bf8
+0xc4bf9698:   00000000 00000144 7fffffff 01781980
+0xc4bf96a8:   ce128000 ce1289d8 ce128000 01783980
+0xc4bf96b8:   01783980 015376f8 506c6561 73652065
+0xc4bf96c8:   6e746572 20757365 72206e61 6d653a20 
+
+Instructions: (pc=0xce112634)
+0xce112624:   98 10 00 13 d2 07 bf f8 b8 90 00 08 22 bf ff a2
+0xce112634:   d0 02 60 00 81 c7 e0 08 91 e8 00 1c 9d e3 bf a0 
+
+Stack: [0xc4b80000,0xc4c00000],  sp=0xc4bf9658,  free space=1e5ce112634k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libpam.so.1+0x2634]  pam_get_user+0x2f4
+C  [pam_authtok_get.so.1+0xc00]  pam_sm_authenticate+0x88
+C  [libpam.so.1+0x2d6c]
+C  [libpam.so.1+0x3010]  pam_authenticate+0x38
+C  [libjnidispatch.so+0x13860]  ffi_call_v8+0x38
+C  [libjnidispatch.so+0x134b0]  ffi_call+0x94
+C  [libjnidispatch.so+0x8d3c]
+C  [libjnidispatch.so+0x9894]  Java_com_sun_jna_Function_invokeInt+0x34
+j  com.sun.jna.Function.invokeInt(I[Ljava/lang/Object;)I+199319632
+j  com.sun.jna.Function.invokeInt(I[Ljava/lang/Object;)I+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;Z)Ljava/lang/Object;+315
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+214
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+341
+j  $Proxy38.pam_authenticate(Lorg/jvnet/libpam/impl/PAMLibrary$pam_handle_t;I)I+23
+j  org.jvnet.libpam.PAM.authenticate(Ljava/lang/String;Ljava/lang/String;)Lorg/jvnet/libpam/UnixUser;+34
+j  hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+33
+j  org.acegisecurity.providers.ProviderManager.doAuthentication(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+89
+j  org.acegisecurity.AbstractAuthenticationManager.authenticate(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+2
+j  org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(Ljavax/servlet/http/HttpServletRequest;)Lorg/acegisecurity/Authentication;+64
+j  org.acegisecurity.ui.AbstractProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+91
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+429
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+259
+j  hudson.security.HttpSessionContextIntegrationFilter2.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+99
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  hudson.security.ChainedServletFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+25
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  hudson.security.ChainedServletFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+25
+j  hudson.security.HudsonFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+41
+j  org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+120
+j  org.apache.catalina.core.ApplicationFilterChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+101
+j  org.apache.catalina.core.StandardWrapperValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+605
+j  org.apache.catalina.core.StandardContextValve.invokeInternal(Lorg/apache/catalina/Wrapper;Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+248
+j  org.apache.catalina.core.StandardContextValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+261
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;Z)V+141
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+4
+j  com.sun.enterprise.web.WebPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+87
+j  com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+20
+j  org.apache.catalina.core.StandardHostValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+98
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;Z)V+141
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+4
+j  org.apache.catalina.core.StandardPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+3
+j  org.apache.catalina.core.ContainerBase.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+6
+j  org.apache.catalina.core.StandardEngineValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+58
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;Z)V+141
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+4
+j  org.apache.catalina.core.StandardPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+3
+j  org.apache.catalina.core.ContainerBase.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+6
+j  org.apache.coyote.tomcat5.CoyoteAdapter.service(Lorg/apache/coyote/Request;Lorg/apache/coyote/Response;)V+307
+j  com.sun.enterprise.web.connector.grizzly.DefaultProcessorTask.invokeAdapter()V+19
+j  com.sun.enterprise.web.connector.grizzly.DefaultProcessorTask.doProcess(Ljava/io/InputStream;Ljava/io/OutputStream;)Z+15
+j  com.sun.enterprise.web.connector.grizzly.DefaultProcessorTask.process(Ljava/io/InputStream;Ljava/io/OutputStream;)Z+9
+j  com.sun.enterprise.web.connector.grizzly.DefaultReadTask.executeProcessorTask()Z+86
+j  com.sun.enterprise.web.connector.grizzly.DefaultReadTask.doTask(Ljava/nio/ByteBuffer;)V+168
+j  com.sun.enterprise.web.connector.grizzly.DefaultReadTask.doTask()V+76
+j  com.sun.enterprise.web.portunif.PortUnificationPipeline$PUTask.doTask()V+760
+j  com.sun.enterprise.web.connector.grizzly.TaskBase.run()V+1
+j  com.sun.enterprise.web.connector.grizzly.ssl.SSLWorkerThread.run()V+39
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0xece70]
+V  [libjvm.so+0x340db0]
+V  [libjvm.so+0xfe7fc]
+V  [libjvm.so+0xfe770]
+V  [libjvm.so+0x5397a8]
+V  [libjvm.so+0x4964f0]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.jna.Function.invokeInt(I[Ljava/lang/Object;)I+0
+j  com.sun.jna.Function.invoke([Ljava/lang/Object;Ljava/lang/Class;Z)Ljava/lang/Object;+315
+j  com.sun.jna.Function.invoke(Ljava/lang/Class;[Ljava/lang/Object;Ljava/util/Map;)Ljava/lang/Object;+214
+j  com.sun.jna.Library$Handler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+341
+j  $Proxy38.pam_authenticate(Lorg/jvnet/libpam/impl/PAMLibrary$pam_handle_t;I)I+23
+j  org.jvnet.libpam.PAM.authenticate(Ljava/lang/String;Ljava/lang/String;)Lorg/jvnet/libpam/UnixUser;+34
+j  hudson.security.PAMSecurityRealm$PAMAuthenticationProvider.authenticate(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+33
+j  org.acegisecurity.providers.ProviderManager.doAuthentication(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+89
+j  org.acegisecurity.AbstractAuthenticationManager.authenticate(Lorg/acegisecurity/Authentication;)Lorg/acegisecurity/Authentication;+2
+j  org.acegisecurity.ui.webapp.AuthenticationProcessingFilter.attemptAuthentication(Ljavax/servlet/http/HttpServletRequest;)Lorg/acegisecurity/Authentication;+64
+j  org.acegisecurity.ui.AbstractProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+91
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.ui.basicauth.BasicProcessingFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+429
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+259
+j  hudson.security.HttpSessionContextIntegrationFilter2.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+99
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  hudson.security.ChainedServletFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+25
+j  hudson.security.ChainedServletFilter$1.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+45
+j  hudson.security.ChainedServletFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+25
+j  hudson.security.HudsonFilter.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljavax/servlet/FilterChain;)V+41
+j  org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+120
+j  org.apache.catalina.core.ApplicationFilterChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+101
+j  org.apache.catalina.core.StandardWrapperValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+605
+j  org.apache.catalina.core.StandardContextValve.invokeInternal(Lorg/apache/catalina/Wrapper;Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+248
+j  org.apache.catalina.core.StandardContextValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+261
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;Z)V+141
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+4
+j  com.sun.enterprise.web.WebPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+87
+j  com.sun.enterprise.web.PESessionLockingStandardPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+20
+j  org.apache.catalina.core.StandardHostValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+98
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;Z)V+141
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+4
+j  org.apache.catalina.core.StandardPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+3
+j  org.apache.catalina.core.ContainerBase.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+6
+j  org.apache.catalina.core.StandardEngineValve.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)I+58
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;Z)V+141
+j  org.apache.catalina.core.StandardPipeline.doInvoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+4
+j  org.apache.catalina.core.StandardPipeline.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+3
+j  org.apache.catalina.core.ContainerBase.invoke(Lorg/apache/catalina/Request;Lorg/apache/catalina/Response;)V+6
+j  org.apache.coyote.tomcat5.CoyoteAdapter.service(Lorg/apache/coyote/Request;Lorg/apache/coyote/Response;)V+307
+j  com.sun.enterprise.web.connector.grizzly.DefaultProcessorTask.invokeAdapter()V+19
+j  com.sun.enterprise.web.connector.grizzly.DefaultProcessorTask.doProcess(Ljava/io/InputStream;Ljava/io/OutputStream;)Z+15
+j  com.sun.enterprise.web.connector.grizzly.DefaultProcessorTask.process(Ljava/io/InputStream;Ljava/io/OutputStream;)Z+9
+j  com.sun.enterprise.web.connector.grizzly.DefaultReadTask.executeProcessorTask()Z+86
+j  com.sun.enterprise.web.connector.grizzly.DefaultReadTask.doTask(Ljava/nio/ByteBuffer;)V+168
+j  com.sun.enterprise.web.connector.grizzly.DefaultReadTask.doTask()V+76
+j  com.sun.enterprise.web.portunif.PortUnificationPipeline$PUTask.doTask()V+760
+j  com.sun.enterprise.web.connector.grizzly.TaskBase.run()V+1
+j  com.sun.enterprise.web.connector.grizzly.ssl.SSLWorkerThread.run()V+39
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x01982c00 JavaThread "Channel reader thread: asqe-win2008-1.sfbay.sun.com (Windows 2008)" daemon [_thread_blocked, id=469, stack(0xc0580000,0xc0600000)]
+  0x00dd9400 JavaThread "pool-7-thread-33" daemon [_thread_blocked, id=468, stack(0xc1980000,0xc1a00000)]
+  0x01982000 JavaThread "Timer-28" [_thread_blocked, id=467, stack(0xc0680000,0xc0700000)]
+  0x0197a800 JavaThread "stderr copier for remote agent on asqe-win2008-2.sfbay.sun.com (Windows 2008)" daemon [_thread_blocked, id=466, stack(0xc0780000,0xc0800000)]
+  0x01978c00 JavaThread "stderr copier for remote agent on asqe-win2008-1.sfbay.sun.com (Windows 2008)" daemon [_thread_blocked, id=465, stack(0xc0880000,0xc0900000)]
+  0x01977400 JavaThread "Thread-111" daemon [_thread_blocked, id=464, stack(0xc0980000,0xc0a00000)]
+  0x01975c00 JavaThread "Thread-110" daemon [_thread_blocked, id=463, stack(0xc0a80000,0xc0b00000)]
+  0x01974400 JavaThread "Thread-109" daemon [_thread_blocked, id=462, stack(0xc0b80000,0xc0c00000)]
+  0x01963000 JavaThread "Thread-108" daemon [_thread_blocked, id=461, stack(0xc0c80000,0xc0d00000)]
+  0x01959800 JavaThread "Channel reader thread: asqe-xeon-4.sfbay.sun.com (Windows XP)" daemon [_thread_blocked, id=460, stack(0xc0d80000,0xc0e00000)]
+  0x0193f800 JavaThread "Channel reader thread: asqe-sb-8.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=459, stack(0xc0e80000,0xc0f00000)]
+  0x0193cc00 JavaThread "Channel reader thread: asqe-sb-7.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=458, stack(0xc0f80000,0xc1000000)]
+  0x01936800 JavaThread "Channel reader thread: jws-cust-280-3.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=457, stack(0xcca80000,0xccb00000)]
+  0x01814c00 JavaThread "stderr copier for remote agent on asqe-sb-8.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=456, stack(0xc1080000,0xc1100000)]
+  0x01813800 JavaThread "Thread-107" daemon [_thread_blocked, id=455, stack(0xc1180000,0xc1200000)]
+  0x004c3000 JavaThread "Thread-106" daemon [_thread_blocked, id=454, stack(0xcd580000,0xcd600000)]
+  0x01812400 JavaThread "Channel reader thread: asqe-xeon-1.sfbay.sun.com (Solaris x86)" daemon [_thread_blocked, id=453, stack(0xc1280000,0xc1300000)]
+  0x01810400 JavaThread "stderr copier for remote agent on asqe-sb-7.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=452, stack(0xc1380000,0xc1400000)]
+  0x00ddf800 JavaThread "Thread-105" daemon [_thread_blocked, id=451, stack(0xc1580000,0xc1600000)]
+  0x00ddd800 JavaThread "Thread-104" daemon [_thread_blocked, id=450, stack(0xc1680000,0xc1700000)]
+  0x00ddbc00 JavaThread "stderr copier for remote agent on jws-cust-280-3.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=449, stack(0xc1780000,0xc1800000)]
+  0x00ddac00 JavaThread "Thread-103" daemon [_thread_blocked, id=448, stack(0xc1880000,0xc1900000)]
+  0x00dda400 JavaThread "Thread-102" daemon [_thread_blocked, id=447, stack(0xc4280000,0xc4300000)]
+  0x00b97000 JavaThread "stderr copier for remote agent on asqe-xeon-1.sfbay.sun.com (Solaris x86)" daemon [_thread_blocked, id=445, stack(0xc1a80000,0xc1b00000)]
+  0x00b95800 JavaThread "Thread-100" daemon [_thread_blocked, id=444, stack(0xc1b80000,0xc1c00000)]
+  0x00b94400 JavaThread "Thread-99" daemon [_thread_blocked, id=443, stack(0xc1c80000,0xc1d00000)]
+  0x01866c00 JavaThread "Channel reader thread: aixas13.sfbay.sun.com (AIX)" daemon [_thread_blocked, id=442, stack(0xc1d80000,0xc1e00000)]
+  0x01867800 JavaThread "Channel reader thread: aixas14.sfbay.sun.com (AIX)" daemon [_thread_blocked, id=441, stack(0xce680000,0xce700000)]
+  0x01845000 JavaThread "stderr copier for remote agent on aixas13.sfbay.sun.com (AIX)" daemon [_thread_blocked, id=440, stack(0xc1e80000,0xc1f00000)]
+  0x01843800 JavaThread "Thread-98" daemon [_thread_blocked, id=439, stack(0xc1f80000,0xc2000000)]
+  0x01842400 JavaThread "Thread-97" daemon [_thread_blocked, id=438, stack(0xc2080000,0xc2100000)]
+  0x01840c00 JavaThread "pool-7-thread-32" daemon [_thread_blocked, id=437, stack(0xc2180000,0xc2200000)]
+  0x0183f400 JavaThread "pool-7-thread-31" daemon [_thread_in_native, id=436, stack(0xc2280000,0xc2300000)]
+  0x0183e800 JavaThread "pool-7-thread-30" daemon [_thread_blocked, id=435, stack(0xc2380000,0xc2400000)]
+  0x0183bc00 JavaThread "pool-7-thread-29" daemon [_thread_blocked, id=434, stack(0xc2480000,0xc2500000)]
+  0x0183a400 JavaThread "pool-7-thread-28" daemon [_thread_blocked, id=433, stack(0xc2580000,0xc2600000)]
+  0x01839c00 JavaThread "pool-7-thread-27" daemon [_thread_in_Java, id=432, stack(0xcf080000,0xcf100000)]
+  0x01837c00 JavaThread "Channel reader thread: eve-suse10-1.sfbay.sun.com (SUSE Linux 10)" daemon [_thread_blocked, id=431, stack(0xcf180000,0xcf200000)]
+  0x005a5400 JavaThread "Channel reader thread: apg-sqe1.sfbay.sun.com (Linux)" daemon [_thread_blocked, id=430, stack(0xcef80000,0xcf000000)]
+  0x005cb400 JavaThread "Channel reader thread: apg-sqe2.sfbay.sun.com (Linux)" daemon [_thread_blocked, id=429, stack(0xced80000,0xcee00000)]
+  0x01825800 JavaThread "pool-7-thread-26" daemon [_thread_blocked, id=428, stack(0xc2680000,0xc2700000)]
+  0x0187f400 JavaThread "pool-7-thread-25" daemon [_thread_blocked, id=427, stack(0xc3c80000,0xc3d00000)]
+  0x0187d000 JavaThread "Channel reader thread: eve-suse11-1.sfbay.sun.com (SUSE Linux 11)" daemon [_thread_blocked, id=426, stack(0xc3b80000,0xc3c00000)]
+  0x01823c00 JavaThread "Channel reader thread: asqe-xserver-2.sfbay.sun.com (MacOS)" daemon [_thread_blocked, id=425, stack(0xc2780000,0xc2800000)]
+  0x01822800 JavaThread "Channel reader thread: asqe-xserver-1.sfbay.sun.com (MacOS)" daemon [_thread_blocked, id=424, stack(0xc2880000,0xc2900000)]
+  0x01820c00 JavaThread "stderr copier for remote agent on apg-sqe1.sfbay.sun.com (Linux)" daemon [_thread_blocked, id=423, stack(0xc2980000,0xc2a00000)]
+  0x0181f400 JavaThread "Thread-96" daemon [_thread_blocked, id=422, stack(0xc2a80000,0xc2b00000)]
+  0x0181e000 JavaThread "Thread-95" daemon [_thread_blocked, id=421, stack(0xc2b80000,0xc2c00000)]
+  0x0181c400 JavaThread "stderr copier for remote agent on apg-sqe2.sfbay.sun.com (Linux)" daemon [_thread_blocked, id=420, stack(0xc2c80000,0xc2d00000)]
+  0x0181b000 JavaThread "Thread-94" daemon [_thread_blocked, id=419, stack(0xc2d80000,0xc2e00000)]
+  0x01876000 JavaThread "Thread-93" daemon [_thread_blocked, id=418, stack(0xc2e80000,0xc2f00000)]
+  0x01874800 JavaThread "stderr copier for remote agent on aixas14.sfbay.sun.com (AIX)" daemon [_thread_blocked, id=417, stack(0xc2f80000,0xc3000000)]
+  0x01873000 JavaThread "Thread-92" daemon [_thread_blocked, id=416, stack(0xc3080000,0xc3100000)]
+  0x01871800 JavaThread "Thread-91" daemon [_thread_blocked, id=415, stack(0xc3180000,0xc3200000)]
+  0x01870800 JavaThread "stderr copier for remote agent on eve-suse10-1.sfbay.sun.com (SUSE Linux 10)" daemon [_thread_blocked, id=414, stack(0xc3280000,0xc3300000)]
+  0x01870400 JavaThread "Thread-90" daemon [_thread_blocked, id=413, stack(0xc4d80000,0xc4e00000)]
+  0x0186fc00 JavaThread "Thread-89" daemon [_thread_blocked, id=412, stack(0xc4e80000,0xc4f00000)]
+  0x0186f800 JavaThread "pool-7-thread-24" daemon [_thread_blocked, id=411, stack(0xc3480000,0xc3500000)]
+  0x0186ec00 JavaThread "Channel reader thread: jed-asqe-22.sfbay.sun.com (OpenSolaris)" daemon [_thread_blocked, id=410, stack(0xc3780000,0xc3800000)]
+  0x0187e400 JavaThread "Channel reader thread: asqe-xeon-3.sfbay.sun.com (Windows XP)" daemon [_thread_blocked, id=409, stack(0xc3880000,0xc3900000)]
+  0x0187dc00 JavaThread "pool-7-thread-23" daemon [_thread_blocked, id=408, stack(0xc3980000,0xc3a00000)]
+  0x0187d800 JavaThread "pool-7-thread-22" daemon [_thread_blocked, id=407, stack(0xc3a80000,0xc3b00000)]
+  0x01801000 JavaThread "Channel reader thread: jed-asqe-20.sfbay.sun.com (OpenSolaris)" daemon [_thread_blocked, id=404, stack(0xc3e80000,0xc3f00000)]
+  0x0186e800 JavaThread "stderr copier for remote agent on eve-suse11-1.sfbay.sun.com (SUSE Linux 11)" daemon [_thread_blocked, id=403, stack(0xc4180000,0xc4200000)]
+  0x0186e000 JavaThread "Thread-88" daemon [_thread_blocked, id=402, stack(0xc4580000,0xc4600000)]
+  0x0187ec00 JavaThread "Thread-87" daemon [_thread_blocked, id=401, stack(0xc3f80000,0xc4000000)]
+  0x01768000 JavaThread "Channel reader thread: asqe-xeon-2.sfbay.sun.com (Solaris x86)" daemon [_thread_blocked, id=400, stack(0xc4780000,0xc4800000)]
+  0x0187cc00 JavaThread "stderr copier for remote agent on asqe-xserver-2.sfbay.sun.com (MacOS)" daemon [_thread_blocked, id=399, stack(0xc4880000,0xc4900000)]
+  0x0187c400 JavaThread "Thread-86" daemon [_thread_blocked, id=398, stack(0xc4980000,0xc4a00000)]
+  0x004f5800 JavaThread "Thread-85" daemon [_thread_blocked, id=397, stack(0xc4f80000,0xc5000000)]
+  0x00bdb800 JavaThread "stderr copier for remote agent on asqe-xserver-1.sfbay.sun.com (MacOS)" daemon [_thread_blocked, id=396, stack(0xcee80000,0xcef00000)]
+  0x00be6400 JavaThread "Thread-84" daemon [_thread_blocked, id=395, stack(0xc3380000,0xc3400000)]
+  0x017f3800 JavaThread "Thread-83" daemon [_thread_blocked, id=394, stack(0xc4380000,0xc4400000)]
+  0x0171c800 JavaThread "stderr copier for remote agent on asqe-xeon-3.sfbay.sun.com (Windows XP)" daemon [_thread_blocked, id=389, stack(0xcad80000,0xcae00000)]
+  0x0171c000 JavaThread "Thread-82" daemon [_thread_blocked, id=388, stack(0xcc180000,0xcc200000)]
+  0x0171bc00 JavaThread "Thread-81" daemon [_thread_blocked, id=387, stack(0xcec80000,0xced00000)]
+  0x016ca800 JavaThread "stderr copier for remote agent on asqe-xeon-4.sfbay.sun.com (Windows XP)" daemon [_thread_blocked, id=386, stack(0xcf380000,0xcf400000)]
+  0x01782400 JavaThread "Thread-80" daemon [_thread_blocked, id=385, stack(0xcf480000,0xcf500000)]
+  0x01764c00 JavaThread "Thread-79" daemon [_thread_blocked, id=384, stack(0xc4480000,0xc4500000)]
+  0x016ccc00 JavaThread "stderr copier for remote agent on jed-asqe-22.sfbay.sun.com (OpenSolaris)" daemon [_thread_blocked, id=383, stack(0xc4680000,0xc4700000)]
+  0x01742400 JavaThread "Thread-78" daemon [_thread_blocked, id=382, stack(0xc3680000,0xc3700000)]
+  0x00bdf400 JavaThread "Thread-77" daemon [_thread_blocked, id=381, stack(0xc3580000,0xc3600000)]
+  0x01763c00 JavaThread "stderr copier for remote agent on jed-asqe-20.sfbay.sun.com (OpenSolaris)" daemon [_thread_blocked, id=380, stack(0xcf580000,0xcf600000)]
+  0x01767400 JavaThread "Thread-76" daemon [_thread_blocked, id=379, stack(0xcf280000,0xcf300000)]
+  0x01762800 JavaThread "Thread-75" daemon [_thread_blocked, id=378, stack(0xca780000,0xca800000)]
+  0x017f2800 JavaThread "stderr copier for remote agent on asqe-xeon-2.sfbay.sun.com (Solaris x86)" daemon [_thread_blocked, id=375, stack(0xc4c80000,0xc4d00000)]
+  0x016c9400 JavaThread "Thread-74" daemon [_thread_blocked, id=374, stack(0xc4080000,0xc4100000)]
+  0x01801800 JavaThread "Thread-73" daemon [_thread_blocked, id=373, stack(0xc3d80000,0xc3e00000)]
+  0x005c9c00 JavaThread "Hudson - Build-Publisher Thread for audit-trail" [_thread_blocked, id=273, stack(0xc4a80000,0xc4b00000)]
+=>0x01386c00 JavaThread "httpSSLWorkerThread-8080-4" daemon [_thread_in_native, id=206, stack(0xc4b80000,0xc4c00000)]
+  0x01383000 JavaThread "Thread-67" daemon [_thread_in_native, id=198, stack(0xc5080000,0xc5100000)]
+  0x0176c800 JavaThread "Thread-66" daemon [_thread_in_native, id=197, stack(0xc5180000,0xc5200000)]
+  0x01727800 JavaThread "Thread-65" daemon [_thread_in_native, id=196, stack(0xc5280000,0xc5300000)]
+  0x01725800 JavaThread "Thread-64" daemon [_thread_in_native, id=195, stack(0xc5380000,0xc5400000)]
+  0x01728000 JavaThread "Thread-63" daemon [_thread_in_native, id=194, stack(0xc5480000,0xc5500000)]
+  0x01723c00 JavaThread "Thread-62" daemon [_thread_in_native, id=193, stack(0xc5580000,0xc5600000)]
+  0x01710400 JavaThread "Thread-60" daemon [_thread_in_native, id=192, stack(0xc5680000,0xc5700000)]
+  0x0170e800 JavaThread "Thread-59" daemon [_thread_in_native, id=191, stack(0xc5780000,0xc5800000)]
+  0x0170d000 JavaThread "Thread-58" daemon [_thread_in_native, id=190, stack(0xc5880000,0xc5900000)]
+  0x0170b800 JavaThread "Thread-57" daemon [_thread_in_native, id=189, stack(0xc5980000,0xc5a00000)]
+  0x0170a000 JavaThread "Thread-52" daemon [_thread_in_native, id=188, stack(0xc5a80000,0xc5b00000)]
+  0x01708800 JavaThread "Thread-61" daemon [_thread_in_native, id=187, stack(0xc5b80000,0xc5c00000)]
+  0x01705800 JavaThread "Thread-53" daemon [_thread_in_native, id=186, stack(0xc5c80000,0xc5d00000)]
+  0x01704400 JavaThread "Thread-54" daemon [_thread_in_native, id=185, stack(0xc5d80000,0xc5e00000)]
+  0x01702800 JavaThread "Thread-56" daemon [_thread_in_native, id=184, stack(0xc5e80000,0xc5f00000)]
+  0x01701000 JavaThread "Thread-55" daemon [_thread_in_native, id=183, stack(0xc5f80000,0xc6000000)]
+  0x01700000 JavaThread "Thread-50" daemon [_thread_in_native, id=182, stack(0xc6080000,0xc6100000)]
+  0x016fe800 JavaThread "Thread-49" daemon [_thread_in_native, id=181, stack(0xc6180000,0xc6200000)]
+  0x016be000 JavaThread "Thread-51" daemon [_thread_in_native, id=180, stack(0xc6280000,0xc6300000)]
+  0x016f5c00 JavaThread "Thread-48" daemon [_thread_in_native, id=179, stack(0xc6380000,0xc6400000)]
+  0x016de800 JavaThread "Thread-47" daemon [_thread_in_native, id=178, stack(0xc6480000,0xc6500000)]
+  0x01697400 JavaThread "pool-7-thread-21 / waiting for hudson.remoting.Channel@93decc:eve-suse10-1.sfbay.sun.com (SUSE Linux 10)" daemon [_thread_blocked, id=177, stack(0xc6580000,0xc6600000)]
+  0x016ba400 JavaThread "Executor #1 for eve-suse10-1.sfbay.sun.com (SUSE Linux 10)" [_thread_blocked, id=176, stack(0xc6680000,0xc6700000)]
+  0x016c8000 JavaThread "Executor #0 for eve-suse10-1.sfbay.sun.com (SUSE Linux 10)" [_thread_blocked, id=175, stack(0xc6780000,0xc6800000)]
+  0x01698c00 JavaThread "pool-7-thread-20 / waiting for hudson.remoting.Channel@e9d642:eve-suse11-1.sfbay.sun.com (SUSE Linux 11)" daemon [_thread_blocked, id=174, stack(0xc6880000,0xc6900000)]
+  0x016f3c00 JavaThread "Executor #1 for eve-suse11-1.sfbay.sun.com (SUSE Linux 11)" [_thread_blocked, id=173, stack(0xc6980000,0xc6a00000)]
+  0x016f2400 JavaThread "Executor #0 for eve-suse11-1.sfbay.sun.com (SUSE Linux 11)" [_thread_blocked, id=172, stack(0xc6a80000,0xc6b00000)]
+  0x016f1000 JavaThread "pool-7-thread-19 / waiting for hudson.remoting.Channel@13fec04:jed-asqe-22.sfbay.sun.com (OpenSolaris)" daemon [_thread_blocked, id=171, stack(0xc6b80000,0xc6c00000)]
+  0x016ef800 JavaThread "Executor #1 for jed-asqe-22.sfbay.sun.com (OpenSolaris)" [_thread_blocked, id=170, stack(0xc6c80000,0xc6d00000)]
+  0x016ed400 JavaThread "Executor #0 for jed-asqe-22.sfbay.sun.com (OpenSolaris)" [_thread_blocked, id=169, stack(0xc6d80000,0xc6e00000)]
+  0x016ebc00 JavaThread "pool-7-thread-18 / waiting for hudson.remoting.Channel@15facb0:jed-asqe-20.sfbay.sun.com (OpenSolaris)" daemon [_thread_blocked, id=168, stack(0xc6e80000,0xc6f00000)]
+  0x016e7000 JavaThread "Executor #1 for jed-asqe-20.sfbay.sun.com (OpenSolaris)" [_thread_blocked, id=167, stack(0xc6f80000,0xc7000000)]
+  0x016e5800 JavaThread "Executor #0 for jed-asqe-20.sfbay.sun.com (OpenSolaris)" [_thread_blocked, id=166, stack(0xc7080000,0xc7100000)]
+  0x016e4000 JavaThread "pool-7-thread-17" daemon [_thread_blocked, id=165, stack(0xc7180000,0xc7200000)]
+  0x016e2800 JavaThread "Executor #1 for asqe-xserver-2.sfbay.sun.com (MacOS)" [_thread_blocked, id=164, stack(0xc7280000,0xc7300000)]
+  0x016e0800 JavaThread "Executor #0 for asqe-xserver-2.sfbay.sun.com (MacOS)" [_thread_blocked, id=163, stack(0xc7380000,0xc7400000)]
+  0x016df000 JavaThread "pool-7-thread-16" daemon [_thread_blocked, id=162, stack(0xc7480000,0xc7500000)]
+  0x016c6400 JavaThread "Executor #1 for asqe-xserver-1.sfbay.sun.com (MacOS)" [_thread_blocked, id=161, stack(0xc7580000,0xc7600000)]
+  0x016c4c00 JavaThread "Executor #0 for asqe-xserver-1.sfbay.sun.com (MacOS)" [_thread_blocked, id=160, stack(0xc7680000,0xc7700000)]
+  0x016c3400 JavaThread "pool-7-thread-15" daemon [_thread_blocked, id=159, stack(0xc7780000,0xc7800000)]
+  0x016c1c00 JavaThread "Executor #1 for asqe-win2008-2.sfbay.sun.com (Windows 2008)" [_thread_blocked, id=158, stack(0xc7880000,0xc7900000)]
+  0x016c0400 JavaThread "Executor #0 for asqe-win2008-2.sfbay.sun.com (Windows 2008)" [_thread_blocked, id=157, stack(0xc7980000,0xc7a00000)]
+  0x016bec00 JavaThread "pool-7-thread-14" daemon [_thread_blocked, id=156, stack(0xc7a80000,0xc7b00000)]
+  0x016ba800 JavaThread "Executor #1 for asqe-win7-1.sfbay.sun.com (Windows 7)" [_thread_blocked, id=155, stack(0xc7b80000,0xc7c00000)]
+  0x0169cc00 JavaThread "Executor #0 for asqe-win7-1.sfbay.sun.com (Windows 7)" [_thread_blocked, id=154, stack(0xc7c80000,0xc7d00000)]
+  0x0169b400 JavaThread "pool-7-thread-13" daemon [_thread_blocked, id=153, stack(0xc7d80000,0xc7e00000)]
+  0x0169a000 JavaThread "Executor #1 for asqe-win7-2.sfbay.sun.com (Windows 7)" [_thread_blocked, id=152, stack(0xc7e80000,0xc7f00000)]
+  0x01529800 JavaThread "Executor #0 for asqe-win7-2.sfbay.sun.com (Windows 7)" [_thread_blocked, id=151, stack(0xc7f80000,0xc8000000)]
+  0x0152b400 JavaThread "pool-7-thread-12" daemon [_thread_blocked, id=150, stack(0xc8080000,0xc8100000)]
+  0x01317800 JavaThread "Executor #1 for asqe-win2008-1.sfbay.sun.com (Windows 2008)" [_thread_blocked, id=149, stack(0xc8180000,0xc8200000)]
+  0x01400800 JavaThread "Executor #0 for asqe-win2008-1.sfbay.sun.com (Windows 2008)" [_thread_blocked, id=148, stack(0xc8280000,0xc8300000)]
+  0x013ff800 JavaThread "pool-7-thread-11 / waiting for hudson.remoting.Channel@12b9ffd:aixas13.sfbay.sun.com (AIX)" daemon [_thread_blocked, id=147, stack(0xc8380000,0xc8400000)]
+  0x013fe800 JavaThread "Executor #1 for aixas13.sfbay.sun.com (AIX)" [_thread_blocked, id=146, stack(0xc8480000,0xc8500000)]
+  0x013fa800 JavaThread "Executor #0 for aixas13.sfbay.sun.com (AIX)" [_thread_blocked, id=145, stack(0xc8580000,0xc8600000)]
+  0x013fcc00 JavaThread "pool-7-thread-10" daemon [_thread_blocked, id=144, stack(0xc8680000,0xc8700000)]
+  0x013df000 JavaThread "Executor #1 for aixas14.sfbay.sun.com (AIX)" [_thread_blocked, id=143, stack(0xc8780000,0xc8800000)]
+  0x015c4c00 JavaThread "Executor #0 for aixas14.sfbay.sun.com (AIX)" [_thread_blocked, id=142, stack(0xc8880000,0xc8900000)]
+  0x015c3400 JavaThread "pool-7-thread-9 / waiting for hudson.remoting.Channel@1f8e9c8:asqe-xeon-1.sfbay.sun.com (Solaris x86)" daemon [_thread_blocked, id=141, stack(0xc8980000,0xc8a00000)]
+  0x015c1400 JavaThread "Executor #0 for asqe-xeon-1.sfbay.sun.com (Solaris x86)" [_thread_blocked, id=140, stack(0xc8a80000,0xc8b00000)]
+  0x015c0400 JavaThread "pool-7-thread-8 / waiting for hudson.remoting.Channel@bef71f:asqe-xeon-3.sfbay.sun.com (Windows XP)" daemon [_thread_blocked, id=139, stack(0xc8b80000,0xc8c00000)]
+  0x015b8400 JavaThread "Executor #0 for asqe-xeon-3.sfbay.sun.com (Windows XP)" [_thread_blocked, id=138, stack(0xc8c80000,0xc8d00000)]
+  0x015b6c00 JavaThread "pool-7-thread-7 / waiting for hudson.remoting.Channel@17a60fa:asqe-xeon-4.sfbay.sun.com (Windows XP)" daemon [_thread_blocked, id=137, stack(0xc8d80000,0xc8e00000)]
+  0x015bf000 JavaThread "Executor #0 for asqe-xeon-4.sfbay.sun.com (Windows XP)" [_thread_blocked, id=136, stack(0xc8e80000,0xc8f00000)]
+  0x015bdc00 JavaThread "pool-7-thread-6 / waiting for hudson.remoting.Channel@1121a57:asqe-xeon-2.sfbay.sun.com (Solaris x86)" daemon [_thread_blocked, id=135, stack(0xc8f80000,0xc9000000)]
+  0x015bc800 JavaThread "Executor #0 for asqe-xeon-2.sfbay.sun.com (Solaris x86)" [_thread_blocked, id=134, stack(0xc9080000,0xc9100000)]
+  0x01530400 JavaThread "pool-7-thread-5 / waiting for hudson.remoting.Channel@c26dd5:asqe-sb-7.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=133, stack(0xc9180000,0xc9200000)]
+  0x0152f000 JavaThread "Executor #0 for asqe-sb-7.sfbay.sun.com (Solaris Sparc)" [_thread_blocked, id=132, stack(0xc9280000,0xc9300000)]
+  0x0152d800 JavaThread "pool-7-thread-4 / waiting for hudson.remoting.Channel@175e41:asqe-sb-8.sfbay.sun.com (Solaris Sparc)" daemon [_thread_blocked, id=131, stack(0xc9380000,0xc9400000)]
+  0x0152c800 JavaThread "Executor #0 for asqe-sb-8.sfbay.sun.com (Solaris Sparc)" [_thread_blocked, id=130, stack(0xc9480000,0xc9500000)]
+  0x013fd800 JavaThread "pool-7-thread-3" daemon [_thread_blocked, id=129, stack(0xc9580000,0xc9600000)]
+  0x013e1400 JavaThread "Executor #0 for jws-cust-280-3.sfbay.sun.com (Solaris Sparc)" [_thread_blocked, id=128, stack(0xc9680000,0xc9700000)]
+  0x013df800 JavaThread "pool-7-thread-2 / waiting for hudson.remoting.Channel@17bf0a7:apg-sqe1.sfbay.sun.com (Linux)" daemon [_thread_blocked, id=127, stack(0xc9780000,0xc9800000)]
+  0x01558400 JavaThread "Executor #1 for apg-sqe1.sfbay.sun.com (Linux)" [_thread_blocked, id=126, stack(0xca580000,0xca600000)]
+  0x01557c00 JavaThread "Executor #0 for apg-sqe1.sfbay.sun.com (Linux)" [_thread_blocked, id=125, stack(0xc9c80000,0xc9d00000)]
+  0x01530c00 JavaThread "Handling GET /hudson/ : httpSSLWorkerThread-8080-3" daemon [_thread_in_native, id=123, stack(0xca280000,0xca300000)]
+  0x00c2c800 JavaThread "httpSSLWorkerThread-8080-2" daemon [_thread_blocked, id=122, stack(0xca380000,0xca400000)]
+  0x00b45400 JavaThread "Executor #1 for apg-sqe2.sfbay.sun.com (Linux)" [_thread_blocked, id=120, stack(0xcb180000,0xcb200000)]
+  0x005ae400 JavaThread "Executor #0 for apg-sqe2.sfbay.sun.com (Linux)" [_thread_blocked, id=119, stack(0xca180000,0xca200000)]
+  0x005ad400 JavaThread "Hudson UDP 33848 monitoring thread" [_thread_in_native, id=118, stack(0xca480000,0xca500000)]
+  0x00c2f000 JavaThread "TCP slave agent listener port=0" [_thread_in_native, id=117, stack(0xca680000,0xca700000)]
+  0x0157e000 JavaThread "httpWorkerThread-4848-4" daemon [_thread_blocked, id=116, stack(0xc9880000,0xc9900000)]
+  0x0134e800 JavaThread "httpWorkerThread-4848-3" daemon [_thread_blocked, id=115, stack(0xc9980000,0xc9a00000)]
+  0x0134e000 JavaThread "httpWorkerThread-4848-2" daemon [_thread_blocked, id=114, stack(0xc9a80000,0xc9b00000)]
+  0x01319400 JavaThread "com.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=113, stack(0xc9b80000,0xc9c00000)]
+  0x0034f000 JavaThread "Thread-43" [_thread_blocked, id=111, stack(0xca880000,0xca900000)]
+  0x006e6000 JavaThread "pool-7-thread-1 / waiting for hudson.remoting.Channel@16f81ed:apg-sqe2.sfbay.sun.com (Linux)" daemon [_thread_blocked, id=98, stack(0xc9d80000,0xc9e00000)]
+  0x00ca2400 JavaThread "Channel reader thread: Channel to Selenium Grid" daemon [_thread_in_native, id=97, stack(0xc9e80000,0xc9f00000)]
+  0x00cccc00 JavaThread "/space1/jdk1.6.0_18/jre/bin/java -cp /space1/sges/domains/domain1/applications/j2ee-modules/hudson/WEB-INF/lib/remoting-1.347.jar hudson.remoting.Launcher -cp /export/hudson/server/selenium-grid/lib/log4j-1.2.14.jar:/export/hudson/server/selenium-grid/lib/selenium-grid-hub-standalone-1.0.4.jar -connectTo localhost:61784: stdout copier" daemon [_thread_in_native, id=96, stack(0xc9f80000,0xca000000)]
+  0x00d26000 JavaThread "process reaper" daemon [_thread_in_native, id=95, stack(0xca080000,0xca100000)]
+  0x00c64c00 JavaThread "Hudson cron thread" [_thread_blocked, id=85, stack(0xca980000,0xcaa00000)]
+  0x0003fc00 JavaThread "DestroyJavaVM" [_thread_blocked, id=2, stack(0xfe680000,0xfe700000)]
+  0x008f9000 JavaThread "Timer-7" [_thread_blocked, id=84, stack(0xcaa80000,0xcab00000)]
+  0x000fc800 JavaThread "Timer-6" daemon [_thread_blocked, id=83, stack(0xcab80000,0xcac00000)]
+  0x0088e400 JavaThread "ContainerBackgroundProcessor[StandardEngine[com.sun.appserv]]" daemon [_thread_blocked, id=81, stack(0xcac80000,0xcad00000)]
+  0x00bd7000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=79, stack(0xcc280000,0xcc300000)]
+  0x007fe000 JavaThread "ContainerBackgroundProcessor[StandardEngine[com.sun.appserv].StandardHost[server].StandardContext[/hudson]]" daemon [_thread_blocked, id=77, stack(0xcb280000,0xcb300000)]
+  0x00902400 JavaThread "ContainerBackgroundProcessor[StandardEngine[com.sun.appserv].StandardHost[server].StandardContext[/__wstx-services]]" daemon [_thread_blocked, id=76, stack(0xcb380000,0xcb400000)]
+  0x008df400 JavaThread "ContainerBackgroundProcessor[StandardEngine[com.sun.appserv].StandardHost[__asadmin].StandardContext[]]" daemon [_thread_blocked, id=75, stack(0xcb480000,0xcb500000)]
+  0x0066ac00 JavaThread "ContainerBackgroundProcessor[StandardEngine[com.sun.appserv].StandardHost[server].StandardContext[/__JWSappclients]]" daemon [_thread_blocked, id=74, stack(0xcb580000,0xcb600000)]
+  0x00729800 JavaThread "ContainerBackgroundProcessor[StandardEngine[com.sun.appserv].StandardHost[server].StandardContext[]]" daemon [_thread_blocked, id=73, stack(0xcb680000,0xcb700000)]
+  0x00a26800 JavaThread "ContainerBackgroundProcessor[StandardEngine[com.sun.appserv].StandardHost[__asadmin].StandardContext[/web1]]" daemon [_thread_blocked, id=72, stack(0xcb780000,0xcb800000)]
+  0x00b2e800 JavaThread "httpWorkerThread-4848-1" daemon [_thread_blocked, id=71, stack(0xcb880000,0xcb900000)]
+  0x00aeec00 JavaThread "httpWorkerThread-4848-0" daemon [_thread_blocked, id=70, stack(0xcb980000,0xcba00000)]
+  0x00aed400 JavaThread "SelectorThread-4848" [_thread_in_native, id=69, stack(0xcba80000,0xcbb00000)]
+  0x00ad2000 JavaThread "httpSSLWorkerThread-8181-1" daemon [_thread_blocked, id=68, stack(0xcbb80000,0xcbc00000)]
+  0x00ad1c00 JavaThread "httpSSLWorkerThread-8181-0" daemon [_thread_blocked, id=67, stack(0xcbc80000,0xcbd00000)]
+  0x00ab8400 JavaThread "SelectorThread-8181" [_thread_in_native, id=66, stack(0xcbd80000,0xcbe00000)]
+  0x00a90000 JavaThread "Handling GET /hudson/computer/ : httpSSLWorkerThread-8080-1" daemon [_thread_in_native, id=65, stack(0xcbe80000,0xcbf00000)]
+  0x00ab6c00 JavaThread "httpSSLWorkerThread-8080-0" daemon [_thread_blocked, id=64, stack(0xcbf80000,0xcc000000)]
+  0x00a91400 JavaThread "SelectorThread-8080" [_thread_in_native, id=63, stack(0xcc080000,0xcc100000)]
+  0x00a84000 JavaThread "Thread-20" [_thread_blocked, id=60, stack(0xcc380000,0xcc400000)]
+  0x00a80400 JavaThread "RMI TCP Connection(idle)" daemon [_thread_blocked, id=59, stack(0xcc480000,0xcc500000)]
+  0x00a6dc00 JavaThread "RMI RenewClean-[10.5.220.50:61766,com.sun.enterprise.admin.server.core.channel.LocalRMIClientSocketFactory@4a17d8]" daemon [_thread_blocked, id=58, stack(0xcc580000,0xcc600000)]
+  0x009b8800 JavaThread "ClusterServiceListener" daemon [_thread_in_native, id=57, stack(0xcc680000,0xcc700000)]
+  0x009b1800 JavaThread "MessageBusCallbackDispatcher" daemon [_thread_blocked, id=56, stack(0xcc780000,0xcc800000)]
+  0x005bd400 JavaThread "jms_ACCEPT" [_thread_in_native, id=55, stack(0xcc880000,0xcc900000)]
+  0x00a63400 JavaThread "admin_ACCEPT" [_thread_in_native, id=54, stack(0xcc980000,0xcca00000)]
+  0x0055d400 JavaThread "RMI RenewClean-[10.5.220.50:61778]" daemon [_thread_blocked, id=52, stack(0xccb80000,0xccc00000)]
+  0x004be800 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=51, stack(0xccc80000,0xccd00000)]
+  0x00602000 JavaThread "ClusterDiscoveryService" daemon [_thread_in_native, id=50, stack(0xccd80000,0xcce00000)]
+  0x009d9c00 JavaThread "Broker Monitor" daemon [_thread_blocked, id=49, stack(0xcce80000,0xccf00000)]
+  0x009ed400 JavaThread "JMQPortMapper" daemon [_thread_in_native, id=48, stack(0xcd280000,0xcd300000)]
+  0x009b3400 JavaThread "MQTimer-Thread" daemon [_thread_blocked, id=47, stack(0xcd380000,0xcd400000)]
+  0x00993800 JavaThread "p: thread-pool-1; w: 3" daemon [_thread_blocked, id=46, stack(0xcd480000,0xcd500000)]
+  0x00575800 JavaThread "RMI TCP Connection(idle)" daemon [_thread_blocked, id=43, stack(0xcd680000,0xcd700000)]
+  0x00574400 JavaThread "RMI RenewClean-[10.5.220.50:61772]" daemon [_thread_blocked, id=42, stack(0xcd780000,0xcd800000)]
+  0x009aec00 JavaThread "RMI TCP Connection(idle)" daemon [_thread_blocked, id=41, stack(0xcd880000,0xcd900000)]
+  0x00983400 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=40, stack(0xcda80000,0xcdb00000)]
+  0x00985c00 JavaThread "RMI TCP Accept-8686" daemon [_thread_in_native, id=39, stack(0xcd980000,0xcda00000)]
+  0x00893c00 JavaThread "Thread-11" daemon [_thread_blocked, id=35, stack(0xcdb80000,0xcdc00000)]
+  0x00711800 JavaThread "Thread-10" [_thread_blocked, id=34, stack(0xcdc80000,0xcdd00000)]
+  0x0086b400 JavaThread "Thread-8" [_thread_blocked, id=32, stack(0xcdd80000,0xcde00000)]
+  0x00860c00 JavaThread "p: thread-pool-1; w: 2" daemon [_thread_in_native, id=31, stack(0xcde80000,0xcdf00000)]
+  0x00860400 JavaThread "p: thread-pool-1; w: 1" daemon [_thread_in_native, id=30, stack(0xcdf80000,0xce000000)]
+  0x001bc800 JavaThread "SelectorThread" daemon [_thread_in_native, id=29, stack(0xce080000,0xce100000)]
+  0x005b6400 JavaThread "Timer-3" daemon [_thread_blocked, id=28, stack(0xce180000,0xce200000)]
+  0x001d9800 JavaThread "Timer-2" [_thread_blocked, id=27, stack(0xce280000,0xce300000)]
+  0x006eb800 JavaThread "Timer-1" [_thread_blocked, id=26, stack(0xce380000,0xce400000)]
+  0x0019f800 JavaThread "Timer-0" [_thread_blocked, id=25, stack(0xce480000,0xce500000)]
+  0x00740800 JavaThread "RMI Scheduler(0)" daemon [_thread_blocked, id=24, stack(0xce580000,0xce600000)]
+  0x0077e400 JavaThread "GC Daemon" daemon [_thread_blocked, id=22, stack(0xce980000,0xcea00000)]
+  0x0077d000 JavaThread "RMI Reaper" [_thread_blocked, id=21, stack(0xcea80000,0xceb00000)]
+  0x00778400 JavaThread "RMI TCP Accept-0" daemon [_thread_in_native, id=20, stack(0xceb80000,0xcec00000)]
+  0x000d9800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=8, stack(0xcf980000,0xcfa00000)]
+  0x000d7400 JavaThread "CompilerThread0" daemon [_thread_blocked, id=7, stack(0xcfa80000,0xcfb00000)]
+  0x000d5c00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=6, stack(0xcfb80000,0xcfc00000)]
+  0x000c1000 JavaThread "Finalizer" daemon [_thread_blocked, id=5, stack(0xcfc80000,0xcfd00000)]
+  0x000bf800 JavaThread "Reference Handler" daemon [_thread_blocked, id=4, stack(0xcfd80000,0xcfe00000)]
+
+Other Threads:
+  0x000bcc00 VMThread [stack: 0xfc080000,0xfc100000] [id=3]
+  0x000e6400 WatcherThread [stack: 0xcf880000,0xcf900000] [id=9]
+
+VM state:synchronizing (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0003f040] Safepoint_lock - owner thread: 0x000bcc00
+[0x0003f0a8] Threads_lock - owner thread: 0x000bcc00
+
+Heap
+ def new generation   total 48000K, used 23285K [0xd0000000, 0xd3410000, 0xdaaa0000)
+  eden space 42688K,  54% used [0xd0000000, 0xd16bd648, 0xd29b0000)
+  from space 5312K,   0% used [0xd29b0000, 0xd29b0000, 0xd2ee0000)
+  to   space 5312K,   0% used [0xd2ee0000, 0xd2ee0000, 0xd3410000)
+ tenured generation   total 104856K, used 62910K [0xdaaa0000, 0xe1106000, 0xf0000000)
+   the space 104856K,  59% used [0xdaaa0000, 0xde80f860, 0xde80fa00, 0xe1106000)
+ compacting perm gen  total 68352K, used 68351K [0xf0000000, 0xf42c0000, 0xfc000000)
+   the space 68352K,  99% used [0xf0000000, 0xf42bfe28, 0xf42c0000, 0xf42c0000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00010000 	/space1/jdk1.6.0_18/bin/java
+0xff3a0000 	/lib/libthread.so.1
+0xff370000 	/space1/jdk1.6.0_18/bin/../jre/lib/sparc/jli/libjli.so
+0xff350000 	/lib/libdl.so.1
+0xff200000 	/lib/libc.so.1
+0xff390000 	/platform/SUNW,Sun-Fire-480R/lib/libc_psr.so.1
+0xfe800000 	/space1/jdk1.6.0_18/jre/lib/sparc/client/libjvm.so
+0xff1d0000 	/lib/libsocket.so.1
+0xff1f0000 	/usr/lib/libsched.so.1
+0xff1b0000 	/lib/libm.so.1
+0xff180000 	/usr/lib/libCrun.so.1
+0xff160000 	/lib/libdoor.so.1
+0xff080000 	/lib/libnsl.so.1
+0xfef80000 	/lib/libm.so.2
+0xff050000 	/lib/libscf.so.1
+0xff140000 	/lib/libuutil.so.1
+0xfef60000 	/lib/libgen.so.1
+0xfef30000 	/lib/libmd.so.1
+0xfe7e0000 	/platform/SUNW,Sun-Fire-480R/lib/libmd_psr.so.1
+0xfe7c0000 	/lib/libmp.so.2
+0xfe730000 	/space1/jdk1.6.0_18/jre/lib/sparc/libverify.so
+0xfe640000 	/space1/jdk1.6.0_18/jre/lib/sparc/libjava.so
+0xfe710000 	/space1/jdk1.6.0_18/jre/lib/sparc/native_threads/libhpi.so
+0xfe600000 	/space1/jdk1.6.0_18/jre/lib/sparc/libzip.so
+0xfe590000 	/space1/jdk1.6.0_18/jre/lib/sparc/libnet.so
+0xcfc30000 	/space1/jdk1.6.0_18/jre/lib/sparc/libmanagement.so
+0xcfb40000 	/space1/jdk1.6.0_18/jre/lib/sparc/libj2pkcs11.so
+0xcfb10000 	/usr/lib/libpkcs11.so
+0xcfa60000 	/usr/lib/libcryptoutil.so.1
+0xcf920000 	/usr/lib/security/pkcs11_softtoken_extra.so
+0xcfa40000 	/space1/sges/lib/libjvminfoutil.so
+0xcfb70000 	/lib/libpthread.so.1
+0xcfa10000 	/lib/librt.so.1
+0xcf860000 	/lib/libkstat.so.1
+0xce780000 	/usr/lib/libCstd.so.1
+0xcf840000 	/lib/libaio.so.1
+0xcf730000 	/usr/lib/cpu/sparcv8plus/libCstd_isa.so.1
+0xcf560000 	/space1/jdk1.6.0_18/jre/lib/sparc/librmi.so
+0xcf420000 	/space1/jdk1.6.0_18/jre/lib/sparc/libnio.so
+0xcf330000 	/usr/lib/libsendfile.so.1
+0xcaf80000 	/space1/jdk1.6.0_18/jre/lib/sparc/libawt.so
+0xcf310000 	/space1/jdk1.6.0_18/jre/lib/sparc/headless/libmawt.so
+0xcae80000 	/space1/jdk1.6.0_18/jre/lib/sparc/libfontmanager.so
+0xce220000 	/space1/sges/domains/domain1/generated/jsp/j2ee-modules/hudson/loader/com/sun/jna/sunos-sparc/libjnidispatch.so
+0xce110000 	/lib/libpam.so
+0xce060000 	/lib/libcmd.so.1
+0xce040000 	/usr/lib/security/pam_authtok_get.so.1
+0xce010000 	/usr/lib/passwdutil.so.1
+0xcdf60000 	/usr/lib/security/pam_dhkeys.so.1
+0xcdf40000 	/usr/lib/security/pam_unix_cred.so.1
+0xcdf10000 	/lib/libbsm.so.1
+0xcde60000 	/lib/libsecdb.so.1
+0xcde40000 	/usr/lib/libproject.so.1
+0xcde10000 	/lib/libproc.so.1
+0xcdd60000 	/lib/librtld_db.so.1
+0xcdd30000 	/lib/libelf.so.1
+0xcdd10000 	/lib/libctf.so.1
+0xcdc60000 	/usr/lib/security/pam_unix_auth.so.1
+
+VM Arguments:
+jvm_args: -Dcom.sun.aas.instanceRoot=/space1/sges/domains/domain1 -DHUDSON_HOME=/export/hudson/server -Dcom.sun.aas.ClassPathPrefix= -Dcom.sun.aas.ClassPathSuffix= -Dcom.sun.aas.ServerClassPath= -Dcom.sun.aas.classloader.appserverChainJars.ee= -Dcom.sun.aas.classloader.appserverChainJars=admin-cli.jar,admin-cli-ee.jar,j2ee-svc.jar -Dcom.sun.aas.classloader.excludesList=admin-cli.jar,appserv-upgrade.jar,sun-appserv-ant.jar -Dcom.sun.aas.classloader.optionalOverrideableChain.ee= -Dcom.sun.aas.classloader.optionalOverrideableChain=webservices-rt.jar,webservices-tools.jar -Dcom.sun.aas.classloader.serverClassPath.ee=Does not exist/lib/hadbjdbc4.jar,/space1/sges/lib/SUNWjdmk/5.1/lib/jdmkrt.jar,Does not exist/lib/dbstate.jar,Does not exist/lib/hadbm.jar,Does not exist/lib/hadbmgt.jar,/opt/SUNWmfwk/lib/mfwk_instrum_tk.jar -Dcom.sun.aas.classloader.serverClassPath=/space1/sges/lib/install/applications/jmsra/imqjmsra.jar,/space1/sges/imq/lib/jaxm-api.jar,/space1/sges/imq/lib/fscontext.jar,/space1/sges/imq/lib/imqbroker.jar,/space1/sges/imq/lib/imqjmx.jar,/space1/sges/lib/ant/lib/ant.jar,/space1/sges/lib/SUNWjdmk/5.1/lib/jdmkrt.jar -Dcom.sun.aas.classloader.sharedChainJars.ee=appserv-se.jar,appserv-ee.jar,jesmf-plugin.jar,Does not exist/lib/dbstate.jar,Does not exist/lib/hadbjdbc4.jar,jgroups-all.jar,/opt/SUNWmfwk/lib/mfwk_instrum_tk.jar -Dcom.sun.aas.classloader.sharedChainJars=javaee.jar,/space1/jdk/lib/tools.jar,install/applications/jmsra/imqjmsra.jar,com-sun-commons-launcher.jar,com-sun-commons-logging.jar,/space1/sges/imq/lib/jaxm-api.jar,/space1/sges/imq/lib/fscontext.jar,/space1/sges/imq/lib/imqbroker.jar,/space1/sges/imq/lib/imqjmx.jar,/space1/sges/imq/lib/imqxm.jar,webservices-rt.jar,webservices-tools.jar,mail.jar,appserv-jstl.jar,jmxremote_optional.jar,/space1/sges/lib/SUNWjdmk/5.1/lib/jdmkrt.jar,activation.jar,appserv-rt.jar,appserv-admin.jar,appserv-cmp.jar,/space1/sges/updatecenter/lib/updatecenter.jar,/space1/sges/jbi/lib/jbi.jar,/space1/sges/imq/lib/imqjmx.jar,/space1/sges/lib/ant/lib/ant.jar,dbschema.jar -Dcom.sun.aas.configName=server-config -Dcom.sun.aas.configRoot=/space1/sges/config -Dcom.sun.aas.defaultLogFile=/space1/sges/domains/domain1/logs/server.log -Dcom.sun.aas.domainName=domain1 -Dcom.sun.aas.installRoot=/space1/sges -Dcom.sun.aas.instanceName=server -Dcom.sun.aas.processLauncher=SE -Dcom.sun.aas.promptForIdentity=true -Dcom.sun.appserv.pluggable.features=com.sun.enterprise.ee.server.pluggable.EEPluggableFeatureImpl -Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory -Dcom.sun.enterprise.overrideablejavaxpackages=javax.help,javax.portlet -Dcom.sun.enterprise.taglibs=appserv-jstl.jar,jsf-impl.jar -Dcom.sun.enterprise.taglisteners=jsf-impl.jar -Dcom.sun.updatecenter.home=/space1/sges/updatecenter -Ddomain.name=domain1 -Djava.endorsed.dirs=/space1/sges/lib/endorsed -Djava.ext.dirs=/space1/jdk/lib/ext:/space1/jdk/jre/lib/ext:/space1/sges/domains/domain1/lib/ext:/space1/sges/javadb/lib:/space1/sges/lib/jdbcdrivers -Djava.library.path=/space1/sges/lib:/space1/sges/lib:/space1/sges/lib -Djava.security.auth.login.config=/space1/sges/domains/domain1/config/login.conf -Djava.security.policy=/space1/sges/domains/domain1/config/server.policy -Djava.util.logging.manager=com.sun.enterprise.server.logging.ServerLogManager -Djavax.management.builder.initial=com.sun.enterprise.ee.admin.AppServerMBeanServerBuilder -Djavax.net.ssl.keyStore=/space1/sges/domains/domain1/config/keystore.jks -Djavax.net.ssl.trustStore=/space1/sges/domains/domain1/config/cacerts.jks -Djdbc.drivers=org.apache.derby.jdbc.ClientDriver -Djmx.invoke.getters=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+UnlockDiagnosticVMOptions -XX:MaxPermSize=192m -Xmx512m -XX:NewRatio=2 -XX:+LogVMOutput -XX:LogFile=/space1/sges/domains/domain1/logs/jvm.log 
+java_command: com.sun.enterprise.server.PELaunch start
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/bin
+LD_LIBRARY_PATH=/space1/jdk1.6.0_18/jre/lib/sparc/client:/space1/jdk1.6.0_18/jre/lib/sparc:/space1/jdk1.6.0_18/jre/../lib/sparc:/space1/jdk1.6.0_18/jre/lib/sparc/server:/space1/jdk1.6.0_18/jre/lib/sparc:/space1/jdk1.6.0_18/jre/../lib/sparc:/space1/sges/lib:/space1/sges/lib:/space1/sges/lib:
+SHELL=/bin/bash
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x583880], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGBUS: [libjvm.so+0x583880], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGFPE: [libjvm.so+0x193c7c], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGPIPE: [libjvm.so+0x193c7c], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGXFSZ: [libjvm.so+0x193c7c], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGILL: [libjvm.so+0x193c7c], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGQUIT: [libjvm.so+0x498c64], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGHUP: [libjvm.so+0x498c64], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGINT: [libjvm.so+0x498c64], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGTERM: [libjvm.so+0x498c64], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIG39: [libjvm.so+0x49c37c], sa_mask[0]=0x00000000, sa_flags=0x00000008
+SIG40: [libjvm.so+0x193c7c], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+
+
+---------------  S Y S T E M  ---------------
+
+OS:                       Solaris 10 5/09 s10s_u7wos_08 SPARC
+           Copyright 2009 Sun Microsystems, Inc.  All Rights Reserved.
+                        Use is subject to license terms.
+                             Assembled 30 March 2009
+
+uname:SunOS 5.10 Generic_139555-08 sun4u  (T2 libthread)
+rlimit: STACK 8192k, CORE infinity, NOFILE 65536, AS infinity
+load average:2.16 0.80 0.64
+
+CPU:total 4 has_v8, has_v9, has_vis1, has_vis2, is_ultra3
+
+Memory: 8k page, physical 16777216k(9760480k free)
+
+vm_info: Java HotSpot(TM) Client VM (16.0-b13) for solaris-sparc JRE (1.6.0_18-b07), built on Dec 17 2009 14:30:48 by "" with Workshop 5.8
+
+time: Mon Feb 22 11:12:48 2010
+elapsed time: 95 seconds
+

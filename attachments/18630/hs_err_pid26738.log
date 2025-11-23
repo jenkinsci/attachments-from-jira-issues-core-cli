@@ -1,0 +1,212 @@
+#
+# An unexpected error has been detected by Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xfee0368e, pid=26738, tid=16
+#
+# Java VM: Java HotSpot(TM) Server VM (11.3-b02 mixed mode solaris-x86)
+# Problematic frame:
+# C  [libc.so.1+0x3368e]  _memcpy+0x15e
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x082d2800):  JavaThread "pool-1-thread-1" [_thread_in_native, id=16, stack(0xb66df000,0xb672f000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0xb5669000
+
+Registers:
+EAX=0x00000000, EBX=0xfe1ae000, ECX=0x00007874, EDX=0x000001af
+ESP=0xb672d02c, EBP=0xb672d070, ESI=0xb5668ff7, EDI=0x094d7530
+EIP=0xfee0368e, EFLAGS=0x00010216
+
+Top of Stack: (sp=0xb672d02c)
+0xb672d02c:   b5668341 09623590 fe19b3ea 094d68a8
+0xb672d03c:   b566836f 0000787c 00000000 0a85618c
+0xb672d04c:   fe1ae000 09623610 6f2f6e65 732f6e65
+0xb672d05c:   00000000 0000787c 00000087 00000000
+0xb672d06c:   0a45e0d0 b672d0a0 fe192312 0a45e0d0
+0xb672d07c:   0a85618c 00000000 082d2914 b672d0cc
+0xb672d08c:   fe1ae000 fed8dca0 267556a4 0a45e0d0
+0xb672d09c:   b672d0cc b672d4e0 fe1926eb 0a45e0d0 
+
+Instructions: (pc=0xfee0368e)
+0xfee0367e:   ff ff 0f 18 8e 38 02 00 00 0f 18 8f 38 02 00 00
+0xfee0368e:   0f 10 46 00 0f 29 47 00 0f 10 4e 10 0f 29 4f 10 
+
+Stack: [0xb66df000,0xb672f000],  sp=0xb672d02c,  free space=312k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libc.so.1+0x3368e]  _memcpy+0x15e
+C  [libzip.so+0x2312]  ZIP_GetEntry+0x8a
+C  [libzip.so+0x26eb]  Java_java_util_zip_ZipFile_getEntry+0xa7
+J  java.util.zip.ZipFile.getEntry(JLjava/lang/String;Z)J
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J  java.util.zip.ZipFile.getEntry(JLjava/lang/String;Z)J
+J  java.util.jar.JarFile.getEntry(Ljava/lang/String;)Ljava/util/zip/ZipEntry;
+j  sun.net.www.protocol.jar.URLJarFile.getEntry(Ljava/lang/String;)Ljava/util/zip/ZipEntry;+2
+j  sun.net.www.protocol.jar.JarURLConnection.connect()V+62
+j  sun.net.www.protocol.jar.JarURLConnection.getInputStream()Ljava/io/InputStream;+1
+j  java.net.URL.openStream()Ljava/io/InputStream;+4
+j  java.lang.ClassLoader.getResourceAsStream(Ljava/lang/String;)Ljava/io/InputStream;+11
+j  org.codehaus.plexus.velocity.ContextClassLoaderResourceLoader.getResourceStream(Ljava/lang/String;)Ljava/io/InputStream;+32
+j  org.apache.velocity.Template.process()Z+20
+j  org.apache.velocity.runtime.resource.ResourceManagerImpl.loadResource(Ljava/lang/String;ILjava/lang/String;)Lorg/apache/velocity/runtime/resource/Resource;+73
+j  org.apache.velocity.runtime.resource.ResourceManagerImpl.getResource(Ljava/lang/String;ILjava/lang/String;)Lorg/apache/velocity/runtime/resource/Resource;+111
+j  org.apache.velocity.runtime.RuntimeInstance.getTemplate(Ljava/lang/String;Ljava/lang/String;)Lorg/apache/velocity/Template;+34
+j  org.apache.velocity.runtime.RuntimeInstance.getTemplate(Ljava/lang/String;)Lorg/apache/velocity/Template;+10
+j  org.apache.velocity.app.VelocityEngine.getTemplate(Ljava/lang/String;)Lorg/apache/velocity/Template;+5
+j  org.apache.maven.doxia.siterenderer.DefaultSiteRenderer.processTemplate(Ljava/lang/String;Lorg/apache/velocity/context/Context;Ljava/io/Writer;)V+10
+j  org.apache.maven.doxia.siterenderer.DefaultSiteRenderer.writeTemplate(Ljava/io/Writer;Lorg/apache/velocity/context/Context;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V+35
+j  org.apache.maven.doxia.siterenderer.DefaultSiteRenderer.generateDocument(Ljava/io/Writer;Lorg/apache/maven/doxia/siterenderer/sink/SiteRendererSink;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V+13
+j  org.apache.maven.plugins.site.ReportDocumentRenderer.renderDocument(Ljava/io/Writer;Lorg/apache/maven/doxia/siterenderer/Renderer;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;)V+417
+j  org.apache.maven.doxia.siterenderer.DefaultSiteRenderer.renderModule(Ljava/util/Collection;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V+199
+j  org.apache.maven.doxia.siterenderer.DefaultSiteRenderer.render(Ljava/util/Collection;Lorg/apache/maven/doxia/siterenderer/SiteRenderingContext;Ljava/io/File;)V+4
+j  org.apache.maven.plugins.site.SiteMojo.renderLocale(Ljava/util/Locale;Ljava/util/List;)V+94
+j  org.apache.maven.plugins.site.SiteMojo.execute()V+86
+j  org.apache.maven.plugin.DefaultPluginManager.executeMojo(Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/plugin/MojoExecution;Lorg/apache/maven/execution/MavenSession;)V+412
+j  hudson.maven.agent.PluginManagerInterceptor.executeMojo(Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/plugin/MojoExecution;Lorg/apache/maven/execution/MavenSession;)V+16
+j  org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoals(Ljava/util/List;Ljava/util/Stack;Lorg/apache/maven/execution/MavenSession;Lorg/apache/maven/project/MavenProject;)V+503
+j  org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoalWithLifecycle(Ljava/lang/String;Ljava/util/Stack;Lorg/apache/maven/execution/MavenSession;Ljava/util/Map;Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/lifecycle/Lifecycle;)V+28
+j  org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoal(Ljava/lang/String;Lorg/apache/maven/execution/MavenSession;Lorg/apache/maven/project/MavenProject;)V+50
+j  org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoalAndHandleFailures(Ljava/lang/String;Lorg/apache/maven/execution/MavenSession;Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/monitor/event/EventDispatcher;Ljava/lang/String;Lorg/apache/maven/execution/ReactorManager;JLjava/lang/String;)V+4
+j  org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeTaskSegments(Ljava/util/List;Lorg/apache/maven/execution/ReactorManager;Lorg/apache/maven/execution/MavenSession;Lorg/apache/maven/project/MavenProject;Lorg/apache/maven/monitor/event/EventDispatcher;)V+584
+j  org.apache.maven.lifecycle.DefaultLifecycleExecutor.execute(Lorg/apache/maven/execution/MavenSession;Lorg/apache/maven/execution/ReactorManager;Lorg/apache/maven/monitor/event/EventDispatcher;)V+241
+j  org.apache.maven.lifecycle.LifecycleExecutorInterceptor.execute(Lorg/apache/maven/execution/MavenSession;Lorg/apache/maven/execution/ReactorManager;Lorg/apache/maven/monitor/event/EventDispatcher;)V+39
+j  org.apache.maven.DefaultMaven.doExecute(Lorg/apache/maven/execution/MavenExecutionRequest;Lorg/apache/maven/monitor/event/EventDispatcher;)Lorg/apache/maven/execution/ReactorManager;+474
+j  org.apache.maven.DefaultMaven.execute(Lorg/apache/maven/execution/MavenExecutionRequest;)V+26
+j  org.apache.maven.cli.MavenCli.main([Ljava/lang/String;Lorg/codehaus/classworlds/ClassWorld;)I+880
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
+j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+161
+j  org.codehaus.classworlds.Launcher.launchEnhanced([Ljava/lang/String;)V+50
+j  org.codehaus.classworlds.Launcher.launch([Ljava/lang/String;)V+2
+j  hudson.maven.agent.Main.launch([Ljava/lang/String;)I+23
+j  hudson.maven.MavenBuilder.call()Lhudson/model/Result;+86
+j  hudson.maven.MavenModuleSetBuild$Builder.call()Lhudson/model/Result;+1
+j  hudson.maven.MavenModuleSetBuild$Builder.call()Ljava/lang/Object;+1
+j  hudson.remoting.UserRequest.perform(Lhudson/remoting/Channel;)Lhudson/remoting/UserResponse;+136
+j  hudson.remoting.UserRequest.perform(Lhudson/remoting/Channel;)Ljava/io/Serializable;+2
+j  hudson.remoting.Request$2.run()V+8
+j  java.util.concurrent.Executors$RunnableAdapter.call()Ljava/lang/Object;+4
+j  java.util.concurrent.FutureTask$Sync.innerRun()V+30
+j  java.util.concurrent.FutureTask.run()V+4
+j  java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Ljava/lang/Runnable;)V+59
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+28
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0b063800 JavaThread "Keep-Alive-Timer" daemon [_thread_blocked, id=62, stack(0xb60dd000,0xb612d000)]
+  0x0887ac00 JavaThread "pool-1-thread-5" [_thread_blocked, id=54, stack(0xb62ea000,0xb633a000)]
+  0x089a1c00 JavaThread "pool-1-thread-4" [_thread_blocked, id=53, stack(0xb637b000,0xb63cb000)]
+  0x089a0400 JavaThread "pool-1-thread-3" [_thread_blocked, id=52, stack(0xb63cc000,0xb641c000)]
+  0x085d4c00 JavaThread "pool-1-thread-2" [_thread_blocked, id=51, stack(0xb641d000,0xb646d000)]
+  0x085d4000 JavaThread "pool-1-thread-1" [_thread_blocked, id=50, stack(0xb647f000,0xb64cf000)]
+=>0x082d2800 JavaThread "pool-1-thread-1" [_thread_in_native, id=16, stack(0xb66df000,0xb672f000)]
+  0x082d0400 JavaThread "Channel reader thread: channel" [_thread_in_native, id=15, stack(0xb6730000,0xb6780000)]
+  0x08165800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=13, stack(0xb6817000,0xb6867000)]
+  0x08164000 JavaThread "CompilerThread1" daemon [_thread_blocked, id=12, stack(0xb6868000,0xb68a8000)]
+  0x0815e000 JavaThread "CompilerThread0" daemon [_thread_blocked, id=11, stack(0xb68a9000,0xb68e9000)]
+  0x0815c800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=10, stack(0xb68ea000,0xb693a000)]
+  0x0814a400 JavaThread "Finalizer" daemon [_thread_blocked, id=9, stack(0xb693b000,0xb698b000)]
+  0x08148c00 JavaThread "Reference Handler" daemon [_thread_blocked, id=8, stack(0xb698c000,0xb69dc000)]
+  0x08070000 JavaThread "main" [_thread_blocked, id=2, stack(0xfe30f000,0xfe35f000)]
+
+Other Threads:
+  0x08145400 VMThread [stack: 0xb69dd000,0xb6a1d000] [id=7]
+  0x08167800 WatcherThread [stack: 0xb67d6000,0xb6816000] [id=14]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 108480K, used 23207K [0xf3f00000, 0xfb0c0000, 0xfb0c0000)
+  eden space 100992K, 20% used [0xf3f00000,0xf530de70,0xfa1a0000)
+  from space 7488K, 35% used [0xfa880000,0xfab1bfd0,0xfafd0000)
+  to   space 7040K, 0% used [0xfa1a0000,0xfa1a0000,0xfa880000)
+ PSOldGen        total 112704K, used 76018K [0xbb0c0000, 0xc1ed0000, 0xf3f00000)
+  object space 112704K, 67% used [0xbb0c0000,0xbfafcaf8,0xc1ed0000)
+ PSPermGen       total 28416K, used 28403K [0xb70c0000, 0xb8c80000, 0xbb0c0000)
+  object space 28416K, 99% used [0xb70c0000,0xb8c7cd98,0xb8c80000)
+
+Dynamic libraries:
+0x08050000 	/opt/jdk1.6.0_13/bin/java
+0xfef90000 	/lib/libthread.so.1
+0xfef50000 	/opt/jdk1.6.0_13/bin/../jre/lib/i386/jli/libjli.so
+0xfef70000 	/lib/libdl.so.1
+0xfedd0000 	/lib/libc.so.1
+0xfe670000 	/opt/jdk1.6.0_13/jre/lib/i386/server/libjvm.so
+0xfe640000 	/lib/libsocket.so.1
+0xfedb0000 	/usr/lib/libsched.so.1
+0xfe600000 	/lib/libm.so.1
+0xfe5d0000 	/usr/lib/libCrun.so.1
+0xfe630000 	/lib/libdoor.so.1
+0xfe540000 	/lib/libm.so.2
+0xfe480000 	/lib/libnsl.so.1
+0xfe440000 	/lib/libscf.so.1
+0xfe420000 	/lib/libuutil.so.1
+0xfe3f0000 	/lib/libgen.so.1
+0xfe3d0000 	/lib/libmd.so.1
+0xfe3a0000 	/lib/libmp.so.2
+0xfe2a0000 	/opt/jdk1.6.0_13/jre/lib/i386/native_threads/libhpi.so
+0xfe230000 	/opt/jdk1.6.0_13/jre/lib/i386/libverify.so
+0xfe1e0000 	/opt/jdk1.6.0_13/jre/lib/i386/libjava.so
+0xfe190000 	/opt/jdk1.6.0_13/jre/lib/i386/libzip.so
+0xb67b0000 	/opt/jdk1.6.0_13/jre/lib/i386/libnet.so
+0xb6650000 	/opt/jdk1.6.0_13/jre/lib/i386/libj2pkcs11.so
+0xb6610000 	/usr/lib/libpkcs11.so
+0xb65d0000 	/usr/lib/libcryptoutil.so.1
+0xb64d0000 	/usr/lib/security/pkcs11_softtoken.so
+
+VM Arguments:
+java_command: hudson.maven.agent.Main /opt/apache-maven-2.1.0 /home/hudson/war/WEB-INF/lib/remoting-1.305.jar /home/hudson/plugins/maven-plugin/WEB-INF/lib/maven-interceptor-1.305.jar 57944 /home/hudson/plugins/maven-plugin/WEB-INF/lib/maven2.1-interceptor-1.1.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/opt/jdk1.6.0_13
+PATH=/opt/jdk1.6.0_13/bin:/opt/jdk1.7.0/bin:/opt/apache-maven-2.1.0/bin:/opt/CollabNet_Subversion/bin:/usr/gnu/bin:/usr/bin:/usr/X11/bin:/usr/sbin:/usr/ccs/bin:/usr/local/bin:/usr/local/sbin:/usr/sfw/bin:/usr/bin
+LD_LIBRARY_PATH=/opt/jdk1.6.0_13/jre/lib/i386/server:/opt/jdk1.6.0_13/jre/lib/i386:/opt/jdk1.6.0_13/jre/../lib/i386:/opt/jdk1.7.0/jre/lib/i386/server:/opt/jdk1.7.0/jre/lib/i386:/opt/jdk1.7.0/jre/../lib/i386
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x598600], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGBUS: [libjvm.so+0x598600], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGFPE: [libjvm.so+0x11abb4], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGPIPE: [libjvm.so+0x11abb4], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGXFSZ: [libjvm.so+0x11abb4], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGILL: [libjvm.so+0x11abb4], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGQUIT: [libjvm.so+0x4dd664], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGHUP: [libjvm.so+0x4dd664], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGINT: [libjvm.so+0x4dd664], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIGTERM: [libjvm.so+0x4dd664], sa_mask[0]=0xffbffeff, sa_flags=0x00000004
+SIG39: [libjvm.so+0x4df0b0], sa_mask[0]=0x00000000, sa_flags=0x00000008
+SIG40: [libjvm.so+0x11abb4], sa_mask[0]=0xffbffeff, sa_flags=0x0000000c
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Solaris
+uname:SunOS 5.11 snv_101b i86pc  (T2 libthread)
+rlimit: STACK 10240k, CORE infinity, NOFILE 65536, AS infinity
+load average:1.25 0.74 0.75
+
+CPU:total 4 (2 cores per cpu, 1 threads per core) family 15 model 193 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, mmxext, 3dnow, 3dnowext
+
+Memory: 4k page, physical 8112964k(399420k free)
+
+vm_info: Java HotSpot(TM) Server VM (11.3-b02) for solaris-x86 JRE (1.6.0_13-b03), built on Mar  9 2009 00:37:59 by "" with Workshop 5.8
+
+time: Sat May 16 10:59:46 2009
+elapsed time: 41 seconds
+

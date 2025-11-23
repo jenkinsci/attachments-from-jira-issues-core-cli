@@ -1,0 +1,84 @@
+? hudson/main/war/resources/help/tasks/mailer/smtp-use-ssl.html
+Index: hudson/main/core/src/main/java/hudson/tasks/Mailer.java
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/java/hudson/tasks/Mailer.java,v
+retrieving revision 1.18
+diff -u -r1.18 Mailer.java
+--- hudson/main/core/src/main/java/hudson/tasks/Mailer.java	7 Feb 2007 02:57:25 -0000	1.18
++++ hudson/main/core/src/main/java/hudson/tasks/Mailer.java	22 Mar 2007 05:46:01 -0000
+@@ -111,6 +111,12 @@
+          * which is usually <tt>localhost</tt>.
+          */
+         private String smtpHost;
++        
++        /**
++         * If true use SSL on port 465 (standard SMTPS).
++         */
++        private Boolean useSsl;
++        
+ 
+         public DescriptorImpl() {
+             super(Mailer.class);
+@@ -146,7 +152,23 @@
+             Properties props = new Properties(System.getProperties());
+             if(smtpHost!=null)
+                 props.put("mail.smtp.host",smtpHost);
+-
++            if (useSsl) {
++            	/* This allows the user to override settings by setting system properties but
++            	 * also allows us to use the default SMTPs port of 465 if no port is already set.
++            	 * It would be cleaner to use smtps, but that's done by calling session.getTransport()...
++            	 * and thats done in mail sender, and it would be a bit of a hack to get it all to
++            	 * coordinate, and we can make it work through setting mail.smtp properties.
++            	 */
++            	props.put("mail.smtp.auth","true");
++            	if (props.getProperty("mail.smtp.socketFactory.port") == null) {
++				    props.put("mail.smtp.port", "465");
++    				props.put("mail.smtp.socketFactory.port", "465");
++            	}
++            	if (props.getProperty("mail.smtp.socketFactory.class") == null) {
++            		props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
++            	}
++				props.put("mail.smtp.socketFactory.fallback", "false");
++			}
+             return Session.getInstance(props,getAuthenticator());
+         }
+ 
+@@ -176,7 +198,7 @@
+             } else {
+                 smtpAuthUsername = smtpAuthPassword = null;
+             }
+-
++            useSsl = req.getParameter("mailer_smtp_use_ssl")!=null;
+             save();
+             return super.configure(req);
+         }
+@@ -206,6 +228,10 @@
+ 
+         public String getSmtpAuthPassword() {
+             return smtpAuthPassword;
++        }
++        
++        public Boolean getUseSsl() {
++        	return useSsl;
+         }
+ 
+         public Publisher newInstance(StaplerRequest req) {
+Index: hudson/main/core/src/main/resources/hudson/tasks/Mailer/global.jelly
+===================================================================
+RCS file: /cvs/hudson/hudson/main/core/src/main/resources/hudson/tasks/Mailer/global.jelly,v
+retrieving revision 1.2
+diff -u -r1.2 global.jelly
+--- hudson/main/core/src/main/resources/hudson/tasks/Mailer/global.jelly	10 Mar 2007 22:43:44 -0000	1.2
++++ hudson/main/core/src/main/resources/hudson/tasks/Mailer/global.jelly	22 Mar 2007 03:54:25 -0000
+@@ -5,6 +5,10 @@
+       <input class="setting-input" name="mailer_smtp_server"
+         type="text" value="${descriptor.smtpServer}"/>
+     </f:entry>
++    <f:entry title="Use SSL"
++             help="/help/tasks/mailer/smtp-use-ssl.html">
++      <f:checkbox name="mailer_smtp_use_ssl" checked="${descriptor.useSsl}" />
++    </f:entry>
+     <f:entry title="Default user e-mail suffix"
+              help="/help/tasks/mailer/default-suffix.html">
+       <input class="setting-input" name="mailer_default_suffix"

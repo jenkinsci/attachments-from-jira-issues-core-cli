@@ -1,0 +1,40 @@
+Index: core/src/test/java/hudson/util/XStream2Test.java
+===================================================================
+--- core/src/test/java/hudson/util/XStream2Test.java	(revision 27947)
++++ core/src/test/java/hudson/util/XStream2Test.java	(working copy)
+@@ -24,6 +24,7 @@
+ package hudson.util;
+ 
+ import junit.framework.TestCase;
++import hudson.model.Items;
+ import hudson.model.Result;
+ import hudson.model.Run;
+ 
+@@ -35,6 +36,7 @@
+     public static final class Foo {
+         Result r1,r2;
+     }
++
+     public void testMarshalValue() throws Exception {
+         Foo f = new Foo();
+         f.r1 = f.r2 = Result.FAILURE;
+@@ -43,4 +45,19 @@
+         // we should find two "FAILURE"s as they should be written out twice
+         assertEquals(3,xml.split("FAILURE").length);
+     }
++
++    public static final class Bar {
++        private String __ugly;
++    }
++
++    public void testRoundTrip() throws Exception {
++        Bar b = new Bar();
++        b.__ugly = "UGLY";
++
++        String xml = Items.XSTREAM.toXML(b);
++        System.out.println(xml);
++
++        Bar b2 = (Bar)Items.XSTREAM.fromXML(xml);
++        assertEquals(b.__ugly, b2.__ugly);
++    }
+ }

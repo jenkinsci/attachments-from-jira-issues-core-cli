@@ -1,0 +1,54 @@
+Started by user admin
+[Pipeline] node
+Running on localhost_1 in /home/testuser/data/jenkins-nodes/1/workspace/stash-fail
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (stash)
+[Pipeline] sh
+[stash-fail] Running shell script
++ touch $'Prov\304\261der.class'
+[Pipeline] stash
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+hudson.os.PosixException: native error calling stat: No such file or directory /home/testuser/data/jenkins-nodes/1/workspace/stash-fail/Prov��der.class ENOENT
+	at hudson.os.PosixAPI$1.error(PosixAPI.java:36)
+	at jnr.posix.LinuxPOSIX.stat(LinuxPOSIX.java:117)
+	at jnr.posix.CheckedPOSIX.stat(CheckedPOSIX.java:265)
+	at jnr.posix.LazyPOSIX.stat(LazyPOSIX.java:267)
+	at hudson.util.IOUtils.mode(IOUtils.java:128)
+	at hudson.util.io.TarArchiver.visit(TarArchiver.java:92)
+	at hudson.util.DirScanner.scanSingle(DirScanner.java:49)
+	at hudson.util.DirScanner$Glob.scan(DirScanner.java:131)
+	at hudson.FilePath$1.invoke(FilePath.java:461)
+	at hudson.FilePath$1.invoke(FilePath.java:457)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2739)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:153)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:50)
+	at hudson.remoting.Request$2.run(Request.java:336)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:68)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at ......remote call to localhost_1(Native Method)
+	at hudson.remoting.Channel.attachCallSiteStackTrace(Channel.java:1545)
+	at hudson.remoting.UserResponse.retrieve(UserRequest.java:253)
+	at hudson.remoting.Channel.call(Channel.java:830)
+	at hudson.FilePath.act(FilePath.java:986)
+	at hudson.FilePath.act(FilePath.java:975)
+	at hudson.FilePath.archive(FilePath.java:457)
+	at org.jenkinsci.plugins.workflow.flow.StashManager.stash(StashManager.java:107)
+	at org.jenkinsci.plugins.workflow.support.steps.stash.StashStep$Execution.run(StashStep.java:113)
+	at org.jenkinsci.plugins.workflow.support.steps.stash.StashStep$Execution.run(StashStep.java:101)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution$1$1.call(SynchronousNonBlockingStepExecution.java:49)
+	at hudson.security.ACL.impersonate(ACL.java:260)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution$1.run(SynchronousNonBlockingStepExecution.java:46)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Finished: FAILURE

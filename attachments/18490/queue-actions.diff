@@ -1,0 +1,513 @@
+Index: main/core/src/main/java/hudson/matrix/MatrixConfiguration.java
+===================================================================
+--- main/core/src/main/java/hudson/matrix/MatrixConfiguration.java	(revision 15166)
++++ main/core/src/main/java/hudson/matrix/MatrixConfiguration.java	(working copy)
+@@ -36,7 +36,6 @@
+ import hudson.model.Cause.LegacyCodeCause;
+ import hudson.model.Node;
+ import hudson.model.ParameterValue;
+-import hudson.model.ParameterizedProjectTask;
+ import hudson.model.ParametersAction;
+ import hudson.model.Project;
+ import hudson.model.SCMedItem;
+@@ -293,8 +292,7 @@
+     }
+     
+ 	public boolean scheduleBuild(ParametersAction parameters, Cause c) {
+-        return Hudson.getInstance().getQueue().add(
+-                new ParameterizedProjectTask(this, parameters.getParameters(), c), getQuietPeriod());
++        return Hudson.getInstance().getQueue().add(this, getQuietPeriod(), parameters);
+ 	}
+ 	
+ }
+Index: main/core/src/main/java/hudson/model/AbstractProject.java
+===================================================================
+--- main/core/src/main/java/hudson/model/AbstractProject.java	(revision 15166)
++++ main/core/src/main/java/hudson/model/AbstractProject.java	(working copy)
+@@ -64,6 +64,7 @@
+ import java.io.IOException;
+ import java.lang.reflect.InvocationTargetException;
+ import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.Calendar;
+ import java.util.Collection;
+ import java.util.Collections;
+@@ -450,10 +451,10 @@
+             return false;
+ 
+         if (isParameterized())
+-            return Hudson.getInstance().getQueue().add(
+-                    new ParameterizedProjectTask(this, getDefaultParametersValues(), c), quietPeriod);
++        	return Hudson.getInstance().getQueue().add(
++        			this, 0, new ParametersAction(getDefaultParametersValues()), new CauseAction(c));
+         else
+-            return Hudson.getInstance().getQueue().add(new ParameterizedProjectTask(this, c), quietPeriod);
++            return Hudson.getInstance().getQueue().add(this, 0, new CauseAction(c));
+     }
+ 
+     private List<ParameterValue> getDefaultParametersValues() {
+@@ -1016,10 +1017,8 @@
+                     // TODO: more unit handling
+                     if(delay.endsWith("sec"))   delay=delay.substring(0,delay.length()-3);
+                     if(delay.endsWith("secs"))  delay=delay.substring(0,delay.length()-4);
+-                    Hudson.getInstance().getQueue().add(
+-                    		new ParameterizedProjectTask(this, new UserCause()), 
+-                    		Integer.parseInt(delay)
+-                    );
++                    Hudson.getInstance().getQueue().add(this, Integer.parseInt(delay), 
++                    		new CauseAction(new UserCause()));
+                 } catch (NumberFormatException e) {
+                     throw new ServletException("Invalid delay parameter value: "+delay);
+                 }
+Index: main/core/src/main/java/hudson/model/Executor.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Executor.java	(revision 15166)
++++ main/core/src/main/java/hudson/model/Executor.java	(working copy)
+@@ -92,13 +92,14 @@
+                     }
+                 }
+ 
+-                Queue.Task task;
++                Queue.Item queueItem;
+                 try {
+-                    task = queue.pop();
++                	queueItem = queue.pop();
+                 } catch (InterruptedException e) {
+                     continue;
+                 }
+ 
++                Queue.Task task = queueItem.task;
+                 Throwable problems = null;
+                 owner.taskAccepted(this, task);
+                 try {
+@@ -110,6 +111,11 @@
+ 
+                         startTime = System.currentTimeMillis();
+                         executable = task.createExecutable();
++                        if (executable instanceof Actionable) {
++                        	for (Action action: queueItem.getActions()) {
++                        		((Actionable) executable).addAction(action);
++                        	}
++                        }
+                         queue.execute(executable, task);
+                     } catch (Throwable e) {
+                         // for some reason the executor died. this is really
+Index: main/core/src/main/java/hudson/model/ParameterizedProjectTask.java
+===================================================================
+--- main/core/src/main/java/hudson/model/ParameterizedProjectTask.java	(revision 15166)
++++ main/core/src/main/java/hudson/model/ParameterizedProjectTask.java	(working copy)
+@@ -1,141 +0,0 @@
+-/*
+- * The MIT License
+- * 
+- * Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi, Tom Huybrechts
+- * 
+- * Permission is hereby granted, free of charge, to any person obtaining a copy
+- * of this software and associated documentation files (the "Software"), to deal
+- * in the Software without restriction, including without limitation the rights
+- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+- * copies of the Software, and to permit persons to whom the Software is
+- * furnished to do so, subject to the following conditions:
+- * 
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- * 
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+- * THE SOFTWARE.
+- */
+-package hudson.model;
+-
+-import hudson.model.Queue.Executable;
+-import hudson.util.QueueTaskFilter;
+-
+-import java.io.IOException;
+-import java.util.List;
+-
+-import javax.servlet.ServletException;
+-
+-import org.kohsuke.stapler.StaplerRequest;
+-import org.kohsuke.stapler.StaplerResponse;
+-
+-/**
+- * A task representing a project that should be built with a certain set of
+- * parameter values
+- */
+-public class ParameterizedProjectTask extends QueueTaskFilter {
+-
+-    private final AbstractProject<?,?> project;
+-    private final List<ParameterValue> parameters;
+-    private final Cause cause;
+-    
+-    private static long COUNTER = System.currentTimeMillis(); 
+-
+-    /**
+-     * Used for identifying the task in the queue
+-     */
+-    private final String key = Long.toString(COUNTER++);
+-
+-	/**
+-	 * @deprecated
+-	 *    Use {@link #ParameterizedProjectTask(AbstractProject, List, Cause)}.  Since 1.283
+-	 */
+-    public ParameterizedProjectTask(AbstractProject<?,?> project, List<ParameterValue> parameters) {
+-        this(project, parameters, new Cause.LegacyCodeCause());
+-    }
+-    
+-    public ParameterizedProjectTask(AbstractProject<?,?> project, List<ParameterValue> parameters, Cause c) {
+-        super(project);
+-        this.project = project;
+-        this.parameters = parameters;
+-        this.cause = c;
+-    }
+-
+-    public ParameterizedProjectTask(AbstractProject<?,?> project, Cause c) {
+-        this(project, null, c);
+-    }
+-
+-    public AbstractProject<?, ?> getProject() {
+-		return project;
+-	}
+-
+-	public List<ParameterValue> getParameters() {
+-		return parameters;
+-	}
+-
+-	@Override
+-    public Executable createExecutable() throws IOException {
+-        AbstractBuild<?, ?> build = project.createExecutable();
+-        if(parameters != null) 
+-        	build.addAction(new ParametersAction(parameters, build));
+-        build.addAction(new CauseAction(cause));
+-        return build;
+-    }
+-	
+-    /**
+-     * Cancels a scheduled build.
+-     */
+-    public void doCancelQueue( StaplerRequest req, StaplerResponse rsp ) throws IOException, ServletException {
+-        project.checkPermission(AbstractProject.BUILD);
+-
+-        Hudson.getInstance().getQueue().cancel(this);
+-        rsp.forwardToPreviousPage(req);
+-    }
+-	
+-
+-    @Override
+-    public int hashCode() {
+-    	// cause is NOT included so distinct causes won't schedule duplicate builds
+-        final int prime = 31;
+-        int result = 1;
+-        result = prime * result
+-                + ((parameters == null) ? 0 : parameters.hashCode());
+-        result = prime * result + ((project == null) ? 0 : project.hashCode());
+-        return result;
+-    }
+-
+-    @Override
+-    public boolean equals(Object obj) {
+-    	// cause is NOT included so distinct causes won't schedule duplicate builds
+-        if (this == obj)
+-            return true;
+-        if (obj == null)
+-            return false;
+-        if (getClass() != obj.getClass())
+-            return false;
+-        ParameterizedProjectTask other = (ParameterizedProjectTask) obj;
+-        if (parameters == null) {
+-            if (other.parameters != null)
+-                return false;
+-        } else if (!parameters.equals(other.parameters)) {
+-            return false;
+-        }
+-        if (project != other.project) {
+-            return false;
+-        }
+-        return true;
+-    }
+-    
+-    public String getUrl() {
+-    	return getProject().getUrl() + "/parameters/queued/" + key + "/";
+-    }
+-
+-	public String getQueueKey() {
+-		return key;
+-	}
+-}
+Index: main/core/src/main/java/hudson/model/ParametersAction.java
+===================================================================
+--- main/core/src/main/java/hudson/model/ParametersAction.java	(revision 15166)
++++ main/core/src/main/java/hudson/model/ParametersAction.java	(working copy)
+@@ -43,11 +43,9 @@
+ public class ParametersAction implements Action, Iterable<ParameterValue> {
+ 
+     private final List<ParameterValue> parameters;
+-    private final AbstractBuild<?, ?> build;
+ 
+-    public ParametersAction(List<ParameterValue> parameters, AbstractBuild<?, ?> build) {
++    public ParametersAction(List<ParameterValue> parameters) {
+         this.parameters = parameters;
+-        this.build = build;
+     }
+ 
+     public void createBuildWrappers(AbstractBuild<?,?> build, Collection<? super BuildWrapper> result) {
+@@ -86,10 +84,6 @@
+         return new VariableResolver.Union<String>(resolvers);
+     }
+ 
+-    public AbstractBuild<?, ?> getBuild() {
+-        return build;
+-    }
+-
+     public Iterator<ParameterValue> iterator() {
+         return parameters.iterator();
+     }
+@@ -109,4 +103,5 @@
+     public String getUrlName() {
+         return "parameters";
+     }
++
+ }
+Index: main/core/src/main/java/hudson/model/ParametersDefinitionProperty.java
+===================================================================
+--- main/core/src/main/java/hudson/model/ParametersDefinitionProperty.java	(revision 15166)
++++ main/core/src/main/java/hudson/model/ParametersDefinitionProperty.java	(working copy)
+@@ -26,7 +26,6 @@
+ import java.io.IOException;
+ import java.util.ArrayList;
+ import java.util.List;
+-import java.util.Map;
+ 
+ import javax.servlet.ServletException;
+ 
+@@ -97,8 +96,8 @@
+             values.add(d.createValue(req, jo));
+         }
+ 
+-        Hudson.getInstance().getQueue().add(
+-                new ParameterizedProjectTask(owner, values, new Cause.UserCause()), 0);
++    	Hudson.getInstance().getQueue().add(
++    			owner, 0, new ParametersAction(values), new CauseAction(new Cause.UserCause()));
+ 
+         // send the user back to the job top page.
+         rsp.sendRedirect(".");
+@@ -116,7 +115,7 @@
+         }
+ 
+     	Hudson.getInstance().getQueue().add(
+-                new ParameterizedProjectTask(owner, values, new Cause.UserCause()), 0);
++    			owner, 0, new ParametersAction(values), new CauseAction(new Cause.UserCause()));
+ 
+         // send the user back to the job top page.
+         rsp.sendRedirect(".");
+@@ -182,19 +181,6 @@
+         return "parameters";
+     }
+     
+-    public ParameterizedProjectTask getQueued(String key) {
+-    	Queue.Item[] items = Hudson.getInstance().getQueue().getItems();
+-    	for (Queue.Item item: items) {
+-    		if (item.task instanceof ParameterizedProjectTask) {
+-    			ParameterizedProjectTask ppt = (ParameterizedProjectTask) item.task;
+-				if (ppt.getProject() == owner && ppt.getQueueKey().equals(key)) {
+-    				return ppt;
+-    			}
+-    		}
+-    	}
+-    	return null;
+-    }
+-
+     static {
+         ParameterDefinition.LIST.add(StringParameterDefinition.DESCRIPTOR);
+         ParameterDefinition.LIST.add(FileParameterDefinition.DESCRIPTOR);
+Index: main/core/src/main/java/hudson/model/Queue.java
+===================================================================
+--- main/core/src/main/java/hudson/model/Queue.java	(revision 15166)
++++ main/core/src/main/java/hudson/model/Queue.java	(working copy)
+@@ -40,7 +40,9 @@
+ import java.io.InputStreamReader;
+ import java.lang.ref.WeakReference;
+ import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.Calendar;
++import java.util.Collections;
+ import java.util.GregorianCalendar;
+ import java.util.HashMap;
+ import java.util.Iterator;
+@@ -200,9 +202,26 @@
+             } else {
+                 queueFile = getXMLQueueFile();
+                 if (queueFile.exists()) {
+-                    List<Task> tasks = (List<Task>) new XmlFile(XSTREAM, queueFile).read();
+-                    for (Task task : tasks) {
+-                        add(task, 0);
++                    List list = (List) new XmlFile(XSTREAM, queueFile).read();
++                    if (!list.isEmpty()) {
++                    	if (list.get(0) instanceof Queue.Task) {
++                    		// backward compatiblity
++                    		for (Task task : (List<Task>) list) {
++                    			add(task, 0);
++                    		}
++                    	} else if (list.get(0) instanceof Item) {
++                    		for (Item item: (List<Item>) list) {
++                    			if (item instanceof WaitingItem) {
++                    				waitingList.add((WaitingItem) item);
++                    			} else if (item instanceof BlockedItem) {
++                    				blockedProjects.put(item.task, (BlockedItem) item);
++                    			} else if (item instanceof BuildableItem) {
++                    				buildables.put(item.task, (BuildableItem) item);
++                    			} else {
++                    				throw new IllegalStateException("Unknown item type! " + item);
++                    			}
++                    		}
++                    	}
+                     }
+ 
+                     // I just had an incident where all the executors are dead at AbstractProject._getRuns()
+@@ -228,13 +247,13 @@
+         if(BulkChange.contains(this))  return;
+         
+         // write out the tasks on the queue
+-    	ArrayList<Task> tasks = new ArrayList<Task>();
++    	ArrayList<Queue.Item> items = new ArrayList<Queue.Item>();
+     	for (Item item: getItems()) {
+-    	    tasks.add(item.task);
++    	    items.add(item);
+     	}
+     	
+         try {
+-            new XmlFile(XSTREAM, getXMLQueueFile()).write(tasks);
++            new XmlFile(XSTREAM, getXMLQueueFile()).write(items);
+         } catch (IOException e) {
+             LOGGER.log(Level.WARNING, "Failed to write out the queue file " + getQueueFile(), e);
+         }
+@@ -289,7 +308,7 @@
+      *                    times.
+      * @since 1.114
+      */
+-    public synchronized boolean add(Task p, int quietPeriod) {
++    public synchronized boolean add(Task p, int quietPeriod, List<Action> actions) {
+         Item item = getItem(p);
+         Calendar due = new GregorianCalendar();
+         due.add(Calendar.SECOND, quietPeriod);
+@@ -321,13 +340,21 @@
+             LOGGER.fine(p.getFullDisplayName() + " added to queue");
+ 
+             // put the item in the queue
+-            waitingList.add(new WaitingItem(due,p));
++            waitingList.add(new WaitingItem(due,p,actions));
+ 
+         }
+         scheduleMaintenance();   // let an executor know that a new item is in the queue.
+         return true;
+     }
++    
++    public synchronized boolean add(Task p, int quietPeriod) {
++    	return add(p, quietPeriod, new Action[0]);
++    }
+ 
++    public synchronized boolean add(Task p, int quietPeriod, Action... actions) {
++    	return add(p, quietPeriod, Arrays.asList(actions));
++    }
++
+     /**
+      * Cancels the item in the queue.
+      *
+@@ -452,7 +479,7 @@
+      * <p>
+      * This method blocks until a next project becomes buildable.
+      */
+-    public Task pop() throws InterruptedException {
++    public Queue.Item pop() throws InterruptedException {
+         final Executor exec = Executor.currentExecutor();
+ 
+         try {
+@@ -522,7 +549,7 @@
+                     if (offer.item != null) {
+                         LOGGER.fine("Pop returning " + offer.item + " for " + exec.getName());
+                         // if so, just build it
+-                        return offer.item.task;
++                        return offer.item;
+                     }
+                     // otherwise run a queue maintenance
+                 }
+@@ -807,13 +834,13 @@
+      * Item in a queue.
+      */
+     @ExportedBean(defaultVisibility = 999)
+-    public abstract class Item {
+-        /**
++    public static abstract class Item extends Actionable {
++		/**
+          * Project to be built.
+          */
+         @Exported
+         public final Task task;
+-
++        
+         /**
+          * Build is blocked because another build is in progress,
+          * required {@link Resource}s are not available, or otherwise blocked
+@@ -841,7 +868,7 @@
+         }
+ 
+         /**
+-         * Gets a human-readable status message describing why it's in the queu.
++         * Gets a human-readable status message describing why it's in the queue.
+          */
+         @Exported
+         public abstract String getWhy();
+@@ -849,6 +876,17 @@
+         public boolean hasCancelPermission() {
+             return task.hasAbortPermission();
+         }
++        
++        public String getDisplayName() {
++			// TODO Auto-generated method stub
++			return null;
++		}
++
++		public String getSearchUrl() {
++			// TODO Auto-generated method stub
++			return null;
++		}
++
+     }
+ 
+     /**
+@@ -874,6 +912,13 @@
+                 this.id = iota++;
+             }
+         }
++        
++        WaitingItem(Calendar timestamp, Task project, List<Action> actions) {
++        	this(timestamp,project);
++        	for (Action action: actions) {
++        		addAction(action);
++        	}
++        }
+ 
+         public int compareTo(WaitingItem that) {
+             int r = this.timestamp.getTime().compareTo(that.timestamp.getTime());
+@@ -895,7 +940,7 @@
+     /**
+      * Common part between {@link BlockedItem} and {@link BuildableItem}.
+      */
+-    public abstract class NotWaitingItem extends Item {
++    public static abstract class NotWaitingItem extends Item {
+         /**
+          * When did this job exit the {@link Queue#waitingList} phase?
+          */
+@@ -940,7 +985,7 @@
+     /**
+      * {@link Item} in the {@link Queue#buildables} stage.
+      */
+-    public final class BuildableItem extends NotWaitingItem {
++    public final static class BuildableItem extends NotWaitingItem {
+         public BuildableItem(WaitingItem wi) {
+             super(wi);
+         }

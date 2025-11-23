@@ -1,0 +1,16 @@
+Index: C:/Users/Paulina/Projects/hudson/trunk/hudson/main/core/src/main/resources/hudson/model/User/index.jelly
+===================================================================
+--- C:/Users/Paulina/Projects/hudson/trunk/hudson/main/core/src/main/resources/hudson/model/User/index.jelly	(revision 12019)
++++ C:/Users/Paulina/Projects/hudson/trunk/hudson/main/core/src/main/resources/hudson/model/User/index.jelly	(working copy)
+@@ -7,6 +7,10 @@
+         ${it.fullName}
+       </h1>
+       <t:editableDescription />
++      <!-- give properties a chance to contribute summary item -->
++      <j:forEach var="p" items="${it.allProperties}">
++        <st:include page="summary.jelly" from="${p}" optional="true" it="${p}" />
++      </j:forEach>
+     </l:main-panel>
+   </l:layout>
+ </j:jelly>
+\ No newline at end of file

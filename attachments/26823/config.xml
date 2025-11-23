@@ -1,0 +1,1163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>hudson.node_monitors.MonitorMarkedNodeOffline</string>
+    <string>hudson.diagnosis.ReverseProxySetupMonitor</string>
+    <string>jenkins.diagnostics.SecurityIsOffMonitor</string>
+  </disabledAdministrativeMonitors>
+  <version>1.578</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.SecurityRealm$None"/>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <jdks>
+    <jdk>
+      <name>JDK 7u05</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <hudson.tools.JDKInstaller>
+              <id>jdk-8u20-oth-JPR</id>
+              <acceptLicense>true</acceptLicense>
+            </hudson.tools.JDKInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+    </jdk>
+    <jdk>
+      <name>JDK 7u45</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <hudson.tools.CommandInstaller>
+              <label>aix</label>
+              <command>echo running from `/bin/pwd`at `date`
+echo tryinig to install JRE 7u45 on aix
+exit 1
+
+if [ ! -x jre/bin/java ] ; then
+   env | sort
+   if [ ! -f aix-jdk-7u0.tar.gz ] ; then
+      wget http://jenkins:8080/userContent/aix-jdk-7u0.tar.gz
+   fi
+   gzip -d aix-jdk-7u0.tar.gz
+   tar xf aix-jdk-7u0.tar
+fi</command>
+              <toolHome> /var/jenkins/tools/hudson.model.JDK/JDK_7u45</toolHome>
+            </hudson.tools.CommandInstaller>
+            <hudson.tools.CommandInstaller>
+              <label>solaris</label>
+              <command>echo running from `/bin/pwd`at `date`
+
+if [ ! -x jre/bin/java ] ; then
+   env | sort
+   mach=`uname -m`
+   if [ $mach = &quot;i86pc&quot; ] ;then
+      tar=solaris-x86--jdk-7u45.tar
+   else
+     tar=solaris-sparc-jdk-7u45.tar
+   fi
+   echo &quot;machine=$mach tar=$tar&quot;
+   if [ ! -f $base.tar ] ; then
+      wget http://jenkins:8080/userContent/$tar
+   fi
+   tar xf $tar
+fi
+
+ls -al $PWD/jre/bin/java*</command>
+              <toolHome> /var/jenkins/tools/hudson.model.JDK/JDK_7u45</toolHome>
+            </hudson.tools.CommandInstaller>
+            <hudson.tools.JDKInstaller>
+              <id>jdk-8u20-oth-JPR</id>
+              <acceptLicense>true</acceptLicense>
+            </hudson.tools.JDKInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+    </jdk>
+    <jdk>
+      <name>old hudson JDK</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <hudson.tools.CommandInstaller>
+              <command>echo running the hudson_share JDK installer
+here=`/bin/pwd`
+echo pwd is $here
+env | sort
+[ ! -d $here/jre ] &amp;&amp; ln -s /var/hudson/jdk $here/jre
+ls -al $here/jre/bin/java*
+echo hudson_share JDK installer has finished</command>
+              <toolHome>/var/jenkins/tools/hudson.model.JDK/old_hudson_JDK</toolHome>
+            </hudson.tools.CommandInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+    </jdk>
+    <jdk>
+      <name>AIX  JDK 7.1.0.15</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <hudson.tools.CommandInstaller>
+              <command>echo AIX: running from `/bin/pwd`at `date`
+
+if [ ! -x jre/bin/java ] ; then
+   env | sort
+   if [ ! -f aix-jdk-7.1.0.15.tar.gz ] ; then
+      wget http://jenkins:8080/userContent/aix-jdk-7.1.0.15.tar.gz
+   fi
+   gzip -d aix-jdk-7.1.0.15.tar.gz
+   tar xf aix-jdk-7.1.0.15.tar
+fi
+
+ls -al $PWD/jre/bin/java*</command>
+              <toolHome>/var/jenkins/tools/hudson.model.JDK/AIX_JDK_7.1.0.15</toolHome>
+            </hudson.tools.CommandInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+    </jdk>
+    <jdk>
+      <name>Solaris JDK 7u5</name>
+      <home></home>
+      <properties>
+        <hudson.tools.InstallSourceProperty>
+          <installers>
+            <hudson.tools.CommandInstaller>
+              <command>here=`/bin/pwd`
+
+echo Solaris: running from $here at `date`
+
+if [ ! -x $here/jre/bin/java ] ; then
+   env | sort
+   mach=`uname -m`
+   if [ $mach = &quot;i86pc&quot; ] ;then
+      tar=solaris-x86-jdk-7u5.tar
+   else
+     tar=solaris-sparc-jdk-7u5.tar
+   fi
+   echo &quot;machine=$mach tar=$tar&quot;
+   if [ ! -f $tar ] ; then
+      wget http://jenkins:8080/userContent/$tar
+   fi
+   echo tar xf $tar in `/bin/pwd`
+   tar xf $tar
+fi
+
+ls -al $here/jre/bin/java*
+setting JAVA_HOME to $here
+JAVA_HOME=$here</command>
+              <toolHome>/var/jenkins/tools/hudson.model.JDK/Solaris_JDK_7u5</toolHome>
+            </hudson.tools.CommandInstaller>
+          </installers>
+        </hudson.tools.InstallSourceProperty>
+      </properties>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <slaves>
+    <slave>
+      <name>BUILDWIN2008-JENKINS</name>
+      <description>This machine has custom ant tasks installed as well as msbuild tasks from https://github.com/loresoft/msbuildtasks.</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>3</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>builder windows &quot;server 2008&quot;</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>BUILDUBUNTU64-4</name>
+      <description></description>
+      <remoteFS>/var/jenkins/</remoteFS>
+      <numExecutors>2</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.18</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+        <jvmOptions>-Xrs -Xmx2048m -XX:MaxPermSize=1024M</jvmOptions>
+      </launcher>
+      <label>builder linux ubuntu</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SMOKEWIN7-JENKINS</name>
+      <description>Windows 7 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL64x64</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.68</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeRHEL64-64</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>buildsolaris64-3</name>
+      <description>x86 solaris build machine</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.17</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+        <jvmOptions>-Xrs -Xmx2048m -XX:MaxPermSize=1024M</jvmOptions>
+      </launcher>
+      <label></label>
+      <nodeProperties>
+        <hudson.slaves.EnvironmentVariablesNodeProperty>
+          <envVars serialization="custom">
+            <unserializable-parents/>
+            <tree-map>
+              <default>
+                <comparator class="hudson.util.CaseInsensitiveComparator"/>
+              </default>
+              <int>2</int>
+              <string>LD_LIBRARY_PATH</string>
+              <string>/opt/gcc4-amd64/lib:/opt/mono-2.0.1/lib:/opt/csw/lib</string>
+              <string>PATH</string>
+              <string>/opt/gcc4-amd64/bin:/opt/mono-2.0.1/bin:/opt/csw/bin:/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin:${env.PATH}</string>
+            </tree-map>
+          </envVars>
+        </hudson.slaves.EnvironmentVariablesNodeProperty>
+      </nodeProperties>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>soldev10u10</name>
+      <description>Solaris 10u10 test box with sparc hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.3.89</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u10-sparc</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>js21-2</name>
+      <description>AIX build machine</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.7.12</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+        <jvmOptions>-Xrs -Xmx2048m -XX:MaxPermSize=1024M</jvmOptions>
+      </launcher>
+      <label>aix builder</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL60x32</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.48</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL60x64</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.49</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL64x32</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.46</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL5-current-32</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.56</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL5-current-64</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.57</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL50x32</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.54</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>linux smoketest</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeRHEL50x64</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.55</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeOra-UEK-5.10</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.80</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeOra-UEK-5.8</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.81</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2012</name>
+      <description>Windows 2012 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2012r2</name>
+      <description>Windows 2012r2 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2k3</name>
+      <description>Windows 2k3 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2k3SP1</name>
+      <description>Windows 2k3SP1 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2k3x64</name>
+      <description>Windows 2k3 x64 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2k8</name>
+      <description>Windows 2k8 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar57</name>
+      <description>AIX 5.2 TL10 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.57</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar57 aix smoke aix52</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2k8r2</name>
+      <description>Windows 2k8r2 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2k8sp0</name>
+      <description>Windows 2k8sp0 x86 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeWin2k8x64</name>
+      <description>Windows 2k8 x64 Smoke Test VM</description>
+      <remoteFS>h:/jenkins/</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label></label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>sol10-GA</name>
+      <description>Solaris 10u10 test box with sparc hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.60</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10ga-sparc solaris smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol10u1_x86</name>
+      <description>Solaris 10u1 test box with X86 hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.60</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u1-x86 smoke solaris</label>
+      <nodeProperties>
+        <hudson.tools.ToolLocationNodeProperty>
+          <locations/>
+        </hudson.tools.ToolLocationNodeProperty>
+      </nodeProperties>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>smokesol10u11</name>
+      <description>Solaris 10u11 test box with sparc hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.25</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u11-sparc solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol10u7_sparc</name>
+      <description>Solaris 10u7 test box with sparc hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.113</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u7-sparc smoke solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol8latest_sparc</name>
+      <description>Solaris 8 latest test box with sparc hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.52</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol8latest-sparc smoke solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol10u3_sparc</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.63</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u3-sparc solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol8ga_sparc</name>
+      <description>Solaris 8 latest test box with sparc hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.21</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol8ga-sparc smoke solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol9_sparc</name>
+      <description>Solaris 9 latest test box with sparc hardware</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.56</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol9-sparc smoke solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol10u4_sparc</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.64</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u4-sparc solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol10u8_sparc</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.68</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u8-sparc solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSol10u9_sparc</name>
+      <description></description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.160.69</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSol10u9-sparc solaris</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSLES11sp1</name>
+      <description>SUSE 11 SP1 smoketest box</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.63</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSLES11sp1-x86_64 build  linux SUSE</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>SmokeSLES10sp4</name>
+      <description>SUSE 10 SP4 smoketest box</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>192.168.5.64</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>SmokeSLES10sp4-x86_64 build  linux SUSE</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar46</name>
+      <description>AIX 5.3 TL10 SP7 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.46</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar46 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar47</name>
+      <description>AIX 5.3 TL12 SP8 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.47</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar47 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar76</name>
+      <description>AIX 6.1 TL4 SP11 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.76</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar76 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar71</name>
+      <description>AIX 7.1 TL3 SP2 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.71</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar71 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar72</name>
+      <description>AIX 7.1 TL2 SP3 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.72</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar72 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar66</name>
+      <description>AIX 7.1 TL1 SP9 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.66</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar66 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar56</name>
+      <description>AIX 7.1 TL0 SP10 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.56</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar56 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar52</name>
+      <description>AIX 6.1 TL6 SP12 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.52</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar52 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar51</name>
+      <description>AIX 6.1 TL7 SP8 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.51</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar51 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar149</name>
+      <description>AIX 6.1 TL8 SP4 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.149</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar149 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>solpar77</name>
+      <description>AIX 6.1 TL9 SP2 smoketest system</description>
+      <remoteFS>/var/jenkins</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host>172.16.1.77</host>
+        <port>22</port>
+        <credentialsId>ba564e20-f725-4e14-b8c5-46f9daa86d07</credentialsId>
+      </launcher>
+      <label>solpar77 aix smoke</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>BuildHelen</name>
+      <description>server for generating PDFs with helen</description>
+      <remoteFS>c:\jenkins\</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.os.windows.ManagedWindowsServiceLauncher" plugin="windows-slaves@1.0">
+        <userName></userName>
+        <password>*redacted*</password>
+        <account class="hudson.os.windows.ManagedWindowsServiceAccount$LocalSystem"/>
+      </launcher>
+      <label>helen windows &quot;server 2008&quot;</label>
+      <nodeProperties/>
+      <userId>anonymous</userId>
+    </slave>
+  </slaves>
+  <quietPeriod>15</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+    <hudson.plugins.sectioned__view.SectionedView plugin="sectioned-view@1.18">
+      <owner class="hudson" reference="../../.."/>
+      <name>trunk</name>
+      <filterExecutors>true</filterExecutors>
+      <filterQueue>true</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <sections>
+        <hudson.plugins.sectioned__view.ListViewSection>
+          <jobNames>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+            <string>qa_common</string>
+          </jobNames>
+          <jobFilters/>
+          <name>Builds</name>
+          <includeRegex>trunk_(?!smoke).*</includeRegex>
+          <width>FULL</width>
+          <alignment>CENTER</alignment>
+          <columns>
+            <hudson.views.StatusColumn/>
+            <com.robestone.hudson.compactcolumns.AllStatusesColumn plugin="compact-columns@1.10">
+              <colorblindHint>nohint</colorblindHint>
+              <timeAgoTypeString>DIFF</timeAgoTypeString>
+              <onlyShowLastStatus>true</onlyShowLastStatus>
+              <hideDays>0</hideDays>
+            </com.robestone.hudson.compactcolumns.AllStatusesColumn>
+            <hudson.views.LastDurationColumn/>
+            <com.robestone.hudson.compactcolumns.JobNameColumn plugin="compact-columns@1.10"/>
+            <hudson.views.LastStableColumn/>
+            <hudson.views.LastSuccessColumn/>
+            <hudson.views.LastFailureColumn/>
+            <hudson.views.BuildButtonColumn/>
+          </columns>
+        </hudson.plugins.sectioned__view.ListViewSection>
+        <hudson.plugins.sectioned__view.ListViewSection>
+          <jobNames>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../hudson.plugins.sectioned__view.ListViewSection/jobNames/comparator"/>
+          </jobNames>
+          <jobFilters/>
+          <name>Linux Smoketests</name>
+          <includeRegex>trunk_smoketest_(rhel|sles|unbreakable).*</includeRegex>
+          <width>HALF</width>
+          <alignment>LEFT</alignment>
+          <columns>
+            <hudson.views.StatusColumn/>
+            <com.robestone.hudson.compactcolumns.LastSuccessAndFailedColumn plugin="compact-columns@1.10">
+              <timeAgoTypeString>DIFF</timeAgoTypeString>
+            </com.robestone.hudson.compactcolumns.LastSuccessAndFailedColumn>
+            <com.robestone.hudson.compactcolumns.JobNameColorColumn plugin="compact-columns@1.10">
+              <colorblindHint>nohint</colorblindHint>
+              <showColor>false</showColor>
+              <showDescription>true</showDescription>
+              <showLastBuild>true</showLastBuild>
+            </com.robestone.hudson.compactcolumns.JobNameColorColumn>
+            <hudson.views.LastStableColumn/>
+            <hudson.views.BuildButtonColumn/>
+          </columns>
+        </hudson.plugins.sectioned__view.ListViewSection>
+        <hudson.plugins.sectioned__view.ListViewSection>
+          <jobNames>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../hudson.plugins.sectioned__view.ListViewSection/jobNames/comparator"/>
+          </jobNames>
+          <jobFilters/>
+          <name>Windows Smoketests</name>
+          <includeRegex>trunk_smoketest_win.*</includeRegex>
+          <width>HALF</width>
+          <alignment>RIGHT</alignment>
+          <columns>
+            <hudson.views.StatusColumn/>
+            <com.robestone.hudson.compactcolumns.LastStableAndUnstableColumn plugin="compact-columns@1.10">
+              <timeAgoTypeString>DIFF</timeAgoTypeString>
+            </com.robestone.hudson.compactcolumns.LastStableAndUnstableColumn>
+            <com.robestone.hudson.compactcolumns.JobNameColorColumn plugin="compact-columns@1.10">
+              <colorblindHint>nohint</colorblindHint>
+              <showColor>false</showColor>
+              <showDescription>true</showDescription>
+              <showLastBuild>true</showLastBuild>
+            </com.robestone.hudson.compactcolumns.JobNameColorColumn>
+            <hudson.views.LastStableColumn/>
+            <hudson.views.BuildButtonColumn/>
+          </columns>
+        </hudson.plugins.sectioned__view.ListViewSection>
+        <hudson.plugins.sectioned__view.ListViewSection>
+          <jobNames>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../hudson.plugins.sectioned__view.ListViewSection/jobNames/comparator"/>
+          </jobNames>
+          <jobFilters/>
+          <name>Solaris Smoketests</name>
+          <includeRegex>trunk_smoketest_sol.*</includeRegex>
+          <width>HALF</width>
+          <alignment>RIGHT</alignment>
+          <columns>
+            <hudson.views.StatusColumn/>
+            <com.robestone.hudson.compactcolumns.LastStableAndUnstableColumn plugin="compact-columns@1.10">
+              <timeAgoTypeString>DIFF</timeAgoTypeString>
+            </com.robestone.hudson.compactcolumns.LastStableAndUnstableColumn>
+            <com.robestone.hudson.compactcolumns.JobNameColorColumn plugin="compact-columns@1.10">
+              <colorblindHint>nohint</colorblindHint>
+              <showColor>false</showColor>
+              <showDescription>true</showDescription>
+              <showLastBuild>true</showLastBuild>
+            </com.robestone.hudson.compactcolumns.JobNameColorColumn>
+            <hudson.views.LastStableColumn/>
+            <hudson.views.BuildButtonColumn/>
+          </columns>
+        </hudson.plugins.sectioned__view.ListViewSection>
+        <hudson.plugins.sectioned__view.ListViewSection>
+          <jobNames>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../hudson.plugins.sectioned__view.ListViewSection/jobNames/comparator"/>
+          </jobNames>
+          <jobFilters/>
+          <name>AIX Smoketests</name>
+          <includeRegex>trunk_smoketest_aix.*</includeRegex>
+          <width>HALF</width>
+          <alignment>LEFT</alignment>
+          <columns>
+            <hudson.views.StatusColumn/>
+            <com.robestone.hudson.compactcolumns.LastStableAndUnstableColumn plugin="compact-columns@1.10">
+              <timeAgoTypeString>DIFF</timeAgoTypeString>
+            </com.robestone.hudson.compactcolumns.LastStableAndUnstableColumn>
+            <com.robestone.hudson.compactcolumns.JobNameColorColumn plugin="compact-columns@1.10">
+              <colorblindHint>nohint</colorblindHint>
+              <showColor>false</showColor>
+              <showDescription>true</showDescription>
+              <showLastBuild>true</showLastBuild>
+            </com.robestone.hudson.compactcolumns.JobNameColorColumn>
+            <hudson.views.LastStableColumn/>
+            <hudson.views.BuildButtonColumn/>
+          </columns>
+        </hudson.plugins.sectioned__view.ListViewSection>
+        <hudson.plugins.sectioned__view.ListViewSection>
+          <jobNames>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../hudson.plugins.sectioned__view.ListViewSection/jobNames/comparator"/>
+            <string>trunk_generate_PDFs</string>
+            <string>trunk_package_reports</string>
+          </jobNames>
+          <jobFilters/>
+          <name>miscellaneous jobs</name>
+          <width>HALF</width>
+          <alignment>RIGHT</alignment>
+          <columns>
+            <hudson.views.StatusColumn/>
+            <com.robestone.hudson.compactcolumns.LastSuccessAndFailedColumn plugin="compact-columns@1.10">
+              <timeAgoTypeString>DIFF</timeAgoTypeString>
+            </com.robestone.hudson.compactcolumns.LastSuccessAndFailedColumn>
+            <com.robestone.hudson.compactcolumns.JobNameColorColumn plugin="compact-columns@1.10">
+              <colorblindHint>nohint</colorblindHint>
+              <showColor>true</showColor>
+              <showDescription>true</showDescription>
+              <showLastBuild>false</showLastBuild>
+            </com.robestone.hudson.compactcolumns.JobNameColorColumn>
+            <hudson.views.LastStableColumn/>
+            <hudson.views.BuildButtonColumn/>
+          </columns>
+        </hudson.plugins.sectioned__view.ListViewSection>
+      </sections>
+    </hudson.plugins.sectioned__view.SectionedView>
+  </views>
+  <primaryView>trunk</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>1</int>
+          <string>JENKINS</string>
+          <string>true</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+    <hudson.tools.ToolLocationNodeProperty>
+      <locations>
+        <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+          <type>hudson.model.JDK$DescriptorImpl</type>
+          <name>JDK 7u05</name>
+          <home>/var/hudson/jdk</home>
+        </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+      </locations>
+    </hudson.tools.ToolLocationNodeProperty>
+  </globalNodeProperties>
+  <noUsageStatistics>true</noUsageStatistics>
+</hudson>

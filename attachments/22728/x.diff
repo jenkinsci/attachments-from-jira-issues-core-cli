@@ -1,0 +1,53 @@
+diff --git a/core/src/main/java/hudson/DescriptorExtensionList.java b/core/src/main/java/hudson/DescriptorExtensionList.java
+index 0778c46..66e9aa0 100644
+--- a/core/src/main/java/hudson/DescriptorExtensionList.java
++++ b/core/src/main/java/hudson/DescriptorExtensionList.java
+@@ -81,9 +81,10 @@ public class DescriptorExtensionList<T extends Describable<T>, D extends Descrip
+      * @deprecated as of 1.416
+      *      Use {@link #create(Jenkins, Class)}
+      */
++    @SuppressWarnings({"unchecked", "rawtypes"})
+     public static <T extends Describable<T>,D extends Descriptor<T>>
+     DescriptorExtensionList<T,D> createDescriptorList(Hudson hudson, Class<T> describableType) {
+-        return createDescriptorList((Jenkins)hudson,describableType);
++        return (DescriptorExtensionList<T,D>) createDescriptorList((Jenkins)hudson, (Class<? extends Describable>) describableType);
+     }
+ 
+     /**
+diff --git a/core/src/main/java/hudson/matrix/MatrixBuild.java b/core/src/main/java/hudson/matrix/MatrixBuild.java
+index de24dd6..0d0e9d1 100644
+--- a/core/src/main/java/hudson/matrix/MatrixBuild.java
++++ b/core/src/main/java/hudson/matrix/MatrixBuild.java
+@@ -338,7 +338,7 @@ public class MatrixBuild extends AbstractBuild<MatrixProject,MatrixBuild> {
+         }
+ 
+         protected Result doRun(BuildListener listener) throws Exception {
+-            MatrixProject p = getProject();
++            MatrixProject p = getParent();
+             PrintStream logger = listener.getLogger();
+ 
+             // give axes a chance to rebuild themselves
+diff --git a/core/src/main/java/hudson/model/AbstractBuild.java b/core/src/main/java/hudson/model/AbstractBuild.java
+index 4948e72..71e5987 100644
+--- a/core/src/main/java/hudson/model/AbstractBuild.java
++++ b/core/src/main/java/hudson/model/AbstractBuild.java
+@@ -546,7 +546,7 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
+          *      Passed in for the convenience. The returned path must be registered to this object.
+          */
+         protected Lease decideWorkspace(Node n, WorkspaceList wsl) throws InterruptedException, IOException {
+-            String customWorkspace = getProject().getCustomWorkspace();
++            String customWorkspace = getParent().getCustomWorkspace();
+             if (customWorkspace != null) {
+                 // we allow custom workspaces to be concurrently used between jobs.
+                 return Lease.createDummyLease(n.getRootPath().child(getEnvironment(listener).expand(customWorkspace)));
+@@ -580,8 +580,8 @@ public abstract class AbstractBuild<P extends AbstractProject<P,R>,R extends Abs
+                     wl.beforeUse(AbstractBuild.this, lease.path, listener);
+                 }
+ 
+-                getProject().getScmCheckoutStrategy().preCheckout(AbstractBuild.this, launcher, this.listener);
+-                getProject().getScmCheckoutStrategy().checkout(this);
++                getParent().getScmCheckoutStrategy().preCheckout(AbstractBuild.this, launcher, this.listener);
++                getParent().getScmCheckoutStrategy().checkout(this);
+ 
+                 if (!preBuild(listener,project.getProperties()))
+                     return Result.FAILURE;

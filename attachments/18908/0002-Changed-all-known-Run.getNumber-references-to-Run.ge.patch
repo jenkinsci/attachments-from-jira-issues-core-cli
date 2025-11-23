@@ -1,0 +1,421 @@
+From e4c0b1b539def3857573e7fcb1dbfad60c757a59 Mon Sep 17 00:00:00 2001
+From: Peter Collingbourne <peter@pcc.me.uk>
+Date: Tue, 17 Nov 2009 21:55:40 -0800
+Subject: [PATCH 2/2] Changed all known Run.getNumber() references to Run.get{,Full}DisplayName() where appropriate
+
+---
+ core/src/main/java/hudson/tasks/MailSender.java    |    2 +-
+ .../hudson/model/AbstractBuild/changes.jelly       |    4 ++--
+ .../hudson/model/AbstractBuild/index.jelly         |    6 +++---
+ .../hudson/model/ExternalRun/sidepanel.jelly       |    4 ++--
+ .../hudson/model/ParametersAction/index.jelly      |    2 +-
+ .../PermalinkProjectAction/Permalink/link.jelly    |    4 ++--
+ .../Permalink/link.properties                      |    2 +-
+ .../Permalink/link_de.properties                   |    2 +-
+ .../Permalink/link_fr.properties                   |    2 +-
+ .../Permalink/link_ja.properties                   |    2 +-
+ .../Permalink/link_nl.properties                   |    2 +-
+ .../Permalink/link_pt_BR.properties                |    2 +-
+ .../Permalink/link_ru.properties                   |    2 +-
+ .../Permalink/link_tr.properties                   |    2 +-
+ .../hudson/model/Run/artifacts-index.jelly         |    4 ++--
+ .../resources/hudson/model/Run/confirmDelete.jelly |    4 ++--
+ .../main/resources/hudson/model/Run/console.jelly  |    2 +-
+ .../scm/AbstractScmTagAction/inProgress.jelly      |    4 ++--
+ .../hudson/scm/CVSSCM/TagAction/tagForm.jelly      |    4 ++--
+ .../hudson/views/LastFailureColumn/column.jelly    |    4 ++--
+ .../hudson/views/LastStableColumn/column.jelly     |    2 +-
+ .../hudson/views/LastSuccessColumn/column.jelly    |    4 ++--
+ .../hudson/widgets/HistoryWidget/entry.jelly       |    2 +-
+ .../main/resources/lib/hudson/buildListTable.jelly |    4 ++--
+ .../hudson/maven/MavenBuild/executedMojos.jelly    |    4 ++--
+ 25 files changed, 38 insertions(+), 38 deletions(-)
+
+diff --git a/core/src/main/java/hudson/tasks/MailSender.java b/core/src/main/java/hudson/tasks/MailSender.java
+index 7efbf31..186b184 100644
+--- a/core/src/main/java/hudson/tasks/MailSender.java
++++ b/core/src/main/java/hudson/tasks/MailSender.java
+@@ -354,7 +354,7 @@ public class MailSender {
+     }
+ 
+     private String getSubject(AbstractBuild<?, ?> build, String caption) {
+-        return caption + build.getProject().getFullDisplayName() + " #" + build.getNumber();
++        return caption + build.getFullDisplayName();
+     }
+ 
+     /**
+diff --git a/core/src/main/resources/hudson/model/AbstractBuild/changes.jelly b/core/src/main/resources/hudson/model/AbstractBuild/changes.jelly
+index 9f27ef0..ad4a009 100644
+--- a/core/src/main/resources/hudson/model/AbstractBuild/changes.jelly
++++ b/core/src/main/resources/hudson/model/AbstractBuild/changes.jelly
+@@ -26,11 +26,11 @@ THE SOFTWARE.
+   Displays the console output
+ -->
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+-  <l:layout title="${it.project.displayName} #${it.number} ${%Changes}">
++  <l:layout title="${it.fullDisplayName} ${%Changes}">
+     <st:include page="sidepanel.jelly" />
+     <l:main-panel>
+       <t:buildCaption>${%Changes}</t:buildCaption>
+       <st:include page="index.jelly" it="${it.changeSet}" />
+     </l:main-panel>
+   </l:layout>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/model/AbstractBuild/index.jelly b/core/src/main/resources/hudson/model/AbstractBuild/index.jelly
+index 2d0df3e..ee83bb5 100644
+--- a/core/src/main/resources/hudson/model/AbstractBuild/index.jelly
++++ b/core/src/main/resources/hudson/model/AbstractBuild/index.jelly
+@@ -23,7 +23,7 @@ THE SOFTWARE.
+ -->
+ 
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+-  <l:layout title="${it.project.displayName} #${it.number}">
++  <l:layout title="${it.fullDisplayName}">
+     <st:include page="sidepanel.jelly" />
+     <l:main-panel>
+       <div style="float:right; background-color:white; z-index: 1; position:relative; margin-left: 1em">
+@@ -46,7 +46,7 @@ THE SOFTWARE.
+       </div>
+ 
+       <t:buildCaption>
+-        ${%Build} #${it.number}
++        ${%Build} ${it.displayName}
+         (<i:formatDate value="${it.timestamp.time}" type="both" dateStyle="medium" timeStyle="medium"/>)
+       </t:buildCaption>
+ 
+@@ -152,4 +152,4 @@ THE SOFTWARE.
+       </ul>
+     </l:main-panel>
+   </l:layout>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/model/ExternalRun/sidepanel.jelly b/core/src/main/resources/hudson/model/ExternalRun/sidepanel.jelly
+index d03fcaa..2da92a6 100644
+--- a/core/src/main/resources/hudson/model/ExternalRun/sidepanel.jelly
++++ b/core/src/main/resources/hudson/model/ExternalRun/sidepanel.jelly
+@@ -26,7 +26,7 @@ THE SOFTWARE.
+   Side panel for the build view.
+ -->
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+-  <l:header title="${it.parent.name} run #${it.number}" />
++  <l:header title="${it.fullDisplayName}" />
+   <l:side-panel>
+     <l:tasks>
+       <l:task icon="images/24x24/up.gif" href="${rootURL}/${it.parent.url}" title="Back to Job" />
+@@ -43,4 +43,4 @@ THE SOFTWARE.
+       </j:if>
+     </l:tasks>
+   </l:side-panel>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/model/ParametersAction/index.jelly b/core/src/main/resources/hudson/model/ParametersAction/index.jelly
+index 4726a74..81b84ca 100644
+--- a/core/src/main/resources/hudson/model/ParametersAction/index.jelly
++++ b/core/src/main/resources/hudson/model/ParametersAction/index.jelly
+@@ -32,7 +32,7 @@ THE SOFTWARE.
+ 		<j:set var="build" value="${request.findAncestorObject(buildClass)}" />
+ 		<st:include page="sidepanel.jelly" it="${build}" />
+ 		<l:main-panel>
+-			<h1>${%Build} #${build.number}</h1>
++			<h1>${%Build} ${build.displayName}</h1>
+ 			<l:pane title="${%Parameters}" width="3">
+ 			<j:forEach var="parameterValue" items="${it.parameters}">
+ 				<st:include it="${parameterValue}"
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.jelly b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.jelly
+index 59d0300..3b19e0f 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.jelly
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.jelly
+@@ -31,7 +31,7 @@ THE SOFTWARE.
+   <j:set var="b" value="${it.resolve(job)}"/>
+   <j:if test="${b!=null}">
+     <li>
+-      <a href="${it.id}/">${%format(it.displayName,b.number,b.timestampString)}</a>
++      <a href="${it.id}/">${%format(it.displayName,b.displayName,b.timestampString)}</a>
+     </li>
+   </j:if>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.properties
+index e283bf8..7472ced 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), {2} ago
+\ No newline at end of file
++format={0} ({1}), {2} ago
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_de.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_de.properties
+index 53641a6..754d70e 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_de.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_de.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), vor {2}
++format={0} ({1}), vor {2}
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_fr.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_fr.properties
+index fd98fe5..f061756 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_fr.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_fr.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), il y a {2}
++format={0} ({1}), il y a {2}
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ja.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ja.properties
+index 01dd2de..cdd0546 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ja.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ja.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), {2}
+\ No newline at end of file
++format={0} ({1}), {2}
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_nl.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_nl.properties
+index 17fe161..a8a7540 100755
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_nl.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_nl.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), sinds {2}
++format={0} ({1}), sinds {2}
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_pt_BR.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_pt_BR.properties
+index 0960b8b..376a174 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_pt_BR.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_pt_BR.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), {2} atr\u00E1s
++format={0} ({1}), {2} atr\u00E1s
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ru.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ru.properties
+index 1a442c3..8938df9 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ru.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_ru.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), {2} \u043d\u0430\u0437\u0430\u0434
++format={0} ({1}), {2} \u043d\u0430\u0437\u0430\u0434
+diff --git a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_tr.properties b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_tr.properties
+index 15176b8..ad3fa8b 100644
+--- a/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_tr.properties
++++ b/core/src/main/resources/hudson/model/PermalinkProjectAction/Permalink/link_tr.properties
+@@ -20,4 +20,4 @@
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ # THE SOFTWARE.
+ 
+-format={0} (#{1}), {2} \u00f6nce
++format={0} ({1}), {2} \u00f6nce
+diff --git a/core/src/main/resources/hudson/model/Run/artifacts-index.jelly b/core/src/main/resources/hudson/model/Run/artifacts-index.jelly
+index 99c184b..4e1fadc 100644
+--- a/core/src/main/resources/hudson/model/Run/artifacts-index.jelly
++++ b/core/src/main/resources/hudson/model/Run/artifacts-index.jelly
+@@ -23,7 +23,7 @@ THE SOFTWARE.
+ -->
+ 
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+-  <l:layout title="${it.parent.displayName} #${it.number} Artifacts">
++  <l:layout title="${it.fullDisplayName} Artifacts">
+ 		<st:include page="sidepanel.jelly" />
+ 		<l:main-panel>
+ 		<t:buildCaption>
+@@ -36,4 +36,4 @@ THE SOFTWARE.
+ 		</ul>
+ 		</l:main-panel>
+ 	</l:layout>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/model/Run/confirmDelete.jelly b/core/src/main/resources/hudson/model/Run/confirmDelete.jelly
+index b864d0e..5db6153 100644
+--- a/core/src/main/resources/hudson/model/Run/confirmDelete.jelly
++++ b/core/src/main/resources/hudson/model/Run/confirmDelete.jelly
+@@ -24,7 +24,7 @@ THE SOFTWARE.
+ 
+ <!-- Confirm deletion of the build/run -->
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+-  <l:layout title="${it.parent.displayName} #${it.number}" norefresh="true">
++  <l:layout title="${it.fullDisplayName}" norefresh="true">
+ 		<st:include page="sidepanel.jelly" />
+ 		<l:main-panel>
+       <j:set var="msg" value="${it.whyKeepLog}"/>
+@@ -39,4 +39,4 @@ THE SOFTWARE.
+ 		  </j:if>
+ 		</l:main-panel>
+ 	</l:layout>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/model/Run/console.jelly b/core/src/main/resources/hudson/model/Run/console.jelly
+index b0aac24..1c889fb 100644
+--- a/core/src/main/resources/hudson/model/Run/console.jelly
++++ b/core/src/main/resources/hudson/model/Run/console.jelly
+@@ -26,7 +26,7 @@ THE SOFTWARE.
+   Displays the console output
+ -->
+ <st:compress xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+-  <l:layout title="${it.parent.displayName} #${it.number} Console" norefresh="true">
++  <l:layout title="${it.fullDisplayName} Console" norefresh="true">
+     <st:include page="sidepanel.jelly" />
+     <l:main-panel>
+       <t:buildCaption>
+diff --git a/core/src/main/resources/hudson/scm/AbstractScmTagAction/inProgress.jelly b/core/src/main/resources/hudson/scm/AbstractScmTagAction/inProgress.jelly
+index 0ed31cd..e20a434 100644
+--- a/core/src/main/resources/hudson/scm/AbstractScmTagAction/inProgress.jelly
++++ b/core/src/main/resources/hudson/scm/AbstractScmTagAction/inProgress.jelly
+@@ -26,7 +26,7 @@ THE SOFTWARE.
+   <l:layout norefresh="true">
+     <st:include it="${it.build}" page="sidepanel.jelly" />
+     <l:main-panel>
+-      <h1>Build #${it.build.number}</h1>
++      <h1>Build ${it.build.displayName}</h1>
+       <p>
+         ${%Tagging is in progress:}
+       </p>
+@@ -34,4 +34,4 @@ THE SOFTWARE.
+       <st:include page="log.jelly" />
+     </l:main-panel>
+   </l:layout>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/scm/CVSSCM/TagAction/tagForm.jelly b/core/src/main/resources/hudson/scm/CVSSCM/TagAction/tagForm.jelly
+index 6450d25..e5b2e78 100644
+--- a/core/src/main/resources/hudson/scm/CVSSCM/TagAction/tagForm.jelly
++++ b/core/src/main/resources/hudson/scm/CVSSCM/TagAction/tagForm.jelly
+@@ -61,10 +61,10 @@ THE SOFTWARE.
+     </d:tag>
+   </d:taglib>
+ 
+-  <l:layout title="Build #${it.build.number}" norefresh="true" xmlns:local="local">
++  <l:layout title="Build ${it.build.displayName}" norefresh="true" xmlns:local="local">
+     <st:include it="${it.build}" page="sidepanel.jelly" />
+     <l:main-panel>
+-      <h1>Build #${it.build.number}</h1>
++      <h1>Build ${it.build.displayName}</h1>
+ 
+       <j:set var="tags" value="${it.tagNames}"/>
+       <j:choose>
+diff --git a/core/src/main/resources/hudson/views/LastFailureColumn/column.jelly b/core/src/main/resources/hudson/views/LastFailureColumn/column.jelly
+index deb4565..9509766 100644
+--- a/core/src/main/resources/hudson/views/LastFailureColumn/column.jelly
++++ b/core/src/main/resources/hudson/views/LastFailureColumn/column.jelly
+@@ -27,11 +27,11 @@ THE SOFTWARE.
+           <j:choose>
+               <j:when test="${lfBuild!=null}">
+                   ${lfBuild.timestampString}
+-                  (<a href="${jobBaseUrl}${job.shortUrl}lastFailedBuild/">#${lfBuild.number}</a>)
++                  (<a href="${jobBaseUrl}${job.shortUrl}lastFailedBuild/">${lfBuild.displayName}</a>)
+               </j:when>
+               <j:otherwise>
+                   ${%N/A}
+               </j:otherwise>
+           </j:choose>
+       </td>
+-  </j:jelly>
+\ No newline at end of file
++  </j:jelly>
+diff --git a/core/src/main/resources/hudson/views/LastStableColumn/column.jelly b/core/src/main/resources/hudson/views/LastStableColumn/column.jelly
+index b6159cb..93d252b 100644
+--- a/core/src/main/resources/hudson/views/LastStableColumn/column.jelly
++++ b/core/src/main/resources/hudson/views/LastStableColumn/column.jelly
+@@ -28,7 +28,7 @@ THE SOFTWARE.
+           <j:choose>
+               <j:when test="${lstBuild!=null}">
+                   ${lstBuild.timestampString}
+-                  (<a href="${jobBaseUrl}${job.shortUrl}lastStableBuild/">#${lstBuild.number}</a>)
++                  (<a href="${jobBaseUrl}${job.shortUrl}lastStableBuild/">${lstBuild.displayName}</a>)
+               </j:when>
+               <j:otherwise>
+                   ${%N/A}
+diff --git a/core/src/main/resources/hudson/views/LastSuccessColumn/column.jelly b/core/src/main/resources/hudson/views/LastSuccessColumn/column.jelly
+index 1bf4eb9..b6c3032 100644
+--- a/core/src/main/resources/hudson/views/LastSuccessColumn/column.jelly
++++ b/core/src/main/resources/hudson/views/LastSuccessColumn/column.jelly
+@@ -27,11 +27,11 @@ THE SOFTWARE.
+           <j:choose>
+               <j:when test="${lsBuild!=null}">
+                   ${lsBuild.timestampString}
+-                  (<a href="${jobBaseUrl}${job.shortUrl}lastSuccessfulBuild/">#${lsBuild.number}</a>)
++                  (<a href="${jobBaseUrl}${job.shortUrl}lastSuccessfulBuild/">${lsBuild.displayName}</a>)
+               </j:when>
+               <j:otherwise>
+                   ${%N/A}
+               </j:otherwise>
+           </j:choose>
+       </td>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly b/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly
+index 60b7390..d1cceaa 100644
+--- a/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly
++++ b/core/src/main/resources/hudson/widgets/HistoryWidget/entry.jelly
+@@ -31,7 +31,7 @@ THE SOFTWARE.
+   <tr class="build-row ${transitive}">
+     <td nowrap="nowrap">
+       <img width="16" height="16" src="${imagesURL}/16x16/${build.buildStatusUrl}" alt="${build.iconColor.description}" tooltip="${build.iconColor.description}" /><st:nbsp/>
+-      #${build.number}
++      ${build.displayName}
+     </td>
+     <td nowrap="nowrap">
+       <a class="tip" href="${link}">
+diff --git a/core/src/main/resources/lib/hudson/buildListTable.jelly b/core/src/main/resources/lib/hudson/buildListTable.jelly
+index a289b22..dea812b 100644
+--- a/core/src/main/resources/lib/hudson/buildListTable.jelly
++++ b/core/src/main/resources/lib/hudson/buildListTable.jelly
+@@ -51,7 +51,7 @@ THE SOFTWARE.
+         <td>
+           <a href="${rootURL}/${b.parent.url}">${b.parent.displayName}</a>
+           <st:nbsp/>
+-          <a href="${rootURL}/${b.url}">#${b.number}</a>
++          <a href="${rootURL}/${b.url}">${b.displayName}</a>
+         </td>
+         <td data="${b.timestampString2}">
+           ${b.timestampString}
+@@ -68,4 +68,4 @@ THE SOFTWARE.
+     </j:forEach>
+   </table>
+   <t:rssBar-with-iconSize/>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+diff --git a/maven-plugin/src/main/resources/hudson/maven/MavenBuild/executedMojos.jelly b/maven-plugin/src/main/resources/hudson/maven/MavenBuild/executedMojos.jelly
+index 77399f9..94d8967 100644
+--- a/maven-plugin/src/main/resources/hudson/maven/MavenBuild/executedMojos.jelly
++++ b/maven-plugin/src/main/resources/hudson/maven/MavenBuild/executedMojos.jelly
+@@ -23,7 +23,7 @@ THE SOFTWARE.
+ -->
+ 
+ <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+-  <l:layout title="${it.project.displayName} #${it.number} Execution Record">
++  <l:layout title="${it.fullDisplayName} Execution Record">
+     <st:include page="sidepanel.jelly" />
+     <l:main-panel>
+       <h1>${%Executed Mojos}</h1>
+@@ -78,4 +78,4 @@ THE SOFTWARE.
+       </j:choose>
+     </l:main-panel>
+   </l:layout>
+-</j:jelly>
+\ No newline at end of file
++</j:jelly>
+-- 
+1.6.3.3
+

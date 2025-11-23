@@ -1,0 +1,29 @@
+Run - Copy.org	2015-03-23 08:42:18.000000000 +0100
+Run.java	2015-03-25 14:27:32.536888900 +0100
+@@ -1490,9 +1490,11 @@ public abstract class Run <JobT extends 
+      *      if we fail to delete.
+      */
+     public void delete() throws IOException {
+-        File rootDir = getRootDir();
++        
++		File rootDir = getRootDir();
+         if (!rootDir.isDirectory()) {
+-            throw new IOException(this + ": " + rootDir + " looks to have already been deleted; siblings: " + Arrays.toString(project.getBuildDir().list()));
++		    LOGGER.log(Level.WARNING, "IOException: " + rootDir + " looks to have already been deleted; siblings: " + Arrays.toString(project.getBuildDir().list()));
++            //throw new IOException(this + ": " + rootDir + " looks to have already been deleted; siblings: " + Arrays.toString(project.getBuildDir().list()));
+         }
+         
+         RunListener.fireDeleted(this);
+@@ -1511,8 +1513,10 @@ public abstract class Run <JobT extends 
+         if(tmp.exists())
+             tmp.deleteOnExit();
+ 
+-        if(!renamingSucceeded)
+-            throw new IOException(rootDir+" is in use");
++        if(!renamingSucceeded) {
++            LOGGER.log(Level.WARNING, rootDir+" is in use");
++			//throw new IOException(rootDir+" is in use");
++		}
+         LOGGER.log(FINE, "{0}: {1} successfully deleted", new Object[] {this, rootDir});
+ 
+         removeRunFromParent();

@@ -1,0 +1,37 @@
+Index: core/src/main/java/hudson/model/Job.java
+===================================================================
+--- core/src/main/java/hudson/model/Job.java    (revision 23609)
++++ core/src/main/java/hudson/model/Job.java    (working copy)
+@@ -1046,6 +1046,31 @@
+     }
+ 
+     /**
++     * Accepts and serves the job description
++     */
++    public void doDescription(StaplerRequest req, StaplerResponse rsp)
++            throws IOException {
++        checkPermission(CONFIGURE);
++
++        if (req.getMethod().equals("GET")) {
++            //read
++            rsp.setContentType("text/plain;charset=UTF-8");
++            rsp.getWriter().write(this.getDescription());
++            return;
++        }
++        if (req.getMethod().equals("POST")) {
++            // submission
++            if (req.getParameter("description") != null) {
++                this.setDescription(req.getParameter("description"));
++            }
++            return;
++        }
++
++        // huh?
++        rsp.sendError(SC_BAD_REQUEST);
++    }
++
++    /**
+      * Returns the image that shows the current buildCommand status.
+      */
+     public void doBuildStatus(StaplerRequest req, StaplerResponse rsp)
+

@@ -1,0 +1,166 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>GIT_REPO</name>
+          <description></description>
+          <value>pd/datasphere</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>GIT_BRANCH</name>
+          <description></description>
+          <value>mainline</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>CONFIG</name>
+          <description>Build configuration&lt;br&gt;</description>
+          <value>release</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>COVERAGE</name>
+          <description>Enable code coverage instrumentation in the build</description>
+          <value>false</value>
+        </hudson.model.BooleanParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>SIGNED</name>
+          <description>Enable &apos;signed PD software update package&apos; validation in the build ISOs&lt;br&gt;
+(This is typically utilized by the Release manager)
+</description>
+          <value>false</value>
+        </hudson.model.BooleanParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>UNIT_TESTS</name>
+          <description>Execute source unit tests at build time</description>
+          <value>false</value>
+        </hudson.model.BooleanParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>QUICKSTART</name>
+          <description>Build Quickstart ISOs</description>
+          <value>true</value>
+        </hudson.model.BooleanParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>PD_BUILD_SUMMARY</name>
+          <description>(Optional) Internal description for this build
+&lt;hr&gt;</description>
+          <value></value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>KEEP_BUILD</name>
+          <description>Permanently saves build&apos;s artifacts on Jenkees&lt;br&gt;</description>
+          <value>false</value>
+        </hudson.model.BooleanParameterValue>
+        <com.cwctravel.hudson.plugins.extended__choice__parameter.ExtendedChoiceParameterValue plugin="extended-choice-parameter@0.75">
+          <name>SANITY_TESTS</name>
+          <value></value>
+        </com.cwctravel.hudson.plugins.extended__choice__parameter.ExtendedChoiceParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>CLIENTS_VERSION</name>
+          <description></description>
+          <value>client/RedHat7.3/mainline/18258</value>
+        </hudson.model.StringParameterValue>
+        <com.wangyin.parameter.WHideParameterValue plugin="hidden-parameter@0.0.4">
+          <name>USER_EMAIL</name>
+          <description>DO NOT SET (Used for stash pull request job integration)</description>
+          <value></value>
+        </com.wangyin.parameter.WHideParameterValue>
+      </parameters>
+      <parameterDefinitionNames>
+        <string>GIT_REPO</string>
+        <string>GIT_BRANCH</string>
+        <string>CONFIG</string>
+        <string>COVERAGE</string>
+        <string>SIGNED</string>
+        <string>UNIT_TESTS</string>
+        <string>QUICKSTART</string>
+        <string>PD_BUILD_SUMMARY</string>
+        <string>KEEP_BUILD</string>
+        <string>SANITY_TESTS</string>
+        <string>CLIENTS_VERSION</string>
+        <string>USER_EMAIL</string>
+      </parameterDefinitionNames>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>david</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <org.jenkinsci.plugins.buildtriggerbadge.BuildTriggerBadgeAction plugin="buildtriggerbadge@2.3">
+      <cause class="hudson.model.Cause$UserIdCause" reference="../../hudson.model.CauseAction/causeBag/entry/hudson.model.Cause_-UserIdCause"/>
+    </org.jenkinsci.plugins.buildtriggerbadge.BuildTriggerBadgeAction>
+    <org.jvnet.hudson.plugins.DownstreamBuildViewAction plugin="downstream-buildview@1.9">
+      <downstreamBuilds class="concurrent-hash-map">
+        <entry>
+          <string>dsx-iso-to-quickstart</string>
+          <int>443</int>
+        </entry>
+      </downstreamBuilds>
+    </org.jvnet.hudson.plugins.DownstreamBuildViewAction>
+    <org.jenkinsci.plugins.envinject.EnvInjectPluginAction plugin="envinject@1.93">
+      <build class="build" reference="../../.."/>
+    </org.jenkinsci.plugins.envinject.EnvInjectPluginAction>
+    <hudson.plugins.git.util.BuildData plugin="git@3.0.0">
+      <buildsByBranchName>
+          (( ... snip ... ))
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry[237]/hudson.plugins.git.util.Build"/>
+      <scmName></scmName>
+      <remoteUrls>
+        <string>ssh://git@stash.corp.primarydata.com:7999/${GIT_REPO}.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@3.0.0">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>origin/mainline</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/home/jenkins/workspace/dev-ready</ws>
+    </hudson.plugins.git.GitTagAction>
+    <hudson.scm.SCMRevisionState_-None/>
+    <hudson.plugins.parameterizedtrigger.BuildInfoExporterAction plugin="parameterized-trigger@2.32">
+      <builds>
+        <hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference>
+          <projectName>datasphere-iso-to-quickstart</projectName>
+          <buildNumber>0</buildNumber>
+          <buildResult>NOT_BUILT</buildResult>
+        </hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference>
+        <hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference>
+          <projectName>dsx-iso-to-quickstart</projectName>
+          <buildNumber>0</buildNumber>
+          <buildResult>NOT_BUILT</buildResult>
+        </hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference>
+      </builds>
+      <lastReference reference="../builds/hudson.plugins.parameterizedtrigger.BuildInfoExporterAction_-BuildReference"/>
+    </hudson.plugins.parameterizedtrigger.BuildInfoExporterAction>
+    <com.sonyericsson.rebuild.RebuildAction plugin="rebuild@1.25"/>
+    <jenkins.plugins.show__build__parameters.ShowParametersBuildAction plugin="show-build-parameters@1.0">
+      <build class="build" reference="../../.."/>
+    </jenkins.plugins.show__build__parameters.ShowParametersBuildAction>
+  </actions>
+  <queueId>814691</queueId>
+  <timestamp>1530922027095</timestamp>
+  <startTime>1530922027099</startTime>
+  <result>SUCCESS</result>
+  <duration>1808644</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn>y07</builtOn>
+  <workspace>/home/jenkins/workspace/dev-ready</workspace>
+  <hudsonVersion>2.121.1</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser" plugin="git@3.0.0">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits class="com.google.common.collect.RegularImmutableSortedSet">
+    <string>david</string>
+    <string>trond</string>
+  </culprits>
+</build>

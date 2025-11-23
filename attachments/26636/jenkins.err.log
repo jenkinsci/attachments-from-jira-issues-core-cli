@@ -1,0 +1,16 @@
+Aug 22, 2014 6:47:11 AM hudson.TcpSlaveAgentListener$ConnectionHandler run
+INFO: Accepted connection #3 from /192.168.1.200:58954
+Exception in thread "TCP slave agent connection handler #3 with /192.168.1.200:58954" java.lang.Error: java.lang.reflect.InvocationTargetException
+        at hudson.cli.CliProtocol2$Handler2.run(CliProtocol2.java:76)
+        at hudson.cli.CliProtocol2.handle(CliProtocol2.java:32)
+        at hudson.TcpSlaveAgentListener$ConnectionHandler.run(TcpSlaveAgentListener.java:157)
+Caused by: java.lang.reflect.InvocationTargetException
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+        at java.lang.reflect.Method.invoke(Unknown Source)
+        at hudson.cli.CliProtocol2$Handler2.run(CliProtocol2.java:63)
+        ... 2 more
+Caused by: java.lang.NullPointerException
+        at org.jenkinsci.main.modules.instance_identity.InstanceIdentity.get(InstanceIdentity.java:126)
+        ... 7 more

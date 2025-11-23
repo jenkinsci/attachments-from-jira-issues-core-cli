@@ -1,0 +1,37 @@
+Index: src/hudson/Launcher.java
+===================================================================
+RCS file: /cvs/hudson/hudson/src/hudson/Launcher.java,v
+retrieving revision 1.4
+diff -u -r1.4 Launcher.java
+--- src/hudson/Launcher.java	24 Mar 2006 21:37:53 -0000	1.4
++++ src/hudson/Launcher.java	23 Jul 2006 08:53:06 -0000
+@@ -53,12 +53,12 @@
+     }
+ 
+     public Proc launch(String[] cmd,String[] env,OutputStream out, FilePath workDir) throws IOException {
+-        printCommandLine(cmd);
++        printCommandLine(cmd, workDir);
+         return new Proc(cmd,Util.mapToEnv(inherit(env)),out,workDir.getLocal());
+     }
+ 
+     public Proc launch(String[] cmd,String[] env,InputStream in,OutputStream out) throws IOException {
+-        printCommandLine(cmd);
++        printCommandLine(cmd, null);
+         return new Proc(cmd,inherit(env),in,out);
+     }
+ 
+@@ -86,8 +86,13 @@
+         return m;
+     }
+ 
+-    private void printCommandLine(String[] cmd) {
++    private void printCommandLine(String[] cmd, FilePath workDir) {
+         StringBuffer buf = new StringBuffer();
++        if (workDir != null) {
++            buf.append('[');
++            buf.append(workDir.getRemote().replace("^.+[/\\]", ""));
++            buf.append("] ");
++        }
+         buf.append('$');
+         for (String c : cmd) {
+             buf.append(' ').append(c);

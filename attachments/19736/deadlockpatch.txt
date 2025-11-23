@@ -1,0 +1,107 @@
+Index: Channel.java
+===================================================================
+--- Channel.java	(revision 34210)
++++ Channel.java	(working copy)
+@@ -108,6 +108,7 @@
+     private final String name;
+     /*package*/ final boolean isRestricted;
+     /*package*/ final ExecutorService executor;
++    /*package*/ final ExecutorService chunkExecutor = Executors.newSingleThreadExecutor();
+ 
+     /**
+      * If non-null, the incoming link is already shut down,
+Index: ProxyOutputStream.java
+===================================================================
+--- ProxyOutputStream.java	(revision 34210)
++++ ProxyOutputStream.java	(working copy)
+@@ -158,13 +158,17 @@
+             this.buf = buf;
+         }
+ 
+-        protected void execute(Channel channel) {
+-            OutputStream os = (OutputStream) channel.getExportedObject(oid);
+-            try {
+-                os.write(buf);
+-            } catch (IOException e) {
+-                // ignore errors
+-            }
++        protected void execute(final Channel channel) {
++            channel.chunkExecutor.submit(new Runnable() {
++                public void run() {
++                    OutputStream os = (OutputStream) channel.getExportedObject(oid);
++                    try {
++                        os.write(buf);
++                    } catch (IOException e) {
++                        // ignore errors
++                    }
++                }
++            });
+         }
+ 
+         public String toString() {
+@@ -185,13 +189,16 @@
+             this.oid = oid;
+         }
+ 
+-        protected void execute(Channel channel) {
+-            OutputStream os = (OutputStream) channel.getExportedObject(oid);
+-            try {
+-                os.flush();
+-            } catch (IOException e) {
+-                // ignore errors
+-            }
++        protected void execute(final Channel channel) {
++            channel.chunkExecutor.submit(new Runnable() {
++            public void run() {
++                OutputStream os = (OutputStream) channel.getExportedObject(oid);
++                try {
++                    os.flush();
++                } catch (IOException e) {
++                    // ignore errors
++                }
++            }});
+         }
+ 
+         public String toString() {
+@@ -214,8 +221,12 @@
+             this.oid = oid;
+         }
+ 
+-        protected void execute(Channel channel) {
+-            channel.unexport(oid);
++        protected void execute(final Channel channel) {
++            channel.chunkExecutor.submit(new Runnable() {
++                public void run() {{
++                    channel.unexport(oid);
++                }}
++            });
+         }
+ 
+         public String toString() {
+@@ -236,14 +247,18 @@
+         }
+ 
+ 
+-        protected void execute(Channel channel) {
+-            OutputStream os = (OutputStream) channel.getExportedObject(oid);
+-            channel.unexport(oid);
+-            try {
+-                os.close();
+-            } catch (IOException e) {
+-                // ignore errors
+-            }
++        protected void execute(final Channel channel) {
++            channel.chunkExecutor.submit(new Runnable() {
++                public void run() {
++                    OutputStream os = (OutputStream) channel.getExportedObject(oid);
++                    channel.unexport(oid);
++                    try {
++                        os.close();
++                    } catch (IOException e) {
++                        // ignore errors
++                    }
++                }
++            });
+         }
+ 
+         public String toString() {
