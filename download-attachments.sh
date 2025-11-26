@@ -2,7 +2,10 @@
 
 : "${JIRA_MIGRATION_JIRA_URL:? Missing Jira base URL (e.g., https://issues.jenkins.io)}"
 
-INPUT_FILE="mappings/jira_attachments_id_filename.txt"
+input_file="all_attachments.txt"
+mapping_folder="mappings"
+mapping_file="${mapping_folder}/jira_attachments_repo_id_filename.txt"
+current_repo="$(gh repo view --json name,owner --template '{{.owner.login}}/{{.name}}')"
 
 base_url="${JIRA_MIGRATION_JIRA_URL}/secure/attachment"
 
@@ -19,8 +22,17 @@ urlencode() {
     done
 }
 
+if [[ ! -f "${input_file}" ]];then
+    echo "You have to create and copy ${input_file} in this folder first."
+    echo "This file is expected to contains a colon-separated list of attachment ids and their filenames."
+    exit 1
+fi
+
+mkdir -p "${mapping_folder}"
+touch "${mapping_file}"
+
 # Count non-empty lines
-total=$(grep -vc '^$' "${INPUT_FILE}")
+total=$(grep -vc '^$' "${input_file}")
 count=0
 
 while IFS=: read -r id filename; do
@@ -48,4 +60,10 @@ while IFS=: read -r id filename; do
 
     # download the file
     curl -s -L "${url}" -o "${target}"
-done < "${INPUT_FILE}"
+
+    # Mapping
+    echo "${id}:${current_repo}/refs/heads/main/${target}" >> "${mapping_file}"
+done < "${input_file}"
+
+echo "You can now update https://github.com/jenkinsci/artifacts-from-jira-issues/blob/main/mappings/jira_attachments_repo_id_filename.txt with ${mapping_file} content"
+echo "(ensure there is no attachment id duplicate)"
